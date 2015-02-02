@@ -1,0 +1,59 @@
+.icon-input {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: #555;
+    text-align: center;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px 0px 0px 4px;
+    display: table-cell;
+    width: 1%;
+    white-space: nowrap;
+    vertical-align: middle;
+    border-right-width: 0px;
+}
+.custom-icon-group {
+    display: table;
+}
+.custom-icon-group > input {
+    border-radius: 0px 4px 4px 0px;
+}
+.sidebar a {
+    color: #8f939e;
+}
+.sidebar .nav>li.open>a,
+.sidebar .nav>li>a:hover {
+    color: #1d2939;
+    background-color: #fff;
+}
+.botao {
+    display: block;
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+    background: transparent;
+    top: 50%;
+    border: none;
+    outline: none;
+    font-size: 20px;
+}
+.botao.botao-esquerdo {
+    float: left;
+}
+.botao.botao-direito {
+    float: right;
+}
+.nav a {
+    color: #FFF !important;
+}
+.nav > li > a:hover,
+.nav > li > a:focus {
+    color: #000 !important;
+    background-color: #fff;
+}
+.nav li > a:hover > span {
+    color: #000 !important;
+    background-color: #fff;
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+	<persistence-unit name="despesasPU">
+
+		<jta-data-source>java:/DerbyDS</jta-data-source>
+
+		<class>org.leo.despesas.dominio.TipoDespesa</class>
+		<class>org.leo.despesas.dominio.Conta</class>
+		<class>org.leo.despesas.dominio.Movimentacao</class>
+		<class>org.leo.despesas.dominio.Despesa</class>
+
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+		<properties>
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
+			<property name="hibernate.show_sql" value="false" />
+		</properties>
+
+	</persistence-unit>
+
+</persistence>
