@@ -1,21 +1,5 @@
 app.controller('dashboardController', function ($scope, $http, contaService, tipoDespesaService, despesaService, $location, $routeParams) {
 
-    /*$scope.dataInicial = null;
-    $scope.dataFinal = null;
-
-    $scope.configDatas = function (date) {
-
-        $scope.dataInicial = new Date(date.getFullYear(), date.getMonth(), 1);
-        $scope.dataFinal = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    }
-
-    $scope.mesAnterior = function () {
-        
-        $scope.dataInicial.setMonth($scope.dataInicial.getmon]);
-        
-        $scope.configDatas();
-    }*/
-
     $scope.dataAtual = new Date();
     $scope.meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
@@ -42,6 +26,8 @@ app.controller('dashboardController', function ($scope, $http, contaService, tip
                     value: obj.valor
                 });
             }
+
+            $('#despesasPorTipo').empty();
 
             Morris.Donut({
                 element: 'despesasPorTipo',

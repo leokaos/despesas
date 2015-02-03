@@ -5,11 +5,13 @@ import java.math.BigDecimal;
 public class GraficoVO {
 
 	private final String descricaoTipoDespesa;
+	private final String cor;
 	private final BigDecimal valor;
 
-	public GraficoVO(String descricaoTipoDespesa, BigDecimal valor) {
+	public GraficoVO(String descricaoTipoDespesa, String cor, BigDecimal valor) {
 		super();
 		this.descricaoTipoDespesa = descricaoTipoDespesa;
+		this.cor = cor;
 		this.valor = valor;
 	}
 
@@ -19,6 +21,10 @@ public class GraficoVO {
 
 	public BigDecimal getValor() {
 		return valor;
+	}
+
+	public String getCor() {
+		return cor;
 	}
 
 	@Override

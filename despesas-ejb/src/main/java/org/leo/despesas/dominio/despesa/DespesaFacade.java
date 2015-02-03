@@ -14,4 +14,6 @@ public interface DespesaFacade extends SimpleFacade<Despesa> {
 
 	List<GraficoVO> getGraficoPorPeriodo(Periodo periodo);
 
+	List<Despesa> getDespesasPorPeriodo(Periodo periodo);
+
 }

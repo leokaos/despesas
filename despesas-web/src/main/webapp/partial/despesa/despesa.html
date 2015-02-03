@@ -33,7 +33,7 @@
                         <span class="icon-input">
                             <i class="fa fa-calendar"></i>
                         </span>
-                        <input type="text" name="data" class="form-control" placeholder="Data" ng-model="despesa.vencimento" bs-datepicker required></input>
+                        <input type="text" name="data" class="form-control" placeholder="Data" ng-model="despesa.vencimento" bs-datepicker autoclose="true" required></input>
                     </div>
                 </div>
 
@@ -109,8 +109,6 @@
     </div>
 
 </div>
-
-{{despesa}}
 
 <ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoDespesa.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{despesa.descricao}}?</b>
 </ng-modal>

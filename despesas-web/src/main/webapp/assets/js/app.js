@@ -1,4 +1,4 @@
-var app = angular.module('despesas', ['ngRoute', 'ngAnimate', 'ngResource', 'ui.utils.masks', 'colorpicker.module', 'mgcrea.ngStrap', 'ui.bootstrap']);
+var app = angular.module('despesas', ['ngRoute', 'ngAnimate', 'ngResource', 'colorpicker.module', 'ui.utils.masks']);
 
 app.config(function ($routeProvider, $locationProvider) {
 
@@ -20,6 +20,11 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when('/conta', {
         templateUrl: 'partial/conta/conta.html',
         controller: 'edicaoContaController'
+    });
+
+    $routeProvider.when('/despesas', {
+        templateUrl: 'partial/despesa/despesas.html',
+        controller: 'despesasController'
     });
 
     $routeProvider.when('/despesa', {
@@ -136,4 +141,39 @@ app.directive('startupError', function ($compile) {
 
     };
 
+});
+
+
+app.directive('uiCalendar', function () {
+
+    return {
+        restrict: 'A',
+        scope: {
+            eventSources: '=ngModel'
+        },
+        link: function (scope, iElement, iAttrs) {
+
+            var diasSemana = ["domingo", "segunda-feira", "ter\u00e7a-feira", "quarta-feira", "quinta-feira", "sexta-feira", "s\u00e1bado"];
+            var meses = ["Janeiro", "Fevereiro", "Mar\u00e7o", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+            var diasSemanaCurtos = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "S\u00e1b"];
+            var textoDosBotoes = {
+                today: 'Hoje',
+                month: 'Mês',
+                week: 'Semana',
+                day: 'Dia'
+            };
+
+            var id = '#' + iElement.attr('id');
+
+            $(id).fullCalendar({
+                height: 700,
+                aspectRatio: 10,
+                events: scope.eventSources,
+                monthNames: meses,
+                dayNames: diasSemana,
+                dayNamesShort: diasSemanaCurtos,
+                buttonText: textoDosBotoes
+            });
+        }
+    };
 });

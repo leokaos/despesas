@@ -26,11 +26,11 @@ app.service('despesaService', function ($http) {
 
     this.setDespesa = function (novoDespesa) {
         this.despesa = novoDespesa;
-    }
+    };
 
     this.getDespesa = function () {
         return this.conta;
-    }
+    };
 
     this.buscarPorId = function (id, fn) {
         $http.get('/despesas/services/despesa/' + id).success(function (data) {
@@ -56,7 +56,24 @@ app.service('despesaService', function ($http) {
         });
 
         request.success(function (data) {
-            fn(data)
+            fn(data);
+        });
+
+    };
+
+    this.buscarDespesasPorPeriodo = function (dataInicio, dataFim, fn) {
+
+        var request = $http({
+            method: 'get',
+            url: '/despesas/services/despesa/periodo',
+            params: {
+                dataInicial: dataInicio.toGMTString(),
+                dataFinal: dataFim.toGMTString()
+            }
+        });
+
+        request.success(function (data) {
+            fn(data);
         });
 
     };

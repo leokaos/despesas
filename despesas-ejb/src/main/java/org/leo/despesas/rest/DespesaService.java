@@ -80,4 +80,11 @@ public class DespesaService implements SimpleService<Despesa> {
 		return despesaFacade.getGraficoPorPeriodo(new Periodo(dataInicial, dataFinal));
 	}
 
+	@GET
+	@Path(value = "/periodo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Despesa> buscarPorDespesasPorPeriodo(@QueryParam("dataInicial") Date dataInicial, @QueryParam("dataFinal") Date dataFinal) {
+		return despesaFacade.getDespesasPorPeriodo(new Periodo(dataInicial, dataFinal));
+	}
+
 }
