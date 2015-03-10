@@ -1,4 +1,6 @@
-var app = angular.module('despesas', ['ngRoute', 'ngAnimate', 'ngResource', 'colorpicker.module', 'ui.utils.masks']);
+var app = angular.module('despesas', ['ngRoute', 'ngAnimate', 'ngResource',
+                                      'colorpicker.module', 'ui.utils.masks',
+                                      'angular-growl', 'ui.bootstrap', 'mgcrea.ngStrap', 'angularSpinner']);
 
 app.config(function ($routeProvider, $locationProvider) {
 
@@ -10,6 +12,16 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when('/tipodespesa', {
         templateUrl: 'partial/tipodespesa/tipodespesa.html',
         controller: 'edicaoTipoDespesasController'
+    });
+
+    $routeProvider.when('/tiporeceitas', {
+        templateUrl: 'partial/tiporeceita/tiporeceitas.html',
+        controller: 'tipoReceitaController'
+    });
+
+    $routeProvider.when('/tiporeceita', {
+        templateUrl: 'partial/tiporeceita/tiporeceita.html',
+        controller: 'edicaoTipoReceitaController'
     });
 
     $routeProvider.when('/contas', {
@@ -32,11 +44,30 @@ app.config(function ($routeProvider, $locationProvider) {
         controller: 'edicaoDespesaController'
     });
 
+    $routeProvider.when('/cartoes', {
+        templateUrl: 'partial/cartao/cartoes.html',
+        controller: 'cartaoController'
+    });
+
+    $routeProvider.when('/cartao', {
+        templateUrl: 'partial/cartao/cartao.html',
+        controller: 'edicaoCartaoController'
+    });
+
+    $routeProvider.when('/pagamentos', {
+        templateUrl: 'partial/pagamentos.html',
+        controller: 'pagamentosController'
+    });
+
     $routeProvider.otherwise({
         templateUrl: 'partial/dashboard.html',
         controller: 'dashboardController'
     });
 
+});
+
+app.config(function (growlProvider) {
+    growlProvider.globalTimeToLive(-1);
 });
 
 app.filter('range', function () {
@@ -121,10 +152,11 @@ app.directive('startupError', function ($compile) {
 
             var campo = iElement.find("input[startup-error-field]");
 
-            $(campo).attr('bs-tooltip', '');
+            /*$(campo).attr('bs-tooltip', '');
             $(campo).attr('data-placement', 'top');
             $(campo).attr('data-trigger', 'focus');
             $(campo).attr('data-title', iAttrs.tooltipMessage);
+            */
 
             iElement.append("<span startup-error-message></span>");
 
@@ -149,7 +181,8 @@ app.directive('uiCalendar', function () {
     return {
         restrict: 'A',
         scope: {
-            eventSources: '=ngModel'
+            eventSources: '=ngModel',
+            functionSelect: '=functionSelect'
         },
         link: function (scope, iElement, iAttrs) {
 
@@ -163,6 +196,14 @@ app.directive('uiCalendar', function () {
                 day: 'Dia'
             };
 
+            var select = function (event, jsEvent, view) {
+                var eventoSelecionado = null;
+
+                if (event != null && event.despesa != null) {
+                    scope.functionSelect(event.despesa);
+                }
+            };
+
             var id = '#' + iElement.attr('id');
 
             $(id).fullCalendar({
@@ -172,8 +213,11 @@ app.directive('uiCalendar', function () {
                 monthNames: meses,
                 dayNames: diasSemana,
                 dayNamesShort: diasSemanaCurtos,
-                buttonText: textoDosBotoes
+                buttonText: textoDosBotoes,
+                eventClick: select
             });
+
+            $(id).fullCalendar('refetchEvents');
         }
     };
 });

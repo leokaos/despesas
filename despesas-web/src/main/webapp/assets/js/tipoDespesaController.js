@@ -1,4 +1,4 @@
-app.controller('tipoDespesasController', function ($scope, tipoDespesaService, $location, $routeParams) {
+app.controller('tipoDespesasController', function ($scope, tipoDespesaService, $location, $routeParams, usSpinnerService) {
 
     $scope.originalData = [];
 
@@ -19,6 +19,8 @@ app.controller('tipoDespesasController', function ($scope, tipoDespesaService, $
             $scope.first = $scope.pageSize * $scope.currentPage;
             $scope.sliceData = $scope.originalData.slice($scope.first, $scope.first + $scope.pageSize);
             $scope.pages = Math.ceil($scope.originalData.length / $scope.pageSize);
+
+            usSpinnerService.stop('spin-tipo-despesas');
         });
     };
 
@@ -104,7 +106,7 @@ app.controller('tipoDespesasController', function ($scope, tipoDespesaService, $
 
 });
 
-app.controller('edicaoTipoDespesasController', function ($scope, tipoDespesaService, $location, $routeParams) {
+app.controller('edicaoTipoDespesasController', function ($scope, tipoDespesaService, $location, $routeParams, growl) {
 
     $scope.tipodespesa = tipoDespesaService.getTipoDespesa();
 
@@ -112,23 +114,23 @@ app.controller('edicaoTipoDespesasController', function ($scope, tipoDespesaServ
         $location.path('/tipodespesas');
     };
 
+    $scope.limparCarregar = function (data) {
+        $('#modalSalvar').modal('hide');
+        $scope.cancelar();
+    };
+
+    $scope.salvo = function (data) {
+        $scope.limparCarregar(data);
+        growl.info('Tipo de Despesa salva com sucesso!');
+    };
+
     $scope.salvar = function (valid) {
 
         if (valid) {
-
             if ($scope.tipodespesa.id) {
-
-                tipoDespesaService.salvar($scope.tipodespesa, function (data) {
-                    $('#modalSalvar').modal('hide');
-                    $location.path('/tipodespesas');
-                });
-
+                tipoDespesaService.salvar($scope.tipodespesa, $scope.salvo);
             } else {
-
-                tipoDespesaService.novo(tipoDespesaService.getTipoDespesa(), function (data) {
-                    $('#modalSalvar').modal('hide');
-                    $location.path('/tipodespesas');
-                });
+                tipoDespesaService.novo($scope.tipodespesa, $scope.salvo);
             }
         }
     };

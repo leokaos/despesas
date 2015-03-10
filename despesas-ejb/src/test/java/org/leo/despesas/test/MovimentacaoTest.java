@@ -9,52 +9,41 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.Test;
-import org.leo.despesas.dominio.Conta;
-import org.leo.despesas.dominio.Despesa;
-import org.leo.despesas.dominio.Receita;
+import org.leo.despesas.dominio.debitavel.Conta;
+import org.leo.despesas.dominio.movimentacao.Despesa;
+import org.leo.despesas.dominio.movimentacao.Receita;
 
 public class MovimentacaoTest {
 
 	@Test
 	public final void pagarTest() {
-		final Despesa despesa = createDespesa();
+		final Despesa despesa = new Despesa();
+		final Conta conta = new Conta();
+		conta.setSaldo(new BigDecimal("100.00"));
 
-		despesa.getConta().setSaldo(new BigDecimal("100.00"));
+		despesa.setDebitavel(conta);
 		despesa.setValor(new BigDecimal("10.00"));
-
 		despesa.pagar();
 
-		assertEquals(despesa.getConta().getSaldo(), new BigDecimal("90.00"));
+		assertEquals(conta.getSaldo(), new BigDecimal("90.00"));
 		assertEquals(truncate(despesa.getPagamento(), Calendar.DAY_OF_MONTH), truncate(new Date(), Calendar.DAY_OF_MONTH));
 		assertTrue(despesa.isPaga());
 	}
 
 	@Test
 	public final void depositarTest() {
-		final Receita despesa = createReceita();
-
-		despesa.getConta().setSaldo(new BigDecimal("100.00"));
-		despesa.setValor(new BigDecimal("10.00"));
-
-		despesa.depositar();
-
-		assertEquals(despesa.getConta().getSaldo(), new BigDecimal("110.00"));
-		assertEquals(truncate(despesa.getPagamento(), Calendar.DAY_OF_MONTH), truncate(new Date(), Calendar.DAY_OF_MONTH));
-		assertTrue(despesa.isDepositado());
-	}
-
-	private Despesa createDespesa() {
-		final Despesa despesa = new Despesa();
-		despesa.setConta(new Conta());
-
-		return despesa;
-	}
-
-	private Receita createReceita() {
 		final Receita receita = new Receita();
-		receita.setConta(new Conta());
+		final Conta conta = new Conta();
+		conta.setSaldo(new BigDecimal("100.00"));
 
-		return receita;
+		receita.setDebitavel(conta);
+		receita.setValor(new BigDecimal("10.00"));
+
+		receita.depositar();
+
+		assertEquals(conta.getSaldo(), new BigDecimal("110.00"));
+		assertEquals(truncate(receita.getPagamento(), Calendar.DAY_OF_MONTH), truncate(new Date(), Calendar.DAY_OF_MONTH));
+		assertTrue(receita.isDepositado());
 	}
 
 }

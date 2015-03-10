@@ -13,7 +13,7 @@
                 <div class="form-group" style="margin-top: 15px;">
                     <label class="col-sm-2 col-sm-2 control-label">Nome:</label>
                     <startup-error tooltip-message="Nome da conta." error-message="Atributo nome da conta é obrigatório." form-name="edicaoConta">
-                        <input type="text" class="form-control" placeholder="Nome para exibição" ng-model="conta.nome" startup-error-field required>
+                        <input type="text" class="form-control" placeholder="Nome para exibição" ng-model="conta.descricao" startup-error-field required>
                     </startup-error>
                 </div>
 
@@ -54,5 +54,5 @@
     </div>
 </div>
 
-<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoConta.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{conta.nome}}?</b>
+<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoConta.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{conta.descricao}}?</b>
 </ng-modal>

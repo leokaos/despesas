@@ -55,5 +55,40 @@
 }
 .nav li > a:hover > span {
     color: #000 !important;
-    background-color: #fff;
+}
+.col-sm-1,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-7,
+.col-sm-8,
+.col-sm-9,
+.col-sm-10,
+.col-sm-11,
+.col-sm-12 {
+    font-size: 15px !important;
+}
+.filtro {
+    margin: 0px 0px 30px 0px;
+    float: left;
+    width: 700px;
+}
+.filtro > * {
+    margin: 10px;
+}
+.filtro > input {
+    display: inline-block;
+    width: 20%;
+}
+.indicador {
+    float: right;
+    min-width: 300px;
+    font-size: 30px;
+    border-left: 4px solid #F00;
+}
+.indicador > p {
+    color: #bdea74;
+    font-weight: bold;
 }

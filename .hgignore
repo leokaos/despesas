@@ -1,0 +1,9 @@
+syntax: glob
+*/.classpath
+.git/*
+*.settings/*
+*/.project
+.gitignore
+.project
+*/.tern-project
+*/target/*

@@ -1,4 +1,4 @@
-app.controller('contaController', function ($scope, contaService, $location, $routeParams) {
+app.controller('contaController', function ($scope, contaService, usSpinnerService, $location, $routeParams) {
 
     $scope.originalData = [];
 

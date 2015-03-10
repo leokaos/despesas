@@ -1,6 +1,7 @@
 app.service('tipoDespesaService', function ($http) {
 
     var tipodespesa = null;
+    var pathBase = '/despesas/services/tipodespesa/';
 
     this.getNovoTipoDespesa = function () {
         return {
@@ -11,19 +12,19 @@ app.service('tipoDespesaService', function ($http) {
     };
 
     this.listar = function (fn) {
-        $http.get('/despesas/services/tipodespesa').success(function (data) {
+        $http.get(pathBase).success(function (data) {
             fn(data);
         });
     };
 
     this.novo = function (tipodespesa, fn) {
-        $http.post('/despesas/services/tipodespesa', tipodespesa).success(function (data) {
+        $http.post(pathBase, tipodespesa).success(function (data) {
             fn(data);
         });
     };
 
     this.salvar = function (tipodespesa, fn) {
-        $http.put('/despesas/services/tipodespesa', tipodespesa).success(function (data) {
+        $http.put(pathBase, tipodespesa).success(function (data) {
             fn(data);
         });
     };
@@ -37,13 +38,13 @@ app.service('tipoDespesaService', function ($http) {
     }
 
     this.buscarPorId = function (id, fn) {
-        $http.get('/despesas/services/tipodespesa/' + id).success(function (data) {
+        $http.get(pathBase + id).success(function (data) {
             fn(data);
         });
     };
 
     this.deletar = function (id, fn) {
-        $http.delete('/despesas/services/tipodespesa/' + id).success(function (data) {
+        $http.delete(pathBase + id).success(function (data) {
             fn(data);
         });
     };

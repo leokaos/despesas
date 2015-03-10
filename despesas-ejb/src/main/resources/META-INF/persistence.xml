@@ -9,11 +9,14 @@
 	<persistence-unit name="despesasPU">
 
 		<jta-data-source>java:/DerbyDS</jta-data-source>
-
-		<class>org.leo.despesas.dominio.TipoDespesa</class>
-		<class>org.leo.despesas.dominio.Conta</class>
-		<class>org.leo.despesas.dominio.Movimentacao</class>
-		<class>org.leo.despesas.dominio.Despesa</class>
+		<class>org.leo.despesas.dominio.debitavel.CartaoCredito</class>
+		<class>org.leo.despesas.dominio.debitavel.Conta</class>
+		<class>org.leo.despesas.dominio.debitavel.Debitavel</class>
+		<class>org.leo.despesas.dominio.movimentacao.Movimentacao</class>
+		<class>org.leo.despesas.dominio.movimentacao.Despesa</class>
+		<class>org.leo.despesas.dominio.tipomovimentacao.TipoMovimentacao</class>
+		<class>org.leo.despesas.dominio.tipomovimentacao.TipoDespesa</class>
+		<class>org.leo.despesas.dominio.tipomovimentacao.TipoReceita</class>
 
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 

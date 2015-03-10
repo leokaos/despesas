@@ -19,6 +19,8 @@
     <link href="assets/css/colorpicker.min.css" rel="stylesheet" />
     <link href="assets/css/jquery.navgoco.css" rel="stylesheet" />
     <link href="assets/css/fullcalendar.min.css" rel="stylesheet" />
+    <link href="assets/css/angular-growl.min.css" rel="stylesheet" />
+    <link href="assets/css/morris.css" rel="stylesheet" />
 
 </head>
 
@@ -34,8 +36,7 @@
                 <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
             </div>
             <!--logo start-->
-            <a href="index.html" class="logo">
-                <b>CONTROLE DE DESPESAS</b>
+            <a href="index.html" class="logo"> <b>CONTROLE DE DESPESAS</b>
             </a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu"></div>
@@ -50,22 +51,30 @@
         <aside>
             <div id="sidebar" class="nav-collapse ">
                 <ul id="menu_lateral" class="nav nav-pills nav-stacked" style="margin-top: 60px;">
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-lg fa-fw fa-user"></i>
-                            Cadastros
-                        </a>
+                    <li><a href="#"> Cadastros </a>
 
                         <ul>
                             <li><a href="#/tipodespesas">Tipos de Despesa</a>
+                            </li>
+                            <li><a href="#/tiporeceitas">Tipos de Receita</a>
                             </li>
                             <li><a href="#/contas">Contas</a>
                             </li>
                             <li><a href="#/despesas">Despesas</a>
                             </li>
+                            <li><a href="#/cartoes">Cartão de Crédito</a>
+                            </li>
                         </ul>
-
                     </li>
+
+                    <li><a href="#"> Movimentação </a>
+
+                        <ul>
+                            <li><a href="#/pagamentos">Pagamentos</a>
+                            </li>
+                        </ul>
+                    </li>
+
                 </ul>
                 <!-- sidebar menu end-->
             </div>
@@ -78,6 +87,7 @@
         <!--main content start-->
         <section id="main-content">
             <section class="wrapper">
+                <div growl></div>
                 <div ng-view></div>
             </section>
         </section>
@@ -91,10 +101,12 @@
     <script type="text/javascript" src="assets/libs/jquery-ui-1.9.2.custom.min.js"></script>
     <script type="text/javascript" src="assets/libs/jquery.nicescroll.js"></script>
     <script type="text/javascript" src="assets/libs/jquery.navgoco.min.js"></script>
-
+    <script type="text/javascript" src="assets/libs/bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/libs/moment.min.js"></script>
     <script type="text/javascript" src="assets/libs/fullcalendar.min.js"></script>
-
+    <script type="text/javascript" src="assets/libs/spin.min.js"></script>
+    <script type="text/javascript" src="assets/libs/morris.min.js"></script>
+    <script type="text/javascript" src="assets/libs/raphael-min.js"></script>
 
     <!-- SCRIPTS ANGULARJS -->
     <script type="text/javascript" src="assets/libs/angular.min.js"></script>
@@ -102,24 +114,32 @@
     <script type="text/javascript" src="assets/libs/angular-locale_pt-br.js"></script>
     <script type="text/javascript" src="assets/libs/angular-resource.min.js"></script>
     <script type="text/javascript" src="assets/libs/angular-route.min.js"></script>
+    <script type="text/javascript" src="assets/libs/angular-growl.min.js"></script>
+    <script type="text/javascript" src="assets/libs/angular-spinner.min.js"></script>
 
     <!-- SCRIPTS MODULES ANGULAR-->
     <script type="text/javascript" src="assets/libs/bootstrap-colorpicker-module.min.js"></script>
     <script type="text/javascript" src="assets/libs/ui-bootstrap-0.12.0.js"></script>
     <script type="text/javascript" src="assets/libs/masks.min.js"></script>
+    <script type="text/javascript" src="assets/libs/angular-strap.min.js"></script>
+    <script type="text/javascript" src="assets/libs/angular-strap.tpl.min.js"></script>
 
     <!-- SCRIPTS APP -->
     <script type="text/javascript" src="assets/js/app.js"></script>
 
-    <script type="text/javascript" src="assets/js/tipoDespesaService.js"></script>
-    <script type="text/javascript" src="assets/js/tipoDespesaController.js"></script>
-
-    <script type="text/javascript" src="assets/js/contaService.js"></script>
-    <script type="text/javascript" src="assets/js/contaController.js"></script>
-
+    <script type="text/javascript" src="assets/js/cartaoService.js"></script>
     <script type="text/javascript" src="assets/js/despesaService.js"></script>
-    <script type="text/javascript" src="assets/js/despesaController.js"></script>
+    <script type="text/javascript" src="assets/js/contaService.js"></script>
+    <script type="text/javascript" src="assets/js/tipoDespesaService.js"></script>
+    <script type="text/javascript" src="assets/js/tipoReceitaService.js"></script>
+    <script type="text/javascript" src="assets/js/debitavelService.js"></script>
 
+    <script type="text/javascript" src="assets/js/contaController.js"></script>
+    <script type="text/javascript" src="assets/js/tipoDespesaController.js"></script>
+    <script type="text/javascript" src="assets/js/tipoReceitaController.js"></script>
+    <script type="text/javascript" src="assets/js/despesaController.js"></script>
+    <script type="text/javascript" src="assets/js/cartaoController.js"></script>
+    <script type="text/javascript" src="assets/js/pagamentosController.js"></script>
     <script style="text/javascript" src="assets/js/dashboardController.js"></script>
 
     <script>

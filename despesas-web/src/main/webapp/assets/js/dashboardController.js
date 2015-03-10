@@ -1,4 +1,4 @@
-app.controller('dashboardController', function ($scope, $http, contaService, tipoDespesaService, despesaService, $location, $routeParams) {
+app.controller('dashboardController', function ($scope, $http, contaService, despesaService, $location, $routeParams) {
 
     $scope.dataAtual = new Date();
     $scope.meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];

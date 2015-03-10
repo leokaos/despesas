@@ -1,24 +1,154 @@
-app.controller('edicaoDespesaController', function ($scope, $http, contaService, tipoDespesaService, despesaService, $location, $routeParams) {
+app.controller('despesasController', function ($scope, despesaService, $location, $routeParams, usSpinnerService) {
+
+    $scope.originalData = [];
+
+    var dataInicial = new Date();
+    dataInicial.setDate(1);
+
+    var dataFinal = new Date();
+    dataFinal.setMonth(dataFinal.getMonth() + 1);
+    dataFinal.setDate(0);
+
+    $scope.filtro = {
+        'dataInicial': dataInicial,
+        'dataFinal': dataFinal
+    };
+
+    $scope.despesaSecionada = null;
+
+    $scope.numberPages = [5, 10, 25, 50];
+    $scope.pageSize = $scope.numberPages[0];
+    $scope.currentPage = 0;
+    $scope.pages = 0;
+
+    $scope.loadData = function () {
+
+        despesaService.buscarPorFiltro($scope.filtro, function (lista) {
+
+            $scope.originalData = lista;
+
+            $scope.pageSize = parseInt($scope.pageSize);
+            $scope.first = $scope.pageSize * $scope.currentPage;
+            $scope.sliceData = $scope.originalData.slice($scope.first, $scope.first + $scope.pageSize);
+            $scope.pages = Math.ceil($scope.originalData.length / $scope.pageSize);
+
+            //Calculo do total
+            $scope.totalTable = 0.0;
+
+            angular.forEach($scope.originalData, function (value, key) {
+                $scope.totalTable += value.valor;
+            });
+
+            usSpinnerService.stop('spin-despesas');
+        });
+    };
+
+    $scope.changePage = function (page) {
+        $scope.currentPage = page;
+        $scope.loadData();
+    };
+
+    $scope.changePageSize = function () {
+        $scope.currentPage = 0;
+        $scope.loadData();
+    };
+
+    $scope.nextPage = function () {
+        $scope.currentPage++;
+        $scope.loadData();
+    };
+
+    $scope.previousPage = function () {
+        $scope.currentPage--;
+        $scope.loadData();
+    };
+
+    $scope.firstPage = function () {
+        $scope.currentPage = 0;
+        $scope.loadData();
+    };
+
+    $scope.lastPage = function () {
+        $scope.currentPage = $scope.pages - 1;
+        $scope.loadData();
+    };
+
+    $scope.isLastPage = function () {
+        return (($scope.currentPage + 1) == $scope.pages);
+    };
+
+    $scope.isFirstPage = function () {
+        return $scope.currentPage == 0;
+    };
+
+    $scope.novo = function () {
+        despesaService.setDespesa(despesaService.getNovoDespesa());
+
+        $location.path('/despesa');
+    };
+
+    $scope.editar = function (id) {
+
+        despesaService.buscarPorId(id, function (despesa) {
+            despesaService.setDespesa(despesa);
+
+            $location.path('/despesa');
+        });
+
+    };
+
+    $scope.select = function (despesa) {
+        $scope.despesaSecionada = despesa;
+    };
+
+    $scope.deletar = function () {
+
+        despesaService.deletar($scope.despesaSecionada.id, function (data) {
+
+            for (var x = 0; x < $scope.originalData.length; x++) {
+                var tp = $scope.originalData[x];
+                if (tp.id == $scope.despesaSecionada.id) {
+                    $scope.originalData.splice(x, 1);
+                }
+            }
+
+            $('#modalExcluir').modal('hide');
+            $('#modalOk').modal('show');
+
+            $scope.loadData();
+
+        });
+
+    };
+
+    $scope.loadData();
+
+});
+
+app.controller('edicaoDespesaController', function ($scope, $http, debitavelService, tipoDespesaService, despesaService, $location, $routeParams) {
 
     $scope.tiposDespesa = [];
-    $scope.contas = [];
+    $scope.debitaveis = [];
+    $scope.tiposParcelamento = ['Semanal', 'Mensal', 'Semestral', 'Anual'];
+    $scope.parcelar = false;
 
     $scope.tipoDespesaSelecionado = {
         descricao: 'Selecione'
     };
 
-    $scope.contaSelecionada = {
-        nome: 'Selecione'
+    $scope.debitavelSelecionado = {
+        descricao: 'Selecione'
     };
 
-    $scope.despesa = {
-        descricao: '',
-        vencimento: null,
-        valor: null,
-        tipoDespesa: null,
-        conta: null,
-        paga: false
-    };
+    $scope.despesa = despesaService.getDespesa();
+
+    if ($scope.despesa.debitavel != null) {
+        $scope.debitavelSelecionado = $scope.despesa.debitavel;
+    }
+
+    if ($scope.despesa.tipoDespesa != null) {
+        $scope.tipoDespesaSelecionado = $scope.despesa.tipoDespesa;
+    }
 
     $scope.openData = function () {
         $scope.dataPickerOpened = true;
@@ -29,62 +159,33 @@ app.controller('edicaoDespesaController', function ($scope, $http, contaService,
         $scope.despesa.tipoDespesa = $scope.tipoDespesaSelecionado;
     };
 
-    $scope.selecionarConta = function (conta) {
-        $scope.contaSelecionada = conta;
-        $scope.despesa.conta = $scope.contaSelecionada;
+    $scope.selecionarDebitavel = function (debitavel) {
+        $scope.debitavelSelecionado = debitavel;
+        $scope.despesa.debitavel = $scope.debitavelSelecionado;
     };
 
     tipoDespesaService.listar(function (tiposDespesa) {
         $scope.tiposDespesa = tiposDespesa;
     });
 
-    contaService.listar(function (contas) {
-        $scope.contas = contas;
+    debitavelService.listar(function (debitaveis) {
+        $scope.debitaveis = debitaveis;
     });
 
-    $scope.salvar = function (valid) {
-
-        if (valid) {
-
-            if ($scope.despesa.id) {
-
-                despesaService.salvar($scope.$scope.despesa, function (data) {
-                    $('#modalSalvar').modal('hide');
-                    $location.path('/despesa');
-                });
-
-            } else {
-
-                despesaService.novo($scope.despesa, function (data) {
-                    $('#modalSalvar').modal('hide');
-                    $location.path('/despesa');
-                });
-            }
+    $scope.salvar = function () {
+        if ($scope.despesa.id) {
+            despesaService.salvar($scope.despesa, $scope.complete);
+        } else {
+            despesaService.novo($scope.despesa, $scope.complete);
         }
     };
-});
 
-app.controller('despesasController', function ($scope, $http, $location, $routeParams, despesaService) {
-
-
-    $scope.events = function (start, end, timezone, callback) {
-
-        despesaService.buscarDespesasPorPeriodo(start._d, end._d, function (data) {
-
-            var eventos = [];
-
-            for (var i = 0; i < data.length; i++) {
-                var despesa = data[i];
-
-                eventos.push({
-                    title: despesa.descricao,
-                    color: despesa.tipoDespesa.cor,
-                    start: despesa.vencimento
-                });
-            }
-
-            callback(eventos);
-        });
+    $scope.complete = function (data) {
+        $('#modalSalvar').modal('hide');
+        $scope.voltar();
     };
 
+    $scope.voltar = function () {
+        $location.path('/despesas');
+    };
 });

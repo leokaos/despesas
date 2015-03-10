@@ -1,30 +1,32 @@
 app.service('contaService', function ($http) {
 
     var conta = null;
+    var pathBase = '/despesas/services/conta/';
 
     this.getNovoConta = function () {
         return {
             id: null,
-            nome: '',
+            descricao: '',
             cor: '',
             saldo: null
         };
     };
 
+
     this.listar = function (fn) {
-        $http.get('/despesas/services/conta').success(function (data) {
+        $http.get(pathBase).success(function (data) {
             fn(data);
         });
     };
 
     this.novo = function (conta, fn) {
-        $http.post('/despesas/services/conta', conta).success(function (data) {
+        $http.post(pathBase, conta).success(function (data) {
             fn(data);
         });
     };
 
     this.salvar = function (conta, fn) {
-        $http.put('/despesas/services/conta', conta).success(function (data) {
+        $http.put(pathBase, conta).success(function (data) {
             fn(data);
         });
     };
@@ -38,14 +40,19 @@ app.service('contaService', function ($http) {
     }
 
     this.buscarPorId = function (id, fn) {
-        $http.get('/despesas/services/conta/' + id).success(function (data) {
+        var url = pathBase + id;
+
+        $http.get(url).success(function (data) {
             fn(data);
         });
     };
 
     this.deletar = function (id, fn) {
-        $http.delete('/despesas/services/conta/' + id).success(function (data) {
+        var url = pathBase + id;
+
+        $http.delete(url).success(function (data) {
             fn(data);
         });
     };
+
 });
