@@ -8,20 +8,20 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 
-import org.leo.despesas.aplicacao.conta.ContaFacade;
-import org.leo.despesas.dominio.GraficoVO;
+import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
 import org.leo.despesas.dominio.debitavel.DespesaFiltro;
 import org.leo.despesas.dominio.movimentacao.Despesa;
+import org.leo.despesas.dominio.movimentacao.GraficoVO;
 import org.leo.despesas.dominio.parcelamento.Parcelamento;
-import org.leo.despesas.infra.AbstractFacade;
 import org.leo.despesas.infra.DataUtil;
 import org.leo.despesas.infra.Periodo;
+import org.leo.despesas.rest.infra.AbstractFacade;
 
 @Stateless
 public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements DespesaFacade {
 
 	@EJB
-	private ContaFacade contaFacade;
+	private DebitavelFacade debitavelFacade;
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -106,15 +106,20 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 			query.setParameter("dataFinal", DataUtil.maximo(filtro.getDataFinal(), Calendar.DAY_OF_MONTH));
 		}
 
-		return query.getResultList();
+		List resultList = query.getResultList();
+		
+		return resultList;
 	}
 
 	@Override
 	public void pagar(Despesa despesa) {
+
+		despesa.setDebitavel(debitavelFacade.buscarPorId(despesa.getDebitavel().getId()));
+
 		despesa.pagar();
 
 		salvar(despesa);
-		//contaFacade.salvar(despesa.getDebitavel());
+		debitavelFacade.salvar(despesa.getDebitavel());
 	}
 
 }

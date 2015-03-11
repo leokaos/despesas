@@ -5,7 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.leo.despesas.dominio.debitavel.CartaoCredito;
-import org.leo.despesas.infra.AbstractFacade;
+import org.leo.despesas.rest.infra.AbstractFacade;
 
 @Stateless
 public class CartaoFacadeImpl extends AbstractFacade<CartaoCredito> implements CartaoFacade {

@@ -11,7 +11,7 @@ import javax.persistence.Query;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
-import org.leo.despesas.dominio.GraficoVO;
+import org.leo.despesas.dominio.movimentacao.GraficoVO;
 
 public class EntityManagerSandBox {
 

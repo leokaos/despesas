@@ -1,4 +1,4 @@
-package org.leo.despesas.infra;
+package org.leo.despesas.rest.infra;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -28,8 +28,8 @@ public abstract class AbstractFacade<E> implements SimpleFacade<E> {
 	}
 
 	@Override
-	public E buscarPorId(Long id) {
-		return entityManager.find(getClasseEntidade(), id);
+	public E buscarPorId(Object id) {
+		return entityManager.find(getClasseEntidade(), (Long) id);
 	}
 
 	@Override

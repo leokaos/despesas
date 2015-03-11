@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 var app = angular.module('despesas', ['ngRoute', 'ngAnimate', 'ngResource',
                                       'colorpicker.module', 'ui.utils.masks',
                                       'angular-growl', 'ui.bootstrap', 'mgcrea.ngStrap', 'angularSpinner']);
-=======
 //PERIODO
 function Periodo(mes, ano) {
     this.mes = --mes;
@@ -29,9 +27,6 @@ Periodo.prototype.getDataFinal = function () {
     return dataInicial;
 };
 
-
-var app = angular.module('despesas', ['ngRoute', 'ngAnimate', 'ngResource', 'colorpicker.module', 'ui.utils.masks']);
->>>>>>> origin/master
 
 app.config(function ($routeProvider, $locationProvider) {
 
@@ -173,21 +168,16 @@ app.directive('startupError', function ($compile) {
 
         link: function (scope, iElement, iAttrs) {
 
-            var classes = 'col-sm-10';
-
             if (angular.isDefined(iAttrs.class)) {
-                classes += ' ' + iAttrs.class;
+                iElement.attr('class', iAttrs.class);
             }
-
-            iElement.attr('class', classes)
 
             var campo = iElement.find("input[startup-error-field]");
 
             /*$(campo).attr('bs-tooltip', '');
-            $(campo).attr('data-placement', 'top');
-            $(campo).attr('data-trigger', 'focus');
-            $(campo).attr('data-title', iAttrs.tooltipMessage);
-            */
+            $(campo).attr('tooltip-placement', 'top');
+            $(campo).attr('tooltip-trigger', 'focus');
+            $(campo).attr('tooltip', iAttrs.tooltipMessage);*/
 
             iElement.append("<span startup-error-message></span>");
 

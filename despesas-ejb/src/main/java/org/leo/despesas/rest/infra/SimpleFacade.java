@@ -1,4 +1,4 @@
-package org.leo.despesas.infra;
+package org.leo.despesas.rest.infra;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ public interface SimpleFacade<T> {
 
 	List<T> listar();
 
-	T buscarPorId(Long id);
+	T buscarPorId(Object id);
 
 	void inserir(T t);
 

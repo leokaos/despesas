@@ -17,6 +17,7 @@
 		<class>org.leo.despesas.dominio.tipomovimentacao.TipoMovimentacao</class>
 		<class>org.leo.despesas.dominio.tipomovimentacao.TipoDespesa</class>
 		<class>org.leo.despesas.dominio.tipomovimentacao.TipoReceita</class>
+		<class>org.leo.despesas.dominio.debitavel.Fatura</class>
 
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 

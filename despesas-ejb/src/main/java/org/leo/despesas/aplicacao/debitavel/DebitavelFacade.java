@@ -11,4 +11,8 @@ public interface DebitavelFacade {
 
 	List<Debitavel> listar();
 
+	void salvar(Debitavel debitavel);
+
+	Debitavel buscarPorId(Object id);
+
 }

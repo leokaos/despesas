@@ -1,4 +1,4 @@
-package org.leo.despesas.rest.tipodespesa;
+package org.leo.despesas.rest;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;

@@ -1,14 +1,14 @@
 app.service('cartaoService', function ($http) {
 
     var cartao = null;
-    var pathBase = '/despesas/services/cartao';
+    var pathBase = '/despesas/services/cartao/';
 
     this.getNovoCartao = function () {
         return {
             descricao: '',
             limite: 0.0,
-            diaDeVencimento: 1,
-            diaDeFechamento: 1,
+            diaDeVencimento: null,
+            diaDeFechamento: null,
             bandeiraCartaoCredito: ''
         };
     };

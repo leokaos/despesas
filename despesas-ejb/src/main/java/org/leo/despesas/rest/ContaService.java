@@ -1,4 +1,4 @@
-package org.leo.despesas.rest.conta;
+package org.leo.despesas.rest;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Path;

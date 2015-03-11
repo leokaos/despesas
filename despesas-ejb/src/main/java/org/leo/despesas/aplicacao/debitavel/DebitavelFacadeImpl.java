@@ -27,4 +27,14 @@ public class DebitavelFacadeImpl implements DebitavelFacade {
 		return listar;
 	}
 
+	@Override
+	public void salvar(Debitavel debitavel) {
+		entityManager.merge(debitavel);
+	}
+
+	@Override
+	public Debitavel buscarPorId(Object id) {
+		return entityManager.find(Debitavel.class, id);
+	}
+
 }

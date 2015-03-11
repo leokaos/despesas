@@ -8,7 +8,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "despesa", schema = "despesas_db")
@@ -21,6 +24,11 @@ public class Despesa extends Movimentacao {
 	@ManyToOne
 	@JoinColumn(name = "tipo_despesa_id")
 	private TipoDespesa tipoDespesa;
+
+	@ManyToOne
+	@JoinColumn(name = "fatura_id", nullable = true)
+	@JsonBackReference
+	private Fatura fatura;
 
 	@Transient
 	private String parcelamento;

@@ -6,7 +6,7 @@ import javax.ws.rs.Path;
 
 import org.leo.despesas.aplicacao.tiporeceita.TipoReceitaFacade;
 import org.leo.despesas.dominio.tipomovimentacao.TipoReceita;
-import org.leo.despesas.infra.AbstractService;
+import org.leo.despesas.rest.infra.AbstractService;
 
 @Path("/tiporeceita")
 @RequestScoped

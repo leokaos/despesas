@@ -12,7 +12,7 @@
 
                 <div class="form-group" style="margin-top: 15px;">
                     <label class="col-sm-2 col-sm-2 control-label">Nome:</label>
-                    <startup-error tooltip-message="Nome da conta." error-message="Atributo nome da conta é obrigatório." form-name="edicaoConta">
+                    <startup-error tooltip-message="Nome da conta." error-message="Atributo nome da conta é obrigatório." form-name="edicaoConta" class="col-lg-10">
                         <input type="text" class="form-control" placeholder="Nome para exibição" ng-model="conta.descricao" startup-error-field required>
                     </startup-error>
                 </div>
@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Cor:</label>
 
-                    <startup-error tooltip-message="Cor que será utilizado para exibição em gráficos e legendas." error-message="Atributo cor é obrigatório." form-name="edicaoConta">
+                    <startup-error tooltip-message="Cor que será utilizado para exibição em gráficos e legendas." error-message="Atributo cor é obrigatório." form-name="edicaoConta" class="col-lg-8">
                         <div style="display: -webkit-box; width: 33.33333333%; ">
                             <input colorpicker class="form-control" placeholder="Cor de exibição" ng-model="conta.cor" startup-error-field required>
                             <div style="margin-left: 20px; width: 34px; height:34px; border-radius:20px; border-color:{{conta.cor}}; background-color: {{conta.cor}};"></div>
@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Saldo:</label>
 
-                    <startup-error tooltip-message="Saldo inicial da conta no momento do cadastro." error-message="Atributo saldo inicial é obrigatório." form-name="edicaoConta">
+                    <startup-error tooltip-message="Saldo inicial da conta no momento do cadastro." error-message="Atributo saldo inicial é obrigatório." form-name="edicaoConta" class="col-lg-10">
                         <div class="custom-icon-group">
                             <span class="icon-input">
 						<i class="fa fa-money"></i>

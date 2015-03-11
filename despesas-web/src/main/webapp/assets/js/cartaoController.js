@@ -108,12 +108,35 @@ app.controller('cartaoController', function ($scope, cartaoService, usSpinnerSer
 
 app.controller('edicaoCartaoController', function ($scope, cartaoService, $location, $routeParams) {
 
-    $scope.bandeiras = ['Visa', 'Mastercard', 'American Express'];
+    $scope.bandeiras = ['VISA', 'MASTERCARD', 'AMERICAN EXPRESS'];
 
     $scope.cartao = cartaoService.getCartao();
 
-    $scope.cancelar = function () {
+    var irPaginaPesquisa = function () {
         $location.path('/cartoes');
+    };
+
+    var esconderModalSalvar = function () {
+        $('#modalSalvar').modal('hide');
+    };
+
+    $scope.cancelar = function () {
+        irPaginaPesquisa();
+    };
+
+    $scope.completeSalvar = function (data) {
+        esconderModalSalvar();
+        irPaginaPesquisa();
+    };
+
+    $scope.salvar = function (valid) {
+        if (valid) {
+            if ($scope.cartao.id) {
+                cartaoService.salvar($scope.cartao, $scope.completeSalvar);
+            } else {
+                cartaoService.novo($scope.cartao, $scope.completeSalvar);
+            }
+        }
     };
 
 });
