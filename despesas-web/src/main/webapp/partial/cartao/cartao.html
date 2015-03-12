@@ -18,6 +18,17 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Cor:</label>
+
+                    <startup-error tooltip-message="Cor que será utilizado para exibição em gráficos e legendas." error-message="Atributo cor é obrigatório." form-name="edicaoCartao" class="col-lg-8">
+                        <div style="display: -webkit-box; width: 33.33333333%; ">
+                            <input colorpicker class="form-control" placeholder="Cor de exibição" ng-model="cartao.cor" startup-error-field required>
+                            <div style="margin-left: 20px; width: 34px; height:34px; border-radius:20px; border-color:{{cartao.cor}}; background-color: {{cartao.cor}};"></div>
+                        </div>
+                    </startup-error>
+                </div>
+
+                <div class="form-group">
                     <label class="col-sm-2 control-label">Limite:</label>
 
                     <startup-error tooltip-message="Limite do cartão crédito." error-message="Atributo limite é obrigatório." form-name="edicaoCartao" class="col-lg-10">
@@ -65,8 +76,6 @@
                 </div>
 
             </form>
-
-            {{cartao}}
 
         </div>
 

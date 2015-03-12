@@ -17,4 +17,5 @@ public class CartaoFacadeImpl extends AbstractFacade<CartaoCredito> implements C
 	protected Class<CartaoCredito> getClasseEntidade() {
 		return CartaoCredito.class;
 	}
+
 }

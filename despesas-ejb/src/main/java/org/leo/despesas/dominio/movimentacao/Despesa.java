@@ -11,8 +11,6 @@ import javax.persistence.Transient;
 import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 @Table(name = "despesa", schema = "despesas_db")
 @DiscriminatorValue(value = "D")
@@ -27,7 +25,6 @@ public class Despesa extends Movimentacao {
 
 	@ManyToOne
 	@JoinColumn(name = "fatura_id", nullable = true)
-	@JsonBackReference
 	private Fatura fatura;
 
 	@Transient

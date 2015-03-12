@@ -15,11 +15,10 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.infra.DataUtil;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @DiscriminatorValue(value = "CONTA")
@@ -40,7 +39,6 @@ public class CartaoCredito extends Debitavel {
 	private BandeiraCartaoCredito bandeiraCartaoCredito;
 
 	@OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference
 	private List<Fatura> faturas;
 
 	public CartaoCredito() {
@@ -81,6 +79,7 @@ public class CartaoCredito extends Debitavel {
 		this.bandeiraCartaoCredito = bandeiraCartaoCredito;
 	}
 
+	@JsonIgnore
 	public List<Fatura> getFaturas() {
 		return faturas;
 	}

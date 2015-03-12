@@ -103,6 +103,12 @@ app.controller('cartaoController', function ($scope, cartaoService, usSpinnerSer
     };
 
     $scope.loadData();
+    
+    $scope.bandeiras = {
+        'VISA': 'fa fa-cc-visa',
+        'MASTERCARD': 'fa fa-cc-mastercard',
+        'AMERICAN_EXPRESS': 'fa fa-cc-ame'
+    };
 
 });
 

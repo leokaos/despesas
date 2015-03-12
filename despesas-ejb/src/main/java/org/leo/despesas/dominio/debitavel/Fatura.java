@@ -1,12 +1,13 @@
 package org.leo.despesas.dominio.debitavel;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,9 +22,6 @@ import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.infra.DataUtil;
 import org.leo.despesas.infra.Periodo;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 @Table(name = "fatura", schema = "despesas_db")
 public class Fatura {
@@ -34,7 +32,6 @@ public class Fatura {
 
 	@ManyToOne
 	@JoinColumn(name = "cartao_id")
-	@JsonBackReference
 	private CartaoCredito cartao;
 
 	@Column(name = "data_vencimento")
@@ -45,14 +42,13 @@ public class Fatura {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataFechamento;
 
-	@OneToMany(mappedBy = "fatura")
-	@JsonManagedReference
-	private List<Despesa> despesas;
+	@OneToMany(mappedBy = "fatura", fetch = FetchType.EAGER)
+	private Set<Despesa> despesas;
 
 	public Fatura() {
 		super();
 
-		this.despesas = new ArrayList<Despesa>();
+		this.despesas = new HashSet<Despesa>();
 	}
 
 	public Fatura(CartaoCredito cartao) {
@@ -85,11 +81,11 @@ public class Fatura {
 		this.dataFechamento = dataFechamento;
 	}
 
-	public List<Despesa> getDespesas() {
+	public Set<Despesa> getDespesas() {
 		return despesas;
 	}
 
-	public void setDespesas(List<Despesa> despesas) {
+	public void setDespesas(Set<Despesa> despesas) {
 		this.despesas = despesas;
 	}
 

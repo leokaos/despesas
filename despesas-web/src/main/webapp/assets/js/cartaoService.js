@@ -6,6 +6,7 @@ app.service('cartaoService', function ($http) {
     this.getNovoCartao = function () {
         return {
             descricao: '',
+            cor: null,
             limite: 0.0,
             diaDeVencimento: null,
             diaDeFechamento: null,

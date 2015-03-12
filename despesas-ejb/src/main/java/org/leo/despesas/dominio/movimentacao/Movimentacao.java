@@ -21,8 +21,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.leo.despesas.dominio.debitavel.Debitavel;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 @Table(name = "movimentacao", schema = "despesas_db")
 @DiscriminatorColumn(name = "tipo")
@@ -48,7 +46,6 @@ public abstract class Movimentacao {
 	private Date pagamento;
 
 	@ManyToOne
-	@JsonBackReference
 	@JoinColumn(name = "debitavel_id")
 	protected Debitavel debitavel;
 
