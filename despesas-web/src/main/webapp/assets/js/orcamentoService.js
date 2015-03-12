@@ -1,0 +1,62 @@
+app.service('orcamentoService', function ($http) {
+
+    var orcamento = null;
+    var pathBase = '/despesas/services/orcamento';
+
+    this.getNovoOrcamento = function () {
+        return {
+            tipoDespesa: null,
+            periodo: new Periodo(null, null),
+            valor: null,
+        };
+    };
+
+    this.listar = function (fn) {
+        $http.get(pathBase).success(function (data) {
+            fn(data);
+        });
+    };
+
+    this.novo = function (orcamento, fn) {
+        $http.post(pathBase, orcamento).success(function (data) {
+            fn(data);
+        });
+    };
+
+    this.salvar = function (orcamento, fn) {
+        $http.put(pathBase, orcamento).success(function (data) {
+            fn(data);
+        });
+    };
+
+    this.setOrcamento = function (novoOrcamento) {
+        this.orcamento = novoOrcamento;
+    };
+
+    this.getOrcamento = function () {
+        return this.orcamento;
+    };
+
+    this.buscarPorId = function (id, fn) {
+        $http.get(pathBase + id).success(function (data) {
+            fn(data);
+        });
+    };
+
+    this.deletar = function (id, fn) {
+        $http.delete(pathBase + id).success(function (data) {
+            fn(data);
+        });
+    };
+    
+    /*this.buscarPorData = function (data, tipoDespesa, fn) {
+    	var param = {
+    			data: 
+    	};
+    	
+        $http.post(pathBase + '/data', filtro).success(function (data) {
+            fn(data);
+        });
+    };*/
+
+});

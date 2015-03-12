@@ -17,40 +17,45 @@ import org.apache.commons.lang3.time.DateUtils;
 
 public class DataUtil extends DateUtils {
 
-	private static List<Integer> FIELDS;
+    private static List<Integer> FIELDS;
 
-	static {
-		FIELDS = new LinkedList<>();
+    static {
+	FIELDS = new LinkedList<>();
 
-		FIELDS.add(YEAR);
-		FIELDS.add(MONTH);
-		FIELDS.add(DAY_OF_MONTH);
-		FIELDS.add(HOUR_OF_DAY);
-		FIELDS.add(MINUTE);
-		FIELDS.add(SECOND);
-		FIELDS.add(MILLISECOND);
+	FIELDS.add(YEAR);
+	FIELDS.add(MONTH);
+	FIELDS.add(DAY_OF_MONTH);
+	FIELDS.add(HOUR_OF_DAY);
+	FIELDS.add(MINUTE);
+	FIELDS.add(SECOND);
+	FIELDS.add(MILLISECOND);
+    }
+
+    public static Date maximo(final Date date, final int field) {
+
+	if (!FIELDS.contains(field)) {
+	    throw new IllegalArgumentException("Field not valid!");
 	}
 
-	public static Date maximo(final Date date, final int field) {
+	final Calendar calendar = Calendar.getInstance();
+	calendar.setTime(date);
 
-		if (!FIELDS.contains(field)) {
-			throw new IllegalArgumentException("Field not valid!");
-		}
-
-		final Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-
-		for (int x = FIELDS.indexOf(field) + 1; x < FIELDS.size(); x++) {
-			calendar.set(FIELDS.get(x), calendar.getActualMaximum(FIELDS.get(x)));
-		}
-
-		return calendar.getTime();
+	for (int x = FIELDS.indexOf(field) + 1; x < FIELDS.size(); x++) {
+	    calendar.set(FIELDS.get(x), calendar.getActualMaximum(FIELDS.get(x)));
 	}
 
-	public static Periodo getMesAtual() {
-		final Date dataIncial = DataUtil.truncate(new Date(), Calendar.MONTH);
-		final Date dataFinal = DataUtil.maximo(new Date(), Calendar.MONTH);
+	return calendar.getTime();
+    }
 
-		return new Periodo(dataIncial, dataFinal);
-	}
+    public static Periodo getMesAtual() {
+	return getMes(new Date());
+    }
+
+    public static Periodo getMes(Date dataBase) {
+
+	final Date dataIncial = DataUtil.truncate(dataBase, Calendar.MONTH);
+	final Date dataFinal = DataUtil.maximo(dataBase, Calendar.MONTH);
+
+	return new Periodo(dataIncial, dataFinal);
+    }
 }

@@ -3,7 +3,6 @@ package org.leo.despesas.dominio;
 import static org.junit.Assert.assertEquals;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.junit.Test;
 import org.leo.despesas.dominio.debitavel.CartaoCredito;
@@ -21,7 +20,7 @@ public class CartaoCreditoTest {
 		cartao.setDiaDeVencimento(11);
 
 		Despesa despesa = new Despesa();
-		despesa.setVencimento(new Date());
+		despesa.setVencimento(formatter.parse("10/02/2015"));
 
 		cartao.debitar(despesa);
 

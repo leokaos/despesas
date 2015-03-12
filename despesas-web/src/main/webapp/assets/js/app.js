@@ -1,32 +1,56 @@
 var app = angular.module('despesas', ['ngRoute', 'ngAnimate', 'ngResource',
                                       'colorpicker.module', 'ui.utils.masks',
                                       'angular-growl', 'ui.bootstrap', 'mgcrea.ngStrap', 'angularSpinner']);
-//PERIODO
-function Periodo(mes, ano) {
-    this.mes = --mes;
-    this.ano = ano;
-};
-
-Periodo.prototype.getDataInicial = function () {
-    var dataInicial = new Date();
-
-    dataInicial.setFullYear(this.ano);
-    dataInicial.setMonth(this.mes);
-    dataInicial.setDate(1);
-
-    return dataInicial;
-};
-
-Periodo.prototype.getDataFinal = function () {
-    var dataInicial = new Date();
-
-    dataInicial.setFullYear(this.ano);
-    dataInicial.setMonth(this.mes + 1);
-    dataInicial.setDate(0);
-
-    return dataInicial;
-};
-
+app.constant('MESES', [
+    {
+        nome: 'Janeiro',
+        value: 1
+    },
+    {
+        nome: 'Fevereiro',
+        value: 2
+    },
+    {
+        nome: 'Mar\u00e7o',
+        value: 3
+    },
+    {
+        nome: 'Abril',
+        value: 4
+    },
+    {
+        nome: 'Maio',
+        value: 5
+    },
+    {
+        nome: 'Junho',
+        value: 6
+    },
+    {
+        nome: 'Julho',
+        value: 7
+    },
+    {
+        nome: 'Agosto',
+        value: 8
+    },
+    {
+        nome: 'Setembro',
+        value: 9
+    },
+    {
+        nome: 'Outubro',
+        value: 10
+    },
+    {
+        nome: 'Novembro',
+        value: 11
+    },
+    {
+        nome: 'Dezembro',
+        value: 12
+    }
+]);
 
 app.config(function ($routeProvider, $locationProvider) {
 
@@ -78,6 +102,16 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when('/cartao', {
         templateUrl: 'partial/cartao/cartao.html',
         controller: 'edicaoCartaoController'
+    });
+
+    $routeProvider.when('/orcamentos', {
+        templateUrl: 'partial/orcamento/orcamentos.html',
+        controller: 'orcamentoController'
+    });
+
+    $routeProvider.when('/orcamento', {
+        templateUrl: 'partial/orcamento/orcamento.html',
+        controller: 'edicaoOrcamentoController'
     });
 
     $routeProvider.when('/pagamentos', {
@@ -197,7 +231,7 @@ app.directive('startupError', function ($compile) {
 });
 
 
-app.directive('uiCalendar', function () {
+app.directive('uiCalendar', function (MESES) {
 
     return {
         restrict: 'A',
@@ -208,7 +242,6 @@ app.directive('uiCalendar', function () {
         link: function (scope, iElement, iAttrs) {
 
             var diasSemana = ["domingo", "segunda-feira", "ter\u00e7a-feira", "quarta-feira", "quinta-feira", "sexta-feira", "s\u00e1bado"];
-            var meses = ["Janeiro", "Fevereiro", "Mar\u00e7o", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
             var diasSemanaCurtos = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "S\u00e1b"];
             var textoDosBotoes = {
                 today: 'Hoje',
@@ -231,7 +264,7 @@ app.directive('uiCalendar', function () {
                 height: 700,
                 aspectRatio: 10,
                 events: scope.eventSources,
-                monthNames: meses,
+                monthNames: ['Janeiro', 'Fevereiro', 'Mar\u00e7o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
                 dayNames: diasSemana,
                 dayNamesShort: diasSemanaCurtos,
                 buttonText: textoDosBotoes,

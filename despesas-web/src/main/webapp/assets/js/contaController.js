@@ -19,6 +19,8 @@ app.controller('contaController', function ($scope, contaService, usSpinnerServi
             $scope.first = $scope.pageSize * $scope.currentPage;
             $scope.sliceData = $scope.originalData.slice($scope.first, $scope.first + $scope.pageSize);
             $scope.pages = Math.ceil($scope.originalData.length / $scope.pageSize);
+
+            usSpinnerService.stop('spin-contas');
         })
     };
 

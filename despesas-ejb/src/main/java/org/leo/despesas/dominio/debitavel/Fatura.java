@@ -56,6 +56,14 @@ public class Fatura {
 
 		this.cartao = cartao;
 	}
+	
+	public Long getId() {
+	    return id;
+	}
+
+	public void setId(Long id) {
+	    this.id = id;
+	}
 
 	public CartaoCredito getCartao() {
 		return cartao;

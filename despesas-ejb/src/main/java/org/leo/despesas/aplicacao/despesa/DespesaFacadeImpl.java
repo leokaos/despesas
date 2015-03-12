@@ -106,9 +106,7 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 			query.setParameter("dataFinal", DataUtil.maximo(filtro.getDataFinal(), Calendar.DAY_OF_MONTH));
 		}
 
-		List resultList = query.getResultList();
-		
-		return resultList;
+		return query.getResultList();
 	}
 
 	@Override
