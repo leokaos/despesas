@@ -92,3 +92,6 @@
     color: #bdea74;
     font-weight: bold;
 }
+.progress {
+    margin-bottom: 0px !important;
+}

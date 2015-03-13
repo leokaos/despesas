@@ -2,6 +2,7 @@ package org.leo.despesas.dominio.orcamento;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
 
 @Entity
@@ -33,7 +37,14 @@ public class Orcamento {
 	@JoinColumn(name = "tipo_despesa_id")
 	private TipoDespesa tipoDespesa;
 
+	@Column(name = "valor")
 	private BigDecimal valor;
+
+	@Transient
+	private List<Despesa> despesaDoOrcamento;
+
+	@Transient
+	private BigDecimal valorConsolidado;
 
 	public Orcamento() {
 		super();
@@ -79,4 +90,28 @@ public class Orcamento {
 		this.valor = valor;
 	}
 
+	@JsonIgnore
+	public List<Despesa> getDespesaDoOrcamento() {
+		return despesaDoOrcamento;
+	}
+
+	public void setDespesaDoOrcamento(List<Despesa> despesaDoOrcamento) {
+		this.despesaDoOrcamento = despesaDoOrcamento;
+	}
+
+	public BigDecimal getValorConsolidado() {
+		return valorConsolidado;
+	}
+
+	public void setValorConsolidado(BigDecimal valorConsolidado) {
+		this.valorConsolidado = valorConsolidado;
+	}
+
+	public void consolidar() {
+		valorConsolidado = BigDecimal.ZERO;
+
+		for (Despesa despesa : despesaDoOrcamento) {
+			valorConsolidado = valorConsolidado.add(despesa.getValor());
+		}
+	}
 }

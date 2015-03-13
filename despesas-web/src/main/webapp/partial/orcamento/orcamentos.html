@@ -26,22 +26,29 @@
                 <table class="table  table-hover data-table">
                     <thead>
                         <tr>
-                            <th>Tipo Despesa</th>
+                            <th colspan="2">Tipo Despesa</th>
                             <th>Período</th>
                             <th>Valor</th>
+                            <th>Status</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in sliceData" style="height: 40px;">
-                            <td style="width: 40px;">
-                                <div style="background-color: {{item.tipoDespesa.cor}}; border-radius:100px; width:38px;height: 38px;margin:1px;"></div>
+                            <td style="width: 40px; vertical-align: middle;">
+                                <div style="background-color: {{item.tipoDespesa.cor}}; border-radius:100px; width:38px;height: 38px;margin:1px; float:left;"></div>
                             </td>
 
-                            <td style="vertical-align: middle;">{{item.periodo.toString()}}</td>
+                            <td style="vertical-align: middle;">{{item.tipoDespesa.descricao}}</td>
+
+                            <td style="vertical-align: middle;">{{MESES[item.periodo.mes].nome}} de {{item.periodo.ano}}</td>
 
                             <td style="vertical-align: middle;">{{item.valor | currency: 'R$ ' }}</td>
+
+                            <td style="padding-top: 15px;">
+                                <progressbar class="progress-striped active" value="getValueOrcamento(item);" type="success">{{item.valorConsolidado}}/{{item.valor}}</progressbar>
+                            </td>
 
                             <td style="width: 38px; height: 38px;">
                                 <button type="button" class="btn btn-default" ng-click="editar(item.id)">

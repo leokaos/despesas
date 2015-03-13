@@ -1,6 +1,6 @@
 //PERIODO
 function Periodo(mes, ano) {
-    this.mes = mes;
+    this.mes = --mes;
     this.ano = ano;
 };
 
@@ -25,10 +25,10 @@ Periodo.prototype.getDataFinal = function () {
 };
 
 
-app.controller('orcamentoController', function ($scope, orcamentoService, $location) {
+app.controller('orcamentoController', function ($scope, orcamentoService, $location, usSpinnerService, MESES) {
 
     $scope.originalData = [];
-
+    $scope.MESES = MESES;
     $scope.orcamentoSecionado = null;
 
     $scope.numberPages = [5, 10, 25, 50];
@@ -39,6 +39,12 @@ app.controller('orcamentoController', function ($scope, orcamentoService, $locat
     $scope.loadData = function () {
 
         orcamentoService.listar(function (lista) {
+
+            for (x = 0; x < lista.length; x++) {
+                var orcamento = lista[x];
+                var data = new Date(orcamento.dataInicial);
+                orcamento.periodo = new Periodo(data.getMonth(), data.getFullYear());
+            }
 
             $scope.originalData = lista;
 
@@ -105,6 +111,10 @@ app.controller('orcamentoController', function ($scope, orcamentoService, $locat
 
     };
 
+    $scope.getValueOrcamento = function (orcamento) {
+        return orcamento.valorConsolidado / orcamento.valor * 100;
+    }
+
     $scope.select = function (orcamento) {
         $scope.orcamentoSecionado = orcamento;
     };
@@ -134,7 +144,7 @@ app.controller('orcamentoController', function ($scope, orcamentoService, $locat
 
 });
 
-app.controller('edicaoOrcamentoController', function ($scope, MESES, orcamentoService, tipoDespesaService, $location) {
+app.controller('edicaoOrcamentoController', function ($scope, MESES, orcamentoService, tipoDespesaService, $location, growl) {
 
     $scope.MESES = MESES;
     $scope.orcamento = orcamentoService.getOrcamento();

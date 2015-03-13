@@ -94,6 +94,10 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 			builder.append(" AND d.vencimento <= :dataFinal");
 		}
 
+		if (filtro.hasTipoDespesa()) {
+			builder.append(" AND d.tipoDespesa.id = :tipoDespesaId");
+		}
+
 		builder.append(" ORDER BY d.vencimento");
 
 		Query query = entityManager.createQuery(builder.toString());
@@ -104,6 +108,10 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 
 		if (filtro.hasDataFinal()) {
 			query.setParameter("dataFinal", DataUtil.maximo(filtro.getDataFinal(), Calendar.DAY_OF_MONTH));
+		}
+
+		if (filtro.hasTipoDespesa()) {
+			query.setParameter("tipoDespesaId", filtro.getTipoDespesa().getId());
 		}
 
 		return query.getResultList();

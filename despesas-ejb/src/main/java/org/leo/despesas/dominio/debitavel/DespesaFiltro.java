@@ -50,4 +50,8 @@ public class DespesaFiltro {
 		return dataFinal != null;
 	}
 
+	public boolean hasTipoDespesa() {
+		return tipoDespesa != null;
+	}
+
 }

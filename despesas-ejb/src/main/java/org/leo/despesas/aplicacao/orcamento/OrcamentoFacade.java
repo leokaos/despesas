@@ -11,6 +11,8 @@ import org.leo.despesas.rest.infra.SimpleFacade;
 @Local
 public interface OrcamentoFacade extends SimpleFacade<Orcamento> {
 
-    List<Orcamento> buscarPorFiltro(OrcamentoFiltro filtro);
+	List<Orcamento> buscarPorFiltro(OrcamentoFiltro filtro);
+
+	Orcamento consolidar(Orcamento orcamento);
 
 }
