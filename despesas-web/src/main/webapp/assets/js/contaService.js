@@ -12,7 +12,6 @@ app.service('contaService', function ($http) {
         };
     };
 
-
     this.listar = function (fn) {
         $http.get(pathBase).success(function (data) {
             fn(data);
@@ -31,8 +30,8 @@ app.service('contaService', function ($http) {
         });
     };
 
-    this.setConta = function (novaConta) {
-        this.conta = novaConta;
+    this.setConta = function (novoConta) {
+        this.conta = novoConta;
     }
 
     this.getConta = function () {
@@ -40,19 +39,14 @@ app.service('contaService', function ($http) {
     }
 
     this.buscarPorId = function (id, fn) {
-        var url = pathBase + id;
-
-        $http.get(url).success(function (data) {
+        $http.get(pathBase + id).success(function (data) {
             fn(data);
         });
     };
 
     this.deletar = function (id, fn) {
-        var url = pathBase + id;
-
-        $http.delete(url).success(function (data) {
+        $http.delete(pathBase + id).success(function (data) {
             fn(data);
         });
     };
-
 });

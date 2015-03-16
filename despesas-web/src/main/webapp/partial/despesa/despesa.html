@@ -60,6 +60,12 @@
                                 </div>
                             </li>
                         </ul>
+
+                        <div ng-if="hasOrcamento();">
+                            <label class="col-sm-2 control-label">Orçamento:</label>
+                            <progressbar class="progress-striped active" value="getValueOrcamento(item);" type="{{getClassProgressBar(item);}}">{{item.valorConsolidado}}/{{item.valor}}</progressbar>
+                        </div>
+
                     </div>
                 </div>
 

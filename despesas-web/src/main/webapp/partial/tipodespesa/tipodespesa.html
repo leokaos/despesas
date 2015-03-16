@@ -12,14 +12,14 @@
             <form class="form-horizontal" method="get" name="edicaoTipoDespesa" novalidate>
 
                 <div class="form-group" style="margin-top: 15px;">
-                    <label class="col-sm-2 control-label">Descrição:</label>
-                    <startup-error tooltip-message="Descrição do tipo de despesas." error-message="Atributo descrição é obrigatório." form-name="edicaoTipoDespesa" class="col-lg-10">
+                    <label class="col-sm-2 col-sm-2 control-label">Descrição:</label>
+                    <startup-error tooltip-message="Descrição do tipo de despesa." error-message="Atributo descrição é obrigatório." form-name="edicaoTipoDespesa" class="col-lg-10">
                         <input type="text" class="form-control" placeholder="Descrição" ng-model="tipodespesa.descricao" name="descricao" startup-error-field required>
                     </startup-error>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Cor:</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Cor:</label>
                     <startup-error tooltip-message="Cor que será utilizado para exibição em gráficos e legendas." error-message="Atributo cor é obrigatório." form-name="edicaoTipoDespesa" class="col-lg-8">
                         <div style="display: -webkit-box; width: 33.33333333%; ">
                             <input colorpicker type="text" class="form-control" placeholder="Cor de exibição" ng-model="tipodespesa.cor" name="cor" startup-error-field required>

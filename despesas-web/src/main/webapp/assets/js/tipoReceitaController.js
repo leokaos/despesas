@@ -1,71 +1,36 @@
 app.controller('tipoReceitaController', function ($scope, tipoReceitaService, $location, $routeParams, usSpinnerService) {
 
-    $scope.originalData = [];
-
     $scope.tipoReceitaSelecionado = null;
 
-    $scope.numberPages = [5, 10, 25, 50];
-    $scope.pageSize = $scope.numberPages[0];
-    $scope.currentPage = 0;
-    $scope.pages = 0;
-
-    $scope.loadData = function () {
-
-        tipoReceitaService.listar(function (lista) {
-
-            $scope.originalData = lista;
-
-            $scope.pageSize = parseInt($scope.pageSize);
-            $scope.first = $scope.pageSize * $scope.currentPage;
-            $scope.sliceData = $scope.originalData.slice($scope.first, $scope.first + $scope.pageSize);
-            $scope.pages = Math.ceil($scope.originalData.length / $scope.pageSize);
-
-            usSpinnerService.stop('spin-tipo-receitas');
-        });
+    $scope.getTitulo = function () {
+        return 'Tipo de Receita';
     };
 
-    $scope.changePage = function (page) {
-        $scope.currentPage = page;
-        $scope.loadData();
+    $scope.getDescricaoSelecionado = function () {
+
+        if ($scope.tipoReceitaSelecionado != null) {
+            return $scope.tipoReceitaSelecionado.descricao;
+        } else {
+            return '';
+        }
     };
 
-    $scope.changePageSize = function () {
-        $scope.currentPage = 0;
-        $scope.loadData();
+    $scope.getMensagemDelete = function () {
+        return 'Tipo de receita deletado com sucesso!';
     };
 
-    $scope.nextPage = function () {
-        $scope.currentPage++;
-        $scope.loadData();
+    $scope.getNomeSpin = function () {
+        return 'tipo-receita-spin';
     };
 
-    $scope.previousPage = function () {
-        $scope.currentPage--;
-        $scope.loadData();
-    };
-
-    $scope.firstPage = function () {
-        $scope.currentPage = 0;
-        $scope.loadData();
-    };
-
-    $scope.lastPage = function () {
-        $scope.currentPage = $scope.pages - 1;
-        $scope.loadData();
-    };
-
-    $scope.isLastPage = function () {
-        return (($scope.currentPage + 1) == $scope.pages);
-    };
-
-    $scope.isFirstPage = function () {
-        return $scope.currentPage == 0;
+    $scope.listar = function () {
+        tipoReceitaService.listar($scope.loadData);
     };
 
     $scope.novo = function () {
         tipoReceitaService.setTipoReceita(tipoReceitaService.getNovoTipoReceita());
 
-        $location.path('/tiporeceita');
+        $scope.goEdicao();
     };
 
     $scope.editar = function (id) {
@@ -73,36 +38,25 @@ app.controller('tipoReceitaController', function ($scope, tipoReceitaService, $l
         tipoReceitaService.buscarPorId(id, function (tipoReceita) {
             tipoReceitaService.setTipoReceita(tipoReceita);
 
-            $location.path('/tiporeceita');
+            $scope.goEdicao();
         });
-
     };
 
     $scope.select = function (tipoReceita) {
         $scope.tipoReceitaSelecionado = tipoReceita;
     };
 
-    $scope.deletar = function () {
-
-        tipoReceitaService.deletar($scope.tipoReceitaSelecionado.id, function (data) {
-
-            for (var x = 0; x < $scope.originalData.length; x++) {
-                var tp = $scope.originalData[x];
-                if (tp.id == $scope.tipoReceitaSelecionado.id) {
-                    $scope.originalData.splice(x, 1);
-                }
-            }
-
-            $('#modalExcluir').modal('hide');
-            $('#modalOk').modal('show');
-
-            $scope.loadData();
-
-        });
-
+    $scope.goEdicao = function () {
+        $location.path('/tiporeceita');
     };
 
-    $scope.loadData();
+    $scope.getItemSelecionado = function () {
+        return $scope.tipoReceitaSelecionado;
+    };
+
+    $scope.doDelete = function () {
+        tipoReceitaService.deletar($scope.tipoReceitaSelecionado.id, $scope.deletar);
+    };
 
 });
 

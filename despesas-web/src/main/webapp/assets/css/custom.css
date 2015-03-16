@@ -94,4 +94,9 @@
 }
 .progress {
     margin-bottom: 0px !important;
+    background-color: #CCC !important;
+}
+.progress-bar {
+    font-weight: 700 !important;
+    color: #000 !important;
 }

@@ -1,71 +1,36 @@
-app.controller('tipoDespesasController', function ($scope, tipoDespesaService, $location, $routeParams, usSpinnerService) {
+app.controller('tipoDespesaController', function ($scope, tipoDespesaService, $location, $routeParams, usSpinnerService) {
 
-    $scope.originalData = [];
+    $scope.tipoDespesaSelecionado = null;
 
-    $scope.tipoDespesaSecionado = null;
-
-    $scope.numberPages = [5, 10, 25, 50];
-    $scope.pageSize = $scope.numberPages[0];
-    $scope.currentPage = 0;
-    $scope.pages = 0;
-
-    $scope.loadData = function () {
-
-        tipoDespesaService.listar(function (lista) {
-
-            $scope.originalData = lista;
-
-            $scope.pageSize = parseInt($scope.pageSize);
-            $scope.first = $scope.pageSize * $scope.currentPage;
-            $scope.sliceData = $scope.originalData.slice($scope.first, $scope.first + $scope.pageSize);
-            $scope.pages = Math.ceil($scope.originalData.length / $scope.pageSize);
-
-            usSpinnerService.stop('spin-tipo-despesas');
-        });
+    $scope.getTitulo = function () {
+        return 'Tipo de Despesa';
     };
 
-    $scope.changePage = function (page) {
-        $scope.currentPage = page;
-        $scope.loadData();
+    $scope.getDescricaoSelecionado = function () {
+
+        if ($scope.tipoDespesaSelecionado != null) {
+            return $scope.tipoDespesaSelecionado.descricao;
+        } else {
+            return '';
+        }
     };
 
-    $scope.changePageSize = function () {
-        $scope.currentPage = 0;
-        $scope.loadData();
+    $scope.getMensagemDelete = function () {
+        return 'Tipo de Despesa deletado com sucesso!';
     };
 
-    $scope.nextPage = function () {
-        $scope.currentPage++;
-        $scope.loadData();
+    $scope.getNomeSpin = function () {
+        return 'tipo-despesa-spin';
     };
 
-    $scope.previousPage = function () {
-        $scope.currentPage--;
-        $scope.loadData();
-    };
-
-    $scope.firstPage = function () {
-        $scope.currentPage = 0;
-        $scope.loadData();
-    };
-
-    $scope.lastPage = function () {
-        $scope.currentPage = $scope.pages - 1;
-        $scope.loadData();
-    };
-
-    $scope.isLastPage = function () {
-        return (($scope.currentPage + 1) == $scope.pages);
-    };
-
-    $scope.isFirstPage = function () {
-        return $scope.currentPage == 0;
+    $scope.listar = function () {
+        tipoDespesaService.listar($scope.loadData);
     };
 
     $scope.novo = function () {
         tipoDespesaService.setTipoDespesa(tipoDespesaService.getNovoTipoDespesa());
 
-        $location.path('/tipodespesa');
+        $scope.goEdicao();
     };
 
     $scope.editar = function (id) {
@@ -73,40 +38,29 @@ app.controller('tipoDespesasController', function ($scope, tipoDespesaService, $
         tipoDespesaService.buscarPorId(id, function (tipoDespesa) {
             tipoDespesaService.setTipoDespesa(tipoDespesa);
 
-            $location.path('/tipodespesa');
+            $scope.goEdicao();
         });
-
     };
 
     $scope.select = function (tipoDespesa) {
-        $scope.tipoDespesaSecionado = tipoDespesa;
+        $scope.tipoDespesaSelecionado = tipoDespesa;
     };
 
-    $scope.deletar = function () {
-
-        tipoDespesaService.deletar($scope.tipoDespesaSecionado.id, function (data) {
-
-            for (var x = 0; x < $scope.originalData.length; x++) {
-                var tp = $scope.originalData[x];
-                if (tp.id == $scope.tipoDespesaSecionado.id) {
-                    $scope.originalData.splice(x, 1);
-                }
-            }
-
-            $('#modalExcluir').modal('hide');
-            $('#modalOk').modal('show');
-
-            $scope.loadData();
-
-        });
-
+    $scope.goEdicao = function () {
+        $location.path('/tipodespesa');
     };
 
-    $scope.loadData();
+    $scope.getItemSelecionado = function () {
+        return $scope.tipoDespesaSelecionado;
+    };
+
+    $scope.doDelete = function () {
+        tipoDespesaService.deletar($scope.tipoDespesaSelecionado.id, $scope.deletar);
+    };
 
 });
 
-app.controller('edicaoTipoDespesasController', function ($scope, tipoDespesaService, $location, $routeParams, growl) {
+app.controller('edicaoTipoDespesaController', function ($scope, tipoDespesaService, $location, $routeParams, growl) {
 
     $scope.tipodespesa = tipoDespesaService.getTipoDespesa();
 
@@ -121,7 +75,7 @@ app.controller('edicaoTipoDespesasController', function ($scope, tipoDespesaServ
 
     $scope.salvo = function (data) {
         $scope.limparCarregar(data);
-        growl.info('Tipo de Despesa salva com sucesso!');
+        growl.info('Tipo de Despesa salvo com sucesso!');
     };
 
     $scope.salvar = function (valid) {

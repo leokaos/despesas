@@ -1,83 +1,39 @@
-<h3>
-	<i class="fa fa-angle-right"></i> Conta de Despesa
-</h3>
+<pesquisa-view>
 
-<ng-modal id="modalExcluir" modal-title="Confirmar" func-salvar="deletar();" type="SAVE" label-salvar="Deletar">Tem certeza que deseja deletar <b>{{contaSelecionado.descricao}}</b>?
-</ng-modal>
+    <div style="min-height: 320px;">
 
-<ng-modal id="modalOk" modal-title="Informativo" type="OK">Conta deletada!</ng-modal>
+        <table class="table  table-hover data-table">
+            <thead>
+                <tr>
+                    <th>Cor</th>
+                    <th>Descrição</th>
+                    <th>Saldo</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in sliceData" style="height: 40px;">
+                    <td style="width:40px;">
+                        <div style="background-color: {{item.cor}}; border-radius:100px; width:38px;height: 38px;margin:1px;"></div>
+                    </td>
 
-<div class="row mt">
+                    <td style="vertical-align: middle;">{{item.descricao}}</td>
 
-    <div class="col-lg-12">
+                    <td style="vertical-align: middle;">{{item.saldo | currency: 'R$ '}}</td>
 
-        <div class="form-panel">
+                    <td style="width: 38px; height: 38px;">
+                        <button-editar></button-editar>
+                    </td>
 
-            <select ng-change="changePageSize()" ng-model="pageSize" style="margin: 30px 10px 30px 0px; width: 200px; height: 30px; float: left;">
-                <option ng-repeat="numberPage in numberPages" value="{{numberPage}}" ng-selected="numberPage == pageSize">{{numberPage}} por p&aacutegina</option>
-            </select>
+                    <td style="width: 38px; height: 38px;">
+                        <button-delete></button-delete>
+                    </td>
 
-            <i class="fa fa-plus-square" style="font-size: 30px; color: #CCC; margin: 30px 0px 30px 0px; cursor: pointer;" ng-click="novo();"></i>
-
-            <span us-spinner spinner-key="spin-contas" spinner-start-active="true"></span>
-
-            <div style="min-height: 320px;">
-
-                <table class="table  table-hover data-table">
-                    <thead>
-                        <tr>
-                            <th>Cor</th>
-                            <th>Descrição</th>
-                            <th>Saldo</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="item in sliceData" style="height: 40px;">
-                            <td style="width:40px;">
-                                <div style="background-color: {{item.cor}}; border-radius:100px; width:38px;height: 38px;margin:1px;"></div>
-                            </td>
-
-                            <td style="vertical-align: middle;">{{item.descricao}}</td>
-
-                            <td style="vertical-align: middle;">{{item.saldo | currency: 'R$ '}}</td>
-
-                            <td style="width: 38px; height: 38px;">
-                                <button type="button" class="btn btn-default" ng-click="editar(item.id)">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                            </td>
-
-                            <td style="width:38px;height: 38px;">
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir" ng-click="select(item);">
-                                    <i class="fa fa-trash-o"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="btn-toolbar" role="toolbar" style="text-align: center;">
-
-                <div class="btn-group" style="float: initial;">
-
-                    <button type="button" ng-click="firstPage()" style="top: 0px;" class="btn btn-default glyphicon glyphicon-fast-backward" ng-disabled="isFirstPage()"></button>
-
-                    <button type="button" ng-click="previousPage()" style="top: 0px;" class="btn btn-default glyphicon glyphicon-step-backward" ng-disabled="isFirstPage()"></button>
-
-                    <button type="button" class="btn btn-default {{page == currentPage ? 'active':''}}" ng-repeat="page in [] | range:pages" ng-click="changePage(page)">{{page + 1}}</button>
-
-                    <button type="button" ng-click="nextPage()" style="top: 0px;" class="btn btn-default glyphicon glyphicon-step-forward" ng-disabled="isLastPage()"></button>
-
-                    <button type="button" ng-click="lastPage()" style="top: 0px;" class="btn btn-default glyphicon glyphicon-fast-forward" ng-disabled="isLastPage()"></button>
-
-                </div>
-            </div>
-
-        </div>
+                </tr>
+            </tbody>
+        </table>
 
     </div>
 
-</div>
+</pesquisa-view>

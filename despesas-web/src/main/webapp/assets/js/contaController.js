@@ -1,71 +1,36 @@
-app.controller('contaController', function ($scope, contaService, usSpinnerService, $location, $routeParams) {
-
-    $scope.originalData = [];
+app.controller('contaController', function ($scope, contaService, $location, $routeParams, usSpinnerService) {
 
     $scope.contaSelecionado = null;
 
-    $scope.numberPages = [5, 10, 25, 50];
-    $scope.pageSize = $scope.numberPages[0];
-    $scope.currentPage = 0;
-    $scope.pages = 0;
-
-    $scope.loadData = function () {
-
-        contaService.listar(function (lista) {
-
-            $scope.originalData = lista;
-
-            $scope.pageSize = parseInt($scope.pageSize);
-            $scope.first = $scope.pageSize * $scope.currentPage;
-            $scope.sliceData = $scope.originalData.slice($scope.first, $scope.first + $scope.pageSize);
-            $scope.pages = Math.ceil($scope.originalData.length / $scope.pageSize);
-
-            usSpinnerService.stop('spin-contas');
-        })
+    $scope.getTitulo = function () {
+        return 'Conta de Despesa';
     };
 
-    $scope.changePage = function (page) {
-        $scope.currentPage = page;
-        $scope.loadData();
-    }
+    $scope.getDescricaoSelecionado = function () {
 
-    $scope.changePageSize = function () {
-        $scope.currentPage = 0;
-        $scope.loadData();
-    }
+        if ($scope.contaSelecionado != null) {
+            return $scope.contaSelecionado.descricao;
+        } else {
+            return '';
+        }
+    };
 
-    $scope.nextPage = function () {
-        $scope.currentPage++;
-        $scope.loadData();
-    }
+    $scope.getMensagemDelete = function () {
+        return 'Conta deletada com sucesso!';
+    };
 
-    $scope.previousPage = function () {
-        $scope.currentPage--;
-        $scope.loadData();
-    }
+    $scope.getNomeSpin = function () {
+        return 'tipo-conta-spin';
+    };
 
-    $scope.firstPage = function () {
-        $scope.currentPage = 0;
-        $scope.loadData();
-    }
-
-    $scope.lastPage = function () {
-        $scope.currentPage = $scope.pages - 1;
-        $scope.loadData();
-    }
-
-    $scope.isLastPage = function () {
-        return (($scope.currentPage + 1) == $scope.pages);
-    }
-
-    $scope.isFirstPage = function () {
-        return $scope.currentPage == 0;
-    }
+    $scope.listar = function () {
+        contaService.listar($scope.loadData);
+    };
 
     $scope.novo = function () {
         contaService.setConta(contaService.getNovoConta());
 
-        $location.path('/conta');
+        $scope.goEdicao();
     };
 
     $scope.editar = function (id) {
@@ -73,40 +38,29 @@ app.controller('contaController', function ($scope, contaService, usSpinnerServi
         contaService.buscarPorId(id, function (conta) {
             contaService.setConta(conta);
 
-            $location.path('/conta');
+            $scope.goEdicao();
         });
-
     };
 
     $scope.select = function (conta) {
         $scope.contaSelecionado = conta;
     };
 
-    $scope.deletar = function () {
-
-        contaService.deletar($scope.contaSelecionado.id, function (data) {
-
-            for (var x = 0; x < $scope.originalData.length; x++) {
-                var tp = $scope.originalData[x];
-                if (tp.id == $scope.contaSelecionado.id) {
-                    $scope.originalData.splice(x, 1);
-                }
-            }
-
-            $('#modalExcluir').modal('hide');
-            $('#modalOk').modal('show');
-
-            $scope.loadData();
-
-        });
-
+    $scope.goEdicao = function () {
+        $location.path('/conta');
     };
 
-    $scope.loadData();
+    $scope.getItemSelecionado = function () {
+        return $scope.contaSelecionado;
+    };
+
+    $scope.doDelete = function () {
+        contaService.deletar($scope.contaSelecionado.id, $scope.deletar);
+    };
 
 });
 
-app.controller('edicaoContaController', function ($scope, contaService, $location, $routeParams) {
+app.controller('edicaoContaController', function ($scope, contaService, $location, $routeParams, growl) {
 
     $scope.conta = contaService.getConta();
 
@@ -114,23 +68,23 @@ app.controller('edicaoContaController', function ($scope, contaService, $locatio
         $location.path('/contas');
     };
 
+    $scope.limparCarregar = function (data) {
+        $('#modalSalvar').modal('hide');
+        $scope.cancelar();
+    };
+
+    $scope.salvo = function (data) {
+        $scope.limparCarregar(data);
+        growl.info('Conta salva com sucesso!');
+    };
+
     $scope.salvar = function (valid) {
 
         if (valid) {
-
             if ($scope.conta.id) {
-
-                contaService.salvar($scope.conta, function (data) {
-                    $('#modalSalvar').modal('hide');
-                    $location.path('/contas');
-                });
-
+                contaService.salvar($scope.conta, $scope.salvo);
             } else {
-
-                contaService.novo($scope.conta, function (data) {
-                    $('#modalSalvar').modal('hide');
-                    $location.path('/contas');
-                });
+                contaService.novo($scope.conta, $scope.salvo);
             }
         }
     };

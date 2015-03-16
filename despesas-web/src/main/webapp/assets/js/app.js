@@ -56,12 +56,12 @@ app.config(function ($routeProvider, $locationProvider) {
 
     $routeProvider.when('/tipodespesas', {
         templateUrl: 'partial/tipodespesa/tipodespesas.html',
-        controller: 'tipoDespesasController'
+        controller: 'tipoDespesaController'
     });
 
     $routeProvider.when('/tipodespesa', {
         templateUrl: 'partial/tipodespesa/tipodespesa.html',
-        controller: 'edicaoTipoDespesasController'
+        controller: 'edicaoTipoDespesaController'
     });
 
     $routeProvider.when('/tiporeceitas', {
