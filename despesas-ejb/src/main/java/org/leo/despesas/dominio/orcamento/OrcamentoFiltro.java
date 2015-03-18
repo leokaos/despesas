@@ -2,56 +2,54 @@ package org.leo.despesas.dominio.orcamento;
 
 import java.util.Date;
 
-import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
-
 public class OrcamentoFiltro {
 
-    private Date dataInicial;
-    private Date dataFinal;
-    private TipoDespesa tipoDespesa;
+	private Date dataInicial;
+	private Date dataFinal;
+	private String tipoDespesa;
 
-    public OrcamentoFiltro() {
-	super();
-    }
+	public OrcamentoFiltro() {
+		super();
+	}
 
-    public Date getDataInicial() {
-	return dataInicial;
-    }
+	public Date getDataInicial() {
+		return dataInicial;
+	}
 
-    public void setDataInicial(Date dataInicial) {
-	this.dataInicial = dataInicial;
-    }
+	public void setDataInicial(Date dataInicial) {
+		this.dataInicial = dataInicial;
+	}
 
-    public Date getDataFinal() {
-	return dataFinal;
-    }
+	public Date getDataFinal() {
+		return dataFinal;
+	}
 
-    public void setDataFinal(Date dataFinal) {
-	this.dataFinal = dataFinal;
-    }
+	public void setDataFinal(Date dataFinal) {
+		this.dataFinal = dataFinal;
+	}
 
-    public TipoDespesa getTipoDespesa() {
-	return tipoDespesa;
-    }
+	public String getTipoDespesa() {
+		return tipoDespesa;
+	}
 
-    public void setTipoDespesa(TipoDespesa tipoDespesa) {
-	this.tipoDespesa = tipoDespesa;
-    }
+	public void setTipoDespesa(String tipoDespesa) {
+		this.tipoDespesa = tipoDespesa;
+	}
 
-    public boolean hasDataInicialAndDataFinal() {
-	return dataInicial != null && dataFinal != null;
-    }
+	public boolean hasDataInicialAndDataFinal() {
+		return dataInicial != null && dataFinal != null;
+	}
 
-    public boolean hasDataInicial() {
-	return dataInicial != null;
-    }
+	public boolean hasDataInicial() {
+		return dataInicial != null;
+	}
 
-    public boolean hasDataFinal() {
-	return dataFinal != null;
-    }
+	public boolean hasDataFinal() {
+		return dataFinal != null;
+	}
 
-    public boolean hasTipoDespesa() {
-	return tipoDespesa != null;
-    }
+	public boolean hasTipoDespesa() {
+		return tipoDespesa != null;
+	}
 
 }

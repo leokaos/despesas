@@ -126,7 +126,7 @@
                 <div class="form-group">
                     <div style="margin: 10px; padding: 40px 10px 0px 10px;">
                         <button type="button" class="btn btn-theme" style="float: right;" data-toggle="modal" data-target="#modalSalvar" ng-disabled="edicaoDespesa.$invalid">Gravar</button>
-                        <button type="button" class="btn btn-theme" style="float: left;" ng-click="voltar();">Cancelar</button>
+                        <button type="button" class="btn btn-theme" style="float: left;" ng-click="cancelar();">Cancelar</button>
                     </div>
                 </div>
 
@@ -138,5 +138,5 @@
 
 </div>
 
-<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar();" type="SAVE">Tem certeza que deseja salvar <b>{{despesa.descricao}}?</b>
+<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoDespesa.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{despesa.descricao}}?</b>
 </ng-modal>

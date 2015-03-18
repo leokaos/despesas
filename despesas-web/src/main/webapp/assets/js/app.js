@@ -86,7 +86,7 @@ app.config(function ($routeProvider, $locationProvider) {
 
     $routeProvider.when('/despesas', {
         templateUrl: 'partial/despesa/despesas.html',
-        controller: 'despesasController'
+        controller: 'despesaController'
     });
 
     $routeProvider.when('/despesa', {

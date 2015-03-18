@@ -42,6 +42,10 @@ public class OrcamentoFacadeImpl extends AbstractFacade<Orcamento> implements Or
 			builder.append(" AND o.dataFinal <= :dataFinal");
 		}
 
+		if (filtro.hasTipoDespesa()) {
+			builder.append(" AND o.tipoDespesa.descricao = :descricao");
+		}
+
 		builder.append(" ORDER BY o.tipoDespesa.descricao");
 
 		Query query = entityManager.createQuery(builder.toString());
@@ -52,6 +56,10 @@ public class OrcamentoFacadeImpl extends AbstractFacade<Orcamento> implements Or
 
 		if (filtro.hasDataFinal()) {
 			query.setParameter("dataFinal", DataUtil.maximo(filtro.getDataFinal(), Calendar.DAY_OF_MONTH));
+		}
+
+		if (filtro.hasTipoDespesa()) {
+			query.setParameter("descricao", filtro.getTipoDespesa());
 		}
 
 		return query.getResultList();

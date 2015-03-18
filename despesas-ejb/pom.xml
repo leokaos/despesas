@@ -71,6 +71,14 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+	<groupId>org.blinkenlights.jid3</groupId>
+	<artifactId>JID3</artifactId>
+	<version>0.46</version>
+	<scope>test</scope>
+</dependency>
+
 
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>

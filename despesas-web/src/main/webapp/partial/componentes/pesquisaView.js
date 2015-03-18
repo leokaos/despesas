@@ -45,10 +45,18 @@ app.directive('pesquisaView', function (usSpinnerService) {
             };
 
             $scope.isLastPage = function () {
+                if ($scope.pages == 0) {
+                    return true;
+                }
+
                 return (($scope.currentPage + 1) == $scope.pages);
             };
 
             $scope.isFirstPage = function () {
+                if ($scope.pages == 0) {
+                    return true;
+                }
+
                 return $scope.currentPage == 0;
             };
 

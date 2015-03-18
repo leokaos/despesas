@@ -1,7 +1,7 @@
 app.service('despesaService', function ($http) {
 
     var despesa = null;
-    var pathBase = '/despesas/services/despesa';
+    var pathBase = '/despesas/services/despesa/';
 
     this.getNovoDespesa = function () {
         return {
@@ -58,7 +58,7 @@ app.service('despesaService', function ($http) {
 
         var request = $http({
             method: 'get',
-            url: pathBase + '/grafico',
+            url: pathBase + 'grafico',
             params: {
                 dataInicial: dataInicio.toGMTString(),
                 dataFinal: dataFim.toGMTString()
@@ -75,7 +75,7 @@ app.service('despesaService', function ($http) {
 
         var request = $http({
             method: 'get',
-            url: pathBase + '/periodo',
+            url: pathBase + 'periodo',
             params: {
                 dataInicial: dataInicio.toGMTString(),
                 dataFinal: dataFim.toGMTString()
@@ -89,13 +89,13 @@ app.service('despesaService', function ($http) {
     };
 
     this.pagarDespesa = function (despesa, fn) {
-        $http.post(pathBase + '/pagar', despesa.id).success(function (data) {
+        $http.post(pathBase + 'pagar', despesa.id).success(function (data) {
             fn(data);
         });
     };
 
     this.buscarPorFiltro = function (filtro, fn) {
-        $http.post(pathBase + '/filtro', filtro).success(function (data) {
+        $http.post(pathBase + 'filtro', filtro).success(function (data) {
             fn(data);
         });
     };

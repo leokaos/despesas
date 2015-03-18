@@ -67,7 +67,7 @@ app.controller('despesaController', function ($scope, despesaService, $location,
     };
 
     $scope.select = function (despesa) {
-        $scope.despesaSelecionado = despesa;
+        $scope.despesaSelecionada = despesa;
     };
 
     $scope.goEdicao = function () {
@@ -75,16 +75,24 @@ app.controller('despesaController', function ($scope, despesaService, $location,
     };
 
     $scope.getItemSelecionado = function () {
-        return $scope.despesaSelecionado;
+        return $scope.despesaSelecionada;
     };
 
     $scope.doDelete = function () {
-        despesaService.deletar($scope.despesaSelecionado.id, $scope.deletar);
+        despesaService.deletar($scope.despesaSelecionada.id, $scope.deletar);
+    };
+
+    $scope.hasFiltro = function () {
+        return true;
+    };
+
+    $scope.getFiltro = function () {
+        return 'partial/despesa/filtro.html';
     };
 
 });
 
-app.controller('edicaodespesaController', function ($scope, despesaService, $location, $routeParams, growl) {
+app.controller('edicaoDespesaController', function ($scope, despesaService, tipoDespesaService, orcamentoService, debitavelService, $location, $routeParams, growl) {
 
     $scope.tiposDespesa = [];
     $scope.debitaveis = [];
@@ -117,6 +125,11 @@ app.controller('edicaodespesaController', function ($scope, despesaService, $loc
     $scope.selecionarTipoDespesa = function (tipoDespesa) {
         $scope.tipoDespesaSelecionado = tipoDespesa;
         $scope.despesa.tipoDespesa = $scope.tipoDespesaSelecionado;
+
+        orcamentoService.filtrarPorData($scope.despesa.vencimento, $scope.despesa.tipoDespesa.descricao, function (data) {
+            alert(data);
+        });
+
     };
 
     $scope.selecionarDebitavel = function (debitavel) {

@@ -1,0 +1,54 @@
+<pesquisa-view>
+
+    <div style="min-height: 320px;">
+
+        <table class="table  table-hover data-table">
+            <thead>
+                <tr>
+                    <th>Cor</th>
+                    <th style="text-align: center;">Bandeira</th>
+                    <th>Descrição</th>
+                    <th>Limite</th>
+                    <th style="text-align: center;">Dia de fechamento</th>
+                    <th style="text-align: center;">Dia de vencimento</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in sliceData" style="height: 40px;">
+
+                    <td style="width:40px;">
+                        <div style="background-color: {{item.cor}}; border-radius:100px; width:38px;height: 38px;margin:1px;"></div>
+                    </td>
+
+                    <td style="vertical-align: middle;text-align: center;">
+                        <i ng-class="bandeiras[item.bandeiraCartaoCredito]" style="font-size:30px;"></i>
+                    </td>
+
+                    <td style="vertical-align: middle;">{{item.descricao}}</td>
+
+                    <td style="vertical-align: middle;">{{item.limite | currency: 'R$ '}}</td>
+
+                    <td style="vertical-align: middle;text-align: center;">{{item.diaDeFechamento}}</td>
+
+                    <td style="vertical-align: middle;text-align: center;">{{item.diaDeVencimento}}</td>
+
+                    <td style="width: 38px; height: 38px;">
+                        <button type="button" class="btn btn-default" ng-click="editar(item.id)">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                    </td>
+
+                    <td style="width:38px;height: 38px;">
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir" ng-click="select(item);">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</pesquisa-view>
