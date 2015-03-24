@@ -1,4 +1,4 @@
-package org.leo.despesas.rest.despesa;
+package org.leo.despesas.rest.receita;
 
 import java.util.Date;
 import java.util.List;
@@ -13,50 +13,50 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import org.leo.despesas.aplicacao.despesa.DespesaFacade;
-import org.leo.despesas.dominio.movimentacao.Despesa;
-import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
+import org.leo.despesas.aplicacao.receita.ReceitaFacade;
 import org.leo.despesas.dominio.movimentacao.GraficoVO;
+import org.leo.despesas.dominio.movimentacao.Receita;
+import org.leo.despesas.dominio.movimentacao.ReceitaFiltro;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.rest.infra.AbstractService;
 
-@Path("/despesa")
+@Path("/receita")
 @RequestScoped
-public class DespesaService extends AbstractService<DespesaFacade, Despesa> {
+public class ReceitaService extends AbstractService<ReceitaFacade, Receita> {
 
     @EJB
-    private DespesaFacade despesaFacade;
+    private ReceitaFacade receitaFacade;
 
     @GET
     @Path(value = "/grafico")
     @Produces(MediaType.APPLICATION_JSON)
     public List<GraficoVO> buscarPorPeriodo(@QueryParam("dataInicial") Date dataInicial, @QueryParam("dataFinal") Date dataFinal) {
-	return despesaFacade.getGraficoPorPeriodo(new Periodo(dataInicial, dataFinal));
+	return receitaFacade.getGraficoPorPeriodo(new Periodo(dataInicial, dataFinal));
     }
 
     @GET
     @Path(value = "/periodo")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Despesa> buscarPorDespesasPorPeriodo(@QueryParam("dataInicial") Date dataInicial, @QueryParam("dataFinal") Date dataFinal) {
-	return despesaFacade.getDespesasPorPeriodo(new Periodo(dataInicial, dataFinal));
+    public List<Receita> buscarPorDespesasPorPeriodo(@QueryParam("dataInicial") Date dataInicial, @QueryParam("dataFinal") Date dataFinal) {
+	return receitaFacade.getReceitasPorPeriodo(new Periodo(dataInicial, dataFinal));
     }
 
     @POST
     @Path(value = "/filtro")
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<Despesa> buscarPorFiltro(DespesaFiltro filtro) {
+    public List<Receita> buscarPorFiltro(ReceitaFiltro filtro) {
 	return getFacade().buscarPorFiltro(filtro);
     }
 
     @POST
-    @Path(value = "/pagar")
-    public void pagar(Long id) {
-	despesaFacade.pagar(despesaFacade.buscarPorId(id));
+    @Path(value = "/depositar")
+    public void depositar(Long id) {
+	receitaFacade.depositar(receitaFacade.buscarPorId(id));
     }
 
     @Override
-    protected DespesaFacade getFacade() {
-	return this.despesaFacade;
+    protected ReceitaFacade getFacade() {
+	return this.receitaFacade;
     }
 
 }

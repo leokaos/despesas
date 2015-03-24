@@ -9,8 +9,8 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
-import org.leo.despesas.dominio.debitavel.DespesaFiltro;
 import org.leo.despesas.dominio.movimentacao.Despesa;
+import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
 import org.leo.despesas.dominio.movimentacao.GraficoVO;
 import org.leo.despesas.dominio.parcelamento.Parcelamento;
 import org.leo.despesas.infra.DataUtil;

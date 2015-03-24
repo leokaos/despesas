@@ -19,6 +19,7 @@
 		<class>org.leo.despesas.dominio.tipomovimentacao.TipoReceita</class>
 		<class>org.leo.despesas.dominio.debitavel.Fatura</class>
 		<class>org.leo.despesas.dominio.orcamento.Orcamento</class>
+		<class>org.leo.despesas.dominio.movimentacao.Receita</class>
 
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 

@@ -1,4 +1,4 @@
-app.controller('despesaController', function ($scope, despesaService, $location, $routeParams, usSpinnerService) {
+app.controller('receitaController', function ($scope, receitaService, $location, $routeParams, usSpinnerService) {
 
     var dataInicial = new Date();
     dataInicial.setDate(1);
@@ -12,32 +12,32 @@ app.controller('despesaController', function ($scope, despesaService, $location,
         'dataFinal': dataFinal
     };
 
-    $scope.despesaSelecionada = null;
+    $scope.receitaSelecionada = null;
 
     $scope.getTitulo = function () {
-        return 'Despesas';
+        return 'receitas';
     };
 
     $scope.getDescricaoSelecionado = function () {
 
-        if ($scope.despesaSelecionada != null) {
-            return $scope.despesaSelecionada.descricao;
+        if ($scope.receitaSelecionada != null) {
+            return $scope.receitaSelecionada.descricao;
         } else {
             return '';
         }
     };
 
     $scope.getMensagemDelete = function () {
-        return 'Despesa deletada com sucesso!';
+        return 'Receita deletada com sucesso!';
     };
 
     $scope.getNomeSpin = function () {
-        return 'tipo-despesa-spin';
+        return 'tipo-receita-spin';
     };
 
     $scope.listar = function () {
 
-        despesaService.buscarPorFiltro($scope.filtro, function (lista) {
+        receitaService.buscarPorFiltro($scope.filtro, function (lista) {
 
             //Calculo do total
             $scope.totalTable = 0.0;
@@ -52,34 +52,34 @@ app.controller('despesaController', function ($scope, despesaService, $location,
     };
 
     $scope.novo = function () {
-        despesaService.setDespesa(despesaService.getNovoDespesa());
+        receitaService.setReceita(receitaService.getNovoReceita());
 
         $scope.goEdicao();
     };
 
     $scope.editar = function (id) {
 
-        despesaService.buscarPorId(id, function (despesa) {
-            despesaService.setDespesa(despesa);
+        receitaService.buscarPorId(id, function (receita) {
+            receitaService.setReceita(receita);
 
             $scope.goEdicao();
         });
     };
 
-    $scope.select = function (despesa) {
-        $scope.despesaSelecionada = despesa;
+    $scope.select = function (receita) {
+        $scope.receitaSelecionada = receita;
     };
 
     $scope.goEdicao = function () {
-        $location.path('/despesa');
+        $location.path('/receita');
     };
 
     $scope.getItemSelecionado = function () {
-        return $scope.despesaSelecionada;
+        return $scope.receitaSelecionada;
     };
 
     $scope.doDelete = function () {
-        despesaService.deletar($scope.despesaSelecionada.id, $scope.deletar);
+        receitaService.deletar($scope.receitaSelecionada.id, $scope.deletar);
     };
 
     $scope.hasFiltro = function () {
@@ -87,20 +87,20 @@ app.controller('despesaController', function ($scope, despesaService, $location,
     };
 
     $scope.getFiltro = function () {
-        return 'partial/despesa/filtro.html';
+        return 'partial/receita/filtro.html';
     };
 
 });
 
-app.controller('edicaoDespesaController', function ($scope, despesaService, tipoDespesaService, orcamentoService, debitavelService, $location, $routeParams, growl) {
+app.controller('edicaoReceitaController', function ($scope, receitaService, tiporeceitaService, orcamentoService, debitavelService, $location, $routeParams, growl) {
 
-    $scope.tiposDespesa = [];
+    $scope.tiposreceita = [];
     $scope.debitaveis = [];
     $scope.tiposParcelamento = ['Semanal', 'Mensal', 'Semestral', 'Anual'];
     $scope.parcelar = false;
     $scope.orcamento = null;
 
-    $scope.tipoDespesaSelecionado = {
+    $scope.tiporeceitaSelecionado = {
         descricao: 'Selecione'
     };
 
@@ -108,25 +108,25 @@ app.controller('edicaoDespesaController', function ($scope, despesaService, tipo
         descricao: 'Selecione'
     };
 
-    $scope.despesa = despesaService.getDespesa();
+    $scope.receita = receitaService.getreceita();
 
-    if ($scope.despesa.debitavel != null) {
-        $scope.debitavelSelecionado = $scope.despesa.debitavel;
+    if ($scope.receita.debitavel != null) {
+        $scope.debitavelSelecionado = $scope.receita.debitavel;
     }
 
-    if ($scope.despesa.tipoDespesa != null) {
-        $scope.tipoDespesaSelecionado = $scope.despesa.tipoDespesa;
+    if ($scope.receita.tiporeceita != null) {
+        $scope.tiporeceitaSelecionado = $scope.receita.tiporeceita;
     }
 
     $scope.openData = function () {
         $scope.dataPickerOpened = true;
     };
 
-    $scope.selecionarTipoDespesa = function (tipoDespesa) {
-        $scope.tipoDespesaSelecionado = tipoDespesa;
-        $scope.despesa.tipoDespesa = $scope.tipoDespesaSelecionado;
+    $scope.selecionarTiporeceita = function (tiporeceita) {
+        $scope.tiporeceitaSelecionado = tiporeceita;
+        $scope.receita.tiporeceita = $scope.tiporeceitaSelecionado;
 
-        orcamentoService.filtrarPorData($scope.despesa.vencimento, $scope.despesa.tipoDespesa.descricao, function (data) {
+        orcamentoService.filtrarPorData($scope.receita.vencimento, $scope.receita.tiporeceita.descricao, function (data) {
             $scope.orcamento = new OrcamentoVO(data);
         });
 
@@ -134,11 +134,11 @@ app.controller('edicaoDespesaController', function ($scope, despesaService, tipo
 
     $scope.selecionarDebitavel = function (debitavel) {
         $scope.debitavelSelecionado = debitavel;
-        $scope.despesa.debitavel = $scope.debitavelSelecionado;
+        $scope.receita.debitavel = $scope.debitavelSelecionado;
     };
 
-    tipoDespesaService.listar(function (tiposDespesa) {
-        $scope.tiposDespesa = tiposDespesa;
+    tiporeceitaService.listar(function (tiposreceita) {
+        $scope.tiposreceita = tiposreceita;
     });
 
     debitavelService.listar(function (debitaveis) {
@@ -150,7 +150,7 @@ app.controller('edicaoDespesaController', function ($scope, despesaService, tipo
     };
 
     $scope.cancelar = function () {
-        $location.path('/despesas');
+        $location.path('/receitas');
     };
 
     $scope.limparCarregar = function (data) {
@@ -160,16 +160,16 @@ app.controller('edicaoDespesaController', function ($scope, despesaService, tipo
 
     $scope.salvo = function (data) {
         $scope.limparCarregar(data);
-        growl.info('despesa salva com sucesso!');
+        growl.info('receita salva com sucesso!');
     };
 
     $scope.salvar = function (valid) {
 
         if (valid) {
-            if ($scope.despesa.id) {
-                despesaService.salvar($scope.despesa, $scope.salvo);
+            if ($scope.receita.id) {
+                receitaService.salvar($scope.receita, $scope.salvo);
             } else {
-                despesaService.novo($scope.despesa, $scope.salvo);
+                receitaService.novo($scope.receita, $scope.salvo);
             }
         }
     };

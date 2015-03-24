@@ -1,5 +1,5 @@
 <h3>
-	<i class="fa fa-angle-right"></i> Lançamento de Despesa
+	<i class="fa fa-angle-right"></i> Lançamento de Receita
 </h3>
 
 <div class="row mt">
@@ -8,12 +8,12 @@
 
         <div class="form-panel">
 
-            <form class="form-horizontal" method="get" name="edicaoDespesa" novalidate>
+            <form class="form-horizontal" method="get" name="edicaoReceita" novalidate>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Descrição:</label>
                     <div class="col-sm-10 ">
-                        <input type="text" class="form-control" placeholder="Descrição" ng-model="despesa.descricao" startup-error-field required>
+                        <input type="text" class="form-control" placeholder="Descrição" ng-model="receita.descricao" startup-error-field required>
                     </div>
                 </div>
 
@@ -23,7 +23,7 @@
                         <span class="icon-input">
                             <i class="fa fa-money"></i>
 					    </span>
-                        <input type="text" class="form-control" placeholder="Valor da despesa" ng-model="despesa.valor" ui-number-mask required>
+                        <input type="text" class="form-control" placeholder="Valor da receita" ng-model="receita.valor" ui-number-mask required>
                     </div>
                 </div>
 
@@ -43,8 +43,8 @@
 
                         <button type="button" class="btn btn-default" style="min-width: 150px;">
                             <div style="display: table;">
-                                <div style="background-color: {{tipoDespesaSelecionado.cor}}; border-radius:100px; width:20px;height: 20px; margin: 0px 0px 0px 5px; display: table-cell;"></div>
-                                <span style="vertical-align: middle;display: table-cell; padding-left: 3px;">{{tipoDespesaSelecionado.descricao}}</span>
+                                <div style="background-color: {{tipoReceitaSelecionado.cor}}; border-radius:100px; width:20px;height: 20px; margin: 0px 0px 0px 5px; display: table-cell;"></div>
+                                <span style="vertical-align: middle;display: table-cell; padding-left: 3px;">{{tipoReceitaSelecionado.descricao}}</span>
                             </div>
                         </button>
 
@@ -53,19 +53,13 @@
                         </button>
 
                         <ul class="dropdown-menu" role="menu" style="min-width: 176px; margin-left: 15px;">
-                            <li ng-repeat="tipo in tiposDespesa" ng-click="selecionarTipoDespesa(tipo);">
+                            <li ng-repeat="tipo in tiposReceita" ng-click="selecionarTipoReceita(tipo);">
                                 <div style="display: table;padding: 0px 0px 3px 3px; min-height:34px;">
                                     <div style="background-color: {{tipo.cor}}; border-radius:100px; width:30px;height: 30px; margin: 0px 0px 0px 5px; display: table-cell;"></div>
                                     <a style="vertical-align: middle;display: table-cell; padding-left: 3px;">{{tipo.descricao}}</a>
                                 </div>
                             </li>
                         </ul>
-
-                        <div ng-if="hasOrcamento();">
-                            <label class="col-sm-2 control-label">Orçamento:</label>
-                            <progressbar class="progress-striped active" value="orcamento.getValueOrcamento();" type="{{orcamento.getClassProgressBar();}}">{{orcamento.valorConsolidado}}/{{orcamento.valor}}</progressbar>
-                        </div>
-
                     </div>
                 </div>
 
@@ -100,32 +94,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Despesa paga ?</label>
+                    <label class="col-sm-2 control-label">Receita depositada ?</label>
                     <div class="col-sm-10">
-                        <input type="checkbox" class="form-control" ng-model="despesa.paga">
-                    </div>
-                </div>
-
-                <div class="form-group" style="height: 30px;">
-                    <label class="col-sm-2 control-label">Parcelar?</label>
-                    <div class="col-sm-10">
-                        <input type="checkbox" style="float:left;" ng-model="parcelar" />
-
-                        <div ng-if="parcelar" style="margin-left:100px;">
-                            <label class="col-sm-2 control-label">Periodiocidade:</label>
-                            <select class="form-control" ng-model="despesa.parcelamento" style="width:150px;float: left;">
-                                <option ng-repeat="tipoParcelamento in tiposParcelamento">{{tipoParcelamento}}</option>
-                            </select>
-                            <label class="col-sm-2 control-label">Nº Parcelas:</label>
-                            <input type="text" class="form-control" ng-model="despesa.numeroParcelas" style="width:150px;float: left;" ui-number-mask="0" />
-                        </div>
-
+                        <input type="checkbox" class="form-control" ng-model="receita.depositado">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div style="margin: 10px; padding: 40px 10px 0px 10px;">
-                        <button type="button" class="btn btn-theme" style="float: right;" data-toggle="modal" data-target="#modalSalvar" ng-disabled="edicaoDespesa.$invalid">Gravar</button>
+                        <button type="button" class="btn btn-theme" style="float: right;" data-toggle="modal" data-target="#modalSalvar" ng-disabled="edicaoReceita.$invalid">Gravar</button>
                         <button type="button" class="btn btn-theme" style="float: left;" ng-click="cancelar();">Cancelar</button>
                     </div>
                 </div>
@@ -138,5 +115,5 @@
 
 </div>
 
-<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoDespesa.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{despesa.descricao}}?</b>
+<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoReceita.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{receita.descricao}}?</b>
 </ng-modal>
