@@ -9,8 +9,8 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
+import org.leo.despesas.dominio.debitavel.DespesaFiltro;
 import org.leo.despesas.dominio.movimentacao.Despesa;
-import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
 import org.leo.despesas.dominio.movimentacao.GraficoVO;
 import org.leo.despesas.dominio.parcelamento.Parcelamento;
 import org.leo.despesas.infra.DataUtil;
@@ -28,7 +28,7 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 	public List<GraficoVO> getGraficoPorPeriodo(Periodo periodo) {
 		StringBuilder builder = new StringBuilder();
 
-		builder.append("SELECT NEW org.leo.despesas.dominio.GraficoVO(d.tipoDespesa.descricao,d.tipoDespesa.cor, SUM(d.valor)) FROM Despesa d ");
+		builder.append("SELECT NEW org.leo.despesas.dominio.movimentacao.GraficoVO(d.tipoDespesa.descricao,d.tipoDespesa.cor, SUM(d.valor)) FROM Despesa d ");
 		builder.append("WHERE d.vencimento BETWEEN :dataInicial AND :dataFinal ");
 		builder.append("GROUP BY d.tipoDespesa.descricao, d.tipoDespesa.cor");
 

@@ -8,7 +8,8 @@ app.service('contaService', function ($http) {
             id: null,
             descricao: '',
             cor: '',
-            saldo: null
+            saldo: null,
+            tipo: 'CONTA'
         };
     };
 

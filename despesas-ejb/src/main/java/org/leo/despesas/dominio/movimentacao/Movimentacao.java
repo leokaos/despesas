@@ -19,7 +19,9 @@ import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.leo.despesas.dominio.debitavel.Debitavel;
+import org.leo.despesas.dominio.debitavel.DebitavelDeserializer;
 
 @Entity
 @Table(name = "movimentacao", schema = "despesas_db")
@@ -89,6 +91,7 @@ public abstract class Movimentacao {
 		return debitavel;
 	}
 
+	@JsonDeserialize(using = DebitavelDeserializer.class)
 	public void setDebitavel(Debitavel debitavel) {
 		this.debitavel = debitavel;
 	}

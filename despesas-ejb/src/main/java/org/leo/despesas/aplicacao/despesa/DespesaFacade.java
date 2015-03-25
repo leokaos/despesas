@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import org.leo.despesas.dominio.debitavel.DespesaFiltro;
 import org.leo.despesas.dominio.movimentacao.Despesa;
-import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
 import org.leo.despesas.dominio.movimentacao.GraficoVO;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.rest.infra.SimpleFacade;

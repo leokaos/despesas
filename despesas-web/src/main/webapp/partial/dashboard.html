@@ -1,23 +1,34 @@
-﻿<h3>
+<h3>
 	<i class="fa fa-angle-right"></i> Dashboard
 </h3>
 
-<div style="width:100%; height: 400px; display: table;" class="form-panel">
+<div class="form-panel col-md-12" style="margin:0px 0px 30px 0px;">
 
-    <div style="width:100%;  height: 30px; clear:both;">
-        <h4 style="text-align: center;">Mês {{MESES[mes].nome}}/{{ano}}</h4>
+    <div style="float: left;">
+        <button class="botao glyphicon glyphicon-chevron-left" ng-click="anterior();"></button>
     </div>
 
-    <div style="width:5%; height: 370px; float: left;">
-        <button class="botao botao-esquerdo glyphicon glyphicon-chevron-left" ng-click="anterior();"></button>
+    <div style="float: left; width: 90%;">
+        <h4 style="text-align: center;">{{MESES[mes].nome}}/{{ano}}</h4>
     </div>
 
-    <div style="width:90%; height: 370px; float: left;" id="despesasPorTipo">
-
+    <div style="float: right;">
+        <button class="botao glyphicon glyphicon-chevron-right" ng-click="posterior();"></button>
     </div>
 
-    <div style="width:5%; height: 370px; float: left;">
-        <button class="botao botao-direito glyphicon glyphicon-chevron-right" ng-click="posterior();"></button>
+</div>
+
+<div class="row mt">
+
+    <div class="col-md-4 col-sm-4 mb" ng-repeat="grafico in graficos">
+        <div class="white-panel pn donut-chart">
+            <div class="white-header">
+                <h5>{{grafico.titulo}}</h5>
+            </div>
+            <div class="row">
+                <svg id="{{grafico.id}}"></svg>
+            </div>
+        </div>
     </div>
 
 </div>

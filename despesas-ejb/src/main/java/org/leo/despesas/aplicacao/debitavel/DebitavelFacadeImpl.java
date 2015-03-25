@@ -1,6 +1,5 @@
 package org.leo.despesas.aplicacao.debitavel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -16,15 +15,9 @@ public class DebitavelFacadeImpl implements DebitavelFacade {
 	protected EntityManager entityManager;
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Debitavel> listar() {
-		List<Debitavel> listar = new ArrayList<>();
-
-		for (Object object : entityManager.createQuery("SELECT d FROM Debitavel d").getResultList()) {
-			Debitavel debitavel = (Debitavel) object;
-			listar.add(debitavel.toDebitavel());
-		}
-
-		return listar;
+		return entityManager.createQuery("SELECT d FROM Debitavel d").getResultList();
 	}
 
 	@Override

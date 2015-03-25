@@ -25,20 +25,20 @@ public class Receita extends Movimentacao {
 		super();
 	}
 
-	public TipoReceita getTipoReceita() {
-		return tipoReceita;
-	}
-
-	public void setTipoReceita(TipoReceita tipoReceita) {
-		this.tipoReceita = tipoReceita;
-	}
-
 	public boolean isDepositado() {
 		return depositado;
 	}
 
 	public void setDepositado(boolean depositado) {
 		this.depositado = depositado;
+	}
+
+	public TipoReceita getTipoReceita() {
+		return tipoReceita;
+	}
+
+	public void setTipoReceita(TipoReceita tipoReceita) {
+		this.tipoReceita = tipoReceita;
 	}
 
 	public void depositar() {

@@ -21,9 +21,11 @@ import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.infra.DataUtil;
 
 @Entity
-@DiscriminatorValue(value = "CONTA")
+@DiscriminatorValue(value = CartaoCredito.CODIGO_TIPO)
 @Table(name = "cartao", schema = "despesas_db")
 public class CartaoCredito extends Debitavel {
+
+	public static final String CODIGO_TIPO = "CONTA";
 
 	@Column(name = "limite")
 	private BigDecimal limite;
@@ -42,7 +44,7 @@ public class CartaoCredito extends Debitavel {
 	private List<Fatura> faturas;
 
 	public CartaoCredito() {
-		super();
+		super(CartaoCredito.CODIGO_TIPO);
 
 		this.faturas = new ArrayList<Fatura>();
 	}

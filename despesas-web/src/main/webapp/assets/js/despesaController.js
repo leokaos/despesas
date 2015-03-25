@@ -42,7 +42,7 @@ app.controller('despesaController', function ($scope, despesaService, $location,
             //Calculo do total
             $scope.totalTable = 0.0;
 
-            angular.forEach($scope.originalData, function (value, key) {
+            angular.forEach(lista, function (value, key) {
                 $scope.totalTable += value.valor;
             });
 
@@ -127,7 +127,7 @@ app.controller('edicaoDespesaController', function ($scope, despesaService, tipo
         $scope.despesa.tipoDespesa = $scope.tipoDespesaSelecionado;
 
         orcamentoService.filtrarPorData($scope.despesa.vencimento, $scope.despesa.tipoDespesa.descricao, function (data) {
-            $scope.orcamento = new OrcamentoVO(data);
+            $scope.orcamento = data;
         });
 
     };

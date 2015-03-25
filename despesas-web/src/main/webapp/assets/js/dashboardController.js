@@ -1,38 +1,49 @@
-﻿app.controller('dashboardController', function ($scope, $http, contaService, despesaService, $location, $routeParams, MESES) {
+app.controller('dashboardController', function ($scope, $http, dashboardService, $location, $routeParams, MESES) {
 
     $scope.dataAtual = new Date();
     $scope.MESES = MESES;
 
-    $scope.configData = function () {
-        $scope.ano = $scope.dataAtual.getFullYear();
-        $scope.mes = $scope.dataAtual.getMonth();
-    }
+    $scope.ano = $scope.dataAtual.getFullYear();
+    $scope.mes = $scope.dataAtual.getMonth();
 
     $scope.loadChart = function () {
 
         var dataInicio = new Date($scope.ano, $scope.mes, 1);
         var dataFim = new Date($scope.ano, $scope.mes + 1, 0);
 
-        despesaService.buscarDespesasPorTipo(dataInicio, dataFim, function (data) {
+        dashboardService.buscarDespesasPorPeriodo(dataInicio, dataFim, function (data) {
 
-            var dataConvertido = [];
+            $scope.graficos = [];
 
-            for (var i = 0; i < data.length; i++) {
-
-                var obj = data[i];
-
-                dataConvertido.push({
-                    label: obj.descricaoTipoDespesa,
-                    value: obj.valor
-                });
+            for (x = 0; x < data.length; x++) {
+                $scope.graficos.push(new GraficoVO(data[x]));
             }
 
-            $('#despesasPorTipo').empty();
+            for (y = 0; y < $scope.graficos.length; y++) {
+                $scope.buildCharts($scope.graficos[y]);
+            }
 
-            Morris.Donut({
-                element: 'despesasPorTipo',
-                data: dataConvertido
-            });
+        });
+    }
+
+    $scope.buildCharts = function (graficoVO) {
+
+        nv.addGraph(function () {
+            var chart = nv.models.pieChart()
+                .showLabels(true)
+                .x(function (d) {
+                    return d.legenda;
+                })
+                .y(function (d) {
+                    return d.valor;
+                })
+                .labelThreshold(.05)
+                .labelType("percent")
+                .donut(true);
+
+            d3.select("#" + graficoVO.id).datum(graficoVO.dados).transition().duration(1200).call(chart);
+
+            return chart;
         });
     }
 
@@ -58,6 +69,6 @@
         $scope.loadChart();
     }
 
-    $scope.configData();
+    $scope.loadChart();
 
 });

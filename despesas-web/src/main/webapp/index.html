@@ -21,6 +21,7 @@
     <link href="assets/css/fullcalendar.min.css" rel="stylesheet" />
     <link href="assets/css/angular-growl.min.css" rel="stylesheet" />
     <link href="assets/css/morris.css" rel="stylesheet" />
+    <link href="assets/css/nv.d3.css" rel="stylesheet" />
 
 </head>
 
@@ -66,6 +67,8 @@
                             </li>
                             <li><a href="#/orcamentos">Orçamentos</a>
                             </li>
+                            <li><a href="#/receitas">Receitas</a>
+                            </li>
                         </ul>
                     </li>
 
@@ -73,6 +76,18 @@
 
                         <ul>
                             <li><a href="#/pagamentos">Pagamentos</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li><a href="#"> Gráficos </a>
+
+                        <ul>
+                            <li><a href="#/extrato">Extrato</a>
+                            </li>
+                            <li><a href="#/graficotipodespesa">Gráfico de Tipo Despesa</a>
+                            </li>
+                            <li><a href="#/graficotiporeceita">Gráfico de Tipo Receita</a>
                             </li>
                         </ul>
                     </li>
@@ -97,6 +112,10 @@
         <!--main content end-->
 
     </section>
+
+    <!--Graficos-->
+    <script type="text/javascript" src="assets/libs/d3.v3.min.js"></script>
+    <script type="text/javascript" src="assets/libs/nv.d3.min.js"></script>
 
     <!--JQuery-->
     <script type="text/javascript" src="assets/libs/jquery-1.11.2.min.js"></script>
@@ -138,6 +157,8 @@
     <script type="text/javascript" src="assets/js/tipoReceitaService.js"></script>
     <script type="text/javascript" src="assets/js/debitavelService.js"></script>
     <script type="text/javascript" src="assets/js/orcamentoService.js"></script>
+    <script type="text/javascript" src="assets/js/receitaService.js"></script>
+    <script type="text/javascript" src="assets/js/dashboardService.js"></script>
 
     <script type="text/javascript" src="assets/js/contaController.js"></script>
     <script type="text/javascript" src="assets/js/tipoDespesaController.js"></script>
@@ -147,6 +168,7 @@
     <script type="text/javascript" src="assets/js/orcamentoController.js"></script>
     <script type="text/javascript" src="assets/js/pagamentosController.js"></script>
     <script style="text/javascript" src="assets/js/dashboardController.js"></script>
+    <script style="text/javascript" src="assets/js/receitaController.js"></script>
 
     <script>
         $(document).ready(function () {

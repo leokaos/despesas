@@ -51,11 +51,13 @@ public class OrcamentoService extends AbstractService<OrcamentoFacade, Orcamento
 
 		List<Orcamento> orcamentos = orcamentoFacade.buscarPorFiltro(filtro);
 
-		if (orcamentos.size() > 1) {
+		if (orcamentos.size() < 1) {
 			return null;
 		}
+		
+		Orcamento orcamento = orcamentos.iterator().next();
+		orcamentoFacade.consolidar(orcamento);
 
-		return orcamentos.iterator().next();
+		return orcamento;
 	}
-
 }

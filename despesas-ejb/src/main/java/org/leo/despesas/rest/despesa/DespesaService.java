@@ -14,8 +14,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.leo.despesas.aplicacao.despesa.DespesaFacade;
+import org.leo.despesas.dominio.debitavel.DespesaFiltro;
 import org.leo.despesas.dominio.movimentacao.Despesa;
-import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
 import org.leo.despesas.dominio.movimentacao.GraficoVO;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.rest.infra.AbstractService;
@@ -24,39 +24,39 @@ import org.leo.despesas.rest.infra.AbstractService;
 @RequestScoped
 public class DespesaService extends AbstractService<DespesaFacade, Despesa> {
 
-    @EJB
-    private DespesaFacade despesaFacade;
+	@EJB
+	private DespesaFacade despesaFacade;
 
-    @GET
-    @Path(value = "/grafico")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<GraficoVO> buscarPorPeriodo(@QueryParam("dataInicial") Date dataInicial, @QueryParam("dataFinal") Date dataFinal) {
-	return despesaFacade.getGraficoPorPeriodo(new Periodo(dataInicial, dataFinal));
-    }
+	@GET
+	@Path(value = "/grafico")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<GraficoVO> buscarPorPeriodo(@QueryParam("dataInicial") Date dataInicial, @QueryParam("dataFinal") Date dataFinal) {
+		return despesaFacade.getGraficoPorPeriodo(new Periodo(dataInicial, dataFinal));
+	}
 
-    @GET
-    @Path(value = "/periodo")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Despesa> buscarPorDespesasPorPeriodo(@QueryParam("dataInicial") Date dataInicial, @QueryParam("dataFinal") Date dataFinal) {
-	return despesaFacade.getDespesasPorPeriodo(new Periodo(dataInicial, dataFinal));
-    }
+	@GET
+	@Path(value = "/periodo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Despesa> buscarPorDespesasPorPeriodo(@QueryParam("dataInicial") Date dataInicial, @QueryParam("dataFinal") Date dataFinal) {
+		return despesaFacade.getDespesasPorPeriodo(new Periodo(dataInicial, dataFinal));
+	}
 
-    @POST
-    @Path(value = "/filtro")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public List<Despesa> buscarPorFiltro(DespesaFiltro filtro) {
-	return getFacade().buscarPorFiltro(filtro);
-    }
+	@POST
+	@Path(value = "/filtro")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Despesa> buscarPorFiltro(DespesaFiltro filtro) {
+		return getFacade().buscarPorFiltro(filtro);
+	}
 
-    @POST
-    @Path(value = "/pagar")
-    public void pagar(Long id) {
-	despesaFacade.pagar(despesaFacade.buscarPorId(id));
-    }
+	@POST
+	@Path(value = "/pagar")
+	public void pagar(Long id) {
+		despesaFacade.pagar(despesaFacade.buscarPorId(id));
+	}
 
-    @Override
-    protected DespesaFacade getFacade() {
-	return this.despesaFacade;
-    }
+	@Override
+	protected DespesaFacade getFacade() {
+		return this.despesaFacade;
+	}
 
 }

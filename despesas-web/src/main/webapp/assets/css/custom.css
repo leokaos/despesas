@@ -34,16 +34,10 @@
     width: 25px;
     cursor: pointer;
     background: transparent;
-    top: 50%;
+    top: 5px;
     border: none;
     outline: none;
     font-size: 20px;
-}
-.botao.botao-esquerdo {
-    float: left;
-}
-.botao.botao-direito {
-    float: right;
 }
 .nav a {
     color: #FFF !important;
@@ -99,4 +93,8 @@
 .progress-bar {
     font-weight: 700 !important;
     color: #000 !important;
+}
+.white-panel .white-header {
+    background: #B5B5B5 !important;
+    color: #FFFFFF !important;
 }

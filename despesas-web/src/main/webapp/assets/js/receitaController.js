@@ -15,7 +15,7 @@ app.controller('receitaController', function ($scope, receitaService, $location,
     $scope.receitaSelecionada = null;
 
     $scope.getTitulo = function () {
-        return 'receitas';
+        return 'Receitas';
     };
 
     $scope.getDescricaoSelecionado = function () {
@@ -42,7 +42,7 @@ app.controller('receitaController', function ($scope, receitaService, $location,
             //Calculo do total
             $scope.totalTable = 0.0;
 
-            angular.forEach($scope.originalData, function (value, key) {
+            angular.forEach(lista, function (value, key) {
                 $scope.totalTable += value.valor;
             });
 
@@ -92,62 +92,54 @@ app.controller('receitaController', function ($scope, receitaService, $location,
 
 });
 
-app.controller('edicaoReceitaController', function ($scope, receitaService, tiporeceitaService, orcamentoService, debitavelService, $location, $routeParams, growl) {
+app.controller('edicaoReceitaController', function ($scope, receitaService, tipoReceitaService, contaService, $location, $routeParams, growl) {
 
-    $scope.tiposreceita = [];
-    $scope.debitaveis = [];
-    $scope.tiposParcelamento = ['Semanal', 'Mensal', 'Semestral', 'Anual'];
-    $scope.parcelar = false;
-    $scope.orcamento = null;
+    $scope.tiposReceita = [];
+    $scope.contas = [];
 
-    $scope.tiporeceitaSelecionado = {
+    $scope.tipoReceitaSelecionado = {
         descricao: 'Selecione'
     };
 
-    $scope.debitavelSelecionado = {
+    $scope.contaSelecionada = {
         descricao: 'Selecione'
     };
 
-    $scope.receita = receitaService.getreceita();
+    $scope.receita = receitaService.getReceita();
 
     if ($scope.receita.debitavel != null) {
-        $scope.debitavelSelecionado = $scope.receita.debitavel;
+        $scope.contaSelecionada = $scope.receita.debitavel;
     }
 
-    if ($scope.receita.tiporeceita != null) {
-        $scope.tiporeceitaSelecionado = $scope.receita.tiporeceita;
+    if ($scope.receita.tipoReceita != null) {
+        $scope.tipoReceitaSelecionado = $scope.receita.tipoReceita;
     }
 
     $scope.openData = function () {
         $scope.dataPickerOpened = true;
     };
 
-    $scope.selecionarTiporeceita = function (tiporeceita) {
-        $scope.tiporeceitaSelecionado = tiporeceita;
-        $scope.receita.tiporeceita = $scope.tiporeceitaSelecionado;
-
-        orcamentoService.filtrarPorData($scope.receita.vencimento, $scope.receita.tiporeceita.descricao, function (data) {
-            $scope.orcamento = new OrcamentoVO(data);
-        });
-
+    $scope.hasConta = function () {
+        return $scope.contaSelecionada.id != null;
     };
 
-    $scope.selecionarDebitavel = function (debitavel) {
-        $scope.debitavelSelecionado = debitavel;
-        $scope.receita.debitavel = $scope.debitavelSelecionado;
+    $scope.selecionarTipoReceita = function (tipoReceita) {
+        $scope.tipoReceitaSelecionado = tipoReceita;
+        $scope.receita.tipoReceita = $scope.tipoReceitaSelecionado;
     };
 
-    tiporeceitaService.listar(function (tiposreceita) {
-        $scope.tiposreceita = tiposreceita;
+    $scope.selecionarConta = function (conta) {
+        $scope.contaSelecionada = conta;
+        $scope.receita.debitavel = $scope.contaSelecionada;
+    };
+
+    tipoReceitaService.listar(function (tiposReceita) {
+        $scope.tiposReceita = tiposReceita;
     });
 
-    debitavelService.listar(function (debitaveis) {
-        $scope.debitaveis = debitaveis;
+    contaService.listar(function (contas) {
+        $scope.contas = contas;
     });
-
-    $scope.hasOrcamento = function () {
-        return $scope.orcamento != null;
-    };
 
     $scope.cancelar = function () {
         $location.path('/receitas');
@@ -160,7 +152,7 @@ app.controller('edicaoReceitaController', function ($scope, receitaService, tipo
 
     $scope.salvo = function (data) {
         $scope.limparCarregar(data);
-        growl.info('receita salva com sucesso!');
+        growl.info('Receita salva com sucesso!');
     };
 
     $scope.salvar = function (valid) {

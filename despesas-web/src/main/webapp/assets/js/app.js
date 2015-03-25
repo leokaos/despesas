@@ -114,6 +114,16 @@ app.config(function ($routeProvider, $locationProvider) {
         controller: 'edicaoOrcamentoController'
     });
 
+    $routeProvider.when('/receitas', {
+        templateUrl: 'partial/receita/receitas.html',
+        controller: 'receitaController'
+    });
+
+    $routeProvider.when('/receita', {
+        templateUrl: 'partial/receita/receita.html',
+        controller: 'edicaoReceitaController'
+    });
+
     $routeProvider.when('/pagamentos', {
         templateUrl: 'partial/pagamentos.html',
         controller: 'pagamentosController'
@@ -233,45 +243,45 @@ app.directive('startupError', function ($compile) {
 
 app.directive('uiCalendar', function (MESES) {
 
-    return {
-        restrict: 'A',
-        scope: {
-            eventSources: '=ngModel',
-            functionSelect: '=functionSelect'
-        },
-        link: function (scope, iElement, iAttrs) {
+return {
+    restrict: 'A',
+    scope: {
+        eventSources: '=ngModel',
+        functionSelect: '=functionSelect'
+    },
+    link: function (scope, iElement, iAttrs) {
 
-            var diasSemana = ["domingo", "segunda-feira", "ter\u00e7a-feira", "quarta-feira", "quinta-feira", "sexta-feira", "s\u00e1bado"];
-            var diasSemanaCurtos = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "S\u00e1b"];
-            var textoDosBotoes = {
-                today: 'Hoje',
-                month: 'Mês',
-                week: 'Semana',
-                day: 'Dia'
-            };
+        var diasSemana = ["domingo", "segunda-feira", "ter\u00e7a-feira", "quarta-feira", "quinta-feira", "sexta-feira", "s\u00e1bado"];
+        var diasSemanaCurtos = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "S\u00e1b"];
+        var textoDosBotoes = {
+            today: 'Hoje',
+            month: 'Mês',
+            week: 'Semana',
+            day: 'Dia'
+        };
 
-            var select = function (event, jsEvent, view) {
-                var eventoSelecionado = null;
+        var select = function (event, jsEvent, view) {
+            var eventoSelecionado = null;
 
-                if (event != null && event.despesa != null) {
-                    scope.functionSelect(event.despesa);
-                }
-            };
+            if (event != null && event.despesa != null) {
+                scope.functionSelect(event.despesa);
+            }
+        };
 
-            var id = '#' + iElement.attr('id');
+        var id = '#' + iElement.attr('id');
 
-            $(id).fullCalendar({
-                height: 700,
-                aspectRatio: 10,
-                events: scope.eventSources,
-                monthNames: ['Janeiro', 'Fevereiro', 'Mar\u00e7o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-                dayNames: diasSemana,
-                dayNamesShort: diasSemanaCurtos,
-                buttonText: textoDosBotoes,
-                eventClick: select
-            });
+        $(id).fullCalendar({
+            height: 700,
+            aspectRatio: 10,
+            events: scope.eventSources,
+            monthNames: ['Janeiro', 'Fevereiro', 'Mar\u00e7o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            dayNames: diasSemana,
+            dayNamesShort: diasSemanaCurtos,
+            buttonText: textoDosBotoes,
+            eventClick: select
+        });
 
-            $(id).fullCalendar('refetchEvents');
-        }
-    };
+        $(id).fullCalendar('refetchEvents');
+    }
+};
 });

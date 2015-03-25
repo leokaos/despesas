@@ -4,19 +4,19 @@ import java.math.BigDecimal;
 
 public class GraficoVO {
 
-	private final String descricaoTipoDespesa;
+	private final String legenda;
 	private final String cor;
 	private final BigDecimal valor;
 
-	public GraficoVO(String descricaoTipoDespesa, String cor, BigDecimal valor) {
+	public GraficoVO(String legenda, String cor, BigDecimal valor) {
 		super();
-		this.descricaoTipoDespesa = descricaoTipoDespesa;
+		this.legenda = legenda;
 		this.cor = cor;
 		this.valor = valor;
 	}
 
-	public String getDescricaoTipoDespesa() {
-		return descricaoTipoDespesa;
+	public String getLegenda() {
+		return legenda;
 	}
 
 	public BigDecimal getValor() {
@@ -29,7 +29,7 @@ public class GraficoVO {
 
 	@Override
 	public String toString() {
-		return descricaoTipoDespesa.concat(" ").concat(valor.toString());
+		return legenda.concat(" ").concat(valor.toString());
 	}
 
 }

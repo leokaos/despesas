@@ -61,7 +61,7 @@ app.service('orcamentoService', function ($http) {
         });
 
         request.success(function (data) {
-            fn(data);
+            fn(new OrcamentoVO(data));
         });
     };
 
@@ -117,6 +117,10 @@ function OrcamentoVO(obj) {
         this.periodo = new Periodo(data.getMonth() + 1, data.getFullYear());
     } else {
         this.periodo = new Periodo(null, null);
+    }
+
+    if (this.valorConsolidado == null) {
+        this.valorConsolidado = 0;
     }
 };
 

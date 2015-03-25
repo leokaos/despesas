@@ -8,7 +8,6 @@ app.service('receitaService', function ($http) {
             descricao: '',
             vencimento: null,
             valor: null,
-            tiporeceita: null,
             debitavel: null,
             depositado: false
         };
@@ -86,7 +85,7 @@ app.service('receitaService', function ($http) {
 
     };
 
-    this.pagarReceita = function (receita, fn) {
+    this.depositarReceita = function (receita, fn) {
         $http.post(pathBase + 'pagar', receita.id).success(function (data) {
             fn(data);
         });

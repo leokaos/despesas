@@ -17,7 +17,7 @@ import org.leo.despesas.dominio.movimentacao.Receita;
 @DiscriminatorColumn(name = "tipo")
 @Table(name = "debitavel", schema = "despesas_db")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Debitavel {
+public abstract class Debitavel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +29,12 @@ public class Debitavel {
 	@Column(name = "cor")
 	private String cor;
 
-	public Debitavel() {
+	@Column(name = "tipo")
+	private String tipo;
+
+	public Debitavel(String tipo) {
 		super();
+		this.tipo = tipo;
 	}
 
 	public Long getId() {
@@ -57,22 +61,16 @@ public class Debitavel {
 		this.cor = cor;
 	}
 
-	public void debitar(Despesa despesa) {
-
-	};
-
-	public void creditar(Receita receita) {
-
+	public String getTipo() {
+		return tipo;
 	}
 
-	public Debitavel toDebitavel() {
-		Debitavel debitavel = new Debitavel();
-
-		debitavel.setCor(cor);
-		debitavel.setDescricao(descricao);
-		debitavel.setId(id);
-
-		return debitavel;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
+
+	public abstract void debitar(Despesa despesa);
+
+	public abstract void creditar(Receita receita);
 
 }

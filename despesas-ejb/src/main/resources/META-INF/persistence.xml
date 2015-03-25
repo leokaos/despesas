@@ -9,7 +9,6 @@
 	<persistence-unit name="despesasPU">
 
 		<jta-data-source>java:/DerbyDS</jta-data-source>
-		<class>org.leo.despesas.dominio.debitavel.CartaoCredito</class>
 		<class>org.leo.despesas.dominio.debitavel.Conta</class>
 		<class>org.leo.despesas.dominio.debitavel.Debitavel</class>
 		<class>org.leo.despesas.dominio.movimentacao.Movimentacao</class>
@@ -20,6 +19,7 @@
 		<class>org.leo.despesas.dominio.debitavel.Fatura</class>
 		<class>org.leo.despesas.dominio.orcamento.Orcamento</class>
 		<class>org.leo.despesas.dominio.movimentacao.Receita</class>
+		<class>org.leo.despesas.dominio.debitavel.CartaoCredito</class>
 
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
