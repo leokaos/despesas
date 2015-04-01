@@ -74,31 +74,52 @@ function Periodo(mes, ano) {
 };
 
 Periodo.prototype.getDataInicial = function () {
+
+    if (this.mes == null || this.ano == null) {
+        return null;
+    }
+
     var dataInicial = new Date();
 
     dataInicial.setFullYear(this.ano);
     dataInicial.setMonth(this.mes - 1);
     dataInicial.setDate(1);
+    dataInicial.setHours(0);
+    dataInicial.setMinutes(0);
+    dataInicial.setSeconds(0);
+    dataInicial.setMilliseconds(0);
 
     return dataInicial;
 };
 
 Periodo.prototype.getDataFinal = function () {
-    var dataInicial = new Date();
 
-    dataInicial.setFullYear(this.ano);
-    dataInicial.setMonth(this.mes);
-    dataInicial.setDate(0);
+    if (this.mes == null || this.ano == null) {
+        return null;
+    }
 
-    return dataInicial;
+    var dataFinal = new Date();
+
+    dataFinal.setFullYear(this.ano);
+    dataFinal.setMonth(this.mes);
+    dataFinal.setDate(0);
+    dataFinal.setHours(23);
+    dataFinal.setMinutes(59);
+    dataFinal.setSeconds(59);
+    dataFinal.setMilliseconds(999);
+
+    return dataFinal;
 };
 
 Periodo.prototype.toString = function () {
-    var dataInicial = this.getDataInicial();
+    var data = null;
 
-    if (dataInicial != null) {
+    if (this.getDataInicial() != null) {
+        data = this.getDataInicial();
+    }
 
-        return dataInicial.toLocaleDateString('pt-BR', {
+    if (data != null) {
+        return data.toLocaleDateString('pt-BR', {
             month: 'long',
             year: 'numeric'
         });

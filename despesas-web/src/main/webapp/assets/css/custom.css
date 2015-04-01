@@ -98,3 +98,17 @@
     background: #B5B5B5 !important;
     color: #FFFFFF !important;
 }
+.view-animate.ng-enter,
+.view-animate.ng-leave {
+    -webkit-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+}
+.view-animate.ng-enter {
+    opacity: 0;
+}
+.view-animate.ng-enter.ng-enter-active {
+    opacity: 1;
+}
+.view-animate.ng-leave.ng-leave-active {
+    opacity: 0;
+}

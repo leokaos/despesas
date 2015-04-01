@@ -15,6 +15,10 @@ app.controller('cartaoController', function ($scope, cartaoService, $location, $
         }
     };
 
+    $scope.verFatura = function (cartao) {
+        $location.path('/fatura/' + cartao.id);
+    }
+
     $scope.getMensagemDelete = function () {
         return 'Cartão deletado com sucesso!';
     };

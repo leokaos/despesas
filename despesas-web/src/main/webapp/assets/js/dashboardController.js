@@ -28,17 +28,26 @@ app.controller('dashboardController', function ($scope, $http, dashboardService,
 
     $scope.buildCharts = function (graficoVO) {
 
+        /*var tp = function (key, y, e, graph) {
+            console.log(key, e, y);
+            return '<h3>' + key + '</h3>' +
+                '<p>!!' + y + '!!</p>' +
+                '<p>Likes: ' + e.point.likes + '</p>';
+        };
+        chart.tooltipContent(tp);*/
+
         nv.addGraph(function () {
             var chart = nv.models.pieChart()
-                .showLabels(true)
                 .x(function (d) {
                     return d.legenda;
                 })
                 .y(function (d) {
                     return d.valor;
                 })
-                .labelThreshold(.05)
+                .color(graficoVO.getColors())
+                .noData("Sem Dados")
                 .labelType("percent")
+                .showLegend(false)
                 .donut(true);
 
             d3.select("#" + graficoVO.id).datum(graficoVO.dados).transition().duration(1200).call(chart);

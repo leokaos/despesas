@@ -17,9 +17,7 @@ app.service('dashboardService', function ($http) {
         request.success(function (data) {
             fn(data);
         });
-
     };
-
 });
 
 // GRAFICO VO
@@ -27,4 +25,15 @@ function GraficoVO(obj) {
     angular.extend(this, obj);
 
     this.id = this.titulo.split(" ").join("_").toLowerCase();
+};
+
+GraficoVO.prototype.getColors = function () {
+
+    var colors = [];
+
+    for (y = 0; y < this.dados.length; y++) {
+        colors.push(this.dados[y].cor);
+    }
+
+    return colors;
 };

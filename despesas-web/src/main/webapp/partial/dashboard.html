@@ -20,13 +20,13 @@
 
 <div class="row mt">
 
-    <div class="col-md-4 col-sm-4 mb" ng-repeat="grafico in graficos">
-        <div class="white-panel pn donut-chart">
+    <div class="col-md-4" ng-repeat="grafico in graficos">
+        <div class="white-panel">
             <div class="white-header">
                 <h5>{{grafico.titulo}}</h5>
             </div>
             <div class="row">
-                <svg id="{{grafico.id}}"></svg>
+                <svg id="{{grafico.id}}" style="height:300px;"></svg>
             </div>
         </div>
     </div>
