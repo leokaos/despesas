@@ -23,7 +23,7 @@ import org.leo.despesas.infra.DataUtil;
 import org.leo.despesas.infra.Periodo;
 
 @Entity
-@Table(name = "fatura", schema = "despesas_db")
+@Table(name = "fatura",schema = "despesas_db")
 public class Fatura {
 
 	@Id
@@ -42,7 +42,7 @@ public class Fatura {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataFechamento;
 
-	@OneToMany(mappedBy = "fatura", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "fatura",fetch = FetchType.EAGER)
 	private Set<Despesa> despesas;
 
 	public Fatura() {
@@ -56,13 +56,13 @@ public class Fatura {
 
 		this.cartao = cartao;
 	}
-	
+
 	public Long getId() {
-	    return id;
+		return id;
 	}
 
 	public void setId(Long id) {
-	    this.id = id;
+		this.id = id;
 	}
 
 	public CartaoCredito getCartao() {
@@ -108,10 +108,10 @@ public class Fatura {
 	}
 
 	public boolean pertenceFatura(Date dataBase) {
-		return getPeriodoVigencia().pertenceAoPeriodo(dataBase);
+		return getPeriodo().pertenceAoPeriodo(dataBase);
 	}
 
-	private Periodo getPeriodoVigencia() {
-		return new Periodo(DataUtil.addDays(dataFechamento, -1), dataFechamento);
+	private Periodo getPeriodo() {
+		return new Periodo(DataUtil.addMonths(dataFechamento,-1),dataFechamento);
 	}
 }
