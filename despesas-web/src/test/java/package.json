@@ -1,0 +1,14 @@
+{
+  "name": "despesas-testes",
+  "version": "0.0.1",
+  "description": "Pacote de testes de JavaScript",
+  "author": "Leonardo Guerra",
+  "private": true,
+  "devDependencies": {
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-cli": "0.0.4",
+    "karma-jasmine": "^0.3.5",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-coverage": "~0.1"
+  }
+}
