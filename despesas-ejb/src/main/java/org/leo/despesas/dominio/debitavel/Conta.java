@@ -34,16 +34,17 @@ public class Conta extends Debitavel {
 
 	@Override
 	public void debitar(Despesa despesa) {
-		if (!despesa.isPaga()) {
-			setSaldo(getSaldo().subtract(despesa.getValor()));
-		}
+		setSaldo(getSaldo().subtract(despesa.getValor()));
 	}
 
 	@Override
 	public void creditar(Receita receita) {
-		if (!receita.isDepositado()) {
-			setSaldo(getSaldo().add(receita.getValor()));
-		}
+		setSaldo(getSaldo().add(receita.getValor()));
+	}
+
+	@Override
+	public Despesa consolidar(Despesa despesa) {
+		return despesa;
 	}
 
 }

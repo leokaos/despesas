@@ -124,8 +124,7 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 
 		despesa.pagar();
 
-		salvar(despesa);
 		debitavelFacade.salvar(despesa.getDebitavel());
+		salvar(despesa.consolidar());
 	}
-
 }

@@ -22,10 +22,10 @@ import org.leo.despesas.infra.DataUtil;
 
 @Entity
 @DiscriminatorValue(value = CartaoCredito.CODIGO_TIPO)
-@Table(name = "cartao",schema = "despesas_db")
+@Table(name = "cartao", schema = "despesas_db")
 public class CartaoCredito extends Debitavel {
 
-	public static final String CODIGO_TIPO = "CONTA";
+	public static final String CODIGO_TIPO = "CARTAO";
 
 	@Column(name = "limite")
 	private BigDecimal limite;
@@ -40,7 +40,7 @@ public class CartaoCredito extends Debitavel {
 	@Column(name = "bandeiraCartaoCredito")
 	private BandeiraCartaoCredito bandeiraCartaoCredito;
 
-	@OneToMany(mappedBy = "cartao",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Fatura> faturas;
 
 	public CartaoCredito() {
@@ -112,16 +112,18 @@ public class CartaoCredito extends Debitavel {
 
 			// Configuracao da data de fechamento
 			Date dataFechamento = new Date(despesa.getVencimento().getTime());
-			dataFechamento = DataUtil.setDays(dataFechamento,this.diaDeFechamento);
+			dataFechamento = DataUtil.setDays(dataFechamento, this.diaDeFechamento);
+			dataFechamento = DataUtil.addMonths(dataFechamento, 1);
 
 			faturaPorData.setDataFechamento(dataFechamento);
 
 			// Configuracao da data de vencimento
 			Date dataVencimento = new Date(despesa.getVencimento().getTime());
-			dataVencimento = DataUtil.setDays(dataVencimento,this.diaDeVencimento);
+			dataVencimento = DataUtil.setDays(dataVencimento, this.diaDeVencimento);
+			dataVencimento = DataUtil.addMonths(dataVencimento, 1);
 
 			if (diaDeFechamento > diaDeVencimento) {
-				dataVencimento = DataUtil.addMonths(dataVencimento,1);
+				dataVencimento = DataUtil.addMonths(dataVencimento, 1);
 			}
 
 			faturaPorData.setDataVencimento(dataVencimento);
@@ -135,6 +137,18 @@ public class CartaoCredito extends Debitavel {
 	@Override
 	public void creditar(Receita receita) {
 
+	}
+
+	@Override
+	public Despesa consolidar(Despesa despesa) {
+
+		Fatura fatura = getFaturaPorData(despesa.getVencimento());
+
+		if (fatura.getId() != null) {
+			despesa.setFatura(fatura);
+		}
+
+		return despesa;
 	}
 
 }

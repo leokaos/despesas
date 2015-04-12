@@ -73,4 +73,6 @@ public abstract class Debitavel {
 
 	public abstract void creditar(Receita receita);
 
+	public abstract Despesa consolidar(Despesa despesa);
+
 }

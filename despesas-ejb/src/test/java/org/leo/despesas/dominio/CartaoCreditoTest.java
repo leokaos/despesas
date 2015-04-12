@@ -26,9 +26,9 @@ public class CartaoCreditoTest {
 
 		Fatura fatura = cartao.getFaturas().iterator().next();
 
-		assertEquals(formatter.format(fatura.getDataFechamento()),"28/02/2015");
-		assertEquals(formatter.format(fatura.getDataVencimento()),"11/03/2015");
-		assertEquals(cartao.getFaturas().size(),1);
+		assertEquals(formatter.format(fatura.getDataFechamento()), "28/02/2015");
+		assertEquals(formatter.format(fatura.getDataVencimento()), "11/03/2015");
+		assertEquals(cartao.getFaturas().size(), 1);
 	}
 
 	@Test
@@ -49,10 +49,10 @@ public class CartaoCreditoTest {
 
 		Fatura fatura = cartao.getFaturas().iterator().next();
 
-		assertEquals(formatter.format(fatura.getDataFechamento()),"28/02/2015");
-		assertEquals(formatter.format(fatura.getDataVencimento()),"11/03/2015");
-		assertEquals(cartao.getFaturas().size(),1);
-		assertEquals(fatura.getDespesas().size(),2);
+		assertEquals(formatter.format(fatura.getDataFechamento()), "28/02/2015");
+		assertEquals(formatter.format(fatura.getDataVencimento()), "11/03/2015");
+		assertEquals(cartao.getFaturas().size(), 1);
+		assertEquals(fatura.getDespesas().size(), 2);
 	}
 
 	@Test
@@ -71,6 +71,6 @@ public class CartaoCreditoTest {
 
 		cartao.debitar(despesa2);
 
-		assertEquals(cartao.getFaturas().size(),2);
+		assertEquals(cartao.getFaturas().size(), 2);
 	}
 }

@@ -1,5 +1,6 @@
 package org.leo.despesas.dominio.movimentacao;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
 
@@ -23,7 +25,7 @@ public class Despesa extends Movimentacao {
 	@JoinColumn(name = "tipo_despesa_id")
 	private TipoDespesa tipoDespesa;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fatura_id", nullable = true)
 	private Fatura fatura;
 
@@ -52,13 +54,14 @@ public class Despesa extends Movimentacao {
 	public void setTipoDespesa(TipoDespesa tipoDespesa) {
 		this.tipoDespesa = tipoDespesa;
 	}
-	
+
+	@JsonIgnore
 	public Fatura getFatura() {
-	    return fatura;
+		return fatura;
 	}
 
 	public void setFatura(Fatura fatura) {
-	    this.fatura = fatura;
+		this.fatura = fatura;
 	}
 
 	public String getParcelamento() {
@@ -86,6 +89,10 @@ public class Despesa extends Movimentacao {
 
 		setPaga(true);
 		fechar();
+	}
+
+	public Despesa consolidar() {
+		return debitavel.consolidar(this);
 	}
 
 }

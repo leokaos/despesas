@@ -25,7 +25,7 @@ OrcamentoVO.prototype.getClassProgressBar = function() {
   if (percent <= 70.0) {
     classe = 'success';
   } else if (percent > 70.0 && percent <= 80.0) {
-    classe = 'warning'
+    classe = 'warning';
   } else {
     classe = 'danger';
   }
@@ -46,4 +46,4 @@ OrcamentoVO.prototype.toOrcamento = function() {
 OrcamentoVO.prototype.toString = function() {
   var tipoDespesa = this.tipoDespesa != null ? this.tipoDespesa.descricao : '';
   return 'Orçamento de ' + this.periodo.toString() + ' para ' + tipoDespesa;
-}
+};
