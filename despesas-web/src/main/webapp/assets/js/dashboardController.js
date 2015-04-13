@@ -15,46 +15,45 @@ app.controller('dashboardController', function ($scope, $http, dashboardService,
 
             $scope.graficos = [];
 
-            for (x = 0; x < data.length; x++) {
+            for (var x = 0; x < data.length; x++) {
                 $scope.graficos.push(new GraficoVO(data[x]));
             }
 
-            for (y = 0; y < $scope.graficos.length; y++) {
-                $scope.buildCharts($scope.graficos[y]);
+            for (var y = 0; y < $scope.graficos.length; y++) {
+               // $scope.buildCharts($scope.graficos[y]);
             }
 
         });
-    }
+    };
 
     $scope.buildCharts = function (graficoVO) {
 
-        /*var tp = function (key, y, e, graph) {
-            console.log(key, e, y);
-            return '<h3>' + key + '</h3>' +
-                '<p>!!' + y + '!!</p>' +
-                '<p>Likes: ' + e.point.likes + '</p>';
-        };
-        chart.tooltipContent(tp);*/
-
         nv.addGraph(function () {
-            var chart = nv.models.pieChart()
-                .x(function (d) {
-                    return d.legenda;
-                })
+
+            var chart = null;
+
+            if (graficoVO.isBarra()) {
+                chart = nv.models.discreteBarChart();
+            }
+
+            if (graficoVO.isPizza()) {
+                chart = nv.models.pieChart().donut(true).labelType("percent").showLegend(false);
+            }
+
+            chart.x(function (d) {
+                return d.legenda;
+            })
                 .y(function (d) {
                     return d.valor;
                 })
                 .color(graficoVO.getColors())
-                .noData("Sem Dados")
-                .labelType("percent")
-                .showLegend(false)
-                .donut(true);
+                .noData("Sem Dados");
 
             d3.select("#" + graficoVO.id).datum(graficoVO.dados).transition().duration(1200).call(chart);
 
             return chart;
         });
-    }
+    };
 
     $scope.anterior = function () {
         if ($scope.mes == 0) {
@@ -65,7 +64,7 @@ app.controller('dashboardController', function ($scope, $http, dashboardService,
         }
 
         $scope.loadChart();
-    }
+    };
 
     $scope.posterior = function () {
         if ($scope.mes == 11) {
@@ -76,8 +75,84 @@ app.controller('dashboardController', function ($scope, $http, dashboardService,
         }
 
         $scope.loadChart();
-    }
+    };
 
     $scope.loadChart();
+
+
+
+
+
+
+    //TESTE
+
+    nv.addGraph(function () {
+        var chart = nv.models.discreteBarChart()
+            .x(function (d) {
+                return d.label
+            }) //Specify the data accessors.
+            .y(function (d) {
+                return d.value
+            })
+            .staggerLabels(true) //Too many bars and not enough room? Try staggering labels.
+            .tooltips(false) //Don't show tooltips
+            .showValues(true); //...instead, show the bar value right on top of each bar.
+            //.transitionDuration(350);
+
+        d3.select('#extrato_mensal')
+            .datum(exampleData())
+            .call(chart);
+
+        nv.utils.windowResize(chart.update);
+
+        return chart;
+    });
+
+    //Each bar represents a single discrete quantity.
+    function exampleData() {
+        return [
+            {
+                key: "Cumulative Return",
+                values: [
+                    {
+                        "label": "A Label",
+                        "value": -29.765957771107
+        },
+                    {
+                        "label": "B Label",
+                        "value": 0
+        },
+                    {
+                        "label": "C Label",
+                        "value": 32.807804682612
+        },
+                    {
+                        "label": "D Label",
+                        "value": 196.45946739256
+        },
+                    {
+                        "label": "E Label",
+                        "value": 0.19434030906893
+        },
+                    {
+                        "label": "F Label",
+                        "value": -98.079782601442
+        },
+                    {
+                        "label": "G Label",
+                        "value": -13.925743130903
+        },
+                    {
+                        "label": "H Label",
+                        "value": -5.1387322875705
+        }
+      ]
+    }
+  ]
+
+    }
+
+
+    //TESTE
 
 });

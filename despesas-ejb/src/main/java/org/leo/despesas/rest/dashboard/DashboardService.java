@@ -12,8 +12,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.leo.despesas.aplicacao.dashboard.DashboardFacade;
 import org.leo.despesas.aplicacao.despesa.DespesaFacade;
 import org.leo.despesas.aplicacao.receita.ReceitaFacade;
+import org.leo.despesas.dominio.movimentacao.TipoGrafico;
 import org.leo.despesas.dominio.movimentacao.WrapperGraficoVO;
 import org.leo.despesas.infra.Periodo;
 
@@ -27,6 +29,9 @@ public class DashboardService {
 	@EJB
 	private ReceitaFacade receitaFacade;
 
+	@EJB
+	private DashboardFacade dashboardFacade;
+
 	@GET
 	@Path(value = "/main")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -36,10 +41,13 @@ public class DashboardService {
 		Periodo periodo = new Periodo(dataInicial, dataFinal);
 
 		// DESPESAS POR TIPO
-		wrappers.add(new WrapperGraficoVO("Despesas Por Tipo", despesaFacade.getGraficoPorPeriodo(periodo)));
+		wrappers.add(new WrapperGraficoVO("Despesas Por Tipo", TipoGrafico.PIZZA, despesaFacade.getGraficoPorPeriodo(periodo)));
 
 		// RECEITAS POR TIPO
-		wrappers.add(new WrapperGraficoVO("Receitas Por Tipo", receitaFacade.getGraficoPorPeriodo(periodo)));
+		wrappers.add(new WrapperGraficoVO("Receitas Por Tipo", TipoGrafico.PIZZA, receitaFacade.getGraficoPorPeriodo(periodo)));
+
+		// EXTRATO
+		wrappers.add(new WrapperGraficoVO("Extrato Mensal", TipoGrafico.BARRAS, dashboardFacade.getExtratoMes(dataInicial, dataFinal)));
 
 		return wrappers;
 	}

@@ -31,9 +31,17 @@ GraficoVO.prototype.getColors = function () {
 
     var colors = [];
 
-    for (y = 0; y < this.dados.length; y++) {
+    for (var y = 0; y < this.dados.length; y++) {
         colors.push(this.dados[y].cor);
     }
 
     return colors;
+};
+
+GraficoVO.prototype.isBarra = function () {
+    return 'BARRAS' == this.tipoGrafico;
+};
+
+GraficoVO.prototype.isPizza = function () {
+    return 'PIZZA' == this.tipoGrafico;
 };
