@@ -2,168 +2,183 @@
 <html lang="en" ng-app="despesas">
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="author" content="Dashboard">
-<meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-<meta http-equiv="pragma" content="no-cache">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <meta http-equiv="pragma" content="no-cache">
 
-<title>Controle de Despesas</title>
+    <title>Controle de Despesas</title>
 
-<link href="assets/css/bootstrap.css" rel="stylesheet" />
-<link href="assets/css/style.css" rel="stylesheet" />
-<link href="assets/css/style-responsive.css" rel="stylesheet" />
-<link href="assets/css/custom.css" rel="stylesheet" />
-<link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-<link href="assets/css/colorpicker.min.css" rel="stylesheet" />
-<link href="assets/css/jquery.navgoco.css" rel="stylesheet" />
-<link href="assets/css/fullcalendar.min.css" rel="stylesheet" />
-<link href="assets/css/angular-growl.min.css" rel="stylesheet" />
-<link href="assets/css/morris.css" rel="stylesheet" />
-<link href="assets/css/nv.d3.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="assets/css/style-responsive.css" rel="stylesheet" />
+    <link href="assets/css/custom.css" rel="stylesheet" />
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="assets/css/colorpicker.min.css" rel="stylesheet" />
+    <link href="assets/css/jquery.navgoco.css" rel="stylesheet" />
+    <link href="assets/css/fullcalendar.min.css" rel="stylesheet" />
+    <link href="assets/css/angular-growl.min.css" rel="stylesheet" />
+    <link href="assets/css/morris.css" rel="stylesheet" />
+    <link href="assets/css/nv.d3.css" rel="stylesheet" />
 
 </head>
 
 <body>
 
-	<section id="container">
-		<!-- **********************************************************************************************************************************************************
+    <section id="container">
+        <!-- **********************************************************************************************************************************************************
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
-		<!--header start-->
-		<header class="header black-bg">
-			<div class="sidebar-toggle-box">
-				<div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-			</div>
-			<!--logo start-->
-			<a href="index.html" class="logo">
-				<b>CONTROLE DE DESPESAS</b>
-			</a>
-			<!--logo end-->
-			<div class="nav notify-row" id="top_menu"></div>
-			<div class="top-menu"></div>
-		</header>
-		<!--header end-->
+        <!--header start-->
+        <header class="header black-bg">
+            <div class="sidebar-toggle-box">
+                <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+            </div>
+            <!--logo start-->
+            <a href="index.html" class="logo"> <b>CONTROLE DE DESPESAS</b>
+            </a>
+            <!--logo end-->
+            <div class="nav notify-row" id="top_menu"></div>
+            <div class="top-menu"></div>
+        </header>
+        <!--header end-->
 
-		<!-- **********************************************************************************************************************************************************
+        <!-- **********************************************************************************************************************************************************
       MAIN SIDEBAR MENU
       *********************************************************************************************************************************************************** -->
-		<!--sidebar start-->
-		<aside>
-			<div id="sidebar" class="nav-collapse ">
-				<ul id="menu_lateral" class="nav nav-pills nav-stacked" style="margin-top: 60px;">
-					<li><a href="#"> Cadastros </a>
+        <!--sidebar start-->
+        <aside>
+            <div id="sidebar" class="nav-collapse ">
+                <ul id="menu_lateral" class="nav nav-pills nav-stacked" style="margin-top: 60px;">
+                    <li><a href="#"> Cadastros </a>
 
-						<ul>
-							<li><a href="#/tipodespesas">Tipos de Despesa</a></li>
-							<li><a href="#/tiporeceitas">Tipos de Receita</a></li>
-							<li><a href="#/contas">Contas</a></li>
-							<li><a href="#/despesas">Despesas</a></li>
-							<li><a href="#/cartoes">Cartão de Crédito</a></li>
-							<li><a href="#/orcamentos">Orçamentos</a></li>
-							<li><a href="#/receitas">Receitas</a></li>
-						</ul></li>
+                        <ul>
+                            <li><a href="#/tipodespesas">Tipos de Despesa</a>
+                            </li>
+                            <li><a href="#/tiporeceitas">Tipos de Receita</a>
+                            </li>
+                            <li><a href="#/contas">Contas</a>
+                            </li>
+                            <li><a href="#/despesas">Despesas</a>
+                            </li>
+                            <li><a href="#/cartoes">Cartão de Crédito</a>
+                            </li>
+                            <li><a href="#/orcamentos">Orçamentos</a>
+                            </li>
+                            <li><a href="#/receitas">Receitas</a>
+                            </li>
+                        </ul>
+                    </li>
 
-					<li><a href="#"> Movimentação </a>
+                    <li><a href="#"> Movimentação </a>
 
-						<ul>
-							<li><a href="#/pagamentos">Pagamentos</a></li>
-						</ul></li>
+                        <ul>
+                            <li><a href="#/pagamentos">Pagamentos</a>
+                            </li>
+                        </ul>
+                    </li>
 
-					<li><a href="#"> Gráficos </a>
+                    <li><a href="#"> Gráficos </a>
 
-						<ul>
-							<li><a href="#/faturas">Extrato</a></li>
-							<li><a href="#/graficotipodespesa">Gráfico de Tipo Despesa</a></li>
-							<li><a href="#/graficotiporeceita">Gráfico de Tipo Receita</a></li>
-						</ul></li>
+                        <ul>
+                            <li><a href="#/faturas">Extrato</a>
+                            </li>
+                            <li><a href="#/graficotipodespesa">Gráfico de Tipo
+									Despesa</a>
+                            </li>
+                            <li><a href="#/graficotiporeceita">Gráfico de Tipo
+									Receita</a>
+                            </li>
+                        </ul>
+                    </li>
 
-				</ul>
-				<!-- sidebar menu end-->
-			</div>
-		</aside>
-		<!--sidebar end-->
+                </ul>
+                <!-- sidebar menu end-->
+            </div>
+        </aside>
+        <!--sidebar end-->
 
-		<!-- **********************************************************************************************************************************************************
+        <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
-		<!--main content start-->
-		<section id="main-content">
-			<section class="wrapper">
-				<div growl></div>
-				<div ng-view class="view-animate"></div>
-			</section>
-		</section>
+        <!--main content start-->
+        <section id="main-content">
+            <section class="wrapper">
+                <div growl></div>
+                <div ng-view class="view-animate"></div>
+            </section>
+        </section>
 
-		<!--main content end-->
+        <!--main content end-->
 
-	</section>
+    </section>
 
-	<!--Graficos-->
-	<script type="text/javascript" src="assets/libs/d3.v3.min.js"></script>
-	<script type="text/javascript" src="assets/libs/nv.d3.min.js"></script>
+    <!--Graficos-->
+    <script type="text/javascript" src="assets/libs/d3.v3.min.js"></script>
+    <script type="text/javascript" src="assets/libs/nv.d3.min.js"></script>
 
-	<!--JQuery-->
-	<script type="text/javascript" src="assets/libs/jquery-1.11.2.min.js"></script>
-	<script type="text/javascript" src="assets/libs/jquery-ui-1.9.2.custom.min.js"></script>
-	<script type="text/javascript" src="assets/libs/jquery.nicescroll.js"></script>
-	<script type="text/javascript" src="assets/libs/jquery.navgoco.min.js"></script>
-	<script type="text/javascript" src="assets/libs/bootstrap.min.js"></script>
-	<script type="text/javascript" src="assets/libs/moment.min.js"></script>
-	<script type="text/javascript" src="assets/libs/fullcalendar.min.js"></script>
-	<script type="text/javascript" src="assets/libs/spin.min.js"></script>
-	<script type="text/javascript" src="assets/libs/morris.min.js"></script>
-	<script type="text/javascript" src="assets/libs/raphael-min.js"></script>
+    <!--JQuery-->
+    <script type="text/javascript" src="assets/libs/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="assets/libs/jquery-ui-1.9.2.custom.min.js"></script>
+    <script type="text/javascript" src="assets/libs/jquery.nicescroll.js"></script>
+    <script type="text/javascript" src="assets/libs/jquery.navgoco.min.js"></script>
+    <script type="text/javascript" src="assets/libs/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/libs/moment.min.js"></script>
+    <script type="text/javascript" src="assets/libs/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="assets/libs/spin.min.js"></script>
+    <script type="text/javascript" src="assets/libs/morris.min.js"></script>
+    <script type="text/javascript" src="assets/libs/raphael-min.js"></script>
 
-	<!-- SCRIPTS ANGULARJS -->
-	<script type="text/javascript" src="assets/libs/angular.min.js"></script>
-	<script type="text/javascript" src="assets/libs/angular-animate.min.js"></script>
-	<script type="text/javascript" src="assets/libs/angular-locale_pt-br.js"></script>
-	<script type="text/javascript" src="assets/libs/angular-resource.min.js"></script>
-	<script type="text/javascript" src="assets/libs/angular-route.min.js"></script>
-	<script type="text/javascript" src="assets/libs/angular-growl.min.js"></script>
-	<script type="text/javascript" src="assets/libs/angular-spinner.min.js"></script>
+    <!-- SCRIPTS ANGULARJS -->
+    <script type="text/javascript" src="assets/libs/angular.min.js"></script>
+    <script type="text/javascript" src="assets/libs/angular-animate.min.js"></script>
+    <script type="text/javascript" src="assets/libs/angular-locale_pt-br.js"></script>
+    <script type="text/javascript" src="assets/libs/angular-resource.min.js"></script>
+    <script type="text/javascript" src="assets/libs/angular-route.min.js"></script>
+    <script type="text/javascript" src="assets/libs/angular-growl.min.js"></script>
+    <script type="text/javascript" src="assets/libs/angular-spinner.min.js"></script>
 
-	<!-- SCRIPTS MODULES ANGULAR-->
-	<script type="text/javascript" src="assets/libs/bootstrap-colorpicker-module.min.js"></script>
-	<script type="text/javascript" src="assets/libs/ui-bootstrap-tpls-0.12.1.js"></script>
-	<script type="text/javascript" src="assets/libs/masks.min.js"></script>
-	<script type="text/javascript" src="assets/libs/angular-strap.min.js"></script>
-	<script type="text/javascript" src="assets/libs/angular-strap.tpl.min.js"></script>
+    <!-- SCRIPTS MODULES ANGULAR-->
+    <script type="text/javascript" src="assets/libs/bootstrap-colorpicker-module.min.js"></script>
+    <script type="text/javascript" src="assets/libs/ui-bootstrap-tpls-0.12.1.js"></script>
+    <script type="text/javascript" src="assets/libs/masks.min.js"></script>
+    <script type="text/javascript" src="assets/libs/angular-strap.min.js"></script>
+    <script type="text/javascript" src="assets/libs/angular-strap.tpl.min.js"></script>
 
-	<!-- SCRIPTS APP -->
-	<script type="text/javascript" src="assets/js/app.js"></script>
-	<script type="text/javascript" src="partial/componentes/buttons.js"></script>
-	<script type="text/javascript" src="partial/componentes/pesquisaView.js"></script>
+    <!-- SCRIPTS APP -->
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    <script type="text/javascript" src="partial/componentes/buttons.js"></script>
+    <script type="text/javascript" src="partial/componentes/pesquisaView.js"></script>
 
-	<script type="text/javascript" src="assets/js/OrcamentoVO.js"></script>
-	<script type="text/javascript" src="assets/js/Periodo.js"></script>
-	<script type="text/javascript" src="assets/js/GraficoVO.js"></script>
+    <script type="text/javascript" src="assets/js/OrcamentoVO.js"></script>
+    <script type="text/javascript" src="assets/js/Periodo.js"></script>
+    <script type="text/javascript" src="assets/js/GraficoVO.js"></script>
 
-	<script type="text/javascript" src="assets/js/cartaoService.js"></script>
-	<script type="text/javascript" src="assets/js/despesaService.js"></script>
-	<script type="text/javascript" src="assets/js/contaService.js"></script>
-	<script type="text/javascript" src="assets/js/tipoDespesaService.js"></script>
-	<script type="text/javascript" src="assets/js/tipoReceitaService.js"></script>
-	<script type="text/javascript" src="assets/js/debitavelService.js"></script>
-	<script type="text/javascript" src="assets/js/orcamentoService.js"></script>
-	<script type="text/javascript" src="assets/js/receitaService.js"></script>
-	<script type="text/javascript" src="assets/js/dashboardService.js"></script>
-	<script type="text/javascript" src="assets/js/faturaService.js"></script>
+    <script type="text/javascript" src="assets/js/cartaoService.js"></script>
+    <script type="text/javascript" src="assets/js/despesaService.js"></script>
+    <script type="text/javascript" src="assets/js/contaService.js"></script>
+    <script type="text/javascript" src="assets/js/tipoDespesaService.js"></script>
+    <script type="text/javascript" src="assets/js/tipoReceitaService.js"></script>
+    <script type="text/javascript" src="assets/js/debitavelService.js"></script>
+    <script type="text/javascript" src="assets/js/orcamentoService.js"></script>
+    <script type="text/javascript" src="assets/js/receitaService.js"></script>
+    <script type="text/javascript" src="assets/js/dashboardService.js"></script>
+    <script type="text/javascript" src="assets/js/faturaService.js"></script>
 
-	<script type="text/javascript" src="assets/js/contaController.js"></script>
-	<script type="text/javascript" src="assets/js/tipoDespesaController.js"></script>
-	<script type="text/javascript" src="assets/js/tipoReceitaController.js"></script>
-	<script type="text/javascript" src="assets/js/despesaController.js"></script>
-	<script type="text/javascript" src="assets/js/cartaoController.js"></script>
-	<script type="text/javascript" src="assets/js/orcamentoController.js"></script>
-	<script type="text/javascript" src="assets/js/pagamentosController.js"></script>
-	<script type="text/javascript" src="assets/js/dashboardController.js"></script>
-	<script type="text/javascript" src="assets/js/receitaController.js"></script>
-	<script type="text/javascript" src="assets/js/faturaController.js"></script>
+    <script type="text/javascript" src="assets/js/contaController.js"></script>
+    <script type="text/javascript" src="assets/js/tipoDespesaController.js"></script>
+    <script type="text/javascript" src="assets/js/tipoReceitaController.js"></script>
+    <script type="text/javascript" src="assets/js/despesaController.js"></script>
+    <script type="text/javascript" src="assets/js/cartaoController.js"></script>
+    <script type="text/javascript" src="assets/js/orcamentoController.js"></script>
+    <script type="text/javascript" src="assets/js/pagamentosController.js"></script>
+    <script type="text/javascript" src="assets/js/dashboardController.js"></script>
+    <script type="text/javascript" src="assets/js/receitaController.js"></script>
+    <script type="text/javascript" src="assets/js/faturaController.js"></script>
 
-	<script>
+    <script>
         $(document).ready(function () {
             $("#menu_lateral").navgoco({
                 accordion: true

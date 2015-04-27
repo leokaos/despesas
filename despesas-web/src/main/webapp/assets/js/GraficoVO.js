@@ -1,6 +1,6 @@
 var GraficoVOFactory = {
 
-	create: function(obj) {
+	create : function(obj) {
 
 		var PIZZA = 'PIZZA';
 		var BARRAS = 'BARRAS';

@@ -46,7 +46,7 @@ public class DashboardFacadeImpl implements DashboardFacade {
 		filtroDespesa.setDataInicial(dataInicial);
 		filtroDespesa.setDataFinal(dataFinal);
 
-		BigDecimal totalDespesa = getValorTotalDespesa(despesaFacade.buscarPorFiltro(filtroDespesa));
+		BigDecimal totalDespesa = getValorTotalDespesa(despesaFacade.buscarPorFiltro(filtroDespesa)).multiply(new BigDecimal("-1"));
 
 		List<GraficoVO> graficoVOs = new ArrayList<>();
 

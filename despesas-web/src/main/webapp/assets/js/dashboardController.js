@@ -1,4 +1,4 @@
-app.controller('dashboardController',function($scope,$http,dashboardService,$location,$routeParams,MESES) {
+app.controller('dashboardController', function($scope, $http, dashboardService, $location, $routeParams, MESES) {
 
 	$scope.dataAtual = new Date();
 	$scope.MESES = MESES;
@@ -8,18 +8,18 @@ app.controller('dashboardController',function($scope,$http,dashboardService,$loc
 
 	$scope.loadChart = function() {
 
-		var dataInicio = new Date($scope.ano,$scope.mes,1);
-		var dataFim = new Date($scope.ano,$scope.mes + 1,0);
+		var dataInicio = new Date($scope.ano, $scope.mes, 1);
+		var dataFim = new Date($scope.ano, $scope.mes + 1, 0);
 
-		dashboardService.buscarDespesasPorPeriodo(dataInicio,dataFim,function(data) {
+		dashboardService.buscarDespesasPorPeriodo(dataInicio, dataFim, function(data) {
 
 			$scope.graficos = [];
 
-			for (var x = 0 ; x < data.length ; x++) {
-				$scope.graficos.push(new GraficoVO(data[x]));
+			for (var x = 0; x < data.length; x++) {
+				$scope.graficos.push(GraficoVOFactory.create(data[x]));
 			}
 
-			for (var y = 0 ; y < $scope.graficos.length ; y++) {
+			for (var y = 0; y < $scope.graficos.length; y++) {
 				$scope.buildCharts($scope.graficos[y]);
 			}
 
