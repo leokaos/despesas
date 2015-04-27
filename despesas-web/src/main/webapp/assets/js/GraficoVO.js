@@ -1,16 +1,17 @@
-GraficoVOFactory = function() {};
+var GraficoVOFactory = {
 
-GraficoVOFactory.prototype.create = function(obj) {
+	create : function(obj) {
 
-	var PIZZA = 'PIZZA';
-	var BARRAS = 'BARRAS';
+		var PIZZA = 'PIZZA';
+		var BARRAS = 'BARRAS';
 
-	if (obj.tipoGrafico == PIZZA) {
-		return new GraficoVOPizza(obj);
-	}
+		if (obj.tipoGrafico == PIZZA) {
+			return new GraficoVOPizza(obj);
+		}
 
-	if (obj.tipoGrafico == BARRAS) {
-		return new GraficoVOBarras(obj);
+		if (obj.tipoGrafico == BARRAS) {
+			return new GraficoVOBarras(obj);
+		}
 	}
 };
 
@@ -20,7 +21,7 @@ GraficoVO = function(obj) {
 };
 
 GraficoVO.prototype.init = function(obj) {
-	angular.extend(this,obj);
+	angular.extend(this, obj);
 
 	this.id = this.titulo.split(" ").join("_").toLowerCase();
 };
@@ -29,7 +30,7 @@ GraficoVO.prototype.getColors = function() {
 
 	var colors = [];
 
-	for (var y = 0 ; y < this.dados.length ; y++) {
+	for (var y = 0; y < this.dados.length; y++) {
 		colors.push(this.dados[y].cor);
 	}
 
@@ -53,13 +54,16 @@ GraficoVO.prototype.getChart = function() {
 
 	chart.color(this.getColors());
 	chart.noData("Sem Dados");
+	
+	return chart;
 };
 
 // GraficoVOPizza
 GraficoVOPizza = function(obj) {
-	this.prototype = GraficoVOPizza.prototype;
 	this.init(obj);
 };
+
+angular.extend(GraficoVOPizza.prototype, GraficoVO.prototype);
 
 GraficoVOPizza.prototype.getChartConfigurado = function() {
 	return nv.models.pieChart().donut(true).labelType("percent").showLegend(false);
@@ -67,17 +71,16 @@ GraficoVOPizza.prototype.getChartConfigurado = function() {
 
 // GraficoVOBarras
 GraficoVOBarras = function(obj) {
-	this.prototype = GraficoVOPizza.prototype;
 	this.init(obj);
 };
 
+angular.extend(GraficoVOBarras.prototype, GraficoVO.prototype);
+
 GraficoVOBarras.prototype.getDados = function() {
-	return [
-		{
-		    key: this.titulo,
-		    values: this.dados
-		}
-	];
+	return [ {
+		key : this.titulo,
+		values : this.dados
+	} ];
 };
 
 GraficoVOBarras.prototype.getChartConfigurado = function() {
