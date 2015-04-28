@@ -31,15 +31,23 @@
     </div>
 </div>
 
-<div class="row mt">
+<div class="mt col-md-4" style="padding-left: 0px; margin-top: 20px;">
 
-    <carrosel>
+    <div style="width: 100%;">
 
-        <div ng-repeat="debitavel in debitaveis">
-            <h5>{{debitavel.descricao}}</h5>
-            <p>{{debitavel.saldo | currency: 'R$ '}}</p>
-        </div>
+        <slick init-onload="true" data="debitaveis">
 
-    </carrosel>
+            <div ng-repeat="debitavel in debitaveis" class="white-panel" style="height: 200px;">
+                <div class="white-header">
+                    <h5>{{debitavel.descricao}}</h5>
+                </div>
+                <div class="row">
+                    <h1 style="margin-top:40px;">{{debitavel.saldo | currency: 'R$ '}}</h1>
+                </div>
+            </div>
+
+        </slick>
+
+    </div>
 
 </div>
