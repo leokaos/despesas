@@ -11,7 +11,7 @@ import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Receita;
 
 @Entity
-@Table(name = "conta", schema = "despesas_db")
+@Table(name = "conta",schema = "despesas_db")
 @DiscriminatorValue(value = Conta.CODIGO_TIPO)
 public class Conta extends Debitavel {
 
@@ -24,6 +24,7 @@ public class Conta extends Debitavel {
 		super(Conta.CODIGO_TIPO);
 	}
 
+	@Override
 	public BigDecimal getSaldo() {
 		return saldo;
 	}

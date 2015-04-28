@@ -1,6 +1,7 @@
 var app = angular.module('despesas', ['ngRoute', 'ngAnimate', 'ngResource',
                                       'colorpicker.module', 'ui.utils.masks',
-                                      'angular-growl', 'ui.bootstrap', 'mgcrea.ngStrap', 'angularSpinner']);
+                                      'angular-growl', 'ui.bootstrap', 'mgcrea.ngStrap',
+                                      'angularSpinner']);
 app.constant('MESES', [
     {
         nome: 'Janeiro',
@@ -161,7 +162,7 @@ app.directive('ngModal', function () {
         restrict: 'E',
         replace: true,
         transclude: true,
-        templateUrl: 'partial/modal.html',
+        templateUrl: 'partial/componentes/modal.html',
 
         compile: function (element, attrs, transclude) {
 
@@ -289,4 +290,30 @@ app.directive('uiCalendar', function (MESES) {
             $(id).fullCalendar('refetchEvents');
         }
     };
+});
+
+app.directive('carrosel', function ($timeout) {
+
+    return {
+        restrict: 'E',
+        replace: true,
+        transclude: true,
+        template: '<div style="width:80%;" class="owl-carousel" ng-transclude></div>',
+        link: function (scope, iElement, iAttrs) {
+
+            var id = '#' + iElement.attr('id');
+
+            $timeout(
+
+                $(id).owlCarousel({
+                    loop: true,
+                    centerMode: true,
+                    slidesToShow: 3,
+                    margin: 10,
+                    nav: true
+                })
+
+            );
+        }
+    }
 });

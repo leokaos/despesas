@@ -2,7 +2,7 @@
 	<i class="fa fa-angle-right"></i> Dashboard
 </h3>
 
-<div class="form-panel col-md-12" style="margin:0px 0px 30px 0px;">
+<div class="form-panel col-md-12" style="margin: 0px 0px 30px 0px;">
 
     <div style="float: left;">
         <button class="botao glyphicon glyphicon-chevron-left" ng-click="anterior();"></button>
@@ -19,16 +19,27 @@
 </div>
 
 <div class="row mt">
-
     <div class="col-md-4" ng-repeat="grafico in graficos">
         <div class="white-panel">
             <div class="white-header">
                 <h5>{{grafico.titulo}}</h5>
             </div>
             <div class="row">
-                <svg id="{{grafico.id}}" style="height:300px;"></svg>
+                <svg id="{{grafico.id}}" style="height: 300px;"></svg>
             </div>
         </div>
     </div>
+</div>
+
+<div class="row mt">
+
+    <carrosel>
+
+        <div ng-repeat="debitavel in debitaveis">
+            <h5>{{debitavel.descricao}}</h5>
+            <p>{{debitavel.saldo | currency: 'R$ '}}</p>
+        </div>
+
+    </carrosel>
 
 </div>
