@@ -31,7 +31,7 @@ public class DashboardFacadeImpl implements DashboardFacade {
 	private ReceitaFacade receitaFacade;
 
 	@Override
-	public List<GraficoVO> getExtratoMes(Date dataInicial, Date dataFinal) {
+	public List<GraficoVO> getExtratoMes(Date dataInicial,Date dataFinal) {
 
 		// Receitas
 		ReceitaFiltro filtroReceita = new ReceitaFiltro();
@@ -50,8 +50,8 @@ public class DashboardFacadeImpl implements DashboardFacade {
 
 		List<GraficoVO> graficoVOs = new ArrayList<>();
 
-		graficoVOs.add(new GraficoVO("Receitas", "#42E87D", totalReceita));
-		graficoVOs.add(new GraficoVO("Despesas", "#F54047", totalDespesa));
+		graficoVOs.add(new GraficoVO("Receitas","#42E87D",totalReceita));
+		graficoVOs.add(new GraficoVO("Despesas","#F54047",totalDespesa));
 
 		return graficoVOs;
 	}
