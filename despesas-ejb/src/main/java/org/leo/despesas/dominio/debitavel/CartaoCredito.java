@@ -30,6 +30,9 @@ public class CartaoCredito extends Debitavel {
 	@Column(name = "limite")
 	private BigDecimal limite;
 
+	@Column(name = "limite_atual")
+	private BigDecimal limiteAtual;
+
 	@Column(name = "diaDeVencimento")
 	private Integer diaDeVencimento;
 
@@ -79,6 +82,14 @@ public class CartaoCredito extends Debitavel {
 
 	public void setBandeiraCartaoCredito(BandeiraCartaoCredito bandeiraCartaoCredito) {
 		this.bandeiraCartaoCredito = bandeiraCartaoCredito;
+	}
+
+	public BigDecimal getLimiteAtual() {
+		return limiteAtual;
+	}
+
+	public void setLimiteAtual(BigDecimal limiteAtual) {
+		this.limiteAtual = limiteAtual;
 	}
 
 	@JsonIgnore
@@ -154,6 +165,16 @@ public class CartaoCredito extends Debitavel {
 	@Override
 	public BigDecimal getSaldo() {
 		return BigDecimal.ZERO;
+	}
+
+	@Override
+	protected void debitarValor(BigDecimal valor) {
+		setLimiteAtual(getLimiteAtual().subtract(valor));
+	}
+
+	@Override
+	protected void creditarValor(BigDecimal valor) {
+		setLimiteAtual(getLimiteAtual().add(valor));
 	}
 
 }

@@ -38,69 +38,32 @@
                 </div>
 
                 <div class="form-group">
+
                     <label class="col-sm-2 control-label">Tipo:</label>
-                    <div class="col-sm-10 btn-group" dropdown>
 
-                        <button type="button" class="btn btn-default" style="min-width: 150px;">
-                            <div style="display: table;">
-                                <div style="background-color: {{tipoDespesaSelecionado.cor}}; border-radius:100px; width:20px;height: 20px; margin: 0px 0px 0px 5px; display: table-cell;"></div>
-                                <span style="vertical-align: middle;display: table-cell; padding-left: 3px;">{{tipoDespesaSelecionado.descricao}}</span>
-                            </div>
-                        </button>
-
-                        <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
-                            <span class="caret"></span>
-                        </button>
-
-                        <ul class="dropdown-menu" role="menu" style="min-width: 176px; margin-left: 15px;">
-                            <li ng-repeat="tipo in tiposDespesa" ng-click="selecionarTipoDespesa(tipo);">
-                                <div style="display: table;padding: 0px 0px 3px 3px; min-height:34px;">
-                                    <div style="background-color: {{tipo.cor}}; border-radius:100px; width:30px;height: 30px; margin: 0px 0px 0px 5px; display: table-cell;"></div>
-                                    <a style="vertical-align: middle;display: table-cell; padding-left: 3px;">{{tipo.descricao}}</a>
-                                </div>
-                            </li>
-                        </ul>
-
+                    <colorable select-function="selecionarTipoDespesa" ng-model="tiposDespesa">
                         <div ng-if="hasOrcamento();">
                             <label class="col-sm-2 control-label">Orçamento:</label>
                             <progressbar class="progress-striped active" value="orcamento.getValueOrcamento();" type="{{orcamento.getClassProgressBar();}}">{{orcamento.valorConsolidado}}/{{orcamento.valor}}</progressbar>
                         </div>
+                    </colorable>
 
-                    </div>
                 </div>
 
                 <div class="form-group">
+
                     <label class="col-sm-2 control-label">Debitável:</label>
-                    <div class="col-sm-10 btn-group" dropdown>
 
-                        <button type="button" class="btn btn-default" style="min-width: 150px;">
-                            <div style="display: table;">
-                                <div style="background-color: {{debitavelSelecionado.cor}}; border-radius:100px; width:20px;height: 20px; margin: 0px 0px 0px 5px; display: table-cell;"></div>
-                                <span style="vertical-align: middle;display: table-cell; padding-left: 3px;">{{debitavelSelecionado.descricao}}</span>
-                            </div>
-                        </button>
-
-                        <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
-                            <span class="caret"></span>
-                        </button>
-
-                        <ul class="dropdown-menu" role="menu" style="min-width: 176px; margin-left: 15px;">
-                            <li ng-repeat="debitavel in debitaveis" ng-click="selecionarDebitavel(debitavel);">
-                                <div style="display: table;padding: 0px 0px 3px 3px; min-height:34px;">
-                                    <div style="background-color: {{debitavel.cor}}; border-radius:100px; width:30px;height: 30px; margin: 0px 0px 0px 5px; display: table-cell;"></div>
-                                    <a style="vertical-align: middle;display: table-cell; padding-left: 3px;">{{debitavel.descricao}}</a>
-                                </div>
-                            </li>
-                        </ul>
-                        <span style="vertical-align: middle; padding-left: 20px;">
-                            <label class="col-sm-4 control-label">Saldo: {{contaSelecionada.saldo | currency}}</label>
+                    <colorable select-function="selecionarDebitavel" ng-model="debitaveis">
+                        <span style="vertical-align: middle; padding-left: 20px;" ng-if="debitavelSelecionado != null">
+                            <label class="col-sm-4 control-label">Saldo: {{debitavelSelecionado.saldo | currency}}</label>
                         </span>
-                    </div>
+                    </colorable>
 
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Despesa paga ?</label>
+                    <label class="col-sm-2 control-label">Despesa já paga ?</label>
                     <div class="col-sm-10">
                         <input type="checkbox" class="form-control" ng-model="despesa.paga">
                     </div>

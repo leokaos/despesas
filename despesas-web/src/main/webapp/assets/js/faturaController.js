@@ -27,7 +27,7 @@ app.controller('faturaController', function ($scope, faturaService, cartaoServic
 
     $scope.cancelar = function () {
         $location.path('/cartoes');
-    }
+    };
 
     $scope.pagarFatura = function (fatura) {
 
@@ -40,7 +40,6 @@ app.controller('faturaController', function ($scope, faturaService, cartaoServic
         despesaService.setDespesa($scope.despesa);
 
         $location.path('/despesa');
-
     };
 
 });
