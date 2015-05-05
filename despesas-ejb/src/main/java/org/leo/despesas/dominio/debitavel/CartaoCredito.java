@@ -22,7 +22,7 @@ import org.leo.despesas.infra.DataUtil;
 
 @Entity
 @DiscriminatorValue(value = CartaoCredito.CODIGO_TIPO)
-@Table(name = "cartao",schema = "despesas_db")
+@Table(name = "cartao", schema = "despesas_db")
 public class CartaoCredito extends Debitavel {
 
 	public static final String CODIGO_TIPO = "CARTAO";
@@ -40,7 +40,7 @@ public class CartaoCredito extends Debitavel {
 	@Column(name = "bandeiraCartaoCredito")
 	private BandeiraCartaoCredito bandeiraCartaoCredito;
 
-	@OneToMany(mappedBy = "cartao",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Fatura> faturas;
 
 	public CartaoCredito() {
@@ -112,18 +112,18 @@ public class CartaoCredito extends Debitavel {
 
 			// Configuracao da data de fechamento
 			Date dataFechamento = new Date(despesa.getVencimento().getTime());
-			dataFechamento = DataUtil.setDays(dataFechamento,this.diaDeFechamento);
-			dataFechamento = DataUtil.addMonths(dataFechamento,1);
+			dataFechamento = DataUtil.setDays(dataFechamento, this.diaDeFechamento);
+			dataFechamento = DataUtil.addMonths(dataFechamento, 1);
 
 			faturaPorData.setDataFechamento(dataFechamento);
 
 			// Configuracao da data de vencimento
 			Date dataVencimento = new Date(despesa.getVencimento().getTime());
-			dataVencimento = DataUtil.setDays(dataVencimento,this.diaDeVencimento);
-			dataVencimento = DataUtil.addMonths(dataVencimento,1);
+			dataVencimento = DataUtil.setDays(dataVencimento, this.diaDeVencimento);
+			dataVencimento = DataUtil.addMonths(dataVencimento, 1);
 
 			if (diaDeFechamento > diaDeVencimento) {
-				dataVencimento = DataUtil.addMonths(dataVencimento,1);
+				dataVencimento = DataUtil.addMonths(dataVencimento, 1);
 			}
 
 			faturaPorData.setDataVencimento(dataVencimento);
@@ -144,7 +144,7 @@ public class CartaoCredito extends Debitavel {
 
 		Fatura fatura = getFaturaPorData(despesa.getVencimento());
 
-		if (fatura.getId() != null) {
+		if (fatura != null && fatura.getId() != null) {
 			despesa.setFatura(fatura);
 		}
 
@@ -152,6 +152,7 @@ public class CartaoCredito extends Debitavel {
 	}
 
 	@Override
+	@JsonIgnore
 	public BigDecimal getSaldo() {
 		return BigDecimal.ZERO;
 	}
