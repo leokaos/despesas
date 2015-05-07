@@ -15,7 +15,7 @@ import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.rest.infra.AbstractService;
 
 @Path("/fatura")
-public class FaturaService extends AbstractService<FaturaFacade, Fatura> {
+public class FaturaService extends AbstractService<FaturaFacade,Fatura> {
 
 	@EJB
 	private FaturaFacade faturaFacade;
@@ -33,6 +33,13 @@ public class FaturaService extends AbstractService<FaturaFacade, Fatura> {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Fatura> buscarFaturaPorCartaoCredito(@PathParam(value = "id") Long idCartaoCredito) {
 		return faturaFacade.buscarFaturaPorCartaoCredito(cartaoFacade.buscarPorId(idCartaoCredito));
+	}
+
+	@GET
+	@Path(value = "/cartao/pagar/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public void pagarFatura(@PathParam(value = "id") Long idFatura) {
+
 	}
 
 }

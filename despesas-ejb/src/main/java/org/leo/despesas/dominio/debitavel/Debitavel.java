@@ -71,6 +71,15 @@ public abstract class Debitavel {
 		this.tipo = tipo;
 	}
 
+	public void transferir(Debitavel saida,BigDecimal valor) {
+		saida.debitarValor(valor);
+		this.creditarValor(valor);
+	}
+
+	protected abstract void debitarValor(BigDecimal valor);
+
+	protected abstract void creditarValor(BigDecimal valor);
+
 	public abstract void debitar(Despesa despesa);
 
 	public abstract void creditar(Receita receita);

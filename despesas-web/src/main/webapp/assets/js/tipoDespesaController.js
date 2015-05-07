@@ -28,26 +28,15 @@ app.controller('tipoDespesaController', function ($scope, tipoDespesaService, $l
     };
 
     $scope.novo = function () {
-        tipoDespesaService.setTipoDespesa(tipoDespesaService.getNovoTipoDespesa());
-
-        $scope.goEdicao();
+        $location.path('/tipodespesa');
     };
 
     $scope.editar = function (id) {
-
-        tipoDespesaService.buscarPorId(id, function (tipoDespesa) {
-            tipoDespesaService.setTipoDespesa(tipoDespesa);
-
-            $scope.goEdicao();
-        });
+        $location.path('/tipodespesa/' + id);
     };
 
     $scope.select = function (tipoDespesa) {
         $scope.tipoDespesaSelecionado = tipoDespesa;
-    };
-
-    $scope.goEdicao = function () {
-        $location.path('/tipodespesa');
     };
 
     $scope.getItemSelecionado = function () {
@@ -62,7 +51,15 @@ app.controller('tipoDespesaController', function ($scope, tipoDespesaService, $l
 
 app.controller('edicaoTipoDespesaController', function ($scope, tipoDespesaService, $location, $routeParams, growl) {
 
-    $scope.tipodespesa = tipoDespesaService.getTipoDespesa();
+    var id = $routeParams.id;
+
+    if (id != null) {
+        tipoDespesaService.buscarPorId(id, function (tipodespesa) {
+            $scope.tipodespesa = tipodespesa;
+        });
+    } else {
+        $scope.tipodespesa = tipoDespesaService.getNovoTipoDespesa();
+    }
 
     $scope.cancelar = function () {
         $location.path('/tipodespesas');
