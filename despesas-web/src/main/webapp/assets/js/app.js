@@ -1,69 +1,60 @@
-var app = angular.module('despesas', [
-        'ngRoute',
-        'ngAnimate',
-        'ngResource',
-        'colorpicker.module',
-        'ui.utils.masks',
-        'angular-growl',
-        'ui.bootstrap',
-        'mgcrea.ngStrap',
-        'angularSpinner',
-        'slick'
-]);
+var app = angular.module('despesas', ['ngRoute', 'ngAnimate', 'ngResource',
+                                      'colorpicker.module', 'ui.utils.masks',
+                                      'angular-growl', 'ui.bootstrap', 'mgcrea.ngStrap',
+                                      'angularSpinner', 'slick']);
 app.constant('MESES', [
     {
         nome: 'Janeiro',
         value: 1
-        },
+    },
     {
         nome: 'Fevereiro',
         value: 2
-        },
+    },
     {
         nome: 'Mar\u00e7o',
         value: 3
-        },
+    },
     {
         nome: 'Abril',
         value: 4
-        },
+    },
     {
         nome: 'Maio',
         value: 5
-        },
+    },
     {
         nome: 'Junho',
         value: 6
-        },
+    },
     {
         nome: 'Julho',
         value: 7
-        },
+    },
     {
         nome: 'Agosto',
         value: 8
-        },
+    },
     {
         nome: 'Setembro',
         value: 9
-        },
+    },
     {
         nome: 'Outubro',
         value: 10
-        },
+    },
     {
         nome: 'Novembro',
         value: 11
-        },
+    },
     {
         nome: 'Dezembro',
         value: 12
-        }
+    }
 ]);
 
 app.config(function ($routeProvider, $locationProvider) {
 
-    //TIPOS DE DESPESA
     $routeProvider.when('/tipodespesas', {
         templateUrl: 'partial/tipodespesa/tipodespesas.html',
         controller: 'tipoDespesaController'
@@ -73,12 +64,6 @@ app.config(function ($routeProvider, $locationProvider) {
         templateUrl: 'partial/tipodespesa/tipodespesa.html',
         controller: 'edicaoTipoDespesaController'
     });
-
-    $routeProvider.when('/tipodespesa/:id', {
-        templateUrl: 'partial/tipodespesa/tipodespesa.html',
-        controller: 'edicaoTipoDespesaController'
-    });
-
 
     $routeProvider.when('/tiporeceitas', {
         templateUrl: 'partial/tiporeceita/tiporeceitas.html',
@@ -239,9 +224,10 @@ app.directive('startupError', function ($compile) {
 
             var campo = iElement.find("input[startup-error-field]");
 
-            /*
-             * $(campo).attr('bs-tooltip', ''); $(campo).attr('tooltip-placement', 'top'); $(campo).attr('tooltip-trigger', 'focus'); $(campo).attr('tooltip', iAttrs.tooltipMessage);
-             */
+            /*$(campo).attr('bs-tooltip', '');
+            $(campo).attr('tooltip-placement', 'top');
+            $(campo).attr('tooltip-trigger', 'focus');
+            $(campo).attr('tooltip', iAttrs.tooltipMessage);*/
 
             iElement.append("<span startup-error-message></span>");
 
@@ -260,6 +246,7 @@ app.directive('startupError', function ($compile) {
 
 });
 
+
 app.directive('uiCalendar', function (MESES) {
 
     return {
@@ -270,24 +257,8 @@ app.directive('uiCalendar', function (MESES) {
         },
         link: function (scope, iElement, iAttrs) {
 
-            var diasSemana = [
-              "domingo",
-              "segunda-feira",
-              "ter\u00e7a-feira",
-              "quarta-feira",
-              "quinta-feira",
-              "sexta-feira",
-              "s\u00e1bado"
-      ];
-            var diasSemanaCurtos = [
-              "Dom",
-              "Seg",
-              "Ter",
-              "Qua",
-              "Qui",
-              "Sex",
-              "S\u00e1b"
-      ];
+            var diasSemana = ["domingo", "segunda-feira", "ter\u00e7a-feira", "quarta-feira", "quinta-feira", "sexta-feira", "s\u00e1bado"];
+            var diasSemanaCurtos = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "S\u00e1b"];
             var textoDosBotoes = {
                 today: 'Hoje',
                 month: 'Mês',
@@ -309,20 +280,7 @@ app.directive('uiCalendar', function (MESES) {
                 height: 700,
                 aspectRatio: 10,
                 events: scope.eventSources,
-                monthNames: [
-                  'Janeiro',
-                  'Fevereiro',
-                  'Mar\u00e7o',
-                  'Abril',
-                  'Maio',
-                  'Junho',
-                  'Julho',
-                  'Agosto',
-                  'Setembro',
-                  'Outubro',
-                  'Novembro',
-                  'Dezembro'
-          ],
+                monthNames: ['Janeiro', 'Fevereiro', 'Mar\u00e7o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
                 dayNames: diasSemana,
                 dayNamesShort: diasSemanaCurtos,
                 buttonText: textoDosBotoes,
@@ -330,27 +288,6 @@ app.directive('uiCalendar', function (MESES) {
             });
 
             $(id).fullCalendar('refetchEvents');
-        }
-    };
-});
-
-app.directive('colorable', function () {
-
-    return {
-        restrict: 'E',
-        scope: {
-            selectFunction: '=',
-            listaColorable: '=ngModel'
-        },
-        replace: true,
-        transclude: true,
-        templateUrl: 'partial/componentes/drop.html',
-
-        link: function (scope, iElement, iAttrs) {
-
-            scope.select = function (item) {
-                scope.colorableSelected = item;
-            };
         }
     };
 });

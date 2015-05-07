@@ -1,0 +1,9 @@
+{
+    "jscodehints.detectedExclusions": [
+        "D:/Projetos/despesas/despesas-web/src/main/webapp/partial/componentes/pesquisaView.js",
+        "D:/Projetos/despesas/despesas-web/src/main/webapp/partial/componentes/buttons.js",
+        "D:/Projetos/despesas/despesas-web/src/main/webapp/assets/lineicons/lte-ie7.js",
+        "D:/Projetos/despesas/despesas-web/src/main/webapp/assets/js/app.js",
+        "D:/Projetos/despesas/despesas-web/src/main/webapp/assets/js/faturaController.js"
+    ]
+}
