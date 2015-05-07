@@ -1,4 +1,4 @@
-app.controller('tipoDespesaController', function ($scope, tipoDespesaService, $location, $routeParams, usSpinnerService) {
+app.controller('tipoDespesaController', function ($scope, tipoDespesaService, $location, usSpinnerService) {
 
     $scope.tipoDespesaSelecionado = null;
 
