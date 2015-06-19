@@ -4,50 +4,52 @@
 
 <div class="form-panel col-md-12" style="margin: 0px 0px 30px 0px;">
 
-    <div style="float: left;">
-        <button class="botao glyphicon glyphicon-chevron-left" ng-click="anterior();"></button>
-    </div>
+	<div style="float: left;">
+		<button class="botao glyphicon glyphicon-chevron-left" ng-click="anterior();"></button>
+	</div>
 
-    <div style="float: left; width: 90%;">
-        <h4 style="text-align: center;">{{MESES[mes].nome}}/{{ano}}</h4>
-    </div>
+	<div style="float: left; width: 90%;">
+		<h4 style="text-align: center;">{{MESES[mes].nome}}/{{ano}}</h4>
+	</div>
 
-    <div style="float: right;">
-        <button class="botao glyphicon glyphicon-chevron-right" ng-click="posterior();"></button>
-    </div>
+	<div style="float: right;">
+		<button class="botao glyphicon glyphicon-chevron-right" ng-click="posterior();"></button>
+	</div>
+
+	<div class="clearfix"></div>
 
 </div>
 
 <div class="row mt">
-    <div class="col-md-4" ng-repeat="grafico in graficos">
-        <div class="white-panel">
-            <div class="white-header">
-                <h5>{{grafico.titulo}}</h5>
-            </div>
-            <div class="row">
-                <svg id="{{grafico.id}}" style="height: 300px;"></svg>
-            </div>
-        </div>
-    </div>
+	<div class="col-md-4" ng-repeat="grafico in graficos">
+		<div class="white-panel">
+			<div class="white-header">
+				<h5>{{grafico.titulo}}</h5>
+			</div>
+			<div class="row">
+				<svg id="{{grafico.id}}" style="height: 300px;"></svg>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="mt col-md-4" style="padding-left: 0px; margin-top: 20px;">
 
-    <div style="width: 100%;">
+	<div style="width: 100%;">
 
-        <slick init-onload="true" data="debitaveis">
+		<slick init-onload="true" data="debitaveis">
 
-            <div ng-repeat="debitavel in debitaveis" class="white-panel" style="height: 200px;">
-                <div class="white-header">
-                    <h5>{{debitavel.descricao}}</h5>
-                </div>
-                <div class="row">
-                    <h1 style="margin-top:40px;">{{debitavel.saldo | currency: 'R$ '}}</h1>
-                </div>
-            </div>
+		<div ng-repeat="debitavel in debitaveis" class="white-panel" style="height: 200px;">
+			<div class="white-header">
+				<h5>{{debitavel.descricao}}</h5>
+			</div>
+			<div class="row">
+				<h1 style="margin-top: 40px;">{{debitavel.saldo | currency: 'R$ '}}</h1>
+			</div>
+		</div>
 
-        </slick>
+		</slick>
 
-    </div>
+	</div>
 
 </div>

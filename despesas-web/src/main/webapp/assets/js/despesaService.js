@@ -8,7 +8,7 @@ app.service('despesaService', function ($http) {
             descricao: '',
             vencimento: null,
             valor: null,
-            tipo: null,
+            tipoDespesa: null,
             debitavel: null,
             paga: false,
             parcelamento: null,

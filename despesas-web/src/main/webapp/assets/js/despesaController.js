@@ -114,8 +114,8 @@ app.controller('edicaoDespesaController', function ($scope, despesaService, tipo
         $scope.debitavelSelecionado = $scope.despesa.debitavel;
     }
 
-    if ($scope.despesa.tipo != null) {
-        $scope.tipoDespesaSelecionado = $scope.despesa.tipo;
+    if ($scope.despesa.tipoDespesa != null) {
+        $scope.tipoDespesaSelecionado = $scope.despesa.tipoDespesa;
     }
 
     $scope.openData = function () {
@@ -124,11 +124,11 @@ app.controller('edicaoDespesaController', function ($scope, despesaService, tipo
 
     $scope.selecionarTipoDespesa = function (tipoDespesa) {
         $scope.tipoDespesaSelecionado = tipoDespesa;
-        $scope.despesa.tipo = $scope.tipoDespesaSelecionado;
+        $scope.despesa.tipoDespesa = $scope.tipoDespesaSelecionado;
 
         if ($scope.tipoDespesaSelecionado != null && $scope.despesa.vencimento != null) {
 
-            orcamentoService.filtrarPorData($scope.despesa.vencimento, $scope.despesa.tipo.descricao, function (data) {
+            orcamentoService.filtrarPorData($scope.despesa.vencimento, $scope.despesa.tipoDespesa.descricao, function (data) {
                 if (data != null && data != "") {
                     $scope.orcamento = new OrcamentoVO(data);
                 }
