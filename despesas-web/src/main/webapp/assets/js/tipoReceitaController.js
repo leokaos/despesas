@@ -1,91 +1,88 @@
-app.controller('tipoReceitaController', function ($scope, tipoReceitaService, $location, $routeParams, usSpinnerService) {
+app.controller('tipoReceitaController',function($scope,tipoReceitaService,$location,$routeParams,usSpinnerService) {
 
-    $scope.tipoReceitaSelecionado = null;
+	$scope.tipoReceitaSelecionado = null;
 
-    $scope.getTitulo = function () {
-        return 'Tipo de Receita';
-    };
+	$scope.getTitulo = function() {
+		return 'Tipo de Receita';
+	};
 
-    $scope.getDescricaoSelecionado = function () {
+	$scope.getDescricaoSelecionado = function() {
 
-        if ($scope.tipoReceitaSelecionado != null) {
-            return $scope.tipoReceitaSelecionado.descricao;
-        } else {
-            return '';
-        }
-    };
+		if ($scope.tipoReceitaSelecionado != null) {
+			return $scope.tipoReceitaSelecionado.descricao;
+		} else {
+			return '';
+		}
+	};
 
-    $scope.getMensagemDelete = function () {
-        return 'Tipo de receita deletado com sucesso!';
-    };
+	$scope.getMensagemDelete = function() {
+		return 'Tipo de receita deletado com sucesso!';
+	};
 
-    $scope.getNomeSpin = function () {
-        return 'tipo-receita-spin';
-    };
+	$scope.getNomeSpin = function() {
+		return 'tipo-receita-spin';
+	};
 
-    $scope.listar = function () {
-        tipoReceitaService.listar($scope.loadData);
-    };
+	$scope.listar = function() {
+		tipoReceitaService.listar($scope.loadData);
+	};
 
-    $scope.novo = function () {
-        tipoReceitaService.setTipoReceita(tipoReceitaService.getNovoTipoReceita());
+	$scope.novo = function() {
+		$location.path('/tiporeceita');
+	};
 
-        $scope.goEdicao();
-    };
+	$scope.editar = function(id) {
+		$location.path('/tiporeceita/' + id);
+	};
 
-    $scope.editar = function (id) {
+	$scope.select = function(tipoReceita) {
+		$scope.tipoReceitaSelecionado = tipoReceita;
+	};
 
-        tipoReceitaService.buscarPorId(id, function (tipoReceita) {
-            tipoReceitaService.setTipoReceita(tipoReceita);
+	$scope.getItemSelecionado = function() {
+		return $scope.tipoReceitaSelecionado;
+	};
 
-            $scope.goEdicao();
-        });
-    };
-
-    $scope.select = function (tipoReceita) {
-        $scope.tipoReceitaSelecionado = tipoReceita;
-    };
-
-    $scope.goEdicao = function () {
-        $location.path('/tiporeceita');
-    };
-
-    $scope.getItemSelecionado = function () {
-        return $scope.tipoReceitaSelecionado;
-    };
-
-    $scope.doDelete = function () {
-        tipoReceitaService.deletar($scope.tipoReceitaSelecionado.id, $scope.deletar);
-    };
+	$scope.doDelete = function() {
+		tipoReceitaService.deletar($scope.tipoReceitaSelecionado.id,$scope.deletar);
+	};
 
 });
 
-app.controller('edicaoTipoReceitaController', function ($scope, tipoReceitaService, $location, $routeParams, growl) {
+app.controller('edicaoTipoReceitaController',function($scope,tipoReceitaService,$location,$routeParams,growl) {
 
-    $scope.tiporeceita = tipoReceitaService.getTipoReceita();
+	var id = $routeParams.id;
 
-    $scope.cancelar = function () {
-        $location.path('/tiporeceitas');
-    };
+	if (id != null) {
+		tipoReceitaService.buscarPorId(id,function(tiporeceita) {
+			$scope.tiporeceita = tiporeceita;
+		});
+	} else {
+		$scope.tiporeceita = tipoReceitaService.getNovoTipoReceita();
+	}
 
-    $scope.limparCarregar = function (data) {
-        $('#modalSalvar').modal('hide');
-        $scope.cancelar();
-    };
+	$scope.cancelar = function() {
+		$location.path('/tiporeceitas');
+	};
 
-    $scope.salvo = function (data) {
-        $scope.limparCarregar(data);
-        growl.info('Tipo de Receita salvo com sucesso!');
-    };
+	$scope.limparCarregar = function(data) {
+		$('#modalSalvar').modal('hide');
+		$scope.cancelar();
+	};
 
-    $scope.salvar = function (valid) {
+	$scope.salvo = function(data) {
+		$scope.limparCarregar(data);
+		growl.info('Tipo de Receita salvo com sucesso!');
+	};
 
-        if (valid) {
-            if ($scope.tiporeceita.id) {
-                tipoReceitaService.salvar($scope.tiporeceita, $scope.salvo);
-            } else {
-                tipoReceitaService.novo($scope.tiporeceita, $scope.salvo);
-            }
-        }
-    };
+	$scope.salvar = function(valid) {
+
+		if (valid) {
+			if ($scope.tiporeceita.id) {
+				tipoReceitaService.salvar($scope.tiporeceita,$scope.salvo);
+			} else {
+				tipoReceitaService.novo($scope.tiporeceita,$scope.salvo);
+			}
+		}
+	};
 });
