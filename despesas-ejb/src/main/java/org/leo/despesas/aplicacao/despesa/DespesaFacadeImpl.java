@@ -25,14 +25,14 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<GraficoVO> getGraficoPorPeriodo(Periodo periodo) {
-		StringBuilder builder = new StringBuilder();
+	public List<GraficoVO> getGraficoPorPeriodo(final Periodo periodo) {
+		final StringBuilder builder = new StringBuilder();
 
-		builder.append("SELECT NEW org.leo.despesas.dominio.movimentacao.GraficoVO(d.tipoDespesa.descricao,d.tipoDespesa.cor, SUM(d.valor)) FROM Despesa d ");
+		builder.append("SELECT NEW org.leo.despesas.dominio.movimentacao.GraficoVO(d.tipo.descricao,d.tipo.cor, SUM(d.valor)) FROM Despesa d ");
 		builder.append("WHERE d.vencimento BETWEEN :dataInicial AND :dataFinal ");
-		builder.append("GROUP BY d.tipoDespesa.descricao, d.tipoDespesa.cor");
+		builder.append("GROUP BY d.tipo.descricao, d.tipo.cor");
 
-		Query query = entityManager.createQuery(builder.toString());
+		final Query query = entityManager.createQuery(builder.toString());
 
 		query.setParameter("dataInicial", periodo.getDataInicial());
 		query.setParameter("dataFinal", periodo.getDataFinal());
@@ -42,13 +42,13 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Despesa> getDespesasPorPeriodo(Periodo periodo) {
+	public List<Despesa> getDespesasPorPeriodo(final Periodo periodo) {
 
-		StringBuilder builder = new StringBuilder();
+		final StringBuilder builder = new StringBuilder();
 
 		builder.append("SELECT d FROM Despesa d WHERE d.vencimento BETWEEN :dataInicial AND :dataFinal ");
 
-		Query query = entityManager.createQuery(builder.toString());
+		final Query query = entityManager.createQuery(builder.toString());
 
 		query.setParameter("dataInicial", periodo.getDataInicial());
 		query.setParameter("dataFinal", periodo.getDataFinal());
@@ -62,10 +62,10 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 	}
 
 	@Override
-	public void inserir(Despesa despesa) {
+	public void inserir(final Despesa despesa) {
 		if (despesa.hasParcelamento()) {
 
-			Parcelamento parcelamento = Parcelamento.create(despesa.getParcelamento(), new BigDecimal(despesa.getNumeroParcelas()), despesa);
+			final Parcelamento parcelamento = Parcelamento.create(despesa.getParcelamento(), new BigDecimal(despesa.getNumeroParcelas()), despesa);
 
 			salvar(parcelamento.parcelar());
 
@@ -80,9 +80,9 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Despesa> buscarPorFiltro(DespesaFiltro filtro) {
+	public List<Despesa> buscarPorFiltro(final DespesaFiltro filtro) {
 
-		StringBuilder builder = new StringBuilder();
+		final StringBuilder builder = new StringBuilder();
 
 		builder.append("SELECT d FROM Despesa d WHERE 1 = 1");
 
@@ -95,12 +95,12 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 		}
 
 		if (filtro.hasTipoDespesa()) {
-			builder.append(" AND d.tipoDespesa.id = :tipoDespesaId");
+			builder.append(" AND d.tipo.id = :tipoDespesaId");
 		}
 
 		builder.append(" ORDER BY d.vencimento");
 
-		Query query = entityManager.createQuery(builder.toString());
+		final Query query = entityManager.createQuery(builder.toString());
 
 		if (filtro.hasDataInicial()) {
 			query.setParameter("dataInicial", DataUtil.truncate(filtro.getDataInicial(), Calendar.DAY_OF_MONTH));
@@ -118,7 +118,7 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 	}
 
 	@Override
-	public void pagar(Despesa despesa) {
+	public void pagar(final Despesa despesa) {
 
 		despesa.setDebitavel(debitavelFacade.buscarPorId(despesa.getDebitavel().getId()));
 

@@ -22,7 +22,7 @@ import org.leo.despesas.infra.DataUtil;
 
 @Entity
 @DiscriminatorValue(value = CartaoCredito.CODIGO_TIPO)
-@Table(name = "cartao",schema = "despesas_db")
+@Table(name = "cartao", schema = "despesas_db")
 public class CartaoCredito extends Debitavel {
 
 	public static final String CODIGO_TIPO = "CARTAO";
@@ -43,7 +43,7 @@ public class CartaoCredito extends Debitavel {
 	@Column(name = "bandeiraCartaoCredito")
 	private BandeiraCartaoCredito bandeiraCartaoCredito;
 
-	@OneToMany(mappedBy = "cartao",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Fatura> faturas;
 
 	public CartaoCredito() {
@@ -56,7 +56,7 @@ public class CartaoCredito extends Debitavel {
 		return limite;
 	}
 
-	public void setLimite(BigDecimal limite) {
+	public void setLimite(final BigDecimal limite) {
 		this.limite = limite;
 	}
 
@@ -64,7 +64,7 @@ public class CartaoCredito extends Debitavel {
 		return diaDeVencimento;
 	}
 
-	public void setDiaDeVencimento(Integer diaDeVencimento) {
+	public void setDiaDeVencimento(final Integer diaDeVencimento) {
 		this.diaDeVencimento = diaDeVencimento;
 	}
 
@@ -72,7 +72,7 @@ public class CartaoCredito extends Debitavel {
 		return diaDeFechamento;
 	}
 
-	public void setDiaDeFechamento(Integer diaDeFechamento) {
+	public void setDiaDeFechamento(final Integer diaDeFechamento) {
 		this.diaDeFechamento = diaDeFechamento;
 	}
 
@@ -80,7 +80,7 @@ public class CartaoCredito extends Debitavel {
 		return bandeiraCartaoCredito;
 	}
 
-	public void setBandeiraCartaoCredito(BandeiraCartaoCredito bandeiraCartaoCredito) {
+	public void setBandeiraCartaoCredito(final BandeiraCartaoCredito bandeiraCartaoCredito) {
 		this.bandeiraCartaoCredito = bandeiraCartaoCredito;
 	}
 
@@ -88,7 +88,7 @@ public class CartaoCredito extends Debitavel {
 		return limiteAtual;
 	}
 
-	public void setLimiteAtual(BigDecimal limiteAtual) {
+	public void setLimiteAtual(final BigDecimal limiteAtual) {
 		this.limiteAtual = limiteAtual;
 	}
 
@@ -97,13 +97,13 @@ public class CartaoCredito extends Debitavel {
 		return faturas;
 	}
 
-	public void setFaturas(List<Fatura> faturas) {
+	public void setFaturas(final List<Fatura> faturas) {
 		this.faturas = faturas;
 	}
 
-	public Fatura getFaturaPorData(Date dataBase) {
+	public Fatura getFaturaPorData(final Date dataBase) {
 
-		for (Fatura fatura : faturas) {
+		for (final Fatura fatura : faturas) {
 			if (fatura.pertenceFatura(dataBase)) {
 				return fatura;
 			}
@@ -113,7 +113,7 @@ public class CartaoCredito extends Debitavel {
 	}
 
 	@Override
-	public void debitar(Despesa despesa) {
+	public void debitar(final Despesa despesa) {
 
 		Fatura faturaPorData = getFaturaPorData(despesa.getVencimento());
 
@@ -123,18 +123,18 @@ public class CartaoCredito extends Debitavel {
 
 			// Configuracao da data de fechamento
 			Date dataFechamento = new Date(despesa.getVencimento().getTime());
-			dataFechamento = DataUtil.setDays(dataFechamento,this.diaDeFechamento);
-			dataFechamento = DataUtil.addMonths(dataFechamento,1);
+			dataFechamento = DataUtil.setDays(dataFechamento, this.diaDeFechamento);
+			dataFechamento = DataUtil.addMonths(dataFechamento, 1);
 
 			faturaPorData.setDataFechamento(dataFechamento);
 
 			// Configuracao da data de vencimento
 			Date dataVencimento = new Date(despesa.getVencimento().getTime());
-			dataVencimento = DataUtil.setDays(dataVencimento,this.diaDeVencimento);
-			dataVencimento = DataUtil.addMonths(dataVencimento,1);
+			dataVencimento = DataUtil.setDays(dataVencimento, this.diaDeVencimento);
+			dataVencimento = DataUtil.addMonths(dataVencimento, 1);
 
 			if (diaDeFechamento > diaDeVencimento) {
-				dataVencimento = DataUtil.addMonths(dataVencimento,1);
+				dataVencimento = DataUtil.addMonths(dataVencimento, 1);
 			}
 
 			faturaPorData.setDataVencimento(dataVencimento);
@@ -146,14 +146,14 @@ public class CartaoCredito extends Debitavel {
 	}
 
 	@Override
-	public void creditar(Receita receita) {
+	public void creditar(final Receita receita) {
 
 	}
 
 	@Override
-	public Despesa consolidar(Despesa despesa) {
+	public Despesa consolidar(final Despesa despesa) {
 
-		Fatura fatura = getFaturaPorData(despesa.getVencimento());
+		final Fatura fatura = getFaturaPorData(despesa.getVencimento());
 
 		if (fatura.getId() != null) {
 			despesa.setFatura(fatura);
@@ -163,17 +163,12 @@ public class CartaoCredito extends Debitavel {
 	}
 
 	@Override
-	public BigDecimal getSaldo() {
-		return BigDecimal.ZERO;
-	}
-
-	@Override
-	protected void debitarValor(BigDecimal valor) {
+	protected void debitarValor(final BigDecimal valor) {
 		setLimiteAtual(getLimiteAtual().subtract(valor));
 	}
 
 	@Override
-	protected void creditarValor(BigDecimal valor) {
+	protected void creditarValor(final BigDecimal valor) {
 		setLimiteAtual(getLimiteAtual().add(valor));
 	}
 

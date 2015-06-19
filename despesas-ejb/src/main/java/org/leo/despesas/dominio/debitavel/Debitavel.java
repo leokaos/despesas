@@ -17,7 +17,7 @@ import org.leo.despesas.dominio.movimentacao.Receita;
 
 @Entity
 @DiscriminatorColumn(name = "tipo")
-@Table(name = "debitavel",schema = "despesas_db")
+@Table(name = "debitavel", schema = "despesas_db")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Debitavel {
 
@@ -31,10 +31,10 @@ public abstract class Debitavel {
 	@Column(name = "cor")
 	private String cor;
 
-	@Column(name = "tipo",insertable = false,updatable = false)
+	@Column(name = "tipo", insertable = false, updatable = false)
 	private String tipo;
 
-	public Debitavel(String tipo) {
+	public Debitavel(final String tipo) {
 		super();
 		this.tipo = tipo;
 	}
@@ -43,7 +43,7 @@ public abstract class Debitavel {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -51,7 +51,7 @@ public abstract class Debitavel {
 		return descricao;
 	}
 
-	public void setDescricao(String descricao) {
+	public void setDescricao(final String descricao) {
 		this.descricao = descricao;
 	}
 
@@ -59,7 +59,7 @@ public abstract class Debitavel {
 		return cor;
 	}
 
-	public void setCor(String cor) {
+	public void setCor(final String cor) {
 		this.cor = cor;
 	}
 
@@ -67,11 +67,11 @@ public abstract class Debitavel {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(final String tipo) {
 		this.tipo = tipo;
 	}
 
-	public void transferir(Debitavel saida,BigDecimal valor) {
+	public void transferir(final Debitavel saida, final BigDecimal valor) {
 		saida.debitarValor(valor);
 		this.creditarValor(valor);
 	}
@@ -85,7 +85,5 @@ public abstract class Debitavel {
 	public abstract void creditar(Receita receita);
 
 	public abstract Despesa consolidar(Despesa despesa);
-
-	public abstract BigDecimal getSaldo();
 
 }

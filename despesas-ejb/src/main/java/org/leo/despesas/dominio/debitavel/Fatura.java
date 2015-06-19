@@ -23,7 +23,7 @@ import org.leo.despesas.infra.DataUtil;
 import org.leo.despesas.infra.Periodo;
 
 @Entity
-@Table(name = "fatura",schema = "despesas_db")
+@Table(name = "fatura", schema = "despesas_db")
 public class Fatura {
 
 	@Id
@@ -42,8 +42,11 @@ public class Fatura {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataFechamento;
 
-	@OneToMany(mappedBy = "fatura",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "fatura", fetch = FetchType.EAGER)
 	private Set<Despesa> despesas;
+
+	@Column(name = "paga")
+	private boolean paga;
 
 	public Fatura() {
 		super();
@@ -51,7 +54,7 @@ public class Fatura {
 		this.despesas = new HashSet<Despesa>();
 	}
 
-	public Fatura(CartaoCredito cartao) {
+	public Fatura(final CartaoCredito cartao) {
 		this();
 
 		this.cartao = cartao;
@@ -61,7 +64,7 @@ public class Fatura {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -69,7 +72,7 @@ public class Fatura {
 		return cartao;
 	}
 
-	public void setCartao(CartaoCredito cartao) {
+	public void setCartao(final CartaoCredito cartao) {
 		this.cartao = cartao;
 	}
 
@@ -77,7 +80,7 @@ public class Fatura {
 		return dataVencimento;
 	}
 
-	public void setDataVencimento(Date dataVencimento) {
+	public void setDataVencimento(final Date dataVencimento) {
 		this.dataVencimento = dataVencimento;
 	}
 
@@ -85,7 +88,7 @@ public class Fatura {
 		return dataFechamento;
 	}
 
-	public void setDataFechamento(Date dataFechamento) {
+	public void setDataFechamento(final Date dataFechamento) {
 		this.dataFechamento = dataFechamento;
 	}
 
@@ -93,25 +96,38 @@ public class Fatura {
 		return despesas;
 	}
 
-	public void setDespesas(Set<Despesa> despesas) {
+	public void setDespesas(final Set<Despesa> despesas) {
 		this.despesas = despesas;
+	}
+
+	public boolean isPaga() {
+		return paga;
+	}
+
+	public void setPaga(final boolean paga) {
+		this.paga = paga;
 	}
 
 	public BigDecimal getValorFatura() {
 		BigDecimal total = BigDecimal.ZERO;
 
-		for (Despesa despesa : despesas) {
+		for (final Despesa despesa : despesas) {
 			total = total.add(despesa.getValor());
 		}
 
 		return total;
 	}
 
-	public boolean pertenceFatura(Date dataBase) {
+	public boolean pertenceFatura(final Date dataBase) {
 		return getPeriodo().pertenceAoPeriodo(dataBase);
 	}
 
 	private Periodo getPeriodo() {
-		return new Periodo(DataUtil.addMonths(dataFechamento,-1),dataFechamento);
+		return new Periodo(DataUtil.addMonths(dataFechamento, -1), dataFechamento);
+	}
+
+	public void pagar(final Conta conta) {
+		this.cartao.transferir(conta, this.getValorFatura());
+		setPaga(true);
 	}
 }

@@ -56,4 +56,10 @@ app.service('faturaService', function ($http) {
         });
 
     };
+    
+    this.pagar = function(idFatura, idConta, fn){
+    	 $http.get(pathBase + 'pagar/' + idFatura + '/' + idConta).success(function(data){
+    		 fn(data);
+    	 });
+    };
 });

@@ -19,7 +19,7 @@ public class Receita extends Movimentacao {
 
 	@ManyToOne
 	@JoinColumn(name = "tipo_receita_id")
-	private TipoReceita tipoReceita;
+	private TipoReceita tipo;
 
 	public Receita() {
 		super();
@@ -29,16 +29,16 @@ public class Receita extends Movimentacao {
 		return depositado;
 	}
 
-	public void setDepositado(boolean depositado) {
+	public void setDepositado(final boolean depositado) {
 		this.depositado = depositado;
 	}
 
-	public TipoReceita getTipoReceita() {
-		return tipoReceita;
+	public TipoReceita getTipo() {
+		return tipo;
 	}
 
-	public void setTipoReceita(TipoReceita tipoReceita) {
-		this.tipoReceita = tipoReceita;
+	public void setTipo(final TipoReceita tipo) {
+		this.tipo = tipo;
 	}
 
 	public void depositar() {

@@ -15,26 +15,26 @@ public abstract class Parcelamento {
 	protected final BigDecimal numeroParcelas;
 	protected final Despesa despesa;
 
-	public Parcelamento(BigDecimal numeroParcelas, Despesa despesa) {
+	public Parcelamento(final BigDecimal numeroParcelas, final Despesa despesa) {
 		super();
 		this.numeroParcelas = numeroParcelas;
 		this.despesa = despesa;
 	}
 
 	public List<Despesa> parcelar() {
-		List<Despesa> despesas = new ArrayList<Despesa>();
+		final List<Despesa> despesas = new ArrayList<Despesa>();
 
-		BigDecimal valorParcela = despesa.getValor().divide(numeroParcelas);
+		final BigDecimal valorParcela = despesa.getValor().divide(numeroParcelas);
 
 		for (int x = 0; x < numeroParcelas.intValue(); x++) {
-			Despesa despesaParcelada = new Despesa();
+			final Despesa despesaParcelada = new Despesa();
 
 			despesaParcelada.setDescricao(createDescricao(x));
 			despesaParcelada.setVencimento(getDataParcela(x));
 			despesaParcelada.setValor(valorParcela);
 
 			despesaParcelada.setDebitavel(despesa.getDebitavel());
-			despesaParcelada.setTipoDespesa(despesa.getTipoDespesa());
+			despesaParcelada.setTipo(despesa.getTipo());
 
 			despesas.add(despesaParcelada);
 		}
@@ -42,11 +42,11 @@ public abstract class Parcelamento {
 		return despesas;
 	}
 
-	private String createDescricao(int x) {
+	private String createDescricao(final int x) {
 		return MessageFormat.format(FORMATO_DESCRICAO, despesa.getDescricao(), x + 1, numeroParcelas);
 	}
 
-	public static Parcelamento create(String codigo, BigDecimal numeroParcelas, Despesa despesa) {
+	public static Parcelamento create(final String codigo, final BigDecimal numeroParcelas, final Despesa despesa) {
 
 		if (ParcelamentoAnual.CODIGO.equals(codigo)) {
 

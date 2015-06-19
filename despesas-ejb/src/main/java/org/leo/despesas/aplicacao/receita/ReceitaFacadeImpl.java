@@ -23,14 +23,14 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita> implements Receit
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<GraficoVO> getGraficoPorPeriodo(Periodo periodo) {
-		StringBuilder builder = new StringBuilder();
+	public List<GraficoVO> getGraficoPorPeriodo(final Periodo periodo) {
+		final StringBuilder builder = new StringBuilder();
 
-		builder.append("SELECT NEW org.leo.despesas.dominio.movimentacao.GraficoVO(r.tipoReceita.descricao,r.tipoReceita.cor, SUM(r.valor)) FROM Receita r ");
+		builder.append("SELECT NEW org.leo.despesas.dominio.movimentacao.GraficoVO(r.tipo.descricao,r.tipo.cor, SUM(r.valor)) FROM Receita r ");
 		builder.append("WHERE r.vencimento BETWEEN :dataInicial AND :dataFinal ");
-		builder.append("GROUP BY r.tipoReceita.descricao, r.tipoReceita.cor");
+		builder.append("GROUP BY r.tipo.descricao, r.tipo.cor");
 
-		Query query = entityManager.createQuery(builder.toString());
+		final Query query = entityManager.createQuery(builder.toString());
 
 		query.setParameter("dataInicial", periodo.getDataInicial());
 		query.setParameter("dataFinal", periodo.getDataFinal());
@@ -40,13 +40,13 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita> implements Receit
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Receita> getReceitasPorPeriodo(Periodo periodo) {
+	public List<Receita> getReceitasPorPeriodo(final Periodo periodo) {
 
-		StringBuilder builder = new StringBuilder();
+		final StringBuilder builder = new StringBuilder();
 
 		builder.append("SELECT r FROM Receita r WHERE r.vencimento BETWEEN :dataInicial AND :dataFinal ");
 
-		Query query = entityManager.createQuery(builder.toString());
+		final Query query = entityManager.createQuery(builder.toString());
 
 		query.setParameter("dataInicial", periodo.getDataInicial());
 		query.setParameter("dataFinal", periodo.getDataFinal());
@@ -61,9 +61,9 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita> implements Receit
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Receita> buscarPorFiltro(ReceitaFiltro filtro) {
+	public List<Receita> buscarPorFiltro(final ReceitaFiltro filtro) {
 
-		StringBuilder builder = new StringBuilder();
+		final StringBuilder builder = new StringBuilder();
 
 		builder.append("SELECT r FROM Receita r WHERE 1 = 1");
 
@@ -76,12 +76,12 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita> implements Receit
 		}
 
 		if (filtro.hasTipoReceita()) {
-			builder.append(" AND r.tipoReceita.id = :tipoReceitaId");
+			builder.append(" AND r.tipo.id = :tipoReceitaId");
 		}
 
 		builder.append(" ORDER BY r.vencimento");
 
-		Query query = entityManager.createQuery(builder.toString());
+		final Query query = entityManager.createQuery(builder.toString());
 
 		if (filtro.hasDataInicial()) {
 			query.setParameter("dataInicial", DataUtil.truncate(filtro.getDataInicial(), Calendar.DAY_OF_MONTH));
@@ -99,7 +99,7 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita> implements Receit
 	}
 
 	@Override
-	public void inserir(Receita receita) {
+	public void inserir(final Receita receita) {
 		super.inserir(receita);
 
 		if (receita.isDepositado()) {
@@ -108,7 +108,7 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita> implements Receit
 	}
 
 	@Override
-	public void depositar(Receita receita) {
+	public void depositar(final Receita receita) {
 
 		receita.setDebitavel(debitavelFacade.buscarPorId(receita.getDebitavel().getId()));
 

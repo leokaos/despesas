@@ -23,7 +23,7 @@ public class Despesa extends Movimentacao {
 
 	@ManyToOne
 	@JoinColumn(name = "tipo_despesa_id")
-	private TipoDespesa tipoDespesa;
+	private TipoDespesa tipo;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fatura_id", nullable = true)
@@ -43,16 +43,16 @@ public class Despesa extends Movimentacao {
 		return paga;
 	}
 
-	public void setPaga(boolean paga) {
+	public void setPaga(final boolean paga) {
 		this.paga = paga;
 	}
 
-	public TipoDespesa getTipoDespesa() {
-		return tipoDespesa;
+	public TipoDespesa getTipo() {
+		return tipo;
 	}
 
-	public void setTipoDespesa(TipoDespesa tipoDespesa) {
-		this.tipoDespesa = tipoDespesa;
+	public void setTipo(final TipoDespesa tipo) {
+		this.tipo = tipo;
 	}
 
 	@JsonIgnore
@@ -60,7 +60,7 @@ public class Despesa extends Movimentacao {
 		return fatura;
 	}
 
-	public void setFatura(Fatura fatura) {
+	public void setFatura(final Fatura fatura) {
 		this.fatura = fatura;
 	}
 
@@ -68,7 +68,7 @@ public class Despesa extends Movimentacao {
 		return parcelamento;
 	}
 
-	public void setParcelamento(String parcelamento) {
+	public void setParcelamento(final String parcelamento) {
 		this.parcelamento = parcelamento;
 	}
 
@@ -76,7 +76,7 @@ public class Despesa extends Movimentacao {
 		return numeroParcelas;
 	}
 
-	public void setNumeroParcelas(Integer numeroParcelas) {
+	public void setNumeroParcelas(final Integer numeroParcelas) {
 		this.numeroParcelas = numeroParcelas;
 	}
 

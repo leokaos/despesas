@@ -10,7 +10,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.leo.despesas.aplicacao.cartao.CartaoFacade;
+import org.leo.despesas.aplicacao.conta.ContaFacade;
 import org.leo.despesas.aplicacao.fatura.FaturaFacade;
+import org.leo.despesas.dominio.debitavel.Conta;
 import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.rest.infra.AbstractService;
 
@@ -23,6 +25,9 @@ public class FaturaService extends AbstractService<FaturaFacade,Fatura> {
 	@EJB
 	private CartaoFacade cartaoFacade;
 
+	@EJB
+	private ContaFacade contaFacade;
+
 	@Override
 	protected FaturaFacade getFacade() {
 		return faturaFacade;
@@ -31,15 +36,21 @@ public class FaturaService extends AbstractService<FaturaFacade,Fatura> {
 	@GET
 	@Path(value = "/cartao/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Fatura> buscarFaturaPorCartaoCredito(@PathParam(value = "id") Long idCartaoCredito) {
+	public List<Fatura> buscarFaturaPorCartaoCredito(@PathParam(value = "id") final Long idCartaoCredito) {
 		return faturaFacade.buscarFaturaPorCartaoCredito(cartaoFacade.buscarPorId(idCartaoCredito));
 	}
 
 	@GET
-	@Path(value = "/cartao/pagar/{id}")
+	@Path(value = "/pagar/{id}/{conta}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public void pagarFatura(@PathParam(value = "id") Long idFatura) {
+	public void pagarFatura(@PathParam(value = "id") final Long idFatura, @PathParam(value="conta") final Long contaId) {
+		final Fatura fatura = faturaFacade.buscarPorId(idFatura);
+		final Conta conta = contaFacade.buscarPorId(contaId);
 
+		fatura.pagar(conta);
+
+		faturaFacade.salvar(fatura);
+		contaFacade.salvar(conta);
 	}
 
 }

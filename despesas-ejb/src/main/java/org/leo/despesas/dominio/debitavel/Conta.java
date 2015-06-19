@@ -11,7 +11,7 @@ import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Receita;
 
 @Entity
-@Table(name = "conta",schema = "despesas_db")
+@Table(name = "conta", schema = "despesas_db")
 @DiscriminatorValue(value = Conta.CODIGO_TIPO)
 public class Conta extends Debitavel {
 
@@ -24,37 +24,36 @@ public class Conta extends Debitavel {
 		super(Conta.CODIGO_TIPO);
 	}
 
-	@Override
 	public BigDecimal getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(BigDecimal saldo) {
+	public void setSaldo(final BigDecimal saldo) {
 		this.saldo = saldo;
 	}
 
 	@Override
-	public void debitar(Despesa despesa) {
+	public void debitar(final Despesa despesa) {
 		debitarValor(despesa.getValor());
 	}
 
 	@Override
-	public void creditar(Receita receita) {
+	public void creditar(final Receita receita) {
 		creditarValor(receita.getValor());
 	}
 
 	@Override
-	public Despesa consolidar(Despesa despesa) {
+	public Despesa consolidar(final Despesa despesa) {
 		return despesa;
 	}
 
 	@Override
-	protected void debitarValor(BigDecimal valor) {
+	protected void debitarValor(final BigDecimal valor) {
 		setSaldo(getSaldo().subtract(valor));
 	}
 
 	@Override
-	protected void creditarValor(BigDecimal valor) {
+	protected void creditarValor(final BigDecimal valor) {
 		setSaldo(getSaldo().add(valor));
 	}
 
