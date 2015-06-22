@@ -117,6 +117,11 @@ app.config(function($routeProvider,$locationProvider) {
 	    controller: 'edicaoDespesaController'
 	});
 
+	$routeProvider.when('/painelDespesas',{
+	    templateUrl: 'partial/despesa/painel_despesas.html',
+	    controller: 'painelDespesaController'
+	});
+
 	// CARTAO
 	$routeProvider.when('/cartoes',{
 	    templateUrl: 'partial/cartao/cartoes.html',
@@ -302,7 +307,7 @@ app.directive('uiCalendar',function(MESES) {
 		            'Sex',
 		            'S\u00e1b'
 		    ];
-		    
+
 		    var textoDosBotoes = {
 		        today: 'Hoje',
 		        month: 'Mês',
