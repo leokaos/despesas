@@ -12,17 +12,19 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.leo.despesas.aplicacao.despesa.DespesaFacade;
 import org.leo.despesas.dominio.debitavel.DespesaFiltro;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.GraficoVO;
+import org.leo.despesas.dominio.parcelamento.ParcelamentoVO;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.rest.infra.AbstractService;
 
 @Path("/despesa")
 @RequestScoped
-public class DespesaService extends AbstractService<DespesaFacade, Despesa> {
+public class DespesaService extends AbstractService<DespesaFacade,Despesa> {
 
 	@EJB
 	private DespesaFacade despesaFacade;
@@ -30,15 +32,15 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa> {
 	@GET
 	@Path(value = "/grafico")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<GraficoVO> buscarPorPeriodo(@QueryParam("dataInicial") Date dataInicial, @QueryParam("dataFinal") Date dataFinal) {
-		return despesaFacade.getGraficoPorPeriodo(new Periodo(dataInicial, dataFinal));
+	public List<GraficoVO> buscarPorPeriodo(@QueryParam("dataInicial") Date dataInicial,@QueryParam("dataFinal") Date dataFinal) {
+		return despesaFacade.getGraficoPorPeriodo(new Periodo(dataInicial,dataFinal));
 	}
 
 	@GET
 	@Path(value = "/periodo")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Despesa> buscarPorDespesasPorPeriodo(@QueryParam("dataInicial") Date dataInicial, @QueryParam("dataFinal") Date dataFinal) {
-		return despesaFacade.getDespesasPorPeriodo(new Periodo(dataInicial, dataFinal));
+	public List<Despesa> buscarPorDespesasPorPeriodo(@QueryParam("dataInicial") Date dataInicial,@QueryParam("dataFinal") Date dataFinal) {
+		return despesaFacade.getDespesasPorPeriodo(new Periodo(dataInicial,dataFinal));
 	}
 
 	@POST
@@ -46,6 +48,15 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public List<Despesa> buscarPorFiltro(DespesaFiltro filtro) {
 		return getFacade().buscarPorFiltro(filtro);
+	}
+
+	@POST
+	@Consumes(value = MediaType.APPLICATION_JSON)
+	public Response inserir(Despesa despesa,ParcelamentoVO parcelamentoVO) {
+
+		despesaFacade.inserir(despesa,parcelamentoVO);
+
+		return Response.status(200).build();
 	}
 
 	@POST

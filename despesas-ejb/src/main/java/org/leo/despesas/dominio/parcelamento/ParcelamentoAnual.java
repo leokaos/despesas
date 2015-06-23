@@ -1,6 +1,5 @@
 package org.leo.despesas.dominio.parcelamento;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import org.leo.despesas.dominio.movimentacao.Despesa;
@@ -10,13 +9,13 @@ public class ParcelamentoAnual extends Parcelamento {
 
 	public static final String CODIGO = "Anual";
 
-	public ParcelamentoAnual(BigDecimal numeroParcelas, Despesa despesa) {
-		super(numeroParcelas, despesa);
+	public ParcelamentoAnual() {
+		super();
 	}
 
 	@Override
-	public Date getDataParcela(int numeroParcela) {
-		return DataUtil.addYears(despesa.getVencimento(), numeroParcela);
+	public Date getDataParcela(int numeroParcela,Despesa despesa) {
+		return DataUtil.addYears(despesa.getVencimento(),numeroParcela);
 	}
 
 	@Override

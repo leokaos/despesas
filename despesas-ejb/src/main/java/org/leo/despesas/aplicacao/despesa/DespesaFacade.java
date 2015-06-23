@@ -7,6 +7,7 @@ import javax.ejb.Local;
 import org.leo.despesas.dominio.debitavel.DespesaFiltro;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.GraficoVO;
+import org.leo.despesas.dominio.parcelamento.ParcelamentoVO;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.rest.infra.SimpleFacade;
 
@@ -20,5 +21,7 @@ public interface DespesaFacade extends SimpleFacade<Despesa> {
 	List<Despesa> buscarPorFiltro(DespesaFiltro filtro);
 
 	void pagar(Despesa despesa);
+
+	void inserir(Despesa despesa,ParcelamentoVO parcelamentoVO);
 
 }

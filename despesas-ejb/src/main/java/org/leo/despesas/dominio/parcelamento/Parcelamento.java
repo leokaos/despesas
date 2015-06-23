@@ -12,25 +12,20 @@ public abstract class Parcelamento {
 
 	private static final String FORMATO_DESCRICAO = "{0} {1}/{2}";
 
-	protected final BigDecimal numeroParcelas;
-	protected final Despesa despesa;
-
-	public Parcelamento(final BigDecimal numeroParcelas, final Despesa despesa) {
+	protected Parcelamento() {
 		super();
-		this.numeroParcelas = numeroParcelas;
-		this.despesa = despesa;
 	}
 
-	public List<Despesa> parcelar() {
+	public List<Despesa> parcelar(Despesa despesa,BigDecimal numeroParcelas) {
 		final List<Despesa> despesas = new ArrayList<Despesa>();
 
 		final BigDecimal valorParcela = despesa.getValor().divide(numeroParcelas);
 
-		for (int x = 0; x < numeroParcelas.intValue(); x++) {
+		for (int x = 0 ; x < numeroParcelas.intValue() ; x++) {
 			final Despesa despesaParcelada = new Despesa();
 
-			despesaParcelada.setDescricao(createDescricao(x));
-			despesaParcelada.setVencimento(getDataParcela(x));
+			despesaParcelada.setDescricao(createDescricao(x,despesa.getDescricao(),numeroParcelas));
+			despesaParcelada.setVencimento(getDataParcela(x,despesa));
 			despesaParcelada.setValor(valorParcela);
 
 			despesaParcelada.setDebitavel(despesa.getDebitavel());
@@ -42,33 +37,33 @@ public abstract class Parcelamento {
 		return despesas;
 	}
 
-	private String createDescricao(final int x) {
-		return MessageFormat.format(FORMATO_DESCRICAO, despesa.getDescricao(), x + 1, numeroParcelas);
+	private String createDescricao(final int x,String descricao,BigDecimal numeroParcelas) {
+		return MessageFormat.format(FORMATO_DESCRICAO,descricao,x + 1,numeroParcelas);
 	}
 
-	public static Parcelamento create(final String codigo, final BigDecimal numeroParcelas, final Despesa despesa) {
+	public static Parcelamento create(final String codigo) {
 
 		if (ParcelamentoAnual.CODIGO.equals(codigo)) {
 
-			return new ParcelamentoAnual(numeroParcelas, despesa);
+			return new ParcelamentoAnual();
 
 		} else if (ParcelamentoMensal.CODIGO.equals(codigo)) {
 
-			return new ParcelamentoMensal(numeroParcelas, despesa);
+			return new ParcelamentoMensal();
 
 		} else if (ParcelamentoSemanal.CODIGO.equals(codigo)) {
 
-			return new ParcelamentoSemanal(numeroParcelas, despesa);
+			return new ParcelamentoSemanal();
 
 		} else if (ParcelamentoSemestral.CODIGO.equals(codigo)) {
 
-			return new ParcelamentoSemestral(numeroParcelas, despesa);
+			return new ParcelamentoSemestral();
 		}
 
 		return null;
 	}
 
-	public abstract Date getDataParcela(int numeroParcela);
+	public abstract Date getDataParcela(int numeroParcela,Despesa despesa);
 
 	public abstract String getCodigo();
 

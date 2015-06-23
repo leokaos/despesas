@@ -23,12 +23,22 @@ app.service('despesaService', function ($http) {
     };
 
     this.novo = function (despesa, fn) {
-        $http.post(pathBase, despesa).success(function (data) {
+    	
+    	var request = $http({
+            method: 'post',
+            url: pathBase,
+            data: {
+            	despesa: despesa,
+            	parcelamentoVO: parcelamento
+            }
+        });
+
+        request.success(function (data) {
             fn(data);
         });
     };
 
-    this.salvar = function (despesa, fn) {
+    this.salvar = function (despesa,parcelamento, fn) {
         $http.put(pathBase, despesa).success(function (data) {
             fn(data);
         });

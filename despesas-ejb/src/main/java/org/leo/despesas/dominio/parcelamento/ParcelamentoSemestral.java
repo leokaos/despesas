@@ -1,6 +1,5 @@
 package org.leo.despesas.dominio.parcelamento;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import org.leo.despesas.dominio.movimentacao.Despesa;
@@ -10,17 +9,17 @@ public class ParcelamentoSemestral extends Parcelamento {
 
 	public static final String CODIGO = "Semestral";
 
-	public ParcelamentoSemestral(BigDecimal numeroParcelas, Despesa despesa) {
-		super(numeroParcelas, despesa);
+	public ParcelamentoSemestral() {
+		super();
 	}
 
 	@Override
-	public Date getDataParcela(int numeroParcela) {
-		return DataUtil.addMonths(despesa.getVencimento(), 6 * numeroParcela);
-	}
-	
-	@Override
 	public String getCodigo() {
 		return CODIGO;
+	}
+
+	@Override
+	public Date getDataParcela(int numeroParcela,Despesa despesa) {
+		return DataUtil.addMonths(despesa.getVencimento(),6 * numeroParcela);
 	}
 }
