@@ -190,6 +190,24 @@ app.filter('range',function() {
 	};
 });
 
+app.filter('sum',function() {
+
+	return function(input,params) {
+
+		var totalSum = 0;
+
+		for (var x = 0 ; x < input.length ; x++) {
+			var value = input[x][params];
+
+			if (value != null) {
+				totalSum += parseFloat(input[x][params]);
+			}
+		}
+
+		return totalSum;
+	};
+});
+
 app.directive('ngModal',function() {
 	return {
 	    restrict: 'E',
@@ -359,8 +377,8 @@ app.directive('colorable',function() {
 	return {
 	    restrict: 'E',
 	    scope: {
-	        selectFunction: '=',
-	        listaColorable: '=ngModel'
+	        listaColorable: '=itens',
+	        value: '=ngModel'
 	    },
 	    replace: true,
 	    transclude: true,
@@ -370,6 +388,7 @@ app.directive('colorable',function() {
 
 		    scope.select = function(item) {
 			    scope.colorableSelected = item;
+			    scope.value = item;
 		    };
 	    }
 	};

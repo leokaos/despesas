@@ -41,7 +41,7 @@
 
                     <label class="col-sm-2 control-label">Tipo:</label>
 
-                    <colorable select-function="selecionarTipoDespesa" ng-model="tiposDespesa">
+                    <colorable itens="tiposDespesa" ng-model="despesa.tipoDespesa">
                         <div ng-if="hasOrcamento();">
                             <label class="col-sm-2 control-label">Orçamento:</label>
                             <progressbar class="progress-striped active" value="orcamento.getValueOrcamento();" type="{{orcamento.getClassProgressBar();}}">{{orcamento.valorConsolidado}}/{{orcamento.valor}}</progressbar>
@@ -54,7 +54,7 @@
 
                     <label class="col-sm-2 control-label">Debitável:</label>
 
-                    <colorable select-function="selecionarDebitavel" ng-model="debitaveis">
+                    <colorable ng-model="despesa.debitavel" itens="debitaveis">
                         <span style="vertical-align: middle; padding-left: 20px;" ng-if="debitavelSelecionado != null">
                             <label class="col-sm-4 control-label">Saldo: {{debitavelSelecionado.saldo | currency}}</label>
                         </span>
