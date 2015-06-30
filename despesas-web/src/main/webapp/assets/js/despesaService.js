@@ -22,15 +22,17 @@ app.service('despesaService', function ($http) {
         });
     };
 
-    this.novo = function (despesa, fn) {
+    this.novo = function (despesa,parcelamento, fn) {
+    	
+    	var dados = {
+    			"despesa" : despesa,
+    			"parcelamentoVO" : parcelamento
+    	};
     	
     	var request = $http({
             method: 'post',
             url: pathBase,
-            data: {
-            	despesa: despesa,
-            	parcelamentoVO: parcelamento
-            }
+            data: dados
         });
 
         request.success(function (data) {

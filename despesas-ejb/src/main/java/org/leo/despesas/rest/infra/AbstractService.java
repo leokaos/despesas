@@ -13,7 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-public abstract class AbstractService<T extends SimpleFacade<E>, E> implements SimpleService<E> {
+public abstract class AbstractService<T extends SimpleFacade<E>,E> implements SimpleService<E> {
 
 	@GET
 	@Override

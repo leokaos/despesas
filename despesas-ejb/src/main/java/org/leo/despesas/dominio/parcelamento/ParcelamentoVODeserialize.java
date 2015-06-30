@@ -20,7 +20,7 @@ public class ParcelamentoVODeserialize extends JsonDeserializer<ParcelamentoVO> 
 		ObjectCodec oc = jsonParser.getCodec();
 		JsonNode node = oc.readTree(jsonParser);
 
-		BigDecimal numeroParcelas = new BigDecimal(node.get(ATRIBUTO_PARCELAS).getTextValue());
+		BigDecimal numeroParcelas = new BigDecimal(node.get(ATRIBUTO_PARCELAS).getValueAsText());
 		Parcelamento tipoParcelamento = Parcelamento.create(node.get(ATRIBUTO_TIPO).getTextValue());
 
 		return new ParcelamentoVO(tipoParcelamento,numeroParcelas);

@@ -1,7 +1,5 @@
 package org.leo.despesas.dominio.debitavel;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -14,10 +12,11 @@ import javax.persistence.Table;
 
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Receita;
+import org.leo.despesas.dominio.movimentacao.Transferencia;
 
 @Entity
 @DiscriminatorColumn(name = "tipo")
-@Table(name = "debitavel", schema = "despesas_db")
+@Table(name = "debitavel",schema = "despesas_db")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Debitavel {
 
@@ -31,7 +30,7 @@ public abstract class Debitavel {
 	@Column(name = "cor")
 	private String cor;
 
-	@Column(name = "tipo", insertable = false, updatable = false)
+	@Column(name = "tipo",insertable = false,updatable = false)
 	private String tipo;
 
 	public Debitavel(final String tipo) {
@@ -71,18 +70,11 @@ public abstract class Debitavel {
 		this.tipo = tipo;
 	}
 
-	public void transferir(final Debitavel saida, final BigDecimal valor) {
-		saida.debitarValor(valor);
-		this.creditarValor(valor);
-	}
-
-	protected abstract void debitarValor(BigDecimal valor);
-
-	protected abstract void creditarValor(BigDecimal valor);
-
 	public abstract void debitar(Despesa despesa);
 
 	public abstract void creditar(Receita receita);
+
+	public abstract void transferir(Transferencia transferencia);
 
 	public abstract Despesa consolidar(Despesa despesa);
 

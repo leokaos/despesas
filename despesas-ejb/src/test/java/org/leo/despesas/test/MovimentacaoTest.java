@@ -25,8 +25,8 @@ public class MovimentacaoTest {
 		despesa.setValor(new BigDecimal("10.00"));
 		despesa.pagar();
 
-		assertEquals(conta.getSaldo(), new BigDecimal("90.00"));
-		assertEquals(truncate(despesa.getPagamento(), Calendar.DAY_OF_MONTH), truncate(new Date(), Calendar.DAY_OF_MONTH));
+		assertEquals(conta.getSaldo(),new BigDecimal("90.00"));
+		assertEquals(truncate(despesa.getPagamento(),Calendar.DAY_OF_MONTH),truncate(new Date(),Calendar.DAY_OF_MONTH));
 		assertTrue(despesa.isPaga());
 	}
 
@@ -41,8 +41,8 @@ public class MovimentacaoTest {
 
 		receita.depositar();
 
-		assertEquals(conta.getSaldo(), new BigDecimal("110.00"));
-		assertEquals(truncate(receita.getPagamento(), Calendar.DAY_OF_MONTH), truncate(new Date(), Calendar.DAY_OF_MONTH));
+		assertEquals(conta.getSaldo(),new BigDecimal("110.00"));
+		assertEquals(truncate(receita.getPagamento(),Calendar.DAY_OF_MONTH),truncate(new Date(),Calendar.DAY_OF_MONTH));
 		assertTrue(receita.isDepositado());
 	}
 

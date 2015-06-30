@@ -9,9 +9,10 @@ import javax.persistence.Table;
 
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Receita;
+import org.leo.despesas.dominio.movimentacao.Transferencia;
 
 @Entity
-@Table(name = "conta", schema = "despesas_db")
+@Table(name = "conta",schema = "despesas_db")
 @DiscriminatorValue(value = Conta.CODIGO_TIPO)
 public class Conta extends Debitavel {
 
@@ -28,33 +29,35 @@ public class Conta extends Debitavel {
 		return saldo;
 	}
 
-	public void setSaldo(final BigDecimal saldo) {
+	public void setSaldo(BigDecimal saldo) {
 		this.saldo = saldo;
 	}
 
 	@Override
 	public void debitar(final Despesa despesa) {
-		debitarValor(despesa.getValor());
+		this.saldo = getSaldo().subtract(despesa.getValor());
 	}
 
 	@Override
 	public void creditar(final Receita receita) {
-		creditarValor(receita.getValor());
+		this.saldo = getSaldo().add(receita.getValor());
+	}
+
+	@Override
+	public void transferir(Transferencia transferencia) {
+
+		if (transferencia.getCreditavel().equals(this)) {
+			this.saldo = getSaldo().add(transferencia.getValor());
+		} else if (transferencia.getDebitavel().equals(this)) {
+			this.saldo = getSaldo().subtract(transferencia.getValor());
+		} else {
+			throw new IllegalArgumentException();
+		}
 	}
 
 	@Override
 	public Despesa consolidar(final Despesa despesa) {
 		return despesa;
-	}
-
-	@Override
-	protected void debitarValor(final BigDecimal valor) {
-		setSaldo(getSaldo().subtract(valor));
-	}
-
-	@Override
-	protected void creditarValor(final BigDecimal valor) {
-		setSaldo(getSaldo().add(valor));
 	}
 
 }

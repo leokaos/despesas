@@ -19,11 +19,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.leo.despesas.dominio.movimentacao.Despesa;
+import org.leo.despesas.dominio.movimentacao.Transferencia;
 import org.leo.despesas.infra.DataUtil;
 import org.leo.despesas.infra.Periodo;
 
 @Entity
-@Table(name = "fatura", schema = "despesas_db")
+@Table(name = "fatura",schema = "despesas_db")
 public class Fatura {
 
 	@Id
@@ -42,7 +43,7 @@ public class Fatura {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataFechamento;
 
-	@OneToMany(mappedBy = "fatura", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "fatura",fetch = FetchType.EAGER)
 	private Set<Despesa> despesas;
 
 	@Column(name = "paga")
@@ -123,11 +124,23 @@ public class Fatura {
 	}
 
 	private Periodo getPeriodo() {
-		return new Periodo(DataUtil.addMonths(dataFechamento, -1), dataFechamento);
+		return new Periodo(DataUtil.addMonths(dataFechamento,-1),dataFechamento);
 	}
 
 	public void pagar(final Conta conta) {
-		this.cartao.transferir(conta, this.getValorFatura());
+
+		Transferencia transferencia = new Transferencia();
+
+		transferencia.setDescricao("Pagamento fatura " + getPeriodo());
+		transferencia.setCreditavel(getCartao());
+		transferencia.setDebitavel(conta);
+		transferencia.setPagamento(new Date());
+		transferencia.setValor(getValorFatura());
+		transferencia.setVencimento(new Date());
+
+		cartao.transferir(transferencia);
+		conta.transferir(transferencia);
+
 		setPaga(true);
 	}
 }

@@ -180,7 +180,7 @@ app.controller('edicaoDespesaController',function($scope,despesaService,tipoDesp
 			if ($scope.despesa.id) {
 				despesaService.salvar($scope.despesa,$scope.salvo);
 			} else {
-				despesaService.novo($scope.despesa,$scope.salvo);
+				despesaService.novo($scope.despesa,$scope.parcelamento,$scope.salvo);
 			}
 		}
 	};

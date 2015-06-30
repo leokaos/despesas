@@ -16,9 +16,9 @@ import javax.ws.rs.core.Response;
 
 import org.leo.despesas.aplicacao.despesa.DespesaFacade;
 import org.leo.despesas.dominio.debitavel.DespesaFiltro;
+import org.leo.despesas.dominio.debitavel.DespesaVO;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.GraficoVO;
-import org.leo.despesas.dominio.parcelamento.ParcelamentoVO;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.rest.infra.AbstractService;
 
@@ -52,11 +52,16 @@ public class DespesaService extends AbstractService<DespesaFacade,Despesa> {
 
 	@POST
 	@Consumes(value = MediaType.APPLICATION_JSON)
-	public Response inserir(Despesa despesa,ParcelamentoVO parcelamentoVO) {
+	public Response inserir(DespesaVO despesaVO) {
 
-		despesaFacade.inserir(despesa,parcelamentoVO);
+		despesaFacade.inserir(despesaVO.getDespesa(),despesaVO.getParcelamentoVO());
 
 		return Response.status(200).build();
+	}
+
+	@Override
+	public Response inserir(Despesa t) {
+		return Response.noContent().build();
 	}
 
 	@POST
