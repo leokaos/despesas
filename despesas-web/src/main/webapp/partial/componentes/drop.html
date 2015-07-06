@@ -1,9 +1,9 @@
-<div class="col-sm-10 btn-group" dropdown>
+<div class="btn-group" dropdown>
 
     <button type="button" class="btn btn-default" style="min-width: 150px;">
         <div style="display: table;">
-            <div style="background-color: {{colorableSelected.cor}}; border-radius:100px; width:20px;height: 20px; margin: 0px 0px 0px 5px; display: table-cell;"></div>
-            <span style="vertical-align: middle;display: table-cell; padding-left: 3px;">{{colorableSelected.descricao}}</span>
+            <div style="background-color: {{value.cor}}; border-radius:100px; width:20px;height: 20px; margin: 0px 0px 0px 5px; display: table-cell;"></div>
+            <span style="vertical-align: middle;display: table-cell; padding-left: 3px;">{{value.descricao}}</span>
         </div>
     </button>
 
@@ -12,7 +12,7 @@
     </button>
 
     <ul class="dropdown-menu" role="menu" style="min-width: 176px; margin-left: 15px;">
-        <li ng-repeat="item in listaColorable" ng-click="selectFunction(item);">
+        <li ng-repeat="item in listaColorable" ng-click="select(item);">
             <div style="display: table;padding: 0px 0px 3px 3px; min-height:34px;">
                 <div style="background-color: {{item.cor}}; border-radius:100px; width:30px;height: 30px; margin: 0px 0px 0px 5px; display: table-cell;"></div>
                 <a style="vertical-align: middle;display: table-cell; padding-left: 3px;">{{item.descricao}}</a>

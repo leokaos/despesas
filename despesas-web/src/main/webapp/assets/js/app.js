@@ -155,6 +155,11 @@ app.config(function($routeProvider,$locationProvider) {
 	    controller: 'edicaoReceitaController'
 	});
 
+	$routeProvider.when('/painelReceitas',{
+	    templateUrl: 'partial/despesa/painel_receitas.html',
+	    controller: 'painelReceitaController'
+	});
+
 	// PAGAMENTOS
 	$routeProvider.when('/pagamentos',{
 	    templateUrl: 'partial/pagamentos.html',

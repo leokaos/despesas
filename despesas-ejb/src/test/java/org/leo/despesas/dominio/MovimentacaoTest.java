@@ -1,4 +1,4 @@
-package org.leo.despesas.test;
+package org.leo.despesas.dominio;
 
 import static org.apache.commons.lang3.time.DateUtils.truncate;
 import static org.junit.Assert.assertEquals;

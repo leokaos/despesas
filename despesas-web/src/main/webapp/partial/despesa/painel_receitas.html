@@ -1,5 +1,5 @@
 <h3>
-	<i class="fa fa-angle-right"></i> Lançamento de Despesa
+	<i class="fa fa-angle-right"></i> Lançamento de Receita
 </h3>
 
 <div class="row mt">
@@ -26,29 +26,29 @@
 							<th>Vencimento</th>
 							<th>Tipo</th>
 							<th>Debitável</th>
-							<th>Paga?</th>
+							<th>Recebida?</th>
 							<th>&nbsp;</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="despesa in despesas" style="height: 40px;">
+						<tr ng-repeat="receita in receitas" style="height: 40px;">
 							<td>
-								<input type="text" class="form-control" ng-model="despesa.descricao" startup-error-field required>
+								<input type="text" class="form-control" ng-model="receita.descricao" required>
 							</td>
 							<td>
-								<input type="text" class="form-control" ng-model="despesa.valor" ui-number-mask required>
+								<input type="text" class="form-control" ng-model="receita.valor" ui-number-mask required>
 							</td>
 							<td>
-								<input type="text" name="data" class="form-control" ng-model="despesa.vencimento" bs-datepicker autoclose="true" required></input>
+								<input type="text" name="data" class="form-control" ng-model="receita.vencimento" bs-datepicker autoclose="true" required></input>
 							</td>
 							<td>
-								<colorable ng-model="despesa.tipo" itens="tiposDespesa"></colorable>
+								<colorable ng-model="receita.tipo" itens="tiposReceitas"></colorable>
 							</td>
 							<td>
-								<colorable ng-model="despesa.debitavel" itens="debitaveis"></colorable>
+								<colorable ng-model="receita.debitavel" itens="debitaveis"></colorable>
 							</td>
 							<td>
-								<input type="checkbox" class="form-control" ng-model="despesa.paga">
+								<input type="checkbox" class="form-control" ng-model="receita.recebida">
 							</td>
 							<td>
 								<button type="button" class="btn btn-danger" ng-click="remove($index);">
@@ -69,7 +69,7 @@
 
 <div class="indicador form-panel">
 	<h5>Total</h5>
-	<p>{{despesas | sum: 'valor' | currency: 'R$ '}}</p>
+	<p>{{receitas | sum: 'valor' | currency: 'R$ '}}</p>
 </div>
 
 <div class="modal modal-dialog modal-content" id="modalUpload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -82,11 +82,11 @@
 	</div>
 
 	<div class="modal-body">
-		<form class="form-horizontal" method="get" name="uploadPainelDespesa" novalidate>
+		<form class="form-horizontal" method="get" name="uploadPainelReceita" novalidate>
 
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Debitável:</label>
-				<colorable itens="debitaveis" ng-model="despesaUpload">
+				<colorable itens="debitaveis" ng-model="receitaUpload">
 			</div>
 
 			<div class="form-group">
