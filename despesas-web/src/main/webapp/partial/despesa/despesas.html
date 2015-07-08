@@ -1,54 +1,54 @@
 <pesquisa-view>
 
-    <div style="min-height: 420px;">
+<div style="min-height: 420px;">
 
-        <table class="table  table-hover data-table">
-            <thead>
-                <tr>
-                    <th>Descrição</th>
-                    <th>Valor</th>
-                    <th>Tipo</th>
-                    <th>Vencimento</th>
-                    <th>Pagamento</th>
-                    <th>Debitável</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in sliceData" style="height: 40px;">
+	<table class="table  table-hover data-table">
+		<thead>
+			<tr>
+				<th>Descrição</th>
+				<th>Valor</th>
+				<th>Tipo</th>
+				<th>Vencimento</th>
+				<th>Pagamento</th>
+				<th>Debitável</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in sliceData" style="height: 40px;">
 
-                    <td style="vertical-align: middle; width: 400px;">{{item.descricao}}</td>
+				<td style="vertical-align: middle; width: 400px;">{{item.descricao}}</td>
 
-                    <td style="vertical-align: middle;">{{item.valor | currency: 'R$ '}}</td>
+				<td style="vertical-align: middle;">{{item.valor | currency: 'R$ '}}</td>
 
-                    <td style="vertical-align: middle;">
-                        <div style="background-color: {{item.tipoDespesa.cor}}; border-radius:100px; width:20px;height: 20px;float:left;margin-right: 10px;"></div>
-                        {{item.tipoDespesa.descricao}}
-                    </td>
+				<td style="vertical-align: middle;">
+					<div style="background-color: {{item.tipoDespesa.cor"></div>
+					{{item.tipoDespesa.descricao}}
+				</td>
 
-                    <td style="vertical-align: middle;">{{item.vencimento | date: 'dd/MM/yyyy'}}</td>
+				<td style="vertical-align: middle;">{{item.vencimento | date: 'dd/MM/yyyy'}}</td>
 
-                    <td style="vertical-align: middle;">{{item.pagamento | date: 'dd/MM/yyyy'}}</td>
+				<td style="vertical-align: middle;">{{item.pagamento | date: 'dd/MM/yyyy'}}</td>
 
-                    <td style="vertical-align: middle;">{{item.debitavel.descricao}}</td>
+				<td style="vertical-align: middle;">{{item.debitavel.descricao}}</td>
 
-                    <td style="width: 38px; height: 38px;">
-                        <button-editar></button-editar>
-                    </td>
+				<td style="width: 38px; height: 38px;">
+					<button-editar></button-editar>
+				</td>
 
-                    <td style="width:38px;height: 38px;">
-                        <button-delete></button-delete>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+				<td style="width: 38px; height: 38px;">
+					<button-delete></button-delete>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 
-    </div>
+</div>
 
 </pesquisa-view>
 
 <div class="indicador form-panel">
-    <h5>Total</h5>
-    <p>{{totalTable | currency: 'R$ '}}</p>
+	<h5>Total</h5>
+	<p>{{totalTable | currency: 'R$ '}}</p>
 </div>

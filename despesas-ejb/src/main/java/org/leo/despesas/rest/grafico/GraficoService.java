@@ -11,7 +11,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.leo.despesas.aplicacao.grafico.GraficoFacade;
-import org.leo.despesas.dominio.movimentacao.WrapperGraficoVO;
+import org.leo.despesas.infra.grafico.GraficoLinha;
 
 @Path("/grafico")
 @RequestScoped
@@ -23,8 +23,8 @@ public class GraficoService {
 	@GET
 	@Path(value = "/despesas")
 	@Produces(MediaType.APPLICATION_JSON)
-	public WrapperGraficoVO getGraficoDespesas(@QueryParam("dataInicial") final Date dataInicial, @QueryParam("dataFinal") final Date dataFinal) {
-		return graficoFacade.getGraficoDespesas(dataInicial, dataFinal);
+	public GraficoLinha getGraficoDespesas(@QueryParam("dataInicial") final Date dataInicial,@QueryParam("dataFinal") final Date dataFinal) {
+		return graficoFacade.getGraficoDespesas(dataInicial,dataFinal);
 	}
 
 }

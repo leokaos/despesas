@@ -107,9 +107,11 @@
 	                .showXAxis(true)        //Show the x-axis
 	  ;
 
-	  chart.xAxis     //Chart x-axis settings
-	      .axisLabel('Time (ms)')
-	      .tickFormat(d3.format(',r'));
+
+		chart.xAxis // Chart x-axis settings
+		.axisLabel('Mês').tickFormat(function(d) {
+			return d3.time.format('%d-%m-%y')(new Date(d));
+		});
 
 	  chart.yAxis     //Chart y-axis settings
 	      .axisLabel('Voltage (v)')
