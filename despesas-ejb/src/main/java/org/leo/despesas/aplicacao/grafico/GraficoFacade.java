@@ -4,15 +4,11 @@ import java.util.Date;
 
 import javax.ejb.Local;
 
-import org.leo.despesas.dominio.movimentacao.WrapperGraficoVO;
+import org.leo.despesas.infra.grafico.GraficoLinha;
 
 @Local
 public interface GraficoFacade {
 
-	WrapperGraficoVO getGraficoDespesas(Date dataInicial, Date dataFinal);
-
-	WrapperGraficoVO getGraficoReceitas(Date dataInicial, Date dataFinal);
-
-	WrapperGraficoVO getExtrato(Date dataInicial, Date dataFinal);
+	GraficoLinha getGraficoDespesas(Date dataInicial,Date dataFinal);
 
 }
