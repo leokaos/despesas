@@ -1,6 +1,5 @@
 package org.leo.despesas.aplicacao.grafico;
 
-import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +13,6 @@ import javax.persistence.Query;
 
 import org.leo.despesas.aplicacao.tipodespesa.TipoDespesaFacade;
 import org.leo.despesas.dominio.movimentacao.GraficoLinhaVO;
-import org.leo.despesas.dominio.movimentacao.GraficoVO;
 import org.leo.despesas.dominio.movimentacao.WrapperGraficoVO;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
 
@@ -51,7 +49,8 @@ public class GraficoFacadeImpl implements GraficoFacade {
 
 			final String legenda = MessageFormat.format(FORMATO, value[0], value[1].toString(), value[2]);
 
-			listaGraficos.add(new GraficoVO(legenda, getColorTipo(values[2], tiposDespesas), (BigDecimal) values[3]));
+			// listaGraficos.add(new GraficoVO(legenda, getColorTipo(values[2],
+			// tiposDespesas), (BigDecimal) values[3]));
 
 		}
 
