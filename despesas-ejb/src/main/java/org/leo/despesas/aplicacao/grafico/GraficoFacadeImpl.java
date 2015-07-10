@@ -1,6 +1,8 @@
 package org.leo.despesas.aplicacao.grafico;
 
-import java.text.MessageFormat;
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,14 +14,13 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.leo.despesas.aplicacao.tipodespesa.TipoDespesaFacade;
-import org.leo.despesas.dominio.movimentacao.GraficoLinhaVO;
-import org.leo.despesas.dominio.movimentacao.WrapperGraficoVO;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
+import org.leo.despesas.infra.grafico.GraficoLinha;
+import org.leo.despesas.infra.grafico.Ponto;
+import org.leo.despesas.infra.grafico.Serie;
 
 @Stateless
 public class GraficoFacadeImpl implements GraficoFacade {
-
-	private static final String FORMATO = "{0}/{1} {2}";
 
 	@PersistenceContext(unitName = "despesasPU")
 	protected EntityManager entityManager;
@@ -29,44 +30,69 @@ public class GraficoFacadeImpl implements GraficoFacade {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public WrapperGraficoVO getGraficoDespesas(final Date dataInicial, final Date dataFinal) {
-		final StringBuilder builder = new StringBuilder();
+	public GraficoLinha getGraficoDespesas(final Date dataInicial, final Date dataFinal) {
 
-		builder.append("SELECT d.tipo.descricao , MONTH(d.pagamento) , YEAR(d.pagamento) , SUM(d.valor) FROM Despesa d ");
-		builder.append("WHERE d.pagamento BETWEEN :dataInicial AND :dataFinal ");
-		builder.append("GROUP BY d.tipo.descricao , MONTH(d.pagamento) , YEAR(d.pagamento) ");
+		try {
 
-		final Query query = entityManager.createQuery(builder.toString());
+			// PEGANDO OS RESULTADOS
+			final StringBuilder builder = new StringBuilder();
+			builder.append("SELECT d.tipo.descricao , MONTH(d.pagamento) , YEAR(d.pagamento) , SUM(d.valor) FROM Despesa d ");
+			builder.append("WHERE d.pagamento BETWEEN :dataInicial AND :dataFinal ");
+			builder.append("GROUP BY d.tipo.descricao , MONTH(d.pagamento) , YEAR(d.pagamento) ");
+			builder.append("ORDER BY d.tipo.descricao , YEAR(d.pagamento) , MONTH(d.pagamento) ");
 
-		query.setParameter("dataInicial", dataInicial);
-		query.setParameter("dataFinal", dataFinal);
+			final Query query = entityManager.createQuery(builder.toString());
 
-		final List<Object[]> resultList = query.getResultList();
-		final List<GraficoLinhaVO> listaGraficos = new ArrayList<GraficoLinhaVO>();
-		final List<TipoDespesa> tiposDespesas = tipoDespesaFacade.listar();
+			query.setParameter("dataInicial", dataInicial);
+			query.setParameter("dataFinal", dataFinal);
+			final List<Object[]> resultList = query.getResultList();
 
-		for (final Object[] value : resultList) {
+			// FORMATO OBJS: Carro 5 2015 300
+			final List<Serie> series = new ArrayList<>();
+			final List<TipoDespesa> listaTipoDespesas = tipoDespesaFacade.listar();
+			final SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 
-			final String legenda = MessageFormat.format(FORMATO, value[0], value[1].toString(), value[2]);
+			Serie serie = null;
+			String tipoAtual = null;
 
-			// listaGraficos.add(new GraficoVO(legenda, getColorTipo(values[2],
-			// tiposDespesas), (BigDecimal) values[3]));
+			for (final Object[] value : resultList) {
 
+				if (serie == null || !String.valueOf(value[0]).equals(tipoAtual)) {
+
+					tipoAtual = String.valueOf(value[0]);
+					final List<Ponto> pontos = new ArrayList<Ponto>();
+
+					serie = new Serie(tipoAtual, getCor(tipoAtual, listaTipoDespesas), pontos);
+
+					series.add(serie);
+				}
+
+				// CÁLCULO LONG DIA
+				final String data = new StringBuilder().append(1).append("-").append(value[1]).append("-").append(value[2]).toString();
+				final Date dataConvertida = format.parse(data);
+
+				final BigDecimal x = new BigDecimal(dataConvertida.getTime());
+				final BigDecimal y = new BigDecimal(String.valueOf(value[3]));
+
+				serie.getPontos().add(new Ponto(x.doubleValue(), y.doubleValue()));
+
+			}
+
+			return new GraficoLinha("Histórico de Despesas", series);
+
+		} catch (final ParseException ex) {
+			return null;
+		}
+	}
+
+	private String getCor(final String tipoAtual, final List<TipoDespesa> listaTipoDespesas) {
+
+		for (final TipoDespesa tipoDespesa : listaTipoDespesas) {
+			if (tipoDespesa.getDescricao().equalsIgnoreCase(tipoAtual)) {
+				return tipoDespesa.getCor();
+			}
 		}
 
 		return null;
 	}
-
-	@Override
-	public WrapperGraficoVO getGraficoReceitas(final Date dataInicial, final Date dataFinal) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public WrapperGraficoVO getExtrato(final Date dataInicial, final Date dataFinal) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
