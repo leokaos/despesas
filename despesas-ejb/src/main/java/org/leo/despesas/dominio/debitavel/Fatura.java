@@ -127,7 +127,7 @@ public class Fatura {
 		return new Periodo(DataUtil.addMonths(dataFechamento,-1),dataFechamento);
 	}
 
-	public void pagar(final Conta conta) {
+	public Transferencia pagar(final Conta conta) {
 
 		Transferencia transferencia = new Transferencia();
 
@@ -142,5 +142,7 @@ public class Fatura {
 		conta.transferir(transferencia);
 
 		setPaga(true);
+
+		return transferencia;
 	}
 }
