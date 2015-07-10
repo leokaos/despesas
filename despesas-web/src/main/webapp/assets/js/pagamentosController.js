@@ -1,19 +1,21 @@
-app.controller('pagamentosController',function($scope,$http,$location,$routeParams,growl,despesaService) {
+app.controller('pagamentosController',function($scope,$http,$location,$routeParams,growl,movimentacaoService) {
+
+	$scope.movimentacaoSelecionada = null;
 
 	$scope.events = function(start,end,timezone,callback) {
 
-		despesaService.buscarDespesasPorPeriodo(start._d,end._d,function(data) {
+		movimentacaoService.buscarMovimentacaoPorPeriodo(start._d,end._d,function(data) {
 
 			var eventos = [];
 
 			for (var i = 0 ; i < data.length ; i++) {
-				var despesa = data[i];
+				var movimentacao = data[i];
 
 				eventos.push({
-				    title: despesa.descricao,
-				    color: despesa.tipo.cor,
-				    start: despesa.vencimento,
-				    despesa: despesa
+				    title: movimentacao.descricao,
+				    color: movimentacao.tipo.cor,
+				    start: movimentacao.vencimento,
+				    movimentacao: movimentacao
 				});
 			}
 
@@ -22,31 +24,13 @@ app.controller('pagamentosController',function($scope,$http,$location,$routePara
 	};
 
 	$scope.limparCarrregar = function() {
-		$('#calendar-despesas').fullCalendar('refetchEvents');
-		$scope.despesaSelecionada = {};
+		$('#calendar-movimentacao').fullCalendar('refetchEvents');
+		$scope.movimentacaoSelecionada = null;
 	};
 
-	$scope.selecionarDespesa = function(despesa) {
-		$scope.despesaSelecionada = despesa;
+	$scope.selecionar = function(movimentacao) {
+		$scope.movimentacaoSelecionada = movimentacao;
 		$scope.$apply();
-	};
-
-	$scope.deletar = function() {
-		if (angular.isDefined($scope.despesaSelecionada)) {
-			despesaService.deletar($scope.despesaSelecionada.id,function(data) {
-				$scope.limparCarrregar();
-				growl.info('Despesa deletada com sucesso!');
-			});
-		}
-	};
-
-	$scope.pagar = function() {
-		if (angular.isDefined($scope.despesaSelecionada)) {
-			despesaService.pagarDespesa($scope.despesaSelecionada,function() {
-				$scope.limparCarrregar();
-				growl.info('Despesa paga com sucesso!');
-			});
-		}
 	};
 
 });

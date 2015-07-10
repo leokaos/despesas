@@ -6,7 +6,7 @@ app.service('movimentacaoService', function($http) {
 
 		var request = $http({
 			method : 'get',
-			url : pathBase + 'main',
+			url : pathBase + 'buscarPorPeriodo',
 			params : {
 				dataInicial : dataInicio.toGMTString(),
 				dataFinal : dataFim.toGMTString()
