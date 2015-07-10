@@ -1,5 +1,6 @@
 <h3>
-	<i class="fa fa-angle-right"></i> Lançamento de Receita
+	<i class="fa fa-angle-right"></i>
+	Lançamento de Receita
 </h3>
 
 <div class="row mt">
@@ -47,7 +48,7 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Conta:</label>
 
-					<colorable select-function="selecionarConta" ng-model="contas"> <span style="vertical-align: middle; padding-left: 20px;" ng-if="hasConta();">
+					<colorable ng-model="receita.debitavel" itens="contas"> <span style="vertical-align: middle; padding-left: 20px;" ng-if="hasConta();">
 						<label class="col-sm-4 control-label">Saldo: {{contaSelecionada.saldo | currency}}</label>
 					</span> </colorable>
 
@@ -75,4 +76,5 @@
 
 </div>
 
-<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoReceita.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{receita.descricao}}?</b> </ng-modal>
+<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoReceita.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{receita.descricao}}?</b>
+</ng-modal>

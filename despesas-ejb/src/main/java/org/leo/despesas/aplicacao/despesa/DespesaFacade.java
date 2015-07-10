@@ -1,5 +1,6 @@
 package org.leo.despesas.aplicacao.despesa;
 
+import java.io.File;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -22,6 +23,8 @@ public interface DespesaFacade extends SimpleFacade<Despesa> {
 
 	void pagar(Despesa despesa);
 
-	void inserir(Despesa despesa,ParcelamentoVO parcelamentoVO);
+	void inserir(Despesa despesa, ParcelamentoVO parcelamentoVO);
+
+	List<Despesa> carregarDeArquivo(File arquivoDespesas);
 
 }

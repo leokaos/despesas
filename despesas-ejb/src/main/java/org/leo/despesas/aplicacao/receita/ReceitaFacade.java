@@ -1,5 +1,6 @@
 package org.leo.despesas.aplicacao.receita;
 
+import java.io.File;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -13,12 +14,14 @@ import org.leo.despesas.rest.infra.SimpleFacade;
 @Local
 public interface ReceitaFacade extends SimpleFacade<Receita> {
 
-    List<GraficoVO> getGraficoPorPeriodo(Periodo periodo);
+	List<GraficoVO> getGraficoPorPeriodo(Periodo periodo);
 
-    List<Receita> getReceitasPorPeriodo(Periodo periodo);
+	List<Receita> getReceitasPorPeriodo(Periodo periodo);
 
-    List<Receita> buscarPorFiltro(ReceitaFiltro filtro);
+	List<Receita> buscarPorFiltro(ReceitaFiltro filtro);
 
-    void depositar(Receita receita);
+	void depositar(Receita receita);
+
+	List<Receita> carregarDeArquivo(File arquivoReceitas);
 
 }
