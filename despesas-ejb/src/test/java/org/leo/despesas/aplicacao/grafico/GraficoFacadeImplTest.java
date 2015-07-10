@@ -4,9 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import java.text.SimpleDateFormat;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.leo.despesas.infra.grafico.GraficoLinha;
 
+@Ignore
 public class GraficoFacadeImplTest {
 
 	@Test

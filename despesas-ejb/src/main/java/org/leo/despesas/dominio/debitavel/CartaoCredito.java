@@ -125,14 +125,12 @@ public class CartaoCredito extends Debitavel {
 			// Configuracao da data de fechamento
 			Date dataFechamento = new Date(despesa.getVencimento().getTime());
 			dataFechamento = DataUtil.setDays(dataFechamento,this.diaDeFechamento);
-			dataFechamento = DataUtil.addMonths(dataFechamento,1);
 
 			faturaPorData.setDataFechamento(dataFechamento);
 
 			// Configuracao da data de vencimento
 			Date dataVencimento = new Date(despesa.getVencimento().getTime());
 			dataVencimento = DataUtil.setDays(dataVencimento,this.diaDeVencimento);
-			dataVencimento = DataUtil.addMonths(dataVencimento,1);
 
 			if (diaDeFechamento > diaDeVencimento) {
 				dataVencimento = DataUtil.addMonths(dataVencimento,1);
