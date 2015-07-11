@@ -1,6 +1,5 @@
 app.service('faturaService', function ($http) {
 
-    var receita = null;
     var pathBase = '/despesas/services/fatura/';
 
     this.listar = function (fn) {
@@ -56,4 +55,20 @@ app.service('faturaService', function ($http) {
         });
 
     };
+    
+    this.pagar = function(fatura, conta, fn){
+    	
+        var request = $http({
+            method: 'get',
+            url: pathBase + 'pagar/' + id + '/' + conta.id,
+            params: {
+                cartaoCredito: id
+            }
+        });
+
+        request.success(function (data) {
+            fn(data);
+        });
+    };
+    
 });

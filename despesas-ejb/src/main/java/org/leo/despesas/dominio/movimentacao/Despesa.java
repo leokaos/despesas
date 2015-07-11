@@ -7,14 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
 
 @Entity
-@Table(name = "despesa", schema = "despesas_db")
+@Table(name = "despesa",schema = "despesas_db")
 @DiscriminatorValue(value = "D")
 public class Despesa extends Movimentacao {
 
@@ -26,14 +24,8 @@ public class Despesa extends Movimentacao {
 	private TipoDespesa tipo;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fatura_id", nullable = true)
+	@JoinColumn(name = "fatura_id",nullable = true)
 	private Fatura fatura;
-
-	@Transient
-	private String parcelamento;
-
-	@Transient
-	private Integer numeroParcelas;
 
 	public Despesa() {
 		super();
@@ -62,26 +54,6 @@ public class Despesa extends Movimentacao {
 
 	public void setFatura(final Fatura fatura) {
 		this.fatura = fatura;
-	}
-
-	public String getParcelamento() {
-		return parcelamento;
-	}
-
-	public void setParcelamento(final String parcelamento) {
-		this.parcelamento = parcelamento;
-	}
-
-	public Integer getNumeroParcelas() {
-		return numeroParcelas;
-	}
-
-	public void setNumeroParcelas(final Integer numeroParcelas) {
-		this.numeroParcelas = numeroParcelas;
-	}
-
-	public boolean hasParcelamento() {
-		return parcelamento != null;
 	}
 
 	public void pagar() {

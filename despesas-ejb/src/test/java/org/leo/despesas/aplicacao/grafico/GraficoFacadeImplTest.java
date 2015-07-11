@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+<<<<<<< HEAD
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -19,6 +20,9 @@ import org.easymock.EasyMockRunner;
 import org.easymock.Mock;
 import org.easymock.MockType;
 import org.easymock.TestSubject;
+=======
+import org.junit.Ignore;
+>>>>>>> origin/master
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.leo.despesas.aplicacao.tipodespesa.TipoDespesaFacade;
@@ -26,7 +30,11 @@ import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
 import org.leo.despesas.infra.grafico.GraficoLinha;
 import org.leo.despesas.infra.grafico.Serie;
 
+<<<<<<< HEAD
 @RunWith(value = EasyMockRunner.class)
+=======
+@Ignore
+>>>>>>> origin/master
 public class GraficoFacadeImplTest {
 
 	@Mock(type = MockType.STRICT)

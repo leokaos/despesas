@@ -8,11 +8,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.leo.despesas.aplicacao.cartao.CartaoFacade;
 import org.leo.despesas.aplicacao.conta.ContaFacade;
 import org.leo.despesas.aplicacao.fatura.FaturaFacade;
-import org.leo.despesas.dominio.debitavel.Conta;
+import org.leo.despesas.aplicacao.transferencia.TransferenciaFacade;
 import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.rest.infra.AbstractService;
 
@@ -27,6 +28,9 @@ public class FaturaService extends AbstractService<FaturaFacade,Fatura> {
 
 	@EJB
 	private ContaFacade contaFacade;
+
+	@EJB
+	private TransferenciaFacade transferenciaFacade;
 
 	@Override
 	protected FaturaFacade getFacade() {
@@ -43,14 +47,10 @@ public class FaturaService extends AbstractService<FaturaFacade,Fatura> {
 	@GET
 	@Path(value = "/pagar/{id}/{conta}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public void pagarFatura(@PathParam(value = "id") final Long idFatura, @PathParam(value="conta") final Long contaId) {
-		final Fatura fatura = faturaFacade.buscarPorId(idFatura);
-		final Conta conta = contaFacade.buscarPorId(contaId);
+	public Response pagarFatura(@PathParam(value = "id") final Long idFatura,@PathParam(value = "conta") final Long contaId) {
+		transferenciaFacade.pagarFatura(faturaFacade.buscarPorId(idFatura),contaFacade.buscarPorId(contaId));
 
-		fatura.pagar(conta);
-
-		faturaFacade.salvar(fatura);
-		contaFacade.salvar(conta);
+		return Response.ok().build();
 	}
 
 }

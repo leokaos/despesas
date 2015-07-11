@@ -1,56 +1,59 @@
-app.controller('faturaController', function ($scope, faturaService, cartaoService, despesaService, $location, $routeParams, usSpinnerService) {
+app.controller('faturaController',function($scope,faturaService,cartaoService,despesaService,$location,$routeParams,usSpinnerService,growl) {
 
-    $scope.cartaoCreditoId = $routeParams.id;
+	$scope.cartaoCreditoId = $routeParams.id;
 
-    $scope.faturas = [];
+	$scope.faturas = [];
+	$scope.faturaSelecionada = null;
+	$scope.debitavelPagar = null;
 
-    cartaoService.buscarPorId($scope.cartaoCreditoId, function (data) {
-        $scope.cartao = data;
-    });
+	$scope.selecionarFatura = function(fatura) {
+		$scope.faturaSelecionada = fatura;
+	};
 
-    faturaService.buscarFaturaPorCartaoCredito($scope.cartaoCreditoId, function (data) {
+	cartaoService.buscarPorId($scope.cartaoCreditoId,function(data) {
+		$scope.cartao = data;
+	});
 
-        for (var i = 0; i < data.length; i++) {
-            $scope.faturas.push(new Fatura(data[i]));
-        }
-    });
+	faturaService.buscarFaturaPorCartaoCredito($scope.cartaoCreditoId,function(data) {
 
-    $scope.mostrarItens = function (fatura) {
-        $scope.despesas = fatura.despesas;
+		for (var i = 0 ; i < data.length ; i++) {
+			$scope.faturas.push(new Fatura(data[i]));
+		}
+	});
 
-        $scope.valorTotal = 0.0;
+	$scope.mostrarItens = function(fatura) {
+		$scope.despesas = fatura.despesas;
 
-        for (var i = 0; i < $scope.despesas.length; i++) {
-            $scope.valorTotal += $scope.despesas[i].valor;
-        }
-    };
+		$scope.valorTotal = 0.0;
 
-    $scope.cancelar = function () {
-        $location.path('/cartoes');
-    };
+		for (var i = 0 ; i < $scope.despesas.length ; i++) {
+			$scope.valorTotal += $scope.despesas[i].valor;
+		}
+	};
 
-    $scope.pagarFatura = function (fatura) {
+	$scope.cancelar = function() {
+		$location.path('/cartoes');
+	};
 
-        $scope.despesa = despesaService.getNovoDespesa();
+	$scope.pagarFatura = function() {
+		faturaService.pagar($scope.faturaSelecionada,$scope.debitavelPagar,function() {
 
-        $scope.despesa.descricao = 'Pagamento fatura ' + fatura.cartao.descricao + ' de ' + fatura.periodo.toString();
-        $scope.despesa.vencimento = fatura.dataVencimento;
-        $scope.despesa.valor = fatura.valorFatura;
+			growl.info('Fatura paga com sucesso!');
 
-        despesaService.setDespesa($scope.despesa);
+			$('#modalSelecionarConta').modal('hide');
 
-        $location.path('/despesa');
-    };
+		});
+	};
 
 });
 
 function Fatura(dados) {
-    angular.extend(this, dados);
+	angular.extend(this,dados);
 
-    if (this.dataVencimento != null) {
-        var data = new Date(this.dataVencimento);
-        this.periodo = new Periodo(data.getMonth() + 1, data.getFullYear());
-    } else {
-        this.periodo = new Periodo(null, null);
-    }
+	if (this.dataVencimento != null) {
+		var data = new Date(this.dataVencimento);
+		this.periodo = new Periodo(data.getMonth() + 1,data.getFullYear());
+	} else {
+		this.periodo = new Periodo(null,null);
+	}
 }
