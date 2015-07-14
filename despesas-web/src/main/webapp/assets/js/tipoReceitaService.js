@@ -1,6 +1,5 @@
 app.service('tipoReceitaService', function ($http) {
 
-    var tiporeceita = null;
     var pathBase = '/despesas/services/tiporeceita/';
 
     this.getNovoTipoReceita = function () {
@@ -28,14 +27,6 @@ app.service('tipoReceitaService', function ($http) {
             fn(data);
         });
     };
-
-    this.setTipoReceita = function (novoTipoReceita) {
-        this.tiporeceita = novoTipoReceita;
-    }
-
-    this.getTipoReceita = function () {
-        return this.tiporeceita;
-    }
 
     this.buscarPorId = function (id, fn) {
         $http.get(pathBase + id).success(function (data) {

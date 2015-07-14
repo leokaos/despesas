@@ -15,9 +15,11 @@
 
 		<tbody>
 			<tr ng-repeat="item in sliceData" style="height: 40px;">
+
 				<td style="width: 40px;">
 					<bullet ng-model="item"></bullet>
 				</td>
+
 				<td style="vertical-align: middle;">{{item.descricao}}</td>
 
 				<td style="width: 38px; height: 38px;">
@@ -27,6 +29,7 @@
 				<td style="width: 38px; height: 38px;">
 					<button-delete></button-delete>
 				</td>
+				
 			</tr>
 		</tbody>
 
