@@ -1,10 +1,12 @@
 <div>
 
 	<h3>
-		<i class="fa fa-angle-right"></i> {{getTitulo()}}
+		<i class="fa fa-angle-right"></i>
+		{{getTitulo()}}
 	</h3>
 
-	<ng-modal id="modalExcluir" modal-title="Confirmar" func-salvar="doDelete();" type="SAVE" label-salvar="Deletar"> Tem certeza que deseja deletar <b>{{getDescricaoSelecionado()}}?</b> </ng-modal>
+	<ng-modal id="modalExcluir" modal-title="Confirmar" func-salvar="doDelete();" type="SAVE" label-salvar="Deletar"> Tem certeza que deseja
+	deletar <b>{{getDescricaoSelecionado()}}?</b> </ng-modal>
 
 	<ng-modal id="modalOk" modal-title="Informativo" type="OK">{{getMensagemDelete()}}</ng-modal>
 
@@ -14,17 +16,22 @@
 
 			<div class="form-panel">
 
-				<div ng-if="hasFiltro();" class="clearfix col-md-10">
+				<div ng-if="hasFiltro();" class="col-md-10">
 					<ng-include src="getFiltro();"></ng-include>
 				</div>
 
 				<div class="col-md-2 pull-right">
 
-					<select ng-change="changePageSize()" ng-model="pageSize">
-						<option ng-repeat="numberPage in numberPages" value="{{numberPage}}" ng-selected="numberPage == pageSize">{{numberPage}} por p&aacutegina</option>
-					</select>
-
-					<i class="fa fa-plus-square" ng-click="novo();"></i>
+					<div class="form-group">
+						<select ng-change="changePageSize()" ng-model="pageSize" class="form-control">
+							<option ng-repeat="numberPage in numberPages" value="{{numberPage}}" ng-selected="numberPage == pageSize">{{numberPage}} por p&aacutegina</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<h3>
+							<i class="fa fa-plus-square" ng-click="novo();"></i>
+						</h3>
+					</div>
 
 				</div>
 
@@ -38,9 +45,11 @@
 
 						<button type="button" ng-click="firstPage()" style="top: 0px;" class="btn btn-default glyphicon glyphicon-fast-backward" ng-disabled="isFirstPage()"></button>
 
-						<button type="button" ng-click="previousPage()" style="top: 0px;" class="btn btn-default glyphicon glyphicon-step-backward" ng-disabled="isFirstPage()"></button>
+						<button type="button" ng-click="previousPage()" style="top: 0px;" class="btn btn-default glyphicon glyphicon-step-backward"
+							ng-disabled="isFirstPage()"></button>
 
-						<button type="button" class="btn btn-default {{page == currentPage ? 'active':''}}" ng-repeat="page in [] | range:pages" ng-click="changePage(page)">{{page + 1}}</button>
+						<button type="button" class="btn btn-default {{page == currentPage ? 'active':''}}" ng-repeat="page in [] | range:pages" ng-click="changePage(page)">{{page
+							+ 1}}</button>
 
 						<button type="button" ng-click="nextPage()" style="top: 0px;" class="btn btn-default glyphicon glyphicon-step-forward" ng-disabled="isLastPage()"></button>
 
