@@ -28,26 +28,15 @@ app.controller('contaController', function ($scope, contaService, $location, $ro
     };
 
     $scope.novo = function () {
-        contaService.setConta(contaService.getNovoConta());
-
-        $scope.goEdicao();
+        $location.path('/conta');
     };
 
     $scope.editar = function (id) {
-
-        contaService.buscarPorId(id, function (conta) {
-            contaService.setConta(conta);
-
-            $scope.goEdicao();
-        });
+        $location.path('/conta/' + id);
     };
 
     $scope.select = function (conta) {
         $scope.contaSelecionado = conta;
-    };
-
-    $scope.goEdicao = function () {
-        $location.path('/conta');
     };
 
     $scope.getItemSelecionado = function () {
@@ -62,7 +51,15 @@ app.controller('contaController', function ($scope, contaService, $location, $ro
 
 app.controller('edicaoContaController', function ($scope, contaService, $location, $routeParams, growl) {
 
-    $scope.conta = contaService.getConta();
+    var id = $routeParams.id;
+
+    if (id != null) {
+        contaService.buscarPorId(id, function (conta) {
+            $scope.conta = conta;
+        });
+    } else {
+        $scope.conta = contaService.getNovoConta();
+    }
 
     $scope.cancelar = function () {
         $location.path('/contas');

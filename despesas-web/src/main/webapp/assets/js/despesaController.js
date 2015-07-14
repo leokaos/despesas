@@ -36,19 +36,7 @@ app.controller('despesaController',function($scope,despesaService,$location,$rou
 	};
 
 	$scope.listar = function() {
-
-		despesaService.buscarPorFiltro($scope.filtro,function(lista) {
-
-			// Calculo do total
-			$scope.totalTable = 0.0;
-
-			angular.forEach(lista,function(value,key) {
-				$scope.totalTable += value.valor;
-			});
-
-			$scope.loadData(lista);
-
-		});
+		despesaService.buscarPorFiltro($scope.filtro,$scope.loadData);
 	};
 
 	$scope.novo = function() {

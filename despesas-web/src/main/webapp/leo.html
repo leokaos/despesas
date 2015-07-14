@@ -29,10 +29,10 @@
 
 <body>
 
-	<div ng-controller="testeController">
-
-		<progressbar max="100" value="churros">{{churros}}</progressbar>
-
+	<div ng-controller="churrosController">
+		<bullet ng-model="item">
+		<p ng-bind="item.descricao"></p>
+		</bullet>
 	</div>
 
 	<!--Graficos-->
@@ -99,11 +99,14 @@
 	<script type="text/javascript" src="assets/js/receitaController.js"></script>
 	<script type="text/javascript" src="assets/js/faturaController.js"></script>
 	<script type="text/javascript" src="assets/js/painelDespesaController.js"></script>
+	<script type="text/javascript" src="assets/js/painelReceitaController.js"></script>
 
 	<script>
-		app.controller('testeController', function($scope){
-				$scope.churros = 50;
-			});
+
+		app.controller('churrosController', function($scope){
+			$scope.item = {cor: '#F00', descricao: 'Churros'};			
+		});
+
 	</script>
 
 </body>

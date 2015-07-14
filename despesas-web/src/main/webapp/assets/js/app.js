@@ -106,6 +106,11 @@ app.config(function($routeProvider,$locationProvider) {
 	    controller: 'edicaoContaController'
 	});
 
+	$routeProvider.when('/conta/:id',{
+	    templateUrl: 'partial/conta/conta.html',
+	    controller: 'edicaoContaController'
+	});
+
 	// DESPESAS
 	$routeProvider.when('/despesas',{
 	    templateUrl: 'partial/despesa/despesas.html',
@@ -117,8 +122,13 @@ app.config(function($routeProvider,$locationProvider) {
 	    controller: 'edicaoDespesaController'
 	});
 
+	$routeProvider.when('/despesa/:id',{
+	    templateUrl: 'partial/despesa/despesa.html',
+	    controller: 'edicaoDespesaController'
+	});
+
 	$routeProvider.when('/painelDespesas',{
-	    templateUrl: 'partial/despesa/painel_despesas.html',
+	    templateUrl: 'partial/painel_despesas.html',
 	    controller: 'painelDespesaController'
 	});
 
@@ -156,7 +166,7 @@ app.config(function($routeProvider,$locationProvider) {
 	});
 
 	$routeProvider.when('/painelReceitas',{
-	    templateUrl: 'partial/despesa/painel_receitas.html',
+	    templateUrl: 'partial/painel_receitas.html',
 	    controller: 'painelReceitaController'
 	});
 
@@ -198,17 +208,13 @@ app.filter('range',function() {
 app.filter('sum',function() {
 
 	return function(input,params) {
-
 		var totalSum = 0;
-
 		for (var x = 0 ; x < input.length ; x++) {
 			var value = input[x][params];
-
 			if (value != null) {
 				totalSum += parseFloat(input[x][params]);
 			}
 		}
-
 		return totalSum;
 	};
 });
@@ -258,45 +264,6 @@ app.directive('ngModal',function() {
 			    element.find("h4[despesas-modal-title='']").html(attrs.modalTitle);
 		    }
 	    }
-	};
-
-});
-
-app.directive('startupError',function($compile) {
-
-	return {
-	    restrict: 'E',
-	    replace: true,
-	    transclude: true,
-	    scope: false,
-	    priority: 1000,
-	    template: "<div ng-transclude></div>",
-
-	    link: function(scope,iElement,iAttrs) {
-
-		    if (angular.isDefined(iAttrs.class)) {
-			    iElement.attr('class',iAttrs.class);
-		    }
-
-		    var campo = iElement.find("input[startup-error-field]");
-
-		    /*
-			 * $(campo).attr('bs-tooltip', ''); $(campo).attr('tooltip-placement', 'top'); $(campo).attr('tooltip-trigger', 'focus'); $(campo).attr('tooltip', iAttrs.tooltipMessage);
-			 */
-
-		    iElement.append("<span startup-error-message></span>");
-
-		    var mensagem = iElement.find("span[startup-error-message]");
-
-		    $(mensagem).html(iAttrs.errorMessage);
-		    $(mensagem).attr('class','alert alert-danger');
-		    $(mensagem).attr('style','margin: 10px 0px 0px 0px; padding: 3px; display: inline-block;');
-		    $(mensagem).attr('ng-show',iAttrs.formName + '.' + campo.attr('name') + '.$invalid && ' + iAttrs.formName + '.' + campo.attr('name') + '.$dirty');
-		    $(mensagem).attr('ng-class','error');
-
-		    $compile(iElement.contents())(scope);
-	    }
-
 	};
 
 });
@@ -395,6 +362,32 @@ app.directive('colorable',function() {
 			    scope.colorableSelected = item;
 			    scope.value = item;
 		    };
+	    }
+	};
+});
+
+app.directive('bullet',function() {
+	return {
+	    restrict: 'E',
+	    scope: {
+		    item: '=ngModel'
+	    },
+	    replace: true,
+	    transclude: true,
+	    template: '<div><div ng-transclude=""></div></div>',
+
+	    link: function(scope,iElement,iAttrs) {
+
+		    var bullet = $('<div></div>').css({
+		        'background-color': scope.item.cor,
+		        'border-radius': '100px',
+		        'width': '28px',
+		        'margin': '1px',
+		        'height': '28px',
+		        'float': 'left'
+		    });
+
+		    $(iElement).prepend(bullet);
 	    }
 	};
 });

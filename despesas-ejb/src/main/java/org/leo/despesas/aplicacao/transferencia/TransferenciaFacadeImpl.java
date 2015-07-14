@@ -1,6 +1,7 @@
 package org.leo.despesas.aplicacao.transferencia;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 import org.leo.despesas.aplicacao.conta.ContaFacade;
 import org.leo.despesas.aplicacao.fatura.FaturaFacade;
@@ -9,6 +10,7 @@ import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
 import org.leo.despesas.rest.infra.AbstractFacade;
 
+@Stateless
 public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia> implements TransferenciaFacade {
 
 	@EJB
