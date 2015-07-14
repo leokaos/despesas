@@ -18,6 +18,7 @@
 		<class>org.leo.despesas.dominio.orcamento.Orcamento</class>
 		<class>org.leo.despesas.dominio.movimentacao.Receita</class>
 		<class>org.leo.despesas.dominio.debitavel.CartaoCredito</class>
+		<class>org.leo.despesas.dominio.movimentacao.Transferencia</class>
 
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
