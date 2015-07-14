@@ -40,26 +40,15 @@ app.controller('despesaController',function($scope,despesaService,$location,$rou
 	};
 
 	$scope.novo = function() {
-		despesaService.setDespesa(despesaService.getNovoDespesa());
-
-		$scope.goEdicao();
+		$location.path('/despesa');
 	};
 
 	$scope.editar = function(id) {
-
-		despesaService.buscarPorId(id,function(despesa) {
-			despesaService.setDespesa(despesa);
-
-			$scope.goEdicao();
-		});
+		$location.path('/despesa/' + id);
 	};
 
 	$scope.select = function(despesa) {
 		$scope.despesaSelecionada = despesa;
-	};
-
-	$scope.goEdicao = function() {
-		$location.path('/despesa');
 	};
 
 	$scope.getItemSelecionado = function() {
@@ -94,22 +83,14 @@ app.controller('edicaoDespesaController',function($scope,despesaService,tipoDesp
 	$scope.orcamento = null;
 	$scope.parcelamento = {};
 
-	$scope.tipoDespesaSelecionado = {
-		descricao: 'Selecione'
-	};
+	var id = $routeParams.id;
 
-	$scope.debitavelSelecionado = {
-		descricao: 'Selecione'
-	};
-
-	$scope.despesa = despesaService.getNovoDespesa();
-
-	if ($scope.despesa.debitavel != null) {
-		$scope.debitavelSelecionado = $scope.despesa.debitavel;
-	}
-
-	if ($scope.despesa.tipoDespesa != null) {
-		$scope.tipoDespesaSelecionado = $scope.despesa.tipoDespesa;
+	if (id != null) {
+		despesaService.buscarPorId(id,function(despesa) {
+			$scope.despesa = despesa;
+		});
+	} else {
+		$scope.despesa = despesaService.getNovoDespesa();
 	}
 
 	$scope.openData = function() {

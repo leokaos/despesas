@@ -4,55 +4,44 @@
 
 <div class="row mt">
 
-    <div class="col-lg-6">
+	<div class="col-lg-6">
 
-        <div class="form-panel">
+		<div class="form-panel">
 
-            <form novalidate class="form-horizontal" method="get" name="edicaoConta" novalidate>
+			<form novalidate class="form-horizontal" method="get" name="edicaoConta" novalidate>
 
-                <div class="form-group" style="margin-top: 15px;">
-                    <label class="col-sm-2 col-sm-2 control-label">Nome:</label>
-                    <startup-error tooltip-message="Nome da conta." error-message="Atributo nome da conta é obrigatório." form-name="edicaoConta" class="col-lg-10">
-                        <input type="text" class="form-control" placeholder="Nome para exibição" ng-model="conta.descricao" startup-error-field required>
-                    </startup-error>
-                </div>
+				<div class="form-group" style="margin-top: 15px;">
+					<label class="col-sm-2 control-label">Nome:</label>
+					<input type="text" class="form-control" placeholder="Nome para exibição" ng-model="conta.descricao" required bs-tooltip tooltip="Nome da conta" tooltip-placement="top" tooltip-trigger="focus">
+				</div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Cor:</label>
+				<div class="form-group">
+					<label class=" col-sm-2 control-label">Cor:</label>
+					<div>
+						<input colorpicker class="form-control" placeholder="Cor de exibição" ng-model="conta.cor" required bs-tooltip tooltip="Cor que será utilizado para exibição em gráficos e legendas" tooltip-placement="top" tooltip-trigger="focus">
+						<bullet ng-model="conta"></bullet>
+					</div>
+				</div>
 
-                    <startup-error tooltip-message="Cor que será utilizado para exibição em gráficos e legendas." error-message="Atributo cor é obrigatório." form-name="edicaoConta" class="col-lg-8">
-                        <div style="display: -webkit-box; width: 33.33333333%; ">
-                            <input colorpicker class="form-control" placeholder="Cor de exibição" ng-model="conta.cor" startup-error-field required>
-                            <div style="margin-left: 20px; width: 34px; height:34px; border-radius:20px; border-color:{{conta.cor}}; background-color: {{conta.cor}};"></div>
-                        </div>
-                    </startup-error>
-                </div>
+				<div class="form-group">
+					<label class="col-sm-2 col-sm-2 control-label">Saldo:</label>
+					<div class="custom-icon-group">
+						<span class="icon-input">
+							<i class="fa fa-money"></i>
+						</span>
+						<input type="text" class="form-control" placeholder="Saldo Inicial" ng-model="conta.saldo" ui-number-mask required bs-tooltip tooltip="Saldo inicial da conta no momento do cadastro" tooltip-placement="top" tooltip-trigger="focus" ng-disabled="conta.id != null">
+					</div>
+				</div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Saldo:</label>
-
-                    <startup-error tooltip-message="Saldo inicial da conta no momento do cadastro." error-message="Atributo saldo inicial é obrigatório." form-name="edicaoConta" class="col-lg-10">
-                        <div class="custom-icon-group">
-                            <span class="icon-input">
-						<i class="fa fa-money"></i>
-					    </span>
-                            <input type="text" class="form-control" placeholder="Saldo Inicial" ng-model="conta.saldo" ui-number-mask startup-error-field required>
-                        </div>
-                    </startup-error>
-                </div>
-
-                <div class="form-group">
-                    <div style="margin: 10px; padding: 40px 10px 0px 10px;">
-                        <button type="button" class="btn btn-theme" style="float: right;" data-toggle="modal" data-target="#modalSalvar" ng-disabled="edicaoConta.$invalid">Gravar</button>
-                        <button type="button" class="btn btn-theme" style="float: left;" ng-click="cancelar();">Cancelar</button>
-                    </div>
-                </div>
-            </form>
-
-        </div>
-
-    </div>
+				<div class="form-group">
+					<div>
+						<button type="button" class="btn btn-theme" style="float: right;" data-toggle="modal" data-target="#modalSalvar" ng-disabled="edicaoConta.$invalid">Gravar</button>
+						<button type="button" class="btn btn-theme" style="float: left;" ng-click="cancelar();">Cancelar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 
-<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoConta.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{conta.descricao}}?</b>
-</ng-modal>
+<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoConta.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{conta.descricao}}?</b> </ng-modal>
