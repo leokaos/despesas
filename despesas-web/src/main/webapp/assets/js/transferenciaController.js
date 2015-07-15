@@ -1,15 +1,15 @@
-app.controller('tipoReceitaController',function($scope,tipoReceitaService,$location,$routeParams,usSpinnerService) {
+app.controller('transferenciaController',function($scope,transferenciaService,$location,$routeParams,usSpinnerService) {
 
-	$scope.tipoReceitaSelecionado = null;
+	$scope.transferenciaSelecionado = null;
 
 	$scope.getTitulo = function() {
-		return 'Tipo de Receita';
+		return 'Trânsferencias';
 	};
 
 	$scope.getDescricaoSelecionado = function() {
 
-		if ($scope.tipoReceitaSelecionado != null) {
-			return $scope.tipoReceitaSelecionado.descricao;
+		if ($scope.transferenciaSelecionado != null) {
+			return $scope.transferenciaSelecionado.descricao;
 		} else {
 			return '';
 		}
@@ -24,45 +24,45 @@ app.controller('tipoReceitaController',function($scope,tipoReceitaService,$locat
 	};
 
 	$scope.listar = function() {
-		tipoReceitaService.listar($scope.loadData);
+		transferenciaService.listar($scope.loadData);
 	};
 
 	$scope.novo = function() {
-		$location.path('/tiporeceita');
+		$location.path('/transferencia');
 	};
 
 	$scope.editar = function(id) {
-		$location.path('/tiporeceita/' + id);
+		$location.path('/transferencia/' + id);
 	};
 
-	$scope.select = function(tipoReceita) {
-		$scope.tipoReceitaSelecionado = tipoReceita;
+	$scope.select = function(transferencia) {
+		$scope.transferenciaSelecionado = transferencia;
 	};
 
 	$scope.getItemSelecionado = function() {
-		return $scope.tipoReceitaSelecionado;
+		return $scope.transferenciaSelecionado;
 	};
 
 	$scope.doDelete = function() {
-		tipoReceitaService.deletar($scope.tipoReceitaSelecionado.id,$scope.deletar);
+		transferenciaService.deletar($scope.transferenciaSelecionado.id,$scope.deletar);
 	};
 
 });
 
-app.controller('edicaoTipoReceitaController',function($scope,tipoReceitaService,$location,$routeParams,growl) {
+app.controller('edicaoTransferenciaController',function($scope,transferenciaService,$location,$routeParams,growl) {
 
 	var id = $routeParams.id;
 
 	if (id != null) {
-		tipoReceitaService.buscarPorId(id,function(tiporeceita) {
-			$scope.tiporeceita = tiporeceita;
+		transferenciaService.buscarPorId(id,function(transferencia) {
+			$scope.transferencia = transferencia;
 		});
 	} else {
-		$scope.tiporeceita = tipoReceitaService.getNovoTipoReceita();
+		$scope.transferencia = transferenciaService.getNovaTransferencia();
 	}
 
 	$scope.cancelar = function() {
-		$location.path('/tiporeceitas');
+		$location.path('/transferencias');
 	};
 
 	$scope.limparCarregar = function(data) {
@@ -78,10 +78,10 @@ app.controller('edicaoTipoReceitaController',function($scope,tipoReceitaService,
 	$scope.salvar = function(valid) {
 
 		if (valid) {
-			if ($scope.tiporeceita.id) {
-				tipoReceitaService.salvar($scope.tiporeceita,$scope.salvo);
+			if ($scope.transferencia.id) {
+				transferenciaService.salvar($scope.transferencia,$scope.salvo);
 			} else {
-				tipoReceitaService.novo($scope.tiporeceita,$scope.salvo);
+				transferenciaService.novo($scope.transferencia,$scope.salvo);
 			}
 		}
 	};

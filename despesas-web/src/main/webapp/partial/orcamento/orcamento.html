@@ -4,58 +4,56 @@
 
 <div class="row mt">
 
-    <div class="col-lg-10">
+	<div class="col-lg-10">
 
-        <div class="form-panel">
+		<div class="form-panel">
 
-            <form class="form-horizontal" method="get" name="edicaoOrcamento" novalidate>
+			<form class="form-horizontal" method="get" name="edicaoOrcamento" novalidate>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Tipo:</label>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Tipo:</label>
 
-                    <colorable select-function="selecionarTipoDespesa" ng-model="tiposDespesa">
-                    </colorable>
-                </div>
+					<colorable select-function="selecionarTipoDespesa" ng-model="tiposDespesa"> </colorable>
+				</div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Para o mês de:</label>
-                    <div class="col-sm-10 ">
-                        <div>
-                            <select class="form-control" ng-model="orcamentoVO.periodo.mes" style="width:150px;float: left;">
-                                <option ng-repeat="mes in MESES" value="{{mes.value}}">{{mes.nome}}</option>
-                            </select>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Para o mês de:</label>
+					<div class="col-sm-10 ">
+						<div>
+							<select class="form-control" ng-model="orcamentoVO.periodo.mes" style="width: 150px; float: left;">
+								<option ng-repeat="mes in MESES" value="{{mes.value}}">{{mes.nome}}</option>
+							</select>
 
-                            <label class="col-sm-1 control-label">de</label>
+							<label class="col-sm-1 control-label">de</label>
 
-                            <input type="text" class="form-control" ng-model="orcamentoVO.periodo.ano" style="width:150px;float: left;" ui-number-mask="0" min="1" max="9999" />
-                        </div>
-                    </div>
-                </div>
+							<input type="text" class="form-control" ng-model="orcamentoVO.periodo.ano" style="width: 150px; float: left;" ui-number-mask="0" min="1" max="9999" />
+						</div>
+					</div>
+				</div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Valor:</label>
-                    <div class="col-sm-10 custom-icon-group">
-                        <span class="icon-input">
-                            <i class="fa fa-money"></i>
-					    </span>
-                        <input type="text" class="form-control" placeholder="Valor" ng-model="orcamentoVO.valor" ui-number-mask required>
-                    </div>
-                </div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Valor:</label>
+					<div class="col-sm-10 custom-icon-group">
+						<span class="icon-input">
+							<i class="fa fa-money"></i>
+						</span>
+						<input type="text" class="form-control" placeholder="Valor" ng-model="orcamentoVO.valor" ui-number-mask required>
+					</div>
+				</div>
 
-                <div class="form-group">
-                    <div style="margin: 10px; padding: 40px 10px 0px 10px;">
-                        <button type="button" class="btn btn-theme" style="float: right;" data-toggle="modal" data-target="#modalSalvar" ng-disabled="edicaoOrcamento.$invalid">Gravar</button>
-                        <button type="button" class="btn btn-theme" style="float: left;" ng-click="cancelar();">Cancelar</button>
-                    </div>
-                </div>
+				<div class="form-group">
+					<div style="margin: 10px; padding: 40px 10px 0px 10px;">
+						<button type="button" class="btn btn-theme" style="float: right;" data-toggle="modal" data-target="#modalSalvar" ng-disabled="edicaoOrcamento.$invalid">Gravar</button>
+						<button type="button" class="btn btn-theme" style="float: left;" ng-click="cancelar();">Cancelar</button>
+					</div>
+				</div>
 
-            </form>
+			</form>
 
-        </div>
+		</div>
 
-    </div>
+	</div>
 
 </div>
 
-<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoOrcamento.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{orcamentoVO.toString()}}?</b>
-</ng-modal>
+<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoOrcamento.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{orcamentoVO.toString()}}?</b> </ng-modal>

@@ -154,6 +154,11 @@ app.config(function($routeProvider,$locationProvider) {
 	    controller: 'edicaoOrcamentoController'
 	});
 
+	$routeProvider.when('/orcamento/:id',{
+	    templateUrl: 'partial/orcamento/orcamento.html',
+	    controller: 'edicaoOrcamentoController'
+	});
+
 	// RECEITAS
 	$routeProvider.when('/receitas',{
 	    templateUrl: 'partial/receita/receitas.html',
