@@ -1,6 +1,5 @@
 app.service('tipoDespesaService', function ($http) {
 
-    var tipodespesa = null;
     var pathBase = '/despesas/services/tipodespesa/';
 
     this.getNovoTipoDespesa = function () {
@@ -28,14 +27,6 @@ app.service('tipoDespesaService', function ($http) {
             fn(data);
         });
     };
-
-    this.setTipoDespesa = function (novoTipoDespesa) {
-        this.tipodespesa = novoTipoDespesa;
-    }
-
-    this.getTipoDespesa = function () {
-        return this.tipodespesa;
-    }
 
     this.buscarPorId = function (id, fn) {
         $http.get(pathBase + id).success(function (data) {

@@ -1,4 +1,4 @@
-package org.leo.despesas.rest.fatura;
+package org.leo.despesas.rest.transferencia;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Path;
