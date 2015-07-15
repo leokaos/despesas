@@ -1,6 +1,5 @@
 app.service('orcamentoService', function($http) {
 
-  var orcamento = null;
   var pathBase = '/despesas/services/orcamento/';
 
   this.getNovoOrcamento = function() {
@@ -27,14 +26,6 @@ app.service('orcamentoService', function($http) {
     $http.put(pathBase, orcamento).success(function(data) {
       fn(data);
     });
-  };
-
-  this.setOrcamento = function(novoOrcamento) {
-    this.orcamento = novoOrcamento;
-  };
-
-  this.getOrcamento = function() {
-    return this.orcamento;
   };
 
   this.buscarPorId = function(id, fn) {

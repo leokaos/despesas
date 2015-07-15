@@ -142,6 +142,11 @@ app.config(function($routeProvider,$locationProvider) {
 	    templateUrl: 'partial/cartao/cartao.html',
 	    controller: 'edicaoCartaoController'
 	});
+	
+	$routeProvider.when('/cartao/:id',{
+	    templateUrl: 'partial/cartao/cartao.html',
+	    controller: 'edicaoCartaoController'
+	});
 
 	// ORCAMENTOS
 	$routeProvider.when('/orcamentos',{

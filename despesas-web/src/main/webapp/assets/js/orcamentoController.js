@@ -28,9 +28,9 @@ app.controller('orcamentoController',function($scope,orcamentoService,$location,
 
 		orcamentoService.listar(function(data) {
 
-			for (x = 0 ; x < data.length ; x++) {
-				data[x] = new OrcamentoVO(data[x]);
-			}
+			$.each(data,function(index,value) {
+				data[index] = new OrcamentoVO(value);
+			});
 
 			$scope.loadData(data);
 		});
@@ -78,11 +78,6 @@ app.controller('edicaoOrcamentoController',function($scope,orcamentoService,tipo
 		$scope.tipoDespesaSelecionado = $scope.orcamentoVO.tipoDespesa;
 	}
 
-	$scope.selecionarTipoDespesa = function(tipoDespesa) {
-		$scope.tipoDespesaSelecionado = tipoDespesa;
-		$scope.orcamentoVO.tipoDespesa = $scope.tipoDespesaSelecionado;
-	};
-
 	tipoDespesaService.listar(function(tiposDespesa) {
 		$scope.tiposDespesa = tiposDespesa;
 	});
@@ -98,13 +93,11 @@ app.controller('edicaoOrcamentoController',function($scope,orcamentoService,tipo
 
 	$scope.salvo = function(data) {
 		$scope.limparCarregar(data);
-		growl.info('Orçamento salva com sucesso!');
+		growl.info('Orçamento salvo com sucesso!');
 	};
 
 	$scope.salvar = function(valid) {
-
 		if (valid) {
-
 			if ($scope.orcamentoVO.id) {
 				orcamentoService.salvar($scope.orcamentoVO.toOrcamento(),$scope.salvo);
 			} else {

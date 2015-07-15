@@ -1,45 +1,46 @@
 <pesquisa-view>
 
-    <div style="min-height: 320px;">
+<div style="min-height: 320px;">
 
-        <table class="table  table-hover data-table">
-            <thead>
-                <tr>
-                    <th colspan="2">Tipo Despesa</th>
-                    <th>Período</th>
-                    <th>Valor</th>
-                    <th>Status</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in sliceData" style="height: 40px;">
-                    <td style="width: 40px; vertical-align: middle;">
-                        <div style="background-color: {{item.tipoDespesa.cor}}; border-radius:100px; width:38px;height: 38px;margin:1px; float:left;"></div>
-                    </td>
+	<table class="table  table-hover data-table">
+		<thead>
+			<tr>
+				<th colspan="2">Tipo Despesa</th>
+				<th>Período</th>
+				<th>Valor</th>
+				<th>Status</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in sliceData" style="height: 40px;">
 
-                    <td style="vertical-align: middle;">{{item.tipoDespesa.descricao}}</td>
+				<td style="width: 40px; vertical-align: middle;">
+					<bullet ng-model="item.tipoDespesa"></bullet>
+				</td>
 
-                    <td style="vertical-align: middle;">{{MESES[item.periodo.mes - 1].nome}} de {{item.periodo.ano}}</td>
+				<td style="vertical-align: middle;">{{item.tipoDespesa.descricao}}</td>
 
-                    <td style="vertical-align: middle;">{{item.valor | currency: 'R$ ' }}</td>
+				<td style="vertical-align: middle;">{{MESES[item.periodo.mes - 1].nome}} de {{item.periodo.ano}}</td>
 
-                    <td style="padding-top: 15px;">
-                        <progressbar class="progress-striped active" value="item.getValueOrcamento();" type="{{item.getClassProgressBar();}}">{{item.valorConsolidado}}/{{item.valor}}</progressbar>
-                    </td>
+				<td style="vertical-align: middle;">{{item.valor | currency: 'R$ ' }}</td>
 
-                    <td style="width: 38px; height: 38px;">
-                        <button-editar></button-editar>
-                    </td>
+				<td style="padding-top: 15px;">
+					<progressbar class="progress-striped active" value="item.getValueOrcamento();" type="{{item.getClassProgressBar();}}">{{item.valorConsolidado}}/{{item.valor}}</progressbar>
+				</td>
 
-                    <td style="width:38px;height: 38px;">
-                        <button-delete></button-delete>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+				<td style="width: 38px; height: 38px;">
+					<button-editar></button-editar>
+				</td>
 
-    </div>
+				<td style="width: 38px; height: 38px;">
+					<button-delete></button-delete>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+</div>
 
 </pesquisa-view>
