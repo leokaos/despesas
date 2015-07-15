@@ -33,6 +33,7 @@
 		<bullet ng-model="item">
 		<p ng-bind="item.descricao"></p>
 		</bullet>
+		<input colorpicker type="text" class="form-control" ng-model="item.cor" />
 	</div>
 
 	<!--Graficos-->
@@ -104,7 +105,7 @@
 	<script>
 
 		app.controller('churrosController', function($scope){
-			$scope.item = {cor: '#F00', descricao: 'Churros'};			
+			$scope.item = {cor: '#F00', descricao: 'Captação'};			
 		});
 
 	</script>

@@ -366,7 +366,7 @@ app.directive('colorable',function() {
 	};
 });
 
-app.directive('bullet',function() {
+app.directive('bullet',function($compile) {
 	return {
 	    restrict: 'E',
 	    scope: {
@@ -374,20 +374,23 @@ app.directive('bullet',function() {
 	    },
 	    replace: true,
 	    transclude: true,
-	    template: '<div><div ng-transclude=""></div></div>',
+	    template: '<div style="display: table-cell; vertical-align: middle;"><div ng-transclude=""></div></div>',
 
 	    link: function(scope,iElement,iAttrs) {
 
 		    var bullet = $('<div></div>').css({
-		        'background-color': scope.item.cor,
 		        'border-radius': '100px',
 		        'width': '28px',
-		        'margin': '1px',
+		        'margin': '0px 10px',
 		        'height': '28px',
 		        'float': 'left'
 		    });
 
+		    bullet.attr('ng-style',"{'background-color': item.cor}");
+
 		    $(iElement).prepend(bullet);
+
+		    $compile(bullet)(scope);
 	    }
 	};
 });
