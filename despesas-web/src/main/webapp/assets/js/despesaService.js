@@ -10,9 +10,7 @@ app.service('despesaService', function ($http) {
             valor: null,
             tipo: null,
             debitavel: null,
-            paga: false,
-            parcelamento: null,
-            numeroParcelas: null
+            paga: false
         };
     };
 

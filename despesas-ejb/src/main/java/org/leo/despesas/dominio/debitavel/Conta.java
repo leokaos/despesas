@@ -29,7 +29,7 @@ public class Conta extends Debitavel {
 		return saldo;
 	}
 
-	public void setSaldo(BigDecimal saldo) {
+	public void setSaldo(final BigDecimal saldo) {
 		this.saldo = saldo;
 	}
 
@@ -44,7 +44,7 @@ public class Conta extends Debitavel {
 	}
 
 	@Override
-	public void transferir(Transferencia transferencia) {
+	public void transferir(final Transferencia transferencia) {
 
 		if (transferencia.getCreditavel().equals(this)) {
 			this.saldo = getSaldo().add(transferencia.getValor());

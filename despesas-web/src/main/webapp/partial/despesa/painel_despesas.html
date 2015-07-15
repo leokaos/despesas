@@ -131,11 +131,10 @@
 	</div>
 
 	<div class="modal-body">
-		<form class="form-horizontal" method="get" name="salvarPainelDespesa" novalidate>
-
-			<progressbar max="100" value="total">{{total}}%</progressbar>
-
-		</form>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Iniciar?</label>
+			<progressbar max="total" value="parcial">{{parcial}} / {{total}}</progressbar>
+		</div>
 	</div>
 
 	<div class="modal-footer">

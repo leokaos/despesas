@@ -119,7 +119,6 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita> implements Receit
 
 	@Override
 	public void depositar(final Receita receita) {
-
 		receita.setDebitavel(debitavelFacade.buscarPorId(receita.getDebitavel().getId()));
 
 		receita.depositar();

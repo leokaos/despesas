@@ -13,7 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-public abstract class AbstractService<T extends SimpleFacade<E>,E> implements SimpleService<E> {
+public abstract class AbstractService<T extends SimpleFacade<E>, E> implements SimpleService<E> {
 
 	@GET
 	@Override
@@ -26,14 +26,14 @@ public abstract class AbstractService<T extends SimpleFacade<E>,E> implements Si
 	@Override
 	@Path("/{id}")
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public E buscarPorId(@PathParam(value = "id") Long id) {
+	public E buscarPorId(@PathParam(value = "id") final Long id) {
 		return getFacade().buscarPorId(id);
 	}
 
 	@POST
 	@Override
 	@Consumes(value = MediaType.APPLICATION_JSON)
-	public Response inserir(E t) {
+	public synchronized Response inserir(final E t) {
 		getFacade().inserir(t);
 
 		return Response.status(200).build();
@@ -42,7 +42,7 @@ public abstract class AbstractService<T extends SimpleFacade<E>,E> implements Si
 	@PUT
 	@Override
 	@Consumes(value = MediaType.APPLICATION_JSON)
-	public Response salvar(E t) {
+	public Response salvar(final E t) {
 		getFacade().salvar(t);
 
 		return Response.status(200).build();
@@ -51,7 +51,7 @@ public abstract class AbstractService<T extends SimpleFacade<E>,E> implements Si
 	@DELETE
 	@Override
 	@Path("/{id}")
-	public Response deletar(@PathParam(value = "id") Long id) {
+	public Response deletar(@PathParam(value = "id") final Long id) {
 		getFacade().deletar(id);
 
 		return Response.status(200).build();

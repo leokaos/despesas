@@ -1,5 +1,6 @@
 <h3>
-	<i class="fa fa-angle-right"></i> Cartão: {{cartao.descricao}}
+	<i class="fa fa-angle-right"></i>
+	Cartão: {{cartao.descricao}}
 </h3>
 
 <div class="row mt">
@@ -84,11 +85,25 @@
 
 </div>
 
-<ng-modal id="modalSelecionarConta" modal-title="Selecione" func-salvar="pagarFatura();" type="SAVE">
+<div class="modal modal-dialog modal-content" id="modalSelecionarConta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-<div class="form-group">
-	<label class="col-sm-2 control-label">Debitável:</label>
-	<colorable itens="debitaveis" ng-model="debitavelPagar">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<h4 class="modal-title">Pagar</h4>
+	</div>
+
+	<div class="modal-body">
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Debitável:</label>
+			<colorable itens="debitaveis" ng-model="debitavelPagar">
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal" style="float: left;">Cancelar</button>
+		<button type="button" class="btn btn-primary" ng-click="pagarFatura();">OK</button>
+	</div>
+
 </div>
-
-</ng-modal>

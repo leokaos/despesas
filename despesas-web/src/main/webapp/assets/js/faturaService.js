@@ -60,10 +60,7 @@ app.service('faturaService', function ($http) {
     	
         var request = $http({
             method: 'get',
-            url: pathBase + 'pagar/' + id + '/' + conta.id,
-            params: {
-                cartaoCredito: id
-            }
+            url: pathBase + 'pagar/' + fatura.id + '/' + conta.id
         });
 
         request.success(function (data) {

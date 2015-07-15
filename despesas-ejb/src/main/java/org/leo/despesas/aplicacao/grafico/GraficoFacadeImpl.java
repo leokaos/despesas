@@ -1,28 +1,23 @@
 package org.leo.despesas.aplicacao.grafico;
 
-<<<<<<< HEAD
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-=======
->>>>>>> origin/master
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.leo.despesas.aplicacao.tipodespesa.TipoDespesaFacade;
-<<<<<<< HEAD
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
 import org.leo.despesas.infra.grafico.GraficoLinha;
 import org.leo.despesas.infra.grafico.Ponto;
 import org.leo.despesas.infra.grafico.Serie;
-=======
-import org.leo.despesas.infra.grafico.GraficoLinha;
->>>>>>> origin/master
 
 @Stateless
 public class GraficoFacadeImpl implements GraficoFacade {
@@ -34,7 +29,6 @@ public class GraficoFacadeImpl implements GraficoFacade {
 	private TipoDespesaFacade tipoDespesaFacade;
 
 	@Override
-<<<<<<< HEAD
 	@SuppressWarnings("unchecked")
 	public GraficoLinha getGraficoDespesas(final Date dataInicial, final Date dataFinal) {
 
@@ -99,9 +93,7 @@ public class GraficoFacadeImpl implements GraficoFacade {
 			}
 		}
 
-=======
-	public GraficoLinha getGraficoDespesas(Date dataInicial,Date dataFinal) {
->>>>>>> origin/master
 		return null;
 	}
+
 }

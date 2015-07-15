@@ -5,7 +5,8 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 	$scope.tiposDespesa = [];
 	$scope.debitaveis = [];
 	$scope.despesaUpload = null;
-	$scope.total = 0.0;
+	$scope.total = 0;
+	$scope.parcial = 0;
 	$scope.despesasPagas = true;
 
 	$scope.add = function() {
@@ -53,29 +54,28 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 
 	$scope.salvar = function() {
 
-		var parte = parseInt(100 / $scope.despesas.length);
+		$scope.total = $scope.despesas.length;
+		$scope.parcial = 0;
 
 		var fn = function() {
 
-			var auxTotal = $scope.total + parte;
+			$scope.parcial++;
 
-			if (auxTotal > 100) {
-
-				$scope.total = 100;
+			if ($scope.parcial >= $scope.total) {
 
 				$('#modalSalvar').modal('hide');
 				$scope.despesas = [];
 
 				growl.info('Despesas salvas com sucesso!');
 
-			} else {
-				$scope.total += parte;
+			} else if ($scope.parcial < $scope.despesas.length) {
+				$scope.$apply();
+				despesaService.novo($scope.despesas[$scope.parcial], fn);
 			}
-		}
 
-		for (var x = 0; x < $scope.despesas.length; x++) {
-			despesaService.salvar($scope.despesas[x], null, fn);
-		}
+		};
+
+		despesaService.novo($scope.despesas[$scope.parcial], fn);
 
 	};
 

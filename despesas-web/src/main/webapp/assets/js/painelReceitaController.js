@@ -6,7 +6,8 @@ app.controller('painelReceitaController', function($scope, receitaService, tipoR
 	$scope.debitaveis = [];
 	$scope.receitaUpload = null;
 	$scope.receitasDespositadas = true;
-	$scope.total = 0.0;
+	$scope.total = 6;
+	$scope.parcial = 0;
 
 	$scope.add = function() {
 		$scope.receitas.push(receitaService.getNovoReceita());
@@ -53,29 +54,28 @@ app.controller('painelReceitaController', function($scope, receitaService, tipoR
 
 	$scope.salvar = function() {
 
-		var parte = parseInt(100 / $scope.receitas.length);
+		$scope.total = $scope.receitas.length;
+		$scope.parcial = 0;
 
 		var fn = function() {
 
-			var auxTotal = $scope.total + parte;
+			$scope.parcial++;
 
-			if (auxTotal > 100) {
-
-				$scope.total = 100;
+			if ($scope.parcial >= $scope.total) {
 
 				$('#modalSalvar').modal('hide');
 				$scope.receitas = [];
 
 				growl.info('Receitas salvas com sucesso!');
 
-			} else {
-				$scope.total += parte;
+			} else if ($scope.parcial < $scope.receitas.length) {
+				$scope.$apply();
+				receitaService.novo($scope.receitas[$scope.parcial], fn);
 			}
-		}
 
-		for (var x = 0; x < $scope.receitas.length; x++) {
-			receitaService.salvar($scope.receitas[x], fn);
-		}
+		};
+
+		receitaService.novo($scope.receitas[$scope.parcial], fn);
 
 	};
 
