@@ -1,12 +1,11 @@
-app.controller('painelReceitaController', function($scope, receitaService, tipoReceitaService, orcamentoService, debitavelService, $location,
-		$routeParams, growl, $http) {
+app.controller('painelReceitaController',function($scope,receitaService,tipoReceitaService,orcamentoService,debitavelService,$location,$routeParams,growl,$http) {
 
 	$scope.receitas = [];
 	$scope.tiposReceita = [];
 	$scope.debitaveis = [];
 	$scope.receitaUpload = null;
 	$scope.receitasDespositadas = true;
-	$scope.total = 6;
+	$scope.total = 0;
 	$scope.parcial = 0;
 
 	$scope.add = function() {
@@ -14,7 +13,7 @@ app.controller('painelReceitaController', function($scope, receitaService, tipoR
 	};
 
 	$scope.remove = function(index) {
-		$scope.receitas.splice(index, 1);
+		$scope.receitas.splice(index,1);
 	};
 
 	tipoReceitaService.listar(function(tiposReceita) {
@@ -31,25 +30,24 @@ app.controller('painelReceitaController', function($scope, receitaService, tipoR
 
 		var file = document.getElementById("arquivo");
 
-		fd.append('arquivo', file.files[0]);
+		fd.append('arquivo',file.files[0]);
 
-		$http.post('services/receita/upload', fd, {
-			transformRequest : angular.identity,
-			headers : {
-				'Content-Type' : undefined
-			}
+		$http.post('services/receita/upload',fd,{
+		    transformRequest: angular.identity,
+		    headers: {
+			    'Content-Type': undefined
+		    }
 		}).success(function(data) {
 			$scope.receitas = data;
 
-			for (var x = 0; x < $scope.receitas.length; x++) {
+			for (var x = 0 ; x < $scope.receitas.length ; x++) {
 				$scope.receitas[x].debitavel = $scope.receitaUpload;
 				$scope.receitas[x].depositado = $scope.receitasDespositadas;
 			}
 
 			$('#modalUpload').modal('hide');
 
-		}).error(function() {
-		});
+		}).error(function() {});
 	};
 
 	$scope.salvar = function() {
@@ -70,12 +68,12 @@ app.controller('painelReceitaController', function($scope, receitaService, tipoR
 
 			} else if ($scope.parcial < $scope.receitas.length) {
 				$scope.$apply();
-				receitaService.novo($scope.receitas[$scope.parcial], fn);
+				receitaService.novo($scope.receitas[$scope.parcial],fn);
 			}
 
 		};
 
-		receitaService.novo($scope.receitas[$scope.parcial], fn);
+		receitaService.novo($scope.receitas[$scope.parcial],fn);
 
 	};
 

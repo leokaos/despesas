@@ -1,168 +1,135 @@
-app.controller('receitaController', function ($scope, receitaService, $location, $routeParams, usSpinnerService) {
+app.controller('receitaController',function($scope,receitaService,$location,$routeParams,usSpinnerService) {
 
-    var dataInicial = new Date();
-    dataInicial.setDate(1);
+	var dataInicial = new Date();
+	dataInicial.setDate(1);
 
-    var dataFinal = new Date();
-    dataFinal.setMonth(dataFinal.getMonth() + 1);
-    dataFinal.setDate(0);
+	var dataFinal = new Date();
+	dataFinal.setMonth(dataFinal.getMonth() + 1);
+	dataFinal.setDate(0);
 
-    $scope.filtro = {
-        'dataInicial': dataInicial,
-        'dataFinal': dataFinal
-    };
+	$scope.filtro = {
+	    'dataInicial': dataInicial,
+	    'dataFinal': dataFinal
+	};
 
-    $scope.receitaSelecionada = null;
+	$scope.receitaSelecionada = null;
 
-    $scope.getTitulo = function () {
-        return 'Receitas';
-    };
+	$scope.getTitulo = function() {
+		return 'Receitas';
+	};
 
-    $scope.getDescricaoSelecionado = function () {
+	$scope.getDescricaoSelecionado = function() {
 
-        if ($scope.receitaSelecionada != null) {
-            return $scope.receitaSelecionada.descricao;
-        } else {
-            return '';
-        }
-    };
+		if ($scope.receitaSelecionada != null) {
+			return $scope.receitaSelecionada.descricao;
+		} else {
+			return '';
+		}
+	};
 
-    $scope.getMensagemDelete = function () {
-        return 'Receita deletada com sucesso!';
-    };
+	$scope.getMensagemDelete = function() {
+		return 'Receita deletada com sucesso!';
+	};
 
-    $scope.getNomeSpin = function () {
-        return 'tipo-receita-spin';
-    };
+	$scope.getNomeSpin = function() {
+		return 'tipo-receita-spin';
+	};
 
-    $scope.listar = function () {
+	$scope.listar = function() {
+		receitaService.buscarPorFiltro($scope.filtro,$scope.loadData);
+	};
 
-        receitaService.buscarPorFiltro($scope.filtro, function (lista) {
+	$scope.novo = function() {
+		$location.path('/receita');
+	};
 
-            //Calculo do total
-            $scope.totalTable = 0.0;
+	$scope.editar = function(id) {
+		$location.path('/receita/' + id);
+	};
 
-            angular.forEach(lista, function (value, key) {
-                $scope.totalTable += value.valor;
-            });
+	$scope.select = function(receita) {
+		$scope.receitaSelecionada = receita;
+	};
 
-            $scope.loadData(lista);
+	$scope.getItemSelecionado = function() {
+		return $scope.receitaSelecionada;
+	};
 
-        });
-    };
+	$scope.doDelete = function() {
+		receitaService.deletar($scope.receitaSelecionada.id,$scope.deletar);
+	};
 
-    $scope.novo = function () {
-        receitaService.setReceita(receitaService.getNovoReceita());
+	$scope.hasFiltro = function() {
+		return true;
+	};
 
-        $scope.goEdicao();
-    };
-
-    $scope.editar = function (id) {
-
-        receitaService.buscarPorId(id, function (receita) {
-            receitaService.setReceita(receita);
-
-            $scope.goEdicao();
-        });
-    };
-
-    $scope.select = function (receita) {
-        $scope.receitaSelecionada = receita;
-    };
-
-    $scope.goEdicao = function () {
-        $location.path('/receita');
-    };
-
-    $scope.getItemSelecionado = function () {
-        return $scope.receitaSelecionada;
-    };
-
-    $scope.doDelete = function () {
-        receitaService.deletar($scope.receitaSelecionada.id, $scope.deletar);
-    };
-
-    $scope.hasFiltro = function () {
-        return true;
-    };
-
-    $scope.getFiltro = function () {
-        return 'partial/receita/filtro.html';
-    };
+	$scope.getFiltro = function() {
+		return 'partial/receita/filtro.html';
+	};
 
 });
 
-app.controller('edicaoReceitaController', function ($scope, receitaService, tipoReceitaService, contaService, $location, $routeParams, growl) {
+app.controller('edicaoReceitaController',function($scope,receitaService,tipoReceitaService,contaService,$location,$routeParams,growl) {
 
-    $scope.tiposReceita = [];
-    $scope.contas = [];
+	$scope.tiposReceita = [];
+	$scope.contas = [];
 
-    $scope.tipoReceitaSelecionado = {
-        descricao: 'Selecione'
-    };
+	var id = $routeParams.id;
 
-    $scope.contaSelecionada = {
-        descricao: 'Selecione'
-    };
+	if (id != null) {
+		receitaService.buscarPorId(id,function(receita) {
+			$scope.receita = receita;
+		});
+	} else {
+		$scope.receita = receitaService.getReceita();
+	}
 
-    $scope.receita = receitaService.getReceita();
+	if ($scope.receita.debitavel != null) {
+		$scope.contaSelecionada = $scope.receita.debitavel;
+	}
 
-    if ($scope.receita.debitavel != null) {
-        $scope.contaSelecionada = $scope.receita.debitavel;
-    }
+	if ($scope.receita.tipoReceita != null) {
+		$scope.tipoReceitaSelecionado = $scope.receita.tipoReceita;
+	}
 
-    if ($scope.receita.tipoReceita != null) {
-        $scope.tipoReceitaSelecionado = $scope.receita.tipoReceita;
-    }
+	$scope.openData = function() {
+		$scope.dataPickerOpened = true;
+	};
 
-    $scope.openData = function () {
-        $scope.dataPickerOpened = true;
-    };
+	$scope.hasConta = function() {
+		return $scope.contaSelecionada.id != null;
+	};
 
-    $scope.hasConta = function () {
-        return $scope.contaSelecionada.id != null;
-    };
+	tipoReceitaService.listar(function(tiposReceita) {
+		$scope.tiposReceita = tiposReceita;
+	});
 
-    $scope.selecionarTipoReceita = function (tipoReceita) {
-        $scope.tipoReceitaSelecionado = tipoReceita;
-        $scope.receita.tipoReceita = $scope.tipoReceitaSelecionado;
-    };
+	contaService.listar(function(contas) {
+		$scope.contas = contas;
+	});
 
-    $scope.selecionarConta = function (conta) {
-        $scope.contaSelecionada = conta;
-        $scope.receita.debitavel = $scope.contaSelecionada;
-    };
+	$scope.cancelar = function() {
+		$location.path('/receitas');
+	};
 
-    tipoReceitaService.listar(function (tiposReceita) {
-        $scope.tiposReceita = tiposReceita;
-    });
+	$scope.limparCarregar = function(data) {
+		$('#modalSalvar').modal('hide');
+		$scope.cancelar();
+	};
 
-    contaService.listar(function (contas) {
-        $scope.contas = contas;
-    });
+	$scope.salvo = function(data) {
+		$scope.limparCarregar(data);
+		growl.info('Receita salva com sucesso!');
+	};
 
-    $scope.cancelar = function () {
-        $location.path('/receitas');
-    };
+	$scope.salvar = function(valid) {
 
-    $scope.limparCarregar = function (data) {
-        $('#modalSalvar').modal('hide');
-        $scope.cancelar();
-    };
-
-    $scope.salvo = function (data) {
-        $scope.limparCarregar(data);
-        growl.info('Receita salva com sucesso!');
-    };
-
-    $scope.salvar = function (valid) {
-
-        if (valid) {
-            if ($scope.receita.id) {
-                receitaService.salvar($scope.receita, $scope.salvo);
-            } else {
-                receitaService.novo($scope.receita, $scope.salvo);
-            }
-        }
-    };
+		if (valid) {
+			if ($scope.receita.id) {
+				receitaService.salvar($scope.receita,$scope.salvo);
+			} else {
+				receitaService.novo($scope.receita,$scope.salvo);
+			}
+		}
+	};
 });
