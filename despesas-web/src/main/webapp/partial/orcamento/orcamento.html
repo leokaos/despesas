@@ -4,7 +4,6 @@
 
 <div class="row col-md-12 form-panel">
 
-
 	<form class="form-horizontal" method="get" name="edicaoOrcamento" novalidate>
 
 		<div class="form-group">
@@ -22,7 +21,7 @@
 						<option ng-repeat="mes in MESES" value="{{mes.value}}">{{mes.nome}}</option>
 					</select>
 
-					<label class="col-sm-1 control-label">de</label>
+					<label class="col-md-1 control-label">de</label>
 
 					<input type="text" class="form-control" ng-model="orcamentoVO.periodo.ano" style="width: 150px; float: left;" ui-number-mask="0" min="1" max="9999" />
 				</div>
@@ -40,7 +39,7 @@
 		</div>
 
 		<div class="form-group">
-			<div style="margin: 10px; padding: 40px 10px 0px 10px;">
+			<div class="col-md-12">
 				<button type="button" class="btn btn-theme" style="float: right;" data-toggle="modal" data-target="#modalSalvar" ng-disabled="edicaoOrcamento.$invalid">Gravar</button>
 				<button type="button" class="btn btn-theme" style="float: left;" ng-click="cancelar();">Cancelar</button>
 			</div>

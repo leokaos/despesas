@@ -4,7 +4,6 @@
 
 <div class="row col-md-12 form-panel">
 
-
 	<form novalidate class="form-horizontal" method="get" name="edicaoCartao" novalidate>
 
 		<div class="form-group" style="margin-top: 15px;">
@@ -16,7 +15,6 @@
 
 		<div class="form-group">
 			<label class="col-md-1 control-label">Cor:</label>
-
 			<div class="col-md-11" style="display: table;">
 				<input type="text" class="form-control" style="display: table-cell;" placeholder="Cor de exibição" ng-model="cartao.cor" name="cor" required colorpicker colorpicker-close-on-select="true" />
 				<bullet ng-model="cartao"></bullet>
@@ -25,7 +23,6 @@
 
 		<div class="form-group">
 			<label class="col-md-1 control-label">Limite:</label>
-
 			<div class="custom-icon-group">
 				<span class="icon-input">
 					<i class="fa fa-money"></i>
@@ -45,7 +42,7 @@
 
 		<div class="form-group" style="margin-top: 15px;">
 			<label class="col-md-1 control-label">Vencimento em:</label>
-			<div class="col-md-2">
+			<div class="col-md-5">
 				<select ng-model="cartao.diaDeVencimento" class="form-control">
 					<option ng-repeat="dia in [] | range: 31" value="{{dia + 1}}">{{dia + 1}}</option>
 				</select>
