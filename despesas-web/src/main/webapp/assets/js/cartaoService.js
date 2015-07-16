@@ -1,6 +1,5 @@
 app.service('cartaoService', function ($http) {
 
-    var cartao = null;
     var pathBase = '/despesas/services/cartao/';
 
     this.getNovoCartao = function () {
@@ -32,14 +31,6 @@ app.service('cartaoService', function ($http) {
             fn(data);
         });
     };
-
-    this.setCartao = function (novaCartao) {
-        this.cartao = novaCartao;
-    }
-
-    this.getCartao = function () {
-        return this.cartao;
-    }
 
     this.buscarPorId = function (id, fn) {
         var url = pathBase + id;
