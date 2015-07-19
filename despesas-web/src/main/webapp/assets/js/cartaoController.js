@@ -1,6 +1,6 @@
 app.controller('cartaoController',function($scope,cartaoService,$location,$routeParams,usSpinnerService) {
 
-	$scope.cartaoSelecionadao = null;
+	$scope.cartaoSelecionado = null;
 
 	$scope.getTitulo = function() {
 		return 'Cartões de Crédito';
@@ -8,8 +8,8 @@ app.controller('cartaoController',function($scope,cartaoService,$location,$route
 
 	$scope.getDescricaoSelecionado = function() {
 
-		if ($scope.cartaoSelecionadao != null) {
-			return $scope.cartaoSelecionadao.descricao;
+		if ($scope.cartaoSelecionado != null) {
+			return $scope.cartaoSelecionado.descricao;
 		} else {
 			return '';
 		}

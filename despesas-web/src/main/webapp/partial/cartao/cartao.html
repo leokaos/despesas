@@ -1,39 +1,44 @@
 <h3>
-	<i class="fa fa-angle-right"></i> Cartão de Crédito
+	<i class="fa fa-angle-right"></i>
+	Cartão de Crédito
 </h3>
 
-<div class="row col-md-12 form-panel">
+<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoCartao.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{cartao.descricao}}?</b> </ng-modal>
+
+<div class="row col-md-6 form-panel">
 
 	<form novalidate class="form-horizontal" method="get" name="edicaoCartao" novalidate>
 
 		<div class="form-group" style="margin-top: 15px;">
-			<label class="col-md-1 control-label">Descrição:</label>
-			<div class="col-md-11">
+			<label class="col-md-2 control-label">Descrição:</label>
+			<div class="col-md-10">
 				<input type="text" class="form-control" placeholder="Descrição" ng-model="cartao.descricao" required />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-md-1 control-label">Cor:</label>
-			<div class="col-md-11" style="display: table;">
+			<label class="col-md-2 control-label">Cor:</label>
+			<div class="col-md-9" style="display: table;">
 				<input type="text" class="form-control" style="display: table-cell;" placeholder="Cor de exibição" ng-model="cartao.cor" name="cor" required colorpicker colorpicker-close-on-select="true" />
+			</div>
+			<div class="col-md-1" style="display: table;">
 				<bullet ng-model="cartao"></bullet>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-md-1 control-label">Limite:</label>
-			<div class="custom-icon-group">
-				<span class="icon-input">
+			<label class="col-md-2 control-label">Limite:</label>
+			<div class="input-group col-md-10" style="padding-left: 15px; padding-right: 15px;">
+				<div class="input-group-addon">
 					<i class="fa fa-money"></i>
-				</span>
+				</div>
 				<input type="text" class="form-control" placeholder="Limite" ng-model="cartao.limite" ui-number-mask required>
 			</div>
 		</div>
 
 		<div class="form-group" style="margin-top: 15px;">
-			<label class="col-md-1 control-label">Fechamento em:</label>
-			<div class="col-md-2">
+			<label class="col-md-2 control-label">Fechamento em:</label>
+			<div class="col-md-4">
 				<select ng-model="cartao.diaDeFechamento" class="form-control">
 					<option ng-repeat="dia in [] | range: 31" value="{{dia + 1}}">{{dia + 1}}</option>
 				</select>
@@ -41,8 +46,8 @@
 		</div>
 
 		<div class="form-group" style="margin-top: 15px;">
-			<label class="col-md-1 control-label">Vencimento em:</label>
-			<div class="col-md-5">
+			<label class="col-md-2 control-label">Vencimento em:</label>
+			<div class="col-md-4">
 				<select ng-model="cartao.diaDeVencimento" class="form-control">
 					<option ng-repeat="dia in [] | range: 31" value="{{dia + 1}}">{{dia + 1}}</option>
 				</select>
@@ -50,8 +55,8 @@
 		</div>
 
 		<div class="form-group" style="margin-top: 15px;">
-			<label class="col-md-1 control-label">Bandeira:</label>
-			<div class="col-md-5">
+			<label class="col-md-2 control-label">Bandeira:</label>
+			<div class="col-md-4">
 				<select ng-model="cartao.bandeiraCartaoCredito" class="form-control">
 					<option ng-repeat="bandeira in bandeiras" value="{{bandeira}}">{{bandeira}}</option>
 				</select>
@@ -59,7 +64,7 @@
 		</div>
 
 		<div class="form-group">
-			<div>
+			<div class="col-md-12 botoes">
 				<button type="button" class="btn btn-theme" style="float: right;" data-toggle="modal" data-target="#modalSalvar" ng-disabled="edicaoCartao.$invalid">Gravar</button>
 				<button type="button" class="btn btn-theme" style="float: left;" ng-click="cancelar();">Cancelar</button>
 			</div>
@@ -68,5 +73,3 @@
 	</form>
 
 </div>
-
-<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoCartao.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{cartao.descricao}}?</b> </ng-modal>

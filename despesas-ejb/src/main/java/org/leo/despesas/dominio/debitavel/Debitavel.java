@@ -16,7 +16,7 @@ import org.leo.despesas.dominio.movimentacao.Transferencia;
 
 @Entity
 @DiscriminatorColumn(name = "tipo")
-@Table(name = "debitavel",schema = "despesas_db")
+@Table(name = "debitavel", schema = "despesas_db")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Debitavel {
 
@@ -30,7 +30,7 @@ public abstract class Debitavel {
 	@Column(name = "cor")
 	private String cor;
 
-	@Column(name = "tipo",insertable = false,updatable = false)
+	@Column(name = "tipo", insertable = true, updatable = false)
 	private String tipo;
 
 	public Debitavel(final String tipo) {

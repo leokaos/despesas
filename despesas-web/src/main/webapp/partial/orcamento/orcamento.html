@@ -1,21 +1,24 @@
 <h3>
-	<i class="fa fa-angle-right"></i> Orçamento para Despesas
+	<i class="fa fa-angle-right"></i>
+	Orçamento para Despesas
 </h3>
 
-<div class="row col-md-12 form-panel">
+<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoOrcamento.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{orcamentoVO.toString()}}?</b> </ng-modal>
+
+<div class="row col-md-4 form-panel">
 
 	<form class="form-horizontal" method="get" name="edicaoOrcamento" novalidate>
 
 		<div class="form-group">
-			<label class="col-md-1 control-label">Tipo:</label>
-			<div class="col-md-11">
+			<label class="col-md-3 control-label">Tipo:</label>
+			<div class="col-md-9">
 				<colorable itens="tiposDespesa" ng-model="orcamentoVO.tipoDespesa"> </colorable>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-md-1 control-label">Para o mês de:</label>
-			<div class="col-md-11 ">
+			<label class="col-md-3 control-label">Para o mês de:</label>
+			<div class="col-md-9">
 				<div>
 					<select class="form-control" ng-model="orcamentoVO.periodo.mes" style="width: 150px; float: left;">
 						<option ng-repeat="mes in MESES" value="{{mes.value}}">{{mes.nome}}</option>
@@ -29,16 +32,16 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-md-1 control-label">Valor:</label>
-			<div class="col-md-11 custom-icon-group">
-				<span class="icon-input">
+			<label class="col-md-3 control-label">Valor:</label>
+			<div class="input-group col-md-9" style="padding-left: 15px; padding-right: 15px;">
+				<div class="input-group-addon">
 					<i class="fa fa-money"></i>
-				</span>
+				</div>
 				<input type="text" class="form-control" placeholder="Valor" ng-model="orcamentoVO.valor" ui-number-mask required>
 			</div>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group botoes">
 			<div class="col-md-12">
 				<button type="button" class="btn btn-theme" style="float: right;" data-toggle="modal" data-target="#modalSalvar" ng-disabled="edicaoOrcamento.$invalid">Gravar</button>
 				<button type="button" class="btn btn-theme" style="float: left;" ng-click="cancelar();">Cancelar</button>
@@ -48,5 +51,3 @@
 	</form>
 
 </div>
-
-<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoOrcamento.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{orcamentoVO.toString()}}?</b> </ng-modal>
