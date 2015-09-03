@@ -13,12 +13,15 @@ import javax.persistence.Table;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
+import org.leo.despesas.rest.infra.ModelEntity;
 
 @Entity
 @DiscriminatorColumn(name = "tipo")
-@Table(name = "debitavel", schema = "despesas_db")
+@Table(name = "debitavel",schema = "despesas_db")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Debitavel {
+public abstract class Debitavel implements ModelEntity {
+
+	private static final long serialVersionUID = -2096306756580686432L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +33,7 @@ public abstract class Debitavel {
 	@Column(name = "cor")
 	private String cor;
 
-	@Column(name = "tipo", insertable = true, updatable = false)
+	@Column(name = "tipo",insertable = true,updatable = false)
 	private String tipo;
 
 	public Debitavel(final String tipo) {
@@ -38,6 +41,7 @@ public abstract class Debitavel {
 		this.tipo = tipo;
 	}
 
+	@Override
 	public Long getId() {
 		return id;
 	}

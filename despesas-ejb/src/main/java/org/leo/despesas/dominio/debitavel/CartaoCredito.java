@@ -26,6 +26,8 @@ import org.leo.despesas.infra.DataUtil;
 @Table(name = "cartao",schema = "despesas_db")
 public class CartaoCredito extends Debitavel {
 
+	private static final long serialVersionUID = -1135677579840442143L;
+
 	public static final String CODIGO_TIPO = "CARTAO";
 
 	@Column(name = "limite")

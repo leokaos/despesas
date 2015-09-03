@@ -10,6 +10,7 @@ import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.GraficoVO;
 import org.leo.despesas.dominio.parcelamento.ParcelamentoVO;
 import org.leo.despesas.infra.Periodo;
+import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.rest.infra.SimpleFacade;
 
 @Local
@@ -23,7 +24,7 @@ public interface DespesaFacade extends SimpleFacade<Despesa> {
 
 	void pagar(Despesa despesa);
 
-	void inserir(Despesa despesa, ParcelamentoVO parcelamentoVO);
+	void inserir(Despesa despesa,ParcelamentoVO parcelamentoVO) throws DespesasException;
 
 	List<Despesa> carregarDeArquivo(File arquivoDespesas);
 

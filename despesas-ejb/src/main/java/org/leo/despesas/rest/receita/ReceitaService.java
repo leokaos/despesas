@@ -25,11 +25,12 @@ import org.leo.despesas.dominio.movimentacao.GraficoVO;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.ReceitaFiltro;
 import org.leo.despesas.infra.Periodo;
+import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.rest.infra.AbstractService;
 
 @Path("/receita")
 @RequestScoped
-public class ReceitaService extends AbstractService<ReceitaFacade, Receita> {
+public class ReceitaService extends AbstractService<ReceitaFacade,Receita> {
 
 	private static final String NOME_CAMPO = "arquivo";
 
@@ -39,15 +40,15 @@ public class ReceitaService extends AbstractService<ReceitaFacade, Receita> {
 	@GET
 	@Path(value = "/grafico")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<GraficoVO> buscarPorPeriodo(@QueryParam("dataInicial") final Date dataInicial, @QueryParam("dataFinal") final Date dataFinal) {
-		return receitaFacade.getGraficoPorPeriodo(new Periodo(dataInicial, dataFinal));
+	public List<GraficoVO> buscarPorPeriodo(@QueryParam("dataInicial") final Date dataInicial,@QueryParam("dataFinal") final Date dataFinal) {
+		return receitaFacade.getGraficoPorPeriodo(new Periodo(dataInicial,dataFinal));
 	}
 
 	@GET
 	@Path(value = "/periodo")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Receita> buscarPorDespesasPorPeriodo(@QueryParam("dataInicial") final Date dataInicial, @QueryParam("dataFinal") final Date dataFinal) {
-		return receitaFacade.getReceitasPorPeriodo(new Periodo(dataInicial, dataFinal));
+	public List<Receita> buscarPorDespesasPorPeriodo(@QueryParam("dataInicial") final Date dataInicial,@QueryParam("dataFinal") final Date dataFinal) {
+		return receitaFacade.getReceitasPorPeriodo(new Periodo(dataInicial,dataFinal));
 	}
 
 	@POST
@@ -59,7 +60,7 @@ public class ReceitaService extends AbstractService<ReceitaFacade, Receita> {
 
 	@POST
 	@Path(value = "/depositar")
-	public void depositar(final Long id) {
+	public void depositar(final Long id) throws DespesasException {
 		receitaFacade.depositar(receitaFacade.buscarPorId(id));
 	}
 
@@ -76,7 +77,7 @@ public class ReceitaService extends AbstractService<ReceitaFacade, Receita> {
 
 		String fileName = "";
 
-		final Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
+		final Map<String,List<InputPart>> uploadForm = input.getFormDataMap();
 		final List<InputPart> inputParts = uploadForm.get(NOME_CAMPO);
 
 		for (final InputPart inputPart : inputParts) {
@@ -85,7 +86,7 @@ public class ReceitaService extends AbstractService<ReceitaFacade, Receita> {
 
 				fileName = new Date().getTime() + ".xls";
 
-				final InputStream inputStream = inputPart.getBody(InputStream.class, null);
+				final InputStream inputStream = inputPart.getBody(InputStream.class,null);
 
 				final byte[] bytes = IOUtils.toByteArray(inputStream);
 

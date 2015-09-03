@@ -16,6 +16,8 @@ import org.leo.despesas.dominio.movimentacao.Transferencia;
 @DiscriminatorValue(value = Conta.CODIGO_TIPO)
 public class Conta extends Debitavel {
 
+	private static final long serialVersionUID = -6946595134001817926L;
+
 	public static final String CODIGO_TIPO = "CONTA";
 
 	@Column(name = "saldo")

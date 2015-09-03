@@ -4,15 +4,17 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
-public interface SimpleService<T> {
+import org.leo.despesas.infra.exception.DespesasException;
+
+public interface SimpleService<T extends ModelEntity> {
 
 	List<T> listar();
 
-	T buscarPorId(Long id);
+	Response buscarPorId(Long id) throws DespesasException;
 
-	Response inserir(T t);
+	Response inserir(T t) throws DespesasException;
 
 	Response salvar(T t);
 
-	Response deletar(Long id);
+	Response deletar(Long id) throws DespesasException;
 }

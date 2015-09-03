@@ -17,15 +17,18 @@ import javax.persistence.Transient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
+import org.leo.despesas.rest.infra.ModelEntity;
 
 @Entity
-@Table(name = "orcamento", schema = "despesas_db")
-public class Orcamento {
+@Table(name = "orcamento",schema = "despesas_db")
+public class Orcamento implements ModelEntity {
+
+	private static final long serialVersionUID = 3125627003466439125L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private long id;
+	private Long id;
 
 	@Column(name = "DATA_FINAL")
 	private Timestamp dataFinal;
@@ -50,7 +53,8 @@ public class Orcamento {
 		super();
 	}
 
-	public long getId() {
+	@Override
+	public Long getId() {
 		return this.id;
 	}
 

@@ -10,9 +10,11 @@ import javax.persistence.Table;
 import org.leo.despesas.dominio.tipomovimentacao.TipoReceita;
 
 @Entity
-@Table(name = "receita", schema = "despesas_db")
+@Table(name = "receita",schema = "despesas_db")
 @DiscriminatorValue(value = "R")
 public class Receita extends Movimentacao {
+
+	private static final long serialVersionUID = -2809658495598686884L;
 
 	@Column(name = "depositado")
 	private boolean depositado;

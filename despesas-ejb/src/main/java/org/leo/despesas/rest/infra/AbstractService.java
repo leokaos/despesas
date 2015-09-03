@@ -13,7 +13,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-public abstract class AbstractService<T extends SimpleFacade<E>, E> implements SimpleService<E> {
+import org.leo.despesas.infra.exception.DespesasException;
+
+public abstract class AbstractService<T extends SimpleFacade<E>,E extends ModelEntity> implements SimpleService<E> {
 
 	@GET
 	@Override
@@ -26,17 +28,17 @@ public abstract class AbstractService<T extends SimpleFacade<E>, E> implements S
 	@Override
 	@Path("/{id}")
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public E buscarPorId(@PathParam(value = "id") final Long id) {
-		return getFacade().buscarPorId(id);
+	public Response buscarPorId(@PathParam(value = "id") final Long id) throws DespesasException {
+		return Response.ok(getFacade().buscarPorId(id)).build();
 	}
 
 	@POST
 	@Override
 	@Consumes(value = MediaType.APPLICATION_JSON)
-	public synchronized Response inserir(final E t) {
+	public Response inserir(final E t) throws DespesasException {
 		getFacade().inserir(t);
 
-		return Response.status(200).build();
+		return Response.created(null).build();
 	}
 
 	@PUT
@@ -45,16 +47,16 @@ public abstract class AbstractService<T extends SimpleFacade<E>, E> implements S
 	public Response salvar(final E t) {
 		getFacade().salvar(t);
 
-		return Response.status(200).build();
+		return Response.ok().build();
 	}
 
 	@DELETE
 	@Override
 	@Path("/{id}")
-	public Response deletar(@PathParam(value = "id") final Long id) {
+	public Response deletar(@PathParam(value = "id") final Long id) throws DespesasException {
 		getFacade().deletar(id);
 
-		return Response.status(200).build();
+		return Response.ok().build();
 	}
 
 	protected abstract T getFacade();

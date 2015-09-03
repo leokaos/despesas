@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = TipoDespesa.TIPO)
 public class TipoDespesa extends TipoMovimentacao {
 
+	private static final long serialVersionUID = -3849339550925045035L;
+
 	public static final String TIPO = "D";
 
 	public TipoDespesa() {

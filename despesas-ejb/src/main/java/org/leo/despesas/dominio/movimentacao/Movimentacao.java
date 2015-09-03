@@ -22,12 +22,15 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.dominio.debitavel.DebitavelDeserializer;
+import org.leo.despesas.rest.infra.ModelEntity;
 
 @Entity
-@Table(name = "movimentacao", schema = "despesas_db")
+@Table(name = "movimentacao",schema = "despesas_db")
 @DiscriminatorColumn(name = "tipo")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Movimentacao {
+public abstract class Movimentacao implements ModelEntity {
+
+	private static final long serialVersionUID = 7650797422719540384L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,6 +58,7 @@ public abstract class Movimentacao {
 		super();
 	}
 
+	@Override
 	public Long getId() {
 		return id;
 	}
@@ -121,10 +125,10 @@ public abstract class Movimentacao {
 			Movimentacao o1 = (Movimentacao) o;
 
 			EqualsBuilder equalsBuilder = new EqualsBuilder();
-			equalsBuilder.append(valor, o1.valor);
-			equalsBuilder.append(descricao, o1.descricao);
-			equalsBuilder.append(debitavel, o1.debitavel);
-			equalsBuilder.append(vencimento, o1.vencimento);
+			equalsBuilder.append(valor,o1.valor);
+			equalsBuilder.append(descricao,o1.descricao);
+			equalsBuilder.append(debitavel,o1.debitavel);
+			equalsBuilder.append(vencimento,o1.vencimento);
 
 			return equalsBuilder.isEquals();
 

@@ -23,6 +23,7 @@ import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.ReceitaFiltro;
 import org.leo.despesas.infra.DataUtil;
 import org.leo.despesas.infra.Periodo;
+import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.rest.infra.AbstractFacade;
 
 @Stateless
@@ -42,8 +43,8 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita> implements Receit
 
 		final Query query = entityManager.createQuery(builder.toString());
 
-		query.setParameter("dataInicial", periodo.getDataInicial());
-		query.setParameter("dataFinal", periodo.getDataFinal());
+		query.setParameter("dataInicial",periodo.getDataInicial());
+		query.setParameter("dataFinal",periodo.getDataFinal());
 
 		return query.getResultList();
 	}
@@ -58,8 +59,8 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita> implements Receit
 
 		final Query query = entityManager.createQuery(builder.toString());
 
-		query.setParameter("dataInicial", periodo.getDataInicial());
-		query.setParameter("dataFinal", periodo.getDataFinal());
+		query.setParameter("dataInicial",periodo.getDataInicial());
+		query.setParameter("dataFinal",periodo.getDataFinal());
 
 		return query.getResultList();
 	}
@@ -94,22 +95,22 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita> implements Receit
 		final Query query = entityManager.createQuery(builder.toString());
 
 		if (filtro.hasDataInicial()) {
-			query.setParameter("dataInicial", DataUtil.truncate(filtro.getDataInicial(), Calendar.DAY_OF_MONTH));
+			query.setParameter("dataInicial",DataUtil.truncate(filtro.getDataInicial(),Calendar.DAY_OF_MONTH));
 		}
 
 		if (filtro.hasDataFinal()) {
-			query.setParameter("dataFinal", DataUtil.maximo(filtro.getDataFinal(), Calendar.DAY_OF_MONTH));
+			query.setParameter("dataFinal",DataUtil.maximo(filtro.getDataFinal(),Calendar.DAY_OF_MONTH));
 		}
 
 		if (filtro.hasTipoReceita()) {
-			query.setParameter("tipoReceitaId", filtro.getTipoReceita().getId());
+			query.setParameter("tipoReceitaId",filtro.getTipoReceita().getId());
 		}
 
 		return query.getResultList();
 	}
 
 	@Override
-	public void inserir(final Receita receita) {
+	public void inserir(final Receita receita) throws DespesasException {
 		super.inserir(receita);
 
 		if (receita.isDepositado()) {
@@ -146,7 +147,7 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita> implements Receit
 				final String descricao = row.getCell(1).getStringCellValue();
 				final BigDecimal valor = new BigDecimal(row.getCell(2).getNumericCellValue());
 
-				lista.add(construirReceita(data, descricao, valor));
+				lista.add(construirReceita(data,descricao,valor));
 			}
 
 			wb.close();
@@ -160,7 +161,7 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita> implements Receit
 		return null;
 	}
 
-	private Receita construirReceita(final Date data, final String descricao, final BigDecimal valor) {
+	private Receita construirReceita(final Date data,final String descricao,final BigDecimal valor) {
 		final Receita receita = new Receita();
 
 		receita.setDescricao(descricao);

@@ -22,10 +22,13 @@ import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
 import org.leo.despesas.infra.DataUtil;
 import org.leo.despesas.infra.Periodo;
+import org.leo.despesas.rest.infra.ModelEntity;
 
 @Entity
 @Table(name = "fatura",schema = "despesas_db")
-public class Fatura {
+public class Fatura implements ModelEntity {
+
+	private static final long serialVersionUID = -4047341391900604495L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,6 +64,7 @@ public class Fatura {
 		this.cartao = cartao;
 	}
 
+	@Override
 	public Long getId() {
 		return id;
 	}

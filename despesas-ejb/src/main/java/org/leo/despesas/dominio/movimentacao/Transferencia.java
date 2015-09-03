@@ -13,6 +13,8 @@ import org.leo.despesas.dominio.debitavel.Debitavel;
 @DiscriminatorValue(value = "T")
 public class Transferencia extends Movimentacao {
 
+	private static final long serialVersionUID = 4682865005993932139L;
+
 	@ManyToOne
 	@JoinColumn(name = "creditavel_id")
 	private Debitavel creditavel;

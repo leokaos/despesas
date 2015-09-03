@@ -6,7 +6,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-public abstract class AbstractFacade<E> implements SimpleFacade<E> {
+import org.leo.despesas.infra.exception.AlreadyExistentEntityException;
+import org.leo.despesas.infra.exception.DespesasException;
+import org.leo.despesas.infra.exception.NotFoundEntityException;
+
+public abstract class AbstractFacade<E extends ModelEntity> implements SimpleFacade<E> {
 
 	private static final String SELECT_MODEL = "SELECT {1} FROM {0} {1}";
 
@@ -22,19 +26,35 @@ public abstract class AbstractFacade<E> implements SimpleFacade<E> {
 	public List<E> listar() {
 
 		String className = getClasseEntidade().getSimpleName();
-		String qlString = MessageFormat.format(SELECT_MODEL, className, className.toLowerCase());
+		String qlString = MessageFormat.format(SELECT_MODEL,className,className.toLowerCase());
 
 		return entityManager.createQuery(qlString).getResultList();
 	}
 
 	@Override
-	public E buscarPorId(Object id) {
-		return entityManager.find(getClasseEntidade(), (Long) id);
+	public E buscarPorId(Long id) throws DespesasException {
+		E entity = entityManager.find(getClasseEntidade(),id);
+
+		if (entity == null) {
+			throw new NotFoundEntityException(getClasseEntidade() + " not found with id " + id);
+		}
+
+		return entity;
 	}
 
 	@Override
-	public void inserir(E t) {
-		entityManager.persist(t);
+	public void inserir(E t) throws DespesasException {
+
+		try {
+
+			if (t.getId() != null) {
+				buscarPorId(t.getId());
+				throw new AlreadyExistentEntityException(getClasseEntidade() + " with id " + t.getId() + " already exists!");
+			}
+
+		} catch (NotFoundEntityException e) {
+			entityManager.persist(t);
+		}
 	}
 
 	@Override
@@ -52,7 +72,7 @@ public abstract class AbstractFacade<E> implements SimpleFacade<E> {
 	}
 
 	@Override
-	public void deletar(Long id) {
+	public void deletar(Long id) throws DespesasException {
 		entityManager.remove(buscarPorId(id));
 	}
 

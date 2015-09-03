@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
@@ -15,6 +16,8 @@ import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
 @Table(name = "despesa",schema = "despesas_db")
 @DiscriminatorValue(value = "D")
 public class Despesa extends Movimentacao {
+
+	private static final long serialVersionUID = -832942623220660512L;
 
 	@Column(name = "paga")
 	private boolean paga;

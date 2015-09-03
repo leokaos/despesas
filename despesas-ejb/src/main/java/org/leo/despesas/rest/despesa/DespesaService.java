@@ -27,11 +27,12 @@ import org.leo.despesas.dominio.debitavel.DespesaVO;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.GraficoVO;
 import org.leo.despesas.infra.Periodo;
+import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.rest.infra.AbstractService;
 
 @Path("/despesa")
 @RequestScoped
-public class DespesaService extends AbstractService<DespesaFacade, Despesa> {
+public class DespesaService extends AbstractService<DespesaFacade,Despesa> {
 
 	private static final String NOME_CAMPO = "arquivo";
 
@@ -41,15 +42,15 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa> {
 	@GET
 	@Path(value = "/grafico")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<GraficoVO> buscarPorPeriodo(@QueryParam("dataInicial") final Date dataInicial, @QueryParam("dataFinal") final Date dataFinal) {
-		return despesaFacade.getGraficoPorPeriodo(new Periodo(dataInicial, dataFinal));
+	public List<GraficoVO> buscarPorPeriodo(@QueryParam("dataInicial") final Date dataInicial,@QueryParam("dataFinal") final Date dataFinal) {
+		return despesaFacade.getGraficoPorPeriodo(new Periodo(dataInicial,dataFinal));
 	}
 
 	@GET
 	@Path(value = "/periodo")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Despesa> buscarPorDespesasPorPeriodo(@QueryParam("dataInicial") final Date dataInicial, @QueryParam("dataFinal") final Date dataFinal) {
-		return despesaFacade.getDespesasPorPeriodo(new Periodo(dataInicial, dataFinal));
+	public List<Despesa> buscarPorDespesasPorPeriodo(@QueryParam("dataInicial") final Date dataInicial,@QueryParam("dataFinal") final Date dataFinal) {
+		return despesaFacade.getDespesasPorPeriodo(new Periodo(dataInicial,dataFinal));
 	}
 
 	@POST
@@ -61,11 +62,11 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa> {
 
 	@POST
 	@Consumes(value = MediaType.APPLICATION_JSON)
-	public Response inserir(final DespesaVO despesaVO) {
+	public Response inserir(final DespesaVO despesaVO) throws DespesasException {
 
-		despesaFacade.inserir(despesaVO.getDespesa(), despesaVO.getParcelamentoVO());
+		despesaFacade.inserir(despesaVO.getDespesa(),despesaVO.getParcelamentoVO());
 
-		return Response.status(200).build();
+		return Response.ok().build();
 	}
 
 	@Override
@@ -75,7 +76,7 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa> {
 
 	@POST
 	@Path(value = "/pagar")
-	public void pagar(final Long id) {
+	public void pagar(final Long id) throws DespesasException {
 		despesaFacade.pagar(despesaFacade.buscarPorId(id));
 	}
 
@@ -92,7 +93,7 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa> {
 
 		String fileName = "";
 
-		final Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
+		final Map<String,List<InputPart>> uploadForm = input.getFormDataMap();
 		final List<InputPart> inputParts = uploadForm.get(NOME_CAMPO);
 
 		for (final InputPart inputPart : inputParts) {
@@ -101,7 +102,7 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa> {
 
 				fileName = new Date().getTime() + ".xls";
 
-				final InputStream inputStream = inputPart.getBody(InputStream.class, null);
+				final InputStream inputStream = inputPart.getBody(InputStream.class,null);
 
 				final byte[] bytes = IOUtils.toByteArray(inputStream);
 
