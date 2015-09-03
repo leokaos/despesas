@@ -146,6 +146,11 @@ app.controller('edicaoDespesaController',function($scope,despesaService,tipoDesp
 	$scope.salvar = function(valid) {
 
 		if (valid) {
+			
+			if (!$scope.parcelar){
+				$scope.parcelamento = null;
+			}
+			
 			if ($scope.despesa.id) {
 				despesaService.salvar($scope.despesa,$scope.salvo);
 			} else {
