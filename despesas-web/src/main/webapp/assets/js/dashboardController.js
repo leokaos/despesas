@@ -24,6 +24,10 @@ app.controller('dashboardController', function ($scope, $http, dashboardService,
             }
 
         });
+
+        dashboardService.buscarSaldoPorPeriodo(dataInicio, dataFim, function (data) {
+            $scope.saldo = data;
+        });
     };
 
     $scope.buildCharts = function (graficoVO) {

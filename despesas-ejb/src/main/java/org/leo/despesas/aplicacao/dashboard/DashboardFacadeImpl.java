@@ -33,46 +33,50 @@ public class DashboardFacadeImpl implements DashboardFacade {
 	@Override
 	public List<GraficoVO> getExtratoMes(Date dataInicial,Date dataFinal) {
 
-		// Receitas
-		ReceitaFiltro filtroReceita = new ReceitaFiltro();
-
-		filtroReceita.setDataInicial(dataInicial);
-		filtroReceita.setDataFinal(dataFinal);
-
-		BigDecimal totalReceita = getValorTotalReceita(receitaFacade.buscarPorFiltro(filtroReceita));
-
-		// Despesas
-		DespesaFiltro filtroDespesa = new DespesaFiltro();
-		filtroDespesa.setDataInicial(dataInicial);
-		filtroDespesa.setDataFinal(dataFinal);
-
-		BigDecimal totalDespesa = getValorTotalDespesa(despesaFacade.buscarPorFiltro(filtroDespesa));
-
 		List<GraficoVO> graficoVOs = new ArrayList<>();
 
-		graficoVOs.add(new GraficoVO("Receitas","#42E87D",totalReceita));
-		graficoVOs.add(new GraficoVO("Despesas","#F54047",totalDespesa));
+		graficoVOs.add(new GraficoVO("Receitas","#42E87D",getValorTotalReceitas(dataInicial,dataFinal)));
+
+		graficoVOs.add(new GraficoVO("Despesas","#F54047",getValorTotalDespesas(dataInicial,dataFinal)));
 
 		return graficoVOs;
 	}
 
-	private BigDecimal getValorTotalDespesa(List<Despesa> despesas) {
+	private BigDecimal getValorTotalDespesas(Date dataInicial,Date dataFinal) {
+
+		DespesaFiltro filtroDespesa = new DespesaFiltro();
+
+		filtroDespesa.setDataInicial(dataInicial);
+		filtroDespesa.setDataFinal(dataFinal);
+
 		BigDecimal total = BigDecimal.ZERO;
 
-		for (Despesa despesa : despesas) {
+		for (Despesa despesa : despesaFacade.buscarPorFiltro(filtroDespesa)) {
 			total = total.add(despesa.getValor());
 		}
 
 		return total;
 	}
 
-	private BigDecimal getValorTotalReceita(List<Receita> receitas) {
+	private BigDecimal getValorTotalReceitas(Date dataInicial,Date dataFinal) {
+
+		ReceitaFiltro filtroReceita = new ReceitaFiltro();
+
+		filtroReceita.setDataInicial(dataInicial);
+		filtroReceita.setDataFinal(dataFinal);
+
 		BigDecimal total = BigDecimal.ZERO;
 
-		for (Receita receita : receitas) {
+		for (Receita receita : receitaFacade.buscarPorFiltro(filtroReceita)) {
 			total = total.add(receita.getValor());
 		}
 
 		return total;
 	}
+
+	@Override
+	public BigDecimal getSaldoGeral(Date dataInicial,Date dataFinal) {
+		return getValorTotalReceitas(dataInicial,dataFinal).subtract(getValorTotalDespesas(dataInicial,dataFinal));
+	}
+
 }

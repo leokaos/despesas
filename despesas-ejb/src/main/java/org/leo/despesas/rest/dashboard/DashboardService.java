@@ -1,5 +1,6 @@
 package org.leo.despesas.rest.dashboard;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,20 +36,27 @@ public class DashboardService {
 	@GET
 	@Path(value = "/main")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<WrapperGraficoVO> buscarPorPeriodo(@QueryParam("dataInicial") Date dataInicial, @QueryParam("dataFinal") Date dataFinal) {
+	public List<WrapperGraficoVO> buscarPorPeriodo(@QueryParam("dataInicial") Date dataInicial,@QueryParam("dataFinal") Date dataFinal) {
 
 		List<WrapperGraficoVO> wrappers = new ArrayList<WrapperGraficoVO>();
-		Periodo periodo = new Periodo(dataInicial, dataFinal);
+		Periodo periodo = new Periodo(dataInicial,dataFinal);
 
 		// DESPESAS POR TIPO
-		wrappers.add(new WrapperGraficoVO("Despesas Por Tipo", TipoGrafico.PIZZA, despesaFacade.getGraficoPorPeriodo(periodo)));
+		wrappers.add(new WrapperGraficoVO("Despesas Por Tipo",TipoGrafico.PIZZA,despesaFacade.getGraficoPorPeriodo(periodo)));
 
 		// RECEITAS POR TIPO
-		wrappers.add(new WrapperGraficoVO("Receitas Por Tipo", TipoGrafico.PIZZA, receitaFacade.getGraficoPorPeriodo(periodo)));
+		wrappers.add(new WrapperGraficoVO("Receitas Por Tipo",TipoGrafico.PIZZA,receitaFacade.getGraficoPorPeriodo(periodo)));
 
 		// EXTRATO
-		wrappers.add(new WrapperGraficoVO("Extrato Mensal", TipoGrafico.BARRAS, dashboardFacade.getExtratoMes(dataInicial, dataFinal)));
+		wrappers.add(new WrapperGraficoVO("Extrato Mensal",TipoGrafico.BARRAS,dashboardFacade.getExtratoMes(dataInicial,dataFinal)));
 
 		return wrappers;
+	}
+
+	@GET
+	@Path(value = "/saldo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public BigDecimal buscarSaldoPorPeriodo(@QueryParam("dataInicial") Date dataInicial,@QueryParam("dataFinal") Date dataFinal) {
+		return dashboardFacade.getSaldoGeral(dataInicial,dataFinal);
 	}
 }
