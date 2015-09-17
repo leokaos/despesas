@@ -1,0 +1,23 @@
+{
+  "name": "leo",
+  "version": "0.1.0",
+  "author": "Leonardo Guerra",
+  "description": "Despesas",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "grunt-contrib-uglify": "^0.9.2",
+    "grunt-karma": "^0.12.1",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.9",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-sauce-launcher": "^0.2.14",
+    "karma-script-launcher": "^0.1.0",
+    "karma-story-reporter": "^0.3.1",
+    "phantomjs": "^1.9.18"
+  }
+}
