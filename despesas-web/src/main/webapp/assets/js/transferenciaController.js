@@ -1,4 +1,4 @@
-app.controller('transferenciaController',function($scope,transferenciaService,$location,$routeParams,usSpinnerService) {
+app.controller('transferenciaController', function($scope, transferenciaService, $location, $routeParams, usSpinnerService) {
 
 	$scope.transferenciaSelecionado = null;
 
@@ -44,17 +44,21 @@ app.controller('transferenciaController',function($scope,transferenciaService,$l
 	};
 
 	$scope.doDelete = function() {
-		transferenciaService.deletar($scope.transferenciaSelecionado.id,$scope.deletar);
+		transferenciaService.deletar($scope.transferenciaSelecionado.id, $scope.deletar);
 	};
 
 });
 
-app.controller('edicaoTransferenciaController',function($scope,transferenciaService,$location,$routeParams,growl) {
+app.controller('edicaoTransferenciaController', function($scope, transferenciaService, debitavelService, $location, $routeParams, growl) {
 
 	var id = $routeParams.id;
 
+	debitavelService.listar(function(debitaveis) {
+		$scope.debitaveis = debitaveis;
+	});
+
 	if (id != null) {
-		transferenciaService.buscarPorId(id,function(transferencia) {
+		transferenciaService.buscarPorId(id, function(transferencia) {
 			$scope.transferencia = transferencia;
 		});
 	} else {
@@ -79,9 +83,9 @@ app.controller('edicaoTransferenciaController',function($scope,transferenciaServ
 
 		if (valid) {
 			if ($scope.transferencia.id) {
-				transferenciaService.salvar($scope.transferencia,$scope.salvo);
+				transferenciaService.salvar($scope.transferencia, $scope.salvo);
 			} else {
-				transferenciaService.novo($scope.transferencia,$scope.salvo);
+				transferenciaService.novo($scope.transferencia, $scope.salvo);
 			}
 		}
 	};

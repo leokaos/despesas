@@ -169,6 +169,22 @@ app.config(function($routeProvider, $locationProvider) {
 		controller : 'faturaController'
 	});
 
+	// TRANSFERENCIAS
+	$routeProvider.when('/transferencias', {
+		templateUrl : 'partial/transferencia/transferencias.html',
+		controller : 'transferenciaController'
+	});
+
+	$routeProvider.when('/transferencia', {
+		templateUrl : 'partial/transferencia/transferencia.html',
+		controller : 'edicaoTransferenciaController'
+	});
+
+	$routeProvider.when('/transferencia/:id', {
+		templateUrl : 'partial/transferencia/transferencia.html',
+		controller : 'edicaoTransferenciaController'
+	});
+
 	// DASHBOARD
 	$routeProvider.otherwise({
 		templateUrl : 'partial/dashboard.html',

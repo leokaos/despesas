@@ -1,7 +1,6 @@
 package org.leo.despesas.dominio;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Date;
 
@@ -15,10 +14,15 @@ public class PeriodoTest {
 	public void pertenceAoPeriodoTest() {
 		Date dataBase = new Date();
 
-		Periodo periodo = new Periodo(dataBase, DataUtil.addDays(dataBase, 10));
+		Periodo periodo = new Periodo(dataBase,DataUtil.addDays(dataBase,10));
 
-		assertFalse(periodo.pertenceAoPeriodo(DataUtil.addDays(dataBase, -10)));
-		assertTrue(periodo.pertenceAoPeriodo(DataUtil.addDays(dataBase, 5)));
-		assertFalse(periodo.pertenceAoPeriodo(DataUtil.addDays(dataBase, 15)));
+		assertFalse(periodo.pertenceAoPeriodo(DataUtil.addDays(dataBase,-10)));
+		assertTrue(periodo.pertenceAoPeriodo(DataUtil.addDays(dataBase,5)));
+		assertFalse(periodo.pertenceAoPeriodo(DataUtil.addDays(dataBase,15)));
+	}
+
+	@Test
+	public void testName() throws Exception {
+
 	}
 }
