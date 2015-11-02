@@ -156,6 +156,22 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'partial/painel_receitas.html',
 		controller : 'painelReceitaController'
 	});
+	
+	// TRANSFERENCIAS
+	$routeProvider.when('/transferencias', {
+		templateUrl : 'partial/transferencia/transferencias.html',
+		controller : 'transferenciaController'
+	});
+
+	$routeProvider.when('/transferencia', {
+		templateUrl : 'partial/transferencia/transferencia.html',
+		controller : 'edicaoTransferenciaController'
+	});
+
+	$routeProvider.when('/transferencia/:id', {
+		templateUrl : 'partial/transferencia/transferencia.html',
+		controller : 'edicaoTransferenciaController'
+	});
 
 	// PAGAMENTOS
 	$routeProvider.when('/pagamentos', {
@@ -167,6 +183,12 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/fatura/:id', {
 		templateUrl : 'partial/cartao/faturas.html',
 		controller : 'faturaController'
+	});
+
+	// GRAFICO TIPO DESPESA
+	$routeProvider.when('/graficotipodespesa', {
+		templateUrl : 'partial/grafico/graficotipodespesa.html',
+		controller : 'graficoController'
 	});
 
 	// DASHBOARD
@@ -293,7 +315,7 @@ app.directive('uiCalendar', function(MESES) {
 
 			$(id).fullCalendar(
 					{
-						height : 700,
+						height : 800,
 						aspectRatio : 10,
 						events : scope.eventSources,
 						monthNames : [ 'Janeiro', 'Fevereiro', 'Mar\u00e7o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',

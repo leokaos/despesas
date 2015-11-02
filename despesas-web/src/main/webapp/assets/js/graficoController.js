@@ -8,13 +8,7 @@ app.controller('graficoController', function($scope, graficoService) {
 
 				var chart = nv.models.lineChart().showLegend(true).showYAxis(true).showXAxis(true);
 
-				chart.xAxis // Chart x-axis settings
-				.axisLabel('Mês')
-				// .tickValues(1425178800000, 1433127600000, 1430449200000,
-				// 1433127600000, 1435719600000)
-				.tickValues(1,1430449200000,1433127600000, 1533127600000)
-				.tickFormat(function(d) {
-					// Will Return the date, as "%m/%d/%Y"(08/06/13)
+				chart.xAxis.axisLabel('Mês').tickValues(1, 1430449200000, 1433127600000, 1533127600000).tickFormat(function(d) {
 					return d3.time.format('%m/%Y')(new Date(d))
 				});
 

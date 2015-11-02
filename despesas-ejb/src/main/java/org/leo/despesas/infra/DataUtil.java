@@ -8,6 +8,7 @@ import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SECOND;
 import static java.util.Calendar.YEAR;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -17,45 +18,51 @@ import org.apache.commons.lang3.time.DateUtils;
 
 public class DataUtil extends DateUtils {
 
-    private static List<Integer> FIELDS;
+	private static final SimpleDateFormat FORMAT_MES = new SimpleDateFormat("MM/yyyy");
 
-    static {
-	FIELDS = new LinkedList<>();
+	private static List<Integer> FIELDS;
 
-	FIELDS.add(YEAR);
-	FIELDS.add(MONTH);
-	FIELDS.add(DAY_OF_MONTH);
-	FIELDS.add(HOUR_OF_DAY);
-	FIELDS.add(MINUTE);
-	FIELDS.add(SECOND);
-	FIELDS.add(MILLISECOND);
-    }
+	static {
+		FIELDS = new LinkedList<>();
 
-    public static Date maximo(final Date date, final int field) {
-
-	if (!FIELDS.contains(field)) {
-	    throw new IllegalArgumentException("Field not valid!");
+		FIELDS.add(YEAR);
+		FIELDS.add(MONTH);
+		FIELDS.add(DAY_OF_MONTH);
+		FIELDS.add(HOUR_OF_DAY);
+		FIELDS.add(MINUTE);
+		FIELDS.add(SECOND);
+		FIELDS.add(MILLISECOND);
 	}
 
-	final Calendar calendar = Calendar.getInstance();
-	calendar.setTime(date);
-
-	for (int x = FIELDS.indexOf(field) + 1; x < FIELDS.size(); x++) {
-	    calendar.set(FIELDS.get(x), calendar.getActualMaximum(FIELDS.get(x)));
+	public static String formatarMes(final Date date) {
+		return FORMAT_MES.format(date);
 	}
 
-	return calendar.getTime();
-    }
+	public static Date maximo(final Date date, final int field) {
 
-    public static Periodo getMesAtual() {
-	return getMes(new Date());
-    }
+		if (!FIELDS.contains(field)) {
+			throw new IllegalArgumentException("Field not valid!");
+		}
 
-    public static Periodo getMes(Date dataBase) {
+		final Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
 
-	final Date dataIncial = DataUtil.truncate(dataBase, Calendar.MONTH);
-	final Date dataFinal = DataUtil.maximo(dataBase, Calendar.MONTH);
+		for (int x = FIELDS.indexOf(field) + 1; x < FIELDS.size(); x++) {
+			calendar.set(FIELDS.get(x), calendar.getActualMaximum(FIELDS.get(x)));
+		}
 
-	return new Periodo(dataIncial, dataFinal);
-    }
+		return calendar.getTime();
+	}
+
+	public static Periodo getMesAtual() {
+		return getMes(new Date());
+	}
+
+	public static Periodo getMes(final Date dataBase) {
+
+		final Date dataIncial = DataUtil.truncate(dataBase, Calendar.MONTH);
+		final Date dataFinal = DataUtil.maximo(dataBase, Calendar.MONTH);
+
+		return new Periodo(dataIncial, dataFinal);
+	}
 }

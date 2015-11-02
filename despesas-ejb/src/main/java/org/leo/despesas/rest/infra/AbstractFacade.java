@@ -25,15 +25,15 @@ public abstract class AbstractFacade<E extends ModelEntity> implements SimpleFac
 	@SuppressWarnings("unchecked")
 	public List<E> listar() {
 
-		String className = getClasseEntidade().getSimpleName();
-		String qlString = MessageFormat.format(SELECT_MODEL,className,className.toLowerCase());
+		final String className = getClasseEntidade().getSimpleName();
+		final String qlString = MessageFormat.format(SELECT_MODEL, className, className.toLowerCase());
 
 		return entityManager.createQuery(qlString).getResultList();
 	}
 
 	@Override
-	public E buscarPorId(Long id) throws DespesasException {
-		E entity = entityManager.find(getClasseEntidade(),id);
+	public E buscarPorId(final Long id) throws DespesasException {
+		final E entity = entityManager.find(getClasseEntidade(), id);
 
 		if (entity == null) {
 			throw new NotFoundEntityException(getClasseEntidade() + " not found with id " + id);
@@ -43,36 +43,38 @@ public abstract class AbstractFacade<E extends ModelEntity> implements SimpleFac
 	}
 
 	@Override
-	public void inserir(E t) throws DespesasException {
+	public void inserir(final E t) throws DespesasException {
 
 		try {
 
 			if (t.getId() != null) {
 				buscarPorId(t.getId());
 				throw new AlreadyExistentEntityException(getClasseEntidade() + " with id " + t.getId() + " already exists!");
+			} else {
+				entityManager.persist(t);
 			}
 
-		} catch (NotFoundEntityException e) {
+		} catch (final NotFoundEntityException e) {
 			entityManager.persist(t);
 		}
 	}
 
 	@Override
-	public void salvar(E t) {
+	public void salvar(final E t) {
 		entityManager.merge(t);
 	}
 
 	@Override
-	public void salvar(List<E> list) {
-		for (E e : list) {
+	public void salvar(final List<E> list) throws DespesasException {
+		for (final E e : list) {
 			if (e != null) {
-				salvar(e);
+				inserir(e);
 			}
 		}
 	}
 
 	@Override
-	public void deletar(Long id) throws DespesasException {
+	public void deletar(final Long id) throws DespesasException {
 		entityManager.remove(buscarPorId(id));
 	}
 

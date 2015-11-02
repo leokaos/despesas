@@ -12,11 +12,14 @@ import javax.persistence.PersistenceContext;
 
 import org.leo.despesas.aplicacao.despesa.DespesaFacade;
 import org.leo.despesas.aplicacao.receita.ReceitaFacade;
+import org.leo.despesas.aplicacao.transferencia.TransferenciaFacade;
 import org.leo.despesas.dominio.debitavel.DespesaFiltro;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.GraficoVO;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.ReceitaFiltro;
+import org.leo.despesas.dominio.movimentacao.Transferencia;
+import org.leo.despesas.dominio.movimentacao.TransferenciaFiltro;
 
 @Stateless
 public class DashboardFacadeImpl implements DashboardFacade {
@@ -30,44 +33,65 @@ public class DashboardFacadeImpl implements DashboardFacade {
 	@EJB
 	private ReceitaFacade receitaFacade;
 
+	@EJB
+	private TransferenciaFacade transferenciaFacade;
+
 	@Override
-	public List<GraficoVO> getExtratoMes(Date dataInicial,Date dataFinal) {
+	public List<GraficoVO> getExtratoMes(final Date dataInicial, final Date dataFinal) {
 
-		List<GraficoVO> graficoVOs = new ArrayList<>();
+		final List<GraficoVO> graficoVOs = new ArrayList<>();
 
-		graficoVOs.add(new GraficoVO("Receitas","#42E87D",getValorTotalReceitas(dataInicial,dataFinal)));
+		graficoVOs.add(new GraficoVO("Receitas", "#42E87D", getValorTotalReceitas(dataInicial, dataFinal)));
 
-		graficoVOs.add(new GraficoVO("Despesas","#F54047",getValorTotalDespesas(dataInicial,dataFinal)));
+		graficoVOs.add(new GraficoVO("Despesas", "#F54047", getValorTotalDespesas(dataInicial, dataFinal)));
+
+		graficoVOs.add(new GraficoVO("Transferências", "#706EBB", getValorTotalTransferencias(dataInicial, dataFinal)));
 
 		return graficoVOs;
 	}
 
-	private BigDecimal getValorTotalDespesas(Date dataInicial,Date dataFinal) {
+	private BigDecimal getValorTotalDespesas(final Date dataInicial, final Date dataFinal) {
 
-		DespesaFiltro filtroDespesa = new DespesaFiltro();
+		final DespesaFiltro filtroDespesa = new DespesaFiltro();
 
 		filtroDespesa.setDataInicial(dataInicial);
 		filtroDespesa.setDataFinal(dataFinal);
 
 		BigDecimal total = BigDecimal.ZERO;
 
-		for (Despesa despesa : despesaFacade.buscarPorFiltro(filtroDespesa)) {
+		for (final Despesa despesa : despesaFacade.buscarPorFiltro(filtroDespesa)) {
 			total = total.add(despesa.getValor());
 		}
 
 		return total;
 	}
 
-	private BigDecimal getValorTotalReceitas(Date dataInicial,Date dataFinal) {
+	private BigDecimal getValorTotalTransferencias(final Date dataInicial, final Date dataFinal) {
 
-		ReceitaFiltro filtroReceita = new ReceitaFiltro();
+		final TransferenciaFiltro filtroDespesa = new TransferenciaFiltro();
+
+		filtroDespesa.setDataInicial(dataInicial);
+		filtroDespesa.setDataFinal(dataFinal);
+
+		BigDecimal total = BigDecimal.ZERO;
+
+		for (final Transferencia tranferencia : transferenciaFacade.buscarPorFiltro(filtroDespesa)) {
+			total = total.add(tranferencia.getValor());
+		}
+
+		return total;
+	}
+
+	private BigDecimal getValorTotalReceitas(final Date dataInicial, final Date dataFinal) {
+
+		final ReceitaFiltro filtroReceita = new ReceitaFiltro();
 
 		filtroReceita.setDataInicial(dataInicial);
 		filtroReceita.setDataFinal(dataFinal);
 
 		BigDecimal total = BigDecimal.ZERO;
 
-		for (Receita receita : receitaFacade.buscarPorFiltro(filtroReceita)) {
+		for (final Receita receita : receitaFacade.buscarPorFiltro(filtroReceita)) {
 			total = total.add(receita.getValor());
 		}
 
@@ -75,8 +99,8 @@ public class DashboardFacadeImpl implements DashboardFacade {
 	}
 
 	@Override
-	public BigDecimal getSaldoGeral(Date dataInicial,Date dataFinal) {
-		return getValorTotalReceitas(dataInicial,dataFinal).subtract(getValorTotalDespesas(dataInicial,dataFinal));
+	public BigDecimal getSaldoGeral(final Date dataInicial, final Date dataFinal) {
+		return getValorTotalReceitas(dataInicial, dataFinal).subtract(getValorTotalDespesas(dataInicial, dataFinal)).subtract(
+				getValorTotalTransferencias(dataInicial, dataFinal));
 	}
-
 }
