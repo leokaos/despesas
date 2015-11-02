@@ -1,37 +1,50 @@
-<pesquisa-view>
+﻿<pesquisa-view>
 
-    <div style="min-height: 320px;">
+<div style="min-height: 320px;">
 
-        <table class="table table-hover data-table">
+	<table class="table table-hover data-table">
 
-            <thead>
-                <tr>
-                    <th>Cor</th>
-                    <th>Descrição</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
+		<thead>
+			<tr>
+				<th>Descrição</th>
+				<th>valor</th>
+				<th>Vencimento</th>
+				<th>Debitável</th>
+				<th>Creditável</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
 
-            <tbody>
-                <tr ng-repeat="item in sliceData" style="height: 40px;">
-                    <td style="width: 40px;">
-                        <div style="background-color: {{item.cor}}; border-radius:100px; width:38px;height: 38px;margin:1px;"></div>
-                    </td>
-                    <td style="vertical-align: middle;">{{item.descricao}}</td>
+		<tbody>
+			<tr ng-repeat="item in sliceData" style="height: 40px;">
 
-                    <td style="width: 38px; height: 38px;">
-                        <button-editar></button-editar>
-                    </td>
+				<td style="vertical-align: middle; width: 400px;">{{item.descricao}}</td>
 
-                    <td style="width: 38px; height: 38px;">
-                        <button-delete></button-delete>
-                    </td>
-                </tr>
-            </tbody>
+				<td style="vertical-align: middle;">{{item.valor | currency: 'R$ '}}</td>
 
-        </table>
+				<td style="vertical-align: middle;">{{item.vencimento | date: 'dd/MM/yyyy'}}</td>
 
-    </div>
+				<td>
+					<bullet ng-model="item.debitavel"> {{item.debitavel.descricao}} </bullet>
+				</td>
+
+				<td>
+					<bullet ng-model="item.creditavel"> {{item.creditavel.descricao}} </bullet>
+				</td>
+
+				<td style="width: 38px; height: 38px;">
+					<button-editar></button-editar>
+				</td>
+
+				<td style="width: 38px; height: 38px;">
+					<button-delete></button-delete>
+				</td>
+			</tr>
+		</tbody>
+
+	</table>
+
+</div>
 
 </pesquisa-view>

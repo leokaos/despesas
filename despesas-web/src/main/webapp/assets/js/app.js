@@ -156,7 +156,19 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'partial/painel_receitas.html',
 		controller : 'painelReceitaController'
 	});
-	
+
+	// PAGAMENTOS
+	$routeProvider.when('/pagamentos', {
+		templateUrl : 'partial/pagamentos.html',
+		controller : 'pagamentosController'
+	});
+
+	// FATURA
+	$routeProvider.when('/fatura/:id', {
+		templateUrl : 'partial/cartao/faturas.html',
+		controller : 'faturaController'
+	});
+
 	// TRANSFERENCIAS
 	$routeProvider.when('/transferencias', {
 		templateUrl : 'partial/transferencia/transferencias.html',
@@ -171,24 +183,6 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/transferencia/:id', {
 		templateUrl : 'partial/transferencia/transferencia.html',
 		controller : 'edicaoTransferenciaController'
-	});
-
-	// PAGAMENTOS
-	$routeProvider.when('/pagamentos', {
-		templateUrl : 'partial/pagamentos.html',
-		controller : 'pagamentosController'
-	});
-
-	// FATURA
-	$routeProvider.when('/fatura/:id', {
-		templateUrl : 'partial/cartao/faturas.html',
-		controller : 'faturaController'
-	});
-
-	// GRAFICO TIPO DESPESA
-	$routeProvider.when('/graficotipodespesa', {
-		templateUrl : 'partial/grafico/graficotipodespesa.html',
-		controller : 'graficoController'
 	});
 
 	// DASHBOARD
