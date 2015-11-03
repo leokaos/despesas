@@ -133,9 +133,9 @@ public class Fatura implements ModelEntity {
 
 	public Transferencia pagar(final Conta conta) {
 
-		Transferencia transferencia = new Transferencia();
+		final Transferencia transferencia = new Transferencia();
 
-		transferencia.setDescricao("Pagamento fatura " + getPeriodo());
+		transferencia.setDescricao("Pagamento fatura " + DataUtil.formatarMes(dataVencimento));
 		transferencia.setCreditavel(getCartao());
 		transferencia.setDebitavel(conta);
 		transferencia.setPagamento(new Date());

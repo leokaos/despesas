@@ -16,7 +16,7 @@ public abstract class Parcelamento {
 		super();
 	}
 
-	public List<Despesa> parcelar(Despesa despesa,BigDecimal numeroParcelas) {
+	public List<Despesa> parcelar(final Despesa despesa,final BigDecimal numeroParcelas) {
 		final List<Despesa> despesas = new ArrayList<Despesa>();
 
 		final BigDecimal valorParcela = despesa.getValor().divide(numeroParcelas);
@@ -30,6 +30,7 @@ public abstract class Parcelamento {
 
 			despesaParcelada.setDebitavel(despesa.getDebitavel());
 			despesaParcelada.setTipo(despesa.getTipo());
+			despesaParcelada.setPaga(despesa.isPaga());
 
 			despesas.add(despesaParcelada);
 		}
@@ -37,7 +38,7 @@ public abstract class Parcelamento {
 		return despesas;
 	}
 
-	private String createDescricao(final int x,String descricao,BigDecimal numeroParcelas) {
+	private String createDescricao(final int x,final String descricao,final BigDecimal numeroParcelas) {
 		return MessageFormat.format(FORMATO_DESCRICAO,descricao,x + 1,numeroParcelas);
 	}
 

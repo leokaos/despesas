@@ -1,5 +1,7 @@
 package org.leo.despesas.dominio.debitavel;
 
+import static java.util.Calendar.MONTH;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,7 +25,7 @@ import org.leo.despesas.infra.DataUtil;
 
 @Entity
 @DiscriminatorValue(value = CartaoCredito.CODIGO_TIPO)
-@Table(name = "cartao",schema = "despesas_db")
+@Table(name = "cartao", schema = "despesas_db")
 public class CartaoCredito extends Debitavel {
 
 	private static final long serialVersionUID = -1135677579840442143L;
@@ -46,7 +48,7 @@ public class CartaoCredito extends Debitavel {
 	@Column(name = "bandeiraCartaoCredito")
 	private BandeiraCartaoCredito bandeiraCartaoCredito;
 
-	@OneToMany(mappedBy = "cartao",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Fatura> faturas;
 
 	public CartaoCredito() {
@@ -126,16 +128,20 @@ public class CartaoCredito extends Debitavel {
 
 			// Configuracao da data de fechamento
 			Date dataFechamento = new Date(despesa.getVencimento().getTime());
-			dataFechamento = DataUtil.setDays(dataFechamento,this.diaDeFechamento);
+			dataFechamento = DataUtil.setDays(dataFechamento, this.diaDeFechamento);
+
+			if (DataUtil.getFragmentInDays(despesa.getVencimento(), MONTH) > diaDeFechamento) {
+				dataFechamento = DataUtil.addMonths(dataFechamento, 1);
+			}
 
 			faturaPorData.setDataFechamento(dataFechamento);
 
 			// Configuracao da data de vencimento
-			Date dataVencimento = new Date(despesa.getVencimento().getTime());
-			dataVencimento = DataUtil.setDays(dataVencimento,this.diaDeVencimento);
+			Date dataVencimento = new Date(dataFechamento.getTime());
+			dataVencimento = DataUtil.setDays(dataVencimento, this.diaDeVencimento);
 
 			if (diaDeFechamento > diaDeVencimento) {
-				dataVencimento = DataUtil.addMonths(dataVencimento,1);
+				dataVencimento = DataUtil.addMonths(dataVencimento, 1);
 			}
 
 			faturaPorData.setDataVencimento(dataVencimento);
@@ -166,7 +172,7 @@ public class CartaoCredito extends Debitavel {
 	}
 
 	@Override
-	public void transferir(Transferencia transferencia) {
+	public void transferir(final Transferencia transferencia) {
 		if (transferencia.getCreditavel().equals(this)) {
 			this.limiteAtual = getLimiteAtual().add(transferencia.getValor());
 		} else if (transferencia.getDebitavel().equals(this)) {

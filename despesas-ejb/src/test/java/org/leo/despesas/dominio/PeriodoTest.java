@@ -12,7 +12,7 @@ public class PeriodoTest {
 
 	@Test
 	public void pertenceAoPeriodoTest() {
-		Date dataBase = new Date();
+		final Date dataBase = new Date();
 
 		Periodo periodo = new Periodo(dataBase,DataUtil.addDays(dataBase,10));
 
@@ -21,8 +21,4 @@ public class PeriodoTest {
 		assertFalse(periodo.pertenceAoPeriodo(DataUtil.addDays(dataBase,15)));
 	}
 
-	@Test
-	public void testName() throws Exception {
-
-	}
 }

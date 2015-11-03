@@ -14,7 +14,7 @@ public interface SimpleFacade<T extends ModelEntity> {
 
 	void salvar(T t);
 
-	void salvar(List<T> list);
+	void salvar(List<T> list) throws DespesasException;
 
 	void deletar(Long id) throws DespesasException;
 

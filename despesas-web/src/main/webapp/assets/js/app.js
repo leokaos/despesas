@@ -309,7 +309,7 @@ app.directive('uiCalendar', function(MESES) {
 
 			$(id).fullCalendar(
 					{
-						height : 700,
+						height : 800,
 						aspectRatio : 10,
 						events : scope.eventSources,
 						monthNames : [ 'Janeiro', 'Fevereiro', 'Mar\u00e7o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',

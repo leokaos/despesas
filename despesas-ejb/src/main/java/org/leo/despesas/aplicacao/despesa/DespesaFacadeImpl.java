@@ -72,8 +72,8 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 	}
 
 	@Override
-	public void inserir(final Despesa despesa) {
-		throw new IllegalArgumentException();
+	public void inserir(final Despesa despesa) throws DespesasException {
+		inserir(despesa, null);
 	}
 
 	@Override
