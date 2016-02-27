@@ -10,6 +10,8 @@ app.controller('pagamentosController',function($scope,$http,$location,$routePara
 
 			for (var i = 0 ; i < data.length ; i++) {
 				var movimentacao = data[i];
+				
+				console.info(movimentacao);
 
 				eventos.push({
 				    title: movimentacao.descricao,

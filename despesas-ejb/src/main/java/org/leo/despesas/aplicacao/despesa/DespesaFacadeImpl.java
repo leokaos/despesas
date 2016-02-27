@@ -44,8 +44,8 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 
 		final Query query = entityManager.createQuery(builder.toString());
 
-		query.setParameter("dataInicial",periodo.getDataInicial());
-		query.setParameter("dataFinal",periodo.getDataFinal());
+		query.setParameter("dataInicial", periodo.getDataInicial());
+		query.setParameter("dataFinal", periodo.getDataFinal());
 
 		return query.getResultList();
 	}
@@ -60,8 +60,8 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 
 		final Query query = entityManager.createQuery(builder.toString());
 
-		query.setParameter("dataInicial",periodo.getDataInicial());
-		query.setParameter("dataFinal",periodo.getDataFinal());
+		query.setParameter("dataInicial", periodo.getDataInicial());
+		query.setParameter("dataFinal", periodo.getDataFinal());
 
 		return query.getResultList();
 	}
@@ -77,11 +77,11 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 	}
 
 	@Override
-	public void inserir(final Despesa despesa,final ParcelamentoVO parcelamentoVO) throws DespesasException {
+	public void inserir(final Despesa despesa, final ParcelamentoVO parcelamentoVO) throws DespesasException {
 
 		if (parcelamentoVO != null) {
 
-			salvar(parcelamentoVO.getTipoParcelamento().parcelar(despesa,parcelamentoVO.getNumeroParcelas()));
+			salvar(parcelamentoVO.getTipoParcelamento().parcelar(despesa, parcelamentoVO.getNumeroParcelas()));
 
 		} else {
 			super.inserir(despesa);
@@ -117,15 +117,15 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 		final Query query = entityManager.createQuery(builder.toString());
 
 		if (filtro.hasDataInicial()) {
-			query.setParameter("dataInicial",DataUtil.truncate(filtro.getDataInicial(),Calendar.DAY_OF_MONTH));
+			query.setParameter("dataInicial", DataUtil.truncate(filtro.getDataInicial(), Calendar.DAY_OF_MONTH));
 		}
 
 		if (filtro.hasDataFinal()) {
-			query.setParameter("dataFinal",DataUtil.maximo(filtro.getDataFinal(),Calendar.DAY_OF_MONTH));
+			query.setParameter("dataFinal", DataUtil.maximo(filtro.getDataFinal(), Calendar.DAY_OF_MONTH));
 		}
 
 		if (filtro.hasTipoDespesa()) {
-			query.setParameter("tipoDespesaId",filtro.getTipoDespesa().getId());
+			query.setParameter("tipoDespesaId", filtro.getTipoDespesa().getId());
 		}
 
 		return query.getResultList();
@@ -158,10 +158,10 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 			for (final Row row : s) {
 
 				final Date data = format.parse(row.getCell(0).getStringCellValue());
-				final String descricao = row.getCell(1).getStringCellValue();
+				final String descricao = row.getCell(1).getStringCellValue().trim();
 				final BigDecimal valor = new BigDecimal(row.getCell(2).getNumericCellValue());
 
-				lista.add(construirDespesa(data,descricao,valor));
+				lista.add(construirDespesa(data, descricao, valor));
 			}
 
 			wb.close();
@@ -175,7 +175,7 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements Despes
 		return null;
 	}
 
-	private Despesa construirDespesa(final Date data,final String descricao,final BigDecimal valor) {
+	private Despesa construirDespesa(final Date data, final String descricao, final BigDecimal valor) {
 		final Despesa despesa = new Despesa();
 
 		despesa.setDescricao(descricao);

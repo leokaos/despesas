@@ -184,6 +184,12 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'partial/transferencia/transferencia.html',
 		controller : 'edicaoTransferenciaController'
 	});
+	
+	//GRAFICOS
+	$routeProvider.when('/graficotipodespesa',{
+		templateUrl: 'partial/grafico/graficotipodespesa.html',
+		controller: 'graficoController'
+	});
 
 	// DASHBOARD
 	$routeProvider.otherwise({

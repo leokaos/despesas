@@ -3,21 +3,38 @@
 	Gráfico por Tipo de Despesa
 </h3>
 
-<section class="panel col-md-12">
+<div class="form-panel">
 
-	<label>Vencimento Inicial:</label>
-	<input type="text" name="dataInicial" class="form-control" bs-datepicker ng-model="dataInicial" autoclose="true"></input>
+	<div class="row">
 
-	<label>Vencimento Final:</label>
-	<input type="text" name="dataFinal" class="form-control" bs-datepicker ng-model="dataFinal" autoclose="true"></input>
+		<div class="col-md-12">
 
-	<button type="button" class="btn btn-primary" ng-click="listar();" style="float: right;">Filtrar</button>
+			<fieldset class="filtro">
 
-</section>
+				<legend>Filtro</legend>
 
+				<label>Vencimento Inicial:</label>
+				<input type="text" name="dataInicial" class="form-control" bs-datepicker ng-model="dataInicial" autoclose="true"></input>
 
-<div class="clearfix"></div>
+				<label>Vencimento Final:</label>
+				<input type="text" name="dataFinal" class="form-control" bs-datepicker ng-model="dataFinal" autoclose="true"></input>
 
-<div id="grafico">
-	<svg style="min-height: 550px;"></svg>
+				<button type="button" class="btn btn-primary" ng-click="listar();" style="float: right;">Filtrar</button>
+
+			</fieldset>
+
+			<div class="clearfix"></div>
+
+			<div id="grafico">
+				<svg style="min-height: 550px;"></svg>
+			</div>
+
+		</div>
+
+	</div>
+
 </div>
+
+
+
+
