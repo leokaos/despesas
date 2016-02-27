@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.leo.despesas.dominio.debitavel.Debitavel;
+import org.leo.despesas.dominio.tipomovimentacao.TipoMovimentacao;
 
 @Entity
 @Table(name = "transferencia",schema = "despesas_db")
@@ -31,7 +32,15 @@ public class Transferencia extends Movimentacao {
 		this.creditavel = creditavel;
 	}
 
+	public TipoMovimentacao getTipo() {
+		TipoMovimentacao tipoMovimentacao = new TipoMovimentacao();
+		tipoMovimentacao.setCor("#FFF");
+		tipoMovimentacao.setDescricao("Transferência");
+		return tipoMovimentacao;
+	}
+
 	public void transferir() {
+
 		if (this.debitavel == null || this.creditavel == null) {
 			throw new IllegalStateException();
 		}
