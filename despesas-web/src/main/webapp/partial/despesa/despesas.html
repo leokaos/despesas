@@ -16,7 +16,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="item in sliceData" style="height: 40px;">
+			<tr ng-repeat="item in sliceData" style="height: 40px;" ng-click="seleciona(item);">
 
 				<td style="vertical-align: middle; width: 400px;">{{item.descricao}}</td>
 
@@ -50,4 +50,9 @@
 <div class="indicador form-panel">
 	<h5>Total</h5>
 	<p>{{originalData | sum: 'valor' | currency: 'R$ '}}</p>
+</div>
+
+<div class="indicador form-panel">
+	<h5>Total Selecionado</h5>
+	<p>{{despesasSelecionadas | sum: 'valor' | currency: 'R$ '}}</p>
 </div>

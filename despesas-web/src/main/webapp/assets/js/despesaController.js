@@ -1,4 +1,4 @@
-app.controller('despesaController',function($scope,despesaService,$location,$routeParams,usSpinnerService) {
+app.controller('despesaController', function($scope, despesaService, $location, $routeParams, usSpinnerService) {
 
 	var dataInicial = new Date();
 	dataInicial.setDate(1);
@@ -7,9 +7,11 @@ app.controller('despesaController',function($scope,despesaService,$location,$rou
 	dataFinal.setMonth(dataFinal.getMonth() + 1);
 	dataFinal.setDate(0);
 
+	$scop.despesasSelecionadas = [];
+
 	$scope.filtro = {
-	    'dataInicial': dataInicial,
-	    'dataFinal': dataFinal
+		'dataInicial' : dataInicial,
+		'dataFinal' : dataFinal
 	};
 
 	$scope.despesaSelecionada = null;
@@ -36,7 +38,7 @@ app.controller('despesaController',function($scope,despesaService,$location,$rou
 	};
 
 	$scope.listar = function() {
-		despesaService.buscarPorFiltro($scope.filtro,$scope.loadData);
+		despesaService.buscarPorFiltro($scope.filtro, $scope.loadData);
 	};
 
 	$scope.novo = function() {
@@ -56,7 +58,7 @@ app.controller('despesaController',function($scope,despesaService,$location,$rou
 	};
 
 	$scope.doDelete = function() {
-		despesaService.deletar($scope.despesaSelecionada.id,$scope.deletar);
+		despesaService.deletar($scope.despesaSelecionada.id, $scope.deletar);
 	};
 
 	$scope.hasFiltro = function() {
@@ -67,18 +69,26 @@ app.controller('despesaController',function($scope,despesaService,$location,$rou
 		return 'partial/despesa/filtro.html';
 	};
 
+	$scope.seleciona = function(despesa) {
+
+		var index = $scope.despesasSelecionadas.indexOf(despesa);
+
+		if (index == -1) {
+			$scope.despesasSelecionadas.push(despesa);
+		} else {
+			$scope.despesasSelecionadas.splice(index, 1);
+		}
+
+	};
+
 });
 
-app.controller('edicaoDespesaController',function($scope,despesaService,tipoDespesaService,orcamentoService,debitavelService,$location,$routeParams,growl) {
+app.controller('edicaoDespesaController', function($scope, despesaService, tipoDespesaService, orcamentoService, debitavelService, $location,
+		$routeParams, growl) {
 
 	$scope.tiposDespesa = [];
 	$scope.debitaveis = [];
-	$scope.tiposParcelamento = [
-	        'Semanal',
-	        'Mensal',
-	        'Semestral',
-	        'Anual'
-	];
+	$scope.tiposParcelamento = [ 'Semanal', 'Mensal', 'Semestral', 'Anual' ];
 	$scope.parcelar = false;
 	$scope.orcamento = null;
 	$scope.parcelamento = {};
@@ -86,7 +96,7 @@ app.controller('edicaoDespesaController',function($scope,despesaService,tipoDesp
 	var id = $routeParams.id;
 
 	if (id != null) {
-		despesaService.buscarPorId(id,function(despesa) {
+		despesaService.buscarPorId(id, function(despesa) {
 			$scope.despesa = despesa;
 		});
 	} else {
@@ -103,7 +113,7 @@ app.controller('edicaoDespesaController',function($scope,despesaService,tipoDesp
 
 		if ($scope.tipoDespesaSelecionado != null && $scope.despesa.vencimento != null) {
 
-			orcamentoService.filtrarPorData($scope.despesa.vencimento,$scope.despesa.tipoDespesa.descricao,function(data) {
+			orcamentoService.filtrarPorData($scope.despesa.vencimento, $scope.despesa.tipoDespesa.descricao, function(data) {
 				if (data != null && data != "") {
 					$scope.orcamento = new OrcamentoVO(data);
 				}
@@ -146,15 +156,15 @@ app.controller('edicaoDespesaController',function($scope,despesaService,tipoDesp
 	$scope.salvar = function(valid) {
 
 		if (valid) {
-			
-			if (!$scope.parcelar){
+
+			if (!$scope.parcelar) {
 				$scope.parcelamento = null;
 			}
-			
+
 			if ($scope.despesa.id) {
-				despesaService.salvar($scope.despesa,$scope.salvo);
+				despesaService.salvar($scope.despesa, $scope.salvo);
 			} else {
-				despesaService.novo($scope.despesa,$scope.parcelamento,$scope.salvo);
+				despesaService.novo($scope.despesa, $scope.parcelamento, $scope.salvo);
 			}
 		}
 	};
