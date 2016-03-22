@@ -7,7 +7,7 @@ app.controller('despesaController', function($scope, despesaService, $location, 
 	dataFinal.setMonth(dataFinal.getMonth() + 1);
 	dataFinal.setDate(0);
 
-	$scop.despesasSelecionadas = [];
+	$scope.despesasSelecionadas = [];
 
 	$scope.filtro = {
 		'dataInicial' : dataInicial,

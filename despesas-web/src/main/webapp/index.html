@@ -24,6 +24,8 @@
 <link href="assets/css/slick.css" rel="stylesheet" />
 <link href="assets/css/slick-theme.css" rel="stylesheet" />
 <link href="assets/css/yamm.css" rel="stylesheet" />
+<link href="assets/css/dataTables.bootstrap.css" rel="stylesheet" />
+<link href="assets/css/select.bootstrap.css" rel="stylesheet" />
 
 </head>
 
@@ -37,7 +39,9 @@
 				<div class="container">
 
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
-						<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
 					</button>
 
 					<a href="#" class="navbar-brand">Controle de Despesas</a>
@@ -48,8 +52,7 @@
 
 							<li class="dropdown">
 								<a href="javascript:void();" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">
-									Cadastros
-									<b class="caret"></b>
+									Cadastros <b class="caret"></b>
 								</a>
 								<ul role="menu" class="dropdown-menu">
 									<li>
@@ -81,8 +84,7 @@
 
 							<li class="dropdown">
 								<a href="javascript:void();" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">
-									Movimentação
-									<b class="caret"></b>
+									Movimentação <b class="caret"></b>
 								</a>
 								<ul role="menu" class="dropdown-menu">
 									<li>
@@ -99,8 +101,7 @@
 
 							<li class="dropdown">
 								<a href="javascript:void();" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">
-									Gráficos
-									<b class="caret"></b>
+									Gráficos <b class="caret"></b>
 								</a>
 								<ul role="menu" class="dropdown-menu">
 									<li>
@@ -144,10 +145,13 @@
 	<script type="text/javascript" src="assets/libs/nv.d3.min.js"></script>
 
 	<!--JQuery-->
-	<script type="text/javascript" src="assets/libs/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="assets/libs/jquery-1.12.0.min.js"></script>
 	<script type="text/javascript" src="assets/libs/jquery-ui-1.9.2.custom.min.js"></script>
 	<script type="text/javascript" src="assets/libs/jquery.nicescroll.js"></script>
 	<script type="text/javascript" src="assets/libs/bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/libs/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="assets/libs/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/libs/dataTables.select.min.js"></script>
 	<script type="text/javascript" src="assets/libs/moment.min.js"></script>
 	<script type="text/javascript" src="assets/libs/fullcalendar.min.js"></script>
 	<script type="text/javascript" src="assets/libs/spin.min.js"></script>
@@ -157,6 +161,8 @@
 
 	<!-- SCRIPTS ANGULARJS -->
 	<script type="text/javascript" src="assets/libs/angular.min.js"></script>
+	<script type="text/javascript" src="assets/libs/angular-datatables.min.js"></script>
+	<script type="text/javascript" src="assets/libs/angular-datatables.select.min.js"></script>
 	<script type="text/javascript" src="assets/libs/angular-animate.min.js"></script>
 	<script type="text/javascript" src="assets/libs/angular-locale_pt-br.js"></script>
 	<script type="text/javascript" src="assets/libs/angular-resource.min.js"></script>
@@ -211,6 +217,7 @@
 	<script type="text/javascript" src="assets/js/painelReceitaController.js"></script>
 	<script type="text/javascript" src="assets/js/transferenciaController.js"></script>
 	<script type="text/javascript" src="assets/js/graficoController.js"></script>
+
 
 	<script>
 		$(document).ready(function() {
