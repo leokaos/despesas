@@ -25,7 +25,7 @@ import org.leo.despesas.dominio.debitavel.DebitavelDeserializer;
 import org.leo.despesas.rest.infra.ModelEntity;
 
 @Entity
-@Table(name = "movimentacao",schema = "despesas_db")
+@Table(name = "movimentacao", schema = "despesas_db")
 @DiscriminatorColumn(name = "tipo")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Movimentacao implements ModelEntity {
@@ -63,7 +63,7 @@ public abstract class Movimentacao implements ModelEntity {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -71,7 +71,7 @@ public abstract class Movimentacao implements ModelEntity {
 		return descricao;
 	}
 
-	public void setDescricao(String descricao) {
+	public void setDescricao(final String descricao) {
 		this.descricao = descricao;
 	}
 
@@ -79,7 +79,7 @@ public abstract class Movimentacao implements ModelEntity {
 		return valor;
 	}
 
-	public void setValor(BigDecimal valor) {
+	public void setValor(final BigDecimal valor) {
 		this.valor = valor;
 	}
 
@@ -87,7 +87,7 @@ public abstract class Movimentacao implements ModelEntity {
 		return vencimento;
 	}
 
-	public void setVencimento(Date vencimento) {
+	public void setVencimento(final Date vencimento) {
 		this.vencimento = vencimento;
 	}
 
@@ -96,7 +96,7 @@ public abstract class Movimentacao implements ModelEntity {
 	}
 
 	@JsonDeserialize(using = DebitavelDeserializer.class)
-	public void setDebitavel(Debitavel debitavel) {
+	public void setDebitavel(final Debitavel debitavel) {
 		this.debitavel = debitavel;
 	}
 
@@ -104,7 +104,7 @@ public abstract class Movimentacao implements ModelEntity {
 		return pagamento;
 	}
 
-	public void setPagamento(Date pagamento) {
+	public void setPagamento(final Date pagamento) {
 		this.pagamento = pagamento;
 	}
 
@@ -118,17 +118,17 @@ public abstract class Movimentacao implements ModelEntity {
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(final Object o) {
 
 		if (o instanceof Movimentacao) {
 
-			Movimentacao o1 = (Movimentacao) o;
+			final Movimentacao o1 = (Movimentacao) o;
 
-			EqualsBuilder equalsBuilder = new EqualsBuilder();
-			equalsBuilder.append(valor,o1.valor);
-			equalsBuilder.append(descricao,o1.descricao);
-			equalsBuilder.append(debitavel,o1.debitavel);
-			equalsBuilder.append(vencimento,o1.vencimento);
+			final EqualsBuilder equalsBuilder = new EqualsBuilder();
+			equalsBuilder.append(valor, o1.valor);
+			equalsBuilder.append(descricao, o1.descricao);
+			equalsBuilder.append(debitavel, o1.debitavel);
+			equalsBuilder.append(vencimento, o1.vencimento);
 
 			return equalsBuilder.isEquals();
 

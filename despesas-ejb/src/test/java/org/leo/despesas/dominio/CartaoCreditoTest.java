@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
 
 import org.junit.Test;
 import org.leo.despesas.dominio.debitavel.CartaoCredito;
@@ -62,6 +63,7 @@ public class CartaoCreditoTest {
 
 	@Test
 	public void adicionar2DespesasPeriodoDiferentesTest() throws Exception {
+
 		final CartaoCredito cartao = createCartaoCredito();
 
 		final Despesa despesa1 = new Despesa();
@@ -77,13 +79,16 @@ public class CartaoCreditoTest {
 		cartao.debitar(despesa2);
 
 		assertEquals(cartao.getFaturas().size(), 2);
-		final Fatura faturaJulho = cartao.getFaturas().get(0);
-		final Fatura faturaAgosto = cartao.getFaturas().get(1);
+
+		final Iterator<Fatura> iterator = cartao.getFaturas().iterator();
+
+		final Fatura faturaJulho = iterator.next();
+		final Fatura faturaAgosto = iterator.next();
 
 		assertEquals(faturaJulho.getDataFechamento(), formatter.parse("28/06/2015"));
 		assertEquals(faturaAgosto.getDataFechamento(), formatter.parse("28/08/2015"));
 
-		assertEquals(faturaJulho.getDataVencimento(),  formatter.parse("11/07/2015"));
+		assertEquals(faturaJulho.getDataVencimento(), formatter.parse("11/07/2015"));
 		assertEquals(faturaAgosto.getDataVencimento(), formatter.parse("11/09/2015"));
 
 		assertThat(faturaJulho.getDespesas(), hasItem(despesa1));

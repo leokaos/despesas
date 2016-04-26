@@ -3,9 +3,9 @@ package org.leo.despesas.dominio.debitavel;
 import static java.util.Calendar.MONTH;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -49,12 +49,12 @@ public class CartaoCredito extends Debitavel {
 	private BandeiraCartaoCredito bandeiraCartaoCredito;
 
 	@OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Fatura> faturas;
+	private Set<Fatura> faturas;
 
 	public CartaoCredito() {
 		super(CartaoCredito.CODIGO_TIPO);
 
-		this.faturas = new ArrayList<Fatura>();
+		this.faturas = new HashSet<Fatura>();
 	}
 
 	public BigDecimal getLimite() {
@@ -98,11 +98,11 @@ public class CartaoCredito extends Debitavel {
 	}
 
 	@JsonIgnore
-	public List<Fatura> getFaturas() {
+	public Set<Fatura> getFaturas() {
 		return faturas;
 	}
 
-	public void setFaturas(final List<Fatura> faturas) {
+	public void setFaturas(final Set<Fatura> faturas) {
 		this.faturas = faturas;
 	}
 
