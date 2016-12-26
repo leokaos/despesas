@@ -24,7 +24,7 @@ public class Conta extends Debitavel {
 	private BigDecimal saldo;
 
 	public Conta() {
-		super(Conta.CODIGO_TIPO);
+		super();
 	}
 
 	public BigDecimal getSaldo() {

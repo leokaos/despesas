@@ -7,6 +7,7 @@
 	<persistence-unit name="despesasPU">
 
 		<jta-data-source>java:/DerbyDS</jta-data-source>
+		
 		<class>org.leo.despesas.dominio.debitavel.Conta</class>
 		<class>org.leo.despesas.dominio.debitavel.Debitavel</class>
 		<class>org.leo.despesas.dominio.movimentacao.Movimentacao</class>
@@ -24,7 +25,8 @@
 
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="validate" />
-			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true"/>
 		</properties>
 
 	</persistence-unit>

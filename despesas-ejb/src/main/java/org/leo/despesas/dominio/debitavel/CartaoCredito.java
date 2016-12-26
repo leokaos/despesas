@@ -52,8 +52,7 @@ public class CartaoCredito extends Debitavel {
 	private List<Fatura> faturas;
 
 	public CartaoCredito() {
-		super(CODIGO_TIPO);
-
+		super();
 		this.faturas = new ArrayList<Fatura>();
 	}
 
