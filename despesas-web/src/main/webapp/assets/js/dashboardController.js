@@ -1,73 +1,80 @@
-app.controller('dashboardController', function ($scope, $http, dashboardService, debitavelService, $location, $routeParams, MESES) {
+app.controller('dashboardController', function($scope, $http, dashboardService, debitavelService, $location, $routeParams, movimentacaoService, MESES) {
 
-    $scope.dataAtual = new Date();
-    $scope.MESES = MESES;
+	$scope.dataAtual = new Date();
+	$scope.MESES = MESES;
 
-    $scope.ano = $scope.dataAtual.getFullYear();
-    $scope.mes = $scope.dataAtual.getMonth();
+	$scope.ano = $scope.dataAtual.getFullYear();
+	$scope.mes = $scope.dataAtual.getMonth();
 
-    $scope.loadChart = function () {
+	var dataInicio = new Date($scope.ano, $scope.mes, 1);
+	var dataFim = new Date($scope.ano, $scope.mes + 1, 0);
 
-        var dataInicio = new Date($scope.ano, $scope.mes, 1);
-        var dataFim = new Date($scope.ano, $scope.mes + 1, 0);
+	$scope.loadChart = function() {
 
-        dashboardService.buscarDespesasPorPeriodo(dataInicio, dataFim, function (data) {
+		var dataInicio = new Date($scope.ano, $scope.mes, 1);
+		var dataFim = new Date($scope.ano, $scope.mes + 1, 0);
 
-            $scope.graficos = [];
+		dashboardService.buscarDespesasPorPeriodo(dataInicio, dataFim, function(data) {
 
-            for (var x = 0; x < data.length; x++) {
-                $scope.graficos.push(GraficoVOFactory.create(data[x]));
-            }
+			$scope.graficos = [];
 
-            for (var y = 0; y < $scope.graficos.length; y++) {
-                $scope.buildCharts($scope.graficos[y]);
-            }
+			for (var x = 0; x < data.length; x++) {
+				$scope.graficos.push(GraficoVOFactory.create(data[x]));
+			}
 
-        });
+			for (var y = 0; y < $scope.graficos.length; y++) {
+				$scope.buildCharts($scope.graficos[y]);
+			}
 
-        dashboardService.buscarSaldoPorPeriodo(dataInicio, dataFim, function (data) {
-            $scope.saldo = data;
-        });
-    };
+		});
 
-    $scope.buildCharts = function (graficoVO) {
+		dashboardService.buscarSaldoPorPeriodo(dataInicio, dataFim, function(data) {
+			$scope.saldo = data;
+		});
+	};
 
-        nv.addGraph(function () {
+	$scope.buildCharts = function(graficoVO) {
 
-            var chart = graficoVO.getChart();
+		nv.addGraph(function() {
 
-            d3.select("#" + graficoVO.id).datum(graficoVO.getDados()).transition().duration(1200).call(chart);
+			var chart = graficoVO.getChart();
 
-            return chart;
-        });
-    };
+			d3.select("#" + graficoVO.id).datum(graficoVO.getDados()).transition().duration(1200).call(chart);
 
-    $scope.anterior = function () {
-        if ($scope.mes == 0) {
-            $scope.mes = 11;
-            $scope.ano--;
-        } else {
-            $scope.mes--;
-        }
+			return chart;
+		});
+	};
 
-        $scope.loadChart();
-    };
+	$scope.anterior = function() {
+		if ($scope.mes == 0) {
+			$scope.mes = 11;
+			$scope.ano--;
+		} else {
+			$scope.mes--;
+		}
 
-    $scope.posterior = function () {
-        if ($scope.mes == 11) {
-            $scope.mes = 0;
-            $scope.ano++;
-        } else {
-            $scope.mes++;
-        }
+		$scope.loadChart();
+	};
 
-        $scope.loadChart();
-    };
+	$scope.posterior = function() {
+		if ($scope.mes == 11) {
+			$scope.mes = 0;
+			$scope.ano++;
+		} else {
+			$scope.mes++;
+		}
 
-    $scope.loadChart();
+		$scope.loadChart();
+	};
 
-    debitavelService.listar(function (debitaveis) {
-        $scope.debitaveis = debitaveis;
-    });
+	$scope.loadChart();
+
+	debitavelService.listar(function(debitaveis) {
+		$scope.debitaveis = debitaveis;
+	});
+
+	movimentacaoService.buscarMovimentacaoPorPeriodo(dataInicio, dataFim, function(data) {
+		$scope.movimentacoes = data;
+	});
 
 });
