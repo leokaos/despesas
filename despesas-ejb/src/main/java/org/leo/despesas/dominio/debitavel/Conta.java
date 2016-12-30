@@ -35,6 +35,10 @@ public class Conta extends Debitavel {
 		this.saldo = saldo;
 	}
 
+	public String getTipo() {
+		return CODIGO_TIPO;
+	}
+
 	@Override
 	public void debitar(final Despesa despesa) {
 		this.saldo = getSaldo().subtract(despesa.getValor());

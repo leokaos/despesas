@@ -83,8 +83,7 @@ app.controller('despesaController', function($scope, despesaService, $location, 
 
 });
 
-app.controller('edicaoDespesaController', function($scope, despesaService, tipoDespesaService, orcamentoService, debitavelService, $location,
-		$routeParams, growl) {
+app.controller('edicaoDespesaController', function($scope, despesaService, tipoDespesaService, orcamentoService, debitavelService, $location, $routeParams, growl) {
 
 	$scope.tiposDespesa = [];
 	$scope.debitaveis = [];
@@ -162,7 +161,7 @@ app.controller('edicaoDespesaController', function($scope, despesaService, tipoD
 			}
 
 			if ($scope.despesa.id) {
-				despesaService.salvar($scope.despesa, $scope.salvo);
+				despesaService.salvar($scope.despesa, $scope.parcelamento, $scope.salvo);
 			} else {
 				despesaService.novo($scope.despesa, $scope.parcelamento, $scope.salvo);
 			}

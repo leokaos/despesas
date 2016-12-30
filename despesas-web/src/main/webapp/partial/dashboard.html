@@ -3,7 +3,7 @@
 	Dashboard
 </h3>
 
-<div class="form-panel col-md-12" style="margin: 0px 0px 30px 0px;">
+<!-- <div class="form-panel col-md-12" style="margin: 0px 0px 30px 0px;">
 
 	<div class="col-md-1">
 		<button class="botao glyphicon glyphicon-chevron-left" ng-click="anterior();"></button>
@@ -21,72 +21,150 @@
 
 </div>
 
-<div class="col-md-5">
+<div class="row mt">
+	<div class="col-md-4" ng-repeat="grafico in graficos">
+		<div class="white-panel">
+			<div class="white-header">
+				<h5>{{grafico.titulo}}</h5>
+			</div>
+			<div class="row">
+				<svg id="{{grafico.id}}" style="height: 300px;"></svg>
+			</div>
+		</div>
+	</div>
+</div>
 
-	<div class="cd-timeline-block" ng-repeat="movimentacao in movimentacoes">
-		<div class="cd-timeline-img">
-			A
+<div class="mt col-md-4" style="padding-left: 0px; margin-top: 20px;">
+
+	<div style="width: 100%;">
+
+		<slick init-onload="true" data="debitaveis">
+
+		<div ng-repeat="debitavel in debitaveis" class="white-panel" style="height: 200px;">
+			<div class="white-header">
+				<h5>{{debitavel.descricao}}</h5>
+			</div>
+			<div class="row">
+				<h1 style="margin-top: 40px;">{{debitavel.saldo | currency: 'R$ '}}</h1>
+			</div>
 		</div>
 
-		<div class="cd-timeline-content">
-			<p>{{movimentacao.descricao}}</p>
-			<span class="cd-date">Jan 14</span>
-		</div>
+		</slick>
+
 	</div>
 
 </div>
 
-<div class="col-md-7">
-
-	<div class="row mt">
-		<div class="col-md-4" ng-repeat="grafico in graficos">
-			<div class="white-panel">
-				<div class="white-header">
-					<h5>{{grafico.titulo}}</h5>
-				</div>
-				<div class="row">
-					<svg id="{{grafico.id}}" style="height: 300px;"></svg>
-				</div>
+<div class="row mt" style="padding-left: 0px; margin-top: 20px;">
+	<div class="col-md-4">
+		<div class="white-panel">
+			<div class="white-header">
+				<h5>Saldo</h5>
+			</div>
+			<div class="row" style="height: 145px;">
+				<h1 style="margin-top: 40px;">
+					<i class="fa fa-arrow-up" style="color: green; font-size: 36px;" ng-if="saldo > 0"></i>
+					<i class="fa fa-arrow-down" style="color: red; font-size: 36px;" ng-if="saldo < 0"></i>
+					{{saldo | currency: 'R$ '}}
+				</h1>
 			</div>
 		</div>
 	</div>
-
-	<div class="mt col-md-4" style="padding-left: 0px; margin-top: 20px;">
-
-		<div style="width: 100%;">
-
-			<slick init-onload="true" data="debitaveis">
-
-			<div ng-repeat="debitavel in debitaveis" class="white-panel" style="height: 200px;">
-				<div class="white-header">
-					<h5>{{debitavel.descricao}}</h5>
-				</div>
-				<div class="row">
-					<h1 style="margin-top: 40px;">{{debitavel.saldo | currency: 'R$ '}}</h1>
-				</div>
+</div>
+ -->
+<div class="col-md-4">
+	<div id="cd-timeline" class="cd-container">
+		<div class="cd-timeline-block">
+			<div class="cd-timeline-img cd-picture">
+				<img src="img/cd-icon-picture.svg" alt="Picture">
 			</div>
+			<!-- cd-timeline-img -->
 
-			</slick>
-
-		</div>
-
-	</div>
-
-	<div class="row mt" style="padding-left: 0px; margin-top: 20px;">
-		<div class="col-md-4">
-			<div class="white-panel">
-				<div class="white-header">
-					<h5>Saldo</h5>
-				</div>
-				<div class="row" style="height: 145px;">
-					<h1 style="margin-top: 40px;">
-						<i class="fa fa-arrow-up" style="color: green; font-size: 36px;" ng-if="saldo > 0"></i>
-						<i class="fa fa-arrow-down" style="color: red; font-size: 36px;" ng-if="saldo < 0"></i>
-						{{saldo | currency: 'R$ '}}
-					</h1>
-				</div>
+			<div class="cd-timeline-content">
+				<h2>Title of section 1</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
 			</div>
+			<!-- cd-timeline-content -->
 		</div>
-	</div>
+		<!-- cd-timeline-block -->
 
+		<div class="cd-timeline-block">
+			<div class="cd-timeline-img cd-movie bounce-in">
+				<img src="img/cd-icon-movie.svg" alt="Movie">
+			</div>
+			<!-- cd-timeline-img -->
+
+			<div class="cd-timeline-content bounce-in">
+				<h2>Title of section 2</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?</p>
+				<a href="#0" class="cd-read-more">Read more</a>
+				<span class="cd-date">Jan 18</span>
+			</div>
+			<!-- cd-timeline-content -->
+		</div>
+		<!-- cd-timeline-block -->
+
+		<div class="cd-timeline-block">
+			<div class="cd-timeline-img cd-picture bounce-in">
+				<img src="img/cd-icon-picture.svg" alt="Picture">
+			</div>
+			<!-- cd-timeline-img -->
+
+			<div class="cd-timeline-content bounce-in">
+				<h2>Title of section 3</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, obcaecati, quisquam id molestias eaque asperiores voluptatibus cupiditate error assumenda delectus odit similique earum voluptatem doloremque dolorem ipsam quae rerum quis. Odit, itaque, deserunt corporis vero ipsum nisi eius odio natus ullam provident pariatur temporibus quia eos repellat consequuntur perferendis enim amet quae quasi repudiandae sed quod veniam dolore possimus rem voluptatum eveniet eligendi quis fugiat aliquam sunt similique aut adipisci.</p>
+				<a href="#0" class="cd-read-more">Read more</a>
+				<span class="cd-date">Jan 24</span>
+			</div>
+			<!-- cd-timeline-content -->
+		</div>
+		<!-- cd-timeline-block -->
+
+		<div class="cd-timeline-block">
+			<div class="cd-timeline-img cd-location bounce-in">
+				<img src="img/cd-icon-location.svg" alt="Location">
+			</div>
+			<!-- cd-timeline-img -->
+
+			<div class="cd-timeline-content bounce-in">
+				<h2>Title of section 4</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
+				<a href="#0" class="cd-read-more">Read more</a>
+				<span class="cd-date">Feb 14</span>
+			</div>
+			<!-- cd-timeline-content -->
+		</div>
+		<!-- cd-timeline-block -->
+
+		<div class="cd-timeline-block">
+			<div class="cd-timeline-img cd-location bounce-in">
+				<img src="img/cd-icon-location.svg" alt="Location">
+			</div>
+			<!-- cd-timeline-img -->
+
+			<div class="cd-timeline-content bounce-in">
+				<h2>Title of section 5</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum.</p>
+				<a href="#0" class="cd-read-more">Read more</a>
+				<span class="cd-date">Feb 18</span>
+			</div>
+			<!-- cd-timeline-content -->
+		</div>
+		<!-- cd-timeline-block -->
+
+		<div class="cd-timeline-block">
+			<div class="cd-timeline-img cd-movie bounce-in">
+				<img src="img/cd-icon-movie.svg" alt="Movie">
+			</div>
+			<!-- cd-timeline-img -->
+
+			<div class="cd-timeline-content bounce-in">
+				<h2>Final Section</h2>
+				<p>This is the content of the last section</p>
+				<span class="cd-date">Feb 26</span>
+			</div>
+			<!-- cd-timeline-content -->
+		</div>
+		<!-- cd-timeline-block -->
+	</div>
 </div>

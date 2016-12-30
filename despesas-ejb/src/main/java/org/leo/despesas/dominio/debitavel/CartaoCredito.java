@@ -96,6 +96,10 @@ public class CartaoCredito extends Debitavel {
 		this.limiteAtual = limiteAtual;
 	}
 
+	public String getTipo() {
+		return CODIGO_TIPO;
+	}
+
 	@JsonIgnore
 	public List<Fatura> getFaturas() {
 		return faturas;
