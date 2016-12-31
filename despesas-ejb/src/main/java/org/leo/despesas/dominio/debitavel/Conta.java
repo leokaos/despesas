@@ -24,7 +24,7 @@ public class Conta extends Debitavel {
 	private BigDecimal saldo;
 
 	public Conta() {
-		super(Conta.CODIGO_TIPO);
+		super();
 	}
 
 	public BigDecimal getSaldo() {
@@ -33,6 +33,10 @@ public class Conta extends Debitavel {
 
 	public void setSaldo(final BigDecimal saldo) {
 		this.saldo = saldo;
+	}
+
+	public String getTipo() {
+		return CODIGO_TIPO;
 	}
 
 	@Override

@@ -33,16 +33,8 @@ public abstract class Debitavel implements ModelEntity {
 	@Column(name = "cor")
 	private String cor;
 
-	@Column(name = "tipo", insertable = true, updatable = false)
-	private String tipo;
-
 	public Debitavel() {
 		super();
-	}
-
-	public Debitavel(final String tipo) {
-		super();
-		this.tipo = tipo;
 	}
 
 	@Override
@@ -68,14 +60,6 @@ public abstract class Debitavel implements ModelEntity {
 
 	public void setCor(final String cor) {
 		this.cor = cor;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(final String tipo) {
-		this.tipo = tipo;
 	}
 
 	public abstract void debitar(Despesa despesa);
