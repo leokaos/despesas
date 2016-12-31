@@ -17,7 +17,7 @@ import org.leo.despesas.rest.infra.ModelEntity;
 
 @Entity
 @DiscriminatorColumn(name = "tipo")
-@Table(name = "debitavel",schema = "despesas_db")
+@Table(name = "debitavel", schema = "despesas_db")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Debitavel implements ModelEntity {
 
@@ -33,8 +33,12 @@ public abstract class Debitavel implements ModelEntity {
 	@Column(name = "cor")
 	private String cor;
 
-	@Column(name = "tipo",insertable = true,updatable = false)
+	@Column(name = "tipo", insertable = true, updatable = false)
 	private String tipo;
+
+	public Debitavel() {
+		super();
+	}
 
 	public Debitavel(final String tipo) {
 		super();

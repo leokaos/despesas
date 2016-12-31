@@ -1,5 +1,5 @@
 var app = angular.module('despesas', [ 'ngRoute', 'ngAnimate', 'ngResource', 'colorpicker.module', 'ui.utils.masks', 'angular-growl', 'ui.bootstrap',
-		'mgcrea.ngStrap', 'angularSpinner', 'slick' ]);
+		'mgcrea.ngStrap', 'angularSpinner', 'slick', 'datatables', 'datatables.select' ]);
 app.constant('MESES', [ {
 	nome : 'Janeiro',
 	value : 1
@@ -184,11 +184,11 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'partial/transferencia/transferencia.html',
 		controller : 'edicaoTransferenciaController'
 	});
-	
-	//GRAFICOS
-	$routeProvider.when('/graficotipodespesa',{
-		templateUrl: 'partial/grafico/graficotipodespesa.html',
-		controller: 'graficoController'
+
+	// GRAFICOS
+	$routeProvider.when('/graficotipodespesa', {
+		templateUrl : 'partial/grafico/graficotipodespesa.html',
+		controller : 'graficoController'
 	});
 
 	// DASHBOARD
