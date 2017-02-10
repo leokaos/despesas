@@ -1,0 +1,206 @@
+
+<html>
+<head>
+	<title>Extrato Santander</title>
+	<style>
+		.titulo{
+			text-align:center;
+			border:.5pt solid windowtext;
+			font-weight:700;
+		}
+		.data {
+			text-align:center;
+			border:.5pt solid windowtext;
+		}
+		.poupMax {
+			text-align:center;
+			border:.5pt solid windowtext;
+		}				
+		.historico {
+			text-align:left;
+			border:.5pt solid windowtext;
+		}
+		.documento {
+			text-align:center;
+			border:.5pt solid windowtext;
+			mso-number-format:000000;
+		}
+		.valor {
+			text-align:right;
+			border:.5pt solid windowtext;
+			mso-number-format:Standard;
+		}
+		.saldo {
+			text-align:right;
+			border:.5pt solid windowtext;
+			mso-number-format:Standard;
+		}
+	</style>
+</head>
+<body>
+	<table>
+		<tr>
+			<td class="titulo">Data</td>
+			<td class="titulo">&nbsp;</td>
+			<td class="titulo">Histórico</td>
+			<td class="titulo">Documento</td>
+			<td class="titulo">Valor</td>
+			<td class="titulo">Saldo<td>
+		</tr>
+		
+			<tr>
+				<td class="data">02/01/2017&nbsp;</td>
+				<td class="poupMax"></td>
+				<td class="historico">SALDO ANTERIOR</td>
+				<td class="documento">00000000</td>
+				<td class="valor">2404,32</td>
+				<td class="saldo">2404,32</td>
+			</tr>
+			
+			<tr>
+				<td class="data">02/01/2017&nbsp;</td>
+				<td class="poupMax"></td>
+				<td class="historico">IOF IMPOSTO OPERACOES FINANCEIRAS  PERIODO: 01/12 A 31/12/16</td>
+				<td class="documento">00000000</td>
+				<td class="valor">-0,02</td>
+				<td class="saldo">0,00</td>
+			</tr>
+			
+			<tr>
+				<td class="data">02/01/2017&nbsp;</td>
+				<td class="poupMax"></td>
+				<td class="historico">IOF ADICIONAL - AUTOMATICO         PERIODO: 01/12 A 31/12/16</td>
+				<td class="documento">00000000</td>
+				<td class="valor">-1,19</td>
+				<td class="saldo">2403,11</td>
+			</tr>
+			
+			<tr>
+				<td class="data">03/01/2017&nbsp;</td>
+				<td class="poupMax"></td>
+				<td class="historico">TED MESMA TITULARIDADE CIP         341-4088-000000115458</td>
+				<td class="documento">00000000</td>
+				<td class="valor">-2000,00</td>
+				<td class="saldo">0,00</td>
+			</tr>
+			
+			<tr>
+				<td class="data">03/01/2017&nbsp;</td>
+				<td class="poupMax"></td>
+				<td class="historico">REMUNERACAO CONTAMAX CDB DI</td>
+				<td class="documento">00000000</td>
+				<td class="valor">0,64</td>
+				<td class="saldo">403,75</td>
+			</tr>
+			
+			<tr>
+				<td class="data">04/01/2017&nbsp;</td>
+				<td class="poupMax"></td>
+				<td class="historico">TARIFA TEDINTERNET                 03/01/2017</td>
+				<td class="documento">00000000</td>
+				<td class="valor">-9,20</td>
+				<td class="saldo">394,55</td>
+			</tr>
+			
+			<tr>
+				<td class="data">11/01/2017&nbsp;</td>
+				<td class="poupMax"></td>
+				<td class="historico">DEBITO AUT. CONTA AGUA E ESGOTO    DAE SCAETANO</td>
+				<td class="documento">00000000</td>
+				<td class="valor">-72,08</td>
+				<td class="saldo">0,00</td>
+			</tr>
+			
+			<tr>
+				<td class="data">11/01/2017&nbsp;</td>
+				<td class="poupMax"></td>
+				<td class="historico">REMUNERACAO CONTAMAX CDB DI</td>
+				<td class="documento">00000000</td>
+				<td class="valor">0,06</td>
+				<td class="saldo">322,53</td>
+			</tr>
+			
+			<tr>
+				<td class="data">16/01/2017&nbsp;</td>
+				<td class="poupMax"></td>
+				<td class="historico">DEBITO AUT. CTA ENERGIA ELETRICA   AES ELETROPAULO</td>
+				<td class="documento">00000000</td>
+				<td class="valor">-177,07</td>
+				<td class="saldo">0,00</td>
+			</tr>
+			
+			<tr>
+				<td class="data">16/01/2017&nbsp;</td>
+				<td class="poupMax"></td>
+				<td class="historico">DEBITO AUT. CONTA AGUA E ESGOTO    SABESP</td>
+				<td class="documento">00000000</td>
+				<td class="valor">-46,66</td>
+				<td class="saldo">0,00</td>
+			</tr>
+			
+			<tr>
+				<td class="data">16/01/2017&nbsp;</td>
+				<td class="poupMax"></td>
+				<td class="historico">REMUNERACAO CONTAMAX CDB DI</td>
+				<td class="documento">00000000</td>
+				<td class="valor">0,27</td>
+				<td class="saldo">99,07</td>
+			</tr>
+			
+			<tr>
+				<td class="data">17/01/2017&nbsp;</td>
+				<td class="poupMax"></td>
+				<td class="historico">DEPOSITO EM DINHEIRO NO ATM</td>
+				<td class="documento">00797006</td>
+				<td class="valor">45,00</td>
+				<td class="saldo">144,07</td>
+			</tr>
+			
+			<tr>
+				<td class="data">23/01/2017&nbsp;</td>
+				<td class="poupMax"></td>
+				<td class="historico">DEBITO AUT. CONTA DE TELEFONE      TELEFONICA</td>
+				<td class="documento">00000000</td>
+				<td class="valor">-154,78</td>
+				<td class="saldo">0,00</td>
+			</tr>
+			
+			<tr>
+				<td class="data">23/01/2017&nbsp;</td>
+				<td class="poupMax"></td>
+				<td class="historico">PGTO LICENCIAMENTO VEICULOS CANAIS INTERNET LICENCIAMENTO EL</td>
+				<td class="documento">00000000</td>
+				<td class="valor">-891,42</td>
+				<td class="saldo">0,00</td>
+			</tr>
+			
+			<tr>
+				<td class="data">23/01/2017&nbsp;</td>
+				<td class="poupMax"></td>
+				<td class="historico">REMUNERACAO CONTAMAX CDB DI</td>
+				<td class="documento">00000000</td>
+				<td class="valor">0,19</td>
+				<td class="saldo">-901,94</td>
+			</tr>
+			
+			<tr>
+				<td class="data">24/01/2017&nbsp;</td>
+				<td class="poupMax"></td>
+				<td class="historico">TED DIFERENTE TITULARIDADE CIP     LEONARDO ALEJANDRO G OTER</td>
+				<td class="documento">00000000</td>
+				<td class="valor">1000,00</td>
+				<td class="saldo">98,06</td>
+			</tr>
+			
+			<tr>
+				<td class="data">26/01/2017&nbsp;</td>
+				<td class="poupMax"></td>
+				<td class="historico">TED DIFERENTE TITULARIDADE CIP     MARIA DOLORES OTERO EGURE</td>
+				<td class="documento">00000000</td>
+				<td class="valor">201,97</td>
+				<td class="saldo">300,03</td>
+			</tr>
+			
+	</table>
+</body>
+</html>
