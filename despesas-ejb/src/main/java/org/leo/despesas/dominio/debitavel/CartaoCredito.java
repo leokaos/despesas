@@ -52,8 +52,7 @@ public class CartaoCredito extends Debitavel {
 	private Set<Fatura> faturas;
 
 	public CartaoCredito() {
-		super(CartaoCredito.CODIGO_TIPO);
-
+		super();
 		this.faturas = new HashSet<Fatura>();
 	}
 

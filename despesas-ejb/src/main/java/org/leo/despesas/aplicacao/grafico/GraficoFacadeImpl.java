@@ -36,10 +36,10 @@ public class GraficoFacadeImpl implements GraficoFacade {
 
 			// PEGANDO OS RESULTADOS
 			final StringBuilder builder = new StringBuilder();
-			builder.append("SELECT d.tipo.descricao , MONTH(d.vencimento) , YEAR(d.vencimento) , SUM(d.valor) FROM Despesa d ");
-			builder.append("WHERE d.vencimento BETWEEN :dataInicial AND :dataFinal ");
-			builder.append("GROUP BY d.tipo.descricao , MONTH(d.vencimento) , YEAR(d.vencimento) ");
-			builder.append("ORDER BY d.tipo.descricao , YEAR(d.vencimento) , MONTH(d.vencimento) ");
+			builder.append("SELECT d.tipo.descricao , MONTH(d.pagamento) , YEAR(d.pagamento) , SUM(d.valor) FROM Despesa d ");
+			builder.append("WHERE d.pagamento BETWEEN :dataInicial AND :dataFinal ");
+			builder.append("GROUP BY d.tipo.descricao , MONTH(d.pagamento) , YEAR(d.pagamento) ");
+			builder.append("ORDER BY d.tipo.descricao , YEAR(d.pagamento) , MONTH(d.pagamento) ");
 
 			final Query query = entityManager.createQuery(builder.toString());
 

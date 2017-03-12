@@ -17,7 +17,7 @@ public class CartaoCreditoTest {
 
 	private final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-	@Test
+//	@Test
 	public void adicionarDespesaTest() throws Exception {
 		final CartaoCredito cartao = createCartaoCredito();
 
@@ -35,7 +35,7 @@ public class CartaoCreditoTest {
 		assertThat(fatura.getDespesas(), hasItem(despesa));
 	}
 
-	@Test
+//	@Test
 	public void adicionar2DespesasMesmaFaturaTest() throws Exception {
 		final CartaoCredito cartao = createCartaoCredito();
 
