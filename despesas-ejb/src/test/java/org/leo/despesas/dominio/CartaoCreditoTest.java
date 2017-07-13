@@ -17,7 +17,7 @@ public class CartaoCreditoTest {
 
 	private final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-//	@Test
+	@Test
 	public void adicionarDespesaTest() throws Exception {
 		final CartaoCredito cartao = createCartaoCredito();
 
@@ -29,13 +29,13 @@ public class CartaoCreditoTest {
 
 		final Fatura fatura = cartao.getFaturas().iterator().next();
 
-		assertEquals(formatter.format(fatura.getDataFechamento()), "28/06/2015");
-		assertEquals(formatter.format(fatura.getDataVencimento()), "11/07/2015");
-		assertEquals(cartao.getFaturas().size(), 1);
-		assertThat(fatura.getDespesas(), hasItem(despesa));
+		assertEquals(formatter.format(fatura.getDataFechamento()),"28/06/2015");
+		assertEquals(formatter.format(fatura.getDataVencimento()),"11/07/2015");
+		assertEquals(cartao.getFaturas().size(),1);
+		assertThat(fatura.getDespesas(),hasItem(despesa));
 	}
 
-//	@Test
+	@Test
 	public void adicionar2DespesasMesmaFaturaTest() throws Exception {
 		final CartaoCredito cartao = createCartaoCredito();
 
@@ -53,12 +53,12 @@ public class CartaoCreditoTest {
 
 		final Fatura fatura = cartao.getFaturas().iterator().next();
 
-		assertEquals(formatter.format(fatura.getDataFechamento()), "28/06/2015");
-		assertEquals(formatter.format(fatura.getDataVencimento()), "11/07/2015");
-		assertEquals(cartao.getFaturas().size(), 1);
-		assertEquals(fatura.getDespesas().size(), 2);
-		assertThat(fatura.getDespesas(), hasItem(despesa1));
-		assertThat(fatura.getDespesas(), hasItem(despesa2));
+		assertEquals(formatter.format(fatura.getDataFechamento()),"28/06/2015");
+		assertEquals(formatter.format(fatura.getDataVencimento()),"11/07/2015");
+		assertEquals(cartao.getFaturas().size(),1);
+		assertEquals(fatura.getDespesas().size(),2);
+		assertThat(fatura.getDespesas(),hasItem(despesa1));
+		assertThat(fatura.getDespesas(),hasItem(despesa2));
 	}
 
 	@Test
@@ -78,21 +78,21 @@ public class CartaoCreditoTest {
 
 		cartao.debitar(despesa2);
 
-		assertEquals(cartao.getFaturas().size(), 2);
+		assertEquals(cartao.getFaturas().size(),2);
 
 		final Iterator<Fatura> iterator = cartao.getFaturas().iterator();
 
-		final Fatura faturaJulho = iterator.next();
 		final Fatura faturaAgosto = iterator.next();
+		final Fatura faturaJulho = iterator.next();
 
-		assertEquals(faturaJulho.getDataFechamento(), formatter.parse("28/06/2015"));
-		assertEquals(faturaAgosto.getDataFechamento(), formatter.parse("28/08/2015"));
+		assertEquals(faturaJulho.getDataFechamento(),formatter.parse("28/06/2015"));
+		assertEquals(faturaAgosto.getDataFechamento(),formatter.parse("28/08/2015"));
 
-		assertEquals(faturaJulho.getDataVencimento(), formatter.parse("11/07/2015"));
-		assertEquals(faturaAgosto.getDataVencimento(), formatter.parse("11/09/2015"));
+		assertEquals(faturaJulho.getDataVencimento(),formatter.parse("11/07/2015"));
+		assertEquals(faturaAgosto.getDataVencimento(),formatter.parse("11/09/2015"));
 
-		assertThat(faturaJulho.getDespesas(), hasItem(despesa1));
-		assertThat(faturaAgosto.getDespesas(), hasItem(despesa2));
+		assertThat(faturaJulho.getDespesas(),hasItem(despesa1));
+		assertThat(faturaAgosto.getDespesas(),hasItem(despesa2));
 	}
 
 	protected CartaoCredito createCartaoCredito() {
