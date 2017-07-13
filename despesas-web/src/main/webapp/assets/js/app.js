@@ -151,6 +151,12 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'partial/receita/receita.html',
 		controller : 'edicaoReceitaController'
 	});
+	
+	$routeProvider.when('/receita/:id', {
+		templateUrl : 'partial/receita/receita.html',
+		controller : 'edicaoReceitaController'
+	});
+
 
 	$routeProvider.when('/painelReceitas', {
 		templateUrl : 'partial/painel_receitas.html',
