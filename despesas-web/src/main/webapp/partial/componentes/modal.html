@@ -1,23 +1,29 @@
-<div class="modal modal-dialog modal-content" id="" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" tabindex="-1" role="dialog" id="modalSalvar">
 
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-		<h4 class="modal-title" despesas-modal-title="">Confirmar</h4>
+	<div class="modal-dialog" role="document">
+
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Modal title</h4>
+			</div>
+
+			<div class="modal-body">
+				<ng-transclude></ng-transclude>
+			</div>
+
+			<div class="modal-footer" despesas-modal-footer-save="">
+				<button type="button" class="btn btn-default" despesas-modal-cancelar="" data-dismiss="modal" style="float: left;">Cancelar</button>
+				<button type="button" class="btn btn-primary" despesas-modal-salvar="">Salvar</button>
+			</div>
+
+			<div class="modal-footer" style="text-align: center;" despesas-modal-footer-ok="">
+				<button type="button" class="btn btn-primary" despesas-modal-ok data-dismiss="modal">OK</button>
+			</div>
+
+		</div>
 	</div>
-
-	<div class="modal-body">
-		<ng-transclude></ng-transclude>
-	</div>
-
-	<div class="modal-footer" despesas-modal-footer-save="">
-		<button type="button" class="btn btn-default" despesas-modal-cancelar="" data-dismiss="modal" style="float: left;">Cancelar</button>
-		<button type="button" class="btn btn-primary" despesas-modal-salvar="">Salvar</button>
-	</div>
-
-	<div class="modal-footer" style="text-align: center;" despesas-modal-footer-ok="">
-		<button type="button" class="btn btn-primary" despesas-modal-ok data-dismiss="modal">OK</button>
-	</div>
-
 </div>

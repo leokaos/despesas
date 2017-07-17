@@ -1,5 +1,6 @@
 package org.leo.despesas.aplicacao.transferencia;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -15,7 +16,7 @@ import org.leo.despesas.rest.infra.SimpleFacade;
 @Local
 public interface TransferenciaFacade extends SimpleFacade<Transferencia> {
 
-	void pagarFatura(Fatura fatura, Conta conta) throws DespesasException;
+	void pagarFatura(Fatura fatura, Conta conta, Date dataPagamento) throws DespesasException;
 
 	List<Transferencia> getTransferenciasPorPeriodo(Periodo periodo);
 

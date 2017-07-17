@@ -1,6 +1,5 @@
 <h3>
-	<i class="fa fa-angle-right"></i>
-	Lançamento de Receita
+	<i class="fa fa-angle-right"></i> Lançamento de Receita
 </h3>
 
 <div class="row mt">
@@ -10,13 +9,11 @@
 		<div class="form-panel">
 
 			<button type="button" class="btn btn-default pull-right" ng-click="add();" style="margin: 0px 0px 30px 0px;">
-				<i class="fa fa-plus"></i>
-				Adicionar
+				<i class="fa fa-plus"></i> Adicionar
 			</button>
 
 			<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#modalUpload" style="margin: 0px 30px 0px 0px;">
-				<i class="fa fa-upload"></i>
-				Carregar
+				<i class="fa fa-upload"></i> Carregar
 			</button>
 
 			<form class="form-horizontal" method="get" name="painelDespesa" novalidate>
@@ -35,24 +32,12 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="receita in receitas" style="height: 40px;">
-							<td>
-								<input type="text" class="form-control" ng-model="receita.descricao" required>
-							</td>
-							<td>
-								<input type="text" class="form-control" ng-model="receita.valor" ui-number-mask required>
-							</td>
-							<td>
-								<input type="text" name="data" class="form-control" ng-model="receita.vencimento" bs-datepicker autoclose="true" required></input>
-							</td>
-							<td>
-								<colorable ng-model="receita.tipo" itens="tiposReceita"></colorable>
-							</td>
-							<td>
-								<colorable ng-model="receita.debitavel" itens="debitaveis"></colorable>
-							</td>
-							<td>
-								<input type="checkbox" class="form-control" ng-model="receita.depositado">
-							</td>
+							<td><input type="text" class="form-control" ng-model="receita.descricao" required></td>
+							<td><input type="text" class="form-control" ng-model="receita.valor" ui-number-mask required></td>
+							<td><input type="text" name="data" class="form-control" ng-model="receita.vencimento" bs-datepicker autoclose="true" required></input></td>
+							<td><colorable ng-model="receita.tipo" itens="tiposReceita"></colorable></td>
+							<td><colorable ng-model="receita.debitavel" itens="debitaveis"></colorable></td>
+							<td><input type="checkbox" class="form-control" ng-model="receita.depositado"></td>
 							<td>
 								<button type="button" class="btn btn-danger" ng-click="remove($index);">
 									<i class="fa fa-trash-o"></i>
@@ -63,8 +48,7 @@
 				</table>
 
 				<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#modalSalvar">
-					<i class="fa fa-check"></i>
-					Salvar
+					<i class="fa fa-check"></i> Salvar
 				</button>
 
 				<div class="clearfix"></div>
@@ -82,67 +66,84 @@
 	<p>{{receitas | sum: 'valor' | currency: 'R$ '}}</p>
 </div>
 
-<div class="modal modal-dialog modal-content" id="modalUpload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" tabindex="-1" role="dialog" id="modalUpload">
 
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-		<h4 class="modal-title">Upload</h4>
-	</div>
+	<div class="modal-dialog" role="document">
 
-	<div class="modal-body">
-		<form class="form-horizontal" method="get" name="uploadPainelReceita" novalidate>
+		<div class="modal-content">
 
-			<div class="form-group">
-				<label class="col-sm-2 control-label">Debitável:</label>
-				<colorable itens="debitaveis" ng-model="receitaUpload">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Upload</h4>
 			</div>
 
-			<div class="form-group">
-				<div class="col-sm-1">
-					<input type="checkbox" class="form-control" ng-model="receitasDespositadas">
-				</div>
-				<label class="col-sm-10">Receitas já depositadas?</label>
+			<div class="modal-body">
+
+				<form class="form-horizontal" method="get" name="uploadPainelReceita" novalidate>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Debitável:</label>
+						<colorable itens="debitaveis" ng-model="receitaUpload">
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-1">
+							<input type="checkbox" class="form-control" ng-model="receitasDespositadas">
+						</div>
+						<label class="col-sm-10">Receitas já depositadas?</label>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Arquivo:</label> <input type="file" id="arquivo" />
+					</div>
+
+				</form>
+
 			</div>
 
-			<div class="form-group">
-				<label class="col-sm-2 control-label">Arquivo:</label>
-				<input type="file" id="arquivo" />
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" style="float: left;">Cancelar</button>
+				<button type="button" class="btn btn-primary" ng-click="uploadFile();">OK</button>
 			</div>
 
-		</form>
-	</div>
-
-	<div class="modal-footer">
-		<button type="button" class="btn btn-default" data-dismiss="modal" style="float: left;">Cancelar</button>
-		<button type="button" class="btn btn-primary" ng-click="uploadFile();">OK</button>
-	</div>
-
-</div>
-
-<div class="modal modal-dialog modal-content" id="modalSalvar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-		<h4 class="modal-title">Salvar</h4>
-	</div>
-
-	<div class="modal-body">
-
-		<div class="form-group">
-			<label class="col-sm-2 control-label">Iniciar?</label>
-			<progressbar max="total" value="parcial">{{parcial}} / {{total}}</progressbar>
 		</div>
-		
-	</div>
 
-	<div class="modal-footer">
-		<button type="button" class="btn btn-default" data-dismiss="modal" style="float: left;">Cancelar</button>
-		<button type="button" class="btn btn-primary" ng-click="salvar();">OK</button>
 	</div>
 
 </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalSalvar">
+
+	<div class="modal-dialog" role="document">
+
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Salvar</h4>
+			</div>
+
+			<div class="modal-body">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Iniciar?</label>
+					<progressbar max="100" value="(parcial * 100 / total)">{{parcial}} / {{total}}</progressbar>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" style="float: left;">Cancelar</button>
+				<button type="button" class="btn btn-primary" ng-click="salvar();">OK</button>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+
 

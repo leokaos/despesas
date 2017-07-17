@@ -1,6 +1,7 @@
 package org.leo.despesas.aplicacao.transferencia;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -28,8 +29,10 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia> imple
 	private FaturaFacade faturaFacade;
 
 	@Override
-	public void pagarFatura(final Fatura fatura, final Conta conta) throws DespesasException {
+	public void pagarFatura(final Fatura fatura, final Conta conta, Date dataPagamento) throws DespesasException {
 		final Transferencia transferencia = fatura.pagar(conta);
+		
+		transferencia.setPagamento(dataPagamento);
 
 		inserir(transferencia);
 

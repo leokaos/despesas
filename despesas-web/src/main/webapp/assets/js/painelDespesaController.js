@@ -1,4 +1,5 @@
-app.controller('painelDespesaController', function($scope, despesaService, tipoDespesaService, orcamentoService, debitavelService, $location,
+app.controller('painelDespesaController', function($scope, despesaService,
+		tipoDespesaService, orcamentoService, debitavelService, $location,
 		$routeParams, growl, $http) {
 
 	$scope.despesas = [];
@@ -6,8 +7,6 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 	$scope.debitaveis = [];
 	$scope.despesaUpload = null;
 	$scope.despesasPagas = true;
-	$scope.total = 0;
-	$scope.parcial = 0;
 
 	$scope.add = function() {
 		$scope.despesas.push(despesaService.getNovoDespesa());
@@ -54,11 +53,13 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 
 	$scope.salvar = function() {
 
-		$scope.total = $scope.despesas.length;
-		$scope.parcial = 0;
+		if (!$scope.total) {
+			$scope.total = $scope.despesas.length;
+			$scope.parcial = 0;
+		}
 
 		var fn = function() {
-
+			
 			$scope.parcial++;
 
 			if ($scope.parcial >= $scope.total) {
@@ -67,12 +68,11 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 				$scope.despesas = [];
 
 				growl.info('Despesas salvas com sucesso!');
-
+				
 			} else if ($scope.parcial < $scope.despesas.length) {
 				$scope.$apply();
 				despesaService.novo($scope.despesas[$scope.parcial], null, fn);
 			}
-
 		};
 
 		despesaService.novo($scope.despesas[$scope.parcial], null, fn);

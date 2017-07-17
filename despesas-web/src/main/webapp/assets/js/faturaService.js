@@ -56,11 +56,11 @@ app.service('faturaService', function ($http) {
 
     };
     
-    this.pagar = function(fatura, conta, fn){
+    this.pagar = function(fatura, conta, dataPagamento, fn){
     	
         var request = $http({
             method: 'get',
-            url: pathBase + 'pagar/' + fatura.id + '/' + conta.id
+            url: pathBase + 'pagar/' + fatura.id + '/' + conta.id + '?dataPagamento=' + dataPagamento.toGMTString()
         });
 
         request.success(function (data) {

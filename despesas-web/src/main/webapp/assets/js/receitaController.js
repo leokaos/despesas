@@ -77,19 +77,23 @@ app.controller('edicaoReceitaController',function($scope,receitaService,tipoRece
 	var id = $routeParams.id;
 
 	if (id != null) {
+		
 		receitaService.buscarPorId(id,function(receita) {
+			
 			$scope.receita = receita;
+			
+			if ($scope.receita.debitavel != null) {
+				$scope.contaSelecionada = $scope.receita.debitavel;
+			}
+
+			if ($scope.receita.tipoReceita != null) {
+				$scope.tipoReceitaSelecionado = $scope.receita.tipoReceita;
+			}
+			
 		});
+		
 	} else {
 		$scope.receita = receitaService.getReceita();
-	}
-
-	if ($scope.receita.debitavel != null) {
-		$scope.contaSelecionada = $scope.receita.debitavel;
-	}
-
-	if ($scope.receita.tipoReceita != null) {
-		$scope.tipoReceitaSelecionado = $scope.receita.tipoReceita;
 	}
 
 	$scope.openData = function() {
