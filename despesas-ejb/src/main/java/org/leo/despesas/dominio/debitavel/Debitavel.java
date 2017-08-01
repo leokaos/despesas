@@ -10,6 +10,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
@@ -19,6 +20,7 @@ import org.leo.despesas.rest.infra.ModelEntity;
 @DiscriminatorColumn(name = "tipo")
 @Table(name = "debitavel", schema = "despesas_db")
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonDeserialize(using = DebitavelDeserializer.class)
 public abstract class Debitavel implements ModelEntity {
 
 	private static final long serialVersionUID = -2096306756580686432L;
@@ -32,6 +34,9 @@ public abstract class Debitavel implements ModelEntity {
 
 	@Column(name = "cor")
 	private String cor;
+
+	@Column(name = "tipo")
+	private String tipo;
 
 	public Debitavel() {
 		super();
@@ -60,6 +65,14 @@ public abstract class Debitavel implements ModelEntity {
 
 	public void setCor(final String cor) {
 		this.cor = cor;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public abstract void debitar(Despesa despesa);

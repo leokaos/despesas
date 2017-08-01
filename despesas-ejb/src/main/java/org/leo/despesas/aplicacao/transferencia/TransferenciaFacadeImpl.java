@@ -55,6 +55,16 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia> imple
 
 		return query.getResultList();
 	}
+	
+	@Override
+	public void inserir(Transferencia t) throws DespesasException {
+
+		super.inserir(t);
+		
+		contaFacade.buscarPorId(t.getDebitavel().getId()).transferir(t);
+		contaFacade.buscarPorId(t.getCreditavel().getId()).transferir(t);
+		
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override

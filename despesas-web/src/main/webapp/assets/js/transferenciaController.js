@@ -16,7 +16,7 @@ app.controller('transferenciaController', function($scope, transferenciaService,
 	};
 
 	$scope.getMensagemDelete = function() {
-		return 'Tipo de receita deletado com sucesso!';
+		return 'Transferencia deletada com sucesso!';
 	};
 
 	$scope.getNomeSpin = function() {

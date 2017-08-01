@@ -25,6 +25,8 @@ public class Conta extends Debitavel {
 
 	public Conta() {
 		super();
+		
+		setTipo(CODIGO_TIPO);
 	}
 
 	public BigDecimal getSaldo() {
@@ -52,9 +54,9 @@ public class Conta extends Debitavel {
 	@Override
 	public void transferir(final Transferencia transferencia) {
 
-		if (transferencia.getCreditavel().equals(this)) {
+		if (transferencia.getCreditavel().getId().equals(getId())) {
 			this.saldo = getSaldo().add(transferencia.getValor());
-		} else if (transferencia.getDebitavel().equals(this)) {
+		} else if (transferencia.getDebitavel().getId().equals(getId())) {
 			this.saldo = getSaldo().subtract(transferencia.getValor());
 		} else {
 			throw new IllegalArgumentException();
