@@ -1,6 +1,6 @@
 package org.leo.despesas.dominio;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -23,6 +23,7 @@ public class FaturaTest {
 
 		CartaoCredito cartao = new CartaoCredito();
 		cartao.setLimiteAtual(new BigDecimal("10000"));
+		cartao.setId(10L);
 
 		Fatura fatura = new Fatura();
 		fatura.setCartao(cartao);
@@ -36,6 +37,7 @@ public class FaturaTest {
 
 		Conta conta = new Conta();
 		conta.setSaldo(new BigDecimal("1000"));
+		conta.setId(20L);
 
 		Transferencia transferencia = fatura.pagar(conta);
 

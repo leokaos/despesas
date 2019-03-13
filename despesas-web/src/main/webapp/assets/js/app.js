@@ -157,7 +157,6 @@ app.config(function($routeProvider, $locationProvider) {
 		controller : 'edicaoReceitaController'
 	});
 
-
 	$routeProvider.when('/painelReceitas', {
 		templateUrl : 'partial/painel_receitas.html',
 		controller : 'painelReceitaController'
@@ -195,6 +194,22 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/graficotipodespesa', {
 		templateUrl : 'partial/grafico/graficotipodespesa.html',
 		controller : 'graficoController'
+	});
+	
+	// SERVICOS DE TRANSFERENCIAS
+	$routeProvider.when('/servicostransferencia', {
+		templateUrl : 'partial/servicostransferencia/servicostransferencia.html',
+		controller : 'servicoTransferenciaController'
+	});
+	
+	$routeProvider.when('/servicotransferencia', {
+		templateUrl : 'partial/servicostransferencia/servicotransferencia.html',
+		controller : 'edicaoServicoTransferenciaController'
+	});
+	
+	$routeProvider.when('/servicotransferencia/:id', {
+		templateUrl : 'partial/servicostransferencia/servicotransferencia.html',
+		controller : 'edicaoServicoTransferenciaController'
 	});
 
 	// DASHBOARD

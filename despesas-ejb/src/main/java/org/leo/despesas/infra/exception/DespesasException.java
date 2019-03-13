@@ -1,6 +1,6 @@
 package org.leo.despesas.infra.exception;
 
-public abstract class DespesasException extends Exception {
+public class DespesasException extends Exception {
 
 	private static final long serialVersionUID = 3558584349538303270L;
 

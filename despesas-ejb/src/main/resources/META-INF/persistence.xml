@@ -20,6 +20,7 @@
 		<class>org.leo.despesas.dominio.movimentacao.Receita</class>
 		<class>org.leo.despesas.dominio.debitavel.CartaoCredito</class>
 		<class>org.leo.despesas.dominio.movimentacao.Transferencia</class>
+		<class>org.leo.despesas.dominio.servicotransferencia.ServicoTransferencia</class>
 
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 

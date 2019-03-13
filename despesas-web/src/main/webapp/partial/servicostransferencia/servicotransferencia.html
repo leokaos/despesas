@@ -1,0 +1,46 @@
+<h3>
+	<i class="fa fa-angle-right"></i>
+	Serviço de Transferênia
+</h3>
+
+<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoServicoTransferencia.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{servicoTransferencia.nome}}?</b> </ng-modal>
+
+<div class="row col-md-4 form-panel">
+
+	<form novalidate class="form-horizontal" method="get" name="edicaoServicoTransferencia" novalidate>
+
+		<div class="form-group">
+			<label class="col-md-2 control-label">Nome:</label>
+			<div class="col-md-10">
+				<input type="text" class="form-control" placeholder="Nome para exibição" ng-model="servicoTransferencia.nome" required />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-md-2 control-label">Valor:</label>
+			<div class="input-group col-md-10" style="padding-left: 15px; padding-right: 15px;">
+				<input type="text" class="form-control" placeholder="Valor do SPRED" ng-model="servicoTransferencia.spred" ui-number-mask required />
+				<div class="input-group-addon">
+					<i class="fa fa-percent">%</i>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-md-2 control-label">Taxas:</label>
+			<div class="input-group col-md-10" style="padding-left: 15px; padding-right: 15px;">
+				<div class="input-group-addon">
+					<i class="fa fa-money"></i>
+				</div>
+				<input type="text" class="form-control" placeholder="Valor total das taxas" ng-model="servicoTransferencia.taxas" ui-number-mask required />
+			</div>
+		</div>
+
+		<div class="form-group botoes">
+			<div class="col-md-12">
+				<button type="button" class="btn btn-theme" style="float: right;" data-toggle="modal" data-target="#modalSalvar" ng-disabled="edicaoServicoTransferencia.$invalid">Gravar</button>
+				<button type="button" class="btn btn-theme" style="float: left;" ng-click="cancelar();">Cancelar</button>
+			</div>
+		</div>
+	</form>
+</div>
