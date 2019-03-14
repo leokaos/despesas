@@ -1,0 +1,62 @@
+<h3>
+	<i class="fa fa-angle-right"></i>
+	Cotação de Câmbio
+</h3>
+
+<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoCotacao.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{cotacao.data | date: 'dd/MM/yyyy'}}?</b> </ng-modal>
+
+<div class="row col-md-4 form-panel">
+
+	<form novalidate class="form-horizontal" method="get" name="edicaoCotacao" novalidate>
+
+		<div class="form-group">
+			<label class="col-md-2 control-label">Data:</label>
+			<div class="input-group col-md-10" style="padding-left: 15px; padding-right: 15px;">
+				<div class="input-group-addon">
+					<i class="fa fa-calendar"></i>
+				</div>
+				<input type="text" name="data" class="form-control" placeholder="Data" ng-model="cotacao.data" bs-datepicker autoclose="true" required />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-md-3 control-label">Moeda de Origem:</label>
+			<div class="col-md-9">
+				<div>
+					<select class="form-control" ng-model="cotacao.origem">
+						<option ng-repeat="moeda in MOEDAS_NAMES" value="{{moeda}}">{{MOEDAS[moeda].descricao}} ({{MOEDAS[moeda].simbolo}})</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-md-3 control-label">Moeda de Destino:</label>
+			<div class="col-md-9">
+				<div>
+					<select class="form-control" ng-model="cotacao.destino">
+						<option ng-repeat="moeda in MOEDAS_NAMES" value="{{moeda}}">{{MOEDAS[moeda].descricao}} ({{MOEDAS[moeda].simbolo}})</option>
+					</select>
+				</div>
+			</div>
+		</div>		
+		
+		<div class="form-group">
+			<label class="col-md-2 control-label">Rate:</label>
+			<div class="input-group col-md-10" style="padding-left: 15px; padding-right: 15px;">
+				<div class="input-group-addon">
+					<i class="fa fa-money"></i>
+				</div>
+				<input type="text" class="form-control" style="width:70%;" placeholder="Valor total das taxas" ng-model="cotacao.taxa" ui-number-mask required />
+				<button type="button" class="btn btn-theme" style="float: right;" ng-click="buscarCotacao();">Buscar Taxa</button>
+			</div>
+		</div>
+
+		<div class="form-group botoes">
+			<div class="col-md-12">
+				<button type="button" class="btn btn-theme" style="float: right;" data-toggle="modal" data-target="#modalSalvar" ng-disabled="edicaoCotacao.$invalid">Gravar</button>
+				<button type="button" class="btn btn-theme" style="float: left;" ng-click="cancelar();">Cancelar</button>
+			</div>
+		</div>
+	</form>
+</div>

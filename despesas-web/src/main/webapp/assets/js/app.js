@@ -38,6 +38,11 @@ app.constant('MESES', [ {
 	value : 12
 } ]);
 
+app.constant('MOEDAS', {
+	"EURO":{descricao: "Euro", simbolo: "€"},
+	"REAL":{descricao: "Real", simbolo: "R$"}
+});
+
 app.config(function($routeProvider, $locationProvider) {
 
 	// TIPOS DE DESPESA
@@ -189,6 +194,22 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'partial/transferencia/transferencia.html',
 		controller : 'edicaoTransferenciaController'
 	});
+	
+	// COTACOES
+	$routeProvider.when('/cotacoes', {
+		templateUrl : 'partial/cotacao/cotacoes.html',
+		controller : 'cotacaoController'
+	});
+
+	$routeProvider.when('/cotacao', {
+		templateUrl : 'partial/cotacao/cotacao.html',
+		controller : 'edicaoCotacaoController'
+	});
+
+	$routeProvider.when('/cotacao/:id', {
+		templateUrl : 'partial/cotacao/cotacao.html',
+		controller : 'edicaoCotacaoController'
+	});	
 
 	// GRAFICOS
 	$routeProvider.when('/graficotipodespesa', {

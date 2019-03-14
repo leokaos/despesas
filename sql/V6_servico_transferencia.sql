@@ -5,7 +5,3 @@ CREATE TABLE despesas_db.SERVICO_TRANSFERENCIA (
 	NOME varchar(255) not null,
 	PRIMARY KEY (ID)
 );
-
-DROP TABLE despesas_db.SERVICO_TRANSFERENCIA;
-
-select * from despesas_db.SERVICO_TRANSFERENCIA;

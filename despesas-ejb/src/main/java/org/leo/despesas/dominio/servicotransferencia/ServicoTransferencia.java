@@ -71,7 +71,7 @@ public class ServicoTransferencia implements ModelEntity {
 
 	public double calcularValorParaTransferencia(Cotacao cotacao, BigDecimal spot, Porcentagem iof, BigDecimal valor) {
 		
-		BigDecimal cotacaoSemSpot = cotacao.getRate().subtract(spot);
+		BigDecimal cotacaoSemSpot = cotacao.getTaxa().subtract(spot);
 
 		BigDecimal cotacaoDepoisSpred = cotacaoSemSpot.multiply(new BigDecimal(Porcentagem.from(spred.doubleValue()).getComplemento())).setScale(2, HALF_DOWN);
 

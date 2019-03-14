@@ -16,7 +16,7 @@ public class ServicoTransferenciaTest {
 		servico.setTaxas(new BigDecimal("160.00"));
 
 		Cotacao cotacao = new Cotacao();
-		cotacao.setRate(new BigDecimal("4.3451"));
+		cotacao.setTaxa(new BigDecimal("4.3451"));
 
 		BigDecimal spot = new BigDecimal(0.003);
 		BigDecimal valor = new BigDecimal("2629.95");

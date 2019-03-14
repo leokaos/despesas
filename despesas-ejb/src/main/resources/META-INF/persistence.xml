@@ -21,6 +21,8 @@
 		<class>org.leo.despesas.dominio.debitavel.CartaoCredito</class>
 		<class>org.leo.despesas.dominio.movimentacao.Transferencia</class>
 		<class>org.leo.despesas.dominio.servicotransferencia.ServicoTransferencia</class>
+		<class>org.leo.despesas.dominio.parametro.Parametro</class>
+		<class>org.leo.despesas.dominio.servicotransferencia.Cotacao</class>
 
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 

@@ -24,10 +24,6 @@ app.controller('orcamentoController', function($scope, orcamentoService, $locati
 		return 'tipo-orcamento-spin';
 	};
 	
-	$scope.select = function(orcamento){
-		$scope.orcamentoSelecionado = orcamento;
-	};
-
 	$scope.listar = function() {
 
 		orcamentoService.listar(function(data) {
@@ -47,6 +43,10 @@ app.controller('orcamentoController', function($scope, orcamentoService, $locati
 	$scope.editar = function(id) {
 		$location.path('/orcamento/' + id);
 	};
+	
+	$scope.select = function(orcamento){
+		$scope.orcamentoSelecionado = orcamento;
+	};	
 
 	$scope.getItemSelecionado = function() {
 		return $scope.orcamentoSelecionado;
