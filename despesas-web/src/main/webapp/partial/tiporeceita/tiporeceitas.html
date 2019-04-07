@@ -1,40 +1,30 @@
 <pesquisa-view>
 
-<div style="min-height: 320px;">
+<table datatable="ng" class="table table-striped table-bordered display datatables no-footer row-border hover" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs">
 
-	<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Cor</th>
+			<th>Descrição</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
 
-		<thead>
-			<tr>
-				<th>Cor</th>
-				<th>Descrição</th>
-				<th></th>
-				<th></th>
-			</tr>
-		</thead>
+	<tbody>
+		<tr ng-repeat="item in originalData" style="height: 40px;">
 
-		<tbody>
-			<tr ng-repeat="item in sliceData" style="height: 40px;">
+			<td style="width: 40px;"><bullet ng-model="item"></bullet></td>
 
-				<td style="width: 40px;">
-					<bullet ng-model="item"></bullet>
-				</td>
+			<td style="vertical-align: middle;">{{item.descricao}}</td>
 
-				<td style="vertical-align: middle;">{{item.descricao}}</td>
+			<td style="width: 38px; height: 38px;"><button-editar></button-editar></td>
 
-				<td style="width: 38px; height: 38px;">
-					<button-editar></button-editar>
-				</td>
+			<td style="width: 38px; height: 38px;"><button-delete></button-delete></td>
 
-				<td style="width: 38px; height: 38px;">
-					<button-delete></button-delete>
-				</td>
-				
-			</tr>
-		</tbody>
+		</tr>
+	</tbody>
 
-	</table>
-
-</div>
+</table>
 
 </pesquisa-view>

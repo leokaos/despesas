@@ -1,6 +1,5 @@
 package org.leo.despesas.rest.infra;
 
-import java.text.MessageFormat;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,9 +9,7 @@ import org.leo.despesas.infra.exception.AlreadyExistentEntityException;
 import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.infra.exception.NotFoundEntityException;
 
-public abstract class AbstractFacade<E extends ModelEntity> implements SimpleFacade<E> {
-
-	private static final String SELECT_MODEL = "SELECT {1} FROM {0} {1}";
+public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltro<E>> implements SimpleFacade<E, F> {
 
 	@PersistenceContext(unitName = "despesasPU")
 	protected EntityManager entityManager;
@@ -22,13 +19,13 @@ public abstract class AbstractFacade<E extends ModelEntity> implements SimpleFac
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
-	public List<E> listar() {
+	public List<E> listar(F filtro) {
+		return filtro.getLista(entityManager, getClasseEntidade());
+	}
 
-		final String className = getClasseEntidade().getSimpleName();
-		final String qlString = MessageFormat.format(SELECT_MODEL, className, className.toLowerCase());
-
-		return entityManager.createQuery(qlString).getResultList();
+	@Override
+	public List<E> listarTodos() {
+		return null;
 	}
 
 	@Override

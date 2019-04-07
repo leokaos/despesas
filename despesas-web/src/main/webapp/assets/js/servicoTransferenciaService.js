@@ -33,11 +33,24 @@ app.service('servicoTransferenciaService',function($http) {
 			fn(data);
 		});
 	};
+	
+	this.buscarPorFiltro = function(filtro,fn) {
+		
+		var url = '/despesas/services/servicotransferencia?';
+		
+		for(key in filtro){
+			url = url + key + '=' + filtro[key] + '&';
+		}
+		
+		$http.get(url).success(function(data) {
+			fn(data);
+		});
+	};	
 
 	this.deletar = function(id,fn) {
 		 $http.delete(pathBase + id).success(function(data) {
 			 fn(data);
 		 });
 	};
-
+	
 });

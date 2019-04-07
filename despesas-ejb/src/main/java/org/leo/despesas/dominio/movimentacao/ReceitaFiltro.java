@@ -3,8 +3,9 @@ package org.leo.despesas.dominio.movimentacao;
 import java.util.Date;
 
 import org.leo.despesas.dominio.tipomovimentacao.TipoReceita;
+import org.leo.despesas.infra.AbstractModelFiltro;
 
-public class ReceitaFiltro {
+public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 
     private Date dataInicial;
     private Date dataFinal;

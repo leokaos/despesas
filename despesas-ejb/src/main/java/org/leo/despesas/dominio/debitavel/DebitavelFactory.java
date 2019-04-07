@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.leo.despesas.dominio.servicotransferencia.Moeda;
+
 public class DebitavelFactory {
 
 	private static Map<String, Class<? extends Debitavel>> mapaValores;
@@ -28,6 +30,9 @@ public class DebitavelFactory {
 
 		debitavel.setCor(mapaAtributos.get("cor"));
 		debitavel.setDescricao(mapaAtributos.get("descricao"));
+		debitavel.setMoeda(Moeda.valueOf(mapaAtributos.get("moeda")));
+
+		debitavel.accept(new DebitavelSerializerVisitorImpl(mapaAtributos));
 
 		return debitavel;
 	}

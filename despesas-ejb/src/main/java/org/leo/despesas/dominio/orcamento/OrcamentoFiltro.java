@@ -2,7 +2,9 @@ package org.leo.despesas.dominio.orcamento;
 
 import java.util.Date;
 
-public class OrcamentoFiltro {
+import org.leo.despesas.infra.AbstractModelFiltro;
+
+public class OrcamentoFiltro extends AbstractModelFiltro<Orcamento> {
 
 	private Date dataInicial;
 	private Date dataFinal;

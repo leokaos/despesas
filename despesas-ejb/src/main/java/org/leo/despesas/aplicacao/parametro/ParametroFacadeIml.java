@@ -35,11 +35,19 @@ public class ParametroFacadeIml implements ParametroFacade {
 
 	@Override
 	public String getUrlParaCotacao(Moeda origem, Moeda destino) {
-		
-		String key = MessageFormat.format("{0}.{1}", origem,destino);
-		
+
+		String key = MessageFormat.format("{0}.{1}", origem, destino);
+
 		Parametro parametro = entityManager.find(Parametro.class, key);
-		
+
+		return parametro.getValor();
+	}
+
+	@Override
+	public String buscarParametroPorId(String nome) {
+
+		Parametro parametro = entityManager.find(Parametro.class, nome);
+
 		return parametro.getValor();
 	}
 

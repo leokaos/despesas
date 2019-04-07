@@ -1,6 +1,7 @@
-app.controller('contaController', function ($scope, contaService, $location, $routeParams, usSpinnerService) {
+app.controller('contaController', function ($scope, contaService, $location, $routeParams, usSpinnerService, MOEDAS) {
 
     $scope.contaSelecionado = null;
+    $scope.MOEDAS = MOEDAS;
 
     $scope.getTitulo = function () {
         return 'Conta de Despesa';

@@ -12,7 +12,7 @@ import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.rest.infra.SimpleFacade;
 
 @Local
-public interface ReceitaFacade extends SimpleFacade<Receita> {
+public interface ReceitaFacade extends SimpleFacade<Receita, ReceitaFiltro> {
 
 	List<GraficoVO> getGraficoPorPeriodo(Periodo periodo);
 

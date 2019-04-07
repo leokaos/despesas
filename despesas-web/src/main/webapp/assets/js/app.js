@@ -1,5 +1,4 @@
-var app = angular.module('despesas', [ 'ngRoute', 'ngAnimate', 'ngResource', 'colorpicker.module', 'ui.utils.masks', 'angular-growl', 'ui.bootstrap',
-		'mgcrea.ngStrap', 'angularSpinner', 'slick', 'datatables', 'datatables.select' ]);
+var app = angular.module('despesas', [ 'ngRoute', 'ngAnimate', 'ngResource', 'colorpicker.module', 'ui.utils.masks', 'angular-growl', 'ui.bootstrap', 'mgcrea.ngStrap', 'angularSpinner', 'slick', 'datatables', 'datatables.select' ]);
 app.constant('MESES', [ {
 	nome : 'Janeiro',
 	value : 1
@@ -37,11 +36,6 @@ app.constant('MESES', [ {
 	nome : 'Dezembro',
 	value : 12
 } ]);
-
-app.constant('MOEDAS', {
-	"EURO":{descricao: "Euro", simbolo: "€"},
-	"REAL":{descricao: "Real", simbolo: "R$"}
-});
 
 app.config(function($routeProvider, $locationProvider) {
 
@@ -156,7 +150,7 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'partial/receita/receita.html',
 		controller : 'edicaoReceitaController'
 	});
-	
+
 	$routeProvider.when('/receita/:id', {
 		templateUrl : 'partial/receita/receita.html',
 		controller : 'edicaoReceitaController'
@@ -194,7 +188,7 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'partial/transferencia/transferencia.html',
 		controller : 'edicaoTransferenciaController'
 	});
-	
+
 	// COTACOES
 	$routeProvider.when('/cotacoes', {
 		templateUrl : 'partial/cotacao/cotacoes.html',
@@ -209,28 +203,33 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/cotacao/:id', {
 		templateUrl : 'partial/cotacao/cotacao.html',
 		controller : 'edicaoCotacaoController'
-	});	
+	});
 
 	// GRAFICOS
 	$routeProvider.when('/graficotipodespesa', {
 		templateUrl : 'partial/grafico/graficotipodespesa.html',
 		controller : 'graficoController'
 	});
-	
+
 	// SERVICOS DE TRANSFERENCIAS
 	$routeProvider.when('/servicostransferencia', {
 		templateUrl : 'partial/servicostransferencia/servicostransferencia.html',
 		controller : 'servicoTransferenciaController'
 	});
-	
+
 	$routeProvider.when('/servicotransferencia', {
 		templateUrl : 'partial/servicostransferencia/servicotransferencia.html',
 		controller : 'edicaoServicoTransferenciaController'
 	});
-	
+
 	$routeProvider.when('/servicotransferencia/:id', {
 		templateUrl : 'partial/servicostransferencia/servicotransferencia.html',
 		controller : 'edicaoServicoTransferenciaController'
+	});
+
+	$routeProvider.when('/compararServicosTransferencia', {
+		templateUrl : 'partial/compararServicosTransferencia.html',
+		controller : 'compararServicosTransferenciaController'
 	});
 
 	// DASHBOARD
@@ -355,23 +354,52 @@ app.directive('uiCalendar', function(MESES) {
 
 			var id = '#' + iElement.attr('id');
 
-			$(id).fullCalendar(
-					{
-						height : 800,
-						aspectRatio : 10,
-						events : scope.eventSources,
-						monthNames : [ 'Janeiro', 'Fevereiro', 'Mar\u00e7o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
-								'Novembro', 'Dezembro' ],
-						dayNames : diasSemana,
-						dayNamesShort : diasSemanaCurtos,
-						buttonText : textoDosBotoes,
-						eventClick : select
-					});
+			$(id).fullCalendar({
+				height : 800,
+				aspectRatio : 10,
+				events : scope.eventSources,
+				monthNames : [ 'Janeiro', 'Fevereiro', 'Mar\u00e7o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro' ],
+				dayNames : diasSemana,
+				dayNamesShort : diasSemanaCurtos,
+				buttonText : textoDosBotoes,
+				eventClick : select
+			});
 
 			$(id).fullCalendar('refetchEvents');
 		}
 	};
 });
+
+app.constant('MOEDAS', {
+	"EURO" : {
+		descricao : "Euro",
+		simbolo : "€"
+	},
+	"REAL" : {
+		descricao : "Real",
+		simbolo : "R$"
+	}
+});
+
+app.directive('moeda', [ 'MOEDAS', function(MOEDAS) {
+	return {
+		restrict : 'E',
+		scope : {
+			value : '=ngModel'
+		},
+		transclude : true,
+		templateUrl : 'partial/componentes/moeda.html',
+		link : function(scope, iElement, iAttrs) {
+			
+			scope.MOEDAS = MOEDAS;
+			scope.MOEDAS_NAMES = [];
+
+			for (item in MOEDAS) {
+				scope.MOEDAS_NAMES.push(item);
+			}
+		}
+	};
+} ]);
 
 app.directive('colorable', function() {
 
@@ -379,7 +407,8 @@ app.directive('colorable', function() {
 		restrict : 'E',
 		scope : {
 			listaColorable : '=itens',
-			value : '=ngModel'
+			value : '=ngModel',
+			onSelect : '='
 		},
 		replace : true,
 		transclude : true,
@@ -390,6 +419,10 @@ app.directive('colorable', function() {
 			scope.select = function(item) {
 				scope.colorableSelected = item;
 				scope.value = item;
+				
+				if (scope.onSelect != undefined){
+					scope.onSelect(item);
+				}
 			};
 		}
 	};

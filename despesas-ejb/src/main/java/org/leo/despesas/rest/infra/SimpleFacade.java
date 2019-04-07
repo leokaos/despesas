@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.leo.despesas.infra.exception.DespesasException;
 
-public interface SimpleFacade<T extends ModelEntity> {
+public interface SimpleFacade<T extends ModelEntity, F extends ModelFiltro<T>> {
 
-	List<T> listar();
+	List<T> listar(F filtro);
+
+	List<T> listarTodos();
 
 	T buscarPorId(Long id) throws DespesasException;
 

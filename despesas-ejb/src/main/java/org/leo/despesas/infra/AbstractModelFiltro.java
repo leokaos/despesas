@@ -1,0 +1,91 @@
+package org.leo.despesas.infra;
+
+import java.text.MessageFormat;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
+import org.leo.despesas.rest.infra.ModelEntity;
+import org.leo.despesas.rest.infra.ModelFiltro;
+
+import com.google.common.collect.Lists;
+
+public abstract class AbstractModelFiltro<T extends ModelEntity> implements ModelFiltro<T> {
+
+	private List<Clause> clausulas = Lists.newArrayList();
+
+	private static final String SELECT_MODEL = "SELECT {1} FROM {0} {1}";
+
+	@Override
+	public List<T> getLista(EntityManager entityManager, Class<T> classeDaEntidade) {
+
+		build();
+
+		TypedQuery<T> query = entityManager.createQuery(buildQuery(classeDaEntidade), classeDaEntidade);
+
+		Iterator<Clause> it = clausulas.iterator();
+
+		while (it.hasNext()) {
+			it.next().colocarValor(query);
+		}
+
+		return query.getResultList();
+	}
+
+	protected void build() {
+
+	}
+
+	private String buildQuery(Class<T> classeDaEntidade) {
+
+		final String className = classeDaEntidade.getSimpleName();
+
+		StringBuilder builder = new StringBuilder(MessageFormat.format(SELECT_MODEL, className, className.toLowerCase()));
+
+		Iterator<Clause> it = clausulas.iterator();
+
+		if (it.hasNext()) {
+			builder.append(" WHERE");
+		}
+
+		while (it.hasNext()) {
+
+			builder.append(" ");
+
+			it.next().colocarClause(builder);
+
+			if (it.hasNext()) {
+				builder.append(" AND ");
+			}
+
+		}
+
+		return builder.toString();
+	}
+
+	protected void eq(String property, Object value) {
+
+		if (value != null) {
+			this.clausulas.add(new EqualClause(property, value));
+		}
+
+	}
+
+	protected void between(String property, Object minimo, Object maximo) {
+
+		if (minimo != null && maximo != null) {
+			this.clausulas.add(new BetweenClause(property, minimo, maximo));
+		}
+	}
+
+	protected void like(String property, String value) {
+
+		if (value != null && !value.isEmpty()) {
+			this.clausulas.add(new LikeClause(property, value));
+		}
+
+	}
+
+}

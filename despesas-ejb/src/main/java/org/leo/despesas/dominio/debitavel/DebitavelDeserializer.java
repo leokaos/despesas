@@ -16,6 +16,7 @@ public class DebitavelDeserializer extends JsonDeserializer<Debitavel> {
 
 	@Override
 	public Debitavel deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+
 		JsonNode node = jp.getCodec().readTree(jp);
 
 		Map<String, String> mapaAtributos = new HashMap<String, String>();
@@ -23,7 +24,9 @@ public class DebitavelDeserializer extends JsonDeserializer<Debitavel> {
 		for (Iterator<Entry<String, JsonNode>> fields = node.getFields(); fields.hasNext();) {
 			Entry<String, JsonNode> entry = fields.next();
 
-			mapaAtributos.put(entry.getKey(), entry.getValue().getValueAsText());
+			String value = entry.getValue().getValueAsText();
+
+			mapaAtributos.put(entry.getKey(), value == "null" ? null : value);
 		}
 
 		return DebitavelFactory.parse(mapaAtributos);

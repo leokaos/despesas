@@ -6,11 +6,12 @@ import javax.ws.rs.Path;
 
 import org.leo.despesas.aplicacao.tiporeceita.TipoReceitaFacade;
 import org.leo.despesas.dominio.tipomovimentacao.TipoReceita;
+import org.leo.despesas.dominio.tipomovimentacao.TipoReceitaFiltro;
 import org.leo.despesas.rest.infra.AbstractService;
 
 @Path("/tiporeceita")
 @RequestScoped
-public class TipoReceitaService extends AbstractService<TipoReceitaFacade, TipoReceita> {
+public class TipoReceitaService extends AbstractService<TipoReceitaFacade, TipoReceita, TipoReceitaFiltro> {
 
 	@EJB
 	private TipoReceitaFacade tipoReceitaFacade;

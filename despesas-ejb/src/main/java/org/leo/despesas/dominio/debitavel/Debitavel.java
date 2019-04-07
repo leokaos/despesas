@@ -3,6 +3,8 @@ package org.leo.despesas.dominio.debitavel;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,7 @@ import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
+import org.leo.despesas.dominio.servicotransferencia.Moeda;
 import org.leo.despesas.rest.infra.ModelEntity;
 
 @Entity
@@ -37,6 +40,10 @@ public abstract class Debitavel implements ModelEntity {
 
 	@Column(name = "tipo")
 	private String tipo;
+
+	@Column(name = "moeda")
+	@Enumerated(EnumType.STRING)
+	private Moeda moeda;
 
 	public Debitavel() {
 		super();
@@ -75,6 +82,14 @@ public abstract class Debitavel implements ModelEntity {
 		this.tipo = tipo;
 	}
 
+	public Moeda getMoeda() {
+		return moeda;
+	}
+
+	public void setMoeda(Moeda moeda) {
+		this.moeda = moeda;
+	}
+
 	public abstract void debitar(Despesa despesa);
 
 	public abstract void creditar(Receita receita);
@@ -83,4 +98,5 @@ public abstract class Debitavel implements ModelEntity {
 
 	public abstract Despesa consolidar(Despesa despesa);
 
+	public abstract void accept(DebitavelSerializerVisitorImpl visitor);
 }

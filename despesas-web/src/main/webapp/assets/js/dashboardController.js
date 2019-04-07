@@ -1,7 +1,8 @@
-app.controller('dashboardController', function($scope, $http, dashboardService, debitavelService, $location, $routeParams, movimentacaoService, MESES) {
+app.controller('dashboardController', function($scope, $http, dashboardService, debitavelService, $location, $routeParams, movimentacaoService, MESES, MOEDAS) {
 
 	$scope.dataAtual = new Date();
 	$scope.MESES = MESES;
+	$scope.MOEDAS = MOEDAS;
 
 	$scope.ano = $scope.dataAtual.getFullYear();
 	$scope.mes = $scope.dataAtual.getMonth();

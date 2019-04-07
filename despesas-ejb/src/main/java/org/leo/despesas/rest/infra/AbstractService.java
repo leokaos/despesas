@@ -13,15 +13,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.jboss.resteasy.annotations.Form;
 import org.leo.despesas.infra.exception.DespesasException;
 
-public abstract class AbstractService<T extends SimpleFacade<E>,E extends ModelEntity> implements SimpleService<E> {
+public abstract class AbstractService<T extends SimpleFacade<E, F>, E extends ModelEntity, F extends ModelFiltro<E>> implements SimpleService<E, F> {
 
 	@GET
 	@Override
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public List<E> listar() {
-		return getFacade().listar();
+	public List<E> listar(@Form F filtro) {
+		return getFacade().listar(filtro);
 	}
 
 	@GET

@@ -28,7 +28,7 @@ import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.rest.infra.AbstractFacade;
 
 @Stateless
-public class DespesaFacadeImpl extends AbstractFacade<Despesa> implements DespesaFacade {
+public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> implements DespesaFacade {
 
 	@EJB
 	private DebitavelFacade debitavelFacade;

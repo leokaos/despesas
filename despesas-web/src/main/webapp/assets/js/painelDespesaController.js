@@ -5,7 +5,7 @@ app.controller('painelDespesaController', function($scope, despesaService,
 	$scope.despesas = [];
 	$scope.tiposDespesa = [];
 	$scope.debitaveis = [];
-	$scope.despesaUpload = null;
+	$scope.debitavelUpload = null;
 	$scope.despesasPagas = true;
 
 	$scope.add = function() {
@@ -41,8 +41,10 @@ app.controller('painelDespesaController', function($scope, despesaService,
 			$scope.despesas = data;
 
 			for (var x = 0; x < $scope.despesas.length; x++) {
-				$scope.despesas[x].debitavel = $scope.despesaUpload;
+				$scope.despesas[x].debitavel = $scope.debitavelUpload;
+				$scope.despesas[x].moeda = $scope.debitavelUpload.moeda;
 				$scope.despesas[x].paga = $scope.despesasPagas;
+				$scope.despesas[x].moeda = $scope.despesasPagas;
 			}
 
 			$('#modalUpload').modal('hide');

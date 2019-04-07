@@ -1,6 +1,7 @@
-app.controller('cartaoController',function($scope,cartaoService,$location,$routeParams,usSpinnerService) {
+app.controller('cartaoController', function($scope, cartaoService, $location, $routeParams, usSpinnerService, MOEDAS) {
 
 	$scope.cartaoSelecionado = null;
+	$scope.MOEDAS = MOEDAS;
 
 	$scope.getTitulo = function() {
 		return 'Cartões de Crédito';
@@ -48,29 +49,31 @@ app.controller('cartaoController',function($scope,cartaoService,$location,$route
 	};
 
 	$scope.doDelete = function() {
-		cartaoService.deletar($scope.cartaoSelecionado.id,$scope.deletar);
+		cartaoService.deletar($scope.cartaoSelecionado.id, $scope.deletar);
 	};
 
 	$scope.bandeiras = {
-	    'VISA': 'fa fa-cc-visa',
-	    'MASTERCARD': 'fa fa-cc-mastercard',
-	    'AMERICAN_EXPRESS': 'fa fa-cc-ame'
+		'VISA' : 'fa fa-cc-visa',
+		'MASTERCARD' : 'fa fa-cc-mastercard',
+		'AMERICAN_EXPRESS' : 'fa fa-cc-ame'
 	};
 
 });
 
-app.controller('edicaoCartaoController',function($scope,cartaoService,$location,$routeParams,growl) {
+app.controller('edicaoCartaoController', function($scope, cartaoService, $location, $routeParams, growl) {
 
-	$scope.bandeiras = [
-	        'VISA',
-	        'MASTERCARD',
-	        'AMERICAN EXPRESS'
-	];
+	$scope.bandeiras = [ 'VISA', 'MASTERCARD', 'AMERICAN EXPRESS' ];
+
+	$scope.bandeiras_display = {
+		'VISA' : 'fa fa-cc-visa',
+		'MASTERCARD' : 'fa fa-cc-mastercard',
+		'AMERICAN EXPRESS' : 'fa fa-cc-ame'
+	};
 
 	var id = $routeParams.id;
 
 	if (id != null) {
-		cartaoService.buscarPorId(id,function(cartao) {
+		cartaoService.buscarPorId(id, function(cartao) {
 			$scope.cartao = cartao;
 		});
 	} else {
@@ -95,9 +98,9 @@ app.controller('edicaoCartaoController',function($scope,cartaoService,$location,
 
 		if (valid) {
 			if ($scope.cartao.id) {
-				cartaoService.salvar($scope.cartao,$scope.salvo);
+				cartaoService.salvar($scope.cartao, $scope.salvo);
 			} else {
-				cartaoService.novo($scope.cartao,$scope.salvo);
+				cartaoService.novo($scope.cartao, $scope.salvo);
 			}
 		}
 	};

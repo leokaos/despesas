@@ -14,7 +14,7 @@ import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.rest.infra.SimpleFacade;
 
 @Local
-public interface TransferenciaFacade extends SimpleFacade<Transferencia> {
+public interface TransferenciaFacade extends SimpleFacade<Transferencia, TransferenciaFiltro> {
 
 	void pagarFatura(Fatura fatura, Conta conta, Date dataPagamento) throws DespesasException;
 

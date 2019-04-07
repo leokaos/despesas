@@ -38,20 +38,22 @@
 
 		<div class="form-group">
 			<label class="col-md-2 control-label">Tipo:</label>
-			<div class="col-md-10 ">
-				<colorable itens="tiposDespesa" ng-model="despesa.tipo"></colorable>
+			<div class="col-md-4">
+				<colorable itens="tiposDespesa" ng-model="despesa.tipo" on-select="selecionarTipoDespesa"></colorable>
+			</div>
+			<div class="col-md-5" ng-show="orcamento != undefined" style="margin: 7px 0px;">
+				<progressbar class="progress-striped active" value="orcamento.getValueOrcamento();" type="{{orcamento.getClassProgressBar();}}">{{orcamento.valorConsolidado}}/{{orcamento.valor}}</progressbar>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-md-2 control-label">Debitável:</label>
 			<div class="col-md-4 ">
-				<colorable ng-model="despesa.debitavel" itens="debitaveis"></colorable>
+				<colorable ng-model="despesa.debitavel" itens="debitaveis" on-select="setMoeda"></colorable>
 			</div>
 			<div class="col-md-6">
 				<h4 ng-if="despesa.debitavel != null">
-					<strong>Saldo:</strong>
-					{{despesa.debitavel.saldo | currency: 'R$ '}}
+					<strong>Saldo:</strong> {{despesa.debitavel.saldo | currency: 'R$ '}}
 				</h4>
 			</div>
 		</div>

@@ -16,7 +16,7 @@ import org.leo.despesas.infra.DataUtil;
 import org.leo.despesas.rest.infra.AbstractFacade;
 
 @Stateless
-public class OrcamentoFacadeImpl extends AbstractFacade<Orcamento> implements OrcamentoFacade {
+public class OrcamentoFacadeImpl extends AbstractFacade<Orcamento, OrcamentoFiltro> implements OrcamentoFacade {
 
 	@EJB
 	private DespesaFacade despesaFacade;
@@ -66,8 +66,8 @@ public class OrcamentoFacadeImpl extends AbstractFacade<Orcamento> implements Or
 	}
 
 	@Override
-	public List<Orcamento> listar() {
-		List<Orcamento> orcamentos = super.listar();
+	public List<Orcamento> listar(OrcamentoFiltro filtro) {
+		List<Orcamento> orcamentos = super.listar(filtro);
 
 		for (Orcamento orcamento : orcamentos) {
 			consolidar(orcamento);

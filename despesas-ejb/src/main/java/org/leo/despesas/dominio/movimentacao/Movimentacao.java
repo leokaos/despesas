@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,6 +24,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.dominio.debitavel.DebitavelDeserializer;
+import org.leo.despesas.dominio.servicotransferencia.Moeda;
 import org.leo.despesas.rest.infra.ModelEntity;
 
 @Entity
@@ -53,6 +56,10 @@ public abstract class Movimentacao implements ModelEntity {
 	@ManyToOne
 	@JoinColumn(name = "debitavel_id")
 	protected Debitavel debitavel;
+
+	@Column(name = "moeda")
+	@Enumerated(EnumType.STRING)
+	private Moeda moeda;
 
 	public Movimentacao() {
 		super();
@@ -110,6 +117,14 @@ public abstract class Movimentacao implements ModelEntity {
 
 	protected void fechar() {
 		setPagamento(new Date());
+	}
+
+	public Moeda getMoeda() {
+		return moeda;
+	}
+
+	public void setMoeda(Moeda moeda) {
+		this.moeda = moeda;
 	}
 
 	@Override

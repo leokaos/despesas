@@ -2,9 +2,11 @@ package org.leo.despesas.dominio.debitavel;
 
 import java.util.Date;
 
+import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
+import org.leo.despesas.infra.AbstractModelFiltro;
 
-public class DespesaFiltro {
+public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 
 	private Date dataInicial;
 	private Date dataFinal;

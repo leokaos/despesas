@@ -1731,10 +1731,11 @@ background: #fffbcc !important;
 /* FORMS CONFIGURATION */
 .form-panel {
 	background: #ffffff;
-	margin: 10px;
+	margin: 10px auto	;
 	padding: 10px;
 	box-shadow: 0px 3px 2px #aab2bd;
 	text-align: left;
+	float:none;
 }
 
 label {
@@ -2236,5 +2237,5 @@ label {
 }
 
 .botoes {
-	margin-top: 40px;
+	margin-top: 80px;
 }

@@ -31,10 +31,8 @@ public class CotacaoUrlParser {
 			return getCotacaoDe(source);
 
 		} catch (IOException e) {
-
+			return null;
 		}
-
-		return null;
 	}
 
 	private static BigDecimal getCotacaoDe(String source) {

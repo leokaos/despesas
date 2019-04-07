@@ -14,7 +14,7 @@ import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.rest.infra.SimpleFacade;
 
 @Local
-public interface DespesaFacade extends SimpleFacade<Despesa> {
+public interface DespesaFacade extends SimpleFacade<Despesa, DespesaFiltro> {
 
 	List<GraficoVO> getGraficoPorPeriodo(Periodo periodo);
 

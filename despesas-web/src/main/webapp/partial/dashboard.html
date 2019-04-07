@@ -5,8 +5,7 @@
 <div class="form-panel col-md-12" style="margin: 0px 0px 30px 0px;">
 
 	<div class="col-md-1">
-		<button class="botao glyphicon glyphicon-chevron-left"
-			ng-click="anterior();"></button>
+		<button class="botao glyphicon glyphicon-chevron-left" ng-click="anterior();"></button>
 	</div>
 
 	<div class="col-md-10">
@@ -14,8 +13,7 @@
 	</div>
 
 	<div class="col-md-1">
-		<button class="botao glyphicon glyphicon-chevron-right pull-right"
-			ng-click="posterior();"></button>
+		<button class="botao glyphicon glyphicon-chevron-right pull-right" ng-click="posterior();"></button>
 	</div>
 
 	<div class="clearfix"></div>
@@ -41,14 +39,12 @@
 
 		<slick init-onload="true" data="debitaveis">
 
-		<div ng-repeat="debitavel in debitaveis" class="white-panel"
-			style="height: 200px;">
+		<div ng-repeat="debitavel in debitaveis" class="white-panel" style="height: 200px;">
 			<div class="white-header">
 				<h5>{{debitavel.descricao}}</h5>
 			</div>
 			<div class="row">
-				<h1 style="margin-top: 40px;">{{debitavel.saldo | currency: 'R$
-					'}}</h1>
+				<h1 style="margin-top: 40px;">{{debitavel.saldo | currency: MOEDAS[debitavel.moeda].simbolo + ' '}}</h1>
 			</div>
 		</div>
 
@@ -66,10 +62,7 @@
 			</div>
 			<div class="row" style="height: 145px;">
 				<h1 style="margin-top: 40px;">
-					<i class="fa fa-arrow-up" style="color: green; font-size: 36px;"
-						ng-if="saldo > 0"></i> <i class="fa fa-arrow-down"
-						style="color: red; font-size: 36px;" ng-if="saldo < 0"></i>
-					{{saldo | currency: 'R$ '}}
+					<i class="fa fa-arrow-up" style="color: green; font-size: 36px;" ng-if="saldo > 0"></i> <i class="fa fa-arrow-down" style="color: red; font-size: 36px;" ng-if="saldo < 0"></i> {{saldo | currency: 'R$ '}}
 				</h1>
 			</div>
 		</div>

@@ -9,11 +9,12 @@ import javax.ws.rs.core.MediaType;
 
 import org.leo.despesas.aplicacao.cotacao.CotacaoFacade;
 import org.leo.despesas.dominio.servicotransferencia.Cotacao;
+import org.leo.despesas.dominio.servicotransferencia.CotacaoFiltro;
 import org.leo.despesas.dominio.servicotransferencia.Moeda;
 import org.leo.despesas.rest.infra.AbstractService;
 
 @Path("/cotacao")
-public class CotacaoService extends AbstractService<CotacaoFacade, Cotacao> {
+public class CotacaoService extends AbstractService<CotacaoFacade, Cotacao,CotacaoFiltro> {
 
 	@EJB
 	private CotacaoFacade cotacaoFacade;
@@ -24,7 +25,7 @@ public class CotacaoService extends AbstractService<CotacaoFacade, Cotacao> {
 	public Cotacao getCotacaoDaInternet(@QueryParam(value = "origem") Moeda origem, @QueryParam(value = "destino") Moeda destino) {
 		return this.cotacaoFacade.buscarCotacaoInternet(origem, destino);
 	}
-	
+
 	@Override
 	protected CotacaoFacade getFacade() {
 		return this.cotacaoFacade;

@@ -15,4 +15,6 @@ public interface ParametroFacade {
 	BigDecimal getTaxaSpot();
 
 	String getUrlParaCotacao(Moeda origem, Moeda destino);
+
+	String buscarParametroPorId(String nome);
 }

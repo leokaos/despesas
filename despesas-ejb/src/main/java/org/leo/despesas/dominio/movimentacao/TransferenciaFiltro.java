@@ -2,7 +2,9 @@ package org.leo.despesas.dominio.movimentacao;
 
 import java.util.Date;
 
-public class TransferenciaFiltro {
+import org.leo.despesas.infra.AbstractModelFiltro;
+
+public class TransferenciaFiltro extends AbstractModelFiltro<Transferencia> {
 
 	private Date dataInicial;
 	private Date dataFinal;

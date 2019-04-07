@@ -21,7 +21,7 @@ import org.leo.despesas.rest.infra.AbstractService;
 
 @Path("/orcamento")
 @RequestScoped
-public class OrcamentoService extends AbstractService<OrcamentoFacade, Orcamento> {
+public class OrcamentoService extends AbstractService<OrcamentoFacade, Orcamento, OrcamentoFiltro> {
 
 	@EJB
 	private OrcamentoFacade orcamentoFacade;
@@ -54,7 +54,7 @@ public class OrcamentoService extends AbstractService<OrcamentoFacade, Orcamento
 		if (orcamentos.size() < 1) {
 			return null;
 		}
-		
+
 		Orcamento orcamento = orcamentos.iterator().next();
 		orcamentoFacade.consolidar(orcamento);
 

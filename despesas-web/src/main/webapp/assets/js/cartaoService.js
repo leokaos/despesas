@@ -9,7 +9,9 @@ app.service('cartaoService', function ($http) {
             limite: 0.0,
             diaDeVencimento: null,
             diaDeFechamento: null,
-            bandeiraCartaoCredito: ''
+            bandeiraCartaoCredito: '',
+            moeda: null,
+            tipo: 'CARTAO'
         };
     };
 

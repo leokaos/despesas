@@ -34,6 +34,15 @@ app.service('cotacaoService',function($http) {
 			fn(data);
 		});
 	};
+	
+	this.buscarPorOrigemDestino = function(origem, destino, fn) {
+		
+		var url = '/despesas/services/cotacao/?origem=' + origem + '&destino=' + destino + '&data=' + new Date().toGMTString();
+		
+		$http.get(url).success(function(data) {
+			fn(data);
+		});		
+	};	
 
 	this.deletar = function(id,fn) {
 		 $http.delete(pathBase + id).success(function(data) {
@@ -48,6 +57,6 @@ app.service('cotacaoService',function($http) {
 		$http.post(url).success(function(data){
 			fn(data);
 		});		
-	}
-
+	};
+	
 });

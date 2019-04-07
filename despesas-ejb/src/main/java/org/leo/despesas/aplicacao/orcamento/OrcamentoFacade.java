@@ -9,7 +9,7 @@ import org.leo.despesas.dominio.orcamento.OrcamentoFiltro;
 import org.leo.despesas.rest.infra.SimpleFacade;
 
 @Local
-public interface OrcamentoFacade extends SimpleFacade<Orcamento> {
+public interface OrcamentoFacade extends SimpleFacade<Orcamento, OrcamentoFiltro> {
 
 	List<Orcamento> buscarPorFiltro(OrcamentoFiltro filtro);
 

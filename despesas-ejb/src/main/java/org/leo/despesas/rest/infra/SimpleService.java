@@ -6,9 +6,9 @@ import javax.ws.rs.core.Response;
 
 import org.leo.despesas.infra.exception.DespesasException;
 
-public interface SimpleService<T extends ModelEntity> {
+public interface SimpleService<T extends ModelEntity, F extends ModelFiltro<T>> {
 
-	List<T> listar();
+	List<T> listar(F filtro);
 
 	Response buscarPorId(Long id) throws DespesasException;
 

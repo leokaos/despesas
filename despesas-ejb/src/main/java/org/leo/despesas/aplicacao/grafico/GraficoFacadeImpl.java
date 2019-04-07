@@ -49,7 +49,7 @@ public class GraficoFacadeImpl implements GraficoFacade {
 
 			// FORMATO OBJS: Carro 5 2015 300
 			final List<Serie> series = new ArrayList<>();
-			final List<TipoDespesa> listaTipoDespesas = tipoDespesaFacade.listar();
+			final List<TipoDespesa> listaTipoDespesas = tipoDespesaFacade.listarTodos();
 			final SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 
 			Serie serie = null;

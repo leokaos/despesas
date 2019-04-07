@@ -12,7 +12,7 @@ import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
 
 @Entity
-@Table(name = "conta",schema = "despesas_db")
+@Table(name = "conta", schema = "despesas_db")
 @DiscriminatorValue(value = Conta.CODIGO_TIPO)
 public class Conta extends Debitavel {
 
@@ -25,7 +25,7 @@ public class Conta extends Debitavel {
 
 	public Conta() {
 		super();
-		
+
 		setTipo(CODIGO_TIPO);
 	}
 
@@ -66,6 +66,11 @@ public class Conta extends Debitavel {
 	@Override
 	public Despesa consolidar(final Despesa despesa) {
 		return despesa;
+	}
+
+	@Override
+	public void accept(DebitavelSerializerVisitorImpl visitor) {
+		visitor.visit(this);
 	}
 
 }

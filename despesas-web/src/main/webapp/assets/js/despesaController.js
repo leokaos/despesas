@@ -108,11 +108,11 @@ app.controller('edicaoDespesaController', function($scope, despesaService, tipoD
 
 	$scope.selecionarTipoDespesa = function(tipoDespesa) {
 		$scope.tipoDespesaSelecionado = tipoDespesa;
-		$scope.despesa.tipoDespesa = $scope.tipoDespesaSelecionado;
+		$scope.despesa.tipo = $scope.tipoDespesaSelecionado;
 
 		if ($scope.tipoDespesaSelecionado != null && $scope.despesa.vencimento != null) {
 
-			orcamentoService.filtrarPorData($scope.despesa.vencimento, $scope.despesa.tipoDespesa.descricao, function(data) {
+			orcamentoService.filtrarPorData($scope.despesa.vencimento, $scope.despesa.tipo.descricao, function(data) {
 				if (data != null && data != "") {
 					$scope.orcamento = new OrcamentoVO(data);
 				}
@@ -150,6 +150,10 @@ app.controller('edicaoDespesaController', function($scope, despesaService, tipoD
 	$scope.salvo = function(data) {
 		$scope.limparCarregar(data);
 		growl.info('despesa salva com sucesso!');
+	};
+	
+	$scope.setMoeda = function(){
+		$scope.despesa.moeda = $scope.despesa.debitavel.moeda;
 	};
 
 	$scope.salvar = function(valid) {

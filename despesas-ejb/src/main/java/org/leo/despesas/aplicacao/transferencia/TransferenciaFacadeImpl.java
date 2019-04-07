@@ -20,7 +20,7 @@ import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.rest.infra.AbstractFacade;
 
 @Stateless
-public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia> implements TransferenciaFacade {
+public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, TransferenciaFiltro> implements TransferenciaFacade {
 
 	@EJB
 	private ContaFacade contaFacade;
@@ -31,7 +31,7 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia> imple
 	@Override
 	public void pagarFatura(final Fatura fatura, final Conta conta, Date dataPagamento) throws DespesasException {
 		final Transferencia transferencia = fatura.pagar(conta);
-		
+
 		transferencia.setPagamento(dataPagamento);
 
 		inserir(transferencia);
@@ -55,15 +55,15 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia> imple
 
 		return query.getResultList();
 	}
-	
+
 	@Override
 	public void inserir(Transferencia t) throws DespesasException {
 
 		super.inserir(t);
-		
+
 		contaFacade.buscarPorId(t.getDebitavel().getId()).transferir(t);
 		contaFacade.buscarPorId(t.getCreditavel().getId()).transferir(t);
-		
+
 	}
 
 	@SuppressWarnings("unchecked")

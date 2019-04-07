@@ -32,7 +32,7 @@ import org.leo.despesas.rest.infra.AbstractService;
 
 @Path("/despesa")
 @RequestScoped
-public class DespesaService extends AbstractService<DespesaFacade,Despesa> {
+public class DespesaService extends AbstractService<DespesaFacade, Despesa, DespesaFiltro> {
 
 	private static final String NOME_CAMPO = "arquivo";
 

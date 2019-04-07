@@ -52,7 +52,7 @@ public class GraficoFacadeImplTest {
 		expect(mockQuery.setParameter("dataInicial", dataInicial)).andReturn(mockQuery);
 		expect(mockQuery.setParameter("dataFinal", dataFinal)).andReturn(mockQuery);
 		expect(mockQuery.getResultList()).andReturn(getDadosParaUmaSerieECincoPontos());
-		expect(mockTipoDespesaFacade.listar()).andReturn(getListaTipoDespesa());
+		expect(mockTipoDespesaFacade.listarTodos()).andReturn(getListaTipoDespesa());
 
 		replay(mockEntityManager, mockQuery, mockTipoDespesaFacade);
 
@@ -76,7 +76,7 @@ public class GraficoFacadeImplTest {
 		expect(mockQuery.setParameter("dataInicial", dataInicial)).andReturn(mockQuery);
 		expect(mockQuery.setParameter("dataFinal", dataFinal)).andReturn(mockQuery);
 		expect(mockQuery.getResultList()).andReturn(getDadosParaDuasSerieTresPontos());
-		expect(mockTipoDespesaFacade.listar()).andReturn(getListaTipoDespesa());
+		expect(mockTipoDespesaFacade.listarTodos()).andReturn(getListaTipoDespesa());
 
 		replay(mockEntityManager, mockQuery, mockTipoDespesaFacade);
 
@@ -92,6 +92,11 @@ public class GraficoFacadeImplTest {
 			assertEquals(iterator.next().getPontos().size(), 3);
 		}
 
+	}
+
+	@Test
+	public void testName() throws Exception {
+		new Date("2019-03-20T22:38:58Z");
 	}
 
 	private String getHQL() {

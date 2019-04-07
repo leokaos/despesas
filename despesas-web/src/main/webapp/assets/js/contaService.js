@@ -9,7 +9,8 @@ app.service('contaService', function ($http) {
             descricao: '',
             cor: '',
             saldo: null,
-            tipo: 'CONTA'
+            tipo: 'CONTA',
+            moeda: null
         };
     };
 
@@ -33,11 +34,11 @@ app.service('contaService', function ($http) {
 
     this.setConta = function (novoConta) {
         this.conta = novoConta;
-    }
+    };
 
     this.getConta = function () {
         return this.conta;
-    }
+    };
 
     this.buscarPorId = function (id, fn) {
         $http.get(pathBase + id).success(function (data) {
