@@ -1,5 +1,6 @@
 <h3>
-	<i class="fa fa-angle-right"></i> Cartão: {{cartao.descricao}}
+	<i class="fa fa-angle-right"></i>
+	Cartão: {{cartao.descricao}}
 </h3>
 
 <div class="row col-md-12 form-panel">
@@ -18,7 +19,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="fatura in faturas" style="height: 40px;">
+					<tr ng-repeat="fatura in faturas" style="height: 40px;" ng-style="fatura == faturaSelecionada &&  {'background-color':'#dddddd'} 	|| fatura != faturaSelecionada && {}">
 
 						<td style="vertical-align: middle;" ng-click="mostrarItens(fatura);">{{fatura.periodo.toString()}}</td>
 

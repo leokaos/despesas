@@ -1,4 +1,4 @@
-app.controller('dashboardController', function($scope, $http, dashboardService, debitavelService, $location, $routeParams, movimentacaoService, MESES, MOEDAS) {
+app.controller('dashboardController', function($scope, $http, dashboardService, debitavelService, orcamentoService, $location, $routeParams, movimentacaoService, MESES, MOEDAS) {
 
 	$scope.dataAtual = new Date();
 	$scope.MESES = MESES;
@@ -31,6 +31,10 @@ app.controller('dashboardController', function($scope, $http, dashboardService, 
 
 		dashboardService.buscarSaldoPorPeriodo(dataInicio, dataFim, function(data) {
 			$scope.saldo = data;
+		});
+
+		orcamentoService.buscarPorMes(new Periodo($scope.mes + 1, $scope.ano), function(data) {
+			$scope.orcamentos = data;
 		});
 	};
 

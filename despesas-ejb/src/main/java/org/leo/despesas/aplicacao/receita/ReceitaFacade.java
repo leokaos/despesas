@@ -16,10 +16,6 @@ public interface ReceitaFacade extends SimpleFacade<Receita, ReceitaFiltro> {
 
 	List<GraficoVO> getGraficoPorPeriodo(Periodo periodo);
 
-	List<Receita> getReceitasPorPeriodo(Periodo periodo);
-
-	List<Receita> buscarPorFiltro(ReceitaFiltro filtro);
-
 	void depositar(Receita receita);
 
 	List<Receita> carregarDeArquivo(File arquivoReceitas);

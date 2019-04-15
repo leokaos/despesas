@@ -94,27 +94,21 @@ public class GraficoFacadeImplTest {
 
 	}
 
-	@Test
-	public void testName() throws Exception {
-		new Date("2019-03-20T22:38:58Z");
-	}
-
 	private String getHQL() {
-		return "SELECT d.tipo.descricao , MONTH(d.pagamento) , YEAR(d.pagamento) , SUM(d.valor) FROM Despesa d "
-				+ "WHERE d.pagamento BETWEEN :dataInicial AND :dataFinal " + "GROUP BY d.tipo.descricao , MONTH(d.pagamento) , YEAR(d.pagamento)"
+		return "SELECT d.tipo.descricao , MONTH(d.pagamento) , YEAR(d.pagamento) , SUM(d.valor) FROM Despesa d " + "WHERE d.pagamento BETWEEN :dataInicial AND :dataFinal " + "GROUP BY d.tipo.descricao , MONTH(d.pagamento) , YEAR(d.pagamento)"
 				+ " ORDER BY d.tipo.descricao , YEAR(d.pagamento) , MONTH(d.pagamento) ";
 	}
 
 	private List<Object[]> getDadosParaDuasSerieTresPontos() {
 		final List<Object[]> lista = new ArrayList<Object[]>();
 
-		lista.add(new Object[] { "Carro", 1, 2015, 100 });
-		lista.add(new Object[] { "Carro", 2, 2015, 200 });
-		lista.add(new Object[] { "Carro", 3, 2015, 300 });
+		lista.add(new Object[]{"Carro", 1, 2015, 100});
+		lista.add(new Object[]{"Carro", 2, 2015, 200});
+		lista.add(new Object[]{"Carro", 3, 2015, 300});
 
-		lista.add(new Object[] { "Comida", 1, 2015, 400 });
-		lista.add(new Object[] { "Comida", 2, 2015, 500 });
-		lista.add(new Object[] { "Comida", 3, 2015, 600 });
+		lista.add(new Object[]{"Comida", 1, 2015, 400});
+		lista.add(new Object[]{"Comida", 2, 2015, 500});
+		lista.add(new Object[]{"Comida", 3, 2015, 600});
 
 		return lista;
 	}
@@ -122,11 +116,11 @@ public class GraficoFacadeImplTest {
 	private List<Object[]> getDadosParaUmaSerieECincoPontos() {
 		final List<Object[]> lista = new ArrayList<Object[]>();
 
-		lista.add(new Object[] { "Carro", 1, 2015, 100 });
-		lista.add(new Object[] { "Carro", 2, 2015, 200 });
-		lista.add(new Object[] { "Carro", 3, 2015, 300 });
-		lista.add(new Object[] { "Carro", 4, 2015, 400 });
-		lista.add(new Object[] { "Carro", 5, 2015, 500 });
+		lista.add(new Object[]{"Carro", 1, 2015, 100});
+		lista.add(new Object[]{"Carro", 2, 2015, 200});
+		lista.add(new Object[]{"Carro", 3, 2015, 300});
+		lista.add(new Object[]{"Carro", 4, 2015, 400});
+		lista.add(new Object[]{"Carro", 5, 2015, 500});
 
 		return lista;
 	}

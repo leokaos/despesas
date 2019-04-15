@@ -5,7 +5,7 @@
 
 <ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoOrcamento.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{orcamentoVO.toString()}}?</b> </ng-modal>
 
-<div class="row col-md-4 form-panel">
+<div class="row col-md-5 form-panel">
 
 	<form class="form-horizontal" method="get" name="edicaoOrcamento" novalidate>
 
@@ -27,6 +27,8 @@
 					<label class="col-md-1 control-label">de</label>
 
 					<input type="text" class="form-control" ng-model="orcamentoVO.periodo.ano" style="width: 150px; float: left;" ui-number-mask="0" min="1" max="9999" />
+					
+					<button type="button" ng-click="setMes()" class="btn btn-theme" style="margin-left: 80px;">Mês Atual</button>
 				</div>
 			</div>
 		</div>

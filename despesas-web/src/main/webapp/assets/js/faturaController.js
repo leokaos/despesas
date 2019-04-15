@@ -27,6 +27,7 @@ app.controller('faturaController', function($scope, faturaService, contaService,
 	});
 
 	$scope.mostrarItens = function(fatura) {
+		$scope.faturaSelecionada = fatura;
 		$scope.despesas = fatura.despesas;
 
 		$scope.valorTotal = 0.0;

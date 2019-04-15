@@ -16,12 +16,12 @@ public final class EqualClause implements Clause {
 
 	@Override
 	public void colocarClause(StringBuilder builder) {
-		builder.append(property).append(" = ").append(":").append(property);
+		builder.append(property).append(" = ").append(":").append(property.replace(".", "_"));
 	}
 
 	@Override
 	public void colocarValor(Query query) {
-		query.setParameter(property, value);
+		query.setParameter(property.replace(".", "_"), value);
 	}
 
 }

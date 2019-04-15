@@ -88,4 +88,19 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 
 	}
 
+	protected void greaterOrEqualThan(String property, Comparable<?> comparable) {
+
+		if (comparable != null) {
+			this.clausulas.add(new GreaterClause(property, comparable, true));
+		}
+
+	}
+
+	protected void lessOrEqualThan(String property, Comparable<?> comparable) {
+
+		if (comparable != null) {
+			this.clausulas.add(new LessClause(property, comparable, true));
+		}
+	}
+
 }

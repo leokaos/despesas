@@ -13,8 +13,8 @@ import javax.persistence.PersistenceContext;
 import org.leo.despesas.aplicacao.despesa.DespesaFacade;
 import org.leo.despesas.aplicacao.receita.ReceitaFacade;
 import org.leo.despesas.aplicacao.transferencia.TransferenciaFacade;
-import org.leo.despesas.dominio.debitavel.DespesaFiltro;
 import org.leo.despesas.dominio.movimentacao.Despesa;
+import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
 import org.leo.despesas.dominio.movimentacao.GraficoVO;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.ReceitaFiltro;
@@ -45,7 +45,7 @@ public class DashboardFacadeImpl implements DashboardFacade {
 
 		graficoVOs.add(new GraficoVO("Despesas","#F54047",getValorTotalDespesas(dataInicial,dataFinal)));
 
-		graficoVOs.add(new GraficoVO("Transferências","#706EBB",getValorTotalTransferencias(dataInicial,dataFinal)));
+		graficoVOs.add(new GraficoVO("Transferências", "#706EBB", getValorTotalTransferencias(dataInicial, dataFinal)));
 
 		return graficoVOs;
 	}
@@ -59,7 +59,7 @@ public class DashboardFacadeImpl implements DashboardFacade {
 
 		BigDecimal total = BigDecimal.ZERO;
 
-		for (final Despesa despesa : despesaFacade.buscarPorFiltro(filtroDespesa)) {
+		for (final Despesa despesa : despesaFacade.listar(filtroDespesa)) {
 			total = total.add(despesa.getValor());
 		}
 
@@ -91,7 +91,7 @@ public class DashboardFacadeImpl implements DashboardFacade {
 
 		BigDecimal total = BigDecimal.ZERO;
 
-		for (final Receita receita : receitaFacade.buscarPorFiltro(filtroReceita)) {
+		for (final Receita receita : receitaFacade.listar(filtroReceita)) {
 			total = total.add(receita.getValor());
 		}
 

@@ -23,7 +23,7 @@ app.controller('orcamentoController', function($scope, orcamentoService, $locati
 	$scope.getNomeSpin = function() {
 		return 'tipo-orcamento-spin';
 	};
-	
+
 	$scope.listar = function() {
 
 		orcamentoService.listar(function(data) {
@@ -43,10 +43,10 @@ app.controller('orcamentoController', function($scope, orcamentoService, $locati
 	$scope.editar = function(id) {
 		$location.path('/orcamento/' + id);
 	};
-	
-	$scope.select = function(orcamento){
+
+	$scope.select = function(orcamento) {
 		$scope.orcamentoSelecionado = orcamento;
-	};	
+	};
 
 	$scope.getItemSelecionado = function() {
 		return $scope.orcamentoSelecionado;
@@ -90,6 +90,11 @@ app.controller('edicaoOrcamentoController', function($scope, orcamentoService, t
 	$scope.salvo = function(data) {
 		$scope.limparCarregar(data);
 		growl.info('Orçamento salvo com sucesso!');
+	};
+
+	$scope.setMes = function() {
+		$scope.orcamentoVO.periodo.mes = new Date().getMonth();
+		$scope.orcamentoVO.periodo.ano = new Date().getFullYear();
 	};
 
 	$scope.salvar = function(valid) {

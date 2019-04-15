@@ -2,12 +2,20 @@ package org.leo.despesas.dominio.orcamento;
 
 import java.util.Date;
 
+import javax.ws.rs.QueryParam;
+
+import org.apache.commons.lang3.time.DateUtils;
 import org.leo.despesas.infra.AbstractModelFiltro;
 
 public class OrcamentoFiltro extends AbstractModelFiltro<Orcamento> {
 
+	@QueryParam("dataInicial")
 	private Date dataInicial;
+
+	@QueryParam("dataFinal")
 	private Date dataFinal;
+
+	@QueryParam("tipoDespesa")
 	private String tipoDespesa;
 
 	public OrcamentoFiltro() {
@@ -52,6 +60,25 @@ public class OrcamentoFiltro extends AbstractModelFiltro<Orcamento> {
 
 	public boolean hasTipoDespesa() {
 		return tipoDespesa != null;
+	}
+
+	@Override
+	protected void build() {
+
+		if (dataInicial != null) {
+			dataInicial = DateUtils.setMilliseconds(dataInicial, 0);
+		}
+
+		if (dataFinal != null) {
+			dataFinal = DateUtils.setMilliseconds(dataFinal, 999);
+		}
+
+		greaterOrEqualThan("dataInicial", dataInicial);
+
+		lessOrEqualThan("dataFinal", dataFinal);
+
+		eq("tipoDespesa.descricao", tipoDespesa);
+
 	}
 
 }

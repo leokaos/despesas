@@ -22,9 +22,9 @@ import org.apache.poi.util.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import org.leo.despesas.aplicacao.despesa.DespesaFacade;
-import org.leo.despesas.dominio.debitavel.DespesaFiltro;
 import org.leo.despesas.dominio.debitavel.DespesaVO;
 import org.leo.despesas.dominio.movimentacao.Despesa;
+import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
 import org.leo.despesas.dominio.movimentacao.GraficoVO;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.infra.exception.DespesasException;
@@ -44,20 +44,6 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa, Desp
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<GraficoVO> buscarPorPeriodo(@QueryParam("dataInicial") final Date dataInicial,@QueryParam("dataFinal") final Date dataFinal) {
 		return despesaFacade.getGraficoPorPeriodo(new Periodo(dataInicial,dataFinal));
-	}
-
-	@GET
-	@Path(value = "/periodo")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Despesa> buscarPorDespesasPorPeriodo(@QueryParam("dataInicial") final Date dataInicial,@QueryParam("dataFinal") final Date dataFinal) {
-		return despesaFacade.getDespesasPorPeriodo(new Periodo(dataInicial,dataFinal));
-	}
-
-	@POST
-	@Path(value = "/filtro")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public List<Despesa> buscarPorFiltro(final DespesaFiltro filtro) {
-		return getFacade().buscarPorFiltro(filtro);
 	}
 
 	@POST

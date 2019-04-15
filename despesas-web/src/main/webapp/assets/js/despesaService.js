@@ -1,112 +1,111 @@
-app.service('despesaService', function ($http) {
+app.service('despesaService', function($http, filtroParser) {
 
-    var despesa = null;
-    var pathBase = '/despesas/services/despesa/';
+	pathBase = '/despesas/services/despesa/';
 
-    this.getNovoDespesa = function () {
-        return {
-            descricao: '',
-            vencimento: null,
-            valor: null,
-            tipo: null,
-            debitavel: null,
-            paga: false
-        };
-    };
+	this.getNovoDespesa = function() {
+		return {
+			descricao : '',
+			vencimento : null,
+			valor : null,
+			tipo : null,
+			debitavel : null,
+			paga : false
+		};
+	};
 
-    this.listar = function (fn) {
-        $http.get(pathBase).success(function (data) {
-            fn(data);
-        });
-    };
+	this.listar = function(filtro, fn) {
 
-    this.novo = function (despesa,parcelamento, fn) {
-    	
-    	var dados = {
-    			"despesa" : despesa,
-    			"parcelamentoVO" : parcelamento
-    	};
-    	
-    	var request = $http({
-            method: 'post',
-            url: pathBase,
-            data: dados
-        });
+		$http.get(pathBase, {
+			params : filtroParser.getFiltro(filtro)
+		}).success(function(data) {
+			fn(data);
+		});
+	};
 
-        request.success(function (data) {
-            fn(data);
-        });
-    };
+	this.novo = function(despesa, parcelamento, fn) {
+		
+		despesa.moeda = despesa.debitavel.moeda;
 
-    this.salvar = function (despesa,parcelamento, fn) {
-        $http.put(pathBase, despesa).success(function (data) {
-            fn(data);
-        });
-    };
+		var dados = {
+			"despesa" : despesa,
+			"parcelamentoVO" : parcelamento
+		};
 
-    this.setDespesa = function (novoDespesa) {
-        this.despesa = novoDespesa;
-    };
+		var request = $http({
+			method : 'post',
+			url : pathBase,
+			data : dados
+		});
 
-    this.getDespesa = function () {
-        return this.despesa;
-    };
+		request.success(function(data) {
+			fn(data);
+		});
+	};
 
-    this.buscarPorId = function (id, fn) {
-        $http.get(pathBase + id).success(function (data) {
-            fn(data);
-        });
-    };
+	this.salvar = function(despesa, parcelamento, fn) {
+		$http.put(pathBase, despesa).success(function(data) {
+			fn(data);
+		});
+	};
 
-    this.deletar = function (id, fn) {
-        $http.delete(pathBase + id).success(function (data) {
-            fn(data);
-        });
-    };
+	this.setDespesa = function(novoDespesa) {
+		this.despesa = novoDespesa;
+	};
 
-    this.buscarDespesasPorTipo = function (dataInicio, dataFim, fn) {
+	this.getDespesa = function() {
+		return this.despesa;
+	};
 
-        var request = $http({
-            method: 'get',
-            url: pathBase + 'grafico',
-            params: {
-                dataInicial: dataInicio.toGMTString(),
-                dataFinal: dataFim.toGMTString()
-            }
-        });
+	this.buscarPorId = function(id, fn) {
+		$http.get(pathBase + id).success(function(data) {
+			fn(data);
+		});
+	};
 
-        request.success(function (data) {
-            fn(data);
-        });
+	this.buscarDespesasPorTipo = function(dataInicio, dataFim, fn) {
 
-    };
+		var request = $http({
+			method : 'get',
+			url : pathBase + 'grafico',
+			params : {
+				dataInicial : dataInicio.toGMTString(),
+				dataFinal : dataFim.toGMTString()
+			}
+		});
 
-    this.buscarDespesasPorPeriodo = function (dataInicio, dataFim, fn) {
+		request.success(function(data) {
+			fn(data);
+		});
 
-        var request = $http({
-            method: 'get',
-            url: pathBase + 'periodo',
-            params: {
-                dataInicial: dataInicio.toGMTString(),
-                dataFinal: dataFim.toGMTString()
-            }
-        });
+	};
 
-        request.success(function (data) {
-            fn(data);
-        });
+	this.buscarDespesasPorPeriodo = function(dataInicio, dataFim, fn) {
 
-    };
+		var request = $http({
+			method : 'get',
+			url : pathBase + 'periodo',
+			params : {
+				dataInicial : dataInicio.toGMTString(),
+				dataFinal : dataFim.toGMTString()
+			}
+		});
 
-    this.pagarDespesa = function (despesa, fn) {
-        $http.post(pathBase + 'pagar', despesa.id).success(function (data) {
-            fn(data);
-        });
-    };
+		request.success(function(data) {
+			fn(data);
+		});
 
-    this.buscarPorFiltro = function (filtro, fn) {
-        $http.post(pathBase + 'filtro', filtro).success(function (data) {
-            fn(data);
-        });
-    };
+	};
+
+	this.pagarDespesa = function(despesa, fn) {
+		$http.post(pathBase + 'pagar', despesa.id).success(function(data) {
+			fn(data);
+		});
+	};
+
+	this.deletar = function(id, fn) {
+		$http['delete'](pathBase + id).success(function(data) {
+			fn(data);
+		});
+	};
+
 });

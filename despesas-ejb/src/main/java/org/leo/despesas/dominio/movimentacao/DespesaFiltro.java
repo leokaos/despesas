@@ -1,16 +1,22 @@
-package org.leo.despesas.dominio.debitavel;
+package org.leo.despesas.dominio.movimentacao;
 
 import java.util.Date;
 
-import org.leo.despesas.dominio.movimentacao.Despesa;
-import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
+import javax.ws.rs.QueryParam;
+
+import org.apache.commons.lang3.StringUtils;
 import org.leo.despesas.infra.AbstractModelFiltro;
 
 public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 
+	@QueryParam("dataInicial")
 	private Date dataInicial;
+
+	@QueryParam("dataFinal")
 	private Date dataFinal;
-	private TipoDespesa tipoDespesa;
+
+	@QueryParam("tipoDespesa")
+	private String tipoDespesa;
 
 	public DespesaFiltro() {
 		super();
@@ -32,11 +38,11 @@ public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 		this.dataFinal = dataFinal;
 	}
 
-	public TipoDespesa getTipoDespesa() {
+	public String getTipoDespesa() {
 		return tipoDespesa;
 	}
 
-	public void setTipoDespesa(TipoDespesa tipoDespesa) {
+	public void setTipoDespesa(String tipoDespesa) {
 		this.tipoDespesa = tipoDespesa;
 	}
 
@@ -53,7 +59,15 @@ public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 	}
 
 	public boolean hasTipoDespesa() {
-		return tipoDespesa != null;
+		return StringUtils.isNotEmpty(tipoDespesa);
+	}
+
+	@Override
+	protected void build() {
+
+		between("vencimento", dataInicial, dataFinal);
+
+		eq("tipo.descricao", tipoDespesa);
 	}
 
 }

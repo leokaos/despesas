@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +20,6 @@ import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
 import org.leo.despesas.dominio.movimentacao.GraficoVO;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.ReceitaFiltro;
-import org.leo.despesas.infra.DataUtil;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.rest.infra.AbstractFacade;
@@ -50,63 +48,8 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita, ReceitaFiltro> im
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
-	public List<Receita> getReceitasPorPeriodo(final Periodo periodo) {
-
-		final StringBuilder builder = new StringBuilder();
-
-		builder.append("SELECT r FROM Receita r WHERE r.vencimento BETWEEN :dataInicial AND :dataFinal ");
-
-		final Query query = entityManager.createQuery(builder.toString());
-
-		query.setParameter("dataInicial", periodo.getDataInicial());
-		query.setParameter("dataFinal", periodo.getDataFinal());
-
-		return query.getResultList();
-	}
-
-	@Override
 	protected Class<Receita> getClasseEntidade() {
 		return Receita.class;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Receita> buscarPorFiltro(final ReceitaFiltro filtro) {
-
-		final StringBuilder builder = new StringBuilder();
-
-		builder.append("SELECT r FROM Receita r WHERE 1 = 1");
-
-		if (filtro.hasDataInicialAndDataFinal()) {
-			builder.append(" AND r.vencimento BETWEEN :dataInicial AND :dataFinal ");
-		} else if (filtro.hasDataInicial()) {
-			builder.append(" AND r.vencimento >= :dataInicial");
-		} else if (filtro.hasDataFinal()) {
-			builder.append(" AND r.vencimento <= :dataFinal");
-		}
-
-		if (filtro.hasTipoReceita()) {
-			builder.append(" AND r.tipo.id = :tipoReceitaId");
-		}
-
-		builder.append(" ORDER BY r.vencimento");
-
-		final Query query = entityManager.createQuery(builder.toString());
-
-		if (filtro.hasDataInicial()) {
-			query.setParameter("dataInicial", DataUtil.truncate(filtro.getDataInicial(), Calendar.DAY_OF_MONTH));
-		}
-
-		if (filtro.hasDataFinal()) {
-			query.setParameter("dataFinal", DataUtil.maximo(filtro.getDataFinal(), Calendar.DAY_OF_MONTH));
-		}
-
-		if (filtro.hasTipoReceita()) {
-			query.setParameter("tipoReceitaId", filtro.getTipoReceita().getId());
-		}
-
-		return query.getResultList();
 	}
 
 	@Override

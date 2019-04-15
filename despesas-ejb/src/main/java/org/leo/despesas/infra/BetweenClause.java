@@ -2,7 +2,7 @@ package org.leo.despesas.infra;
 
 import javax.persistence.Query;
 
-public class BetweenClause implements Clause {
+public final class BetweenClause implements Clause {
 
 	private String property;
 	private Object minimo;

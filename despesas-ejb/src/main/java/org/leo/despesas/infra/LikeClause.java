@@ -2,7 +2,7 @@ package org.leo.despesas.infra;
 
 import javax.persistence.Query;
 
-public class LikeClause implements Clause {
+public final class LikeClause implements Clause {
 
 	private String property;
 	private String value;

@@ -1,4 +1,4 @@
-app.controller('receitaController',function($scope,receitaService,$location,$routeParams,usSpinnerService) {
+app.controller('receitaController', function($scope, receitaService, $location, $routeParams, usSpinnerService) {
 
 	var dataInicial = new Date();
 	dataInicial.setDate(1);
@@ -7,15 +7,17 @@ app.controller('receitaController',function($scope,receitaService,$location,$rou
 	dataFinal.setMonth(dataFinal.getMonth() + 1);
 	dataFinal.setDate(0);
 
+	$scope.receitasSelecionadas = [];
+
 	$scope.filtro = {
-	    'dataInicial': dataInicial,
-	    'dataFinal': dataFinal
+		'dataInicial' : dataInicial,
+		'dataFinal' : dataFinal
 	};
 
 	$scope.receitaSelecionada = null;
 
 	$scope.getTitulo = function() {
-		return 'Receitas';
+		return 'receitas';
 	};
 
 	$scope.getDescricaoSelecionado = function() {
@@ -28,7 +30,7 @@ app.controller('receitaController',function($scope,receitaService,$location,$rou
 	};
 
 	$scope.getMensagemDelete = function() {
-		return 'Receita deletada com sucesso!';
+		return 'receita deletada com sucesso!';
 	};
 
 	$scope.getNomeSpin = function() {
@@ -36,7 +38,7 @@ app.controller('receitaController',function($scope,receitaService,$location,$rou
 	};
 
 	$scope.listar = function() {
-		receitaService.buscarPorFiltro($scope.filtro,$scope.loadData);
+		receitaService.listar($scope.filtro, $scope.loadData);
 	};
 
 	$scope.novo = function() {
@@ -56,7 +58,7 @@ app.controller('receitaController',function($scope,receitaService,$location,$rou
 	};
 
 	$scope.doDelete = function() {
-		receitaService.deletar($scope.receitaSelecionada.id,$scope.deletar);
+		receitaService.deletar($scope.receitaSelecionada.id, $scope.deletar);
 	};
 
 	$scope.hasFiltro = function() {
@@ -67,49 +69,49 @@ app.controller('receitaController',function($scope,receitaService,$location,$rou
 		return 'partial/receita/filtro.html';
 	};
 
+	$scope.seleciona = function(receita) {
+
+		var index = $scope.receitasSelecionadas.indexOf(receita);
+
+		if (index == -1) {
+			$scope.receitasSelecionadas.push(receita);
+		} else {
+			$scope.receitasSelecionadas.splice(index, 1);
+		}
+
+	};
+
 });
 
-app.controller('edicaoReceitaController',function($scope,receitaService,tipoReceitaService,contaService,$location,$routeParams,growl) {
+app.controller('edicaoReceitaController', function($scope, receitaService, tipoReceitaService, debitavelService, $location, $routeParams, growl) {
 
 	$scope.tiposReceita = [];
-	$scope.contas = [];
+	$scope.debitaveis = [];
+	$scope.tiposParcelamento = [ 'Semanal', 'Mensal', 'Semestral', 'Anual' ];
+	$scope.parcelar = false;
+	$scope.orcamento = null;
+	$scope.parcelamento = {};
 
 	var id = $routeParams.id;
 
 	if (id != null) {
-		
-		receitaService.buscarPorId(id,function(receita) {
-			
+		receitaService.buscarPorId(id, function(receita) {
 			$scope.receita = receita;
-			
-			if ($scope.receita.debitavel != null) {
-				$scope.contaSelecionada = $scope.receita.debitavel;
-			}
-
-			if ($scope.receita.tipoReceita != null) {
-				$scope.tipoReceitaSelecionado = $scope.receita.tipoReceita;
-			}
-			
 		});
-		
 	} else {
-		$scope.receita = receitaService.getReceita();
+		$scope.receita = receitaService.getNovoReceita();
 	}
 
 	$scope.openData = function() {
 		$scope.dataPickerOpened = true;
 	};
 
-	$scope.hasConta = function() {
-		return $scope.contaSelecionada.id != null;
-	};
-
-	tipoReceitaService.listar(function(tiposReceita) {
-		$scope.tiposReceita = tiposReceita;
+	tipoReceitaService.listar(function(tiposreceita) {
+		$scope.tiposReceita = tiposreceita;
 	});
 
-	contaService.listar(function(contas) {
-		$scope.contas = contas;
+	debitavelService.listar(function(debitaveis) {
+		$scope.debitaveis = debitaveis;
 	});
 
 	$scope.cancelar = function() {
@@ -124,6 +126,14 @@ app.controller('edicaoReceitaController',function($scope,receitaService,tipoRece
 	$scope.salvo = function(data) {
 		$scope.limparCarregar(data);
 		growl.info('Receita salva com sucesso!');
+	};
+	
+	$scope.setMoeda = function(debitavel){
+		
+		$scope.debitavelSelecionado = debitavel;
+		
+		$scope.receita.debitavel = debitavel;
+		$scope.receita.moeda = debitavel.moeda;
 	};
 
 	$scope.salvar = function(valid) {

@@ -2,57 +2,67 @@ package org.leo.despesas.dominio.movimentacao;
 
 import java.util.Date;
 
-import org.leo.despesas.dominio.tipomovimentacao.TipoReceita;
+import javax.ws.rs.QueryParam;
+
 import org.leo.despesas.infra.AbstractModelFiltro;
 
 public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 
-    private Date dataInicial;
-    private Date dataFinal;
-    private TipoReceita tipoReceita;
+	@QueryParam("dataInicial")
+	private Date dataInicial;
 
-    public ReceitaFiltro() {
-	super();
-    }
+	@QueryParam("dataFinal")
+	private Date dataFinal;
 
-    public Date getDataInicial() {
-	return dataInicial;
-    }
+	@QueryParam("tipoReceita")
+	private String tipoReceita;
 
-    public void setDataInicial(Date dataInicial) {
-	this.dataInicial = dataInicial;
-    }
+	public Date getDataInicial() {
+		return dataInicial;
+	}
 
-    public Date getDataFinal() {
-	return dataFinal;
-    }
+	public void setDataInicial(Date dataInicial) {
+		this.dataInicial = dataInicial;
+	}
 
-    public void setDataFinal(Date dataFinal) {
-	this.dataFinal = dataFinal;
-    }
+	public Date getDataFinal() {
+		return dataFinal;
+	}
 
-    public TipoReceita getTipoReceita() {
-	return tipoReceita;
-    }
+	public void setDataFinal(Date dataFinal) {
+		this.dataFinal = dataFinal;
+	}
 
-    public void setTipoReceita(TipoReceita tipoReceita) {
-	this.tipoReceita = tipoReceita;
-    }
+	public String getTipoReceita() {
+		return tipoReceita;
+	}
 
-    public boolean hasDataInicialAndDataFinal() {
-	return dataInicial != null && dataFinal != null;
-    }
+	public void setTipoReceita(String tipoReceita) {
+		this.tipoReceita = tipoReceita;
+	}
 
-    public boolean hasDataInicial() {
-	return dataInicial != null;
-    }
+	public boolean hasDataInicialAndDataFinal() {
+		return dataInicial != null && dataFinal != null;
+	}
 
-    public boolean hasDataFinal() {
-	return dataFinal != null;
-    }
+	public boolean hasDataInicial() {
+		return dataInicial != null;
+	}
 
-    public boolean hasTipoReceita() {
-	return tipoReceita != null;
-    }
+	public boolean hasDataFinal() {
+		return dataFinal != null;
+	}
+
+	public boolean hasTipoReceita() {
+		return tipoReceita != null;
+	}
+
+	@Override
+	protected void build() {
+
+		between("vencimento", dataInicial, dataFinal);
+
+		eq("tipo.descricao", tipoReceita);
+	}
 
 }

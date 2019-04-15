@@ -32,7 +32,7 @@ app.controller('compararServicosTransferenciaController', function(MOEDAS, param
 	};
 
 	$scope.filtroServico = {
-		nome : null
+		nome : ""
 	};
 
 	$scope.buscarCotacoes = function() {

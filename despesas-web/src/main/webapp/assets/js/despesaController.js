@@ -38,7 +38,7 @@ app.controller('despesaController', function($scope, despesaService, $location, 
 	};
 
 	$scope.listar = function() {
-		despesaService.buscarPorFiltro($scope.filtro, $scope.loadData);
+		despesaService.listar($scope.filtro, $scope.loadData);
 	};
 
 	$scope.novo = function() {
@@ -112,18 +112,21 @@ app.controller('edicaoDespesaController', function($scope, despesaService, tipoD
 
 		if ($scope.tipoDespesaSelecionado != null && $scope.despesa.vencimento != null) {
 
-			orcamentoService.filtrarPorData($scope.despesa.vencimento, $scope.despesa.tipo.descricao, function(data) {
+			var periodo = new Periodo(new Date().getMonth(), new Date().getFullYear());
+
+			var filtro = {
+				dataInicial : periodo.getDataInicial().toGMTString(),
+				dataFinal : periodo.getDataFinal().toGMTString(),
+				tipoDespesa : tipoDespesa.descricao
+			};
+
+			orcamentoService.buscarPorFiltro(filtro, function(data) {
 				if (data != null && data != "") {
-					$scope.orcamento = new OrcamentoVO(data);
+					$scope.orcamento = data[0];
 				}
 			});
 		}
 
-	};
-
-	$scope.selecionarDebitavel = function(debitavel) {
-		$scope.debitavelSelecionado = debitavel;
-		$scope.despesa.debitavel = $scope.debitavelSelecionado;
 	};
 
 	tipoDespesaService.listar(function(tiposDespesa) {
@@ -151,9 +154,13 @@ app.controller('edicaoDespesaController', function($scope, despesaService, tipoD
 		$scope.limparCarregar(data);
 		growl.info('despesa salva com sucesso!');
 	};
-	
-	$scope.setMoeda = function(){
-		$scope.despesa.moeda = $scope.despesa.debitavel.moeda;
+
+	$scope.setMoeda = function(debitavel) {
+
+		$scope.debitavelSelecionado = debitavel;
+
+		$scope.despesa.debitavel = debitavel;
+		$scope.despesa.moeda = debitavel.moeda;
 	};
 
 	$scope.salvar = function(valid) {

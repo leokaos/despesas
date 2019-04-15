@@ -76,7 +76,11 @@ app.controller('edicaoTransferenciaController', function($scope, transferenciaSe
 
 	$scope.salvo = function(data) {
 		$scope.limparCarregar(data);
-		growl.info('Tipo de Receita salvo com sucesso!');
+		growl.info('Transferência salva com sucesso!');
+	};
+	
+	$scope.setMoeda = function(debitavel){
+		$scope.transferencia.moeda = debitavel.moeda;
 	};
 
 	$scope.salvar = function(valid) {

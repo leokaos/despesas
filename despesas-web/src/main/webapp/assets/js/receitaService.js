@@ -1,99 +1,83 @@
-app.service('receitaService', function ($http) {
+app.service('receitaService', function($http, filtroParser) {
 
-    var receita = null;
-    var pathBase = '/despesas/services/receita/';
+	pathBase = '/despesas/services/receita/';
 
-    this.getNovoReceita = function () {
-        return {
-            descricao: '',
-            vencimento: null,
-            valor: null,
-            debitavel: null,
-            depositado: false
-        };
-    };
+	this.getNovoReceita = function() {
+		return {
+			descricao : '',
+			vencimento : null,
+			valor : null,
+			debitavel : null,
+			depositado : false,
+			moeda : null
+		};
+	};
 
-    this.listar = function (fn) {
-        $http.get(pathBase).success(function (data) {
-            fn(data);
-        });
-    };
+	this.listar = function(filtro, fn) {
 
-    this.novo = function (receita, fn) {
-        $http.post(pathBase, receita).success(function (data) {
-            fn(data);
-        });
-    };
+		$http.get(pathBase, {
+			params : filtroParser.getFiltro(filtro)
+		}).success(function(data) {
+			fn(data);
+		});
+	};
 
-    this.salvar = function (receita, fn) {
-        $http.put(pathBase, receita).success(function (data) {
-            fn(data);
-        });
-    };
+	this.novo = function(receita, fn) {
+		
+		receita.moeda = receita.debitavel.moeda;
+		
+		$http.post(pathBase, receita).success(function(data) {
+			fn(data);
+		});
+	};
 
-    this.setReceita = function (novoReceita) {
-        this.receita = novoReceita;
-    };
+	this.salvar = function(receita, fn) {
+		$http.put(pathBase, receita).success(function(data) {
+			fn(data);
+		});
+	};
 
-    this.getReceita = function () {
-        return this.receita;
-    };
+	this.setReceita = function(novoReceita) {
+		this.receita = novoReceita;
+	};
 
-    this.buscarPorId = function (id, fn) {
-        $http.get(pathBase + id).success(function (data) {
-            fn(data);
-        });
-    };
+	this.getReceita = function() {
+		return this.receita;
+	};
 
-    this.deletar = function (id, fn) {
-        $http.delete(pathBase + id).success(function (data) {
-            fn(data);
-        });
-    };
+	this.buscarPorId = function(id, fn) {
+		$http.get(pathBase + id).success(function(data) {
+			fn(data);
+		});
+	};
 
-    this.buscarReceitasPorTipo = function (dataInicio, dataFim, fn) {
+	this.deletar = function(id, fn) {
+		$http['delete'](pathBase + id).success(function(data) {
+			fn(data);
+		});
+	};
 
-        var request = $http({
-            method: 'get',
-            url: pathBase + 'grafico',
-            params: {
-                dataInicial: dataInicio.toGMTString(),
-                dataFinal: dataFim.toGMTString()
-            }
-        });
+	this.buscarReceitasPorTipo = function(dataInicio, dataFim, fn) {
 
-        request.success(function (data) {
-            fn(data);
-        });
+		var request = $http({
+			method : 'get',
+			url : pathBase + 'grafico',
+			params : {
+				dataInicial : dataInicio.toGMTString(),
+				dataFinal : dataFim.toGMTString()
+			}
+		});
 
-    };
+		request.success(function(data) {
+			fn(data);
+		});
 
-    this.buscarReceitasPorPeriodo = function (dataInicio, dataFim, fn) {
+	};
 
-        var request = $http({
-            method: 'get',
-            url: pathBase + 'periodo',
-            params: {
-                dataInicial: dataInicio.toGMTString(),
-                dataFinal: dataFim.toGMTString()
-            }
-        });
+	this.depositarReceita = function(receita, fn) {
+		$http.post(pathBase + 'pagar', receita.id).success(function(data) {
+			fn(data);
+		});
+	};
 
-        request.success(function (data) {
-            fn(data);
-        });
-
-    };
-
-    this.depositarReceita = function (receita, fn) {
-        $http.post(pathBase + 'pagar', receita.id).success(function (data) {
-            fn(data);
-        });
-    };
-
-    this.buscarPorFiltro = function (filtro, fn) {
-        $http.post(pathBase + 'filtro', filtro).success(function (data) {
-            fn(data);
-        });
-    };
 });

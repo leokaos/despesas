@@ -44,20 +44,6 @@ public class ReceitaService extends AbstractService<ReceitaFacade, Receita, Rece
 		return receitaFacade.getGraficoPorPeriodo(new Periodo(dataInicial, dataFinal));
 	}
 
-	@GET
-	@Path(value = "/periodo")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Receita> buscarPorDespesasPorPeriodo(@QueryParam("dataInicial") final Date dataInicial, @QueryParam("dataFinal") final Date dataFinal) {
-		return receitaFacade.getReceitasPorPeriodo(new Periodo(dataInicial, dataFinal));
-	}
-
-	@POST
-	@Path(value = "/filtro")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public List<Receita> buscarPorFiltro(final ReceitaFiltro filtro) {
-		return getFacade().buscarPorFiltro(filtro);
-	}
-
 	@POST
 	@Path(value = "/depositar")
 	public void depositar(final Long id) throws DespesasException {

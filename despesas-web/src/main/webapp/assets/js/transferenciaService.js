@@ -8,7 +8,8 @@ app.service('transferenciaService', function ($http) {
             vencimento: null,
             valor: null,
             debitavel: null,
-            creditavel: null
+            creditavel: null,
+            moeda: null
         };
     };
 

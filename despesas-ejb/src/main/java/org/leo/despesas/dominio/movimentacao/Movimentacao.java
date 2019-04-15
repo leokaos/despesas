@@ -15,6 +15,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,7 +37,8 @@ public abstract class Movimentacao implements ModelEntity {
 	private static final long serialVersionUID = 7650797422719540384L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "MOVIMENTACAO_ID_SEQ", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "MOVIMENTACAO_ID_SEQ", sequenceName = "despesas_db.movimentacao_id_seq", allocationSize = 1)
 	private Long id;
 
 	@Column(name = "descricao")
