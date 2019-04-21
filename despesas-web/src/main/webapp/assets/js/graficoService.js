@@ -1,6 +1,6 @@
 app.service('graficoService', function($http) {
 
-	var pathBase = '/despesas/services/grafico/';
+	pathBase = '/despesas/services/grafico/';
 
 	this.buscarGraficoDespesas = function(dataInicio, dataFim, fn) {
 

@@ -192,4 +192,9 @@ public class CartaoCredito extends Debitavel {
 		visitor.visit(this);
 	}
 
+	@Override
+	public BigDecimal getSaldo() {
+		return null;
+	}
+
 }

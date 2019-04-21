@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.ws.rs.QueryParam;
 
 import org.apache.commons.lang3.StringUtils;
+import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.infra.AbstractModelFiltro;
 
 public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
@@ -17,6 +18,8 @@ public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 
 	@QueryParam("tipoDespesa")
 	private String tipoDespesa;
+
+	private Debitavel debitavel;
 
 	public DespesaFiltro() {
 		super();
@@ -46,6 +49,14 @@ public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 		this.tipoDespesa = tipoDespesa;
 	}
 
+	public Debitavel getDebitavel() {
+		return debitavel;
+	}
+
+	public void setDebitavel(Debitavel debitavel) {
+		this.debitavel = debitavel;
+	}
+
 	public boolean hasDataInicialAndDataFinal() {
 		return dataInicial != null && dataFinal != null;
 	}
@@ -68,6 +79,8 @@ public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 		between("vencimento", dataInicial, dataFinal);
 
 		eq("tipo.descricao", tipoDespesa);
+
+		eq("debitavel", debitavel);
 	}
 
 }

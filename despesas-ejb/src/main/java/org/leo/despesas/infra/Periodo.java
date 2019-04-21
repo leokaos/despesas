@@ -1,6 +1,7 @@
 package org.leo.despesas.infra;
 
 import java.util.Date;
+import java.util.Iterator;
 
 public class Periodo {
 
@@ -28,5 +29,9 @@ public class Periodo {
 
 	public boolean pertenceAoPeriodo(Date dataBase) {
 		return dataInicial.before(dataBase) && dataFinal.after(dataBase);
+	}
+
+	public Iterator<Date> getIterator(int calendarField) {
+		return new PeriodoIterator(calendarField, this);
 	}
 }

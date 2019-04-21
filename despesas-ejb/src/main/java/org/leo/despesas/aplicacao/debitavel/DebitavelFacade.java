@@ -1,5 +1,6 @@
 package org.leo.despesas.aplicacao.debitavel;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -14,5 +15,7 @@ public interface DebitavelFacade {
 	void salvar(Debitavel debitavel);
 
 	Debitavel buscarPorId(Object id);
+
+	BigDecimal getMediaVariacao(Debitavel debitavel);
 
 }

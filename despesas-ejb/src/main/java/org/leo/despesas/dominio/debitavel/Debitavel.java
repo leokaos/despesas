@@ -1,5 +1,7 @@
 package org.leo.despesas.dominio.debitavel;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -99,4 +101,6 @@ public abstract class Debitavel implements ModelEntity {
 	public abstract Despesa consolidar(Despesa despesa);
 
 	public abstract void accept(DebitavelSerializerVisitorImpl visitor);
+
+	public abstract BigDecimal getSaldo();
 }
