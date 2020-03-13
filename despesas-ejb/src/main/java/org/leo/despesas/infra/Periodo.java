@@ -3,6 +3,10 @@ package org.leo.despesas.infra;
 import java.util.Date;
 import java.util.Iterator;
 
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.leo.despesas.rest.PeriodoDeserializer;
+
+@JsonDeserialize(using = PeriodoDeserializer.class)
 public class Periodo {
 
 	private final Date dataInicial;

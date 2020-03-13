@@ -8,8 +8,6 @@ public interface SimpleFacade<T extends ModelEntity, F extends ModelFiltro<T>> {
 
 	List<T> listar(F filtro);
 
-	List<T> listarTodos();
-
 	T buscarPorId(Long id) throws DespesasException;
 
 	void inserir(T t) throws DespesasException;

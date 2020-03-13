@@ -26,7 +26,7 @@ app.controller('graficoController', function($scope, graficoService) {
 
 				// Update the chart when window resizes.
 				nv.utils.windowResize(function() {
-					chart.update()
+					chart.update();
 				});
 
 				return chart;
@@ -39,7 +39,7 @@ app.controller('graficoController', function($scope, graficoService) {
 
 		var dados = [];
 
-		for (x = 0; x < data.series.length; x++) {
+		for (var x = 0; x < data.series.length; x++) {
 
 			var serie = data.series[x];
 

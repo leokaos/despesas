@@ -15,6 +15,7 @@ import javax.persistence.Query;
 
 import org.leo.despesas.aplicacao.tipodespesa.TipoDespesaFacade;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
+import org.leo.despesas.dominio.tipomovimentacao.TipoDespesaFiltro;
 import org.leo.despesas.infra.grafico.GraficoLinha;
 import org.leo.despesas.infra.grafico.Ponto;
 import org.leo.despesas.infra.grafico.Serie;
@@ -36,10 +37,10 @@ public class GraficoFacadeImpl implements GraficoFacade {
 
 			// PEGANDO OS RESULTADOS
 			final StringBuilder builder = new StringBuilder();
-			builder.append("SELECT d.tipo.descricao , MONTH(d.pagamento) , YEAR(d.pagamento) , SUM(d.valor) FROM Despesa d ");
-			builder.append("WHERE d.pagamento BETWEEN :dataInicial AND :dataFinal ");
-			builder.append("GROUP BY d.tipo.descricao , MONTH(d.pagamento) , YEAR(d.pagamento) ");
-			builder.append("ORDER BY d.tipo.descricao , YEAR(d.pagamento) , MONTH(d.pagamento) ");
+			builder.append("SELECT d.tipo.descricao , MONTH(d.vencimento) , YEAR(d.vencimento) , SUM(d.valor) FROM Despesa d ");
+			builder.append("WHERE d.vencimento BETWEEN :dataInicial AND :dataFinal ");
+			builder.append("GROUP BY d.tipo.descricao , MONTH(d.vencimento) , YEAR(d.vencimento) ");
+			builder.append("ORDER BY d.tipo.descricao , YEAR(d.vencimento) , MONTH(d.vencimento) ");
 
 			final Query query = entityManager.createQuery(builder.toString());
 
@@ -49,7 +50,7 @@ public class GraficoFacadeImpl implements GraficoFacade {
 
 			// FORMATO OBJS: Carro 5 2015 300
 			final List<Serie> series = new ArrayList<>();
-			final List<TipoDespesa> listaTipoDespesas = tipoDespesaFacade.listarTodos();
+			final List<TipoDespesa> listaTipoDespesas = tipoDespesaFacade.listar(new TipoDespesaFiltro());
 			final SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 
 			Serie serie = null;

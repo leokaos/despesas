@@ -24,11 +24,6 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 	}
 
 	@Override
-	public List<E> listarTodos() {
-		return null;
-	}
-
-	@Override
 	public E buscarPorId(final Long id) throws DespesasException {
 		final E entity = entityManager.find(getClasseEntidade(), id);
 

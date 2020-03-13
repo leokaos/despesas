@@ -1,5 +1,6 @@
 package org.leo.despesas.aplicacao.grafico;
 
+import static org.easymock.EasyMock.anyObject;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
@@ -15,6 +16,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.easymock.EasyMock;
 import org.easymock.EasyMockRunner;
 import org.easymock.Mock;
 import org.easymock.MockType;
@@ -23,6 +25,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.leo.despesas.aplicacao.tipodespesa.TipoDespesaFacade;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
+import org.leo.despesas.dominio.tipomovimentacao.TipoDespesaFiltro;
 import org.leo.despesas.infra.grafico.GraficoLinha;
 import org.leo.despesas.infra.grafico.Serie;
 
@@ -52,7 +55,7 @@ public class GraficoFacadeImplTest {
 		expect(mockQuery.setParameter("dataInicial", dataInicial)).andReturn(mockQuery);
 		expect(mockQuery.setParameter("dataFinal", dataFinal)).andReturn(mockQuery);
 		expect(mockQuery.getResultList()).andReturn(getDadosParaUmaSerieECincoPontos());
-		expect(mockTipoDespesaFacade.listarTodos()).andReturn(getListaTipoDespesa());
+		expect(mockTipoDespesaFacade.listar(anyObject(TipoDespesaFiltro.class))).andReturn(getListaTipoDespesa());
 
 		replay(mockEntityManager, mockQuery, mockTipoDespesaFacade);
 
@@ -76,7 +79,7 @@ public class GraficoFacadeImplTest {
 		expect(mockQuery.setParameter("dataInicial", dataInicial)).andReturn(mockQuery);
 		expect(mockQuery.setParameter("dataFinal", dataFinal)).andReturn(mockQuery);
 		expect(mockQuery.getResultList()).andReturn(getDadosParaDuasSerieTresPontos());
-		expect(mockTipoDespesaFacade.listarTodos()).andReturn(getListaTipoDespesa());
+		expect(mockTipoDespesaFacade.listar(anyObject(TipoDespesaFiltro.class))).andReturn(getListaTipoDespesa());
 
 		replay(mockEntityManager, mockQuery, mockTipoDespesaFacade);
 

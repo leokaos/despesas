@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import org.apache.commons.lang3.StringUtils;
 import org.leo.despesas.rest.infra.ModelEntity;
 import org.leo.despesas.rest.infra.ModelFiltro;
 
@@ -101,6 +102,14 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 		if (comparable != null) {
 			this.clausulas.add(new LessClause(property, comparable, true));
 		}
+	}
+
+	protected void notEqual(String property, String value) {
+		
+		if (StringUtils.isNotEmpty(value)){
+			this.clausulas.add(new NotEqual(property,value));
+		}
+		
 	}
 
 }

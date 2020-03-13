@@ -20,6 +20,4 @@ public interface TransferenciaFacade extends SimpleFacade<Transferencia, Transfe
 
 	List<Transferencia> getTransferenciasPorPeriodo(Periodo periodo);
 
-	List<Transferencia> buscarPorFiltro(TransferenciaFiltro filtro);
-
 }

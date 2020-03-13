@@ -51,7 +51,7 @@
 		</slick>
 	</div>
 
-	<div class="col-md-4">
+	<div class="col-md-4" ng-if="saldo != undefined">
 		<div class="white-panel">
 			<div class="white-header">
 				<h5>Saldo do Mês</h5>
@@ -65,8 +65,8 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="col-md-4">
+	
+	<div class="col-md-4" ng-if="orcamentos.length != 0">
 		<div class="white-panel">
 			<div class="white-header">
 				<h5>Orçamentos do Mês</h5>

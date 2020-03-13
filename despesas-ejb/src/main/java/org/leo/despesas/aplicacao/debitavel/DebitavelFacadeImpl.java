@@ -61,10 +61,14 @@ public class DebitavelFacadeImpl implements DebitavelFacade {
 
 		return valorMedioReceitas.subtract(valorMedioDespesas);
 	}
-	
+
 	private BigDecimal calcularMedia(List<? extends Movimentacao> movimentacoes) {
 
 		BigDecimal valorTotal = BigDecimal.ZERO;
+
+		if (movimentacoes.isEmpty()) {
+			return valorTotal;
+		}
 
 		Date menorData = null;
 		Date maiorData = null;
@@ -82,7 +86,7 @@ public class DebitavelFacadeImpl implements DebitavelFacade {
 			valorTotal = valorTotal.add(movimentacao.getValor());
 
 		}
-		
+
 		return valorTotal.divide(getNumeroDeMeses(menorData, maiorData), RoundingMode.HALF_DOWN);
 
 	}
