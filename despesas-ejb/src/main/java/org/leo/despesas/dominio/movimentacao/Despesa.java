@@ -1,11 +1,13 @@
 package org.leo.despesas.dominio.movimentacao;
 
+import java.math.BigDecimal;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -13,8 +15,8 @@ import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
 
 @Entity
-@Table(name = "despesa",schema = "despesas_db")
-@DiscriminatorValue(value = "D")
+@Table(name = "despesa", schema = "despesas_db")
+@PrimaryKeyJoinColumn(name = "id")
 public class Despesa extends Movimentacao {
 
 	private static final long serialVersionUID = -832942623220660512L;
@@ -27,7 +29,7 @@ public class Despesa extends Movimentacao {
 	private TipoDespesa tipo;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fatura_id",nullable = true)
+	@JoinColumn(name = "fatura_id", nullable = true)
 	private Fatura fatura;
 
 	public Despesa() {
@@ -46,7 +48,7 @@ public class Despesa extends Movimentacao {
 		return tipo;
 	}
 
-	public void setTipo(final TipoDespesa tipo) {
+	public void setTipo(TipoDespesa tipo) {
 		this.tipo = tipo;
 	}
 
@@ -70,4 +72,8 @@ public class Despesa extends Movimentacao {
 		return debitavel.consolidar(this);
 	}
 
+	@Override
+	public BigDecimal getValorContabilistico() {
+		return this.getValor().multiply(new BigDecimal(-1));
+	}
 }

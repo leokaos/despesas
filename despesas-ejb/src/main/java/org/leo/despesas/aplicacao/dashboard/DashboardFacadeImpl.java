@@ -94,7 +94,7 @@ public class DashboardFacadeImpl implements DashboardFacade {
 	}
 
 	@Override
-	public BigDecimal getSaldoGeral(final Date dataInicial, final Date dataFinal) {
-		return getValorTotalReceitas(dataInicial, dataFinal).subtract(getValorTotalDespesas(dataInicial, dataFinal));
+	public BigDecimal getSaldoGeral(final Date dataInicial,final Date dataFinal) {
+		return getValorTotalReceitas(dataInicial,dataFinal).subtract(getValorTotalDespesas(dataInicial,dataFinal)).subtract(getValorTotalTransferencias(dataInicial,dataFinal));
 	}
 }

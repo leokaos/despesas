@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,7 +32,8 @@ public class Fatura implements ModelEntity {
 	private static final long serialVersionUID = -4047341391900604495L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "FATURA_ID_SEQ", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "FATURA_ID_SEQ", sequenceName = "despesas_db.fatura_id_seq", allocationSize = 1)
 	private Long id;
 
 	@ManyToOne

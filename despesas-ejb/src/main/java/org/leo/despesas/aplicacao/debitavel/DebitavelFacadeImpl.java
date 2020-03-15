@@ -2,6 +2,7 @@ package org.leo.despesas.aplicacao.debitavel;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -59,16 +60,12 @@ public class DebitavelFacadeImpl implements DebitavelFacade {
 
 		BigDecimal valorMedioReceitas = calcularMedia(receitaFacade.listar(receitasFiltro));
 
-		return valorMedioReceitas.subtract(valorMedioDespesas);
+		return valorMedioReceitas.subtract(valorMedioDespesas).setScale(2);
 	}
 
 	private BigDecimal calcularMedia(List<? extends Movimentacao> movimentacoes) {
 
 		BigDecimal valorTotal = BigDecimal.ZERO;
-
-		if (movimentacoes.isEmpty()) {
-			return valorTotal;
-		}
 
 		Date menorData = null;
 		Date maiorData = null;
@@ -93,14 +90,9 @@ public class DebitavelFacadeImpl implements DebitavelFacade {
 
 	private BigDecimal getNumeroDeMeses(Date menorData, Date maiorData) {
 
-		int total = 0;
+		int diff = DateUtils.toCalendar(maiorData).get(Calendar.MONTH) - DateUtils.toCalendar(menorData).get(Calendar.MONTH);
 
-		while (menorData.before(maiorData)) {
-			total += 1;
-			menorData = DateUtils.addMonths(menorData, 1);
-		}
-
-		return new BigDecimal(total);
+		return new BigDecimal(1 + diff);
 	}
 
 }

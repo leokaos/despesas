@@ -1,0 +1,38 @@
+<pesquisa-view>
+
+<div style="min-height: 420px;">
+
+	<table datatable="ng" class="table table-striped table-bordered display datatables no-footer row-border hover" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs">
+		<thead>
+			<tr>
+				<th>Descrição</th>
+				<th>Valor</th>
+				<th>Valor Diário</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in originalData" style="height: 40px;" ng-click="seleciona(item);">
+
+				<td style="vertical-align: middle; width: 400px;">{{MESES[item.periodo.mes - 1].nome}} de {{item.periodo.ano}}</td>
+
+				<td style="vertical-align: middle;">{{item.valor | currency: 'R$ '}}</td>
+				
+				<td style="vertical-align: middle;">{{item.valorDiario | currency: 'R$ '}}</td>
+
+				<td style="width: 38px; height: 38px;">
+					<button-editar></button-editar>
+				</td>
+
+				<td style="width: 38px; height: 38px;">
+					<button-delete></button-delete>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+</div>
+
+</pesquisa-view>
+

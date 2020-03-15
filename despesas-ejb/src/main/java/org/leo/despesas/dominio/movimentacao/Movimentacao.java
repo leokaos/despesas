@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -30,7 +29,6 @@ import org.leo.despesas.rest.infra.ModelEntity;
 
 @Entity
 @Table(name = "movimentacao", schema = "despesas_db")
-@DiscriminatorColumn(name = "tipo")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Movimentacao implements ModelEntity {
 
@@ -153,4 +151,6 @@ public abstract class Movimentacao implements ModelEntity {
 			return false;
 		}
 	}
+
+	public abstract BigDecimal getValorContabilistico();
 }

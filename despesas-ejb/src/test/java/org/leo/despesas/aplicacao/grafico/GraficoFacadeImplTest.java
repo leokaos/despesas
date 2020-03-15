@@ -79,7 +79,7 @@ public class GraficoFacadeImplTest {
 		expect(mockQuery.setParameter("dataInicial", dataInicial)).andReturn(mockQuery);
 		expect(mockQuery.setParameter("dataFinal", dataFinal)).andReturn(mockQuery);
 		expect(mockQuery.getResultList()).andReturn(getDadosParaDuasSerieTresPontos());
-		expect(mockTipoDespesaFacade.listar(anyObject(TipoDespesaFiltro.class))).andReturn(getListaTipoDespesa());
+		expect(mockTipoDespesaFacade.listarTodos()).andReturn(getListaTipoDespesa());
 
 		replay(mockEntityManager, mockQuery, mockTipoDespesaFacade);
 

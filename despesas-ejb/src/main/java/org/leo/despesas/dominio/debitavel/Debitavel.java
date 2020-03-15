@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
@@ -31,7 +32,8 @@ public abstract class Debitavel implements ModelEntity {
 	private static final long serialVersionUID = -2096306756580686432L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "DEBITAVEL_ID_SEQ", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "DEBITAVEL_ID_SEQ", sequenceName = "despesas_db.debitavel_id_seq", allocationSize = 1)
 	private Long id;
 
 	@Column(name = "descricao")

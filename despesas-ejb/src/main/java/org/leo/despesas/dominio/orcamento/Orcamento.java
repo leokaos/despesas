@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -26,7 +27,8 @@ public class Orcamento implements ModelEntity {
 	private static final long serialVersionUID = 3125627003466439125L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "ORCAMENTO_ID_SEQ", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "ORCAMENTO_ID_SEQ", sequenceName = "despesas_db.orcamento_id_seq", allocationSize = 1)
 	@Column(name = "id")
 	private Long id;
 

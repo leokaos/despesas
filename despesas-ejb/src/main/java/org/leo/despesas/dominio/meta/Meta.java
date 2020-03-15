@@ -1,33 +1,51 @@
 package org.leo.despesas.dominio.meta;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.Date;
+import static java.math.RoundingMode.HALF_DOWN;
 
-import org.leo.despesas.dominio.movimentacao.Receita;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.leo.despesas.dominio.movimentacao.Movimentacao;
+import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.rest.infra.ModelEntity;
 
+@Entity
+@Table(name = "meta", schema = "despesas_db")
 public class Meta implements ModelEntity {
 
 	private static final long serialVersionUID = 6313644358726789152L;
 
+	@Id
+	@GeneratedValue(generator = "META_ID_SEQ", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "META_ID_SEQ", sequenceName = "despesas_db.meta_id_seq", allocationSize = 1)
 	private Long id;
 
-	private String descricao;
+	@Embedded
+	@AttributeOverrides(value = { @AttributeOverride(name = "dataInicial", column = @Column(name = "data_inicial")), @AttributeOverride(name = "dataFinal", column = @Column(name = "data_final")) })
+	private Periodo periodo;
 
-	private BigDecimal valorDaMeta;
+	private BigDecimal valor;
 
-	private BigDecimal valorAtual;
-
-	private Date dataInicio;
-
-	private Date dataFim;
+	@Transient
+	private BigDecimal saldo = BigDecimal.ZERO;
 
 	public Meta() {
 		super();
 	}
 
-	@Override
 	public Long getId() {
 		return id;
 	}
@@ -36,56 +54,48 @@ public class Meta implements ModelEntity {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public Periodo getPeriodo() {
+		return periodo;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setPeriodo(Periodo periodo) {
+		this.periodo = periodo;
 	}
 
-	public BigDecimal getValorDaMeta() {
-		return valorDaMeta;
+	public BigDecimal getValor() {
+		return valor;
 	}
 
-	public void setValorDaMeta(BigDecimal valorDaMeta) {
-		this.valorDaMeta = valorDaMeta;
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
 	}
 
-	public BigDecimal getValorAtual() {
-		return valorAtual;
+	public BigDecimal getSaldo() {
+		return saldo;
 	}
 
-	public void setValorAtual(BigDecimal valorAtual) {
-		this.valorAtual = valorAtual;
+	public void setSaldo(BigDecimal saldo) {
+		this.saldo = saldo;
 	}
 
-	public Date getDataInicio() {
-		return dataInicio;
+	public void calcularSaldo(List<Movimentacao> movimentos) {
+
+		BigDecimal total = BigDecimal.ZERO;
+
+		for (Movimentacao movimentacao : movimentos) {
+			total = total.add(movimentacao.getValorContabilistico());
+		}
+
+		this.saldo = total;
 	}
 
-	public void setDataInicio(Date dataInicio) {
-		this.dataInicio = dataInicio;
-	}
+	public BigDecimal getValorDiario() {
 
-	public Date getDataFim() {
-		return dataFim;
-	}
+		if (periodo.pertenceAoPeriodo(new Date())) {
+			return this.saldo.subtract(valor).divide(new BigDecimal(periodo.getDiasParaTermino()), HALF_DOWN);
+		}
 
-	public void setDataFim(Date dataFim) {
-		this.dataFim = dataFim;
-	}
-
-	public BigDecimal getPorcentagemConcluida() {
-		return valorAtual.divide(valorDaMeta,RoundingMode.HALF_EVEN).multiply(new BigDecimal("100.00"));
-	}
-
-	public Receita associarReceitaParaMeta(Receita receita,BigDecimal valor) {
-		return receita;
-	}
-
-	public Receita associarReceitaParaMeta(Receita receita) {
-		return associarReceitaParaMeta(receita,receita.getValor());
+		return null;
 	}
 
 }

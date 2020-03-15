@@ -6,12 +6,17 @@ import static org.junit.Assert.assertThat;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 
 import org.junit.Test;
 import org.leo.despesas.dominio.debitavel.CartaoCredito;
 import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.movimentacao.Despesa;
+
+import com.google.common.collect.Lists;
 
 public class CartaoCreditoTest {
 
@@ -29,10 +34,10 @@ public class CartaoCreditoTest {
 
 		final Fatura fatura = cartao.getFaturas().iterator().next();
 
-		assertEquals(formatter.format(fatura.getDataFechamento()),"28/06/2015");
-		assertEquals(formatter.format(fatura.getDataVencimento()),"11/07/2015");
-		assertEquals(cartao.getFaturas().size(),1);
-		assertThat(fatura.getDespesas(),hasItem(despesa));
+		assertEquals(formatter.format(fatura.getDataFechamento()), "28/06/2015");
+		assertEquals(formatter.format(fatura.getDataVencimento()), "11/07/2015");
+		assertEquals(cartao.getFaturas().size(), 1);
+		assertThat(fatura.getDespesas(), hasItem(despesa));
 	}
 
 	@Test
@@ -53,12 +58,12 @@ public class CartaoCreditoTest {
 
 		final Fatura fatura = cartao.getFaturas().iterator().next();
 
-		assertEquals(formatter.format(fatura.getDataFechamento()),"28/06/2015");
-		assertEquals(formatter.format(fatura.getDataVencimento()),"11/07/2015");
-		assertEquals(cartao.getFaturas().size(),1);
-		assertEquals(fatura.getDespesas().size(),2);
-		assertThat(fatura.getDespesas(),hasItem(despesa1));
-		assertThat(fatura.getDespesas(),hasItem(despesa2));
+		assertEquals(formatter.format(fatura.getDataFechamento()), "28/06/2015");
+		assertEquals(formatter.format(fatura.getDataVencimento()), "11/07/2015");
+		assertEquals(cartao.getFaturas().size(), 1);
+		assertEquals(fatura.getDespesas().size(), 2);
+		assertThat(fatura.getDespesas(), hasItem(despesa1));
+		assertThat(fatura.getDespesas(), hasItem(despesa2));
 	}
 
 	@Test
@@ -78,21 +83,31 @@ public class CartaoCreditoTest {
 
 		cartao.debitar(despesa2);
 
-		assertEquals(cartao.getFaturas().size(),2);
+		List<Fatura> faturas = Lists.newArrayList(cartao.getFaturas());
 
-		final Iterator<Fatura> iterator = cartao.getFaturas().iterator();
+		Collections.sort(faturas, new Comparator<Fatura>() {
+
+			@Override
+			public int compare(Fatura o1, Fatura o2) {
+				return o2.getDataFechamento().compareTo(o1.getDataFechamento());
+			}
+		});
+
+		assertEquals(faturas.size(), 2);
+
+		final Iterator<Fatura> iterator = faturas.iterator();
 
 		final Fatura faturaAgosto = iterator.next();
 		final Fatura faturaJulho = iterator.next();
 
-		assertEquals(faturaJulho.getDataFechamento(),formatter.parse("28/06/2015"));
-		assertEquals(faturaAgosto.getDataFechamento(),formatter.parse("28/08/2015"));
+		assertEquals(faturaJulho.getDataFechamento(), formatter.parse("28/06/2015"));
+		assertEquals(faturaAgosto.getDataFechamento(), formatter.parse("28/08/2015"));
 
-		assertEquals(faturaJulho.getDataVencimento(),formatter.parse("11/07/2015"));
-		assertEquals(faturaAgosto.getDataVencimento(),formatter.parse("11/09/2015"));
+		assertEquals(faturaJulho.getDataVencimento(), formatter.parse("11/07/2015"));
+		assertEquals(faturaAgosto.getDataVencimento(), formatter.parse("11/09/2015"));
 
-		assertThat(faturaJulho.getDespesas(),hasItem(despesa1));
-		assertThat(faturaAgosto.getDespesas(),hasItem(despesa2));
+		assertThat(faturaJulho.getDespesas(), hasItem(despesa1));
+		assertThat(faturaAgosto.getDespesas(), hasItem(despesa2));
 	}
 
 	protected CartaoCredito createCartaoCredito() {

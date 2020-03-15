@@ -194,7 +194,16 @@ public class CartaoCredito extends Debitavel {
 
 	@Override
 	public BigDecimal getSaldo() {
-		return null;
+
+		BigDecimal total = this.limite;
+
+		for (Fatura fatura : faturas) {
+			if (!fatura.isPaga()) {
+				total = total.subtract(fatura.getValorFatura());
+			}
+		}
+
+		return total;
 	}
 
 }

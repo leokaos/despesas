@@ -1,0 +1,48 @@
+<h3>
+	<i class="fa fa-angle-right"></i>
+	Metas
+</h3>
+
+<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoMeta.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{metaVO.toString()}}?</b> </ng-modal>
+
+<div class="row col-md-5 form-panel">
+
+	<form class="form-horizontal" method="get" name="edicaoMeta" novalidate>
+
+		<div class="form-group">
+			<label class="col-md-3 control-label">Para o mês de:</label>
+			<div class="col-md-9">
+				<div>
+					<select class="form-control" ng-model="meta.periodo.mes" style="width: 150px; float: left;">
+						<option ng-repeat="mes in MESES" value="{{mes.value}}">{{mes.nome}}</option>
+					</select>
+
+					<label class="col-md-1 control-label">de</label>
+
+					<input type="text" class="form-control" ng-model="meta.periodo.ano" style="width: 150px; float: left;" ui-number-mask="0" min="1" max="9999" />
+					
+					<button type="button" ng-click="setMes()" class="btn btn-theme" style="margin-left: 80px;">Mês Atual</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-md-3 control-label">Valor:</label>
+			<div class="input-group col-md-9" style="padding-left: 15px; padding-right: 15px;">
+				<div class="input-group-addon">
+					<i class="fa fa-money"></i>
+				</div>
+				<input type="text" class="form-control" placeholder="Valor" ng-model="meta.valor" ui-number-mask required>
+			</div>
+		</div>
+
+		<div class="form-group botoes">
+			<div class="col-md-12">
+				<button type="button" class="btn btn-theme" style="float: right;" data-toggle="modal" data-target="#modalSalvar" ng-disabled="edicaoMeta.$invalid">Gravar</button>
+				<button type="button" class="btn btn-theme" style="float: left;" ng-click="cancelar();">Cancelar</button>
+			</div>
+		</div>
+
+	</form>
+
+</div>

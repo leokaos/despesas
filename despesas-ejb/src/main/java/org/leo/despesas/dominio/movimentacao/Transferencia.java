@@ -1,17 +1,19 @@
 package org.leo.despesas.dominio.movimentacao;
 
-import javax.persistence.DiscriminatorValue;
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.dominio.tipomovimentacao.TipoMovimentacao;
 
 @Entity
-@Table(name = "transferencia",schema = "despesas_db")
-@DiscriminatorValue(value = "T")
+@Table(name = "transferencia", schema = "despesas_db")
+@PrimaryKeyJoinColumn(name = "id")
 public class Transferencia extends Movimentacao {
 
 	private static final long serialVersionUID = 4682865005993932139L;
@@ -47,6 +49,11 @@ public class Transferencia extends Movimentacao {
 
 		this.debitavel.transferir(this);
 		this.creditavel.transferir(this);
+	}
+
+	@Override
+	public BigDecimal getValorContabilistico() {
+		return BigDecimal.ZERO;
 	}
 
 }

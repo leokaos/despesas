@@ -6,8 +6,6 @@ app.controller('dashboardController', function($scope, $http, dashboardService, 
 
 	$scope.ano = $scope.dataAtual.getFullYear();
 	$scope.mes = $scope.dataAtual.getMonth();
-	
-	$scope.orcamentos = [];
 
 	var dataInicio = new Date($scope.ano, $scope.mes, 1);
 	var dataFim = new Date($scope.ano, $scope.mes + 1, 0);

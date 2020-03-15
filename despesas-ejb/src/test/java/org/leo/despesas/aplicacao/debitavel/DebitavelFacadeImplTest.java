@@ -62,7 +62,7 @@ public class DebitavelFacadeImplTest {
 
 		verify(mockDespesaFacade, mockReceitaFacade);
 
-		assertEquals(new BigDecimal("56.0"), mediaVariacao);
+		assertEquals(new BigDecimal("56.00"), mediaVariacao);
 	}
 
 	private List<Despesa> createListaDeDespesas() throws Exception {

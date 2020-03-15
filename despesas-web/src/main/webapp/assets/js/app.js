@@ -231,13 +231,29 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'partial/compararServicosTransferencia.html',
 		controller : 'compararServicosTransferenciaController'
 	});
-
+	
+	//META
+	$routeProvider.when('/metas', {
+		templateUrl : 'partial/meta/metas.html',
+		controller : 'metaController'
+	});	
+	
+	$routeProvider.when('/meta', {
+		templateUrl : 'partial/meta/meta.html',
+		controller : 'edicaoMetaController'
+	});
+	
+	$routeProvider.when('/meta/:id', {
+		templateUrl : 'partial/meta/meta.html',
+		controller : 'edicaoMetaController'
+	});
+	
 	// DASHBOARD
 	$routeProvider.otherwise({
 		templateUrl : 'partial/dashboard.html',
 		controller : 'dashboardController'
 	});
-
+	
 });
 
 app.config(function(growlProvider) {
