@@ -1,4 +1,4 @@
-app.controller('dashboardController', function($scope, $http, dashboardService, debitavelService, orcamentoService, $location, $routeParams, movimentacaoService, MESES, MOEDAS) {
+app.controller('dashboardController', function($scope, $http, dashboardService, debitavelService, metaService, orcamentoService, $location, $routeParams, movimentacaoService, MESES, MOEDAS) {
 
 	$scope.dataAtual = new Date();
 	$scope.MESES = MESES;
@@ -35,6 +35,15 @@ app.controller('dashboardController', function($scope, $http, dashboardService, 
 
 		orcamentoService.buscarPorMes(new Periodo($scope.mes + 1, $scope.ano), function(data) {
 			$scope.orcamentos = data;
+		});
+		
+		var metaFiltro = {
+				ano: $scope.ano,
+				mes: $scope.mes + 1
+		};
+		
+		metaService.listar(metaFiltro, function(data){
+			$scope.metaDoMes = data[0];
 		});
 	};
 

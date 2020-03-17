@@ -1,0 +1,14 @@
+
+<div>
+
+	<select class="form-control" ng-model="value.mes" style="width: 150px; float: left;">
+		<option ng-repeat="mes in MESES" value="{{mes.value}}">{{mes.nome}}</option>
+	</select>
+	
+	<label class="col-md-1 control-label">de</label>
+
+	<input type="text" class="form-control" ng-model="value.ano" style="width: 150px; float: left;" ui-number-mask="0" min="1" max="9999" />
+
+	<button type="button" ng-click="setMes()" class="btn btn-theme" style="margin-left: 80px;">Mês Atual</button>
+
+</div>

@@ -1,19 +1,11 @@
-app.controller('metaController', function($scope, metaService, $location, $routeParams, usSpinnerService,MESES) {
-
-	var dataInicial = new Date();
-	dataInicial.setDate(1);
-
-	var dataFinal = new Date();
-	dataFinal.setMonth(dataFinal.getMonth() + 1);
-	dataFinal.setDate(0);
-	
-	$scope.MESES = MESES;
+app.controller('metaController', function($scope, metaService, $location, $routeParams, usSpinnerService, MESES) {
 
 	$scope.metasSelecionadas = [];
+	$scope.MESES = MESES;
 
 	$scope.filtro = {
-		'dataInicial' : dataInicial,
-		'dataFinal' : dataFinal
+		mes : new Date().getMonth() + 1,
+		ano : new Date().getYear() + 1900
 	};
 
 	$scope.metaSelecionada = null;
@@ -40,16 +32,9 @@ app.controller('metaController', function($scope, metaService, $location, $route
 	};
 
 	$scope.listar = function() {
-		metaService.listar($scope.filtro, function(data) {
-
-			$.each(data, function(index, value) {
-				data[index] = new MetaVO(value);
-			});
-
-			$scope.loadData(data);
-		});
+		metaService.listar($scope.filtro, $scope.loadData);
 	};
-	
+
 	$scope.novo = function() {
 		$location.path('/meta');
 	};
@@ -92,14 +77,15 @@ app.controller('metaController', function($scope, metaService, $location, $route
 
 });
 
-app.controller('edicaoMetaController', function($scope, metaService, $location, $routeParams, growl,MESES) {
+app.controller('edicaoMetaController', function($scope, metaService, $location, $routeParams, growl, MESES) {
 
 	var id = $routeParams.id;
+	
 	$scope.MESES = MESES;
 
 	if (id != null) {
 		metaService.buscarPorId(id, function(meta) {
-			$scope.meta = new MetaVO(meta);
+			$scope.meta = meta;
 		});
 	} else {
 		$scope.meta = metaService.getNovaMeta();
@@ -123,10 +109,10 @@ app.controller('edicaoMetaController', function($scope, metaService, $location, 
 
 		if (valid) {
 
-			if ($scope.despesa.id) {
+			if ($scope.meta.id) {
 				metaService.salvar($scope.meta, $scope.salvo);
 			} else {
-				dmetaService.novo($scope.meta, $scope.salvo);
+				metaService.novo($scope.meta, $scope.salvo);
 			}
 		}
 	};

@@ -2,12 +2,12 @@ app.service('metaService', function($http, filtroParser) {
 
 	pathBase = '/despesas/services/meta/';
 
-	this.getNovoMeta = function() {
+	this.getNovaMeta = function() {
 		return {
 			"valor" : null,
-			"periodo" : {
-				"dataInicial" : null,
-				"dataFinal" : null
+			"mes" : {
+				"mes" : new Date().getMonth() + 1,
+				"ano" : new Date().getYear() + 1900
 			}
 		}
 	};
@@ -34,7 +34,7 @@ app.service('metaService', function($http, filtroParser) {
 		});
 	};
 
-	this.salvar = function(meta, parcelamento, fn) {
+	this.salvar = function(meta, fn) {
 		$http.put(pathBase, meta).success(function(data) {
 			fn(data);
 		});

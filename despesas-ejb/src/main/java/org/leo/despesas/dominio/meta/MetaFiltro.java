@@ -1,25 +1,23 @@
 package org.leo.despesas.dominio.meta;
 
-import java.util.Date;
-
 import javax.ws.rs.QueryParam;
 
 import org.leo.despesas.infra.AbstractModelFiltro;
-import org.leo.despesas.infra.Periodo;
+import org.leo.despesas.infra.Mes;
 
 public class MetaFiltro extends AbstractModelFiltro<Meta> {
 
-	@QueryParam("dataInicial")
-	private Date dataInicial;
+	@QueryParam("ano")
+	private Integer ano;
 
-	@QueryParam("dataFinal")
-	private Date dataFinal;
+	@QueryParam("mes")
+	private Integer mes;
 
 	@Override
 	protected void build() {
 
-		if (dataInicial != null && dataFinal != null) {
-			eq("periodo", new Periodo(dataInicial, dataInicial));
+		if (ano != null && mes != null) {
+			eq("mes", new Mes(mes, ano));
 		}
 
 	}

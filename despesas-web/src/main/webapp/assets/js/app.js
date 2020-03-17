@@ -471,3 +471,25 @@ app.directive('bullet', function($compile) {
 		}
 	};
 });
+
+app.directive('mes', ['MESES', function (MESES) {
+	return {
+		restrict: 'E',
+		scope: {
+			value: '=ngModel'
+		},
+		transclude: true,
+		templateUrl: 'partial/componentes/mes.html',
+		link: function (scope, iElement, iAttrs) {
+
+			scope.MESES = MESES;
+
+			scope.setMes = function () {
+				this.value = {
+					mes: new Date().getMonth() + 1,
+					ano: new Date().getYear() + 1900
+				};
+			};
+		}
+	};
+}]);

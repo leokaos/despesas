@@ -3,7 +3,7 @@
 	Metas
 </h3>
 
-<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoMeta.$valid);" type="SAVE">Tem certeza que deseja salvar <b>{{metaVO.toString()}}?</b> </ng-modal>
+<ng-modal id="modalSalvar" modal-title="Confirmar" func-salvar="salvar(edicaoMeta.$valid);" type="SAVE">Tem certeza que deseja salvar <b>meta de {{MESES[meta.mes.mes - 1].nome}} de {{meta.mes.ano}}?</b> </ng-modal>
 
 <div class="row col-md-5 form-panel">
 
@@ -12,17 +12,7 @@
 		<div class="form-group">
 			<label class="col-md-3 control-label">Para o mês de:</label>
 			<div class="col-md-9">
-				<div>
-					<select class="form-control" ng-model="meta.periodo.mes" style="width: 150px; float: left;">
-						<option ng-repeat="mes in MESES" value="{{mes.value}}">{{mes.nome}}</option>
-					</select>
-
-					<label class="col-md-1 control-label">de</label>
-
-					<input type="text" class="form-control" ng-model="meta.periodo.ano" style="width: 150px; float: left;" ui-number-mask="0" min="1" max="9999" />
-					
-					<button type="button" ng-click="setMes()" class="btn btn-theme" style="margin-left: 80px;">Mês Atual</button>
-				</div>
+				<mes ng-model="meta.mes"></mes>
 			</div>
 		</div>
 

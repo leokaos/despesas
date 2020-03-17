@@ -15,7 +15,7 @@
 		<tbody>
 			<tr ng-repeat="item in originalData" style="height: 40px;" ng-click="seleciona(item);">
 
-				<td style="vertical-align: middle; width: 400px;">{{MESES[item.periodo.mes - 1].nome}} de {{item.periodo.ano}}</td>
+				<td style="vertical-align: middle; width: 400px;">{{MESES[item.mes.mes - 1].nome}} de {{item.mes.ano}}</td>
 
 				<td style="vertical-align: middle;">{{item.valor | currency: 'R$ '}}</td>
 				

@@ -8,7 +8,6 @@ import javax.persistence.Embeddable;
 import org.leo.despesas.infra.util.DataUtil;
 
 @Embeddable
-//@JsonDeserialize(using = PeriodoDeserializer.class)
 public class Mes {
 
 	private Integer mes;
@@ -29,7 +28,7 @@ public class Mes {
 			throw new IllegalArgumentException("Ano deve não pode ser menor que 0.");
 		}
 
-		this.mes = mes - 1;
+		this.mes = mes;
 		this.ano = ano;
 	}
 
@@ -38,7 +37,7 @@ public class Mes {
 
 		Calendar calendar = DataUtil.toCalendar(data);
 
-		this.mes = calendar.get(Calendar.MONTH);
+		this.mes = calendar.get(Calendar.MONTH) + 1;
 		this.ano = calendar.get(Calendar.YEAR);
 	}
 
@@ -49,13 +48,29 @@ public class Mes {
 	public Periodo getPeriodo() {
 		Date dataBase = new Date();
 
-		dataBase = DataUtil.setMonths(dataBase, mes);
+		dataBase = DataUtil.setMonths(dataBase, mes - 1);
 		dataBase = DataUtil.setYears(dataBase, ano);
 
 		Date dataInicial = DataUtil.truncate(dataBase, Calendar.MONTH);
 		Date dataFinal = DataUtil.maximo(dataBase, Calendar.MONTH);
 
 		return new Periodo(dataInicial, dataFinal);
+	}
+
+	public Integer getMes() {
+		return mes;
+	}
+
+	public void setMes(Integer mes) {
+		this.mes = mes;
+	}
+
+	public Integer getAno() {
+		return ano;
+	}
+
+	public void setAno(Integer ano) {
+		this.ano = ano;
 	}
 
 }

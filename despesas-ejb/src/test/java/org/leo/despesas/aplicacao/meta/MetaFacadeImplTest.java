@@ -6,13 +6,13 @@ import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.easymock.EasyMockRunner;
 import org.easymock.Mock;
 import org.easymock.MockType;
@@ -46,22 +46,27 @@ public class MetaFacadeImplTest {
 	final MetaFacade facade = new MetaFacadeImpl();
 
 	@Test
-	public void test() {
+	public void deveriaRetornarValorDiarioEsperadoTest() throws Exception {
 
 		MetaFiltro filtro = new MetaFiltro();
 
 		List<Meta> expectedLista = Lists.newArrayList();
 
-		List<Movimentacao> movimentacaoEsperada = Lists.newArrayList(createDespesa(20.0), createReceita(40.0));
+		List<Movimentacao> movimentacaoEsperada = Lists.newArrayList(createDespesa(2000.0), createReceita(4000.0));
 
 		Meta meta = new Meta();
 
-		meta.setMes(new Mes(1, 2020));
+		meta.setMes(new Mes(new Date()));
+		meta.setValor(new BigDecimal(200));
 
-		Date dataInicial = meta.getMes().getPeriodo().getDataInicial();
-		Date dataFinal = meta.getMes().getPeriodo().getDataFinal();
+		Periodo periodo = meta.getMes().getPeriodo();
+
+		Date dataInicial = periodo.getDataInicial();
+		Date dataFinal = periodo.getDataFinal();
 
 		expectedLista.add(meta);
+
+		BigDecimal valorEsperado = new BigDecimal(1800).divide(new BigDecimal(periodo.getDiasParaTermino()), 2, RoundingMode.HALF_UP);
 
 		expect(mockEntityManager.createQuery("SELECT meta FROM Meta meta", Meta.class)).andReturn(mockQuery);
 		expect(mockQuery.getResultList()).andReturn(expectedLista);
@@ -75,7 +80,7 @@ public class MetaFacadeImplTest {
 
 		Meta metaResultado = resultado.iterator().next();
 
-		assertEquals(new BigDecimal(1), metaResultado.getValorDiario());
+		assertEquals(valorEsperado, metaResultado.getValorDiario());
 	}
 
 	private Movimentacao createDespesa(double valor) {

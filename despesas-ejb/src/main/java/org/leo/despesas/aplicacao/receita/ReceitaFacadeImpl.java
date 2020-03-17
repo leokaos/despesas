@@ -35,7 +35,7 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita, ReceitaFiltro> im
 	public List<GraficoVO> getGraficoPorPeriodo(final Periodo periodo) {
 		final StringBuilder builder = new StringBuilder();
 
-		builder.append("SELECT NEW org.leo.despesas.dominio.movimentacao.GraficoVO(r.tipo.descricao,r.tipo.cor, SUM(r.valor)) FROM Receita r ");
+		builder.append("SELECT NEW org.leo.despesas.rest.GraficoVO(r.tipo.descricao,r.tipo.cor, SUM(r.valor)) FROM Receita r ");
 		builder.append("WHERE r.vencimento BETWEEN :dataInicial AND :dataFinal ");
 		builder.append("GROUP BY r.tipo.descricao, r.tipo.cor");
 

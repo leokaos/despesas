@@ -1,14 +1,10 @@
 package org.leo.despesas.dominio.meta;
 
-import static java.math.RoundingMode.HALF_DOWN;
-
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,13 +14,16 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.leo.despesas.dominio.movimentacao.Movimentacao;
 import org.leo.despesas.infra.Mes;
 import org.leo.despesas.infra.ModelEntity;
 import org.leo.despesas.infra.Periodo;
+import org.leo.despesas.rest.MetaDeserializer;
 
 @Entity
 @Table(name = "meta", schema = "despesas_db")
+@JsonDeserialize(using = MetaDeserializer.class)
 public class Meta implements ModelEntity {
 
 	private static final long serialVersionUID = 6313644358726789152L;
@@ -35,7 +34,6 @@ public class Meta implements ModelEntity {
 	private Long id;
 
 	@Embedded
-	@AttributeOverrides(value = { @AttributeOverride(name = "mes", column = @Column(name = "mes")), @AttributeOverride(name = "ano", column = @Column(name = "ano")) })
 	private Mes mes;
 
 	private BigDecimal valor;
@@ -95,7 +93,7 @@ public class Meta implements ModelEntity {
 		Periodo periodo = this.mes.getPeriodo();
 
 		if (periodo.pertenceAoPeriodo(new Date())) {
-			return this.saldo.subtract(valor).divide(new BigDecimal(periodo.getDiasParaTermino()), HALF_DOWN);
+			return this.saldo.subtract(valor).divide(new BigDecimal(periodo.getDiasParaTermino()), 2, RoundingMode.HALF_UP);
 		}
 
 		return null;
