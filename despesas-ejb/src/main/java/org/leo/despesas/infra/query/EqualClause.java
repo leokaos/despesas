@@ -1,4 +1,4 @@
-package org.leo.despesas.infra;
+package org.leo.despesas.infra.query;
 
 import javax.persistence.Query;
 

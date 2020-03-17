@@ -7,7 +7,7 @@ import javax.ws.rs.Path;
 import org.leo.despesas.aplicacao.meta.MetaFacade;
 import org.leo.despesas.dominio.meta.Meta;
 import org.leo.despesas.dominio.meta.MetaFiltro;
-import org.leo.despesas.rest.infra.AbstractService;
+import org.leo.despesas.infra.AbstractService;
 
 @Path("/meta")
 @RequestScoped

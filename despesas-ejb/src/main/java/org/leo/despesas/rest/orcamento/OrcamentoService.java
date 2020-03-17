@@ -7,7 +7,7 @@ import javax.ws.rs.Path;
 import org.leo.despesas.aplicacao.orcamento.OrcamentoFacade;
 import org.leo.despesas.dominio.orcamento.Orcamento;
 import org.leo.despesas.dominio.orcamento.OrcamentoFiltro;
-import org.leo.despesas.rest.infra.AbstractService;
+import org.leo.despesas.infra.AbstractService;
 
 @Path("/orcamento")
 @RequestScoped

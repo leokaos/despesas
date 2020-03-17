@@ -8,8 +8,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.StringUtils;
-import org.leo.despesas.rest.infra.ModelEntity;
-import org.leo.despesas.rest.infra.ModelFiltro;
+import org.leo.despesas.infra.query.BetweenClause;
+import org.leo.despesas.infra.query.Clause;
+import org.leo.despesas.infra.query.EqualClause;
+import org.leo.despesas.infra.query.GreaterClause;
+import org.leo.despesas.infra.query.LessClause;
+import org.leo.despesas.infra.query.LikeClause;
+import org.leo.despesas.infra.query.NotEqual;
 
 import com.google.common.collect.Lists;
 
@@ -105,11 +110,11 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 	}
 
 	protected void notEqual(String property, String value) {
-		
-		if (StringUtils.isNotEmpty(value)){
-			this.clausulas.add(new NotEqual(property,value));
+
+		if (StringUtils.isNotEmpty(value)) {
+			this.clausulas.add(new NotEqual(property, value));
 		}
-		
+
 	}
 
 }

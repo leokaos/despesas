@@ -4,7 +4,7 @@ import javax.ejb.Stateless;
 
 import org.leo.despesas.dominio.tipomovimentacao.TipoReceita;
 import org.leo.despesas.dominio.tipomovimentacao.TipoReceitaFiltro;
-import org.leo.despesas.rest.infra.AbstractFacade;
+import org.leo.despesas.infra.AbstractFacade;
 
 @Stateless
 public class TipoReceitaFacadeImpl extends AbstractFacade<TipoReceita, TipoReceitaFiltro> implements TipoReceitaFacade {

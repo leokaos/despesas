@@ -18,8 +18,8 @@ import org.leo.despesas.aplicacao.fatura.FaturaFacade;
 import org.leo.despesas.aplicacao.transferencia.TransferenciaFacade;
 import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.debitavel.FaturaFiltro;
+import org.leo.despesas.infra.AbstractService;
 import org.leo.despesas.infra.exception.DespesasException;
-import org.leo.despesas.rest.infra.AbstractService;
 
 @Path("/fatura")
 public class FaturaService extends AbstractService<FaturaFacade, Fatura, FaturaFiltro> {

@@ -13,9 +13,9 @@ import org.leo.despesas.dominio.debitavel.Conta;
 import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
 import org.leo.despesas.dominio.movimentacao.TransferenciaFiltro;
+import org.leo.despesas.infra.AbstractFacade;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.infra.exception.DespesasException;
-import org.leo.despesas.rest.infra.AbstractFacade;
 
 @Stateless
 public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, TransferenciaFiltro> implements TransferenciaFacade {

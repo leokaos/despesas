@@ -1,11 +1,12 @@
-package org.leo.despesas.dominio.parcelamento;
+package org.leo.despesas.rest;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.leo.despesas.dominio.parcelamento.Parcelamento;
 
-@JsonDeserialize(using = ParcelamentoVODeserialize.class)
+@JsonDeserialize(using = ParcelamentoVODeserializer.class)
 public class ParcelamentoVO implements Serializable {
 
 	private static final long serialVersionUID = -506071545322037530L;

@@ -13,11 +13,11 @@ import org.leo.despesas.aplicacao.receita.ReceitaFacade;
 import org.leo.despesas.aplicacao.transferencia.TransferenciaFacade;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
-import org.leo.despesas.dominio.movimentacao.GraficoVO;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.ReceitaFiltro;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
 import org.leo.despesas.dominio.movimentacao.TransferenciaFiltro;
+import org.leo.despesas.rest.GraficoVO;
 
 @Stateless
 public class DashboardFacadeImpl implements DashboardFacade {

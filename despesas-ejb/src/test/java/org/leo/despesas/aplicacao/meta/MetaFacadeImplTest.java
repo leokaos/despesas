@@ -25,6 +25,7 @@ import org.leo.despesas.dominio.meta.MetaFiltro;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Movimentacao;
 import org.leo.despesas.dominio.movimentacao.Receita;
+import org.leo.despesas.infra.Mes;
 import org.leo.despesas.infra.Periodo;
 
 import com.google.common.collect.Lists;
@@ -55,10 +56,10 @@ public class MetaFacadeImplTest {
 
 		Meta meta = new Meta();
 
-		Date dataInicial = DateUtils.addDays(new Date(), -10);
-		Date dataFinal = DateUtils.addDays(new Date(), 20);
+		meta.setMes(new Mes(1, 2020));
 
-		meta.setPeriodo(new Periodo(dataInicial, dataFinal));
+		Date dataInicial = meta.getMes().getPeriodo().getDataInicial();
+		Date dataFinal = meta.getMes().getPeriodo().getDataFinal();
 
 		expectedLista.add(meta);
 

@@ -8,9 +8,9 @@ import javax.ejb.Stateless;
 import org.leo.despesas.aplicacao.parametro.ParametroFacade;
 import org.leo.despesas.dominio.servicotransferencia.Cotacao;
 import org.leo.despesas.dominio.servicotransferencia.CotacaoFiltro;
-import org.leo.despesas.dominio.servicotransferencia.Moeda;
+import org.leo.despesas.infra.AbstractFacade;
+import org.leo.despesas.infra.Moeda;
 import org.leo.despesas.infra.cotacao.CotacaoUrlParser;
-import org.leo.despesas.rest.infra.AbstractFacade;
 
 @Stateless
 public class CotacaoFacadeImpl extends AbstractFacade<Cotacao, CotacaoFiltro> implements CotacaoFacade {

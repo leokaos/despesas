@@ -7,7 +7,7 @@ import javax.ws.rs.Path;
 import org.leo.despesas.aplicacao.tipodespesa.TipoDespesaFacade;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesaFiltro;
-import org.leo.despesas.rest.infra.AbstractService;
+import org.leo.despesas.infra.AbstractService;
 
 @Path("/tipodespesa")
 @RequestScoped

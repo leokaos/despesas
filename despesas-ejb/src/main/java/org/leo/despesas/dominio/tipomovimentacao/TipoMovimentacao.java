@@ -11,7 +11,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.leo.despesas.rest.infra.ModelEntity;
+import org.leo.despesas.infra.ModelEntity;
 
 @Entity
 @Table(name = "tipo_movimentacao", schema = "despesas_db")

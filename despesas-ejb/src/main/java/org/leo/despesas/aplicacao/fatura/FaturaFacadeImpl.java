@@ -8,7 +8,7 @@ import javax.persistence.TypedQuery;
 import org.leo.despesas.dominio.debitavel.CartaoCredito;
 import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.debitavel.FaturaFiltro;
-import org.leo.despesas.rest.infra.AbstractFacade;
+import org.leo.despesas.infra.AbstractFacade;
 
 import com.google.common.collect.Lists;
 

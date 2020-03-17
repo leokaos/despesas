@@ -21,9 +21,9 @@ import javax.persistence.TemporalType;
 
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
-import org.leo.despesas.infra.DataUtil;
+import org.leo.despesas.infra.ModelEntity;
 import org.leo.despesas.infra.Periodo;
-import org.leo.despesas.rest.infra.ModelEntity;
+import org.leo.despesas.infra.util.DataUtil;
 
 @Entity
 @Table(name = "fatura",schema = "despesas_db")

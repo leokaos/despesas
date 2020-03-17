@@ -22,13 +22,13 @@ import org.apache.poi.util.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import org.leo.despesas.aplicacao.despesa.DespesaFacade;
-import org.leo.despesas.dominio.debitavel.DespesaVO;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
-import org.leo.despesas.dominio.movimentacao.GraficoVO;
+import org.leo.despesas.infra.AbstractService;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.infra.exception.DespesasException;
-import org.leo.despesas.rest.infra.AbstractService;
+import org.leo.despesas.rest.DespesaVO;
+import org.leo.despesas.rest.GraficoVO;
 
 @Path("/despesa")
 @RequestScoped

@@ -6,7 +6,7 @@ import javax.ws.rs.Path;
 import org.leo.despesas.aplicacao.cartao.CartaoFacade;
 import org.leo.despesas.dominio.debitavel.CartaoCredito;
 import org.leo.despesas.dominio.debitavel.CartaoCreditoFiltro;
-import org.leo.despesas.rest.infra.AbstractService;
+import org.leo.despesas.infra.AbstractService;
 
 @Path("/cartao")
 public class CartaoService extends AbstractService<CartaoFacade, CartaoCredito, CartaoCreditoFiltro> {

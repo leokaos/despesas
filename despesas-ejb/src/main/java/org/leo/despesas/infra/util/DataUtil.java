@@ -1,4 +1,4 @@
-package org.leo.despesas.infra;
+package org.leo.despesas.infra.util;
 
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.HOUR_OF_DAY;
@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang3.time.DateUtils;
+import org.leo.despesas.infra.Periodo;
 
 public class DataUtil extends DateUtils {
 

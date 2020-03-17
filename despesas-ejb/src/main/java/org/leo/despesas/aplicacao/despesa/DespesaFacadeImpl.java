@@ -19,11 +19,11 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
-import org.leo.despesas.dominio.movimentacao.GraficoVO;
-import org.leo.despesas.dominio.parcelamento.ParcelamentoVO;
+import org.leo.despesas.infra.AbstractFacade;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.infra.exception.DespesasException;
-import org.leo.despesas.rest.infra.AbstractFacade;
+import org.leo.despesas.rest.GraficoVO;
+import org.leo.despesas.rest.ParcelamentoVO;
 
 @Stateless
 public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> implements DespesaFacade {

@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import org.leo.despesas.dominio.movimentacao.GraficoVO;
+import org.leo.despesas.rest.GraficoVO;
 
 @Local
 public interface DashboardFacade {

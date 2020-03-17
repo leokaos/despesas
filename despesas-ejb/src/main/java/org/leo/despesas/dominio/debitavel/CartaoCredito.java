@@ -21,7 +21,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
-import org.leo.despesas.infra.DataUtil;
+import org.leo.despesas.infra.util.DataUtil;
+import org.leo.despesas.rest.DebitavelSerializerVisitorImpl;
 
 @Entity
 @DiscriminatorValue(value = CartaoCredito.CODIGO_TIPO)

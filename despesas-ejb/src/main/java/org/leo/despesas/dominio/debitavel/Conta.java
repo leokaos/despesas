@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
+import org.leo.despesas.rest.DebitavelSerializerVisitorImpl;
 
 @Entity
 @Table(name = "conta", schema = "despesas_db")

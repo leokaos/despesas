@@ -10,7 +10,7 @@ import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
 import org.leo.despesas.dominio.orcamento.Orcamento;
 import org.leo.despesas.dominio.orcamento.OrcamentoFiltro;
-import org.leo.despesas.rest.infra.AbstractFacade;
+import org.leo.despesas.infra.AbstractFacade;
 
 @Stateless
 public class OrcamentoFacadeImpl extends AbstractFacade<Orcamento, OrcamentoFiltro> implements OrcamentoFacade {

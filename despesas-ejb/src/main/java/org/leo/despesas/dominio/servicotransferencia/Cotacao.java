@@ -14,7 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.leo.despesas.rest.infra.ModelEntity;
+import org.leo.despesas.infra.ModelEntity;
+import org.leo.despesas.infra.Moeda;
 
 @Entity
 @Table(name = "cotacao", schema = "despesas_db")

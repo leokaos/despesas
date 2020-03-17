@@ -1,4 +1,4 @@
-package org.leo.despesas.dominio.debitavel;
+package org.leo.despesas.rest;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -11,6 +11,8 @@ import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.JsonDeserializer;
+import org.leo.despesas.dominio.debitavel.Debitavel;
+import org.leo.despesas.dominio.debitavel.DebitavelFactory;
 
 public class DebitavelDeserializer extends JsonDeserializer<Debitavel> {
 

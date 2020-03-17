@@ -3,7 +3,7 @@ package org.leo.despesas.dominio.parcelamento;
 import java.util.Date;
 
 import org.leo.despesas.dominio.movimentacao.Despesa;
-import org.leo.despesas.infra.DataUtil;
+import org.leo.despesas.infra.util.DataUtil;
 
 public class ParcelamentoAnual extends Parcelamento {
 

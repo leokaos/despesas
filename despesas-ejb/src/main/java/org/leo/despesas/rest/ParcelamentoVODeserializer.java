@@ -1,4 +1,4 @@
-package org.leo.despesas.dominio.parcelamento;
+package org.leo.despesas.rest;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -8,8 +8,9 @@ import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.ObjectCodec;
 import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.JsonDeserializer;
+import org.leo.despesas.dominio.parcelamento.Parcelamento;
 
-public class ParcelamentoVODeserialize extends JsonDeserializer<ParcelamentoVO> {
+public class ParcelamentoVODeserializer extends JsonDeserializer<ParcelamentoVO> {
 
 	private static final String ATRIBUTO_TIPO = "tipo";
 	private static final String ATRIBUTO_PARCELAS = "parcelas";

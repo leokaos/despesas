@@ -7,6 +7,7 @@ import javax.ws.rs.QueryParam;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.leo.despesas.infra.AbstractModelFiltro;
+import org.leo.despesas.infra.Moeda;
 
 public class CotacaoFiltro extends AbstractModelFiltro<Cotacao> {
 

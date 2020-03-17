@@ -4,8 +4,8 @@ import javax.ejb.Local;
 
 import org.leo.despesas.dominio.servicotransferencia.Cotacao;
 import org.leo.despesas.dominio.servicotransferencia.CotacaoFiltro;
-import org.leo.despesas.dominio.servicotransferencia.Moeda;
-import org.leo.despesas.rest.infra.SimpleFacade;
+import org.leo.despesas.infra.Moeda;
+import org.leo.despesas.infra.SimpleFacade;
 
 @Local
 public interface CotacaoFacade extends SimpleFacade<Cotacao, CotacaoFiltro> {

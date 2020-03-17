@@ -3,10 +3,20 @@ package org.leo.despesas.infra;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.persistence.Embeddable;
+
+import org.leo.despesas.infra.util.DataUtil;
+
+@Embeddable
+//@JsonDeserialize(using = PeriodoDeserializer.class)
 public class Mes {
 
-	private final Integer mes;
-	private final Integer ano;
+	private Integer mes;
+	private Integer ano;
+
+	public Mes() {
+		super();
+	}
 
 	public Mes(Integer mes, Integer ano) {
 		super();

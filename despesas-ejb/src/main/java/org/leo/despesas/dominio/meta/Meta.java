@@ -19,8 +19,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.leo.despesas.dominio.movimentacao.Movimentacao;
+import org.leo.despesas.infra.Mes;
+import org.leo.despesas.infra.ModelEntity;
 import org.leo.despesas.infra.Periodo;
-import org.leo.despesas.rest.infra.ModelEntity;
 
 @Entity
 @Table(name = "meta", schema = "despesas_db")
@@ -34,8 +35,8 @@ public class Meta implements ModelEntity {
 	private Long id;
 
 	@Embedded
-	@AttributeOverrides(value = { @AttributeOverride(name = "dataInicial", column = @Column(name = "data_inicial")), @AttributeOverride(name = "dataFinal", column = @Column(name = "data_final")) })
-	private Periodo periodo;
+	@AttributeOverrides(value = { @AttributeOverride(name = "mes", column = @Column(name = "mes")), @AttributeOverride(name = "ano", column = @Column(name = "ano")) })
+	private Mes mes;
 
 	private BigDecimal valor;
 
@@ -54,12 +55,12 @@ public class Meta implements ModelEntity {
 		this.id = id;
 	}
 
-	public Periodo getPeriodo() {
-		return periodo;
+	public Mes getMes() {
+		return mes;
 	}
 
-	public void setPeriodo(Periodo periodo) {
-		this.periodo = periodo;
+	public void setMes(Mes mes) {
+		this.mes = mes;
 	}
 
 	public BigDecimal getValor() {
@@ -90,6 +91,8 @@ public class Meta implements ModelEntity {
 	}
 
 	public BigDecimal getValorDiario() {
+
+		Periodo periodo = this.mes.getPeriodo();
 
 		if (periodo.pertenceAoPeriodo(new Date())) {
 			return this.saldo.subtract(valor).divide(new BigDecimal(periodo.getDiasParaTermino()), HALF_DOWN);

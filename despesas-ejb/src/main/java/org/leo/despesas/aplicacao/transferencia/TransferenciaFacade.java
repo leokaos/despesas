@@ -10,8 +10,8 @@ import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
 import org.leo.despesas.dominio.movimentacao.TransferenciaFiltro;
 import org.leo.despesas.infra.Periodo;
+import org.leo.despesas.infra.SimpleFacade;
 import org.leo.despesas.infra.exception.DespesasException;
-import org.leo.despesas.rest.infra.SimpleFacade;
 
 @Local
 public interface TransferenciaFacade extends SimpleFacade<Transferencia, TransferenciaFiltro> {

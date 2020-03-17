@@ -1,4 +1,4 @@
-package org.leo.despesas.rest.infra;
+package org.leo.despesas.infra;
 
 import java.util.List;
 

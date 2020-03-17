@@ -1,7 +1,11 @@
-package org.leo.despesas.dominio.debitavel;
+package org.leo.despesas.rest;
 
 import java.math.BigDecimal;
 import java.util.Map;
+
+import org.leo.despesas.dominio.debitavel.BandeiraCartaoCredito;
+import org.leo.despesas.dominio.debitavel.CartaoCredito;
+import org.leo.despesas.dominio.debitavel.Conta;
 
 public class DebitavelSerializerVisitorImpl implements DebitavelSerializerVisitor {
 

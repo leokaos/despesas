@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import java.util.Date;
 
 import org.junit.Test;
-import org.leo.despesas.infra.DataUtil;
 import org.leo.despesas.infra.Periodo;
+import org.leo.despesas.infra.util.DataUtil;
 
 public class PeriodoTest {
 

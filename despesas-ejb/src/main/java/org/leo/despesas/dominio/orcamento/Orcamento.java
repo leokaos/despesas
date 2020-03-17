@@ -18,7 +18,7 @@ import javax.persistence.Transient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
-import org.leo.despesas.rest.infra.ModelEntity;
+import org.leo.despesas.infra.ModelEntity;
 
 @Entity
 @Table(name = "orcamento",schema = "despesas_db")

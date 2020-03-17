@@ -23,9 +23,9 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.leo.despesas.dominio.debitavel.Debitavel;
-import org.leo.despesas.dominio.debitavel.DebitavelDeserializer;
-import org.leo.despesas.dominio.servicotransferencia.Moeda;
-import org.leo.despesas.rest.infra.ModelEntity;
+import org.leo.despesas.infra.ModelEntity;
+import org.leo.despesas.infra.Moeda;
+import org.leo.despesas.rest.DebitavelDeserializer;
 
 @Entity
 @Table(name = "movimentacao", schema = "despesas_db")

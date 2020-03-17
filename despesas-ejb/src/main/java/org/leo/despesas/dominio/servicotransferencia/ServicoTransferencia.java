@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.leo.despesas.rest.infra.ModelEntity;
+import org.leo.despesas.infra.ModelEntity;
 
 @Entity
 @Table(name = "servico_transferencia", schema = "despesas_db")

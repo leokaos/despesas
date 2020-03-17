@@ -16,7 +16,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import org.easymock.EasyMock;
 import org.easymock.EasyMockRunner;
 import org.easymock.Mock;
 import org.easymock.MockType;
@@ -79,7 +78,7 @@ public class GraficoFacadeImplTest {
 		expect(mockQuery.setParameter("dataInicial", dataInicial)).andReturn(mockQuery);
 		expect(mockQuery.setParameter("dataFinal", dataFinal)).andReturn(mockQuery);
 		expect(mockQuery.getResultList()).andReturn(getDadosParaDuasSerieTresPontos());
-		expect(mockTipoDespesaFacade.listarTodos()).andReturn(getListaTipoDespesa());
+		expect(mockTipoDespesaFacade.listar(anyObject(TipoDespesaFiltro.class))).andReturn(getListaTipoDespesa());
 
 		replay(mockEntityManager, mockQuery, mockTipoDespesaFacade);
 

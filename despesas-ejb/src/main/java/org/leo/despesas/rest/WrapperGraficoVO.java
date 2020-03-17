@@ -1,6 +1,8 @@
-package org.leo.despesas.dominio.movimentacao;
+package org.leo.despesas.rest;
 
 import java.util.List;
+
+import org.leo.despesas.dominio.movimentacao.TipoGrafico;
 
 public class WrapperGraficoVO {
 

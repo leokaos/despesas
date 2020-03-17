@@ -17,8 +17,8 @@ import org.leo.despesas.aplicacao.dashboard.DashboardFacade;
 import org.leo.despesas.aplicacao.despesa.DespesaFacade;
 import org.leo.despesas.aplicacao.receita.ReceitaFacade;
 import org.leo.despesas.dominio.movimentacao.TipoGrafico;
-import org.leo.despesas.dominio.movimentacao.WrapperGraficoVO;
 import org.leo.despesas.infra.Periodo;
+import org.leo.despesas.rest.WrapperGraficoVO;
 
 @Path("/dashbboard")
 @RequestScoped

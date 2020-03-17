@@ -10,8 +10,8 @@ import javax.ws.rs.core.MediaType;
 import org.leo.despesas.aplicacao.cotacao.CotacaoFacade;
 import org.leo.despesas.dominio.servicotransferencia.Cotacao;
 import org.leo.despesas.dominio.servicotransferencia.CotacaoFiltro;
-import org.leo.despesas.dominio.servicotransferencia.Moeda;
-import org.leo.despesas.rest.infra.AbstractService;
+import org.leo.despesas.infra.AbstractService;
+import org.leo.despesas.infra.Moeda;
 
 @Path("/cotacao")
 public class CotacaoService extends AbstractService<CotacaoFacade, Cotacao,CotacaoFiltro> {

@@ -1,7 +1,6 @@
-package org.leo.despesas.dominio.debitavel;
+package org.leo.despesas.rest;
 
 import org.leo.despesas.dominio.movimentacao.Despesa;
-import org.leo.despesas.dominio.parcelamento.ParcelamentoVO;
 
 public class DespesaVO {
 

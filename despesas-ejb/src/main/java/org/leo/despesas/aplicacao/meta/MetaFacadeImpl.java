@@ -9,8 +9,8 @@ import org.leo.despesas.aplicacao.movimentacao.MovimentacaoFacade;
 import org.leo.despesas.dominio.meta.Meta;
 import org.leo.despesas.dominio.meta.MetaFiltro;
 import org.leo.despesas.dominio.movimentacao.Movimentacao;
+import org.leo.despesas.infra.AbstractFacade;
 import org.leo.despesas.infra.Periodo;
-import org.leo.despesas.rest.infra.AbstractFacade;
 
 @Stateless
 public class MetaFacadeImpl extends AbstractFacade<Meta, MetaFiltro> implements MetaFacade {
@@ -24,7 +24,7 @@ public class MetaFacadeImpl extends AbstractFacade<Meta, MetaFiltro> implements 
 		List<Meta> lista = super.listar(filtro);
 
 		for (Meta meta : lista) {
-			meta.calcularSaldo(buscarMovimentos(meta.getPeriodo()));
+			meta.calcularSaldo(buscarMovimentos(meta.getMes().getPeriodo()));
 		}
 
 		return lista;

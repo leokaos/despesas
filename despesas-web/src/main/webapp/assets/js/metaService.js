@@ -54,23 +54,6 @@ app.service('metaService', function($http, filtroParser) {
 		});
 	};
 
-	this.buscarMetaPorPeriodo = function(dataInicio, dataFim, fn) {
-
-		var request = $http({
-			method : 'get',
-			url : pathBase + 'periodo',
-			params : {
-				dataInicial : dataInicio.toGMTString(),
-				dataFinal : dataFim.toGMTString()
-			}
-		});
-
-		request.success(function(data) {
-			fn(data);
-		});
-
-	};
-
 	this.deletar = function(id, fn) {
 		$http['delete'](pathBase + id).success(function(data) {
 			fn(data);

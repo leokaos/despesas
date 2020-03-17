@@ -8,8 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.leo.despesas.dominio.parametro.Parametro;
-import org.leo.despesas.dominio.servicotransferencia.Moeda;
 import org.leo.despesas.dominio.servicotransferencia.Porcentagem;
+import org.leo.despesas.infra.Moeda;
 
 @Stateless
 public class ParametroFacadeIml implements ParametroFacade {

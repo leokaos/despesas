@@ -1,4 +1,4 @@
-package org.leo.despesas.dominio.movimentacao;
+package org.leo.despesas.rest;
 
 import java.math.BigDecimal;
 
