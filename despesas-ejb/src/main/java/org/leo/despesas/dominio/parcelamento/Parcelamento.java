@@ -31,6 +31,7 @@ public abstract class Parcelamento {
 			despesaParcelada.setDebitavel(despesa.getDebitavel());
 			despesaParcelada.setTipo(despesa.getTipo());
 			despesaParcelada.setPaga(despesa.isPaga());
+			despesaParcelada.setMoeda(despesa.getMoeda());
 
 			despesas.add(despesaParcelada);
 		}

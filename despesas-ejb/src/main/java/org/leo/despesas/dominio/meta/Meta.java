@@ -85,7 +85,7 @@ public class Meta implements ModelEntity {
 			total = total.add(movimentacao.getValorContabilistico());
 		}
 
-		this.saldo = total;
+		this.saldo = total.subtract(valor);
 	}
 
 	public BigDecimal getValorDiario() {
@@ -93,7 +93,7 @@ public class Meta implements ModelEntity {
 		Periodo periodo = this.mes.getPeriodo();
 
 		if (periodo.pertenceAoPeriodo(new Date())) {
-			return this.saldo.subtract(valor).divide(new BigDecimal(periodo.getDiasParaTermino()), 2, RoundingMode.HALF_UP);
+			return this.saldo.divide(new BigDecimal(periodo.getDiasParaTermino()), 2, RoundingMode.HALF_UP);
 		}
 
 		return null;

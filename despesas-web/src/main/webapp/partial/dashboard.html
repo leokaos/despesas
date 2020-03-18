@@ -72,11 +72,16 @@
 				<h5>Orçamentos do Mês</h5>
 			</div>
 			<div class="row" style="height: 145px;">
-				<div ng-repeat="orcamento in orcamentos" class="col-md-12">
-					<h5 class="col-md-4">{{orcamento.tipoDespesa.descricao}}</h5>
-					<div class="col-md-7">
-						<progressbar class="progress-striped active" value="orcamento.getValueOrcamento();" type="{{orcamento.getClassProgressBar();}}">{{orcamento.valorConsolidado}}/{{orcamento.valor}}</progressbar>
+				<div ng-if="orcamentos.length != 0">
+					<div ng-repeat="orcamento in orcamentos" class="col-md-12">
+						<h5 class="col-md-4">{{orcamento.tipoDespesa.descricao}}</h5>
+						<div class="col-md-7">
+							<progressbar class="progress-striped active" value="orcamento.getValueOrcamento();" type="{{orcamento.getClassProgressBar();}}">{{orcamento.valorConsolidado}}/{{orcamento.valor}}</progressbar>
+						</div>
 					</div>
+				</div>
+				<div ng-if="orcamentos.length == 0">
+					<h2>Sem orçamentos cadastrados!</h2>
 				</div>
 			</div>
 			<div class="clearfix"></div>
@@ -89,7 +94,24 @@
 				<h5>Meta do Mês</h5>
 			</div>
 			<div class="row" style="height: 145px;">
-				<h1 style="margin-top: 40px;">{{metaDoMes.valorDiario | currency: 'R$ '}} / Dia</h1>
+				<div ng-if="metaDoMes != null">
+					<div class="col-md-12">
+						<h3 class="col-md-4">Disponível:</h3>
+						<h3 class="col-md-8">{{metaDoMes.saldo | currency: 'R$ '}}</h3>
+					</div>
+					<div class="col-md-12">
+						<h4 class="col-md-4">Objectivo:</h4>
+						<h4 class="col-md-8">{{metaDoMes.valor | currency: 'R$ '}}</h4>
+					</div>
+					<div class="col-md-12">
+						<h4 class="col-md-4">Por Dia:</h4>
+						<h4 class="col-md-8">{{metaDoMes.valorDiario | currency: 'R$ '}}</h4>
+					</div>
+				</div>
+
+				<div ng-if="metaDoMes == null">
+					<h2>Sem metas definidas!</h2>
+				</div>
 			</div>
 		</div>
 	</div>
