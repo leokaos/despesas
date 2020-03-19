@@ -13,7 +13,8 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>Periodo</th>
+						<th>Data Fechamento</th>
+						<th>Data Vencimento</th>
 						<th style="text-align: center;">Valor</th>
 						<th>Paga</th>
 					</tr>
@@ -21,7 +22,9 @@
 				<tbody>
 					<tr ng-repeat="fatura in faturas" style="height: 40px;" ng-style="fatura == faturaSelecionada &&  {'background-color':'#dddddd'} 	|| fatura != faturaSelecionada && {}">
 
-						<td style="vertical-align: middle;" ng-click="mostrarItens(fatura);">{{fatura.periodo.toString()}}</td>
+						<td style="vertical-align: middle;" ng-click="mostrarItens(fatura);">{{fatura.dataFechamento | date: 'dd/MM/yyyy'}}</td>
+						
+						<td style="vertical-align: middle;" ng-click="mostrarItens(fatura);">{{fatura.dataVencimento | date: 'dd/MM/yyyy'}}</td>
 
 						<td style="vertical-align: middle; text-align: center;" ng-click="mostrarItens(fatura);">{{fatura.valorFatura | currency: 'R$ '}}</td>
 

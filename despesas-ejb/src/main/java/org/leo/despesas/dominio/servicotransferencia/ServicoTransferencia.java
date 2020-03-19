@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.leo.despesas.infra.ModelEntity;
@@ -20,8 +21,8 @@ public class ServicoTransferencia implements ModelEntity {
 	private static final long serialVersionUID = -8754012359474676770L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@GeneratedValue(generator = "SERVICO_TRANSFERENCIA_ID_SEQ", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "SERVICO_TRANSFERENCIA_ID_SEQ", sequenceName = "despesas_db.servico_transferencia_id_seq", allocationSize = 1)
 	private Long id;
 
 	@Column(name = "NOME")

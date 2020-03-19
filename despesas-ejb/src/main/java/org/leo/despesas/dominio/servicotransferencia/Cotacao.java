@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,8 +25,8 @@ public class Cotacao implements ModelEntity {
 	private static final long serialVersionUID = 8325205388002175958L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@GeneratedValue(generator = "COTACAO_ID_SEQ", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "COTACAO_ID_SEQ", sequenceName = "despesas_db.cotacao_id_seq", allocationSize = 1)
 	private Long id;
 
 	@Column(name = "ORIGEM")

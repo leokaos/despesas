@@ -1,8 +1,7 @@
 package org.leo.despesas.dominio;
 
 import static org.hamcrest.CoreMatchers.hasItem;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -64,6 +63,23 @@ public class CartaoCreditoTest {
 		assertEquals(fatura.getDespesas().size(), 2);
 		assertThat(fatura.getDespesas(), hasItem(despesa1));
 		assertThat(fatura.getDespesas(), hasItem(despesa2));
+	}
+
+	@Test
+	public void testName() throws Exception {
+
+		CartaoCredito cartao = createCartaoCredito();
+
+		final Despesa despesa = new Despesa();
+		despesa.setVencimento(formatter.parse("18/03/2020"));
+		despesa.setValor(new BigDecimal("10"));
+
+		cartao.debitar(despesa);
+
+		final Fatura fatura = cartao.getFaturas().iterator().next();
+
+		assertEquals(formatter.format(fatura.getDataFechamento()), "28/03/2020");
+		assertEquals(formatter.format(fatura.getDataVencimento()), "11/04/2020");
 	}
 
 	@Test

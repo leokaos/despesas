@@ -18,7 +18,7 @@ app.controller('faturaController', function($scope, faturaService, contaService,
 	faturaService.buscarFaturaPorCartaoCredito($scope.cartaoCreditoId, function(data) {
 
 		for (var i = 0; i < data.length; i++) {
-			$scope.faturas.push(new Fatura(data[i]));
+			$scope.faturas.push(data[i]);
 		}
 	});
 
@@ -52,14 +52,3 @@ app.controller('faturaController', function($scope, faturaService, contaService,
 	};
 
 });
-
-function Fatura(dados) {
-	angular.extend(this, dados);
-
-	if (this.dataVencimento != null) {
-		var data = new Date(this.dataVencimento);
-		this.periodo = new Periodo(data.getMonth() + 1, data.getFullYear());
-	} else {
-		this.periodo = new Periodo(null, null);
-	}
-}
