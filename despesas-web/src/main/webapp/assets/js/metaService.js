@@ -21,7 +21,7 @@ app.service('metaService', function($http, filtroParser) {
 		});
 	};
 
-	this.novo = function(meta, parcelamento, fn) {
+	this.novo = function(meta, fn) {
 
 		var request = $http({
 			method : 'post',

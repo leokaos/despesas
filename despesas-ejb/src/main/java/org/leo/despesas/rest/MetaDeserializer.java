@@ -18,12 +18,15 @@ public class MetaDeserializer extends JsonDeserializer<Meta> {
 
 		JsonNode node = jp.getCodec().readTree(jp);
 
-		int mes = node.get("mes").get("mes").getIntValue();
-		int ano = node.get("mes").get("ano").getIntValue();
+		int mes = Integer.valueOf(node.get("mes").get("mes").getValueAsText());
+		int ano = Integer.valueOf(node.get("mes").get("ano").getValueAsText());
 
 		Meta meta = new Meta();
 
-		meta.setId(node.get("id").getLongValue());
+		if (node.get("id") != null) {
+			meta.setId(node.get("id").getLongValue());
+		}
+
 		meta.setMes(new Mes(mes, ano));
 		meta.setValor(new BigDecimal(node.get("valor").getBigIntegerValue()));
 

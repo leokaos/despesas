@@ -73,6 +73,7 @@ public class Despesa extends Movimentacao {
 	}
 
 	@Override
+	@JsonIgnore
 	public BigDecimal getValorContabilistico() {
 		return this.getValor().multiply(new BigDecimal(-1));
 	}

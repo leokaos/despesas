@@ -41,4 +41,10 @@ public class TransferenciaFiltro extends AbstractModelFiltro<Transferencia> {
 		return dataFinal != null;
 	}
 
+	@Override
+	protected void build() {
+
+		between("vencimento", dataInicial, dataFinal);
+	}
+
 }

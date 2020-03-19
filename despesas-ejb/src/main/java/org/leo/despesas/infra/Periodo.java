@@ -49,7 +49,7 @@ public class Periodo {
 
 	public int getDiasParaTermino() {
 
-		int dias = 1;
+		int dias = 0;
 		Date data = new Date();
 
 		while (data.before(dataFinal)) {
