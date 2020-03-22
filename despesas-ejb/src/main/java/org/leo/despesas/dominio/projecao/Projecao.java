@@ -1,12 +1,15 @@
 package org.leo.despesas.dominio.projecao;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 import com.google.common.collect.Lists;
 
-public class Projecao {
+public class Projecao implements Serializable {
+
+	private static final long serialVersionUID = -3806316926897965193L;
 
 	private List<ProjecaoItem> itens = Lists.newArrayList();
 

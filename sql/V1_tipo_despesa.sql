@@ -69,9 +69,3 @@ CREATE SEQUENCE despesas_db.tipo_movimentacao_id_seq START 1;
 CREATE SEQUENCE despesas_db.fatura_id_seq START 1;
 
 CREATE SEQUENCE despesas_db.debitavel_id_seq START 1;
-
-CREATE SEQUENCE despesas_db.orcamento_id_seq START 1;
-
-CREATE SEQUENCE despesas_db.servico_transferencia_id_seq START 1;
-
-CREATE SEQUENCE despesas_db.cotacao_id_seq START 1;

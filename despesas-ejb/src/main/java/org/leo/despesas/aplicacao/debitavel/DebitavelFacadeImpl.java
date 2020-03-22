@@ -90,9 +90,14 @@ public class DebitavelFacadeImpl implements DebitavelFacade {
 
 	private BigDecimal getNumeroDeMeses(Date menorData, Date maiorData) {
 
-		int diff = DateUtils.toCalendar(maiorData).get(Calendar.MONTH) - DateUtils.toCalendar(menorData).get(Calendar.MONTH);
+		BigDecimal total = BigDecimal.ZERO;
 
-		return new BigDecimal(1 + diff);
+		while (menorData.before(maiorData)) {
+			total = total.add(new BigDecimal(1));
+			menorData = DateUtils.addMonths(menorData, 1);
+		}
+
+		return total;
 	}
 
 }

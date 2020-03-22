@@ -7,3 +7,4 @@ CREATE TABLE despesas_db.COTACAO (
 	PRIMARY KEY (ID)
 );
 
+CREATE SEQUENCE despesas_db.cotacao_id_seq START 1;
