@@ -248,6 +248,11 @@ app.config(function($routeProvider, $locationProvider) {
 		controller : 'edicaoMetaController'
 	});
 	
+	$routeProvider.when('/projecao', {
+		templateUrl : 'partial/projecao.html',
+		controller : 'projecaoController'
+	});	
+	
 	// DASHBOARD
 	$routeProvider.otherwise({
 		templateUrl : 'partial/dashboard.html',

@@ -26,14 +26,14 @@ public class PeriodoIterator implements Iterator<Date> {
 			return true;
 		}
 
-		return addField(atual).before(periodo.getDataFinal());
+		return addField(atual).before(periodo.getDataFinal()) || addField(atual).equals(periodo.getDataFinal());
 	}
 
 	@Override
 	public Date next() {
 
 		if (atual == null) {
-			atual = periodo.getDataInicial();
+			atual = DateUtils.truncate(periodo.getDataInicial(), calendarField);
 		} else {
 			atual = addField(atual);
 		}
@@ -46,24 +46,24 @@ public class PeriodoIterator implements Iterator<Date> {
 		Date retorno = null;
 
 		switch (calendarField) {
-			case Calendar.YEAR :
-				retorno = DateUtils.addYears(atual, 1);
-				break;
+		case Calendar.YEAR:
+			retorno = DateUtils.addYears(atual, 1);
+			break;
 
-			case Calendar.MONTH :
-				retorno = DateUtils.addMonths(atual, 1);
-				break;
+		case Calendar.MONTH:
+			retorno = DateUtils.addMonths(atual, 1);
+			break;
 
-			case Calendar.DAY_OF_MONTH :
-				retorno = DateUtils.addDays(atual, 1);
-				break;
+		case Calendar.DAY_OF_MONTH:
+			retorno = DateUtils.addDays(atual, 1);
+			break;
 
-			case Calendar.HOUR_OF_DAY :
-				retorno = DateUtils.addHours(atual, 1);
-				break;
+		case Calendar.HOUR_OF_DAY:
+			retorno = DateUtils.addHours(atual, 1);
+			break;
 
-			default :
-				throw new IllegalArgumentException();
+		default:
+			throw new IllegalArgumentException();
 		}
 
 		return retorno;

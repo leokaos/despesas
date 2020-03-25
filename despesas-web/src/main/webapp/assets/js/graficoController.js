@@ -6,25 +6,23 @@ app.controller('graficoController', function($scope, graficoService) {
 
 			nv.addGraph(function() {
 
-				var chart = nv.models.lineChart().showLegend(true).showYAxis(true).showXAxis(true);
+				var datum = $scope.getData(data);
 
-				chart.xAxis.axisLabel('Mês').tickValues(1, 1430449200000, 1433127600000, 1533127600000).tickFormat(function(d) {
+				var chart = nv.models.lineChart().showLegend(true).showYAxis(true).showXAxis(true).margin({
+					top : 30,
+					right : 20,
+					bottom : 50,
+					left : 50
+				});
+
+				chart.xAxis.axisLabel('Mês').tickValues($scope.getValoresX(datum)).tickFormat(function(d) {
 					return d3.time.format('%m/%Y')(new Date(d))
 				});
 
-				chart.yAxis // Chart y-axis settings
-				.axisLabel('Gasto em R$').tickFormat(d3.format('.02f'));
+				chart.yAxis.axisLabel('Gasto em R$').tickFormat(d3.format('.02f'));
 
-				/* Done setting the chart up? Time to render it! */
-				var myData = $scope.getData(data); // You need data...
+				d3.select('#grafico svg').datum(datum).call(chart);
 
-				d3.select('#grafico svg') // Select the <svg> element you want
-				// to
-				// render the chart in.
-				.datum(myData) // Populate the <svg> element with chart data...
-				.call(chart); // Finally, render the chart!
-
-				// Update the chart when window resizes.
 				nv.utils.windowResize(function() {
 					chart.update();
 				});
@@ -51,6 +49,25 @@ app.controller('graficoController', function($scope, graficoService) {
 		}
 
 		return dados;
+	};
+
+	$scope.getValoresX = function(data) {
+
+		var valores = [];
+
+		for (var x = 0; x < data.length; x++) {
+
+			var serie = data[x];
+
+			for (var y = 0; y < serie.values.length; y++) {
+
+				if (valores.indexOf(serie.values[y].x) == -1) {
+					valores.push(serie.values[y].x);
+				}
+			}
+		}
+
+		return valores;
 	};
 
 });
