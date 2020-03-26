@@ -64,7 +64,7 @@ public class DebitavelFacadeImpl implements DebitavelFacade {
 		transferenciaFiltroEntrada.setCreditavel(debitavel);
 
 		TransferenciaFiltro transferenciaFiltroSaida = new TransferenciaFiltro();
-		transferenciaFiltroSaida.setCreditavel(debitavel);
+		transferenciaFiltroSaida.setDebitavel(debitavel);
 
 		BigDecimal valorMedioDespesas = calcularMedia(despesaFacade.listar(despesasFiltro));
 
