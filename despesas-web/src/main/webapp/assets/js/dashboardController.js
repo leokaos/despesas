@@ -36,13 +36,13 @@ app.controller('dashboardController', function($scope, $http, dashboardService, 
 		orcamentoService.buscarPorMes(new Periodo($scope.mes + 1, $scope.ano), function(data) {
 			$scope.orcamentos = data;
 		});
-		
+
 		var metaFiltro = {
-				ano: $scope.ano,
-				mes: $scope.mes + 1
+			ano : $scope.ano,
+			mes : $scope.mes + 1
 		};
-		
-		metaService.listar(metaFiltro, function(data){
+
+		metaService.listar(metaFiltro, function(data) {
 			$scope.metaDoMes = data[0];
 		});
 	};

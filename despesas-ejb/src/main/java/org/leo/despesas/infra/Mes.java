@@ -46,13 +46,14 @@ public class Mes {
 	}
 
 	public Periodo getPeriodo() {
-		Date dataBase = new Date();
 
-		dataBase = DataUtil.setMonths(dataBase, mes - 1);
-		dataBase = DataUtil.setYears(dataBase, ano);
+		Calendar calendar = Calendar.getInstance();
 
-		Date dataInicial = DataUtil.truncate(dataBase, Calendar.MONTH);
-		Date dataFinal = DataUtil.maximo(dataBase, Calendar.MONTH);
+		calendar.set(Calendar.MONTH, mes - 1);
+		calendar.set(Calendar.YEAR, ano);
+
+		Date dataInicial = DataUtil.truncate(calendar.getTime(), Calendar.MONTH);
+		Date dataFinal = DataUtil.maximo(calendar.getTime(), Calendar.MONTH);
 
 		return new Periodo(dataInicial, dataFinal);
 	}

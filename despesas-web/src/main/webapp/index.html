@@ -64,22 +64,22 @@
 										<a href="#/tiporeceitas">Tipos de Receita</a>
 									</li>
 									<li>
-										<a href="#/contas">Contas</a>
-									</li>
-									<li>
 										<a href="#/despesas">Despesas</a>
-									</li>
-									<li>
-										<a href="#/cartoes">Cartão de Crédito</a>
-									</li>
-									<li>
-										<a href="#/orcamentos">Orçamentos</a>
 									</li>
 									<li>
 										<a href="#/receitas">Receitas</a>
 									</li>
 									<li>
 										<a href="#/transferencias">Transferências</a>
+									</li>
+									<li>
+										<a href="#/contas">Contas</a>
+									</li>
+									<li>
+										<a href="#/cartoes">Cartão de Crédito</a>
+									</li>
+									<li>
+										<a href="#/orcamentos">Orçamentos</a>
 									</li>
 									<li>
 										<a href="#/servicostransferencia">Serviços de Transferências</a>
@@ -250,13 +250,32 @@
 
 
 	<script>
+	
+
 		$(document).ready(function() {
+
 			$(document).on('click', '.dropdown-toggle', function(e) {
 				e.preventDefault();
 				e.stopPropagation();
 			});
+
+			$(document).keydown(function(e) {
+				switch (e.which) {
+				case 37: 
+					$(".glyphicon-chevron-left").click();
+					break;
+
+				case 39:
+					$(".glyphicon-chevron-right").click();
+					break;
+
+				default:
+					return;
+				}
+				e.preventDefault();
+			});
 		});
-    </script>
+	</script>
 
 </body>
 

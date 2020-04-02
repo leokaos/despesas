@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.leo.despesas.dominio.tipomovimentacao.TipoReceita;
 
 @Entity
@@ -54,6 +55,7 @@ public class Receita extends Movimentacao {
 	}
 
 	@Override
+	@JsonIgnore
 	public BigDecimal getValorContabilistico() {
 		return this.getValor();
 	}
