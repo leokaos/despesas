@@ -156,7 +156,6 @@ public class CartaoCredito extends Debitavel {
 
 		faturaPorData.getDespesas().add(despesa);
 
-		setLimiteAtual(getLimiteAtual().subtract(despesa.getValor()));
 	}
 
 	@Override
@@ -179,13 +178,6 @@ public class CartaoCredito extends Debitavel {
 	@Override
 	public void transferir(final Transferencia transferencia) {
 
-		if (transferencia.getCreditavel().equals(this)) {
-			this.limiteAtual = getLimiteAtual().add(transferencia.getValor());
-		} else if (transferencia.getDebitavel().equals(this)) {
-			this.limiteAtual = getLimiteAtual().subtract(transferencia.getValor());
-		} else {
-			throw new IllegalArgumentException();
-		}
 	}
 
 	@Override

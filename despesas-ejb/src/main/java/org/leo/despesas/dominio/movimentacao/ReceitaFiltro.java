@@ -6,6 +6,7 @@ import javax.ws.rs.QueryParam;
 
 import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.infra.AbstractModelFiltro;
+import org.leo.despesas.infra.Moeda;
 
 public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 
@@ -17,6 +18,8 @@ public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 
 	@QueryParam("tipoReceita")
 	private String tipoReceita;
+
+	private Moeda moeda;
 
 	private Debitavel debitavel;
 
@@ -52,6 +55,14 @@ public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 		this.tipoReceita = tipoReceita;
 	}
 
+	public Moeda getMoeda() {
+		return moeda;
+	}
+
+	public void setMoeda(Moeda moeda) {
+		this.moeda = moeda;
+	}
+
 	public boolean hasDataInicialAndDataFinal() {
 		return dataInicial != null && dataFinal != null;
 	}
@@ -74,8 +85,10 @@ public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 		between("vencimento", dataInicial, dataFinal);
 
 		eq("tipo.descricao", tipoReceita);
-		
+
 		eq("debitavel", debitavel);
+
+		eq("moeda", moeda);
 	}
 
 }

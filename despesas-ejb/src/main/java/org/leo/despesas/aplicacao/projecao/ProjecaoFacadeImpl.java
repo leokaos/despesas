@@ -1,7 +1,6 @@
 package org.leo.despesas.aplicacao.projecao;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -32,7 +31,7 @@ public class ProjecaoFacadeImpl implements ProjecaoFacade {
 		BigDecimal valorMedio = debitavelFacade.getMediaVariacao(debitavel);
 		BigDecimal saldo = debitavel.getSaldo();
 
-		Iterator<Date> it = periodo.getIterator(Calendar.MONTH);
+		Iterator<Date> it = null;
 
 		while (it.hasNext()) {
 			saldo = saldo.add(valorMedio);

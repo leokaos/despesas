@@ -7,6 +7,7 @@ import javax.ws.rs.QueryParam;
 import org.apache.commons.lang3.StringUtils;
 import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.infra.AbstractModelFiltro;
+import org.leo.despesas.infra.Moeda;
 
 public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 
@@ -18,6 +19,8 @@ public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 
 	@QueryParam("tipoDespesa")
 	private String tipoDespesa;
+
+	private Moeda moeda;
 
 	private Debitavel debitavel;
 
@@ -47,6 +50,14 @@ public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 
 	public void setTipoDespesa(String tipoDespesa) {
 		this.tipoDespesa = tipoDespesa;
+	}
+
+	public Moeda getMoeda() {
+		return moeda;
+	}
+
+	public void setMoeda(Moeda moeda) {
+		this.moeda = moeda;
 	}
 
 	public Debitavel getDebitavel() {
@@ -81,6 +92,8 @@ public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 		eq("tipo.descricao", tipoDespesa);
 
 		eq("debitavel", debitavel);
+
+		eq("moeda", moeda);
 	}
 
 }

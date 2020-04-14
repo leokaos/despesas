@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import org.leo.despesas.aplicacao.conta.ContaFacade;
+import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
 import org.leo.despesas.aplicacao.fatura.FaturaFacade;
 import org.leo.despesas.dominio.debitavel.Conta;
 import org.leo.despesas.dominio.debitavel.Fatura;
@@ -25,6 +26,9 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, Trans
 
 	@EJB
 	private FaturaFacade faturaFacade;
+
+	@EJB
+	private DebitavelFacade debitavelFacade;
 
 	@Override
 	public void pagarFatura(final Fatura fatura, final Conta conta, Date dataPagamento) throws DespesasException {
@@ -58,9 +62,9 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, Trans
 	public void inserir(Transferencia t) throws DespesasException {
 
 		super.inserir(t);
-
-		contaFacade.buscarPorId(t.getDebitavel().getId()).transferir(t);
-		contaFacade.buscarPorId(t.getCreditavel().getId()).transferir(t);
+		
+		debitavelFacade.buscarPorId(t.getDebitavel().getId()).transferir(t);
+		debitavelFacade.buscarPorId(t.getCreditavel().getId()).transferir(t);
 
 	}
 

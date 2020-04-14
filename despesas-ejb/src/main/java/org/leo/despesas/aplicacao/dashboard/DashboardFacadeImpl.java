@@ -17,6 +17,7 @@ import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.ReceitaFiltro;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
 import org.leo.despesas.dominio.movimentacao.TransferenciaFiltro;
+import org.leo.despesas.infra.Moeda;
 import org.leo.despesas.rest.GraficoVO;
 
 @Stateless
@@ -51,6 +52,8 @@ public class DashboardFacadeImpl implements DashboardFacade {
 
 		filtroDespesa.setDataInicial(dataInicial);
 		filtroDespesa.setDataFinal(dataFinal);
+		
+		filtroDespesa.setMoeda(Moeda.EURO);
 
 		BigDecimal total = BigDecimal.ZERO;
 
@@ -83,6 +86,8 @@ public class DashboardFacadeImpl implements DashboardFacade {
 
 		filtroReceita.setDataInicial(dataInicial);
 		filtroReceita.setDataFinal(dataFinal);
+
+		filtroReceita.setMoeda(Moeda.EURO);
 
 		BigDecimal total = BigDecimal.ZERO;
 
