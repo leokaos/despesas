@@ -4,6 +4,7 @@ import static java.util.Calendar.DAY_OF_MONTH;
 import static org.apache.commons.lang3.time.DateUtils.truncate;
 
 import java.util.Date;
+import java.util.Iterator;
 
 import javax.persistence.Embeddable;
 
@@ -58,5 +59,9 @@ public class Periodo {
 		}
 
 		return dias;
+	}
+
+	public Iterator<Date> getIterator(int field) {
+		return new PeriodoIterator(field, this);
 	}
 }

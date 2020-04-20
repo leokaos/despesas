@@ -16,7 +16,7 @@ public class PeriodoIteratorTest {
 
 		Periodo periodo = new Periodo(DATE_FORMAT.parse("01/01/2019"), DATE_FORMAT.parse("31/12/2019"));
 
-		Iterator<Date> iterator = periodo.getIterator(Calendar.MONTH);
+		Iterator<Date> iterator = null;
 
 		while (iterator.hasNext()) {
 
