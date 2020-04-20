@@ -1,6 +1,6 @@
 package org.leo.despesas.dominio.debitavel;
 
-import static java.util.Calendar.MONTH;
+import static org.apache.commons.lang3.time.DateUtils.isSameDay;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -17,6 +17,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Receita;
@@ -131,25 +132,22 @@ public class CartaoCredito extends Debitavel {
 
 			faturaPorData = new Fatura(this);
 
-			// Configuracao da data de fechamento
 			Date dataFechamento = new Date(despesa.getVencimento().getTime());
 			dataFechamento = DataUtil.setDays(dataFechamento, this.diaDeFechamento);
 
-			if (DataUtil.getFragmentInDays(despesa.getVencimento(), MONTH) > diaDeFechamento) {
-				dataFechamento = DataUtil.addMonths(dataFechamento, 1);
+			if (dataFechamento.before(despesa.getVencimento()) || isSameDay(dataFechamento, despesa.getVencimento())) {
+				dataFechamento = DateUtils.addMonths(dataFechamento, 1);
 			}
 
-			faturaPorData.setDataFechamento(dataFechamento);
-
-			// Configuracao da data de vencimento
 			Date dataVencimento = new Date(dataFechamento.getTime());
 			dataVencimento = DataUtil.setDays(dataVencimento, this.diaDeVencimento);
 
 			if (diaDeFechamento > diaDeVencimento) {
-				dataVencimento = DataUtil.addMonths(dataVencimento, 1);
+				dataVencimento = DateUtils.addMonths(dataVencimento, 1);
 			}
 
 			faturaPorData.setDataVencimento(dataVencimento);
+			faturaPorData.setDataFechamento(dataFechamento);
 
 			faturas.add(faturaPorData);
 		}

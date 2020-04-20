@@ -10,7 +10,7 @@ Periodo.prototype.getDataInicial = function() {
 		return null;
 	}
 
-	return new Date(this.ano, this.mes - 1, 1, 0, 0, 0, 0);
+	return new Date(this.ano, this.mes, 1, 0, 0, 0, 0);
 };
 
 Periodo.prototype.getDataFinal = function() {
@@ -19,7 +19,7 @@ Periodo.prototype.getDataFinal = function() {
 		return null;
 	}
 
-	return new Date(this.ano, this.mes, 0, 23, 59, 59, 999);
+	return new Date(this.ano, this.mes + 1, 0, 23, 59, 59, 999);
 };
 
 Periodo.prototype.toString = function() {

@@ -77,7 +77,7 @@ public class OrcamentoFiltro extends AbstractModelFiltro<Orcamento> {
 
 		lessOrEqualThan("dataFinal", dataFinal);
 
-		eq("tipo.descricao", tipoDespesa);
+		eq("tipoDespesa.descricao", tipoDespesa);
 
 	}
 

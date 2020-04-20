@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
 import org.leo.despesas.infra.ModelEntity;
@@ -26,7 +27,7 @@ import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.infra.util.DataUtil;
 
 @Entity
-@Table(name = "fatura",schema = "despesas_db")
+@Table(name = "fatura", schema = "despesas_db")
 public class Fatura implements ModelEntity {
 
 	private static final long serialVersionUID = -4047341391900604495L;
@@ -48,7 +49,7 @@ public class Fatura implements ModelEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataFechamento;
 
-	@OneToMany(mappedBy = "fatura",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "fatura", fetch = FetchType.EAGER)
 	private Set<Despesa> despesas;
 
 	@Column(name = "paga")
@@ -130,7 +131,12 @@ public class Fatura implements ModelEntity {
 	}
 
 	private Periodo getPeriodo() {
-		return new Periodo(DataUtil.addMonths(dataFechamento,-1),dataFechamento);
+
+		Date dataFinal = DateUtils.addMilliseconds(DateUtils.addDays(dataFechamento, 1), -1);
+
+		Date inicial = DataUtil.addMonths(dataFechamento, -1);
+
+		return new Periodo(inicial, dataFinal);
 	}
 
 	public Transferencia pagar(final Conta conta) {
