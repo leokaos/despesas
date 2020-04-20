@@ -1,5 +1,8 @@
 package org.leo.despesas.infra;
 
+import static java.util.Calendar.DAY_OF_MONTH;
+import static org.apache.commons.lang3.time.DateUtils.truncate;
+
 import java.util.Date;
 
 import javax.persistence.Embeddable;
@@ -45,9 +48,11 @@ public class Periodo {
 	public int getDiasParaTermino() {
 
 		int dias = 0;
-		Date data = new Date();
 
-		while (data.before(dataFinal)) {
+		Date data = new Date();
+		Date dataFinalTruncada = truncate(dataFinal, DAY_OF_MONTH);
+
+		while (data.before(dataFinalTruncada)) {
 			dias++;
 			data = DateUtils.addDays(data, 1);
 		}

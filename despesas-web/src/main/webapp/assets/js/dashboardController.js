@@ -33,7 +33,7 @@ app.controller('dashboardController', function($scope, $http, dashboardService, 
 			$scope.saldo = data;
 		});
 
-		orcamentoService.buscarPorMes(new Periodo($scope.mes + 1, $scope.ano), function(data) {
+		orcamentoService.buscarPorMes(new Periodo($scope.mes, $scope.ano), function(data) {
 			$scope.orcamentos = data;
 		});
 
