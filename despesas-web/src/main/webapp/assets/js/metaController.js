@@ -5,7 +5,7 @@ app.controller('metaController', function($scope, metaService, $location, $route
 
 	$scope.filtro = {
 		mes : new Date().getMonth() + 1,
-		ano : new Date().getYear() + 1900
+		ano : new Date().getFullYear()
 	};
 
 	$scope.metaSelecionada = null;

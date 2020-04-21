@@ -17,4 +17,6 @@ public interface ParametroFacade {
 	String getUrlParaCotacao(Moeda origem, Moeda destino);
 
 	String buscarParametroPorId(String nome);
+
+	Integer getDebitavelPrincipal();
 }

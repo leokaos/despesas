@@ -490,10 +490,8 @@ app.directive('mes', ['MESES', function (MESES) {
 			scope.MESES = MESES;
 
 			scope.setMes = function () {
-				this.value = {
-					mes: new Date().getMonth() + 1,
-					ano: new Date().getYear() + 1900
-				};
+				this.value.mes = new Date().getMonth();
+				this.value.ano = new Date().getFullYear();
 			};
 		}
 	};

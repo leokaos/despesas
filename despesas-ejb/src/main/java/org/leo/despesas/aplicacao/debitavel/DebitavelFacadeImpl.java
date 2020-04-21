@@ -2,6 +2,7 @@ package org.leo.despesas.aplicacao.debitavel;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import javax.persistence.PersistenceContext;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.leo.despesas.aplicacao.despesa.DespesaFacade;
+import org.leo.despesas.aplicacao.parametro.ParametroFacade;
 import org.leo.despesas.aplicacao.receita.ReceitaFacade;
 import org.leo.despesas.aplicacao.transferencia.TransferenciaFacade;
 import org.leo.despesas.dominio.debitavel.Debitavel;
@@ -35,10 +37,17 @@ public class DebitavelFacadeImpl implements DebitavelFacade {
 	@EJB
 	private TransferenciaFacade transferenciaFacade;
 
+	@EJB
+	private ParametroFacade parametroFacade;
+
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<Debitavel> listar() {
-		return entityManager.createQuery("SELECT d FROM Debitavel d").getResultList();
+
+		List<Debitavel> resultList = entityManager.createQuery("SELECT d FROM Debitavel d", Debitavel.class).getResultList();
+
+		Collections.sort(resultList, new DebitavelPreferivelComparator(parametroFacade.getDebitavelPrincipal()));
+
+		return resultList;
 	}
 
 	@Override
@@ -59,7 +68,7 @@ public class DebitavelFacadeImpl implements DebitavelFacade {
 
 		ReceitaFiltro receitasFiltro = new ReceitaFiltro();
 		receitasFiltro.setDebitavel(debitavel);
-		
+
 		TransferenciaFiltro transferenciaFiltroEntrada = new TransferenciaFiltro();
 		transferenciaFiltroEntrada.setCreditavel(debitavel);
 
@@ -69,9 +78,9 @@ public class DebitavelFacadeImpl implements DebitavelFacade {
 		BigDecimal valorMedioDespesas = calcularMedia(despesaFacade.listar(despesasFiltro));
 
 		BigDecimal valorMedioReceitas = calcularMedia(receitaFacade.listar(receitasFiltro));
-		
+
 		BigDecimal valorMedioTransferenciaEntrada = calcularMedia(transferenciaFacade.listar(transferenciaFiltroEntrada));
-		
+
 		BigDecimal valorMedioTransferenciaSaida = calcularMedia(transferenciaFacade.listar(transferenciaFiltroSaida));
 
 		return valorMedioReceitas.add(valorMedioTransferenciaEntrada).subtract(valorMedioDespesas).subtract(valorMedioTransferenciaSaida).setScale(2);
