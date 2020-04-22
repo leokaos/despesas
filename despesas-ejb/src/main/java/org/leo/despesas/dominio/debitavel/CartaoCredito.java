@@ -9,7 +9,6 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -26,7 +25,6 @@ import org.leo.despesas.infra.util.DataUtil;
 import org.leo.despesas.rest.DebitavelSerializerVisitorImpl;
 
 @Entity
-@DiscriminatorValue(value = CartaoCredito.CODIGO_TIPO)
 @Table(name = "cartao", schema = "despesas_db")
 public class CartaoCredito extends Debitavel {
 

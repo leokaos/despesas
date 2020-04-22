@@ -3,7 +3,6 @@ package org.leo.despesas.dominio.debitavel;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -25,7 +24,6 @@ import org.leo.despesas.rest.DebitavelDeserializer;
 import org.leo.despesas.rest.DebitavelSerializerVisitorImpl;
 
 @Entity
-@DiscriminatorColumn(name = "tipo")
 @Table(name = "debitavel", schema = "despesas_db")
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonDeserialize(using = DebitavelDeserializer.class)

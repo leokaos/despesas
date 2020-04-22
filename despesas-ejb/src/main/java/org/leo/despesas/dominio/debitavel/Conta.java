@@ -3,7 +3,6 @@ package org.leo.despesas.dominio.debitavel;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -14,7 +13,6 @@ import org.leo.despesas.rest.DebitavelSerializerVisitorImpl;
 
 @Entity
 @Table(name = "conta", schema = "despesas_db")
-@DiscriminatorValue(value = Conta.CODIGO_TIPO)
 public class Conta extends Debitavel {
 
 	private static final long serialVersionUID = -6946595134001817926L;
