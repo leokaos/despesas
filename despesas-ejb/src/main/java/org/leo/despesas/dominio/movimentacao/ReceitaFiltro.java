@@ -5,9 +5,14 @@ import java.util.Date;
 import javax.ws.rs.QueryParam;
 
 import org.leo.despesas.dominio.debitavel.Debitavel;
+import org.leo.despesas.dominio.debitavel.Investimento;
 import org.leo.despesas.infra.AbstractModelFiltro;
 import org.leo.despesas.infra.Moeda;
 
+/**
+ * @author l.otero
+ *
+ */
 public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 
 	@QueryParam("dataInicial")
@@ -22,6 +27,8 @@ public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 	private Moeda moeda;
 
 	private Debitavel debitavel;
+
+	private Investimento investimento;
 
 	public Date getDataInicial() {
 		return dataInicial;
@@ -63,6 +70,14 @@ public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 		this.moeda = moeda;
 	}
 
+	public Investimento getInvestimento() {
+		return investimento;
+	}
+
+	public void setInvestimento(Investimento investimento) {
+		this.investimento = investimento;
+	}
+
 	public boolean hasDataInicialAndDataFinal() {
 		return dataInicial != null && dataFinal != null;
 	}
@@ -89,6 +104,8 @@ public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 		eq("debitavel", debitavel);
 
 		eq("moeda", moeda);
+
+		eq("investimento", investimento);
 	}
 
 }

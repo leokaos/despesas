@@ -139,6 +139,22 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'partial/orcamento/orcamento.html',
 		controller : 'edicaoOrcamentoController'
 	});
+	
+	// INVESTIMENTO
+	$routeProvider.when('/investimentos', {
+		templateUrl : 'partial/investimento/investimentos.html',
+		controller : 'investimentoController'
+	});
+	
+	$routeProvider.when('/investimento', {
+		templateUrl : 'partial/investimento/investimento.html',
+		controller : 'edicaoInvestimentoController'
+	});
+
+	$routeProvider.when('/investimento/:id', {
+		templateUrl : 'partial/investimento/investimento.html',
+		controller : 'edicaoInvestimentoController'
+	});	
 
 	// RECEITAS
 	$routeProvider.when('/receitas', {
@@ -401,6 +417,19 @@ app.constant('MOEDAS', {
 		simbolo : "R$"
 	}
 });
+
+app.constant('PERIODICIDADE', {
+	"MENSAL" : {
+		descricao : "Mensal"
+	},
+	"SEMESTRAL" : {
+		descricao : "Semestral"
+	},
+	"VARIAVEL" : {
+		descricao : "Variável"
+	}
+});
+
 
 app.directive('moeda', [ 'MOEDAS', function(MOEDAS) {
 	return {

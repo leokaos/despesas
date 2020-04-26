@@ -10,15 +10,15 @@
 	<form novalidate class="form-horizontal" method="get" name="edicaoServicoTransferencia" novalidate>
 
 		<div class="form-group">
-			<label class="col-md-2 control-label">Nome:</label>
-			<div class="col-md-10">
+			<label class="col-md-3 control-label">Nome:</label>
+			<div class="col-md-9">
 				<input type="text" class="form-control" placeholder="Nome para exibição" ng-model="servicoTransferencia.nome" required />
 			</div>
 		</div>
 		
 		<div class="form-group">
-			<label class="col-md-2 control-label">SPRED:</label>
-			<div class="input-group col-md-10" style="padding-left: 15px; padding-right: 15px;">
+			<label class="col-md-3 control-label">SPRED:</label>
+			<div class="input-group col-md-9" style="padding-left: 15px; padding-right: 15px;">
 				<input type="text" class="form-control" placeholder="Valor do SPRED" ng-model="servicoTransferencia.spred" ui-number-mask required />
 				<div class="input-group-addon">
 					<i class="fa fa-percent">%</i>
@@ -27,14 +27,21 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-md-2 control-label">Taxas:</label>
-			<div class="input-group col-md-10" style="padding-left: 15px; padding-right: 15px;">
+			<label class="col-md-3 control-label">Taxas:</label>
+			<div class="input-group col-md-9" style="padding-left: 15px; padding-right: 15px;">
 				<div class="input-group-addon">
 					<i class="fa fa-money"></i>
 				</div>
-				<input type="text" class="form-control" placeholder="Valor total das taxas" ng-model="servicoTransferencia.taxas" ui-number-mask required />
+				<input type="text" class="form-control" placeholder="Valor total das taxas" ng-model="servicoTransferencia.taxas" ui-number-mask required ng-disabled="servicoTransferencia.custoVariavel"/>
 			</div>
 		</div>
+		
+		<div class="form-group">
+			<label class="col-md-3 control-label">Taxa Variável</label>
+			<div class="col-md-9">
+				<input type="checkbox" ng-model="servicoTransferencia.custoVariavel">
+			</div>
+		</div>		
 
 		<div class="form-group botoes">
 			<div class="col-md-12">

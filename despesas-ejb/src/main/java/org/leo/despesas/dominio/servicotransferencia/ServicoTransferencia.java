@@ -34,6 +34,9 @@ public class ServicoTransferencia implements ModelEntity {
 	@Column(name = "TAXAS")
 	private BigDecimal taxas;
 
+	@Column(name = "CUSTO_VARIAVEL")
+	private boolean custoVariavel;
+
 	public ServicoTransferencia() {
 		super();
 	}
@@ -70,8 +73,16 @@ public class ServicoTransferencia implements ModelEntity {
 		this.taxas = taxas;
 	}
 
+	public boolean isCustoVariavel() {
+		return custoVariavel;
+	}
+
+	public void setCustoVariavel(boolean custoVariavel) {
+		this.custoVariavel = custoVariavel;
+	}
+
 	public double calcularValorParaTransferencia(Cotacao cotacao, BigDecimal spot, Porcentagem iof, BigDecimal valor) {
-		
+
 		BigDecimal cotacaoSemSpot = cotacao.getTaxa().subtract(spot);
 
 		BigDecimal cotacaoDepoisSpred = cotacaoSemSpot.multiply(new BigDecimal(Porcentagem.from(spred.doubleValue()).getComplemento())).setScale(2, HALF_DOWN);

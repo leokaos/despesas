@@ -10,10 +10,11 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.leo.despesas.dominio.debitavel.Investimento;
 import org.leo.despesas.dominio.tipomovimentacao.TipoReceita;
 
 @Entity
-@Table(name = "receita",schema = "despesas_db")
+@Table(name = "receita", schema = "despesas_db")
 @PrimaryKeyJoinColumn(name = "id")
 public class Receita extends Movimentacao {
 
@@ -25,6 +26,10 @@ public class Receita extends Movimentacao {
 	@ManyToOne
 	@JoinColumn(name = "tipo_receita_id")
 	private TipoReceita tipo;
+
+	@ManyToOne
+	@JoinColumn(name = "investimento_id")
+	private Investimento investimento;
 
 	public Receita() {
 		super();
@@ -44,6 +49,14 @@ public class Receita extends Movimentacao {
 
 	public void setTipo(final TipoReceita tipo) {
 		this.tipo = tipo;
+	}
+
+	public Investimento getInvestimento() {
+		return investimento;
+	}
+
+	public void setInvestimento(Investimento investimento) {
+		this.investimento = investimento;
 	}
 
 	public void depositar() {

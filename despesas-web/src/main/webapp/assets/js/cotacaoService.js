@@ -1,4 +1,4 @@
-app.service('cotacaoService',function($http) {
+app.service('cotacaoService',function($http, filtroParser) {
 
 	var pathBase = '/despesas/services/cotacao/';
 
@@ -57,6 +57,15 @@ app.service('cotacaoService',function($http) {
 		$http.post(url).success(function(data){
 			fn(data);
 		});		
+	};
+	
+	this.buscarPorFiltro = function(filtro, fn) {
+
+		$http.get(pathBase, {
+			params : filtroParser.getFiltro(filtro)
+		}).success(function(data) {
+			fn(data);
+		});
 	};
 	
 });
