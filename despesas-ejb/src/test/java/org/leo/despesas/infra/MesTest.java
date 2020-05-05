@@ -1,7 +1,5 @@
 package org.leo.despesas.infra;
 
-import static org.junit.Assert.*;
-
 import java.util.Calendar;
 import java.util.Date;
 
@@ -14,7 +12,7 @@ public class MesTest {
 	public void test() {
 		Date dataBase = new Date();
 
-//		dataBase = DataUtil.setMonths(dataBase, 3);
+		dataBase = DataUtil.setMonths(dataBase, 3);
 
 		Calendar instance = Calendar.getInstance();
 		instance.setTime(dataBase);
