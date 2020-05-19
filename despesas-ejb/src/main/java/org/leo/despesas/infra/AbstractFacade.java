@@ -43,7 +43,9 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 				buscarPorId(t.getId());
 				throw new AlreadyExistentEntityException(getClasseEntidade() + " with id " + t.getId() + " already exists!");
 			} else {
+				preInserir(t);
 				entityManager.persist(t);
+				posInserir(t);
 			}
 
 		} catch (final NotFoundEntityException e) {
@@ -51,9 +53,34 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 		}
 	}
 
+	protected void preInserir(E t) {
+				
+	}
+	
+	protected void posInserir(E t) {
+		
+	}
+
 	@Override
 	public void salvar(final E t) {
+
+		E antigo = entityManager.find(getClasseEntidade(), t.getId());
+		
+		entityManager.detach(antigo);
+		
+		preSalvar(antigo,t);
+
 		entityManager.merge(t);
+		
+		posSalvar(antigo, t);
+	}
+	
+	protected void preSalvar(E antigo, E novo) {
+		
+	}
+
+	protected void posSalvar(E antigo, E novo) {
+		
 	}
 
 	@Override

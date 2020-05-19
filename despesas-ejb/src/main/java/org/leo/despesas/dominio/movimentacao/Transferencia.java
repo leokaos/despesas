@@ -2,6 +2,7 @@ package org.leo.despesas.dominio.movimentacao;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,6 +23,9 @@ public class Transferencia extends Movimentacao {
 	@JoinColumn(name = "creditavel_id")
 	private Debitavel creditavel;
 
+	@Column(name = "valor_real")
+	private BigDecimal valorReal;
+
 	public Transferencia() {
 		super();
 	}
@@ -32,6 +36,14 @@ public class Transferencia extends Movimentacao {
 
 	public void setCreditavel(Debitavel creditavel) {
 		this.creditavel = creditavel;
+	}
+
+	public BigDecimal getValorReal() {
+		return valorReal;
+	}
+
+	public void setValorReal(BigDecimal valorReal) {
+		this.valorReal = valorReal;
 	}
 
 	public TipoMovimentacao getTipo() {

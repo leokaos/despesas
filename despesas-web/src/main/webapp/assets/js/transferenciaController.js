@@ -84,12 +84,16 @@ app.controller('edicaoTransferenciaController', function($scope, transferenciaSe
 	};
 
 	$scope.salvar = function(valid) {
+		
+		var transferenciaVO = {
+			"transferencia" : $scope.transferencia
+		};
 
 		if (valid) {
 			if ($scope.transferencia.id) {
-				transferenciaService.salvar($scope.transferencia, $scope.salvo);
+				transferenciaService.salvar(transferenciaVO, $scope.salvo);
 			} else {
-				transferenciaService.novo($scope.transferencia, $scope.salvo);
+				transferenciaService.novo(transferenciaVO, $scope.salvo);
 			}
 		}
 	};

@@ -21,7 +21,6 @@ import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.ReceitaFiltro;
 import org.leo.despesas.infra.AbstractFacade;
 import org.leo.despesas.infra.Periodo;
-import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.rest.GraficoVO;
 
 @Stateless
@@ -53,11 +52,18 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita, ReceitaFiltro> im
 	}
 
 	@Override
-	public void inserir(final Receita receita) throws DespesasException {
-		super.inserir(receita);
+	protected void posInserir(Receita receita) {
 
 		if (receita.isDepositado()) {
 			depositar(receita);
+		}
+	}
+	
+	@Override
+	protected void posSalvar(Receita antigo, Receita novo) {
+		
+		if (!antigo.isDepositado() && novo.isDepositado()) {
+			depositar(novo);
 		}
 	}
 
@@ -105,6 +111,7 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita, ReceitaFiltro> im
 	}
 
 	private Receita construirReceita(final Date data, final String descricao, final BigDecimal valor) {
+
 		final Receita receita = new Receita();
 
 		receita.setDescricao(descricao);

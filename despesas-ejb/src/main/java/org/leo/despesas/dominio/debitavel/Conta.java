@@ -54,9 +54,9 @@ public class Conta extends Debitavel {
 	public void transferir(final Transferencia transferencia) {
 
 		if (transferencia.getCreditavel().getId().equals(getId())) {
-			this.saldo = getSaldo().add(transferencia.getValor());
+			this.saldo = getSaldo().add(transferencia.getValorReal());
 		} else if (transferencia.getDebitavel().getId().equals(getId())) {
-			this.saldo = getSaldo().subtract(transferencia.getValor());
+			this.saldo = getSaldo().subtract(transferencia.getValorReal());
 		} else {
 			throw new IllegalArgumentException();
 		}

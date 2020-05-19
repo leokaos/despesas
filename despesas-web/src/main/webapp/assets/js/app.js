@@ -519,7 +519,7 @@ app.directive('mes', ['MESES', function (MESES) {
 			scope.MESES = MESES;
 
 			scope.setMes = function () {
-				this.value.mes = new Date().getMonth();
+				this.value.mes = new Date().getMonth() + 1;
 				this.value.ano = new Date().getFullYear();
 			};
 		}

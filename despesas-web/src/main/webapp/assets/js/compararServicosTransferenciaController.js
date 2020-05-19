@@ -1,4 +1,4 @@
-app.controller('compararServicosTransferenciaController', function(MOEDAS, parametroService, cotacaoService, servicoTransferenciaService, $scope, $location, $routeParams, growl, $http) {
+app.controller('compararServicosTransferenciaController', function (MOEDAS, parametroService, cotacaoService, servicoTransferenciaService, transferenciaService, debitavelService, $scope, growl) {
 
 	$scope.MOEDAS = MOEDAS;
 	$scope.MOEDAS_NAMES = [];
@@ -8,24 +8,30 @@ app.controller('compararServicosTransferenciaController', function(MOEDAS, param
 	$scope.valorTotal = 0.0;
 
 	$scope.cotacao = {
-		taxa : 0.0
+		taxa: 0.0
 	};
 
 	$scope.cotacoes = [];
 	$scope.servicosFiltrados = [];
 
-	parametroService.buscarPorId('IOF', function(data) {
+	$scope.debitavel = {};
+	$scope.creditavel = {};
+
+	parametroService.buscarPorId('IOF', function (data) {
 		$scope.iof = parseFloat(data);
 	});
 
-	parametroService.buscarPorId('SPOT', function(data) {
+	parametroService.buscarPorId('SPOT', function (data) {
 		$scope.spot = parseFloat(data);
 	});
 
 	cotacaoService.buscarPorFiltro({
-		'data' : new Date().toGMTString()
-	}, function(data) {
-		$scope.cotacao = data[0];
+		'data': new Date().toGMTString()
+	}, function (data) {
+
+		if (data[0]) {
+			$scope.cotacao = data[0];
+		}
 	});
 
 	for (item in MOEDAS) {
@@ -33,33 +39,60 @@ app.controller('compararServicosTransferenciaController', function(MOEDAS, param
 	}
 
 	$scope.filtro = {
-		destino : null,
-		origem : null
+		destino: null,
+		origem: null
 	};
+
+	debitavelService.listar(function (debitaveis) {
+		$scope.debitaveis = debitaveis;
+	});
 
 	$scope.filtroServico = {
-		nome : ""
+		nome: ""
 	};
 
-	$scope.buscarCotacoes = function() {
+	$scope.efetuar = function () {
 
-		cotacaoService.buscarPorOrigemDestino($scope.filtro.origem, $scope.filtro.destino, function(data) {
+		var transferenciaVO = {
+			"transferencia": {
+				"valor": $scope.valorTotal,
+				"debitavel": $scope.debitavel,
+				"creditavel": $scope.creditavel
+			},
+			"servicoTransferencia": $scope.servicoSelecionado,
+			"cotacao": $scope.cotacao
+		};
+
+		transferenciaService.novo(transferenciaVO, function () {
+			$('#modalEfetuar').modal('hide');
+			growl.info('Transferência salva com sucesso!');
+		});
+
+	};
+
+	$scope.selecionarServico = function (servico) {
+		$scope.servicoSelecionado = servico;
+	}
+
+	$scope.buscarCotacoes = function () {
+
+		cotacaoService.buscarPorOrigemDestino($scope.filtro.origem, $scope.filtro.destino, function (data) {
 			$scope.cotacoes = data;
 		});
 	};
 
-	$scope.selecionar = function(cotacao) {
+	$scope.selecionar = function (cotacao) {
 		$scope.cotacao = cotacao;
 		$('#modalSelecionarCotacao').modal('hide');
 	};
 
 	$scope.servicos = [];
 
-	$scope.calcularTotalBruto = function(servico) {
+	$scope.calcularTotalBruto = function (servico) {
 		return parseFloat((($scope.cotacao.taxa - $scope.spot) * (1 - (servico.spred / 100))) * $scope.valorTotal);
 	};
 
-	$scope.calcularTotalLiquido = function(servico) {
+	$scope.calcularTotalLiquido = function (servico) {
 
 		var totalBruto = $scope.calcularTotalBruto(servico);
 
@@ -70,7 +103,7 @@ app.controller('compararServicosTransferenciaController', function(MOEDAS, param
 		return totalBruto * (1 - $scope.iof / 100) - servico.taxas;
 	};
 
-	$scope.adicionarServico = function(servico) {
+	$scope.adicionarServico = function (servico) {
 
 		for (var i = 0; i < $scope.servicosFiltrados.length; i++) {
 			if (servico.nome == $scope.servicosFiltrados[i].nome) {
@@ -86,11 +119,11 @@ app.controller('compararServicosTransferenciaController', function(MOEDAS, param
 		$scope.servicos.push(servico);
 	};
 
-	$scope.buscarServicos = function() {
+	$scope.buscarServicos = function () {
 
-		servicoTransferenciaService.buscarPorFiltro($scope.filtroServico, function(data) {
+		servicoTransferenciaService.buscarPorFiltro($scope.filtroServico, function (data) {
 
-			$scope.servicosFiltrados = data.filter(function(servico) {
+			$scope.servicosFiltrados = data.filter(function (servico) {
 
 				for (var i = 0; i < $scope.servicos.length; i++) {
 					if (servico.nome == $scope.servicos[i].nome) {

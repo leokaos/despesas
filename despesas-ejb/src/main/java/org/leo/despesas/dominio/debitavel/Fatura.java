@@ -148,6 +148,7 @@ public class Fatura implements ModelEntity {
 		transferencia.setDebitavel(conta);
 		transferencia.setPagamento(new Date());
 		transferencia.setValor(getValorFatura());
+		transferencia.setValorReal(getValorFatura());
 		transferencia.setVencimento(new Date());
 		transferencia.setMoeda(conta.getMoeda());
 

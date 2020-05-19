@@ -93,7 +93,7 @@ app.controller('edicaoOrcamentoController', function($scope, orcamentoService, t
 	};
 
 	$scope.setMes = function() {
-		$scope.orcamentoVO.periodo.mes = new Date().getMonth();
+		$scope.orcamentoVO.periodo.mes = new Date().getMonth() + 1;
 		$scope.orcamentoVO.periodo.ano = new Date().getFullYear();
 	};
 

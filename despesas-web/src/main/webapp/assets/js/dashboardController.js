@@ -7,15 +7,12 @@ app.controller('dashboardController', function($scope, $http, dashboardService, 
 	$scope.ano = $scope.dataAtual.getFullYear();
 	$scope.mes = $scope.dataAtual.getMonth();
 
-	var dataInicio = new Date($scope.ano, $scope.mes, 1);
-	var dataFim = new Date($scope.ano, $scope.mes + 1, 0);
+	$scope.dataInicio = new Date($scope.ano, $scope.mes, 1);
+	$scope.dataFim = new Date($scope.ano, $scope.mes + 1, 0, 23, 59, 59);
 
 	$scope.loadChart = function() {
 
-		var dataInicio = new Date($scope.ano, $scope.mes, 1);
-		var dataFim = new Date($scope.ano, $scope.mes + 1, 0);
-
-		dashboardService.buscarDespesasPorPeriodo(dataInicio, dataFim, function(data) {
+		dashboardService.buscarDespesasPorPeriodo($scope.dataInicio, $scope.dataFim, function(data) {
 
 			$scope.graficos = [];
 
@@ -29,11 +26,11 @@ app.controller('dashboardController', function($scope, $http, dashboardService, 
 
 		});
 
-		dashboardService.buscarSaldoPorPeriodo(dataInicio, dataFim, function(data) {
+		dashboardService.buscarSaldoPorPeriodo($scope.dataInicio, $scope.dataFim, function(data) {
 			$scope.saldo = data;
 		});
 
-		orcamentoService.buscarPorMes(new Periodo($scope.mes, $scope.ano), function(data) {
+		orcamentoService.buscarPorMes(new Periodo($scope.mes + 1, $scope.ano), function(data) {
 			$scope.orcamentos = data;
 		});
 
@@ -87,7 +84,7 @@ app.controller('dashboardController', function($scope, $http, dashboardService, 
 		$scope.debitaveis = debitaveis;
 	});
 
-	movimentacaoService.buscarMovimentacaoPorPeriodo(dataInicio, dataFim, function(data) {
+	movimentacaoService.buscarMovimentacaoPorPeriodo($scope.dataInicio, $scope.dataFim, function(data) {
 		$scope.movimentacoes = data;
 	});
 

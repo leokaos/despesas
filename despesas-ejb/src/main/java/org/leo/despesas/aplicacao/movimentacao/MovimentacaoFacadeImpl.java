@@ -6,7 +6,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.leo.despesas.dominio.movimentacao.Movimentacao;
 import org.leo.despesas.infra.Moeda;
@@ -18,10 +18,9 @@ public class MovimentacaoFacadeImpl implements MovimentacaoFacade {
 	protected EntityManager entityManager;
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<Movimentacao> buscarMovimentacaoPorPeriodo(Date dataInicial, Date dataFinal) {
 
-		Query query = entityManager.createQuery("SELECT M FROM Movimentacao M WHERE M.vencimento BETWEEN :dataInicial AND :dataFinal AND M.moeda = :moeda");
+		TypedQuery<Movimentacao> query = entityManager.createQuery("SELECT M FROM Movimentacao M WHERE M.vencimento BETWEEN :dataInicial AND :dataFinal AND M.moeda = :moeda", Movimentacao.class);
 
 		query.setParameter("dataInicial", dataInicial);
 		query.setParameter("dataFinal", dataFinal);
