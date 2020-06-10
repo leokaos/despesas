@@ -1,15 +1,22 @@
 package org.leo.despesas.rest;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import org.leo.despesas.dominio.debitavel.BandeiraCartaoCredito;
 import org.leo.despesas.dominio.debitavel.CartaoCredito;
 import org.leo.despesas.dominio.debitavel.Conta;
+import org.leo.despesas.dominio.debitavel.Divida;
 import org.leo.despesas.dominio.debitavel.Investimento;
 import org.leo.despesas.dominio.debitavel.Periodicidade;
 
 public class DebitavelSerializerVisitorImpl implements DebitavelSerializerVisitor {
+
+	private static final DateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
 	private Map<String, String> mapaAtributos;
 
@@ -36,5 +43,25 @@ public class DebitavelSerializerVisitorImpl implements DebitavelSerializerVisito
 		investimento.setMontante(new BigDecimal(mapaAtributos.get("montante")));
 		investimento.setPeriodicidade(Periodicidade.valueOf(mapaAtributos.get("periodicidade")));
 		investimento.setRendimento(new BigDecimal(mapaAtributos.get("rendimento")));
+	}
+
+	@Override
+	public void visit(Divida divida) {
+		divida.setValorTotal(new BigDecimal(mapaAtributos.get("valorTotal")));
+		divida.setPeriodicidade(Periodicidade.valueOf(mapaAtributos.get("periodicidade")));
+		divida.setDataInicio(getDateOrNull(mapaAtributos.get("dataInicio")));
+	}
+
+	private Date getDateOrNull(String value) {
+		try {
+			return FORMAT.parse(value);
+		} catch (ParseException e) {
+			try {
+				return new Date(Integer.valueOf(value));
+			} catch (NumberFormatException ex) {
+				return null;
+			}
+		}
+
 	}
 }

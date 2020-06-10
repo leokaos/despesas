@@ -48,11 +48,12 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa, Desp
 
 	@POST
 	@Consumes(value = MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response inserir(final DespesaVO despesaVO) throws DespesasException {
 
-		despesaFacade.inserir(despesaVO.getDespesa(),despesaVO.getParcelamentoVO());
+		Despesa resultado = despesaFacade.inserir(despesaVO.getDespesa(),despesaVO.getParcelamentoVO());
 
-		return Response.ok().build();
+		return Response.created(null).entity(resultado).build();
 	}
 
 	@Override

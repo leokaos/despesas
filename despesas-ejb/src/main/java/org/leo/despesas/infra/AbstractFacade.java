@@ -9,6 +9,8 @@ import org.leo.despesas.infra.exception.AlreadyExistentEntityException;
 import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.infra.exception.NotFoundEntityException;
 
+import com.google.common.collect.Lists;
+
 public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltro<E>> implements SimpleFacade<E, F> {
 
 	@PersistenceContext(unitName = "despesasPU")
@@ -35,7 +37,7 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 	}
 
 	@Override
-	public void inserir(final E t) throws DespesasException {
+	public E inserir(final E t) throws DespesasException {
 
 		try {
 
@@ -51,6 +53,8 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 		} catch (final NotFoundEntityException e) {
 			entityManager.persist(t);
 		}
+		
+		return t;
 	}
 
 	protected void preInserir(E t) {
@@ -62,7 +66,7 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 	}
 
 	@Override
-	public void salvar(final E t) {
+	public E salvar(final E t) {
 
 		E antigo = entityManager.find(getClasseEntidade(), t.getId());
 		
@@ -70,9 +74,11 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 		
 		preSalvar(antigo,t);
 
-		entityManager.merge(t);
+		E result = entityManager.merge(t);
 		
 		posSalvar(antigo, t);
+		
+		return result;
 	}
 	
 	protected void preSalvar(E antigo, E novo) {
@@ -84,12 +90,17 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 	}
 
 	@Override
-	public void salvar(final List<E> list) throws DespesasException {
+	public List<E> salvar(final List<E> list) throws DespesasException {
+		
+		List<E> result = Lists.newArrayList();
+		
 		for (final E e : list) {
 			if (e != null) {
-				inserir(e);
+				result.add(inserir(e));
 			}
 		}
+		
+		return result;
 	}
 
 	@Override

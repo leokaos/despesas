@@ -25,6 +25,7 @@
 		<class>org.leo.despesas.dominio.servicotransferencia.Cotacao</class>
 		<class>org.leo.despesas.dominio.meta.Meta</class>
 		<class>org.leo.despesas.dominio.debitavel.Investimento</class>
+		<class>org.leo.despesas.dominio.debitavel.Divida</class>
 
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 

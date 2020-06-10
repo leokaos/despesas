@@ -10,11 +10,11 @@ public interface SimpleFacade<T extends ModelEntity, F extends ModelFiltro<T>> {
 
 	T buscarPorId(Long id) throws DespesasException;
 
-	void inserir(T t) throws DespesasException;
+	T inserir(T t) throws DespesasException;
 
-	void salvar(T t);
+	T salvar(T t);
 
-	void salvar(List<T> list) throws DespesasException;
+	List<T> salvar(List<T> list) throws DespesasException;
 
 	void deletar(Long id) throws DespesasException;
 

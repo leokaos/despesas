@@ -36,19 +36,21 @@ public abstract class AbstractService<T extends SimpleFacade<E, F>, E extends Mo
 	@POST
 	@Override
 	@Consumes(value = MediaType.APPLICATION_JSON)
+	@Produces(value = MediaType.APPLICATION_JSON)
 	public Response inserir(final E t) throws DespesasException {
-		getFacade().inserir(t);
+		E result = getFacade().inserir(t);
 
-		return Response.created(null).build();
+		return Response.created(null).entity(result).build();
 	}
 
 	@PUT
 	@Override
 	@Consumes(value = MediaType.APPLICATION_JSON)
+	@Produces(value = MediaType.APPLICATION_JSON)
 	public Response salvar(final E t) {
-		getFacade().salvar(t);
+		E result = getFacade().salvar(t);
 
-		return Response.ok().build();
+		return Response.ok(result).build();
 	}
 
 	@DELETE

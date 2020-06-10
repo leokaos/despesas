@@ -54,23 +54,27 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 	}
 
 	@Override
-	public void inserir(final Despesa despesa) throws DespesasException {
-		inserir(despesa, null);
+	public Despesa inserir(final Despesa despesa) throws DespesasException {
+		return inserir(despesa, null);
 	}
 
 	@Override
-	public void inserir(final Despesa despesa, final ParcelamentoVO parcelamentoVO) throws DespesasException {
+	public Despesa inserir(final Despesa despesa, final ParcelamentoVO parcelamentoVO) throws DespesasException {
 
 		if (parcelamentoVO != null) {
 
 			salvar(parcelamentoVO.getTipoParcelamento().parcelar(despesa, parcelamentoVO.getNumeroParcelas()));
+			
+			return null;
 
 		} else {
-			super.inserir(despesa);
+			
 
 			if (despesa.isPaga()) {
 				pagar(despesa);
 			}
+			
+			return super.inserir(despesa);
 		}
 	}
 
@@ -80,9 +84,10 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 		despesa.setDebitavel(debitavelFacade.buscarPorId(despesa.getDebitavel().getId()));
 
 		despesa.pagar();
+		
+		despesa.consolidar();
 
 		debitavelFacade.salvar(despesa.getDebitavel());
-		salvar(despesa.consolidar());
 	}
 
 	@Override

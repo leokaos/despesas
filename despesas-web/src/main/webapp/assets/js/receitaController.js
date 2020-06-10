@@ -17,7 +17,7 @@ app.controller('receitaController', function($scope, receitaService, $location, 
 	$scope.receitaSelecionada = null;
 
 	$scope.getTitulo = function() {
-		return 'receitas';
+		return 'Receitas';
 	};
 
 	$scope.getDescricaoSelecionado = function() {

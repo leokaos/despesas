@@ -164,7 +164,7 @@ public class CartaoCredito extends Debitavel {
 
 		final Fatura fatura = getFaturaPorData(despesa.getVencimento());
 
-		if (fatura.getId() != null) {
+		if (fatura != null && fatura.getId() != null) {
 			despesa.setFatura(fatura);
 		}
 

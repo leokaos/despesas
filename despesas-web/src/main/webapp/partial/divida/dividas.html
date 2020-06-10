@@ -1,0 +1,45 @@
+<pesquisa-view>
+
+<table datatable="ng" class="table table-striped table-bordered display datatables no-footer row-border hover" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs">
+
+	<thead>
+		<tr>
+			<th>Cor</th>
+			<th>Descrição</th>
+			<th style="text-align: center;">Valor Total</th>
+			<th style="text-align: center;">Data de Início</th>
+			<th style="text-align: center;">Periodiciodade</th>
+			<th style="text-align: center;">Restante</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr ng-repeat="item in originalData" style="height: 40px;">
+		
+			<td style="width: 60px; vertical-align: middle;">
+				<bullet ng-model="item"></bullet>
+			</td>		
+
+			<td style="vertical-align: middle; width: 400px;">{{item.descricao}}</td>
+
+			<td style="vertical-align: middle; text-align: center;">{{item.valorTotal |	currency: 'R$ '}}</td>
+
+			<td style="vertical-align: middle; text-align: center;">{{item.dataInicio | date: 'dd/MM/yyyy'}}</td>
+
+			<td style="vertical-align: middle; text-align: center;">{{PERIODICIDADE[item.periodicidade].descricao}}</td>
+
+			<td style="vertical-align: middle; text-align: center;">{{item.valorRestante |	currency: 'R$ '}}</td>
+
+			<td style="width: 38px; height: 38px;"><button-editar></button-editar>
+			</td>
+
+			<td style="width: 38px; height: 38px;"><button-delete></button-delete>
+			</td>
+		</tr>
+	</tbody>
+
+</table>
+
+</pesquisa-view>

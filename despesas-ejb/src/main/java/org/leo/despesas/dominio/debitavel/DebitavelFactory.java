@@ -18,6 +18,7 @@ public class DebitavelFactory {
 		mapaValores.put(Conta.CODIGO_TIPO, Conta.class);
 		mapaValores.put(CartaoCredito.CODIGO_TIPO, CartaoCredito.class);
 		mapaValores.put(Investimento.CODIGO_TIPO, Investimento.class);
+		mapaValores.put(Divida.CODIGO_TIPO, Divida.class);
 	}
 
 	public static Debitavel parse(Map<String, String> mapaAtributos) {

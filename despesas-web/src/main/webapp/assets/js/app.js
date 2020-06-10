@@ -204,6 +204,22 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'partial/transferencia/transferencia.html',
 		controller : 'edicaoTransferenciaController'
 	});
+	
+	// DIVIDAS
+	$routeProvider.when('/dividas', {
+		templateUrl : 'partial/divida/dividas.html',
+		controller : 'dividaController'
+	});
+
+	$routeProvider.when('/divida', {
+		templateUrl : 'partial/divida/divida.html',
+		controller : 'edicaoDividaController'
+	});
+
+	$routeProvider.when('/divida/:id', {
+		templateUrl : 'partial/divida/divida.html',
+		controller : 'edicaoDividaController'
+	});	
 
 	// COTACOES
 	$routeProvider.when('/cotacoes', {
@@ -420,13 +436,16 @@ app.constant('MOEDAS', {
 
 app.constant('PERIODICIDADE', {
 	"MENSAL" : {
-		descricao : "Mensal"
+		descricao : "Mensal",
+		value: "MENSAL"
 	},
 	"SEMESTRAL" : {
-		descricao : "Semestral"
+		descricao : "Semestral",
+		value: "SEMESTRAL"
 	},
 	"VARIAVEL" : {
-		descricao : "Variável"
+		descricao : "Variável",
+		value: "VARIAVEL"
 	}
 });
 

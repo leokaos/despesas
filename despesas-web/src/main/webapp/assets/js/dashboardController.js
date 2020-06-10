@@ -12,6 +12,9 @@ app.controller('dashboardController', function($scope, $http, dashboardService, 
 
 	$scope.loadChart = function() {
 
+		$scope.dataInicio = new Date($scope.ano, $scope.mes, 1);
+		$scope.dataFim = new Date($scope.ano, $scope.mes + 1, 0);	
+
 		dashboardService.buscarDespesasPorPeriodo($scope.dataInicio, $scope.dataFim, function(data) {
 
 			$scope.graficos = [];

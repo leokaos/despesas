@@ -20,7 +20,7 @@ public interface DespesaFacade extends SimpleFacade<Despesa, DespesaFiltro> {
 
 	void pagar(Despesa despesa);
 
-	void inserir(Despesa despesa,ParcelamentoVO parcelamentoVO) throws DespesasException;
+	Despesa inserir(Despesa despesa,ParcelamentoVO parcelamentoVO) throws DespesasException;
 
 	List<Despesa> carregarDeArquivo(File arquivoDespesas);
 

@@ -66,17 +66,18 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, Trans
 	}
 
 	@Override
-	public void inserir(Transferencia t) throws DespesasException {
+	public Transferencia inserir(Transferencia t) throws DespesasException {
 
 		if (t.getValorReal() == null) {
 			t.setValorReal(t.getValor());
 		}
 
-		super.inserir(t);
+		Transferencia transferencia = super.inserir(t);
 
 		debitavelFacade.buscarPorId(t.getDebitavel().getId()).transferir(t);
 		debitavelFacade.buscarPorId(t.getCreditavel().getId()).transferir(t);
-
+		
+		return transferencia;
 	}
 
 	@Override
