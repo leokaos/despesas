@@ -5,7 +5,8 @@
 	<thead>
 		<tr>
 			<th>Descrição</th>
-			<th>valor</th>
+			<th>Valor</th>
+			<th>Valor Final</th>
 			<th>Vencimento</th>
 			<th>Debitável</th>
 			<th>Creditável</th>
@@ -20,6 +21,8 @@
 			<td style="vertical-align: middle; width: 400px;">{{item.descricao}}</td>
 
 			<td style="vertical-align: middle;">{{item.valor | currency: 'R$ '}}</td>
+			
+			<td style="vertical-align: middle;">{{item.valorReal | currency: 'R$ '}}</td>
 
 			<td style="vertical-align: middle;">{{item.vencimento | date: 'dd/MM/yyyy'}}</td>
 

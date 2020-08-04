@@ -48,10 +48,10 @@
 
 		<div class="form-group">
 			<label class="col-md-2 control-label">Debitável:</label>
-			<div class="col-md-4 ">
+			<div class="col-md-6 ">
 				<colorable ng-model="despesa.debitavel" itens="debitaveis" on-select="setMoeda"></colorable>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<h4 ng-if="despesa.debitavel != null">
 					<strong>Saldo:</strong> {{despesa.debitavel.saldo | currency: 'R$ '}}
 				</h4>

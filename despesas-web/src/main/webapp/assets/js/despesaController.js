@@ -1,11 +1,12 @@
 app.controller('despesaController', function($scope, despesaService, $location, $routeParams, usSpinnerService) {
+	
+	
+	$scope.dataAtual = new Date();
+	$scope.ano = $scope.dataAtual.getFullYear();
+	$scope.mes = $scope.dataAtual.getMonth();
 
-	var dataInicial = new Date();
-	dataInicial.setDate(1);
-
-	var dataFinal = new Date();
-	dataFinal.setMonth(dataFinal.getMonth() + 1);
-	dataFinal.setDate(0);
+	var dataInicial = new Date($scope.ano, $scope.mes, 1);
+	var dataFinal = new Date($scope.ano, $scope.mes + 1, 0, 23, 59, 59);
 
 	$scope.despesasSelecionadas = [];
 

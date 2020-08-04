@@ -22,6 +22,6 @@ public interface TransferenciaFacade extends SimpleFacade<Transferencia, Transfe
 
 	List<Transferencia> getTransferenciasPorPeriodo(Periodo periodo);
 
-	void inserir(Transferencia transferencia, ServicoTransferencia servicoTransferencia, Cotacao cotacao) throws DespesasException;
+	Transferencia inserir(Transferencia transferencia, ServicoTransferencia servicoTransferencia, Cotacao cotacao) throws DespesasException;
 
 }

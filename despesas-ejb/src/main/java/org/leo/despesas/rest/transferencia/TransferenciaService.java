@@ -24,9 +24,9 @@ public class TransferenciaService extends AbstractService<TransferenciaFacade, T
 	@Consumes(value = MediaType.APPLICATION_JSON)
 	public Response inserir(final TransferenciaVO transferenciaVO) throws DespesasException {
 
-		transferenciaFacade.inserir(transferenciaVO.getTransferencia(), transferenciaVO.getServicoTransferencia(), transferenciaVO.getCotacao());
+		Transferencia transferencia = transferenciaFacade.inserir(transferenciaVO.getTransferencia(), transferenciaVO.getServicoTransferencia(), transferenciaVO.getCotacao());
 
-		return Response.ok().build();
+		return Response.ok(transferencia).build();
 	}
 
 	@Override

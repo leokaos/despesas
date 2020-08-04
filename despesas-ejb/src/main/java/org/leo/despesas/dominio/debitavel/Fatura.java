@@ -120,7 +120,7 @@ public class Fatura implements ModelEntity {
 		BigDecimal total = BigDecimal.ZERO;
 
 		for (final Despesa despesa : despesas) {
-			total = total.add(despesa.getValor());
+			total = total.add(despesa.getValor() == null? BigDecimal.ZERO : despesa.getValor());
 		}
 
 		return total;
@@ -151,9 +151,6 @@ public class Fatura implements ModelEntity {
 		transferencia.setValorReal(getValorFatura());
 		transferencia.setVencimento(new Date());
 		transferencia.setMoeda(conta.getMoeda());
-
-		cartao.transferir(transferencia);
-		conta.transferir(transferencia);
 
 		setPaga(true);
 

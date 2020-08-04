@@ -151,7 +151,7 @@ public class CartaoCredito extends Debitavel {
 		}
 
 		faturaPorData.getDespesas().add(despesa);
-
+		despesa.setFatura(faturaPorData);
 	}
 
 	@Override
@@ -161,13 +161,6 @@ public class CartaoCredito extends Debitavel {
 
 	@Override
 	public Despesa consolidar(final Despesa despesa) {
-
-		final Fatura fatura = getFaturaPorData(despesa.getVencimento());
-
-		if (fatura != null && fatura.getId() != null) {
-			despesa.setFatura(fatura);
-		}
-
 		return despesa;
 	}
 

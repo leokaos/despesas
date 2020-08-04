@@ -39,15 +39,15 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, Trans
 	private ParametroFacade parametroFacade;
 
 	@Override
-	public void pagarFatura(final Fatura fatura, final Conta conta, Date dataPagamento) throws DespesasException {
+	public void pagarFatura(Fatura fatura, final Conta conta, Date dataPagamento) throws DespesasException {
+		
+		fatura = faturaFacade.buscarPorId(fatura.getId());
+		
 		final Transferencia transferencia = fatura.pagar(conta);
 
 		transferencia.setPagamento(dataPagamento);
-
+		
 		inserir(transferencia);
-
-		faturaFacade.salvar(fatura);
-		contaFacade.salvar(conta);
 	}
 
 	@Override
@@ -81,10 +81,10 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, Trans
 	}
 
 	@Override
-	public void inserir(Transferencia transferencia, ServicoTransferencia servicoTransferencia, Cotacao cotacao) throws DespesasException {
+	public Transferencia inserir(Transferencia transferencia, ServicoTransferencia servicoTransferencia, Cotacao cotacao) throws DespesasException {
 
 		if (servicoTransferencia == null || cotacao == null) {
-			inserir(transferencia);
+			return inserir(transferencia);
 		} else {
 
 			BigDecimal spot = parametroFacade.getTaxaSpot();
@@ -98,7 +98,7 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, Trans
 			transferencia.setPagamento(new Date());
 			transferencia.setMoeda(transferencia.getCreditavel().getMoeda());
 			
-			inserir(transferencia);
+			return inserir(transferencia);
 		}
 
 	}

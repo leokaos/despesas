@@ -73,7 +73,6 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita, ReceitaFiltro> im
 
 		receita.depositar();
 
-		salvar(receita);
 		debitavelFacade.salvar(receita.getDebitavel());
 	}
 

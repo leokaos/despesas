@@ -89,7 +89,14 @@ app.controller('compararServicosTransferenciaController', function (MOEDAS, para
 	$scope.servicos = [];
 
 	$scope.calcularTotalBruto = function (servico) {
-		return parseFloat((($scope.cotacao.taxa - $scope.spot) * (1 - (servico.spred / 100))) * $scope.valorTotal);
+		
+		var cotacaoSemSpot = $scope.cotacao.taxa - $scope.spot;
+		
+		var cotacaoDepoisSpred = cotacaoSemSpot * (1 - servico.spred/100);
+		
+		var total = parseFloat(cotacaoDepoisSpred * $scope.valorTotal);
+		
+		return total;
 	};
 
 	$scope.calcularTotalLiquido = function (servico) {
