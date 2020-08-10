@@ -187,5 +187,10 @@ public class CartaoCredito extends Debitavel {
 
 		return total;
 	}
+	
+	@Override
+	public void estornar(Despesa despesa) {
+		
+	}
 
 }

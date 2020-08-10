@@ -112,4 +112,9 @@ public class Investimento extends Debitavel {
 
 		return BigDecimal.ZERO;
 	}
+	
+	@Override
+	public void estornar(Despesa despesa) {
+		
+	}
 }

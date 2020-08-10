@@ -105,7 +105,22 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 
 	@Override
 	public void deletar(final Long id) throws DespesasException {
-		entityManager.remove(buscarPorId(id));
+		
+		E entity = buscarPorId(id);
+		
+		preDeletar(entity);
+		
+		entityManager.remove(entity);
+		
+		posDeletar(entity);
+	}
+	
+	protected void preDeletar(E entity) {
+		
+	}
+
+	protected void posDeletar(E entity) {
+		
 	}
 
 	protected abstract Class<E> getClasseEntidade();

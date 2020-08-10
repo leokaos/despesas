@@ -17,6 +17,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
+import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
 import org.leo.despesas.infra.AbstractFacade;
@@ -132,5 +133,13 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 		despesa.setValor(valor.abs());
 
 		return despesa;
+	}
+	
+	@Override
+	protected void posDeletar(Despesa despesa) {
+		
+		Debitavel debitavel = debitavelFacade.buscarPorId(despesa.getDebitavel().getId());
+		
+		debitavel.estornar(despesa);
 	}
 }

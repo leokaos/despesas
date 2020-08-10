@@ -124,5 +124,10 @@ public class Divida extends Debitavel {
 	public BigDecimal getSaldo() {
 		return getValorRestante().multiply(new BigDecimal(-1));
 	}
+	
+	@Override
+	public void estornar(Despesa despesa) {
+		
+	}
 
 }

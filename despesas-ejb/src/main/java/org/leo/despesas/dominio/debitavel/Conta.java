@@ -71,5 +71,10 @@ public class Conta extends Debitavel {
 	public void accept(DebitavelSerializerVisitorImpl visitor) {
 		visitor.visit(this);
 	}
+	
+	@Override
+	public void estornar(Despesa despesa) {
+		saldo = saldo.add(despesa.getValor());
+	}
 
 }
