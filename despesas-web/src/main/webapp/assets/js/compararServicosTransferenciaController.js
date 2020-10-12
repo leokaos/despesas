@@ -92,7 +92,7 @@ app.controller('compararServicosTransferenciaController', function (MOEDAS, para
 		
 		var cotacaoSemSpot = $scope.cotacao.taxa - $scope.spot;
 		
-		var cotacaoDepoisSpred = cotacaoSemSpot * (1 - servico.spred/100);
+		var cotacaoDepoisSpred = Math.round(((cotacaoSemSpot * (1 - servico.spred/100)) + Number.EPSILON) * 100) / 100;
 		
 		var total = parseFloat(cotacaoDepoisSpred * $scope.valorTotal);
 		

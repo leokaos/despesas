@@ -18,5 +18,5 @@ public class ServicoTransferenciaService extends AbstractService<ServicoTransfer
 	protected ServicoTransferenciaFacade getFacade() {
 		return facade;
 	}
-
+	
 }

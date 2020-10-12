@@ -65,16 +65,15 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 		if (parcelamentoVO != null) {
 
 			salvar(parcelamentoVO.getTipoParcelamento().parcelar(despesa, parcelamentoVO.getNumeroParcelas()));
-			
+
 			return null;
 
 		} else {
-			
 
 			if (despesa.isPaga()) {
 				pagar(despesa);
 			}
-			
+
 			return super.inserir(despesa);
 		}
 	}
@@ -85,10 +84,10 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 		despesa.setDebitavel(debitavelFacade.buscarPorId(despesa.getDebitavel().getId()));
 
 		despesa.pagar();
-		
-		despesa.consolidar();
 
 		debitavelFacade.salvar(despesa.getDebitavel());
+
+		despesa.consolidar();
 	}
 
 	@Override
@@ -134,12 +133,12 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 
 		return despesa;
 	}
-	
+
 	@Override
 	protected void posDeletar(Despesa despesa) {
-		
+
 		Debitavel debitavel = debitavelFacade.buscarPorId(despesa.getDebitavel().getId());
-		
+
 		debitavel.estornar(despesa);
 	}
 }
