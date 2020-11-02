@@ -34,7 +34,7 @@
 						<tr ng-repeat="despesa in despesas" style="height: 40px;">
 							<td><input type="text" class="form-control" ng-model="despesa.descricao" startup-error-field required></td>
 							<td><input type="text" class="form-control" ng-model="despesa.valor" ui-number-mask required></td>
-							<td><input type="text" name="data" class="form-control" ng-model="despesa.vencimento" bs-datepicker autoclose="true" required></input></td>
+							<td><input type="text" name="data" class="form-control" ng-model="despesa.vencimento" bs-datepicker autoclose="true" autocomplete="off" required></input></td>
 							<td><colorable ng-model="despesa.tipo" itens="tiposDespesa"></colorable></td>
 							<td><colorable ng-model="despesa.debitavel" itens="debitaveis"></colorable></td>
 							<td><input type="checkbox" class="form-control" ng-model="despesa.paga"></td>

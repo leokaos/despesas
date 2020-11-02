@@ -283,7 +283,13 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/projecao', {
 		templateUrl : 'partial/projecao.html',
 		controller : 'projecaoController'
-	});	
+	});
+	
+	// EXTRATO
+	$routeProvider.when('/extrato', {
+		templateUrl : 'partial/extrato.html',
+		controller : 'extratoController'
+	});
 	
 	// DASHBOARD
 	$routeProvider.otherwise({
