@@ -21,7 +21,7 @@
 			<div class="col-md-9">
 				<div>
 					<select class="form-control" ng-model="orcamentoVO.periodo.mes" style="width: 150px; float: left;">
-						<option ng-repeat="mes in MESES" value="{{mes.value}}">{{mes.nome}}</option>
+						<option ng-repeat="mes in MESES" value="{{mes.value}}" ng-selected="mes.value === value.mes">{{mes.nome}}</option>
 					</select>
 
 					<label class="col-md-1 control-label">de</label>
