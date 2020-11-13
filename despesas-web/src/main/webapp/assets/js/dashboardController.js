@@ -84,7 +84,7 @@ app.controller('dashboardController', function($scope, $http, dashboardService, 
 	$scope.loadChart();
 
 	debitavelService.listar(function(debitaveis) {
-		$scope.debitaveis = debitaveis;
+		$scope.debitaveis = debitaveis.filter(x => x.ativo);
 	});
 
 	movimentacaoService.buscarMovimentacaoPorPeriodo($scope.dataInicio, $scope.dataFim, function(data) {

@@ -2,7 +2,7 @@
 <div>
 
 	<select class="form-control" ng-model="value.mes" style="width: 150px; float: left;">
-		<option ng-repeat="mes in MESES" value="{{mes.value}}">{{mes.nome}}</option>
+		<option ng-repeat="mes in MESES" value="{{mes.value}}" ng-selected="mes.value === value.mes">{{mes.nome}}</option>
 	</select>
 	
 	<label class="col-md-1 control-label" style="height: 34px; padding-top: 10px; text-align: center;">de</label>

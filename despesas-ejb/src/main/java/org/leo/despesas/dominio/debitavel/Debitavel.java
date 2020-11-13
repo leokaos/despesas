@@ -49,6 +49,8 @@ public abstract class Debitavel implements ModelEntity {
 	@Enumerated(EnumType.STRING)
 	private Moeda moeda;
 
+	private boolean ativo = true;
+
 	public Debitavel() {
 		super();
 	}
@@ -94,6 +96,14 @@ public abstract class Debitavel implements ModelEntity {
 		this.moeda = moeda;
 	}
 
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+
 	public abstract void debitar(Despesa despesa);
 
 	public abstract void creditar(Receita receita);
@@ -105,6 +115,6 @@ public abstract class Debitavel implements ModelEntity {
 	public abstract void accept(DebitavelSerializerVisitorImpl visitor);
 
 	public abstract BigDecimal getSaldo();
-	
+
 	public abstract void estornar(Despesa despesa);
 }

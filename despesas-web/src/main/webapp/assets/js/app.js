@@ -547,6 +547,8 @@ app.directive('mes', ['MESES', function (MESES) {
 				this.value.mes = new Date().getMonth() + 1;
 				this.value.ano = new Date().getFullYear();
 			};
+			
+			scope.setMes();
 		}
 	};
 }]);
