@@ -1,0 +1,40 @@
+<h3>
+	<i class="fa fa-angle-right"></i>
+	Gráfico por Tipo de Receita
+</h3>
+
+<div class="form-panel">
+
+	<div class="row">
+
+		<div class="col-md-12">
+
+			<fieldset class="filtro">
+
+				<legend>Filtro</legend>
+
+				<label>Vencimento Inicial:</label>
+				<input type="text" name="dataInicial" class="form-control" bs-datepicker ng-model="dataInicial" autoclose="true" autocomplete="off" style="width: 110px"></input>
+
+				<label>Vencimento Final:</label>
+				<input type="text" name="dataFinal" class="form-control" bs-datepicker ng-model="dataFinal" autoclose="true" autocomplete="off" style="width: 110px"></input>
+
+				<button type="button" class="btn btn-primary" ng-click="listarReceitas();" style="float: right;">Filtrar</button>
+
+			</fieldset>
+
+			<div class="clearfix"></div>
+
+			<div id="grafico">
+				<svg style="min-height: 550px;"></svg>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+
+
+

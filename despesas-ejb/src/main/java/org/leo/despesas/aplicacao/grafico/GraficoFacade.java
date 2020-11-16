@@ -11,4 +11,6 @@ public interface GraficoFacade {
 
 	GraficoLinha getGraficoDespesas(Date dataInicial,Date dataFinal);
 
+	GraficoLinha getGraficoReceitas(Date dataInicial, Date dataFinal);
+
 }

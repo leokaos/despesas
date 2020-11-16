@@ -242,6 +242,11 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'partial/grafico/graficotipodespesa.html',
 		controller : 'graficoController'
 	});
+	
+	$routeProvider.when('/graficotiporeceita', {
+		templateUrl : 'partial/grafico/graficotiporeceita.html',
+		controller : 'graficoController'
+	});	
 
 	// SERVICOS DE TRANSFERENCIAS
 	$routeProvider.when('/servicostransferencia', {

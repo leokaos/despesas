@@ -26,5 +26,12 @@ public class GraficoService {
 	public GraficoLinha getGraficoDespesas(@QueryParam("dataInicial") final Date dataInicial,@QueryParam("dataFinal") final Date dataFinal) {
 		return graficoFacade.getGraficoDespesas(dataInicial,dataFinal);
 	}
+	
+	@GET
+	@Path(value = "/receitas")
+	@Produces(MediaType.APPLICATION_JSON)
+	public GraficoLinha getGraficoReceitas(@QueryParam("dataInicial") final Date dataInicial,@QueryParam("dataFinal") final Date dataFinal) {
+		return graficoFacade.getGraficoReceitas(dataInicial,dataFinal);
+	}
 
 }

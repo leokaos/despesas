@@ -1,6 +1,6 @@
 app.service('metaService', function($http, filtroParser) {
 
-	pathBase = '/despesas/services/meta/';
+	pathBaseMeta = '/despesas/services/meta/';
 
 	this.getNovaMeta = function() {
 		return {
@@ -14,7 +14,7 @@ app.service('metaService', function($http, filtroParser) {
 
 	this.listar = function(filtro, fn) {
 
-		$http.get(pathBase, {
+		$http.get(pathBaseMeta, {
 			params : filtroParser.getFiltro(filtro)
 		}).success(function(data) {
 			fn(data);
@@ -25,7 +25,7 @@ app.service('metaService', function($http, filtroParser) {
 
 		var request = $http({
 			method : 'post',
-			url : pathBase,
+			url : pathBaseMeta,
 			data : meta
 		});
 
@@ -35,7 +35,7 @@ app.service('metaService', function($http, filtroParser) {
 	};
 
 	this.salvar = function(meta, fn) {
-		$http.put(pathBase, meta).success(function(data) {
+		$http.put(pathBaseMeta, meta).success(function(data) {
 			fn(data);
 		});
 	};
@@ -49,13 +49,13 @@ app.service('metaService', function($http, filtroParser) {
 	};
 
 	this.buscarPorId = function(id, fn) {
-		$http.get(pathBase + id).success(function(data) {
+		$http.get(pathBaseMeta + id).success(function(data) {
 			fn(data);
 		});
 	};
 
 	this.deletar = function(id, fn) {
-		$http['delete'](pathBase + id).success(function(data) {
+		$http['delete'](pathBaseMeta + id).success(function(data) {
 			fn(data);
 		});
 	};

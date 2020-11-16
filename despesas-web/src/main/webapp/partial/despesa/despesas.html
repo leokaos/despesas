@@ -16,7 +16,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="item in originalData" style="height: 40px;" ng-click="seleciona(item);">
+			<tr ng-repeat="item in originalData" style="{{despesasSelecionadas.indexOf(item) !== -1 ? 'background-color:#e4fcff;' : ''}}" ng-click="seleciona(item);">
 
 				<td style="vertical-align: middle; width: 400px;">{{item.descricao}}</td>
 

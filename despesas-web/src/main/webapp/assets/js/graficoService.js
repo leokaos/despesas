@@ -18,5 +18,22 @@ app.service('graficoService', function($http) {
 		});
 
 	};
+	
+	this.buscarGraficoReceitas = function(dataInicio, dataFim, fn) {
+
+		var request = $http({
+			method : 'get',
+			url : pathBase + 'receitas',
+			params : {
+				dataInicial : dataInicio.toGMTString(),
+				dataFinal : dataFim.toGMTString()
+			}
+		});
+
+		request.success(function(data) {
+			fn(data);
+		});
+
+	};	
 
 });
