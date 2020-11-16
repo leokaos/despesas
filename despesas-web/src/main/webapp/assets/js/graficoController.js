@@ -20,7 +20,7 @@ app.controller('graficoController', function($scope, graficoService) {
 
 			var datum = $scope.getData(data);
 
-			var chart = nv.models.lineChart().showLegend(true).showYAxis(true).showXAxis(true).margin({
+			var chart = nv.models.lineChart().useInteractiveGuideline(true).showLegend(true).showYAxis(true).showXAxis(true).margin({
 				top : 30,
 				right : 20,
 				bottom : 50,
@@ -79,5 +79,23 @@ app.controller('graficoController', function($scope, graficoService) {
 
 		return valores;
 	};
+	
+	$scope.getMaxValueY = function(data){
+		
+		var max = 0;
+		
+		for (var x = 0; x < data.length; x++) {
+			
+			var serie = data[x];
+
+			for (var y = 0; y < serie.values.length; y++) {
+				if ( max < serie.values[y].y){
+					max = serie.values[y].y;
+				}
+			}
+		}
+		
+		return max;
+	}
 
 });
