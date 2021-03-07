@@ -25,7 +25,7 @@ public class FaturaFacadeImpl extends AbstractFacade<Fatura, FaturaFiltro> imple
 
 		List<Fatura> faturas = Lists.newArrayList();
 
-		TypedQuery<Fatura> query = entityManager.createQuery("SELECT f FROM Fatura f WHERE f.cartao = :cartao", Fatura.class);
+		TypedQuery<Fatura> query = entityManager.createQuery("SELECT f FROM Fatura f WHERE f.cartao = :cartao ORDER BY f.dataFechamento", Fatura.class);
 
 		query.setParameter("cartao", cartaoCredito);
 

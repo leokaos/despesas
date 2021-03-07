@@ -64,6 +64,11 @@
 	width: 20%;
 }
 
+.filtro>moeda>select {
+	display: inline-block;
+	width: 20%;
+}
+
 .indicador {
 	float: right;
 	min-width: 300px;
@@ -118,4 +123,16 @@ table>tfoot tr>td {
 	min-width: 250px; 
 	border: 2px #777 solid; 
 	float: left;
+}
+
+table.centro>tbody>tr>td {
+	text-align: center;
+}
+
+table.centro>thead>tr>th {
+	text-align: center;
+}
+
+table.centro>tfoot>tr>td {
+	text-align: center;
 }

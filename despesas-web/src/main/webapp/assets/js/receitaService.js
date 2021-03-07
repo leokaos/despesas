@@ -1,6 +1,6 @@
 app.service('receitaService', function($http, filtroParser) {
 
-	pathBase = '/despesas/services/receita/';
+	pathBaseReceita = '/despesas/services/receita/';
 
 	this.getNovoReceita = function() {
 		return {
@@ -15,7 +15,7 @@ app.service('receitaService', function($http, filtroParser) {
 
 	this.listar = function(filtro, fn) {
 
-		$http.get(pathBase, {
+		$http.get(pathBaseReceita, {
 			params : filtroParser.getFiltro(filtro)
 		}).success(function(data) {
 			fn(data);
@@ -26,13 +26,13 @@ app.service('receitaService', function($http, filtroParser) {
 		
 		receita.moeda = receita.debitavel.moeda;
 		
-		$http.post(pathBase, receita).success(function(data) {
+		$http.post(pathBaseReceita, receita).success(function(data) {
 			fn(data);
 		});
 	};
 
 	this.salvar = function(receita, fn) {
-		$http.put(pathBase, receita).success(function(data) {
+		$http.put(pathBaseReceita, receita).success(function(data) {
 			fn(data);
 		});
 	};
@@ -46,13 +46,13 @@ app.service('receitaService', function($http, filtroParser) {
 	};
 
 	this.buscarPorId = function(id, fn) {
-		$http.get(pathBase + id).success(function(data) {
+		$http.get(pathBaseReceita + id).success(function(data) {
 			fn(data);
 		});
 	};
 
 	this.deletar = function(id, fn) {
-		$http['delete'](pathBase + id).success(function(data) {
+		$http['delete'](pathBaseReceita + id).success(function(data) {
 			fn(data);
 		});
 	};
@@ -61,7 +61,7 @@ app.service('receitaService', function($http, filtroParser) {
 
 		var request = $http({
 			method : 'get',
-			url : pathBase + 'grafico',
+			url : pathBaseReceita + 'grafico',
 			params : {
 				dataInicial : dataInicio.toGMTString(),
 				dataFinal : dataFim.toGMTString()
@@ -75,7 +75,7 @@ app.service('receitaService', function($http, filtroParser) {
 	};
 
 	this.depositarReceita = function(receita, fn) {
-		$http.post(pathBase + 'pagar', receita.id).success(function(data) {
+		$http.post(pathBaseReceita + 'pagar', receita.id).success(function(data) {
 			fn(data);
 		});
 	};

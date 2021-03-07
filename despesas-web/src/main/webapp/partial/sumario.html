@@ -1,0 +1,71 @@
+<h3>
+	<i class="fa fa-angle-right"></i> Sumário
+</h3>
+
+<div class="form-panel">
+
+	<div class="row">
+
+		<div class="col-md-12">
+
+			<fieldset class="filtro">
+
+				<legend>Filtro</legend>
+
+				<label>Vencimento Inicial:</label>
+				<input type="text" name="dataInicial" class="form-control" bs-datepicker ng-model="dataInicial" autoclose="true" autocomplete="off"></input>
+
+				<label>Vencimento Final:</label>
+				<input type="text" name="dataFinal" class="form-control" bs-datepicker ng-model="dataFinal" autoclose="true" autocomplete="off"></input>
+
+				<label>Moeda:</label>
+				<moeda ng-model="moeda"></moeda>
+
+				<button type="button" class="btn btn-primary" ng-click="gerar();" style="float: right;">Gerar</button>
+
+			</fieldset>
+
+			<div class="clearfix"></div>
+
+			<div style="min-height: 500px">
+
+				<table class="table centro">
+					<thead>
+						<tr>
+							<th scope="col" style="text-align: left;">Tipo/Mês</th>
+							<th ng-repeat="mes in meses">{{mes.mes}}/{{mes.ano}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="tipo in tipos">
+							<th>{{tipo}}</th>
+							<td ng-repeat="mes in meses">{{getTotal(tipo,mes) | number: 2}}</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th><h5>Total</h5></th>
+							<td ng-repeat="mes in meses"><h5>{{getSumario(mes) | number: 2}}</h5></td>
+						</tr>
+						<tr>
+							<th><h5>Receitas</h5></th>
+							<td ng-repeat="mes in meses"><h5>{{getReceitas(mes) | number: 2}}</h5></td>
+						</tr>
+						<tr>
+							<th><h5>Subtotal:</h5></th>
+							<td ng-repeat="mes in meses"><h5>{{getReceitas(mes) -  getSumario(mes) | number: 2}}</h5></td>
+						</tr>							
+					</tfoot>
+				</table>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+
+
+

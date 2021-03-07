@@ -1,6 +1,6 @@
 app.service('despesaService', function($http, filtroParser) {
 
-	pathBase = '/despesas/services/despesa/';
+	pathBaseDespesa = '/despesas/services/despesa/';
 
 	this.getNovoDespesa = function() {
 		return {
@@ -15,7 +15,7 @@ app.service('despesaService', function($http, filtroParser) {
 
 	this.listar = function(filtro, fn) {
 
-		$http.get(pathBase, {
+		$http.get(pathBaseDespesa, {
 			params : filtroParser.getFiltro(filtro)
 		}).success(function(data) {
 			fn(data);
@@ -33,7 +33,7 @@ app.service('despesaService', function($http, filtroParser) {
 
 		var request = $http({
 			method : 'post',
-			url : pathBase,
+			url : pathBaseDespesa,
 			data : dados
 		});
 
@@ -43,7 +43,7 @@ app.service('despesaService', function($http, filtroParser) {
 	};
 
 	this.salvar = function(despesa, parcelamento, fn) {
-		$http.put(pathBase, despesa).success(function(data) {
+		$http.put(pathBaseDespesa, despesa).success(function(data) {
 			fn(data);
 		});
 	};
@@ -57,7 +57,7 @@ app.service('despesaService', function($http, filtroParser) {
 	};
 
 	this.buscarPorId = function(id, fn) {
-		$http.get(pathBase + id).success(function(data) {
+		$http.get(pathBaseDespesa + id).success(function(data) {
 			fn(data);
 		});
 	};
@@ -66,7 +66,7 @@ app.service('despesaService', function($http, filtroParser) {
 
 		var request = $http({
 			method : 'get',
-			url : pathBase + 'grafico',
+			url : pathBaseDespesa + 'grafico',
 			params : {
 				dataInicial : dataInicio.toGMTString(),
 				dataFinal : dataFim.toGMTString()
@@ -83,7 +83,7 @@ app.service('despesaService', function($http, filtroParser) {
 
 		var request = $http({
 			method : 'get',
-			url : pathBase + 'periodo',
+			url : pathBaseDespesa + 'periodo',
 			params : {
 				dataInicial : dataInicio.toGMTString(),
 				dataFinal : dataFim.toGMTString()
@@ -97,13 +97,13 @@ app.service('despesaService', function($http, filtroParser) {
 	};
 
 	this.pagarDespesa = function(despesa, fn) {
-		$http.post(pathBase + 'pagar', despesa.id).success(function(data) {
+		$http.post(pathBaseDespesa + 'pagar', despesa.id).success(function(data) {
 			fn(data);
 		});
 	};
 
 	this.deletar = function(id, fn) {
-		$http['delete'](pathBase + id).success(function(data) {
+		$http['delete'](pathBaseDespesa + id).success(function(data) {
 			fn(data);
 		});
 	};

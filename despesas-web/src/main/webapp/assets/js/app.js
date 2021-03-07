@@ -290,6 +290,11 @@ app.config(function($routeProvider, $locationProvider) {
 		controller : 'projecaoController'
 	});
 	
+	$routeProvider.when('/sumario', {
+		templateUrl : 'partial/sumario.html',
+		controller : 'sumarioController'
+	});
+	
 	// EXTRATO
 	$routeProvider.when('/extrato', {
 		templateUrl : 'partial/extrato.html',

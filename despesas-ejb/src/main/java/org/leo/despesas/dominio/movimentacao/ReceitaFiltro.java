@@ -9,10 +9,6 @@ import org.leo.despesas.dominio.debitavel.Investimento;
 import org.leo.despesas.infra.AbstractModelFiltro;
 import org.leo.despesas.infra.Moeda;
 
-/**
- * @author l.otero
- *
- */
 public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 
 	@QueryParam("dataInicial")
@@ -24,6 +20,7 @@ public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 	@QueryParam("tipoReceita")
 	private String tipoReceita;
 
+	@QueryParam("moeda")
 	private Moeda moeda;
 
 	private Debitavel debitavel;

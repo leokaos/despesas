@@ -20,6 +20,7 @@ public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 	@QueryParam("tipoDespesa")
 	private String tipoDespesa;
 
+	@QueryParam("moeda")
 	private Moeda moeda;
 
 	private Debitavel debitavel;
