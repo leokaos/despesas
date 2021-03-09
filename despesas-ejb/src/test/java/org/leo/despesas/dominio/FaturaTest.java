@@ -41,11 +41,9 @@ public class FaturaTest {
 
 		Transferencia transferencia = fatura.pagar(conta);
 
-		assertEquals(transferencia.getDebitavel(),conta);
-		assertEquals(transferencia.getCreditavel(),cartao);
-		assertEquals(conta.getSaldo(),new BigDecimal("950"));
-
-		assertEquals(transferencia.getValor(),new BigDecimal("50"));
+		assertEquals(transferencia.getDebitavel(), conta);
+		assertEquals(transferencia.getCreditavel(), cartao);
+		assertEquals(transferencia.getValor(), new BigDecimal("50"));
 	}
 
 }

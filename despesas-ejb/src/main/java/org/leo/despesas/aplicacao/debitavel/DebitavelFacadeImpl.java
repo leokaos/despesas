@@ -1,5 +1,7 @@
 package org.leo.despesas.aplicacao.debitavel;
 
+import static org.apache.commons.lang3.time.DateUtils.isSameDay;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Collections;
@@ -119,7 +121,7 @@ public class DebitavelFacadeImpl implements DebitavelFacade {
 
 		BigDecimal total = BigDecimal.ZERO;
 
-		while (menorData.before(maiorData)) {
+		while (menorData.before(maiorData) || isSameDay(menorData, maiorData)) {
 			total = total.add(new BigDecimal(1));
 			menorData = DateUtils.addMonths(menorData, 1);
 		}

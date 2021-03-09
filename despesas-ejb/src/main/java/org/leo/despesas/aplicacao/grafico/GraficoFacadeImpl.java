@@ -45,7 +45,7 @@ public class GraficoFacadeImpl implements GraficoFacade {
 			builder.append("SELECT d.tipo.descricao , MONTH(d.vencimento) , YEAR(d.vencimento) , SUM(d.valor) FROM Despesa d ");
 			builder.append("WHERE d.vencimento BETWEEN :dataInicial AND :dataFinal AND d.moeda = :moeda ");
 			builder.append("GROUP BY d.tipo.descricao , MONTH(d.vencimento) , YEAR(d.vencimento) ");
-			builder.append("ORDER BY d.tipo.descricao , YEAR(d.vencimento) , MONTH(d.vencimento) ");
+			builder.append("ORDER BY d.tipo.descricao , YEAR(d.vencimento) , MONTH(d.vencimento)");
 
 			final List<? extends TipoMovimentacao> listaTipoDespesas = tipoDespesaFacade.listar(new TipoDespesaFiltro());
 
@@ -66,7 +66,7 @@ public class GraficoFacadeImpl implements GraficoFacade {
 			builder.append("SELECT r.tipo.descricao , MONTH(r.vencimento) , YEAR(r.vencimento) , SUM(r.valor) FROM Receita r ");
 			builder.append("WHERE r.vencimento BETWEEN :dataInicial AND :dataFinal AND r.moeda = :moeda ");
 			builder.append("GROUP BY r.tipo.descricao , MONTH(r.vencimento) , YEAR(r.vencimento) ");
-			builder.append("ORDER BY r.tipo.descricao , YEAR(r.vencimento) , MONTH(r.vencimento) ");
+			builder.append("ORDER BY r.tipo.descricao , YEAR(r.vencimento) , MONTH(r.vencimento)");
 
 			final List<? extends TipoMovimentacao> listaTipoDespesas = tipoReceitaFacade.listar(new TipoReceitaFiltro());
 

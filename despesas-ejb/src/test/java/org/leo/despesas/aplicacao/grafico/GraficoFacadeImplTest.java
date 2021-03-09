@@ -25,6 +25,7 @@ import org.junit.runner.RunWith;
 import org.leo.despesas.aplicacao.tipodespesa.TipoDespesaFacade;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesaFiltro;
+import org.leo.despesas.infra.Moeda;
 import org.leo.despesas.infra.grafico.GraficoLinha;
 import org.leo.despesas.infra.grafico.Serie;
 
@@ -53,6 +54,7 @@ public class GraficoFacadeImplTest {
 		expect(mockEntityManager.createQuery(getHQL())).andReturn(mockQuery);
 		expect(mockQuery.setParameter("dataInicial", dataInicial)).andReturn(mockQuery);
 		expect(mockQuery.setParameter("dataFinal", dataFinal)).andReturn(mockQuery);
+		expect(mockQuery.setParameter("moeda", Moeda.EURO)).andReturn(mockQuery);
 		expect(mockQuery.getResultList()).andReturn(getDadosParaUmaSerieECincoPontos());
 		expect(mockTipoDespesaFacade.listar(anyObject(TipoDespesaFiltro.class))).andReturn(getListaTipoDespesa());
 
@@ -77,6 +79,7 @@ public class GraficoFacadeImplTest {
 		expect(mockEntityManager.createQuery(getHQL())).andReturn(mockQuery);
 		expect(mockQuery.setParameter("dataInicial", dataInicial)).andReturn(mockQuery);
 		expect(mockQuery.setParameter("dataFinal", dataFinal)).andReturn(mockQuery);
+		expect(mockQuery.setParameter("moeda", Moeda.EURO)).andReturn(mockQuery);
 		expect(mockQuery.getResultList()).andReturn(getDadosParaDuasSerieTresPontos());
 		expect(mockTipoDespesaFacade.listar(anyObject(TipoDespesaFiltro.class))).andReturn(getListaTipoDespesa());
 
@@ -97,8 +100,15 @@ public class GraficoFacadeImplTest {
 	}
 
 	private String getHQL() {
-		return "SELECT d.tipo.descricao , MONTH(d.pagamento) , YEAR(d.pagamento) , SUM(d.valor) FROM Despesa d " + "WHERE d.pagamento BETWEEN :dataInicial AND :dataFinal " + "GROUP BY d.tipo.descricao , MONTH(d.pagamento) , YEAR(d.pagamento)"
-				+ " ORDER BY d.tipo.descricao , YEAR(d.pagamento) , MONTH(d.pagamento) ";
+		
+		StringBuilder builder = new StringBuilder();
+		
+		builder.append("SELECT d.tipo.descricao , MONTH(d.vencimento) , YEAR(d.vencimento) , SUM(d.valor) FROM Despesa d ");
+		builder.append("WHERE d.vencimento BETWEEN :dataInicial AND :dataFinal AND d.moeda = :moeda ");
+		builder.append("GROUP BY d.tipo.descricao , MONTH(d.vencimento) , YEAR(d.vencimento) ");
+		builder.append("ORDER BY d.tipo.descricao , YEAR(d.vencimento) , MONTH(d.vencimento)");
+		
+		return builder.toString();
 	}
 
 	private List<Object[]> getDadosParaDuasSerieTresPontos() {

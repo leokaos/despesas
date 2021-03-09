@@ -1,5 +1,6 @@
 package org.leo.despesas.aplicacao.debitavel;
 
+import static org.easymock.EasyMock.anyObject;
 import static org.easymock.EasyMock.capture;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
@@ -20,6 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.leo.despesas.aplicacao.despesa.DespesaFacade;
 import org.leo.despesas.aplicacao.receita.ReceitaFacade;
+import org.leo.despesas.aplicacao.transferencia.TransferenciaFacade;
 import org.leo.despesas.dominio.debitavel.Conta;
 import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.dominio.movimentacao.Despesa;
@@ -27,6 +29,8 @@ import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
 import org.leo.despesas.dominio.movimentacao.Movimentacao;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.ReceitaFiltro;
+import org.leo.despesas.dominio.movimentacao.Transferencia;
+import org.leo.despesas.dominio.movimentacao.TransferenciaFiltro;
 
 import com.google.common.collect.Lists;
 
@@ -44,6 +48,9 @@ public class DebitavelFacadeImplTest {
 	@Mock(type = MockType.STRICT)
 	private ReceitaFacade mockReceitaFacade;
 
+	@Mock(type = MockType.STRICT)
+	private TransferenciaFacade mockTransferenciaFacade;
+
 	@Test
 	public void test() throws Exception {
 
@@ -56,11 +63,13 @@ public class DebitavelFacadeImplTest {
 		expect(mockDespesaFacade.listar(capture(captureDespesaFiltro))).andReturn(createListaDeDespesas());
 		expect(mockReceitaFacade.listar(capture(captureReceitaFiltro))).andReturn(createListaDeReceita());
 
-		replay(mockDespesaFacade, mockReceitaFacade);
+		expect(mockTransferenciaFacade.listar(anyObject(TransferenciaFiltro.class))).andReturn(Lists.<Transferencia>newArrayList()).times(2);
+
+		replay(mockDespesaFacade, mockReceitaFacade, mockTransferenciaFacade);
 
 		BigDecimal mediaVariacao = facade.getMediaVariacao(debitavel);
 
-		verify(mockDespesaFacade, mockReceitaFacade);
+		verify(mockDespesaFacade, mockReceitaFacade, mockTransferenciaFacade);
 
 		assertEquals(new BigDecimal("56.00"), mediaVariacao);
 	}
