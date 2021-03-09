@@ -46,11 +46,11 @@ public abstract class Movimentacao implements ModelEntity {
 	private BigDecimal valor;
 
 	@Column(name = "vencimento")
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date vencimento;
 
 	@Column(name = "pagamento")
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date pagamento;
 
 	@ManyToOne
