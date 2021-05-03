@@ -33,9 +33,9 @@ import org.leo.despesas.infra.Moeda;
 import org.leo.despesas.rest.DebitavelDeserializer;
 
 @Entity
+@Indexed
 @Table(name = "movimentacao", schema = "despesas_db")
 @Inheritance(strategy = InheritanceType.JOINED)
-@Indexed
 public abstract class Movimentacao implements ModelEntity {
 
 	private static final long serialVersionUID = 7650797422719540384L;

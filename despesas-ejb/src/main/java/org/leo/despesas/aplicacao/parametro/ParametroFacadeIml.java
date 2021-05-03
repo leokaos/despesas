@@ -2,6 +2,7 @@ package org.leo.despesas.aplicacao.parametro;
 
 import java.math.BigDecimal;
 import java.text.MessageFormat;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -10,6 +11,8 @@ import javax.persistence.PersistenceContext;
 import org.leo.despesas.dominio.parametro.Parametro;
 import org.leo.despesas.dominio.servicotransferencia.Porcentagem;
 import org.leo.despesas.infra.Moeda;
+
+import com.google.common.collect.Lists;
 
 @Stateless
 public class ParametroFacadeIml implements ParametroFacade {
@@ -57,6 +60,14 @@ public class ParametroFacadeIml implements ParametroFacade {
 		Parametro parametro = entityManager.find(Parametro.class, nome);
 
 		return parametro.getValor();
+	}
+	
+	@Override
+	public List<String> getIgnoreWords() {
+		
+		Parametro parametro = entityManager.find(Parametro.class, "IGNORE_WORDS");
+		
+		return Lists.newArrayList(parametro.getValor().split(" "));
 	}
 
 }

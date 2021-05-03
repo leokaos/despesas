@@ -1,6 +1,7 @@
 package org.leo.despesas.aplicacao.parametro;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.ejb.Local;
 
@@ -19,4 +20,6 @@ public interface ParametroFacade {
 	String buscarParametroPorId(String nome);
 
 	Integer getDebitavelPrincipal();
+	
+	List<String> getIgnoreWords();
 }

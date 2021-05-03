@@ -2,12 +2,14 @@ package org.leo.despesas.infra;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
+import org.leo.despesas.aplicacao.parametro.ParametroFacade;
 import org.leo.despesas.infra.exception.AlreadyExistentEntityException;
 import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.infra.exception.NotFoundEntityException;
@@ -18,6 +20,9 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 
 	@PersistenceContext(unitName = "despesasPU")
 	protected EntityManager entityManager;
+
+	@EJB
+	protected ParametroFacade parametroFacade;
 
 	public AbstractFacade() {
 		super();
@@ -30,6 +35,7 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 
 	@Override
 	public E buscarPorId(final Long id) throws DespesasException {
+
 		final E entity = entityManager.find(getClasseEntidade(), id);
 
 		if (entity == null) {
@@ -129,6 +135,10 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<E> fullTextSearch(String busca, String... campos) {
+
+		for (String word : parametroFacade.getIgnoreWords()) {
+			busca = busca.replaceAll(word, "");
+		}
 
 		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
 
