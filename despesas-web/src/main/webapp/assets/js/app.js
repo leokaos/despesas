@@ -1,4 +1,5 @@
-var app = angular.module('despesas', [ 'ngRoute', 'ngAnimate', 'ngResource', 'colorpicker.module', 'ui.utils.masks', 'angular-growl', 'ui.bootstrap', 'mgcrea.ngStrap', 'angularSpinner', 'slick', 'datatables', 'datatables.select' ]);
+var app = angular.module('despesas', [ 'ngRoute', 'ngAnimate', 'ngResource', 'colorpicker.module', 'ui.utils.masks', 'angular-growl', 'ui.bootstrap', 'mgcrea.ngStrap', 'angularSpinner', 'slick',
+		'datatables', 'datatables.select' ]);
 app.constant('MESES', [ {
 	nome : 'Janeiro',
 	value : 1
@@ -139,13 +140,13 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'partial/orcamento/orcamento.html',
 		controller : 'edicaoOrcamentoController'
 	});
-	
+
 	// INVESTIMENTO
 	$routeProvider.when('/investimentos', {
 		templateUrl : 'partial/investimento/investimentos.html',
 		controller : 'investimentoController'
 	});
-	
+
 	$routeProvider.when('/investimento', {
 		templateUrl : 'partial/investimento/investimento.html',
 		controller : 'edicaoInvestimentoController'
@@ -154,7 +155,7 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/investimento/:id', {
 		templateUrl : 'partial/investimento/investimento.html',
 		controller : 'edicaoInvestimentoController'
-	});	
+	});
 
 	// RECEITAS
 	$routeProvider.when('/receitas', {
@@ -204,7 +205,7 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'partial/transferencia/transferencia.html',
 		controller : 'edicaoTransferenciaController'
 	});
-	
+
 	// DIVIDAS
 	$routeProvider.when('/dividas', {
 		templateUrl : 'partial/divida/dividas.html',
@@ -219,7 +220,7 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/divida/:id', {
 		templateUrl : 'partial/divida/divida.html',
 		controller : 'edicaoDividaController'
-	});	
+	});
 
 	// COTACOES
 	$routeProvider.when('/cotacoes', {
@@ -242,11 +243,11 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'partial/grafico/graficotipodespesa.html',
 		controller : 'graficoController'
 	});
-	
+
 	$routeProvider.when('/graficotiporeceita', {
 		templateUrl : 'partial/grafico/graficotiporeceita.html',
 		controller : 'graficoController'
-	});	
+	});
 
 	// SERVICOS DE TRANSFERENCIAS
 	$routeProvider.when('/servicostransferencia', {
@@ -268,45 +269,45 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'partial/compararServicosTransferencia.html',
 		controller : 'compararServicosTransferenciaController'
 	});
-	
-	//META
+
+	// META
 	$routeProvider.when('/metas', {
 		templateUrl : 'partial/meta/metas.html',
 		controller : 'metaController'
-	});	
-	
+	});
+
 	$routeProvider.when('/meta', {
 		templateUrl : 'partial/meta/meta.html',
 		controller : 'edicaoMetaController'
 	});
-	
+
 	$routeProvider.when('/meta/:id', {
 		templateUrl : 'partial/meta/meta.html',
 		controller : 'edicaoMetaController'
 	});
-	
+
 	$routeProvider.when('/projecao', {
 		templateUrl : 'partial/projecao.html',
 		controller : 'projecaoController'
 	});
-	
+
 	$routeProvider.when('/sumario', {
 		templateUrl : 'partial/sumario.html',
 		controller : 'sumarioController'
 	});
-	
+
 	// EXTRATO
 	$routeProvider.when('/extrato', {
 		templateUrl : 'partial/extrato.html',
 		controller : 'extratoController'
 	});
-	
+
 	// DASHBOARD
 	$routeProvider.otherwise({
 		templateUrl : 'partial/dashboard.html',
 		controller : 'dashboardController'
 	});
-	
+
 });
 
 app.config(function(growlProvider) {
@@ -453,18 +454,17 @@ app.constant('MOEDAS', {
 app.constant('PERIODICIDADE', {
 	"MENSAL" : {
 		descricao : "Mensal",
-		value: "MENSAL"
+		value : "MENSAL"
 	},
 	"SEMESTRAL" : {
 		descricao : "Semestral",
-		value: "SEMESTRAL"
+		value : "SEMESTRAL"
 	},
 	"VARIAVEL" : {
 		descricao : "Variável",
-		value: "VARIAVEL"
+		value : "VARIAVEL"
 	}
 });
-
 
 app.directive('moeda', [ 'MOEDAS', function(MOEDAS) {
 	return {
@@ -475,7 +475,7 @@ app.directive('moeda', [ 'MOEDAS', function(MOEDAS) {
 		transclude : true,
 		templateUrl : 'partial/componentes/moeda.html',
 		link : function(scope, iElement, iAttrs) {
-			
+
 			scope.MOEDAS = MOEDAS;
 			scope.MOEDAS_NAMES = [];
 
@@ -504,14 +504,86 @@ app.directive('colorable', function() {
 			scope.select = function(item) {
 				scope.colorableSelected = item;
 				scope.value = item;
-				
-				if (scope.onSelect != undefined){
+
+				if (scope.onSelect != undefined) {
 					scope.onSelect(item);
 				}
 			};
 		}
 	};
 });
+
+app.constant('PERIODS', {
+	"CURRENT_YEAR" : {
+		'descricao' : 'Ano Atual',
+		'getDataInicial' : function() {
+			return new Date(new Date().getFullYear(), 0, 1, 0, 0, 0);
+		},
+		'getDataFinal' : function() {
+			return new Date();
+		}
+	},
+	"LAST_YEAR" : {
+		'descricao' : 'Ano Passado',
+		'getDataInicial' : function() {
+			return new Date(new Date().getFullYear() - 1, 0, 1, 0, 0, 0);
+		},
+		'getDataFinal' : function() {
+			return new Date(new Date().getFullYear() - 1, 11, 31, 0, 0, 0);
+		}
+	},
+	"CURRENT_MONTH" : {
+		'descricao' : 'Mês Atual',
+		'getDataInicial' : function() {
+			return new Date(new Date().getFullYear(), new Date().getMonth(), 1, 0, 0, 0);
+		},
+		'getDataFinal' : function() {
+			return new Date();
+		}
+	},
+	"LAST_MONTH" : {
+		'descricao' : 'Mês Passado',
+		'getDataInicial' : function() {
+			return new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1, 0, 0, 0);
+		},
+		'getDataFinal' : function() {
+			return new Date(new Date().getFullYear() - 1, new Date().getMonth(), 0, 0, 0, 0);
+		}
+	},
+	"LAST_SIX_MONTH" : {
+		'descricao' : 'Últimos seis meses',
+		'getDataInicial' : function() {
+			return new Date(new Date(new Date().setMonth(new Date().getMonth() - 6)).setDate(1));
+		},
+		'getDataFinal' : function() {
+			return new Date(new Date().getFullYear(), new Date().getMonth(), 0, 0, 0, 0);
+		}
+	}
+});
+
+app.directive('periods', [ 'PERIODS', function(PERIODS) {
+
+	return {
+		restrict : 'E',
+		scope : {
+			dataInicial : '=inicial',
+			dataFinal : '=final'
+		},
+		replace : true,
+		transclude : true,
+		templateUrl : 'partial/componentes/periods.html',
+
+		link : function(scope, iElement, iAttrs) {
+
+			scope.PERIODS = PERIODS;
+
+			scope.select = function() {
+				scope.dataInicial = scope.PERIODS[scope.value].getDataInicial();
+				scope.dataFinal = scope.PERIODS[scope.value].getDataFinal();
+			}
+		}
+	};
+} ]);
 
 app.directive('bullet', function($compile) {
 	return {
@@ -541,24 +613,24 @@ app.directive('bullet', function($compile) {
 	};
 });
 
-app.directive('mes', ['MESES', function (MESES) {
+app.directive('mes', [ 'MESES', function(MESES) {
 	return {
-		restrict: 'E',
-		scope: {
-			value: '=ngModel'
+		restrict : 'E',
+		scope : {
+			value : '=ngModel'
 		},
-		transclude: true,
-		templateUrl: 'partial/componentes/mes.html',
-		link: function (scope, iElement, iAttrs) {
+		transclude : true,
+		templateUrl : 'partial/componentes/mes.html',
+		link : function(scope, iElement, iAttrs) {
 
 			scope.MESES = MESES;
 
-			scope.setMes = function () {
+			scope.setMes = function() {
 				this.value.mes = new Date().getMonth() + 1;
 				this.value.ano = new Date().getFullYear();
 			};
-			
+
 			scope.setMes();
 		}
 	};
-}]);
+} ]);

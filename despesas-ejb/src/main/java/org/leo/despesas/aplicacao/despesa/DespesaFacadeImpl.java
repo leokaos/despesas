@@ -24,6 +24,7 @@ import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
 import org.leo.despesas.infra.AbstractFacade;
+import org.leo.despesas.infra.Moeda;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.rest.GraficoVO;
@@ -41,13 +42,14 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 		final StringBuilder builder = new StringBuilder();
 
 		builder.append("SELECT NEW org.leo.despesas.rest.GraficoVO(d.tipo.descricao,d.tipo.cor, SUM(d.valor)) FROM Despesa d ");
-		builder.append("WHERE d.vencimento BETWEEN :dataInicial AND :dataFinal ");
+		builder.append("WHERE d.vencimento BETWEEN :dataInicial AND :dataFinal AND d.moeda = :moeda ");
 		builder.append("GROUP BY d.tipo.descricao, d.tipo.cor");
 
 		final Query query = entityManager.createQuery(builder.toString());
 
 		query.setParameter("dataInicial", periodo.getDataInicial());
 		query.setParameter("dataFinal", periodo.getDataFinal());
+		query.setParameter("moeda", Moeda.EURO);
 
 		return query.getResultList();
 	}

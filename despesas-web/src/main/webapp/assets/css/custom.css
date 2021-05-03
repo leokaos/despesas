@@ -61,12 +61,17 @@
 
 .filtro>input {
 	display: inline-block;
-	width: 20%;
+	width: 10%;
+}
+
+.filtro>select {
+	display: inline-block;
+	width: 10%;
 }
 
 .filtro>moeda>select {
 	display: inline-block;
-	width: 20%;
+	width: 10%;
 }
 
 .indicador {

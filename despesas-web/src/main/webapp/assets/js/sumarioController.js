@@ -1,5 +1,5 @@
 app.controller('sumarioController', function($scope, $http, $location, $routeParams, growl, receitaService, despesaService) {
-
+	
 	$scope.dataInicial = new Date(2020, 0, 1, 0, 0, 0);
 	$scope.dataFinal = new Date(2020, 11, 31, 20, 59, 59);
 	$scope.moeda = null;

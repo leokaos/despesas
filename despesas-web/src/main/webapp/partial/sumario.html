@@ -21,6 +21,9 @@
 				<label>Moeda:</label>
 				<moeda ng-model="moeda"></moeda>
 
+				<label>Períodos:</label>
+				<periods inicial="dataInicial" final="dataFinal"></periods>
+
 				<button type="button" class="btn btn-primary" ng-click="gerar();" style="float: right;">Gerar</button>
 
 			</fieldset>
@@ -53,8 +56,8 @@
 						</tr>
 						<tr>
 							<th><h5>Subtotal:</h5></th>
-							<td ng-repeat="mes in meses"><h5>{{getReceitas(mes) -  getSumario(mes) | number: 2}}</h5></td>
-						</tr>							
+							<td ng-repeat="mes in meses"><h5>{{getReceitas(mes) - getSumario(mes) | number: 2}}</h5></td>
+						</tr>
 					</tfoot>
 				</table>
 

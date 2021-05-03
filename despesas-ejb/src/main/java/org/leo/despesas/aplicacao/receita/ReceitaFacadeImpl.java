@@ -20,6 +20,7 @@ import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.ReceitaFiltro;
 import org.leo.despesas.infra.AbstractFacade;
+import org.leo.despesas.infra.Moeda;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.rest.GraficoVO;
 
@@ -35,13 +36,14 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita, ReceitaFiltro> im
 		final StringBuilder builder = new StringBuilder();
 
 		builder.append("SELECT NEW org.leo.despesas.rest.GraficoVO(r.tipo.descricao,r.tipo.cor, SUM(r.valor)) FROM Receita r ");
-		builder.append("WHERE r.vencimento BETWEEN :dataInicial AND :dataFinal ");
+		builder.append("WHERE r.vencimento BETWEEN :dataInicial AND :dataFinal AND r.moeda = :moeda ");
 		builder.append("GROUP BY r.tipo.descricao, r.tipo.cor");
 
 		final Query query = entityManager.createQuery(builder.toString());
 
 		query.setParameter("dataInicial", periodo.getDataInicial());
 		query.setParameter("dataFinal", periodo.getDataFinal());
+		query.setParameter("moeda", Moeda.EURO);
 
 		return query.getResultList();
 	}

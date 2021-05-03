@@ -18,6 +18,9 @@
 
 				<label>Vencimento Final:</label>
 				<input type="text" name="dataFinal" class="form-control" bs-datepicker ng-model="dataFinal" autoclose="true" autocomplete="off" style="width: 110px"></input>
+				
+				<label>Períodos:</label>
+				<periods inicial="dataInicial" final="dataFinal"></periods>
 
 				<button type="button" class="btn btn-primary" ng-click="listarDespesas();" style="float: right;">Filtrar</button>
 
