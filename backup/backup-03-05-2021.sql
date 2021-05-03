@@ -1141,6 +1141,13 @@ t	865	102	\N
 t	866	102	\N
 t	867	102	\N
 t	868	108	\N
+t	869	103	27
+t	870	201	27
+t	871	108	27
+t	872	201	27
+t	873	201	27
+t	874	201	27
+t	875	201	27
 \.
 
 
@@ -1170,7 +1177,7 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 23	6	2021-01-11 00:00:00	2020-12-27 00:00:00	t
 24	6	2021-02-11 00:00:00	2021-01-27 00:00:00	t
 25	6	2021-03-11 00:00:00	2021-02-27 00:00:00	t
-27	6	2021-05-11 00:00:00	2021-04-27 00:00:00	f
+27	6	2021-05-11 00:00:00	2021-04-27 00:00:00	t
 26	6	2021-04-11 00:00:00	2021-03-27 00:00:00	t
 \.
 
@@ -1992,6 +1999,13 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 866	KFC 1	2021-05-03	1.50	2021-05-01	4	EURO
 867	KFC 2	2021-05-03	12.78	2021-05-01	4	EURO
 868	Presente mae	2021-05-03	500.00	2021-05-03	5	REAL
+869	LOCALIZA RAC ACCAE1 05/10 SAO CAET	2021-05-03	82.55	2021-03-29	6	REAL
+870	EBANX*SPOTIFY CURITIBA BR	2021-05-03	16.90	2021-03-28	6	REAL
+871	ANUIDADE DIFERENCIADA 06/12	2021-05-03	26.00	2021-03-29	6	REAL
+872	AmazonPrimeBR SAO PAULO BR	2021-05-03	9.90	2021-04-03	6	REAL
+873	Amazon.com.br Digital SAO PAULO BR	2021-05-03	19.90	2021-04-03	6	REAL
+874	The Walt Disney Compan SAO PAULO B	2021-05-03	27.90	2021-04-06	6	REAL
+875	NETFLIX.COM SAO PAULO BR	2021-05-03	32.90	2021-04-11	6	REAL
 \.
 
 
@@ -2030,6 +2044,7 @@ IOF	0.38	PORCENTAGEM
 SPOT	0.003	DECIMAL
 EURO.REAL	https://economia.uol.com.br/cotacoes/cambio/euro-uniao-europeia/	TEXTO
 DEBITAVEL_PRINCIPAL	3	DECIMAL
+IGNORE_WORDS	DE COMPRA BR	TEXTO
 \.
 
 
@@ -2178,7 +2193,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 24, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 868, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 875, true);
 
 
 --
