@@ -6,7 +6,9 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -20,6 +22,7 @@ import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
 import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
+import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
 import org.leo.despesas.infra.AbstractFacade;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.infra.exception.DespesasException;
@@ -124,6 +127,7 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 	}
 
 	private Despesa construirDespesa(final Date data, final String descricao, final BigDecimal valor) {
+
 		final Despesa despesa = new Despesa();
 
 		despesa.setDescricao(descricao);
@@ -131,7 +135,40 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 		despesa.setVencimento(data);
 		despesa.setValor(valor.abs());
 
+		despesa.setTipo(searchTipoPorDescricao(descricao));
+
 		return despesa;
+	}
+
+	private TipoDespesa searchTipoPorDescricao(String descricao) {
+
+		List<Despesa> despesasComDescricaoParecida = this.fullTextSearch(descricao, "descricao");
+		
+		Map<TipoDespesa, Integer> map = new HashMap<TipoDespesa, Integer>();
+		
+		for (Despesa despesa : despesasComDescricaoParecida) {
+			
+			int total = 0;
+		
+			if (map.containsKey(despesa.getTipo())) {
+				total = map.get(despesa.getTipo());
+			}
+			
+			map.put(despesa.getTipo(), ++total);
+		}
+
+		TipoDespesa maiorTipoDespesa = null;
+		int maiorValor = 0;
+		
+		for(TipoDespesa tipoDespesa : map.keySet()) {
+			
+			if ( map.get(tipoDespesa)  > maiorValor) {
+				maiorTipoDespesa = tipoDespesa;
+				maiorValor = map.get(tipoDespesa);
+			}
+		}
+		
+		return maiorTipoDespesa;
 	}
 
 	@Override

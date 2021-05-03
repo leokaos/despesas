@@ -11,12 +11,14 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.search.annotations.Indexed;
 import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
 
 @Entity
 @Table(name = "despesa", schema = "despesas_db")
 @PrimaryKeyJoinColumn(name = "id")
+@Indexed
 public class Despesa extends Movimentacao {
 
 	private static final long serialVersionUID = -832942623220660512L;

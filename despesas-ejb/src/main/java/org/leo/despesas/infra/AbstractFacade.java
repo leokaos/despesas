@@ -5,6 +5,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.leo.despesas.infra.exception.AlreadyExistentEntityException;
 import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.infra.exception.NotFoundEntityException;
@@ -53,74 +56,89 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 		} catch (final NotFoundEntityException e) {
 			entityManager.persist(t);
 		}
-		
+
 		return t;
 	}
 
 	protected void preInserir(E t) {
-				
+
 	}
-	
+
 	protected void posInserir(E t) {
-		
+
 	}
 
 	@Override
 	public E salvar(final E t) {
 
 		E antigo = entityManager.find(getClasseEntidade(), t.getId());
-		
+
 		entityManager.detach(antigo);
-		
-		preSalvar(antigo,t);
+
+		preSalvar(antigo, t);
 
 		E result = entityManager.merge(t);
-		
+
 		posSalvar(antigo, t);
-		
+
 		return result;
 	}
-	
+
 	protected void preSalvar(E antigo, E novo) {
-		
+
 	}
 
 	protected void posSalvar(E antigo, E novo) {
-		
+
 	}
 
 	@Override
 	public List<E> salvar(final List<E> list) throws DespesasException {
-		
+
 		List<E> result = Lists.newArrayList();
-		
+
 		for (final E e : list) {
 			if (e != null) {
 				result.add(inserir(e));
 			}
 		}
-		
+
 		return result;
 	}
 
 	@Override
 	public void deletar(final Long id) throws DespesasException {
-		
+
 		E entity = buscarPorId(id);
-		
+
 		preDeletar(entity);
-		
+
 		entityManager.remove(entity);
-		
+
 		posDeletar(entity);
 	}
-	
+
 	protected void preDeletar(E entity) {
-		
+
 	}
 
 	protected void posDeletar(E entity) {
-		
+
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<E> fullTextSearch(String busca, String... campos) {
+
+		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+
+		QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(getClasseEntidade()).get();
+
+		org.apache.lucene.search.Query query = qb.keyword().onFields(campos).matching(busca).createQuery();
+
+		javax.persistence.Query persistenceQuery = fullTextEntityManager.createFullTextQuery(query, getClasseEntidade());
+
+		return persistenceQuery.getResultList();
 	}
 
 	protected abstract Class<E> getClasseEntidade();

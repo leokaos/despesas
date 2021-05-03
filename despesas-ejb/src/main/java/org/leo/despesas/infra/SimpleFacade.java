@@ -18,4 +18,6 @@ public interface SimpleFacade<T extends ModelEntity, F extends ModelFiltro<T>> {
 
 	void deletar(Long id) throws DespesasException;
 
+	List<T> fullTextSearch(String busca, String... campos);
+
 }
