@@ -1,6 +1,4 @@
-app.controller('painelReceitaController', function($scope, receitaService,
-		tipoReceitaService, orcamentoService, debitavelService, $location,
-		$routeParams, growl, $http) {
+app.controller('painelReceitaController', function($scope, receitaService, tipoReceitaService, debitavelService, growl, $http) {
 
 	$scope.receitas = [];
 	$scope.tiposReceita = [];
@@ -42,21 +40,21 @@ app.controller('painelReceitaController', function($scope, receitaService,
 
 			for (var x = 0; x < $scope.receitas.length; x++) {
 				$scope.receitas[x].debitavel = $scope.receitaUpload;
+				$scope.receitas[x].moeda = $scope.receitaUpload.moeda;
 				$scope.receitas[x].depositado = $scope.receitasDespositadas;
 			}
 
 			$('#modalUpload').modal('hide');
 
 		}).error(function() {
+			growl.error('Erro ao carregar do arquivo!');
 		});
 	};
 
 	$scope.salvar = function() {
 
-		if (!$scope.total) {
-			$scope.total = $scope.receitas.length;
-			$scope.parcial = 0;
-		}
+		$scope.total = $scope.receitas.length;
+		$scope.parcial = 0;
 
 		var fn = function() {
 

@@ -1,6 +1,4 @@
-app.controller('painelDespesaController', function($scope, despesaService,
-		tipoDespesaService, orcamentoService, debitavelService, $location,
-		$routeParams, growl, $http) {
+app.controller('painelDespesaController', function($scope, despesaService, tipoDespesaService, debitavelService, growl, $http) {
 
 	$scope.despesas = [];
 	$scope.tiposDespesa = [];
@@ -44,24 +42,22 @@ app.controller('painelDespesaController', function($scope, despesaService,
 				$scope.despesas[x].debitavel = $scope.debitavelUpload;
 				$scope.despesas[x].moeda = $scope.debitavelUpload.moeda;
 				$scope.despesas[x].paga = $scope.despesasPagas;
-				$scope.despesas[x].moeda = $scope.despesasPagas;
 			}
 
 			$('#modalUpload').modal('hide');
 
 		}).error(function() {
+			growl.error('Erro ao carregar do arquivo!');
 		});
 	};
 
 	$scope.salvar = function() {
 
-		if (!$scope.total) {
-			$scope.total = $scope.despesas.length;
-			$scope.parcial = 0;
-		}
+		$scope.total = $scope.despesas.length;
+		$scope.parcial = 0;
 
 		var fn = function() {
-			
+
 			$scope.parcial++;
 
 			if ($scope.parcial >= $scope.total) {
@@ -70,7 +66,7 @@ app.controller('painelDespesaController', function($scope, despesaService,
 				$scope.despesas = [];
 
 				growl.info('Despesas salvas com sucesso!');
-				
+
 			} else if ($scope.parcial < $scope.despesas.length) {
 				$scope.$apply();
 				despesaService.novo($scope.despesas[$scope.parcial], null, fn);

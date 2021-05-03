@@ -1,4 +1,4 @@
-app.controller('faturaController', function($scope, faturaService, contaService, cartaoService, despesaService, $location, $routeParams, usSpinnerService, growl) {
+app.controller('faturaController', function($scope, faturaService, contaService, cartaoService, $location, $routeParams, growl) {
 
 	$scope.cartaoCreditoId = $routeParams.id;
 
@@ -42,6 +42,7 @@ app.controller('faturaController', function($scope, faturaService, contaService,
 	};
 
 	$scope.pagarFatura = function() {
+
 		faturaService.pagar($scope.faturaSelecionada, $scope.debitavelPagar, $scope.dataPagamento, function() {
 
 			growl.info('Fatura paga com sucesso!');

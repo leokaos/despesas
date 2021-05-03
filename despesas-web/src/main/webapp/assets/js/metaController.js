@@ -1,4 +1,4 @@
-app.controller('metaController', function($scope, metaService, $location, $routeParams, usSpinnerService, MESES) {
+app.controller('metaController', function($scope, metaService, $location, MESES) {
 
 	$scope.metasSelecionadas = [];
 	$scope.MESES = MESES;
@@ -80,7 +80,7 @@ app.controller('metaController', function($scope, metaService, $location, $route
 app.controller('edicaoMetaController', function($scope, metaService, $location, $routeParams, growl, MESES) {
 
 	var id = $routeParams.id;
-	
+
 	$scope.MESES = MESES;
 
 	if (id != null) {
@@ -95,13 +95,13 @@ app.controller('edicaoMetaController', function($scope, metaService, $location, 
 		$location.path('/metas');
 	};
 
-	$scope.limparCarregar = function(data) {
+	$scope.limparCarregar = function() {
 		$('#modalSalvar').modal('hide');
 		$scope.cancelar();
 	};
 
 	$scope.salvo = function(data) {
-		$scope.limparCarregar(data);
+		$scope.limparCarregar();
 		growl.info('Meta salva com sucesso!');
 	};
 
