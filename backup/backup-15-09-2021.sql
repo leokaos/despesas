@@ -385,9 +385,9 @@ VISA	27	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-19134.07	3
-78.99	4
-174656.14	5
+260054.63	5
+4798.46	3
+24.81	4
 \.
 
 
@@ -1302,6 +1302,19 @@ t	1040	201	30
 t	1041	201	30
 t	1042	201	30
 t	1043	201	30
+t	1045	102	\N
+t	1046	302	\N
+t	1047	108	\N
+t	1048	301	\N
+t	1049	1	\N
+t	1050	108	\N
+t	1051	107	\N
+t	1052	102	\N
+t	1053	302	\N
+t	1054	102	\N
+t	1055	102	\N
+t	1056	302	\N
+t	1057	102	\N
 \.
 
 
@@ -2330,6 +2343,20 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 1041	Amazon.com.br Digital SAO PAULO BR	2021-09-04	19.90	2021-06-30	6	REAL
 1042	The Walt Disney Compan SAO PAULO B	2021-09-04	27.90	2021-06-30	6	REAL
 1043	NETFLIX.COM SAO PAULO BR	2021-09-04	32.90	2021-07-03	6	REAL
+1044	Remessa Internacional	2021-09-15	14120.76	2021-09-15	3	REAL
+1045	KFC	2021-09-15	9.29	2021-09-15	3	EURO
+1046	Edeka	2021-09-15	8.80	2021-09-15	3	EURO
+1047	Metro	2021-09-15	57.00	2021-09-14	3	EURO
+1048	Edeka 2	2021-09-15	37.76	2021-09-11	3	EURO
+1049	Saque	2021-09-15	100.00	2021-09-10	3	EURO
+1050	Custo transferencia	2021-09-15	2.00	2021-09-15	3	EURO
+1051	Uber	2021-09-15	18.84	2021-09-08	4	EURO
+1052	KFC	2021-09-15	9.29	2021-09-07	4	EURO
+1053	Edeka	2021-09-15	3.95	2021-09-07	4	EURO
+1054	cafe da manha	2021-09-15	1.95	2021-09-07	4	EURO
+1055	cafe da manha 2	2021-09-15	6.60	2021-09-07	4	EURO
+1056	Edeka	2021-09-15	6.95	2021-09-06	4	EURO
+1057	cafe da manha 3	2021-09-15	6.60	2021-09-06	4	EURO
 \.
 
 
@@ -2496,6 +2523,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 952	4	200.00
 953	4	200.00
 954	4	200.00
+1044	5	85398.49
 \.
 
 
@@ -2531,7 +2559,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 26, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 1043, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 1057, true);
 
 
 --
