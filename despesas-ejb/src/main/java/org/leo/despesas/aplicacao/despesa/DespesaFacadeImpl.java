@@ -3,6 +3,7 @@ package org.leo.despesas.aplicacao.despesa;
 import java.io.File;
 import java.io.FileInputStream;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +15,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -104,20 +106,18 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 
 			final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
-			final Workbook wb = new HSSFWorkbook(new FileInputStream(arquivoDespesas));
+			List<String> lines = FileUtils.readLines(arquivoDespesas, StandardCharsets.UTF_8);
 
-			final Sheet s = wb.getSheetAt(0);
+			for (final String line : lines) {
 
-			for (final Row row : s) {
+				String[] row = line.split(",");
 
-				final Date data = format.parse(row.getCell(0).getStringCellValue());
-				final String descricao = row.getCell(1).getStringCellValue().trim();
-				final BigDecimal valor = new BigDecimal(row.getCell(2).getNumericCellValue());
+				final Date data = format.parse(row[0]);
+				final String descricao = row[1].trim();
+				final BigDecimal valor = new BigDecimal(row[2]);
 
 				lista.add(construirDespesa(data, descricao, valor));
 			}
-
-			wb.close();
 
 			return lista;
 
@@ -145,31 +145,31 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 	private TipoDespesa searchTipoPorDescricao(String descricao) {
 
 		List<Despesa> despesasComDescricaoParecida = this.fullTextSearch(descricao, "descricao");
-		
+
 		Map<TipoDespesa, Integer> map = new HashMap<TipoDespesa, Integer>();
-		
+
 		for (Despesa despesa : despesasComDescricaoParecida) {
-			
+
 			int total = 0;
-		
+
 			if (map.containsKey(despesa.getTipo())) {
 				total = map.get(despesa.getTipo());
 			}
-			
+
 			map.put(despesa.getTipo(), ++total);
 		}
 
 		TipoDespesa maiorTipoDespesa = null;
 		int maiorValor = 0;
-		
+
 		for(TipoDespesa tipoDespesa : map.keySet()) {
-			
+
 			if ( map.get(tipoDespesa)  > maiorValor) {
 				maiorTipoDespesa = tipoDespesa;
 				maiorValor = map.get(tipoDespesa);
 			}
 		}
-		
+
 		return maiorTipoDespesa;
 	}
 

@@ -87,7 +87,7 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa, Desp
 
 			try {
 
-				fileName = new Date().getTime() + ".xls";
+				fileName = new Date().getTime() + ".csv";
 
 				final InputStream inputStream = inputPart.getBody(InputStream.class,null);
 
