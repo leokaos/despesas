@@ -1,7 +1,6 @@
 package org.leo.despesas.aplicacao.despesa;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -16,10 +15,6 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
 import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.dominio.movimentacao.Despesa;
