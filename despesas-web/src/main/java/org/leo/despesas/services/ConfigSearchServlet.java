@@ -28,12 +28,6 @@ public class ConfigSearchServlet extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 
-		try {
-			facade.initIndex();
-		} catch (DespesasException e) {
-			e.printStackTrace();
-		}
-
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

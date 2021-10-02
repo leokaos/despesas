@@ -113,7 +113,7 @@ app.controller('edicaoDespesaController', function($scope, despesaService, tipoD
 
 		if ($scope.tipoDespesaSelecionado != null && $scope.despesa.vencimento != null) {
 
-			var periodo = new Periodo(new Date().getMonth(), new Date().getFullYear());
+			var periodo = new Periodo(new Date().getMonth() + 1, new Date().getFullYear());
 
 			var filtro = {
 				dataInicial : periodo.getDataInicial().toGMTString(),
