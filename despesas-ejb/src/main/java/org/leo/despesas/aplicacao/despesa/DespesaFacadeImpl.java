@@ -105,7 +105,7 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 
 			for (final String line : lines) {
 
-				String[] row = line.split(",");
+				String[] row = line.split(";");
 
 				final Date data = format.parse(row[0]);
 				final String descricao = row[1].trim();

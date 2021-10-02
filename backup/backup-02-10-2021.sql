@@ -385,9 +385,9 @@ VISA	27	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-4011.93	3
-176.84	4
 259871.07	5
+3340.30	3
+4158.84	4
 \.
 
 
@@ -1334,6 +1334,10 @@ t	1074	302	\N
 t	1075	401	\N
 t	1076	401	\N
 t	1077	302	\N
+t	1079	301	\N
+t	1080	302	\N
+t	1081	302	\N
+t	1082	401	\N
 \.
 
 
@@ -1400,6 +1404,7 @@ COPY despesas_db.meta (id, mes, ano, valor) FROM stdin;
 24	5	2021	2500.00
 25	6	2021	2700.00
 26	9	2021	2300.00
+27	10	2021	2500.00
 \.
 
 
@@ -2304,7 +2309,6 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 983	LEV ATM 3613 DEU 22201850 Muenchen	2021-09-04	100.00	2021-07-06	3	EURO
 984	Edeka	2021-09-04	31.70	2021-09-04	3	EURO
 985	Almoço	2021-09-04	6.55	2021-09-02	3	EURO
-986	Salario	\N	3381.00	2021-09-30	3	EURO
 987	Mollie *WeWash GmbH	2021-09-04	18.00	2021-07-02	4	EURO
 988	BAECKEREI ZIEGLER	2021-09-04	5.95	2021-07-02	4	EURO
 989	KFC 1039	2021-09-04	9.29	2021-07-02	4	EURO
@@ -2396,6 +2400,13 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 1075	comgas	2021-09-28	9.89	2021-09-16	5	REAL
 1076	vivo	2021-09-28	141.99	2021-09-15	5	REAL
 1077	eletropaulo	2021-09-28	31.68	2021-09-29	5	REAL
+986	Salario	\N	3381.00	2021-09-29	3	EURO
+1078	Laptop e passagem	\N	4000.00	2021-09-30	3	EURO
+1079	Edeka	2021-10-02	41.00	2021-10-01	3	EURO
+1080	Edeka	2021-10-02	7.05	2021-10-01	3	EURO
+1081	Edeka	2021-10-02	4.58	2021-10-01	3	EURO
+1082	wewash	2021-10-02	18.00	2021-10-02	4	EURO
+1083	Salário	\N	3381.00	2021-10-29	3	EURO
 \.
 
 
@@ -2424,6 +2435,7 @@ COPY despesas_db.orcamento (id, tipo_despesa_id, valor, data_inicial, data_final
 25	301	250.00	2021-05-01 00:00:00	2021-05-31 23:59:59.999
 26	301	200.00	2021-06-01 00:00:00	2021-06-30 23:59:59.999
 27	301	200.00	2021-09-01 00:00:00	2021-09-30 23:59:59.999
+28	301	250.00	2021-10-01 00:00:00	2021-11-01 00:59:59.999
 \.
 
 
@@ -2473,7 +2485,8 @@ t	906	109	\N
 t	916	111	\N
 t	950	109	\N
 t	951	109	\N
-f	986	109	\N
+t	986	109	\N
+f	1083	109	\N
 \.
 
 
@@ -2564,6 +2577,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 954	4	200.00
 1044	5	85398.49
 1067	4	200.00
+1078	4	4000.00
 \.
 
 
@@ -2592,21 +2606,21 @@ SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 30, true);
 -- Name: meta_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.meta_id_seq', 26, true);
+SELECT pg_catalog.setval('despesas_db.meta_id_seq', 27, true);
 
 
 --
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 1077, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 1083, true);
 
 
 --
 -- Name: orcamento_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.orcamento_id_seq', 27, true);
+SELECT pg_catalog.setval('despesas_db.orcamento_id_seq', 28, true);
 
 
 --
