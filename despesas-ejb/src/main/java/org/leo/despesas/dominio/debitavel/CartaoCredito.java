@@ -150,6 +150,10 @@ public class CartaoCredito extends Debitavel {
 			faturas.add(faturaPorData);
 		}
 
+		if (faturaPorData.isPaga()) {
+			throw new IllegalArgumentException();
+		}
+
 		faturaPorData.getDespesas().add(despesa);
 		despesa.setFatura(faturaPorData);
 	}
