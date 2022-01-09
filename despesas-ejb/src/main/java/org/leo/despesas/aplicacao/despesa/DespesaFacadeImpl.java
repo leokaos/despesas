@@ -104,6 +104,8 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 			List<String> lines = FileUtils.readLines(arquivoDespesas, StandardCharsets.UTF_8);
 
 			for (final String line : lines) {
+				
+				System.out.println(line);
 
 				String[] row = line.split(";");
 
