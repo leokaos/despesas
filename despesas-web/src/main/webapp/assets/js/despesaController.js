@@ -1,6 +1,6 @@
-app.controller('despesaController', function($scope, despesaService, $location, $routeParams, usSpinnerService) {
-	
-	
+app.controller('despesaController', function($scope, despesaService, $location, $routeParams, usSpinnerService, DTOptionsBuilder, DTColumnDefBuilder) {
+
+
 	$scope.dataAtual = new Date();
 	$scope.ano = $scope.dataAtual.getFullYear();
 	$scope.mes = $scope.dataAtual.getMonth();
@@ -10,9 +10,18 @@ app.controller('despesaController', function($scope, despesaService, $location, 
 
 	$scope.despesasSelecionadas = [];
 
+	$scope.dtOptions = DTOptionsBuilder.newOptions();
+	$scope.dtColumnDefs = [
+		DTColumnDefBuilder.newColumnDef(0),
+		DTColumnDefBuilder.newColumnDef(1),
+		DTColumnDefBuilder.newColumnDef(2),
+		DTColumnDefBuilder.newColumnDef(3).withOption('type', 'date-br'),
+		DTColumnDefBuilder.newColumnDef(4).withOption('type', 'date-br')
+	];
+
 	$scope.filtro = {
-		'dataInicial' : dataInicial,
-		'dataFinal' : dataFinal
+		'dataInicial': dataInicial,
+		'dataFinal': dataFinal
 	};
 
 	$scope.despesaSelecionada = null;
@@ -88,7 +97,7 @@ app.controller('edicaoDespesaController', function($scope, despesaService, tipoD
 
 	$scope.tiposDespesa = [];
 	$scope.debitaveis = [];
-	$scope.tiposParcelamento = [ 'Semanal', 'Mensal', 'Semestral', 'Anual' ];
+	$scope.tiposParcelamento = ['Semanal', 'Mensal', 'Semestral', 'Anual'];
 	$scope.parcelar = false;
 	$scope.orcamento = null;
 	$scope.parcelamento = {};
@@ -116,9 +125,9 @@ app.controller('edicaoDespesaController', function($scope, despesaService, tipoD
 			var periodo = new Periodo(new Date().getMonth() + 1, new Date().getFullYear());
 
 			var filtro = {
-				dataInicial : periodo.getDataInicial().toGMTString(),
-				dataFinal : periodo.getDataFinal().toGMTString(),
-				tipoDespesa : tipoDespesa.descricao
+				dataInicial: periodo.getDataInicial().toGMTString(),
+				dataFinal: periodo.getDataFinal().toGMTString(),
+				tipoDespesa: tipoDespesa.descricao
 			};
 
 			orcamentoService.buscarPorFiltro(filtro, function(data) {

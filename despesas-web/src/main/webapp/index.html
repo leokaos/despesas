@@ -290,6 +290,20 @@
 				e.preventDefault();
 			});
 		});
+		
+		jQuery.extend(jQuery.fn.dataTableExt.oSort, {
+			"date-br-pre" : function(a) {
+				return moment(a, "DD-MM-YYYY").valueOf();
+			},
+
+			"date-br-asc" : function(a, b) {
+				return a - b;
+			},
+
+			"date-br-desc" : function(a, b) {
+				return b - a;
+			}
+		});
 	</script>
 
 </body>
