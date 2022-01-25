@@ -1,4 +1,4 @@
-app.controller('faturaController', function($scope, faturaService, contaService, cartaoService, $location, $routeParams, growl) {
+app.controller('faturaController', function($scope, faturaService, contaService, cartaoService, $location, $routeParams, growl, DTOptionsBuilder, DTColumnDefBuilder) {
 
 	$scope.cartaoCreditoId = $routeParams.id;
 
@@ -6,6 +6,15 @@ app.controller('faturaController', function($scope, faturaService, contaService,
 	$scope.faturaSelecionada = null;
 	$scope.debitavelPagar = null;
 	$scope.debitaveis = [];
+
+	$scope.dtOptions = DTOptionsBuilder.newOptions().withOption('order', [1, 'desc']);
+	$scope.dtColumnDefs = [
+		DTColumnDefBuilder.newColumnDef(0).withOption('type', 'date-br'),
+		DTColumnDefBuilder.newColumnDef(1).withOption('type', 'date-br'),
+		DTColumnDefBuilder.newColumnDef(2),
+		DTColumnDefBuilder.newColumnDef(3)
+	];
+
 
 	$scope.selecionarFatura = function(fatura) {
 		$scope.faturaSelecionada = fatura;
@@ -16,6 +25,8 @@ app.controller('faturaController', function($scope, faturaService, contaService,
 	});
 
 	faturaService.buscarFaturaPorCartaoCredito($scope.cartaoCreditoId, function(data) {
+
+		data.reverse();
 
 		for (var i = 0; i < data.length; i++) {
 			$scope.faturas.push(data[i]);
