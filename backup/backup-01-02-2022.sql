@@ -386,9 +386,9 @@ VISA	27	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-247180.84	5
-15222.80	3
-276.87	4
+15174.05	3
+179.65	4
+247068.92	5
 \.
 
 
@@ -1571,6 +1571,41 @@ t	1321	302	\N
 t	1322	302	\N
 t	1323	102	\N
 t	1324	302	\N
+t	1325	201	40
+t	1326	102	40
+t	1327	102	40
+t	1328	102	40
+t	1329	102	40
+t	1330	102	40
+t	1331	102	40
+t	1332	401	40
+t	1333	102	40
+t	1334	107	40
+t	1335	201	40
+t	1336	107	40
+t	1337	102	40
+t	1338	102	40
+t	1339	107	40
+t	1340	201	40
+t	1341	107	40
+t	1342	107	40
+t	1343	107	40
+t	1344	102	40
+t	1345	201	40
+t	1346	201	40
+t	1347	201	40
+t	1348	401	\N
+t	1349	301	\N
+t	1350	102	\N
+t	1351	401	\N
+t	1352	302	\N
+t	1353	103	\N
+t	1354	302	\N
+t	1355	102	\N
+t	1356	102	\N
+t	1357	201	\N
+t	1358	302	\N
+t	1359	401	\N
 \.
 
 
@@ -1610,6 +1645,7 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 35	6	2021-09-11 00:00:00	2021-08-27 00:00:00	t
 36	6	2021-12-11 00:00:00	2021-11-27 00:00:00	t
 38	6	2022-01-11 00:00:00	2021-12-27 00:00:00	t
+40	6	2022-02-11 00:00:00	2022-01-27 00:00:00	f
 \.
 
 
@@ -1644,6 +1680,7 @@ COPY despesas_db.meta (id, mes, ano, valor) FROM stdin;
 26	9	2021	2300.00
 27	11	2021	2500.00
 28	1	2022	2800.00
+29	2	2022	2800.00
 \.
 
 
@@ -2885,6 +2922,42 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 1322	Almoco 2	2022-01-27	7.80	2022-01-26	4	EURO
 1323	KFC	2022-01-27	9.49	2022-01-25	4	EURO
 1324	Almoco 3	2022-01-27	7.80	2022-01-25	4	EURO
+1325	EBANX *SPOTIFY	2022-02-01	19.90	2021-12-28	6	REAL
+1326	IFD*XANGAI COMERCIO AR	2022-02-01	34.20	2021-12-29	6	REAL
+1327	IFD*EDISON LUIZ DE PAS	2022-02-01	22.98	2021-12-29	6	REAL
+1328	IFD*IFOOD.COM AGENCIA	2022-02-01	35.99	2021-12-29	6	REAL
+1329	IFD*RESTAURANTE R AZEV	2022-02-01	38.98	2021-12-30	6	REAL
+1330	IFD*LANCHONETE MELLO	2022-02-01	39.64	2021-12-30	6	REAL
+1331	IFD*CLEUNICE SANTOS HA	2022-02-01	29.99	2021-12-31	6	REAL
+1332	SERVICOS CLA*119137304	2022-02-01	25.00	2022-01-02	6	REAL
+1333	IFD*SEU TEMPERO RESTAU	2022-02-01	42.00	2022-01-02	6	REAL
+1334	LOCALIZA RAC ACCAE0 D	2022-02-01	3980.26	2022-01-02	6	REAL
+1335	AmazonPrimeBR	2022-02-01	9.90	2022-01-03	6	REAL
+1336	Uber *UBER *TRIP	2022-02-01	29.91	2022-01-03	6	REAL
+1337	IFD*GABRIEL PITA 22985	2022-02-01	23.40	2022-01-03	6	REAL
+1338	IFD*ESTAIL RESTAURANTE	2022-02-01	36.89	2022-01-03	6	REAL
+1339	UBER *TRIP HELP.UBER.C	2022-02-01	24.91	2022-01-03	6	REAL
+1340	Amazon.com.br Digital	2022-02-01	19.90	2022-01-03	6	REAL
+1341	UBER *TRIP HELP.UBER.C	2022-02-01	24.91	2022-01-04	6	REAL
+1342	Uber *UBER *TRIP	2022-02-01	24.96	2022-01-04	6	REAL
+1343	UBER *TRIP HELP.UBER.C	2022-02-01	70.93	2022-01-04	6	REAL
+1344	IFD*XANGAI COMERCIO AR	2022-02-01	34.20	2022-01-04	6	REAL
+1345	Disney Plus	2022-02-01	27.90	2022-01-06	6	REAL
+1346	NETFLIX.COM	2022-02-01	39.90	2022-01-11	6	REAL
+1347	APPLE.COM/BILL	2022-02-01	9.90	2022-01-20	6	REAL
+1348	Metro	2022-02-01	7.00	2022-01-31	3	EURO
+1349	Edeka	2022-02-01	41.75	2022-01-29	3	EURO
+1350	Doce	2022-02-01	3.79	2022-02-01	4	EURO
+1351	WeWash	2022-02-01	5.00	2022-02-01	4	EURO
+1352	Almoco	2022-02-01	12.50	2022-02-01	4	EURO
+1353	Sausalitos	2022-02-01	29.00	2022-01-31	4	EURO
+1354	Almoco2	2022-02-01	10.15	2022-01-31	4	EURO
+1355	cafe da manha	2022-02-01	7.95	2022-01-31	4	EURO
+1356	cafe da manha2	2022-02-01	7.95	2022-01-29	4	EURO
+1357	nordvpn	2022-02-01	10.58	2022-01-28	4	EURO
+1358	Almoco3	2022-02-01	10.30	2022-01-28	4	EURO
+1359	Eletropaulo	2022-02-01	111.92	2022-01-31	5	REAL
+1360	Salario	\N	3387.00	2022-02-28	3	EURO
 \.
 
 
@@ -2915,6 +2988,7 @@ COPY despesas_db.orcamento (id, tipo_despesa_id, valor, data_inicial, data_final
 27	301	200.00	2021-09-01 00:00:00	2021-09-30 23:59:59.999
 28	301	200.00	2021-11-01 00:00:00	2021-11-30 23:59:59.999
 29	301	200.00	2022-01-01 00:00:00	2022-01-31 23:59:59.999
+30	301	200.00	2022-02-01 00:00:00	2022-02-28 23:59:59.999
 \.
 
 
@@ -2970,6 +3044,7 @@ t	1120	109	\N
 t	1177	109	\N
 t	1235	111	\N
 t	1183	109	\N
+f	1360	109	\N
 \.
 
 
@@ -3085,28 +3160,28 @@ SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 7, true);
 -- Name: fatura_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 39, true);
+SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 40, true);
 
 
 --
 -- Name: meta_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.meta_id_seq', 28, true);
+SELECT pg_catalog.setval('despesas_db.meta_id_seq', 29, true);
 
 
 --
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 1324, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 1360, true);
 
 
 --
 -- Name: orcamento_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.orcamento_id_seq', 29, true);
+SELECT pg_catalog.setval('despesas_db.orcamento_id_seq', 30, true);
 
 
 --
