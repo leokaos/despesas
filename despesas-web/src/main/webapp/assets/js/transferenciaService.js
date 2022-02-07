@@ -1,53 +1,56 @@
-app.service('transferenciaService', function ($http) {
+app.service('transferenciaService', function($http, filtroParser) {
 
-    var pathBase = '/despesas/services/transferencia/';
+	var pathBase = '/despesas/services/transferencia/';
 
-    this.getNovaTransferencia = function () {
-        return {
-            descricao: '',
-            vencimento: null,
-            valor: null,
-            debitavel: null,
-            creditavel: null,
-            moeda: null
-        };
-    };
+	this.getNovaTransferencia = function() {
+		return {
+			descricao: '',
+			vencimento: null,
+			valor: null,
+			debitavel: null,
+			creditavel: null,
+			moeda: null
+		};
+	};
 
-    this.listar = function (fn) {
-        $http.get(pathBase).success(function (data) {
-            fn(data);
-        });
-    };
+	this.listar = function(filtro, fn) {
 
-    this.novo = function (transferencia, fn) {
-        $http.post(pathBase, transferencia).success(function (data) {
-            fn(data);
-        });
-    };
+		$http.get(pathBase, {
+			params: filtroParser.getFiltro(filtro)
+		}).success(function(data) {
+			fn(data);
+		});
+	};
 
-    this.salvar = function (transferencia, fn) {
-        $http.put(pathBase, transferencia).success(function (data) {
-            fn(data);
-        });
-    };
+	this.novo = function(transferencia, fn) {
+		$http.post(pathBase, transferencia).success(function(data) {
+			fn(data);
+		});
+	};
 
-    this.setTipoDespesa = function (novoTipoDespesa) {
-        this.tipodespesa = novoTipoDespesa;
-    }
+	this.salvar = function(transferencia, fn) {
+		$http.put(pathBase, transferencia).success(function(data) {
+			fn(data);
+		});
+	};
 
-    this.getTransferencia = function () {
-        return this.transferencia;
-    }
+	this.setTipoDespesa = function(novoTipoDespesa) {
+		this.tipodespesa = novoTipoDespesa;
+	}
 
-    this.buscarPorId = function (id, fn) {
-        $http.get(pathBase + id).success(function (data) {
-            fn(data);
-        });
-    };
+	this.getTransferencia = function() {
+		return this.transferencia;
+	}
 
-    this.deletar = function (id, fn) {
-        $http.delete(pathBase + id).success(function (data) {
-            fn(data);
-        });
-    };
+	this.buscarPorId = function(id, fn) {
+		$http.get(pathBase + id).success(function(data) {
+			fn(data);
+		});
+	};
+
+	this.deletar = function(id, fn) {
+		$http.delete(pathBase + id).success(function(data) {
+			fn(data);
+		});
+	};
 });

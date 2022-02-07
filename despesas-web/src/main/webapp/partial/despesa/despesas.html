@@ -1,49 +1,45 @@
 <pesquisa-view>
 
-<div style="min-height: 420px;">
+<table datatable="ng" class="table table-striped table-bordered display datatables no-footer row-border hover" dt-options="dtOptions" dt-column-defs="dtColumnDefs">
+	<thead>
+		<tr>
+			<th>Descrição</th>
+			<th>Valor</th>
+			<th>Tipo</th>
+			<th>Vencimento</th>
+			<th>Pagamento</th>
+			<th>Debitável</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in originalData" style="{{despesasSelecionadas.indexOf(item) !== -1 ? 'background-color:#e4fcff;' : ''}}" ng-click="seleciona(item);">
 
-	<table datatable="ng" class="table table-striped table-bordered display datatables no-footer row-border hover" dt-options="dtOptions" dt-column-defs="dtColumnDefs">
-		<thead>
-			<tr>
-				<th>Descrição</th>
-				<th>Valor</th>
-				<th>Tipo</th>
-				<th>Vencimento</th>
-				<th>Pagamento</th>
-				<th>Debitável</th>
-				<th></th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="item in originalData" style="{{despesasSelecionadas.indexOf(item) !== -1 ? 'background-color:#e4fcff;' : ''}}" ng-click="seleciona(item);">
+			<td style="vertical-align: middle; width: 400px;">{{item.descricao}}</td>
 
-				<td style="vertical-align: middle; width: 400px;">{{item.descricao}}</td>
+			<td style="vertical-align: middle;">{{item.valor | currency: 'R$ '}}</td>
 
-				<td style="vertical-align: middle;">{{item.valor | currency: 'R$ '}}</td>
+			<td style="vertical-align: middle;">
+				<bullet ng-model="item.tipo"> {{item.tipo.descricao}} </bullet>
+			</td>
 
-				<td style="vertical-align: middle;">
-					<bullet ng-model="item.tipo"> {{item.tipo.descricao}} </bullet>
-				</td>
+			<td style="vertical-align: middle;">{{item.vencimento | date: 'dd/MM/yyyy'}}</td>
 
-				<td style="vertical-align: middle;">{{item.vencimento | date: 'dd/MM/yyyy'}}</td>
+			<td style="vertical-align: middle;">{{item.pagamento | date: 'dd/MM/yyyy'}}</td>
 
-				<td style="vertical-align: middle;">{{item.pagamento | date: 'dd/MM/yyyy'}}</td>
+			<td style="vertical-align: middle;">{{item.debitavel.descricao}}</td>
 
-				<td style="vertical-align: middle;">{{item.debitavel.descricao}}</td>
+			<td style="width: 38px; height: 38px;">
+				<button-editar></button-editar>
+			</td>
 
-				<td style="width: 38px; height: 38px;">
-					<button-editar></button-editar>
-				</td>
-
-				<td style="width: 38px; height: 38px;">
-					<button-delete></button-delete>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-
-</div>
+			<td style="width: 38px; height: 38px;">
+				<button-delete></button-delete>
+			</td>
+		</tr>
+	</tbody>
+</table>
 
 </pesquisa-view>
 

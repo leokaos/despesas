@@ -2,12 +2,17 @@ package org.leo.despesas.dominio.movimentacao;
 
 import java.util.Date;
 
+import javax.ws.rs.QueryParam;
+
 import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.infra.AbstractModelFiltro;
 
 public class TransferenciaFiltro extends AbstractModelFiltro<Transferencia> {
 
+	@QueryParam("dataInicial")
 	private Date dataInicial;
+
+	@QueryParam("dataFinal")
 	private Date dataFinal;
 
 	private Debitavel debitavel;

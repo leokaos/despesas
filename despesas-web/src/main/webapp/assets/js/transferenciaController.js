@@ -6,6 +6,18 @@ app.controller('transferenciaController', function($scope, transferenciaService,
 		return 'Trânsferencias';
 	};
 
+	$scope.dataAtual = new Date();
+	$scope.ano = $scope.dataAtual.getFullYear();
+	$scope.mes = $scope.dataAtual.getMonth();
+
+	var dataInicial = new Date($scope.ano, $scope.mes, 1);
+	var dataFinal = new Date($scope.ano, $scope.mes + 1, 0, 23, 59, 59);
+
+	$scope.filtro = {
+		'dataInicial': dataInicial,
+		'dataFinal': dataFinal
+	};
+
 	$scope.getDescricaoSelecionado = function() {
 
 		if ($scope.transferenciaSelecionado != null) {
@@ -24,7 +36,7 @@ app.controller('transferenciaController', function($scope, transferenciaService,
 	};
 
 	$scope.listar = function() {
-		transferenciaService.listar($scope.loadData);
+		transferenciaService.listar($scope.filtro,  $scope.loadData);
 	};
 
 	$scope.novo = function() {
@@ -45,6 +57,14 @@ app.controller('transferenciaController', function($scope, transferenciaService,
 
 	$scope.doDelete = function() {
 		transferenciaService.deletar($scope.transferenciaSelecionado.id, $scope.deletar);
+	};
+
+	$scope.hasFiltro = function() {
+		return true;
+	};
+
+	$scope.getFiltro = function() {
+		return 'partial/despesa/filtro.html';
 	};
 
 });
@@ -78,15 +98,15 @@ app.controller('edicaoTransferenciaController', function($scope, transferenciaSe
 		$scope.limparCarregar(data);
 		growl.info('Transferência salva com sucesso!');
 	};
-	
-	$scope.setMoeda = function(debitavel){
+
+	$scope.setMoeda = function(debitavel) {
 		$scope.transferencia.moeda = debitavel.moeda;
 	};
 
 	$scope.salvar = function(valid) {
-		
+
 		var transferenciaVO = {
-			"transferencia" : $scope.transferencia
+			"transferencia": $scope.transferencia
 		};
 
 		if (valid) {
