@@ -1614,6 +1614,11 @@ t	1366	302	\N
 t	1367	102	\N
 t	1368	108	\N
 t	1369	108	\N
+t	1371	201	41
+t	1372	201	41
+t	1373	201	41
+t	1374	201	41
+t	1375	201	41
 \.
 
 
@@ -1654,6 +1659,7 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 36	6	2021-12-11 00:00:00	2021-11-27 00:00:00	t
 38	6	2022-01-11 00:00:00	2021-12-27 00:00:00	t
 40	6	2022-02-11 00:00:00	2022-01-27 00:00:00	t
+41	6	2022-03-11 00:00:00	2022-02-27 00:00:00	f
 \.
 
 
@@ -2975,6 +2981,11 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 1368	Taifa	2022-02-07	71.90	2022-02-02	5	REAL
 1369	Condominio	2022-02-07	635.00	2022-02-07	5	REAL
 1370	Pagamento fatura 02/2022	2022-02-07	4646.55	2022-02-07	5	REAL
+1371	EBANX *SPOTIFY	2022-02-11	19.90	2022-01-28	6	REAL
+1372	Amazon.com.br Digital	2022-02-11	19.90	2022-02-03	6	REAL
+1373	AmazonPrimeBR	2022-02-11	9.90	2022-02-03	6	REAL
+1374	Disney Plus	2022-02-11	27.90	2022-02-06	6	REAL
+1375	STEAMGAMES.COM	2022-02-11	22.25	2022-02-08	6	REAL
 \.
 
 
@@ -3178,7 +3189,7 @@ SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 7, true);
 -- Name: fatura_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 40, true);
+SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 41, true);
 
 
 --
@@ -3192,7 +3203,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 29, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 1370, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 1375, true);
 
 
 --

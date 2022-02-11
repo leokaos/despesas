@@ -33,7 +33,7 @@ import org.leo.despesas.infra.Moeda;
 import org.leo.despesas.rest.DebitavelDeserializer;
 
 @Entity
-@Indexed
+@Indexed(index = "movimentacao")
 @Table(name = "movimentacao", schema = "despesas_db")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Movimentacao implements ModelEntity {
