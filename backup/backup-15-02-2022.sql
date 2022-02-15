@@ -386,9 +386,9 @@ VISA	27	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-241715.47	5
-20.69	4
-15074.26	3
+6.00	4
+15034.21	3
+241557.09	5
 \.
 
 
@@ -1630,6 +1630,12 @@ t	1384	301	\N
 t	1385	104	\N
 t	1386	302	\N
 t	1387	108	\N
+t	1388	104	\N
+t	1389	201	\N
+t	1391	302	\N
+t	1392	108	\N
+t	1393	108	\N
+t	1394	201	41
 \.
 
 
@@ -3008,6 +3014,12 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 1385	Cueca	2022-02-11	13.19	2022-02-09	3	EURO
 1386	Almoco	2022-02-11	12.85	2022-02-09	3	EURO
 1387	Corte Cabelo	2022-02-11	35.00	2022-02-09	3	EURO
+1388	Cuecas	2022-02-15	40.05	2022-02-14	3	EURO
+1389	Gog	2022-02-15	2.19	2022-02-15	4	EURO
+1391	Almoco	2022-02-15	12.50	2022-02-14	4	EURO
+1392	Comgas	2022-02-15	11.39	2022-02-14	5	REAL
+1393	Vivo	2022-02-15	146.99	2022-02-15	5	REAL
+1394	Netflix	2022-02-15	39.90	2022-02-11	6	REAL
 \.
 
 
@@ -3225,7 +3237,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 29, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 1387, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 1394, true);
 
 
 --
