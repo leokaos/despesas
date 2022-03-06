@@ -15,7 +15,7 @@
 						<th>Data Fechamento</th>
 						<th>Data Vencimento</th>
 						<th style="text-align: center;">Valor</th>
-						<th>Paga</th>
+						<th>Ações</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -27,8 +27,9 @@
 
 						<td style="vertical-align: middle; text-align: center;" ng-click="mostrarItens(fatura);">{{fatura.valorFatura | currency: 'R$ '}}</td>
 
-						<td style="text-align: right;">
+						<td style="text-align: center;">
 							<button data-toggle="modal" data-target="#modalSelecionarConta" ng-click="selecionarFatura(fatura);" class="btn btn-default" ng-if="!fatura.paga">Pagar</button>
+							<button data-toggle="modal" data-target="#modalDeletar" ng-click="selecionarFatura(fatura);" class="btn btn-default" ng-if="!fatura.paga && fatura.despesas.length == 0">Remover</button>
 						</td>
 
 					</tr>
@@ -114,6 +115,36 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal" style="float: left;">Cancelar</button>
 				<button type="button" class="btn btn-primary" ng-click="pagarFatura();">OK</button>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalDeletar">
+
+	<div class="modal-dialog" role="document">
+
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Remover</h4>
+			</div>
+
+			<div class="modal-body">
+
+				Apenas faturas vazias podem ser removidas! Deseja continuar?
+
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" style="float: left;">Cancelar</button>
+				<button type="button" class="btn btn-primary" ng-click="removerFatura();">OK</button>
 			</div>
 
 		</div>

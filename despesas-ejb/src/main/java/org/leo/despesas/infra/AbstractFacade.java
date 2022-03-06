@@ -124,7 +124,7 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 		posDeletar(entity);
 	}
 
-	protected void preDeletar(E entity) {
+	protected void preDeletar(E entity) throws DespesasException {
 
 	}
 

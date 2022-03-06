@@ -63,4 +63,11 @@ app.controller('faturaController', function($scope, faturaService, contaService,
 		});
 	};
 
+	$scope.removerFatura = function() {
+
+		faturaService.deletar($scope.faturaSelecionada.id, function() {
+			growl.info('Fatura removida com sucesso!');
+		});
+	}
+
 });

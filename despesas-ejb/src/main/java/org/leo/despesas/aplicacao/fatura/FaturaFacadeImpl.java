@@ -9,6 +9,7 @@ import org.leo.despesas.dominio.debitavel.CartaoCredito;
 import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.debitavel.FaturaFiltro;
 import org.leo.despesas.infra.AbstractFacade;
+import org.leo.despesas.infra.exception.DespesasException;
 
 import com.google.common.collect.Lists;
 
@@ -32,6 +33,14 @@ public class FaturaFacadeImpl extends AbstractFacade<Fatura, FaturaFiltro> imple
 		faturas.addAll(query.getResultList());
 
 		return faturas;
+	}
+
+	@Override
+	protected void preDeletar(Fatura fatura) throws DespesasException {
+
+		if (fatura.hasDespesas()) {
+			throw new DespesasException("Fatura contém despesas!");
+		}
 	}
 
 }

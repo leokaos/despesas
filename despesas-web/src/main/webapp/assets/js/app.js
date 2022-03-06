@@ -415,8 +415,7 @@ app.directive('uiCalendar', function(MESES) {
 			};
 
 			var select = function(event, jsEvent, view) {
-				var eventoSelecionado = null;
-
+				
 				if (event != null && event.despesa != null) {
 					scope.functionSelect(event.despesa);
 				}
