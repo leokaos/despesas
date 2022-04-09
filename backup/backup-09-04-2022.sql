@@ -1747,6 +1747,13 @@ t	1523	102	\N
 t	1525	108	\N
 t	1526	108	\N
 t	1527	401	\N
+t	1528	108	42
+t	1529	201	42
+t	1530	201	42
+t	1531	201	42
+t	1532	201	42
+t	1533	201	42
+t	1534	201	42
 \.
 
 
@@ -3249,6 +3256,13 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 1525	Pacote	2022-04-09	71.90	2022-04-04	5	REAL
 1526	Eletropaulo	2022-04-09	24.38	2022-03-29	5	REAL
 1527	WeWash	2022-04-09	10.00	2022-04-03	4	EURO
+1528	ANUIDADE DIFERENCIADA 05/12	2022-04-09	26.00	2022-02-28	6	REAL
+1529	EBANX *SPOTIFY CURITIBA BR	2022-04-09	19.90	2022-02-28	6	REAL
+1530	AmazonPrimeBR SAO PAULO BR	2022-04-09	9.90	2022-03-03	6	REAL
+1531	Amazon Digital BR SAO PAULO BR	2022-04-09	19.90	2022-03-03	6	REAL
+1532	Disney Plus SAO PAULO BR	2022-04-09	27.90	2022-03-06	6	REAL
+1533	NETFLIX.COM SAO PAULO BR	2022-04-09	39.90	2022-03-11	6	REAL
+1534	APPLE.COM/BILL SAO PAULO BR	2022-04-09	9.90	2022-03-20	6	REAL
 \.
 
 
@@ -3472,7 +3486,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 31, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 1527, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 1534, true);
 
 
 --
