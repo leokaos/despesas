@@ -386,9 +386,9 @@ VISA	27	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-238391.93	5
 1377.10	4
 21642.76	3
+237355.82	5
 \.
 
 
@@ -1908,6 +1908,25 @@ t	1692	301	\N
 t	1693	1	\N
 t	1694	102	\N
 t	1695	102	\N
+t	1696	201	43
+t	1697	108	43
+t	1698	201	43
+t	1699	201	43
+t	1700	201	43
+t	1701	201	43
+t	1702	201	43
+t	1703	201	44
+t	1704	108	44
+t	1705	201	44
+t	1706	201	44
+t	1707	201	44
+t	1708	201	44
+t	1709	201	44
+t	1711	102	\N
+t	1712	108	\N
+t	1713	108	\N
+t	1714	102	\N
+t	1715	102	\N
 \.
 
 
@@ -1950,6 +1969,8 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 40	6	2022-02-11 00:00:00	2022-01-27 00:00:00	t
 41	6	2022-03-11 00:00:00	2022-02-27 00:00:00	t
 42	6	2022-04-11 00:00:00	2022-03-27 00:00:00	t
+44	6	2022-06-11 00:00:00	2022-05-27 00:00:00	t
+43	6	2022-05-11 00:00:00	2022-04-27 00:00:00	t
 \.
 
 
@@ -3578,6 +3599,26 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 1693	saque	2022-06-19	100.00	2022-06-18	3	EURO
 1694	janta	2022-06-19	12.90	2022-06-17	3	EURO
 1695	padaria 1	2022-06-19	3.50	2022-06-17	3	EURO
+1696	EBANX SPOTIFY	2022-06-19	19.90	2022-03-29	6	REAL
+1697	ANUIDADE DIFERENCIADA 06/12	2022-06-19	26.00	2022-03-29	6	REAL
+1698	Amazon.com.br Digital	2022-06-19	19.90	2022-04-03	6	REAL
+1699	AmazonPrimeBR	2022-06-19	9.90	2022-04-03	6	REAL
+1700	Disney Plus	2022-06-19	27.90	2022-04-06	6	REAL
+1701	NETFLIX.COM	2022-06-19	39.90	2022-04-11	6	REAL
+1702	APPLE.COM/BILL	2022-06-19	9.90	2022-04-20	6	REAL
+1703	EBANX SPOTIFY	2022-06-19	19.90	2022-04-29	6	REAL
+1704	ANUIDADE DIFERENCIADA 07/12	2022-06-19	26.00	2022-04-29	6	REAL
+1705	AmazonPrimeBR	2022-06-19	9.90	2022-05-03	6	REAL
+1706	Amazon.com.br Digital	2022-06-19	19.90	2022-05-03	6	REAL
+1707	Disney Plus	2022-06-19	27.90	2022-05-06	6	REAL
+1708	NETFLIX.COM	2022-06-19	39.90	2022-05-11	6	REAL
+1709	APPLE.COM/BILL	2022-06-19	9.90	2022-05-20	6	REAL
+1710	Pagamento fatura 06/2022	2022-06-09	153.40	2022-06-19	5	REAL
+1711	DA  ELETROPAULO 56301179	2022-06-19	20.10	2022-05-30	5	REAL
+1712	TAR PACOTE ITAU   MAI/22	2022-06-19	71.90	2022-06-02	5	REAL
+1713	INT PAG TIT 109005364281	2022-06-19	635.00	2022-06-09	5	REAL
+1714	DA  COMGAS 48353698	2022-06-19	9.72	2022-06-14	5	REAL
+1715	DA  VIVO FIXO 9324810660	2022-06-19	145.99	2022-06-15	5	REAL
 \.
 
 
@@ -3773,6 +3814,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 1680	4	1000.00
 1681	4	1000.00
 1682	4	200.00
+1710	6	153.40
 \.
 
 
@@ -3794,7 +3836,7 @@ SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 7, true);
 -- Name: fatura_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 42, true);
+SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 44, true);
 
 
 --
@@ -3808,7 +3850,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 31, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 1695, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 1715, true);
 
 
 --
