@@ -104,7 +104,7 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 			List<String> lines = FileUtils.readLines(arquivoDespesas, StandardCharsets.UTF_8);
 
 			for (final String line : lines) {
-				
+
 				System.out.println(line);
 
 				String[] row = line.split(";");
@@ -159,9 +159,9 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 		TipoDespesa maiorTipoDespesa = null;
 		int maiorValor = 0;
 
-		for(TipoDespesa tipoDespesa : map.keySet()) {
+		for (TipoDespesa tipoDespesa : map.keySet()) {
 
-			if ( map.get(tipoDespesa)  > maiorValor) {
+			if (map.get(tipoDespesa) > maiorValor) {
 				maiorTipoDespesa = tipoDespesa;
 				maiorValor = map.get(tipoDespesa);
 			}
@@ -173,8 +173,12 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 	@Override
 	protected void posDeletar(Despesa despesa) {
 
-		Debitavel debitavel = debitavelFacade.buscarPorId(despesa.getDebitavel().getId());
+		if (despesa.isPaga()) {
 
-		debitavel.estornar(despesa);
+			Debitavel debitavel = debitavelFacade.buscarPorId(despesa.getDebitavel().getId());
+
+			debitavel.estornar(despesa);
+
+		}
 	}
 }

@@ -117,4 +117,6 @@ public abstract class Debitavel implements ModelEntity {
 	public abstract BigDecimal getSaldo();
 
 	public abstract void estornar(Despesa despesa);
+	
+	public abstract void estornar(Receita receita);
 }

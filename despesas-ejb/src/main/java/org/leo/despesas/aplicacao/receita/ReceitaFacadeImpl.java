@@ -17,6 +17,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
+import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.ReceitaFiltro;
 import org.leo.despesas.infra.AbstractFacade;
@@ -60,10 +61,10 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita, ReceitaFiltro> im
 			depositar(receita);
 		}
 	}
-	
+
 	@Override
 	protected void posSalvar(Receita antigo, Receita novo) {
-		
+
 		if (!antigo.isDepositado() && novo.isDepositado()) {
 			depositar(novo);
 		}
@@ -121,6 +122,17 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita, ReceitaFiltro> im
 		receita.setValor(valor.abs());
 
 		return receita;
+	}
+
+	@Override
+	protected void posDeletar(Receita receita) {
+
+		if (receita.isDepositado()) {
+
+			Debitavel debitavel = debitavelFacade.buscarPorId(receita.getDebitavel().getId());
+
+			debitavel.estornar(receita);
+		}
 	}
 
 }

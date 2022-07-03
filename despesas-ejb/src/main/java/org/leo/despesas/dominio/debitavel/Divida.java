@@ -129,5 +129,10 @@ public class Divida extends Debitavel {
 	public void estornar(Despesa despesa) {
 		
 	}
+	
+	@Override
+	public void estornar(Receita receita) {
+		
+	}
 
 }

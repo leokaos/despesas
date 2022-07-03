@@ -204,4 +204,9 @@ public class CartaoCredito extends Debitavel {
 
 	}
 
+	@Override
+	public void estornar(Receita receita) {
+
+	}
+
 }

@@ -76,5 +76,11 @@ public class Conta extends Debitavel {
 	public void estornar(Despesa despesa) {
 		saldo = saldo.add(despesa.getValor());
 	}
+	
+	@Override
+	public void estornar(Receita receita) {
+		saldo = saldo.subtract(receita.getValor());
+		
+	}
 
 }

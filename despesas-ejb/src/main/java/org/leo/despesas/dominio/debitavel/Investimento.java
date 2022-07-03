@@ -117,4 +117,9 @@ public class Investimento extends Debitavel {
 	public void estornar(Despesa despesa) {
 		
 	}
+	
+	@Override
+	public void estornar(Receita receita) {
+		
+	}
 }
