@@ -19,7 +19,7 @@ public class FaturaTest {
 	private final SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 
 	@Test
-	public void pagarTest() throws ParseException {
+	public void pagarTest() throws ParseException, Exception {
 
 		CartaoCredito cartao = new CartaoCredito();
 		cartao.setLimiteAtual(new BigDecimal("10000"));

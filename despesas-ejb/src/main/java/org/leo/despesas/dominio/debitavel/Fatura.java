@@ -24,6 +24,7 @@ import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
 import org.leo.despesas.infra.ModelEntity;
 import org.leo.despesas.infra.Periodo;
+import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.infra.util.DataUtil;
 
 @Entity
@@ -139,7 +140,11 @@ public class Fatura implements ModelEntity {
 		return new Periodo(inicial, dataFinal);
 	}
 
-	public Transferencia pagar(final Conta conta) {
+	public Transferencia pagar(final Conta conta) throws DespesasException {
+		
+		if (!conta.getMoeda().equals(this.getCartao().getMoeda())) {
+			throw new DespesasException("Conta com moeda diferente do cartao!");
+		}
 
 		final Transferencia transferencia = new Transferencia();
 
