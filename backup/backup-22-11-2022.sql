@@ -3974,6 +3974,7 @@ D	302	#c658d1	Almoço
 D	401	#bdff00	Consumo
 D	1	#c9c9c9	Saques
 D	2	#f0f261	Medico
+D	3	#00ffc2	Casa
 \.
 
 
@@ -4100,7 +4101,7 @@ SELECT pg_catalog.setval('despesas_db.servico_transferencia_id_seq', 2, true);
 -- Name: tipo_movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.tipo_movimentacao_id_seq', 2, true);
+SELECT pg_catalog.setval('despesas_db.tipo_movimentacao_id_seq', 3, true);
 
 
 --
