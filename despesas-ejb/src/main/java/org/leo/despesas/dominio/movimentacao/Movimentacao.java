@@ -147,10 +147,7 @@ public abstract class Movimentacao implements ModelEntity {
 			final Movimentacao o1 = (Movimentacao) o;
 
 			final EqualsBuilder equalsBuilder = new EqualsBuilder();
-			equalsBuilder.append(valor, o1.valor);
-			equalsBuilder.append(descricao, o1.descricao);
-			equalsBuilder.append(debitavel, o1.debitavel);
-			equalsBuilder.append(vencimento, o1.vencimento);
+			equalsBuilder.append(id, o1.id);
 
 			return equalsBuilder.isEquals();
 
