@@ -1,17 +1,16 @@
 package org.leo.despesas.dominio;
 
 import static org.hamcrest.CoreMatchers.hasItem;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
 import org.leo.despesas.dominio.debitavel.CartaoCredito;
 import org.leo.despesas.dominio.debitavel.Fatura;
@@ -35,7 +34,7 @@ public class CartaoCreditoTest {
 
 		final Fatura fatura = cartao.getFaturas().iterator().next();
 
-		assertEquals(formatter.format(fatura.getDataFechamento()), "27/06/2015");
+		assertEquals(formatter.format(fatura.getDataFechamento()), "28/06/2015");
 		assertEquals(formatter.format(fatura.getDataVencimento()), "11/07/2015");
 		assertEquals(cartao.getFaturas().size(), 1);
 		assertThat(fatura.getDespesas(), hasItem(despesa));
@@ -59,7 +58,7 @@ public class CartaoCreditoTest {
 
 		final Fatura fatura = cartao.getFaturas().iterator().next();
 
-		assertEquals(formatter.format(fatura.getDataFechamento()), "27/06/2015");
+		assertEquals(formatter.format(fatura.getDataFechamento()), "28/06/2015");
 		assertEquals(formatter.format(fatura.getDataVencimento()), "11/07/2015");
 		assertEquals(cartao.getFaturas().size(), 1);
 		assertEquals(fatura.getDespesas().size(), 2);
@@ -80,7 +79,7 @@ public class CartaoCreditoTest {
 
 		final Fatura fatura = cartao.getFaturas().iterator().next();
 
-		assertEquals(formatter.format(fatura.getDataFechamento()), "27/03/2020");
+		assertEquals(formatter.format(fatura.getDataFechamento()), "28/03/2020");
 		assertEquals(formatter.format(fatura.getDataVencimento()), "11/04/2020");
 	}
 
@@ -90,14 +89,14 @@ public class CartaoCreditoTest {
 		CartaoCredito cartao = createCartaoCredito();
 
 		final Despesa despesa = new Despesa();
-		despesa.setVencimento(formatter.parse("27/03/2020"));
+		despesa.setVencimento(formatter.parse("28/03/2020"));
 		despesa.setValor(new BigDecimal("10"));
 
 		cartao.debitar(despesa);
 
 		Fatura fatura = cartao.getFaturas().iterator().next();
 
-		assertEquals(formatter.parse("27/04/2020"), fatura.getDataFechamento());
+		assertEquals(formatter.parse("28/04/2020"), fatura.getDataFechamento());
 	}
 
 	@Test
@@ -134,8 +133,8 @@ public class CartaoCreditoTest {
 		final Fatura faturaAgosto = iterator.next();
 		final Fatura faturaJulho = iterator.next();
 
-		assertEquals(faturaJulho.getDataFechamento(), formatter.parse("27/06/2015"));
-		assertEquals(faturaAgosto.getDataFechamento(), formatter.parse("27/08/2015"));
+		assertEquals(faturaJulho.getDataFechamento(), formatter.parse("28/06/2015"));
+		assertEquals(faturaAgosto.getDataFechamento(), formatter.parse("28/08/2015"));
 
 		assertEquals(faturaJulho.getDataVencimento(), formatter.parse("11/07/2015"));
 		assertEquals(faturaAgosto.getDataVencimento(), formatter.parse("11/09/2015"));
@@ -145,29 +144,32 @@ public class CartaoCreditoTest {
 	}
 
 	@Test
-	public void deveria() throws Exception {
+	public void deveriaAdicionarNumaUnicaFaturaTest() throws Exception {
 
 		CartaoCredito cartao = createCartaoCredito();
 
-		Fatura faturaMarco = new Fatura();
-		faturaMarco.setDataFechamento(formatter.parse("27/03/2020"));
-		cartao.getFaturas().add(faturaMarco);
+		cartao.debitar(createDespesa("03/03/2023"));
+		cartao.debitar(createDespesa("03/03/2023"));
+		cartao.debitar(createDespesa("04/03/2023"));
+		cartao.debitar(createDespesa("06/03/2023"));
+		cartao.debitar(createDespesa("11/03/2023"));
+		cartao.debitar(createDespesa("02/03/2023"));
+		cartao.debitar(createDespesa("20/03/2023"));
+		cartao.debitar(createDespesa("28/03/2023"));
 
-		Fatura faturaAbril = new Fatura();
-		faturaAbril.setDataFechamento(formatter.parse("27/04/2020"));
-		cartao.getFaturas().add(faturaAbril);
+		assertEquals(1, cartao.getFaturas().size());
 
-		Date dataBase = DateUtils.addHours(formatter.parse("27/03/2020"), 1);
+	}
 
-		Fatura fatura = cartao.getFaturaPorData(dataBase);
-
-		assertEquals(formatter.parse("27/04/2020"), fatura.getDataFechamento());
-
+	private Despesa createDespesa(String data) throws Exception {
+		Despesa despesa = new Despesa();
+		despesa.setVencimento(formatter.parse(data));
+		return despesa;
 	}
 
 	protected CartaoCredito createCartaoCredito() {
 		final CartaoCredito cartao = new CartaoCredito();
-		cartao.setDiaDeFechamento(27);
+		cartao.setDiaDeFechamento(28);
 		cartao.setDiaDeVencimento(11);
 		cartao.setLimiteAtual(new BigDecimal("100"));
 

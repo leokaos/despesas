@@ -13,6 +13,7 @@ import org.leo.despesas.dominio.debitavel.Conta;
 import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
+import org.leo.despesas.infra.Moeda;
 
 public class FaturaTest {
 
@@ -22,6 +23,7 @@ public class FaturaTest {
 	public void pagarTest() throws ParseException, Exception {
 
 		CartaoCredito cartao = new CartaoCredito();
+		cartao.setMoeda(Moeda.EURO);
 		cartao.setLimiteAtual(new BigDecimal("10000"));
 		cartao.setId(10L);
 
@@ -37,6 +39,7 @@ public class FaturaTest {
 
 		Conta conta = new Conta();
 		conta.setSaldo(new BigDecimal("1000"));
+		conta.setMoeda(Moeda.EURO);
 		conta.setId(20L);
 
 		Transferencia transferencia = fatura.pagar(conta);
