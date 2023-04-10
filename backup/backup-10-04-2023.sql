@@ -387,8 +387,8 @@ VISA	28	11	17300.00	6	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 31209.80	3
-1096.82	4
-202949.52	5
+202090.22	5
+348.08	4
 \.
 
 
@@ -2864,6 +2864,9 @@ t	2707	201	57
 t	2708	108	57
 t	2709	201	57
 t	2710	201	57
+t	2712	108	\N
+t	2713	107	\N
+t	2714	1	\N
 \.
 
 
@@ -2917,7 +2920,7 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 52	6	2023-01-11 00:00:00	2022-12-27 00:00:00	t
 54	6	2023-02-11 00:00:00	2023-01-27 00:00:00	t
 56	6	2023-03-11 00:00:00	2023-02-27 00:00:00	t
-57	6	2023-04-11 00:00:00	2023-03-28 00:00:00	f
+57	6	2023-04-11 00:00:00	2023-03-28 00:00:00	t
 \.
 
 
@@ -5533,6 +5536,10 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 2708	ANUIDADE DIFERENCIADA 04/12	2023-04-05	30.00	2023-03-02	6	REAL
 2709	APPLE.COM/BILL	2023-04-05	14.90	2023-03-20	6	REAL
 2710	EBN*SPOTIFY	2023-04-05	19.90	2023-03-28	6	REAL
+2711	Pagamento fatura 04/2023	2023-04-10	195.30	2023-04-10	5	REAL
+2712	Condominio	2023-04-10	664.00	2023-04-10	5	REAL
+2713	Avis	2023-04-10	698.74	2023-04-06	4	EURO
+2714	Saque	2023-04-10	50.00	2023-04-06	4	EURO
 \.
 
 
@@ -5760,6 +5767,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 2399	6	295.30
 2519	4	500.00
 2663	4	1000.00
+2711	6	195.30
 \.
 
 
@@ -5795,7 +5803,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 32, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 2710, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 2714, true);
 
 
 --
