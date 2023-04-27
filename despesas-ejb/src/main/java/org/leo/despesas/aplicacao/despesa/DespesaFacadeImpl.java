@@ -38,7 +38,8 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 	public List<GraficoVO> getGraficoPorPeriodo(final Periodo periodo) {
 		final StringBuilder builder = new StringBuilder();
 
-		builder.append("SELECT NEW org.leo.despesas.rest.GraficoVO(d.tipo.descricao,d.tipo.cor, SUM(d.valor)) FROM Despesa d ");
+		builder.append(
+				"SELECT NEW org.leo.despesas.rest.GraficoVO(d.tipo.descricao,d.tipo.cor, SUM(d.valor)) FROM Despesa d ");
 		builder.append("WHERE d.vencimento BETWEEN :dataInicial AND :dataFinal AND d.moeda = :moeda ");
 		builder.append("GROUP BY d.tipo.descricao, d.tipo.cor");
 
@@ -180,5 +181,19 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 			debitavel.estornar(despesa);
 
 		}
+	}
+
+	@Override
+	protected void posSalvar(Despesa antigo, Despesa novo) {
+
+		if (!novo.getValor().equals(antigo.getValor())) {
+
+			Debitavel debitavel = debitavelFacade.buscarPorId(novo.getDebitavel().getId());
+
+			debitavel.estornar(antigo);
+			debitavel.debitar(novo);
+
+		}
+
 	}
 }
