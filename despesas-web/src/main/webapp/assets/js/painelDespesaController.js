@@ -5,6 +5,8 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 	$scope.debitaveis = [];
 	$scope.debitavelUpload = null;
 	$scope.despesasPagas = true;
+	$scope.pagarTodas = false;
+	$scope.debitavelTodas = null;
 
 	$scope.add = function() {
 		$scope.despesas.push(despesaService.getNovoDespesa());
@@ -13,6 +15,20 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 	$scope.remove = function(index) {
 		$scope.despesas.splice(index, 1);
 	};
+	
+	$scope.configurarPagar = function() {
+
+		for (var x = 0; x < $scope.despesas.length; x++) {
+			$scope.despesas[x].paga = $scope.pagarTodas;
+		}
+	}
+
+	$scope.configurarDebitaveis = function() {
+
+		for (var x = 0; x < $scope.despesas.length; x++) {
+			$scope.despesas[x].debitavel = $scope.debitavelTodas;
+		}
+	}
 
 	tipoDespesaService.listar(function(tiposDespesa) {
 		$scope.tiposDespesa = tiposDespesa;
@@ -43,6 +59,9 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 				$scope.despesas[x].moeda = $scope.debitavelUpload.moeda;
 				$scope.despesas[x].paga = $scope.despesasPagas;
 			}
+
+			$scope.pagarTodas = $scope.despesasPagas;
+			$scope.debitavelTodas = $scope.debitavelUpload;
 
 			$('#modalUpload').modal('hide');
 
