@@ -5,6 +5,7 @@ app.controller('despesaController', function($scope, despesaService, $location, 
 	$scope.dataAtual = new Date();
 	$scope.ano = $scope.dataAtual.getFullYear();
 	$scope.mes = $scope.dataAtual.getMonth();
+	$scope.dtInstance;
 
 	var dataInicial = new Date($scope.ano, $scope.mes, 1);
 	var dataFinal = new Date($scope.ano, $scope.mes + 1, 0, 23, 59, 59);
