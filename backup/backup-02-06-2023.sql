@@ -388,7 +388,7 @@ VISA	28	11	17300.00	6	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 235972.40	5
 653.46	4
-29250.16	3
+29240.06	3
 \.
 
 
@@ -3042,6 +3042,7 @@ t	2891	108	\N
 t	2892	4	\N
 t	2893	102	\N
 t	2894	102	\N
+t	2895	102	\N
 \.
 
 
@@ -5894,6 +5895,8 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 2892	ComGas	2023-05-30	10.92	2023-05-15	5	REAL
 2893	Glovo 1	2023-05-30	14.60	2023-05-08	4	EURO
 2894	Glovo 2	2023-05-30	9.45	2023-05-08	4	EURO
+2895	Glovo	2023-06-02	10.10	2023-06-01	3	EURO
+2896	Salario	\N	3500.00	2023-06-30	3	EURO
 \.
 
 
@@ -6001,6 +6004,7 @@ t	2571	109	\N
 t	2612	109	\N
 t	2701	109	\N
 t	2774	109	\N
+f	2896	109	\N
 \.
 
 
@@ -6160,7 +6164,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 32, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 2894, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 2896, true);
 
 
 --
