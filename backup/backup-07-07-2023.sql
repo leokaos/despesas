@@ -386,9 +386,9 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-31650.32	3
-647.47	4
-243488.44	5
+641.48	4
+31443.07	3
+243280.14	5
 \.
 
 
@@ -3133,6 +3133,19 @@ t	2985	201	60
 t	2986	201	60
 t	2987	201	60
 t	2988	201	60
+t	2990	102	\N
+t	2991	102	\N
+t	2992	107	\N
+t	2993	107	\N
+t	2994	102	\N
+t	2995	102	\N
+t	2996	102	\N
+t	2997	1	\N
+t	2998	102	\N
+t	2999	102	\N
+t	3000	102	\N
+t	3001	108	\N
+t	3002	4	\N
 \.
 
 
@@ -3189,7 +3202,7 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 57	6	2023-04-11 00:00:00	2023-03-28 00:00:00	t
 58	6	2023-05-11 00:00:00	2023-04-28 00:00:00	t
 59	6	2023-06-11 00:00:00	2023-05-28 00:00:00	t
-60	6	2023-07-11 00:00:00	2023-06-28 00:00:00	f
+60	6	2023-07-11 00:00:00	2023-06-28 00:00:00	t
 \.
 
 
@@ -6082,6 +6095,20 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 2987	DM*HELPHBOMAXCOM	2023-07-01	34.90	2023-06-21	6	REAL
 2988	EBN *SPOTIFY	2023-07-01	19.90	2023-06-28	6	REAL
 2989	Salario	\N	3500.00	2023-07-31	3	EURO
+2990	Glovo 05JUL BRLFFKRNN Lisbon PR	2023-07-07	9.45	2023-07-07	3	EURO
+2991	Glovo 05JUL BRHGGBUPL Lisbon PR	2023-07-07	8.90	2023-07-07	3	EURO
+2992	UBR PENDING.UBER.COM AMSTERDAM NH	2023-07-07	4.00	2023-07-06	3	EURO
+2993	UBR PENDING.UBER.COM AMSTERDAM NH	2023-07-07	5.47	2023-07-06	3	EURO
+2994	Glovo 04JUL BRZSBBG12 Lisbon PR	2023-07-07	9.45	2023-07-06	3	EURO
+2995	Glovo 04JUL BRAB19JGE Lisbon PR	2023-07-07	9.95	2023-07-06	3	EURO
+2996	Glovo 03JUL BR38MEUM1 Lisbon PR	2023-07-07	13.79	2023-07-05	3	EURO
+2997	LEV ATM 6251 CGD   Braga         R Fr DuarteSa	2023-07-07	60.00	2023-07-04	3	EURO
+2998	Glovo 02JUL BR91ELXR1 Lisbon PR	2023-07-07	12.90	2023-07-04	3	EURO
+2999	glovo 1	2023-07-07	9.45	2023-07-06	3	EURO
+3000	glovo 2	2023-07-07	9.45	2023-07-07	3	EURO
+3001	Glovo Prime	2023-07-07	5.99	2023-07-03	4	EURO
+3002	EDP	2023-07-07	54.44	2023-07-07	3	EURO
+3003	Pagamento fatura 07/2023	2023-07-07	208.30	2023-07-07	5	REAL
 \.
 
 
@@ -6317,6 +6344,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 2817	4	500.00
 2889	5	36149.40
 2978	6	202.30
+3003	6	208.30
 \.
 
 
@@ -6352,7 +6380,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 32, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 2989, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 3003, true);
 
 
 --
