@@ -83,6 +83,8 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 
 				$('#modalSalvar').modal('hide');
 				$scope.despesas = [];
+				$scope.total = 0;
+				$scope.parcial = 0;
 
 				growl.info('Despesas salvas com sucesso!');
 

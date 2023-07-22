@@ -186,13 +186,19 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 	@Override
 	protected void posSalvar(Despesa antigo, Despesa novo) {
 
-		if (!novo.getValor().equals(antigo.getValor())) {
+		Debitavel debitavel = debitavelFacade.buscarPorId(novo.getDebitavel().getId());
 
-			Debitavel debitavel = debitavelFacade.buscarPorId(novo.getDebitavel().getId());
-
+		if (!novo.getValor().equals(antigo.getValor()) && antigo.isPaga() && novo.isPaga()) {
 			debitavel.estornar(antigo);
 			debitavel.debitar(novo);
+		}
 
+		if (antigo.isPaga() && !novo.isPaga()) {
+			debitavel.estornar(antigo);
+		}
+
+		if (!antigo.isPaga() && novo.isPaga()) {
+			debitavel.debitar(novo);
 		}
 
 	}

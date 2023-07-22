@@ -64,6 +64,8 @@ app.controller('painelReceitaController', function($scope, receitaService, tipoR
 
 				$('#modalSalvar').modal('hide');
 				$scope.receitas = [];
+				$scope.total = 0;
+				$scope.parcial = 0;
 
 				growl.info('Receitas salvas com sucesso!');
 
