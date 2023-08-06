@@ -387,8 +387,8 @@ VISA	28	11	17300.00	6	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 35078.44	3
-41619.08	5
 589.57	4
+41321.78	5
 \.
 
 
@@ -3226,6 +3226,15 @@ t	3082	108	\N
 t	3083	4	\N
 t	3084	4	\N
 t	3085	4	\N
+t	3086	201	61
+t	3087	108	61
+t	3088	201	61
+t	3089	201	61
+t	3090	201	61
+t	3091	201	61
+t	3092	201	61
+t	3093	201	61
+t	3094	201	61
 \.
 
 
@@ -3283,6 +3292,7 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 58	6	2023-05-11 00:00:00	2023-04-28 00:00:00	t
 59	6	2023-06-11 00:00:00	2023-05-28 00:00:00	t
 60	6	2023-07-11 00:00:00	2023-06-28 00:00:00	t
+61	6	2023-08-11 00:00:00	2023-07-28 00:00:00	t
 \.
 
 
@@ -6271,6 +6281,16 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 3083	Eletropaulo	2023-08-06	20.07	2023-07-31	5	REAL
 3084	Pacote Itau	2023-08-06	71.90	2023-08-02	5	REAL
 3085	Glovo Prime	2023-08-06	5.99	2023-08-03	4	EURO
+3086	Blizzard	2023-08-06	89.00	2023-06-29	6	REAL
+3087	ANUIDADE DIFERENCIADA 08/12	2023-08-06	30.00	2023-06-30	6	REAL
+3088	AmazonPrimeBR	2023-08-06	14.90	2023-07-03	6	REAL
+3089	Amazon Kindle Unltd	2023-08-06	19.90	2023-07-03	6	REAL
+3090	Disney Plus	2023-08-06	33.90	2023-07-06	6	REAL
+3091	NETFLIX.COM	2023-08-06	39.90	2023-07-11	6	REAL
+3092	APPLE.COM/BILL	2023-08-06	14.90	2023-07-20	6	REAL
+3093	HELPHBOMAXCOM	2023-08-06	34.90	2023-07-21	6	REAL
+3094	Spotify	2023-08-06	19.90	2023-07-28	6	REAL
+3095	Pagamento fatura 08/2023	2023-08-07	297.30	2023-08-06	5	REAL
 \.
 
 
@@ -6509,6 +6529,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 2889	5	36149.40
 2978	6	202.30
 3003	6	208.30
+3095	6	297.30
 \.
 
 
@@ -6530,7 +6551,7 @@ SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 7, true);
 -- Name: fatura_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 60, true);
+SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 61, true);
 
 
 --
@@ -6544,7 +6565,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 32, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 3085, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 3095, true);
 
 
 --
