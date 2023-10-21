@@ -1,6 +1,6 @@
 app.service('transferenciaService', function($http, filtroParser) {
 
-	var pathBase = '/despesas/services/transferencia/';
+	var pathBase = 'http://localhost:8080/despesas/services/transferencia/';
 
 	this.getNovaTransferencia = function() {
 		return {

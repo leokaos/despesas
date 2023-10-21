@@ -1,6 +1,6 @@
 app.service('despesaService', function($http, filtroParser) {
 
-	pathBaseDespesa = '/despesas/services/despesa/';
+	pathBaseDespesa = 'http://localhost:8080/despesas/services/despesa/';
 
 	this.getNovoDespesa = function() {
 		return {

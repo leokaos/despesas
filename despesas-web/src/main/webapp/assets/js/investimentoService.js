@@ -1,6 +1,6 @@
 app.service('investimentoService',function($http) {
 
-	var pathBase = '/despesas/services/investimento/';
+	var pathBase = 'http://localhost:8080/despesas/services/investimento/';
 
 	this.getNovoInvestimento = function() {
 		return {

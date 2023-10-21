@@ -1,6 +1,6 @@
 app.service('tipoDespesaService', function ($http) {
 
-    var pathBase = '/despesas/services/tipodespesa/';
+    var pathBase = 'http://localhost:8080/despesas/services/tipodespesa/';
 
     this.getNovoTipoDespesa = function () {
         return {

@@ -1,6 +1,6 @@
 app.service('cartaoService', function ($http) {
 
-    var pathBase = '/despesas/services/cartao/';
+    var pathBase = 'http://localhost:8080/despesas/services/cartao/';
 
     this.getNovoCartao = function () {
         return {

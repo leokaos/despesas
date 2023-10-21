@@ -1,6 +1,6 @@
 app.service('movimentacaoService', function($http) {
 
-	var pathBase = '/despesas/services/movimentacao/';
+	var pathBase = 'http://localhost:8080/despesas/services/movimentacao/';
 
 	this.buscarMovimentacaoPorPeriodo = function(dataInicio, dataFim, fn) {
 

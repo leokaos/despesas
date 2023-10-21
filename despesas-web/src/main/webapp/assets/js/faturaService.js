@@ -1,6 +1,6 @@
 app.service('faturaService', function ($http) {
 
-    var pathBase = '/despesas/services/fatura/';
+    var pathBase = 'http://localhost:8080/despesas/services/fatura/';
 
     this.listar = function (fn) {
         $http.get(pathBase).success(function (data) {

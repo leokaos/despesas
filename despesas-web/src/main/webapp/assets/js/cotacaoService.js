@@ -1,6 +1,6 @@
 app.service('cotacaoService',function($http, filtroParser) {
 
-	var pathBase = '/despesas/services/cotacao/';
+	var pathBase = 'http://localhost:8080/despesas/services/cotacao/';
 
 	this.getNovaCotacao = function() {
 		return {

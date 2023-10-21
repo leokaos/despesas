@@ -1,7 +1,7 @@
 app.service('contaService', function ($http) {
 
     var conta = null;
-    var pathBase = '/despesas/services/conta/';
+    var pathBase = 'http://localhost:8080/despesas/services/conta/';
 
     this.getNovoConta = function () {
         return {

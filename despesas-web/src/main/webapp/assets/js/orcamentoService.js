@@ -1,6 +1,6 @@
 app.service('orcamentoService',function($http) {
 
-	var pathBase = '/despesas/services/orcamento/';
+	var pathBase = 'http://localhost:8080/despesas/services/orcamento/';
 
 	this.getNovoOrcamento = function() {
 		return {

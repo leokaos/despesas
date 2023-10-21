@@ -1,6 +1,6 @@
 app.service('dividaService', function ($http) {
 
-    var pathBase = '/despesas/services/divida/';
+    var pathBase = 'http://localhost:8080/despesas/services/divida/';
 
     this.getNovaDivida = function () {
         return {
