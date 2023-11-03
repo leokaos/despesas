@@ -3515,6 +3515,17 @@ t	3387	201	\N
 t	3388	102	\N
 t	3389	4	\N
 t	3390	108	\N
+t	3391	108	64
+t	3392	201	64
+t	3393	108	64
+t	3394	201	64
+t	3395	201	64
+t	3396	108	64
+t	3397	201	64
+t	3398	201	64
+t	3399	201	64
+t	3400	201	64
+t	3401	201	64
 \.
 
 
@@ -3575,6 +3586,7 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 61	6	2023-08-11 00:00:00	2023-07-28 00:00:00	t
 62	6	2023-09-11 00:00:00	2023-08-28 00:00:00	t
 63	6	2023-10-11 00:00:00	2023-09-28 00:00:00	t
+64	6	2023-11-11 00:00:00	2023-10-28 00:00:00	f
 \.
 
 
@@ -6860,6 +6872,17 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 3388	Glovo GLOVO PRIME	2023-11-03	5.99	2023-11-03	4	EURO
 3389	DA  ELETROPAULO 56301179	2023-11-03	21.20	2023-10-30	5	REAL
 3390	01- IOF CAMBIO	2023-11-03	133.54	2023-11-03	5	REAL
+3391	AMERICANAS *FIT IN MONTEIRO	2023-11-03	137.78	2023-10-01	6	REAL
+3392	ALURA	2023-11-03	92.65	2023-10-01	6	REAL
+3393	BLOX COBRANC*DESM 02/06	2023-11-03	342.32	2023-10-01	6	REAL
+3394	Amazon Kindle Unltd	2023-11-03	19.90	2023-10-03	6	REAL
+3395	AmazonPrimeBR	2023-11-03	14.90	2023-10-03	6	REAL
+3396	ANUIDADE DIFERENCIADA 11/12	2023-11-03	30.00	2023-10-03	6	REAL
+3397	Disney Plus	2023-11-03	33.90	2023-10-06	6	REAL
+3398	NETFLIX.COM	2023-11-03	39.90	2023-10-11	6	REAL
+3399	APPLE.COM/BILL	2023-11-03	14.90	2023-10-20	6	REAL
+3400	DM*HELPHBOMAXCOM	2023-11-03	34.90	2023-10-21	6	REAL
+3401	EBN *SPOTIFY	2023-11-03	21.90	2023-10-28	6	REAL
 \.
 
 
@@ -7127,7 +7150,7 @@ SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 7, true);
 -- Name: fatura_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 63, true);
+SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 64, true);
 
 
 --
@@ -7141,7 +7164,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 32, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 3390, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 3401, true);
 
 
 --
