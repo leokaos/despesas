@@ -386,8 +386,8 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-36628.21	3
 475.72	4
+36438.38	3
 69395.39	5
 \.
 
@@ -3615,6 +3615,7 @@ t	3490	102	\N
 t	3491	103	\N
 t	3492	201	\N
 t	3493	108	\N
+t	3495	4	\N
 \.
 
 
@@ -7065,6 +7066,7 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 3492	AMAZON MARKETPLACE	2023-12-26	10.15	2023-12-01	4	EURO
 3493	Glovo GLOVO PRIME	2023-12-26	5.99	2023-12-03	4	EURO
 3494	Salario	\N	3500.00	2023-12-31	3	EURO
+3495	EDP	2023-12-31	189.83	2023-12-28	3	EURO
 \.
 
 
@@ -7350,7 +7352,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 32, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 3494, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 3495, true);
 
 
 --
