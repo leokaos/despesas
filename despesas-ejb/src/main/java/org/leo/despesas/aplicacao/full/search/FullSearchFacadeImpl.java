@@ -5,6 +5,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.hibernate.CacheMode;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.leo.despesas.infra.exception.DespesasException;
@@ -23,7 +24,7 @@ public class FullSearchFacadeImpl implements FullSearchFacade {
 
 			FullTextEntityManager fullTextSession = Search.getFullTextEntityManager(entityManager);
 
-			fullTextSession.createIndexer().startAndWait();
+			fullTextSession.createIndexer().batchSizeToLoadObjects(2).cacheMode(CacheMode.IGNORE).threadsToLoadObjects(2).threadsForSubsequentFetching(2).batchSizeToLoadObjects(5).startAndWait();
 
 		} catch (InterruptedException e) {
 			throw new DespesasException();

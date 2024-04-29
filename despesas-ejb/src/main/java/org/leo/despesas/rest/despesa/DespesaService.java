@@ -42,8 +42,8 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa, Desp
 	@GET
 	@Path(value = "/grafico")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<GraficoVO> buscarPorPeriodo(@QueryParam("dataInicial") final Date dataInicial,@QueryParam("dataFinal") final Date dataFinal) {
-		return despesaFacade.getGraficoPorPeriodo(new Periodo(dataInicial,dataFinal));
+	public List<GraficoVO> buscarPorPeriodo(@QueryParam("dataInicial") final Date dataInicial, @QueryParam("dataFinal") final Date dataFinal) {
+		return despesaFacade.getGraficoPorPeriodo(new Periodo(dataInicial, dataFinal));
 	}
 
 	@POST
@@ -51,7 +51,7 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa, Desp
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response inserir(final DespesaVO despesaVO) throws DespesasException {
 
-		Despesa resultado = despesaFacade.inserir(despesaVO.getDespesa(),despesaVO.getParcelamentoVO());
+		Despesa resultado = despesaFacade.inserir(despesaVO.getDespesa(), despesaVO.getParcelamentoVO());
 
 		return Response.created(null).entity(resultado).build();
 	}
@@ -80,7 +80,7 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa, Desp
 
 		String fileName = "";
 
-		final Map<String,List<InputPart>> uploadForm = input.getFormDataMap();
+		final Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
 		final List<InputPart> inputParts = uploadForm.get(NOME_CAMPO);
 
 		for (final InputPart inputPart : inputParts) {
@@ -89,7 +89,7 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa, Desp
 
 				fileName = new Date().getTime() + ".csv";
 
-				final InputStream inputStream = inputPart.getBody(InputStream.class,null);
+				final InputStream inputStream = inputPart.getBody(InputStream.class, null);
 
 				final byte[] bytes = IOUtils.toByteArray(inputStream);
 
@@ -114,6 +114,13 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa, Desp
 		}
 
 		return null;
+	}
+
+	@GET
+	@Path(value = "/churros")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Despesa> bla(@QueryParam("campo") final String campo, @QueryParam("valor") final String valor) {
+		return despesaFacade.fullTextSearch(valor, campo);
 	}
 
 }

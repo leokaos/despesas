@@ -3,6 +3,8 @@ package org.leo.despesas.infra;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -134,6 +136,7 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public List<E> fullTextSearch(String busca, String... campos) {
 
 		for (String word : parametroFacade.getIgnoreWords()) {
@@ -141,7 +144,7 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 		}
 
 		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
-
+		
 		QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(getClasseEntidade()).get();
 
 		org.apache.lucene.search.Query query = qb.keyword().onFields(campos).matching(busca).createQuery();

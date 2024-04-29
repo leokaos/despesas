@@ -141,7 +141,7 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 	}
 
 	private TipoDespesa searchTipoPorDescricao(String descricao) {
-
+		
 		List<Despesa> despesasComDescricaoParecida = this.fullTextSearch(descricao, "descricao");
 
 		Map<TipoDespesa, Integer> map = new HashMap<TipoDespesa, Integer>();
