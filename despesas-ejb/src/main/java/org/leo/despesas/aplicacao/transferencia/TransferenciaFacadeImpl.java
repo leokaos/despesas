@@ -13,6 +13,7 @@ import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
 import org.leo.despesas.aplicacao.fatura.FaturaFacade;
 import org.leo.despesas.aplicacao.parametro.ParametroFacade;
 import org.leo.despesas.dominio.debitavel.Conta;
+import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
 import org.leo.despesas.dominio.movimentacao.TransferenciaFiltro;
@@ -40,13 +41,13 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, Trans
 
 	@Override
 	public void pagarFatura(Fatura fatura, final Conta conta, Date dataPagamento) throws DespesasException {
-		
+
 		fatura = faturaFacade.buscarPorId(fatura.getId());
-		
+
 		final Transferencia transferencia = fatura.pagar(conta);
 
 		transferencia.setPagamento(dataPagamento);
-		
+
 		inserir(transferencia);
 	}
 
@@ -76,7 +77,7 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, Trans
 
 		debitavelFacade.buscarPorId(t.getDebitavel().getId()).transferir(t);
 		debitavelFacade.buscarPorId(t.getCreditavel().getId()).transferir(t);
-		
+
 		return transferencia;
 	}
 
@@ -97,7 +98,7 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, Trans
 			transferencia.setVencimento(new Date());
 			transferencia.setPagamento(new Date());
 			transferencia.setMoeda(transferencia.getCreditavel().getMoeda());
-			
+
 			return inserir(transferencia);
 		}
 
@@ -106,6 +107,16 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, Trans
 	@Override
 	protected Class<Transferencia> getClasseEntidade() {
 		return Transferencia.class;
+	}
+
+	@Override
+	protected void posDeletar(Transferencia transferencia) {
+
+		Debitavel debitavel = debitavelFacade.buscarPorId(transferencia.getDebitavel().getId());
+		Debitavel creditavel = debitavelFacade.buscarPorId(transferencia.getCreditavel().getId());
+
+		debitavel.estornar(transferencia);
+		creditavel.estornar(transferencia);
 	}
 
 }

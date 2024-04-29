@@ -116,11 +116,4 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa, Desp
 		return null;
 	}
 
-	@GET
-	@Path(value = "/churros")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Despesa> bla(@QueryParam("campo") final String campo, @QueryParam("valor") final String valor) {
-		return despesaFacade.fullTextSearch(valor, campo);
-	}
-
 }

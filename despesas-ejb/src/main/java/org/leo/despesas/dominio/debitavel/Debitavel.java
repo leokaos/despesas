@@ -119,4 +119,6 @@ public abstract class Debitavel implements ModelEntity {
 	public abstract void estornar(Despesa despesa);
 	
 	public abstract void estornar(Receita receita);
+	
+	public abstract void estornar(Transferencia transferencia);
 }

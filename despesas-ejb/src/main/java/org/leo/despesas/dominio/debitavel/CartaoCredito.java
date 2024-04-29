@@ -209,4 +209,9 @@ public class CartaoCredito extends Debitavel {
 
 	}
 
+	@Override
+	public void estornar(Transferencia transferencia) {
+
+	}
+
 }
