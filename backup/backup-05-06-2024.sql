@@ -387,8 +387,8 @@ VISA	28	11	17300.00	6	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 43294.27	3
-37405.80	5
 210.10	4
+36932.86	5
 \.
 
 
@@ -4270,7 +4270,6 @@ t	4169	201	72
 t	4167	201	72
 t	4170	108	72
 t	4171	201	72
-t	4172	201	72
 t	4174	108	\N
 t	4175	4	\N
 t	4176	4	\N
@@ -4288,6 +4287,7 @@ t	4187	102	\N
 t	4188	102	\N
 t	4189	102	\N
 t	4190	102	\N
+t	4192	108	\N
 \.
 
 
@@ -4354,8 +4354,8 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 67	6	2024-02-11 00:00:00	2024-01-28 00:00:00	t
 69	6	2024-03-11 00:00:00	2024-02-28 00:00:00	t
 70	6	2024-04-11 00:00:00	2024-03-28 00:00:00	t
-72	6	2024-06-11 00:00:00	2024-05-28 00:00:00	f
 71	6	2024-05-11 00:00:00	2024-04-28 00:00:00	t
+72	6	2024-06-11 00:00:00	2024-05-28 00:00:00	t
 \.
 
 
@@ -8419,7 +8419,6 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 4169	DM*HELPMAXCOM	2024-06-03	34.90	2024-05-21	6	REAL
 4170	ALURA09/12	2024-06-03	92.65	2024-09-26	6	REAL
 4171	EBN*SPOTIFY	2024-06-03	21.90	2024-05-29	6	REAL
-4172	AmazonPrimeBR	2024-06-03	19.90	2024-06-03	6	REAL
 4173	Pagamento fatura 05/2024	2024-05-06	396.04	2024-06-04	5	REAL
 4174	TAR PACOTE ITAU   ABR/24	2024-06-04	71.90	2024-05-03	5	REAL
 4175	MOBILE PAG TIT 775324902000	2024-06-04	664.00	2024-05-06	5	REAL
@@ -8438,6 +8437,8 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 4188	Glovo GLOVO PRIME	2024-06-04	5.99	2024-06-03	4	EURO
 4189	Glovo 02JUN BRG7CLLN1	2024-06-04	12.20	2024-06-03	4	EURO
 4190	Glovo 04JUN BR6PGGCYG	2024-06-04	10.95	2024-06-04	4	EURO
+4191	Pagamento fatura 06/2024	2024-06-05	401.04	2024-06-05	5	REAL
+4192	Tarifa pacote	2024-06-05	71.90	2024-06-04	5	REAL
 \.
 
 
@@ -8710,6 +8711,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 4032	6	1654.43
 4045	6	1329.11
 4173	6	396.04
+4191	6	401.04
 \.
 
 
@@ -8745,7 +8747,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 34, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 4190, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 4192, true);
 
 
 --
