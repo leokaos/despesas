@@ -388,7 +388,7 @@ VISA	28	11	17300.00	6	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 156.02	4
 41025.34	3
-75463.80	5
+74942.14	5
 \.
 
 
@@ -4416,8 +4416,6 @@ t	4322	108	\N
 t	4323	201	76
 t	4324	201	76
 t	4325	108	76
-t	4326	201	76
-t	4327	201	76
 t	4329	201	76
 t	4330	201	76
 t	4332	201	76
@@ -4428,6 +4426,10 @@ t	4328	201	76
 t	4331	108	76
 t	4336	4	\N
 t	4337	4	\N
+t	4343	201	76
+t	4344	201	76
+t	4350	108	76
+t	4351	201	76
 \.
 
 
@@ -4496,7 +4498,7 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 70	6	2024-04-11 00:00:00	2024-03-28 00:00:00	t
 71	6	2024-05-11 00:00:00	2024-04-28 00:00:00	t
 72	6	2024-06-11 00:00:00	2024-05-28 00:00:00	t
-76	6	2024-07-11 00:00:00	2024-06-28 00:00:00	f
+76	6	2024-07-11 00:00:00	2024-06-28 00:00:00	t
 \.
 
 
@@ -8712,8 +8714,6 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 4323	Amazon Kindle Unltd	2024-07-04	19.90	2024-06-03	6	REAL
 4324	Amazon Prime	2024-07-04	19.90	2024-06-03	6	REAL
 4325	ANUIDADE DIFERENCIADA 07/12	2024-07-04	34.00	2024-06-04	6	REAL
-4326	THE WALT DISNEY COMPAN	2024-07-04	33.90	2024-06-06	6	REAL
-4327	NETFLIX.COM	2024-07-04	39.90	2024-06-11	6	REAL
 4328	AMAZON MARKET PLACE 07/10	2024-07-04	82.09	2024-12-14	6	REAL
 4329	APPLE.COM/BILL	2024-07-04	21.90	2024-06-20	6	REAL
 4330	DM HELPMAXCOM	2024-07-04	34.90	2024-06-21	6	REAL
@@ -8724,6 +8724,11 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 4335	Amazon Kindle Unltd	2024-07-04	19.90	2024-06-28	6	REAL
 4336	Aluguel	2024-07-05	650.00	2024-07-05	3	EURO
 4337	Condominio	2024-07-05	664.00	2024-07-15	5	REAL
+4343	THE WALT DISNEY COMPAN	2024-07-06	33.90	2024-06-06	6	REAL
+4344	NETFLIX.COM	2024-07-06	39.90	2024-06-11	6	REAL
+4350	IOF TRANSACOES INTERNACIONAIS	2024-07-06	3.39	2024-06-27	6	REAL
+4351	AMZN Mktp ES*HV5IG5T24 800-279-662	2024-07-06	66.44	2024-06-11	6	REAL
+4353	Pagamento fatura 07/2024	2024-07-11	521.66	2024-07-06	5	REAL
 \.
 
 
@@ -9002,6 +9007,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 4191	6	401.04
 4224	4	200.00
 4315	5	39599.00
+4353	6	521.66
 \.
 
 
@@ -9037,7 +9043,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 35, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 4337, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 4353, true);
 
 
 --
