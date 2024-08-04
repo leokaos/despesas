@@ -5,6 +5,7 @@ app.controller('painelReceitaController', function($scope, receitaService, tipoR
 	$scope.debitaveis = [];
 	$scope.receitaUpload = null;
 	$scope.receitasDespositadas = true;
+	$scope.loading = false;
 
 	$scope.add = function() {
 		$scope.receitas.push(receitaService.getNovoReceita());
@@ -29,6 +30,8 @@ app.controller('painelReceitaController', function($scope, receitaService, tipoR
 		var file = document.getElementById("arquivo");
 
 		fd.append('arquivo', file.files[0]);
+		
+		$scope.loading = true;
 
 		$http.post('services/receita/upload', fd, {
 			transformRequest : angular.identity,
@@ -45,6 +48,8 @@ app.controller('painelReceitaController', function($scope, receitaService, tipoR
 			}
 
 			$('#modalUpload').modal('hide');
+			
+			$scope.loading = false;
 
 		}).error(function() {
 			growl.error('Erro ao carregar do arquivo!');
@@ -55,6 +60,7 @@ app.controller('painelReceitaController', function($scope, receitaService, tipoR
 
 		$scope.total = $scope.receitas.length;
 		$scope.parcial = 0;
+		$scope.loading = true;
 
 		var fn = function() {
 
@@ -66,6 +72,7 @@ app.controller('painelReceitaController', function($scope, receitaService, tipoR
 				$scope.receitas = [];
 				$scope.total = 0;
 				$scope.parcial = 0;
+				$scope.loading = false;
 
 				growl.info('Receitas salvas com sucesso!');
 

@@ -7,6 +7,7 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 	$scope.despesasPagas = true;
 	$scope.pagarTodas = false;
 	$scope.debitavelTodas = null;
+	$scope.loading = false;
 
 	$scope.add = function() {
 		$scope.despesas.push(despesaService.getNovoDespesa());
@@ -45,6 +46,8 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 		var file = document.getElementById("arquivo");
 
 		fd.append('arquivo', file.files[0]);
+		
+		$scope.loading = true;
 
 		$http.post('services/despesa/upload', fd, {
 			transformRequest : angular.identity,
@@ -64,6 +67,7 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 			$scope.debitavelTodas = $scope.debitavelUpload;
 
 			$('#modalUpload').modal('hide');
+			$scope.loading = false;
 
 		}).error(function() {
 			growl.error('Erro ao carregar do arquivo!');
@@ -74,6 +78,7 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 
 		$scope.total = $scope.despesas.length;
 		$scope.parcial = 0;
+		$scope.loading = true;
 
 		var fn = function() {
 
@@ -85,6 +90,7 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 				$scope.despesas = [];
 				$scope.total = 0;
 				$scope.parcial = 0;
+				$scope.loading = false;
 
 				growl.info('Despesas salvas com sucesso!');
 

@@ -105,7 +105,9 @@
 
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal" style="float: left;">Cancelar</button>
-				<button type="button" class="btn btn-primary" ng-click="uploadFile();">OK</button>
+				<button type="button" class="btn btn-primary" ng-click="uploadFile();" ng-disabled="loading">
+					OK <span class="glyphicon glyphicon-refresh spinning" ng-if="loading"></span>
+				</button>
 			</div>
 
 		</div>
@@ -136,7 +138,9 @@
 
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal" style="float: left;">Cancelar</button>
-				<button type="button" class="btn btn-primary" ng-click="salvar();">OK</button>
+				<button type="button" class="btn btn-primary" ng-click="salvar();" ng-disabled="loading">
+					OK <span class="glyphicon glyphicon-refresh spinning" ng-if="loading"></span>
+				</button>
 			</div>
 
 		</div>
