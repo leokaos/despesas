@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.QueryParam;
 
 import org.apache.commons.lang3.StringUtils;
 import org.leo.despesas.infra.query.BetweenClause;
@@ -21,6 +22,9 @@ import com.google.common.collect.Lists;
 public abstract class AbstractModelFiltro<T extends ModelEntity> implements ModelFiltro<T> {
 
 	private List<Clause> clausulas = Lists.newArrayList();
+
+	@QueryParam("filter")
+	private String filter;
 
 	private static final String SELECT_MODEL = "SELECT {1} FROM {0} {1}";
 

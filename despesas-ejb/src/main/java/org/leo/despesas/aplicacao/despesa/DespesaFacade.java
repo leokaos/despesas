@@ -1,6 +1,5 @@
 package org.leo.despesas.aplicacao.despesa;
 
-import java.io.File;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -14,14 +13,12 @@ import org.leo.despesas.rest.GraficoVO;
 import org.leo.despesas.rest.ParcelamentoVO;
 
 @Local
-public interface DespesaFacade extends SimpleFacade<Despesa, DespesaFiltro> {
+public interface DespesaFacade extends SimpleFacade<Despesa, DespesaFiltro>, ContentUploadble<Despesa> {
 
 	List<GraficoVO> getGraficoPorPeriodo(Periodo periodo);
 
 	void pagar(Despesa despesa);
 
-	Despesa inserir(Despesa despesa,ParcelamentoVO parcelamentoVO) throws DespesasException;
-
-	List<Despesa> carregarDeArquivo(File arquivoDespesas);
+	Despesa inserir(Despesa despesa, ParcelamentoVO parcelamentoVO) throws DespesasException;
 
 }

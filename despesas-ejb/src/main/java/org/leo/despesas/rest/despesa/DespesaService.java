@@ -1,8 +1,7 @@
 package org.leo.despesas.rest.despesa;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +17,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.poi.util.IOUtils;
+import org.apache.commons.io.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import org.leo.despesas.aplicacao.despesa.DespesaFacade;
@@ -78,8 +77,6 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa, Desp
 	@Produces(value = MediaType.APPLICATION_JSON)
 	public List<Despesa> uploadFile(final MultipartFormDataInput input) {
 
-		String fileName = "";
-
 		final Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
 		final List<InputPart> inputParts = uploadForm.get(NOME_CAMPO);
 
@@ -87,25 +84,11 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa, Desp
 
 			try {
 
-				fileName = new Date().getTime() + ".csv";
-
 				final InputStream inputStream = inputPart.getBody(InputStream.class, null);
 
-				final byte[] bytes = IOUtils.toByteArray(inputStream);
+				final List<String> content = IOUtils.readLines(inputStream, StandardCharsets.UTF_8);
 
-				final File file = new File(fileName);
-
-				if (!file.exists()) {
-					file.createNewFile();
-				}
-
-				final FileOutputStream fop = new FileOutputStream(file);
-
-				fop.write(bytes);
-				fop.flush();
-				fop.close();
-
-				return despesaFacade.carregarDeArquivo(file);
+				return despesaFacade.carregarDeArquivo(content);
 
 			} catch (final Exception e) {
 				e.printStackTrace();

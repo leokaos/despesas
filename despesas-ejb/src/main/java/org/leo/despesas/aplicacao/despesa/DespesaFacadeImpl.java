@@ -1,8 +1,6 @@
 package org.leo.despesas.aplicacao.despesa;
 
-import java.io.File;
 import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +12,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 
-import org.apache.commons.io.FileUtils;
 import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
 import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.dominio.movimentacao.Despesa;
@@ -38,8 +35,7 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 	public List<GraficoVO> getGraficoPorPeriodo(final Periodo periodo) {
 		final StringBuilder builder = new StringBuilder();
 
-		builder.append(
-				"SELECT NEW org.leo.despesas.rest.GraficoVO(d.tipo.descricao,d.tipo.cor, SUM(d.valor)) FROM Despesa d ");
+		builder.append("SELECT NEW org.leo.despesas.rest.GraficoVO(d.tipo.descricao,d.tipo.cor, SUM(d.valor)) FROM Despesa d ");
 		builder.append("WHERE d.vencimento BETWEEN :dataInicial AND :dataFinal AND d.moeda = :moeda ");
 		builder.append("GROUP BY d.tipo.descricao, d.tipo.cor");
 
@@ -94,7 +90,7 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 	}
 
 	@Override
-	public List<Despesa> carregarDeArquivo(final File arquivoDespesas) {
+	public List<Despesa> carregarDeArquivo(List<String> content) {
 
 		try {
 
@@ -102,9 +98,7 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 
 			final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
-			List<String> lines = FileUtils.readLines(arquivoDespesas, StandardCharsets.UTF_8);
-
-			for (final String line : lines) {
+			for (final String line : content) {
 
 				System.out.println(line);
 
@@ -141,7 +135,7 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 	}
 
 	private TipoDespesa searchTipoPorDescricao(String descricao) {
-		
+
 		List<Despesa> despesasComDescricaoParecida = this.fullTextSearch(descricao, "descricao");
 
 		Map<TipoDespesa, Integer> map = new HashMap<TipoDespesa, Integer>();

@@ -1,7 +1,5 @@
 package org.leo.despesas.aplicacao.receita;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,10 +10,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
 import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.dominio.movimentacao.Receita;
@@ -80,7 +74,7 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita, ReceitaFiltro> im
 	}
 
 	@Override
-	public List<Receita> carregarDeArquivo(final File arquivoReceitas) {
+	public List<Receita> carregarDeArquivo(List<String> content) {
 
 		try {
 
@@ -88,20 +82,18 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita, ReceitaFiltro> im
 
 			final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
-			final Workbook wb = new HSSFWorkbook(new FileInputStream(arquivoReceitas));
+			for (final String line : content) {
 
-			final Sheet s = wb.getSheetAt(0);
+				System.out.println(line);
 
-			for (final Row row : s) {
+				String[] row = line.split(";");
 
-				final Date data = format.parse(row.getCell(0).getStringCellValue());
-				final String descricao = row.getCell(1).getStringCellValue();
-				final BigDecimal valor = new BigDecimal(row.getCell(2).getNumericCellValue());
+				final Date data = format.parse(row[0]);
+				final String descricao = row[1].trim();
+				final BigDecimal valor = new BigDecimal(row[2]);
 
 				lista.add(construirReceita(data, descricao, valor));
 			}
-
-			wb.close();
 
 			return lista;
 

@@ -71,6 +71,7 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 
 		}).error(function() {
 			growl.error('Erro ao carregar do arquivo!');
+			$scope.loading = false;
 		});
 	};
 
