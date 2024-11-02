@@ -1,5 +1,6 @@
 <h3>
-	<i class="fa fa-angle-right"></i> Lançamento de Despesa
+	<i class="fa fa-angle-right"></i>
+	Lançamento de Despesa
 </h3>
 
 <div class="row mt">
@@ -9,11 +10,13 @@
 		<div class="form-panel">
 
 			<button type="button" class="btn btn-default pull-right" ng-click="add();" style="margin: 0px 0px 30px 0px;">
-				<i class="fa fa-plus"></i> Adicionar
+				<i class="fa fa-plus"></i>
+				Adicionar
 			</button>
 
 			<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#modalUpload" style="margin: 0px 30px 0px 0px;">
-				<i class="fa fa-upload"></i> Carregar
+				<i class="fa fa-upload"></i>
+				Carregar
 			</button>
 
 			<form class="form-horizontal" method="get" name="painelDespesa" novalidate>
@@ -21,17 +24,24 @@
 				<table class="table table-hover data-table">
 					<thead>
 						<tr>
-							<th>Descrição</th>
-							<th>Valor</th>
-							<th>Vencimento</th>
-							<th>Tipo</th>
+							<th>
+								<div sortable="ordenacao" on-sort="ordenar('descricao')" sort-by-key="descricao">Descrição</div>
+							</th>
+							<th>
+								<div sortable="ordenacao" on-sort="ordenar('valor')" sort-by-key="valor">Valor</div>
+							</th>
+							<th>
+								<div sortable="ordenacao" on-sort="ordenar('vencimento')" sort-by-key="Vencimento">Vencimento</div>
+							</th>
+							<th>
+								<div sortable="ordenacao" on-sort="ordenar('tipo')" sort-by-key="tipo">Tipo</div>
+							</th>
 							<th>
 								Debitável </br>
 								<colorable ng-model="debitavelTodas" itens="debitaveis" on-select="configurarDebitaveis()"></colorable>
 							</th>
 							<th style="text-align: center;">
-								Paga?
-								<input type="checkbox" style="margin-right: 10px; height: 20px; display: block; width: 100%;" ng-model="pagarTodas" ng-click="configurarPagar()">
+								Paga? <input type="checkbox" style="margin-right: 10px; height: 20px; display: block; width: 100%;" ng-model="pagarTodas" ng-click="configurarPagar()">
 							</th>
 							<th>&nbsp;</th>
 						</tr>
@@ -41,12 +51,8 @@
 							<td><input type="text" class="form-control" ng-model="despesa.descricao" startup-error-field required></td>
 							<td><input type="text" class="form-control" ng-model="despesa.valor" ui-number-mask required></td>
 							<td><input type="text" name="data" class="form-control" ng-model="despesa.vencimento" bs-datepicker autoclose="true" autocomplete="off" required></input></td>
-							<td>
-								<colorable ng-model="despesa.tipo" itens="tiposDespesa"></colorable>
-							</td>
-							<td>
-								<colorable ng-model="despesa.debitavel" itens="debitaveis"></colorable>
-							</td>
+							<td><colorable ng-model="despesa.tipo" itens="tiposDespesa"></colorable></td>
+							<td><colorable ng-model="despesa.debitavel" itens="debitaveis"></colorable></td>
 							<td><input type="checkbox" class="form-control" ng-model="despesa.paga"></td>
 							<td>
 								<button type="button" class="btn btn-danger" ng-click="remove($index);">
@@ -58,7 +64,8 @@
 				</table>
 
 				<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#modalSalvar">
-					<i class="fa fa-check"></i> Salvar
+					<i class="fa fa-check"></i>
+					Salvar
 				</button>
 
 				<div class="clearfix"></div>

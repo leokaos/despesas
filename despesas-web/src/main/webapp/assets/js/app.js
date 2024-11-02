@@ -1,311 +1,311 @@
-var app = angular.module('despesas', [ 'ngRoute', 'ngAnimate', 'ngResource', 'colorpicker.module', 'ui.utils.masks', 'angular-growl', 'ui.bootstrap', 'mgcrea.ngStrap', 'angularSpinner', 'slick',
-		'datatables', 'datatables.select' ]);
-app.constant('MESES', [ {
-	nome : 'Janeiro',
-	value : 1
+var app = angular.module('despesas', ['ngRoute', 'ngAnimate', 'ngResource', 'colorpicker.module', 'ui.utils.masks', 'angular-growl', 'ui.bootstrap', 'mgcrea.ngStrap', 'angularSpinner', 'slick',
+	'datatables', 'datatables.select']);
+app.constant('MESES', [{
+	nome: 'Janeiro',
+	value: 1
 }, {
-	nome : 'Fevereiro',
-	value : 2
+	nome: 'Fevereiro',
+	value: 2
 }, {
-	nome : 'Mar\u00e7o',
-	value : 3
+	nome: 'Mar\u00e7o',
+	value: 3
 }, {
-	nome : 'Abril',
-	value : 4
+	nome: 'Abril',
+	value: 4
 }, {
-	nome : 'Maio',
-	value : 5
+	nome: 'Maio',
+	value: 5
 }, {
-	nome : 'Junho',
-	value : 6
+	nome: 'Junho',
+	value: 6
 }, {
-	nome : 'Julho',
-	value : 7
+	nome: 'Julho',
+	value: 7
 }, {
-	nome : 'Agosto',
-	value : 8
+	nome: 'Agosto',
+	value: 8
 }, {
-	nome : 'Setembro',
-	value : 9
+	nome: 'Setembro',
+	value: 9
 }, {
-	nome : 'Outubro',
-	value : 10
+	nome: 'Outubro',
+	value: 10
 }, {
-	nome : 'Novembro',
-	value : 11
+	nome: 'Novembro',
+	value: 11
 }, {
-	nome : 'Dezembro',
-	value : 12
-} ]);
+	nome: 'Dezembro',
+	value: 12
+}]);
 
 app.config(function($routeProvider, $locationProvider) {
 
 	// TIPOS DE DESPESA
 	$routeProvider.when('/tipodespesas', {
-		templateUrl : 'partial/tipodespesa/tipodespesas.html',
-		controller : 'tipoDespesaController'
+		templateUrl: 'partial/tipodespesa/tipodespesas.html',
+		controller: 'tipoDespesaController'
 	});
 
 	$routeProvider.when('/tipodespesa', {
-		templateUrl : 'partial/tipodespesa/tipodespesa.html',
-		controller : 'edicaoTipoDespesaController'
+		templateUrl: 'partial/tipodespesa/tipodespesa.html',
+		controller: 'edicaoTipoDespesaController'
 	});
 
 	$routeProvider.when('/tipodespesa/:id', {
-		templateUrl : 'partial/tipodespesa/tipodespesa.html',
-		controller : 'edicaoTipoDespesaController'
+		templateUrl: 'partial/tipodespesa/tipodespesa.html',
+		controller: 'edicaoTipoDespesaController'
 	});
 
 	// TIPO DE RECEITA
 	$routeProvider.when('/tiporeceitas', {
-		templateUrl : 'partial/tiporeceita/tiporeceitas.html',
-		controller : 'tipoReceitaController'
+		templateUrl: 'partial/tiporeceita/tiporeceitas.html',
+		controller: 'tipoReceitaController'
 	});
 
 	$routeProvider.when('/tiporeceita', {
-		templateUrl : 'partial/tiporeceita/tiporeceita.html',
-		controller : 'edicaoTipoReceitaController'
+		templateUrl: 'partial/tiporeceita/tiporeceita.html',
+		controller: 'edicaoTipoReceitaController'
 	});
 
 	$routeProvider.when('/tiporeceita/:id', {
-		templateUrl : 'partial/tiporeceita/tiporeceita.html',
-		controller : 'edicaoTipoReceitaController'
+		templateUrl: 'partial/tiporeceita/tiporeceita.html',
+		controller: 'edicaoTipoReceitaController'
 	});
 
 	// CONTAS
 	$routeProvider.when('/contas', {
-		templateUrl : 'partial/conta/contas.html',
-		controller : 'contaController'
+		templateUrl: 'partial/conta/contas.html',
+		controller: 'contaController'
 	});
 
 	$routeProvider.when('/conta', {
-		templateUrl : 'partial/conta/conta.html',
-		controller : 'edicaoContaController'
+		templateUrl: 'partial/conta/conta.html',
+		controller: 'edicaoContaController'
 	});
 
 	$routeProvider.when('/conta/:id', {
-		templateUrl : 'partial/conta/conta.html',
-		controller : 'edicaoContaController'
+		templateUrl: 'partial/conta/conta.html',
+		controller: 'edicaoContaController'
 	});
 
 	// DESPESAS
 	$routeProvider.when('/despesas', {
-		templateUrl : 'partial/despesa/despesas.html',
-		controller : 'despesaController'
+		templateUrl: 'partial/despesa/despesas.html',
+		controller: 'despesaController'
 	});
 
 	$routeProvider.when('/despesa', {
-		templateUrl : 'partial/despesa/despesa.html',
-		controller : 'edicaoDespesaController'
+		templateUrl: 'partial/despesa/despesa.html',
+		controller: 'edicaoDespesaController'
 	});
 
 	$routeProvider.when('/despesa/:id', {
-		templateUrl : 'partial/despesa/despesa.html',
-		controller : 'edicaoDespesaController'
+		templateUrl: 'partial/despesa/despesa.html',
+		controller: 'edicaoDespesaController'
 	});
 
 	$routeProvider.when('/painelDespesas', {
-		templateUrl : 'partial/painel_despesas.html',
-		controller : 'painelDespesaController'
+		templateUrl: 'partial/painel_despesas.html',
+		controller: 'painelDespesaController'
 	});
 
 	// CARTAO
 	$routeProvider.when('/cartoes', {
-		templateUrl : 'partial/cartao/cartoes.html',
-		controller : 'cartaoController'
+		templateUrl: 'partial/cartao/cartoes.html',
+		controller: 'cartaoController'
 	});
 
 	$routeProvider.when('/cartao', {
-		templateUrl : 'partial/cartao/cartao.html',
-		controller : 'edicaoCartaoController'
+		templateUrl: 'partial/cartao/cartao.html',
+		controller: 'edicaoCartaoController'
 	});
 
 	$routeProvider.when('/cartao/:id', {
-		templateUrl : 'partial/cartao/cartao.html',
-		controller : 'edicaoCartaoController'
+		templateUrl: 'partial/cartao/cartao.html',
+		controller: 'edicaoCartaoController'
 	});
 
 	// ORCAMENTOS
 	$routeProvider.when('/orcamentos', {
-		templateUrl : 'partial/orcamento/orcamentos.html',
-		controller : 'orcamentoController'
+		templateUrl: 'partial/orcamento/orcamentos.html',
+		controller: 'orcamentoController'
 	});
 
 	$routeProvider.when('/orcamento', {
-		templateUrl : 'partial/orcamento/orcamento.html',
-		controller : 'edicaoOrcamentoController'
+		templateUrl: 'partial/orcamento/orcamento.html',
+		controller: 'edicaoOrcamentoController'
 	});
 
 	$routeProvider.when('/orcamento/:id', {
-		templateUrl : 'partial/orcamento/orcamento.html',
-		controller : 'edicaoOrcamentoController'
+		templateUrl: 'partial/orcamento/orcamento.html',
+		controller: 'edicaoOrcamentoController'
 	});
 
 	// INVESTIMENTO
 	$routeProvider.when('/investimentos', {
-		templateUrl : 'partial/investimento/investimentos.html',
-		controller : 'investimentoController'
+		templateUrl: 'partial/investimento/investimentos.html',
+		controller: 'investimentoController'
 	});
 
 	$routeProvider.when('/investimento', {
-		templateUrl : 'partial/investimento/investimento.html',
-		controller : 'edicaoInvestimentoController'
+		templateUrl: 'partial/investimento/investimento.html',
+		controller: 'edicaoInvestimentoController'
 	});
 
 	$routeProvider.when('/investimento/:id', {
-		templateUrl : 'partial/investimento/investimento.html',
-		controller : 'edicaoInvestimentoController'
+		templateUrl: 'partial/investimento/investimento.html',
+		controller: 'edicaoInvestimentoController'
 	});
 
 	// RECEITAS
 	$routeProvider.when('/receitas', {
-		templateUrl : 'partial/receita/receitas.html',
-		controller : 'receitaController'
+		templateUrl: 'partial/receita/receitas.html',
+		controller: 'receitaController'
 	});
 
 	$routeProvider.when('/receita', {
-		templateUrl : 'partial/receita/receita.html',
-		controller : 'edicaoReceitaController'
+		templateUrl: 'partial/receita/receita.html',
+		controller: 'edicaoReceitaController'
 	});
 
 	$routeProvider.when('/receita/:id', {
-		templateUrl : 'partial/receita/receita.html',
-		controller : 'edicaoReceitaController'
+		templateUrl: 'partial/receita/receita.html',
+		controller: 'edicaoReceitaController'
 	});
 
 	$routeProvider.when('/painelReceitas', {
-		templateUrl : 'partial/painel_receitas.html',
-		controller : 'painelReceitaController'
+		templateUrl: 'partial/painel_receitas.html',
+		controller: 'painelReceitaController'
 	});
 
 	// PAGAMENTOS
 	$routeProvider.when('/pagamentos', {
-		templateUrl : 'partial/pagamentos.html',
-		controller : 'pagamentosController'
+		templateUrl: 'partial/pagamentos.html',
+		controller: 'pagamentosController'
 	});
 
 	// FATURA
 	$routeProvider.when('/fatura/:id', {
-		templateUrl : 'partial/cartao/faturas.html',
-		controller : 'faturaController'
+		templateUrl: 'partial/cartao/faturas.html',
+		controller: 'faturaController'
 	});
 
 	// TRANSFERENCIAS
 	$routeProvider.when('/transferencias', {
-		templateUrl : 'partial/transferencia/transferencias.html',
-		controller : 'transferenciaController'
+		templateUrl: 'partial/transferencia/transferencias.html',
+		controller: 'transferenciaController'
 	});
 
 	$routeProvider.when('/transferencia', {
-		templateUrl : 'partial/transferencia/transferencia.html',
-		controller : 'edicaoTransferenciaController'
+		templateUrl: 'partial/transferencia/transferencia.html',
+		controller: 'edicaoTransferenciaController'
 	});
 
 	$routeProvider.when('/transferencia/:id', {
-		templateUrl : 'partial/transferencia/transferencia.html',
-		controller : 'edicaoTransferenciaController'
+		templateUrl: 'partial/transferencia/transferencia.html',
+		controller: 'edicaoTransferenciaController'
 	});
 
 	// DIVIDAS
 	$routeProvider.when('/dividas', {
-		templateUrl : 'partial/divida/dividas.html',
-		controller : 'dividaController'
+		templateUrl: 'partial/divida/dividas.html',
+		controller: 'dividaController'
 	});
 
 	$routeProvider.when('/divida', {
-		templateUrl : 'partial/divida/divida.html',
-		controller : 'edicaoDividaController'
+		templateUrl: 'partial/divida/divida.html',
+		controller: 'edicaoDividaController'
 	});
 
 	$routeProvider.when('/divida/:id', {
-		templateUrl : 'partial/divida/divida.html',
-		controller : 'edicaoDividaController'
+		templateUrl: 'partial/divida/divida.html',
+		controller: 'edicaoDividaController'
 	});
 
 	// COTACOES
 	$routeProvider.when('/cotacoes', {
-		templateUrl : 'partial/cotacao/cotacoes.html',
-		controller : 'cotacaoController'
+		templateUrl: 'partial/cotacao/cotacoes.html',
+		controller: 'cotacaoController'
 	});
 
 	$routeProvider.when('/cotacao', {
-		templateUrl : 'partial/cotacao/cotacao.html',
-		controller : 'edicaoCotacaoController'
+		templateUrl: 'partial/cotacao/cotacao.html',
+		controller: 'edicaoCotacaoController'
 	});
 
 	$routeProvider.when('/cotacao/:id', {
-		templateUrl : 'partial/cotacao/cotacao.html',
-		controller : 'edicaoCotacaoController'
+		templateUrl: 'partial/cotacao/cotacao.html',
+		controller: 'edicaoCotacaoController'
 	});
 
 	// GRAFICOS
 	$routeProvider.when('/graficotipodespesa', {
-		templateUrl : 'partial/grafico/graficotipodespesa.html',
-		controller : 'graficoController'
+		templateUrl: 'partial/grafico/graficotipodespesa.html',
+		controller: 'graficoController'
 	});
 
 	$routeProvider.when('/graficotiporeceita', {
-		templateUrl : 'partial/grafico/graficotiporeceita.html',
-		controller : 'graficoController'
+		templateUrl: 'partial/grafico/graficotiporeceita.html',
+		controller: 'graficoController'
 	});
 
 	// SERVICOS DE TRANSFERENCIAS
 	$routeProvider.when('/servicostransferencia', {
-		templateUrl : 'partial/servicostransferencia/servicostransferencia.html',
-		controller : 'servicoTransferenciaController'
+		templateUrl: 'partial/servicostransferencia/servicostransferencia.html',
+		controller: 'servicoTransferenciaController'
 	});
 
 	$routeProvider.when('/servicotransferencia', {
-		templateUrl : 'partial/servicostransferencia/servicotransferencia.html',
-		controller : 'edicaoServicoTransferenciaController'
+		templateUrl: 'partial/servicostransferencia/servicotransferencia.html',
+		controller: 'edicaoServicoTransferenciaController'
 	});
 
 	$routeProvider.when('/servicotransferencia/:id', {
-		templateUrl : 'partial/servicostransferencia/servicotransferencia.html',
-		controller : 'edicaoServicoTransferenciaController'
+		templateUrl: 'partial/servicostransferencia/servicotransferencia.html',
+		controller: 'edicaoServicoTransferenciaController'
 	});
 
 	$routeProvider.when('/compararServicosTransferencia', {
-		templateUrl : 'partial/compararServicosTransferencia.html',
-		controller : 'compararServicosTransferenciaController'
+		templateUrl: 'partial/compararServicosTransferencia.html',
+		controller: 'compararServicosTransferenciaController'
 	});
 
 	// META
 	$routeProvider.when('/metas', {
-		templateUrl : 'partial/meta/metas.html',
-		controller : 'metaController'
+		templateUrl: 'partial/meta/metas.html',
+		controller: 'metaController'
 	});
 
 	$routeProvider.when('/meta', {
-		templateUrl : 'partial/meta/meta.html',
-		controller : 'edicaoMetaController'
+		templateUrl: 'partial/meta/meta.html',
+		controller: 'edicaoMetaController'
 	});
 
 	$routeProvider.when('/meta/:id', {
-		templateUrl : 'partial/meta/meta.html',
-		controller : 'edicaoMetaController'
+		templateUrl: 'partial/meta/meta.html',
+		controller: 'edicaoMetaController'
 	});
 
 	$routeProvider.when('/projecao', {
-		templateUrl : 'partial/projecao.html',
-		controller : 'projecaoController'
+		templateUrl: 'partial/projecao.html',
+		controller: 'projecaoController'
 	});
 
 	$routeProvider.when('/sumario', {
-		templateUrl : 'partial/sumario.html',
-		controller : 'sumarioController'
+		templateUrl: 'partial/sumario.html',
+		controller: 'sumarioController'
 	});
 
 	// EXTRATO
 	$routeProvider.when('/extrato', {
-		templateUrl : 'partial/extrato.html',
-		controller : 'extratoController'
+		templateUrl: 'partial/extrato.html',
+		controller: 'extratoController'
 	});
 
 	// DASHBOARD
 	$routeProvider.otherwise({
-		templateUrl : 'partial/dashboard.html',
-		controller : 'dashboardController'
+		templateUrl: 'partial/dashboard.html',
+		controller: 'dashboardController'
 	});
 
 });
@@ -346,12 +346,12 @@ app.filter('sum', function() {
 
 app.directive('ngModal', function() {
 	return {
-		restrict : 'E',
-		replace : true,
-		transclude : true,
-		templateUrl : 'partial/componentes/modal.html',
+		restrict: 'E',
+		replace: true,
+		transclude: true,
+		templateUrl: 'partial/componentes/modal.html',
 
-		compile : function(element, attrs, transclude) {
+		compile: function(element, attrs, transclude) {
 
 			var type = 'OK';
 
@@ -396,26 +396,26 @@ app.directive('ngModal', function() {
 app.directive('uiCalendar', function(MESES) {
 
 	return {
-		restrict : 'A',
-		scope : {
-			eventSources : '=ngModel',
-			functionSelect : '=functionSelect'
+		restrict: 'A',
+		scope: {
+			eventSources: '=ngModel',
+			functionSelect: '=functionSelect'
 		},
-		link : function(scope, iElement, iAttrs) {
+		link: function(scope, iElement, iAttrs) {
 
-			diasSemana = [ 'domingo', 'segunda-feira', 'ter\u00e7a-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 's\u00e1bado' ];
+			diasSemana = ['domingo', 'segunda-feira', 'ter\u00e7a-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 's\u00e1bado'];
 
-			diasSemanaCurtos = [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'S\u00e1b' ];
+			diasSemanaCurtos = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'S\u00e1b'];
 
 			var textoDosBotoes = {
-				today : 'Hoje',
-				month : 'Mês',
-				week : 'Semana',
-				day : 'Dia'
+				today: 'Hoje',
+				month: 'Mês',
+				week: 'Semana',
+				day: 'Dia'
 			};
 
 			var select = function(event, jsEvent, view) {
-				
+
 				if (event != null && event.despesa != null) {
 					scope.functionSelect(event.despesa);
 				}
@@ -424,14 +424,14 @@ app.directive('uiCalendar', function(MESES) {
 			var id = '#' + iElement.attr('id');
 
 			$(id).fullCalendar({
-				height : 800,
-				aspectRatio : 10,
-				events : scope.eventSources,
-				monthNames : [ 'Janeiro', 'Fevereiro', 'Mar\u00e7o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro' ],
-				dayNames : diasSemana,
-				dayNamesShort : diasSemanaCurtos,
-				buttonText : textoDosBotoes,
-				eventClick : select
+				height: 800,
+				aspectRatio: 10,
+				events: scope.eventSources,
+				monthNames: ['Janeiro', 'Fevereiro', 'Mar\u00e7o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+				dayNames: diasSemana,
+				dayNamesShort: diasSemanaCurtos,
+				buttonText: textoDosBotoes,
+				eventClick: select
 			});
 
 			$(id).fullCalendar('refetchEvents');
@@ -440,40 +440,40 @@ app.directive('uiCalendar', function(MESES) {
 });
 
 app.constant('MOEDAS', {
-	"EURO" : {
-		descricao : "Euro",
-		simbolo : "€"
+	"EURO": {
+		descricao: "Euro",
+		simbolo: "€"
 	},
-	"REAL" : {
-		descricao : "Real",
-		simbolo : "R$"
+	"REAL": {
+		descricao: "Real",
+		simbolo: "R$"
 	}
 });
 
 app.constant('PERIODICIDADE', {
-	"MENSAL" : {
-		descricao : "Mensal",
-		value : "MENSAL"
+	"MENSAL": {
+		descricao: "Mensal",
+		value: "MENSAL"
 	},
-	"SEMESTRAL" : {
-		descricao : "Semestral",
-		value : "SEMESTRAL"
+	"SEMESTRAL": {
+		descricao: "Semestral",
+		value: "SEMESTRAL"
 	},
-	"VARIAVEL" : {
-		descricao : "Variável",
-		value : "VARIAVEL"
+	"VARIAVEL": {
+		descricao: "Variável",
+		value: "VARIAVEL"
 	}
 });
 
-app.directive('moeda', [ 'MOEDAS', function(MOEDAS) {
+app.directive('moeda', ['MOEDAS', function(MOEDAS) {
 	return {
-		restrict : 'E',
-		scope : {
-			value : '=ngModel'
+		restrict: 'E',
+		scope: {
+			value: '=ngModel'
 		},
-		transclude : true,
-		templateUrl : 'partial/componentes/moeda.html',
-		link : function(scope, iElement, iAttrs) {
+		transclude: true,
+		templateUrl: 'partial/componentes/moeda.html',
+		link: function(scope, iElement, iAttrs) {
 
 			scope.MOEDAS = MOEDAS;
 			scope.MOEDAS_NAMES = [];
@@ -483,22 +483,22 @@ app.directive('moeda', [ 'MOEDAS', function(MOEDAS) {
 			}
 		}
 	};
-} ]);
+}]);
 
 app.directive('colorable', function() {
 
 	return {
-		restrict : 'E',
-		scope : {
-			listaColorable : '=itens',
-			value : '=ngModel',
-			onSelect : '='
+		restrict: 'E',
+		scope: {
+			listaColorable: '=itens',
+			value: '=ngModel',
+			onSelect: '='
 		},
-		replace : true,
-		transclude : true,
-		templateUrl : 'partial/componentes/drop.html',
+		replace: true,
+		transclude: true,
+		templateUrl: 'partial/componentes/drop.html',
 
-		link : function(scope, iElement, iAttrs) {
+		link: function(scope, iElement, iAttrs) {
 
 			scope.select = function(item) {
 				scope.colorableSelected = item;
@@ -513,66 +513,66 @@ app.directive('colorable', function() {
 });
 
 app.constant('PERIODS', {
-	"CURRENT_YEAR" : {
-		'descricao' : 'Ano Atual',
-		'getDataInicial' : function() {
+	"CURRENT_YEAR": {
+		'descricao': 'Ano Atual',
+		'getDataInicial': function() {
 			return new Date(new Date().getFullYear(), 0, 1, 0, 0, 0);
 		},
-		'getDataFinal' : function() {
+		'getDataFinal': function() {
 			return new Date();
 		}
 	},
-	"LAST_YEAR" : {
-		'descricao' : 'Ano Passado',
-		'getDataInicial' : function() {
+	"LAST_YEAR": {
+		'descricao': 'Ano Passado',
+		'getDataInicial': function() {
 			return new Date(new Date().getFullYear() - 1, 0, 1, 0, 0, 0);
 		},
-		'getDataFinal' : function() {
+		'getDataFinal': function() {
 			return new Date(new Date().getFullYear() - 1, 11, 31, 0, 0, 0);
 		}
 	},
-	"CURRENT_MONTH" : {
-		'descricao' : 'Mês Atual',
-		'getDataInicial' : function() {
+	"CURRENT_MONTH": {
+		'descricao': 'Mês Atual',
+		'getDataInicial': function() {
 			return new Date(new Date().getFullYear(), new Date().getMonth(), 1, 0, 0, 0);
 		},
-		'getDataFinal' : function() {
+		'getDataFinal': function() {
 			return new Date();
 		}
 	},
-	"LAST_MONTH" : {
-		'descricao' : 'Mês Passado',
-		'getDataInicial' : function() {
+	"LAST_MONTH": {
+		'descricao': 'Mês Passado',
+		'getDataInicial': function() {
 			return new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1, 0, 0, 0);
 		},
-		'getDataFinal' : function() {
+		'getDataFinal': function() {
 			return new Date(new Date().getFullYear() - 1, new Date().getMonth(), 0, 0, 0, 0);
 		}
 	},
-	"LAST_SIX_MONTH" : {
-		'descricao' : 'Últimos seis meses',
-		'getDataInicial' : function() {
+	"LAST_SIX_MONTH": {
+		'descricao': 'Últimos seis meses',
+		'getDataInicial': function() {
 			return new Date(new Date(new Date().setMonth(new Date().getMonth() - 6)).setDate(1));
 		},
-		'getDataFinal' : function() {
+		'getDataFinal': function() {
 			return new Date(new Date().getFullYear(), new Date().getMonth(), 0, 0, 0, 0);
 		}
 	}
 });
 
-app.directive('periods', [ 'PERIODS', function(PERIODS) {
+app.directive('periods', ['PERIODS', function(PERIODS) {
 
 	return {
-		restrict : 'E',
-		scope : {
-			dataInicial : '=inicial',
-			dataFinal : '=final'
+		restrict: 'E',
+		scope: {
+			dataInicial: '=inicial',
+			dataFinal: '=final'
 		},
-		replace : true,
-		transclude : true,
-		templateUrl : 'partial/componentes/periods.html',
+		replace: true,
+		transclude: true,
+		templateUrl: 'partial/componentes/periods.html',
 
-		link : function(scope, iElement, iAttrs) {
+		link: function(scope, iElement, iAttrs) {
 
 			scope.PERIODS = PERIODS;
 
@@ -582,25 +582,25 @@ app.directive('periods', [ 'PERIODS', function(PERIODS) {
 			}
 		}
 	};
-} ]);
+}]);
 
 app.directive('bullet', function($compile) {
 	return {
-		restrict : 'E',
-		scope : {
-			item : '=ngModel'
+		restrict: 'E',
+		scope: {
+			item: '=ngModel'
 		},
-		transclude : true,
-		template : '<div><div ng-transclude></div></div>',
+		transclude: true,
+		template: '<div><div ng-transclude></div></div>',
 
-		link : function(scope, iElement, iAttrs) {
+		link: function(scope, iElement, iAttrs) {
 
 			var bullet = $('<div></div>').css({
-				'border-radius' : '100px',
-				'width' : '28px',
-				'margin' : '0px 10px',
-				'height' : '28px',
-				'float' : 'left'
+				'border-radius': '100px',
+				'width': '28px',
+				'margin': '0px 10px',
+				'height': '28px',
+				'float': 'left'
 			});
 
 			bullet.attr('ng-style', '{"background-color": item.cor}');
@@ -612,15 +612,15 @@ app.directive('bullet', function($compile) {
 	};
 });
 
-app.directive('mes', [ 'MESES', function(MESES) {
+app.directive('mes', ['MESES', function(MESES) {
 	return {
-		restrict : 'E',
-		scope : {
-			value : '=ngModel'
+		restrict: 'E',
+		scope: {
+			value: '=ngModel'
 		},
-		transclude : true,
-		templateUrl : 'partial/componentes/mes.html',
-		link : function(scope, iElement, iAttrs) {
+		transclude: true,
+		templateUrl: 'partial/componentes/mes.html',
+		link: function(scope, iElement, iAttrs) {
 
 			scope.MESES = MESES;
 
@@ -632,4 +632,35 @@ app.directive('mes', [ 'MESES', function(MESES) {
 			scope.setMes();
 		}
 	};
-} ]);
+}]);
+
+app.directive('sortable', function($compile) {
+	return {
+		restrict: 'A',
+		scope: {
+			onSort: "&",
+			sortable: "=sortable",
+			sortByKey: "@"
+		},
+		link: function(scope, element) {
+
+			element.on('click', () => {
+				scope.sortable = {
+					sortByKey: scope.sortByKey,
+					ascend: scope.sortable.sortByKey !== scope.sortByKey ? true : !scope.sortable.ascend
+				};
+				scope.$apply();
+				scope.onSort();
+			});
+
+			var ascendeIcon = angular.element("<i class='glyphicon glyphicon-sort-by-attributes pull-right' ng-if='sortable.sortByKey === sortByKey && sortable.ascend === true'></i>")
+			var descendIcon = angular.element("<i class='glyphicon glyphicon-sort-by-attributes-alt pull-right' ng-if='sortable.sortByKey === sortByKey && sortable.ascend === false'></i>")
+
+			$compile(ascendeIcon)(scope);
+			element.append(ascendeIcon);
+
+			$compile(descendIcon)(scope);
+			element.append(descendIcon);
+		}
+	};
+});

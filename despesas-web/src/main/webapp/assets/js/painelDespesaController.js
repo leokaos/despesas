@@ -8,6 +8,7 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 	$scope.pagarTodas = false;
 	$scope.debitavelTodas = null;
 	$scope.loading = false;
+	$scope.ordenacao = {};
 
 	$scope.add = function() {
 		$scope.despesas.push(despesaService.getNovoDespesa());
@@ -16,7 +17,7 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 	$scope.remove = function(index) {
 		$scope.despesas.splice(index, 1);
 	};
-	
+
 	$scope.configurarPagar = function() {
 
 		for (var x = 0; x < $scope.despesas.length; x++) {
@@ -39,6 +40,35 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 		$scope.debitaveis = debitaveis;
 	});
 
+	$scope.ordenar = function(campo) {
+
+		var sortByFunction;
+
+		switch (campo) {
+			case 'descricao':
+				sortByFunction = function(a, b) { return (a.descricao || "").localeCompare(b.descricao || ""); };
+				break;
+			case 'valor':
+				sortByFunction = function(a, b) { return (a.valor || 0) - (b.valor || 0); };
+				break;
+			case 'vencimento':
+				sortByFunction = function(a, b) { return (a.vencimento || 0) - (b.vencimento || 0); };
+				break;
+			case 'tipo':
+				sortByFunction = function(a, b) { return (a.tipo?.descricao || "").localeCompare(b.tipo?.descricao || ""); };
+				break;
+		}
+
+		$scope.despesas = [...$scope.despesas.sort(sortByFunction)];
+
+		if ($scope.ordenacao.ascend === false) {
+			$scope.despesas = [...$scope.despesas.reverse()];
+		}
+
+		$scope.$apply();
+
+	}
+
 	$scope.uploadFile = function() {
 
 		var fd = new FormData();
@@ -46,13 +76,13 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 		var file = document.getElementById("arquivo");
 
 		fd.append('arquivo', file.files[0]);
-		
+
 		$scope.loading = true;
 
 		$http.post('services/despesa/upload', fd, {
-			transformRequest : angular.identity,
-			headers : {
-				'Content-Type' : undefined
+			transformRequest: angular.identity,
+			headers: {
+				'Content-Type': undefined
 			}
 		}).success(function(data) {
 			$scope.despesas = data;
@@ -68,6 +98,7 @@ app.controller('painelDespesaController', function($scope, despesaService, tipoD
 
 			$('#modalUpload').modal('hide');
 			$scope.loading = false;
+			$scope.ordenacao = {};
 
 		}).error(function() {
 			growl.error('Erro ao carregar do arquivo!');
