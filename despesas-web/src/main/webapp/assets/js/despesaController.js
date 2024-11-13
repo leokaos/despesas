@@ -1,6 +1,4 @@
-
 app.controller('despesaController', function($scope, despesaService, $location, $routeParams, usSpinnerService, DTOptionsBuilder, DTColumnDefBuilder) {
-
 
 	$scope.dataAtual = new Date();
 	$scope.ano = $scope.dataAtual.getFullYear();

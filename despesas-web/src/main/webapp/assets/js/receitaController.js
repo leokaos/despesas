@@ -1,13 +1,23 @@
-app.controller('receitaController', function($scope, receitaService, $location, $routeParams, usSpinnerService) {
+app.controller('receitaController', function($scope, receitaService, $location, $routeParams, usSpinnerService, DTOptionsBuilder, DTColumnDefBuilder) {
 
-	var dataInicial = new Date();
-	dataInicial.setDate(1);
+	$scope.dataAtual = new Date();
+	$scope.ano = $scope.dataAtual.getFullYear();
+	$scope.mes = $scope.dataAtual.getMonth();
+	$scope.dtInstance;
 
-	var dataFinal = new Date();
-	dataFinal.setMonth(dataFinal.getMonth() + 1);
-	dataFinal.setDate(0);
+	var dataInicial = new Date($scope.ano, $scope.mes, 1);
+	var dataFinal = new Date($scope.ano, $scope.mes + 1, 0, 23, 59, 59);
 
 	$scope.receitasSelecionadas = [];
+	
+	$scope.dtOptions = DTOptionsBuilder.newOptions();
+	$scope.dtColumnDefs = [
+		DTColumnDefBuilder.newColumnDef(0),
+		DTColumnDefBuilder.newColumnDef(1),
+		DTColumnDefBuilder.newColumnDef(2),
+		DTColumnDefBuilder.newColumnDef(3).withOption('type', 'date-br'),
+		DTColumnDefBuilder.newColumnDef(4).withOption('type', 'date-br')
+	];
 
 	$scope.filtro = {
 		'dataInicial' : dataInicial,
