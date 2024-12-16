@@ -4,4 +4,9 @@
   position: sticky;
   top: 50px;
   min-height: 50px;
+  z-index: 1000;
+}
+
+.wraper {
+  padding: 25px 15px 15px 15px;
 }
