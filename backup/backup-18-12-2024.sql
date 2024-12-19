@@ -386,8 +386,8 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
+57825.52	5
 508.48	4
-63683.72	5
 50095.93	3
 \.
 
@@ -4997,6 +4997,20 @@ t	4945	107	\N
 t	4946	107	\N
 t	4947	107	\N
 t	4948	102	\N
+t	4950	108	88
+t	4951	201	88
+t	4952	201	88
+t	4953	201	88
+t	4954	201	88
+t	4955	201	88
+t	4956	107	88
+t	4957	201	88
+t	4958	107	88
+t	4959	107	88
+t	4960	107	88
+t	4961	201	88
+t	4949	108	88
+t	4963	4	\N
 \.
 
 
@@ -5070,6 +5084,7 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 81	6	2024-09-11 00:00:00	2024-08-28 00:00:00	t
 82	6	2024-10-11 00:00:00	2024-09-28 00:00:00	t
 85	6	2024-11-11 00:00:00	2024-10-28 00:00:00	t
+88	6	2024-12-11 00:00:00	2024-11-28 00:00:00	t
 \.
 
 
@@ -9882,6 +9897,21 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 4947	Uber 4	2024-12-18	3.81	2024-11-12	3	EURO
 4948	Glovo 1	2024-12-18	10.95	2024-11-12	3	EURO
 4830	Salário Novembro 2024	\N	3500.00	2024-11-27	3	EURO
+4949	ALURA 04/12	2024-12-18	87.20	2024-11-28	6	REAL
+4950	ANUIDADE DIFERENCIADA 12/12	2024-12-18	17.00	2024-11-05	6	REAL
+4951	Disney Plus	2024-12-18	43.90	2024-11-06	6	REAL
+4952	NETFLIX.COM	2024-12-18	44.90	2024-11-11	6	REAL
+4953	AmazonPrimeBR	2024-12-18	19.90	2024-11-12	6	REAL
+4954	APPLE.COM/BILL	2024-12-18	21.90	2024-11-20	6	REAL
+4955	DM *HELPMAXCOM	2024-12-18	39.90	2024-11-21	6	REAL
+4956	UBER * PENDING	2024-12-18	126.94	2024-11-27	6	REAL
+4957	DM *Spotify	2024-12-18	21.90	2024-11-28	6	REAL
+4958	UBER* TRIP	2024-12-18	43.68	2024-11-02	6	REAL
+4959	Uber *UBER *TRIP	2024-12-18	47.50	2024-11-02	6	REAL
+4960	UBER* TRIP	2024-12-18	90.55	2024-11-02	6	REAL
+4961	LOCALIZA RAC ACCAE0 SAO CAETANO D	2024-12-18	5241.54	2024-11-02	6	REAL
+4962	Pagamento fatura 12/2024	2024-12-04	5846.81	2024-12-18	5	REAL
+4963	DA COMGAS 48353698	2024-12-18	11.39	2024-12-13	5	REAL
 \.
 
 
@@ -10176,6 +10206,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 4632	6	463.44
 4731	6	555.35
 4873	6	3707.69
+4962	6	5846.81
 \.
 
 
@@ -10197,7 +10228,7 @@ SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 7, true);
 -- Name: fatura_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 85, true);
+SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 88, true);
 
 
 --
@@ -10211,7 +10242,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 37, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 4948, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 4963, true);
 
 
 --
