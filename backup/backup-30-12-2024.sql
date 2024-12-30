@@ -386,9 +386,9 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-48470.30	5
 50007.77	3
-508.48	4
+495.00	4
+48540.30	5
 \.
 
 
@@ -5089,6 +5089,8 @@ t	5038	301	\N
 t	5039	102	\N
 t	5040	102	\N
 t	5041	4	\N
+t	5042	401	\N
+t	5043	201	\N
 \.
 
 
@@ -10068,6 +10070,10 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 5040	ON IFD RESTAUR 2	2024-12-18	35.99	2024-12-18	5	REAL
 4908	Salario Dezembro 2024	\N	5597.00	2024-12-28	3	EURO
 5041	EDP	2024-12-29	88.16	2024-12-26	3	EURO
+5042	Glovo assinatura	2024-12-30	5.99	2024-12-01	4	EURO
+5043	Jogo Epic	2024-12-30	7.49	2024-12-18	4	EURO
+5044	PIX TRANSF NATALLI23/12	2024-12-30	40.00	2024-12-22	5	REAL
+5045	PIX TRANSF Fabio Z21/12	2024-12-30	30.00	2024-12-22	5	REAL
 \.
 
 
@@ -10213,6 +10219,8 @@ t	4748	111	\N
 t	4718	109	\N
 t	4830	109	\N
 f	4908	109	\N
+t	5044	111	\N
+t	5045	111	\N
 \.
 
 
@@ -10398,7 +10406,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 37, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 5041, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 5045, true);
 
 
 --
