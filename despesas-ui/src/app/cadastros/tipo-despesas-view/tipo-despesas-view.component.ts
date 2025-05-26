@@ -25,15 +25,10 @@ export class TipoDespesasViewComponent implements OnInit {
 
   loadData() {
 
-    /*this.tipoDespesaService.buscarTipoDespesas().subscribe((data: TipoDespesa[]) => {
+    this.tipoDespesaService.buscarTipoDespesas().subscribe((data: TipoDespesa[]) => {
       this.data = [...data];
-    });*/
+    });
 
-    this.data = [
-      { cor: '#FF0000', descricao: 'Carro', id: 10 } as TipoDespesa,
-      { cor: '#00FF00', descricao: 'Fixo', id: 10 } as TipoDespesa,
-      { cor: '#0000FF', descricao: 'Contas', id: 10 } as TipoDespesa
-    ]
   }
 
   removerTipoDespesa(tipoDespesa: TipoDespesa) {
@@ -55,6 +50,10 @@ export class TipoDespesasViewComponent implements OnInit {
       });
 
     }
+
+  }
+
+  search() {
 
   }
 
