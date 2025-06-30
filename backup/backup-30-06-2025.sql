@@ -386,9 +386,9 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-39925.33	5
 45108.97	3
 584.54	4
+38529.20	5
 \.
 
 
@@ -5747,6 +5747,21 @@ t	5713	107	\N
 t	5714	4	\N
 t	5716	108	\N
 t	5717	201	\N
+t	5718	108	96
+t	5719	108	96
+t	5720	201	96
+t	5721	201	96
+t	5722	201	96
+t	5723	201	96
+t	5724	201	96
+t	5726	4	\N
+t	5727	4	\N
+t	5728	4	\N
+t	5729	4	\N
+t	5730	108	\N
+t	5731	4	\N
+t	5732	4	\N
+t	5733	4	\N
 \.
 
 
@@ -5826,6 +5841,7 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 93	6	2025-03-11 00:00:00	2025-02-28 00:00:00	t
 94	6	2025-04-11 00:00:00	2025-03-28 00:00:00	t
 95	6	2025-05-11 00:00:00	2025-04-28 00:00:00	t
+96	6	2025-06-11 00:00:00	2025-05-28 00:00:00	t
 \.
 
 
@@ -11404,6 +11420,22 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 5715	Salário Junho 2025	\N	3527.00	2025-06-29	3	EURO
 5716	Glovo GLOVO PRIME	2025-06-30	5.99	2025-06-03	4	EURO
 5717	AMZN Mktp ES*SY3OX0TJ5	2025-06-30	68.09	2025-06-14	4	EURO
+5718	ALURA 09/12	2025-06-30	87.20	2025-05-27	6	REAL
+5719	ANUIDADE DIFERENCIADA 06/12	2025-06-30	34.00	2025-05-06	6	REAL
+5720	NETFLIX.COM	2025-06-30	44.90	2025-05-11	6	REAL
+5721	AmazonPrimeBR	2025-06-30	19.90	2025-05-12	6	REAL
+5722	APPLE.COM/BILL	2025-06-30	21.90	2025-05-20	6	REAL
+5723	DM *HELPMAXCOM	2025-06-30	39.90	2025-05-21	6	REAL
+5724	DM*Spotify	2025-06-30	21.90	2025-05-27	6	REAL
+5725	Pagamento fatura 06/2025	2025-06-09	269.70	2025-06-30	5	REAL
+5726	DA  VIVO FIXO 9324810660	2025-06-30	162.00	2025-05-15	5	REAL
+5727	DA  COMGAS 48353698	2025-06-30	11.86	2025-05-19	5	REAL
+5728	DA  ELETROPAULO 56301179	2025-06-30	21.12	2025-05-29	5	REAL
+5729	MOBILE PAG TIT 775324902000	2025-06-30	664.00	2025-06-03	5	REAL
+5730	TAR PACOTE ITAU   MAI/25	2025-06-30	71.90	2025-06-03	5	REAL
+5731	DA  VIVO FIXO 9324810660	2025-06-30	162.00	2025-06-16	5	REAL
+5732	DA  COMGAS 48353698	2025-06-30	11.86	2025-06-16	5	REAL
+5733	DA  ELETROPAULO 56301179	2025-06-30	21.71	2025-06-30	5	REAL
 \.
 
 
@@ -11715,6 +11747,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 5368	4	1000.00
 5537	6	592.70
 5551	6	269.70
+5725	6	269.70
 \.
 
 
@@ -11736,7 +11769,7 @@ SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 7, true);
 -- Name: fatura_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 95, true);
+SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 96, true);
 
 
 --
@@ -11750,7 +11783,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 37, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 5717, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 5733, true);
 
 
 --
