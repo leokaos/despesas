@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TipoDespesa } from '../../models/tipo-movimentacao.model';
 import { TipoDespesaService } from '../../services/tipo-despesa.service';
 import { MessageService } from 'primeng/api';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-tipo-despesas-view',
@@ -10,14 +11,15 @@ import { MessageService } from 'primeng/api';
 })
 export class TipoDespesasViewComponent implements OnInit {
 
-  public data: TipoDespesa[] = [];
-  public showDialog: boolean = false;
-  public tipoDespesaSelecionado?: TipoDespesa;
+  @ViewChild('table')
+  private table?: Table;
 
-  constructor(
-    private tipoDespesaService: TipoDespesaService,
-    private messageService: MessageService
-  ) { }
+  data: TipoDespesa[] = [];
+  showDialog: boolean = false;
+  tipoDespesaSelecionado?: TipoDespesa;
+  searchValue?: string;
+
+  constructor(private tipoDespesaService: TipoDespesaService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.loadData();
@@ -54,7 +56,7 @@ export class TipoDespesasViewComponent implements OnInit {
   }
 
   search() {
-
+    this.table?.filterGlobal(this.searchValue, 'contains');
   }
 
 }
