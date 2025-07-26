@@ -24,7 +24,7 @@ public class FullSearchFacadeImpl implements FullSearchFacade {
 
 			FullTextEntityManager fullTextSession = Search.getFullTextEntityManager(entityManager);
 
-			fullTextSession.createIndexer().batchSizeToLoadObjects(2).cacheMode(CacheMode.IGNORE).threadsToLoadObjects(2).threadsForSubsequentFetching(2).batchSizeToLoadObjects(5).startAndWait();
+			fullTextSession.createIndexer().batchSizeToLoadObjects(50).cacheMode(CacheMode.IGNORE).threadsToLoadObjects(10).startAndWait();
 
 		} catch (InterruptedException e) {
 			throw new DespesasException();
