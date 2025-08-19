@@ -36,7 +36,12 @@
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.search.default.directory_provider" value="filesystem" />
 			<property name="hibernate.search.default.indexBase" value="../despesas_index" />
-			<property name="hibernate.search.movimentacao.locking_strategy" value="none" />
+			<property name="hibernate.search.default.exclusive_index_use" value="false"/>
+            <property name="hibernate.search.default.indexwriter.ram_buffer_size" value="64"/>
+            <property name="hibernate.search.default.analyzer" value="standard"/>
+            <property name="hibernate.search.default.merge_factor" value="5"/>
+            <property name="hibernate.search.default.max_buffered_docs" value="100"/>
+            <property name="hibernate.search.movimentacao.locking_strategy" value="none" />
 		</properties>
 
 	</persistence-unit>
