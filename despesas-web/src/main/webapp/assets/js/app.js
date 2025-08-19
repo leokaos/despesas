@@ -344,6 +344,27 @@ app.filter('sum', function() {
 	};
 });
 
+app.filter('avg', function() {
+
+	return function(input, params) {
+
+		var totalSum = 0;
+		var totalItems = 0;
+
+		if (input != null) {
+			for (var x = 0; x < input.length; x++) {
+				var value = input[x][params];
+				if (value != null) {
+					totalItems++;
+					totalSum += parseFloat(input[x][params]);
+				}
+			}
+		}
+
+		return totalItems > 0 ? totalSum / totalItems : 0;
+	};
+});
+
 app.directive('ngModal', function() {
 	return {
 		restrict: 'E',

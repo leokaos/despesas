@@ -57,3 +57,8 @@
 	<h5>Total Selecionado</h5>
 	<p>{{despesasSelecionadas | sum: 'valor' | currency: 'R$ '}}</p>
 </div>
+
+<div class="indicador form-panel">
+	<h5>Média Selecionado</h5>
+	<p>{{despesasSelecionadas | avg: 'valor' | currency: 'R$ '}}</p>
+</div>
