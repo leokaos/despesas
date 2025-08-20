@@ -1,4 +1,4 @@
-app.controller('despesaController', function($scope, despesaService, $location, $routeParams, usSpinnerService, DTOptionsBuilder, DTColumnDefBuilder) {
+app.controller('despesaController', function($scope, despesaService, $location, $routeParams, tipoDespesaService, usSpinnerService, DTOptionsBuilder, DTColumnDefBuilder) {
 
 	$scope.dataAtual = new Date();
 	$scope.ano = $scope.dataAtual.getFullYear();
@@ -9,6 +9,8 @@ app.controller('despesaController', function($scope, despesaService, $location, 
 	var dataFinal = new Date($scope.ano, $scope.mes + 1, 0, 23, 59, 59);
 
 	$scope.despesasSelecionadas = [];
+	$scope.tiposDespesa = [];
+	$scope.tipoDespesaSelecionado = null;
 
 	$scope.dtOptions = DTOptionsBuilder.newOptions();
 	$scope.dtColumnDefs = [
@@ -19,10 +21,13 @@ app.controller('despesaController', function($scope, despesaService, $location, 
 		DTColumnDefBuilder.newColumnDef(4).withOption('type', 'date-br')
 	];
 
-	$scope.filtro = {
+	$scope.initialFiltro = {
 		'dataInicial': dataInicial,
-		'dataFinal': dataFinal
+		'dataFinal': dataFinal,
+		'tipoDespesa': null
 	};
+	
+	$scope.filtro = angular.copy($scope.initialFiltro);
 
 	$scope.despesaSelecionada = null;
 
@@ -39,6 +44,10 @@ app.controller('despesaController', function($scope, despesaService, $location, 
 		}
 	};
 
+	tipoDespesaService.listar(function(tiposDespesa) {
+		$scope.tiposDespesa = tiposDespesa;
+	});
+
 	$scope.getMensagemDelete = function() {
 		return 'Despesa deletada com sucesso!';
 	};
@@ -50,6 +59,12 @@ app.controller('despesaController', function($scope, despesaService, $location, 
 	$scope.listar = function() {
 		despesaService.listar($scope.filtro, $scope.loadData);
 	};
+
+	$scope.resetFiltro = function() {
+		$scope.filtro = angular.copy($scope.initialFiltro);
+		$scope.tipoDespesaSelecionado = null;
+		$scope.listar();
+	}
 
 	$scope.novo = function() {
 		$location.path('/despesa');
@@ -90,6 +105,10 @@ app.controller('despesaController', function($scope, despesaService, $location, 
 		}
 
 	};
+
+	$scope.selecionarTipoDespesa = function(tipoDespesa) {
+		$scope.filtro.tipoDespesa = tipoDespesa.descricao;
+	}
 
 });
 
