@@ -1,10 +1,28 @@
 <span class="page-title">
-  <i class="pi pi-chevron-right"></i> Tipo de Despesa
+  <i class="pi pi-chevron-right"></i> {{titulo}}
 </span>
 
 <div class="form-panel">
 
-  <p-table #table [value]="data" sortMode="single" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 15, 50, 100]" styleClass="p-datatable-sm"
+  <p-button variant="outlined" severity="secondary" label="Adicionar" icon="pi pi-plus"/>
+
+<p-button label="Primary" />
+<p-button label="Secondary" severity="secondary" />
+<p-button label="Success" severity="success" />
+<p-button label="Info" severity="info" />
+<p-button label="Warn" severity="warn" />
+<p-button label="Help" severity="help" />
+<p-button label="Danger" severity="danger" />
+<p-button label="Contrast" severity="contrast" />
+
+  <p-table
+           #table
+           [value]="data"
+           sortMode="single"
+           [paginator]="true"
+           [rows]="10"
+           [rowsPerPageOptions]="[10, 15, 50, 100]"
+           styleClass="p-datatable-sm"
            [globalFilterFields]="['cor', 'descricao']">
 
     <ng-template pTemplate="caption">
@@ -33,13 +51,15 @@
 
     <ng-template pTemplate="body" let-item>
       <tr>
-        <td class="small-column"><p-colorPicker [(ngModel)]="item.cor" [disabled]="true" /></td>
+        <td class="small-column">
+          <p-colorPicker [(ngModel)]="item.cor" [disabled]="true" />
+        </td>
         <td>{{ item.descricao }}</td>
         <td class="small-column">
-          <p-button icon="pi pi-pen-to-square" [outlined]="true" />
+          <p-button icon="pi pi-pen-to-square" [outlined]="true" size="small" />
         </td>
         <td class="small-column">
-          <p-button icon="pi pi-trash" severity="danger" (click)="removerTipoDespesa(item)" />
+          <p-button icon="pi pi-trash" severity="danger" (click)="openDialog(item)" size="small" />
         </td>
       </tr>
     </ng-template>
@@ -47,12 +67,12 @@
   </p-table>
 </div>
 
-<p-dialog header="Remover Tipo de Despesa" [modal]="true" position="top" [(visible)]="showDialog" [style]="{ width: '50rem' }">
-  Tem certeza que deseja remover <b>{{ tipoDespesaSelecionado?.descricao }}</b> ?
+<p-dialog header="Remover {{titulo}}" [modal]="true" position="top" [(visible)]="showDialog" [style]="{ width: '50rem' }">
+  Tem certeza que deseja remover <b>{{ tipoMovimentacao?.descricao }}</b> ?
 
   <ng-template pTemplate="footer">
     <p-button label="Cancel" [text]="true" (click)="showDialog = false" />
-    <p-button label="Save" [outlined]="true" (click)="doRemoverTipoDespesa()" />
+    <p-button label="Save" [outlined]="true" (click)="remover()" />
   </ng-template>
 
 </p-dialog>

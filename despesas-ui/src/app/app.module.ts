@@ -18,17 +18,25 @@ import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
-import { TipoDespesasViewComponent } from './cadastros/tipo-despesas-view/tipo-despesas-view.component';
-import { TipoReceitasViewComponent } from './cadastros/tipo-receitas-view/tipo-receitas-view.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
+import { TipoViewComponent } from './cadastros/tipo/tipo-view/tipo-view.component';
+import { TipoDespesasViewComponent } from './cadastros/tipo/tipo-despesas-view/tipo-despesas-view.component';
+import { TipoReceitasViewComponent } from './cadastros/tipo/tipo-receitas-view/tipo-receitas-view.component';
+import { TipoEditComponent } from './cadastros/tipo/tipo-edit/tipo-edit.component';
+import { TipoDespesaEditComponent } from './cadastros/tipo/tipo-despesa-edit/tipo-despesa-edit.component';
+import { TipoReceitaEditComponent } from './cadastros/tipo/tipo-receita-edit/tipo-receita-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     TipoDespesasViewComponent,
-    TipoReceitasViewComponent
+    TipoReceitasViewComponent,
+    TipoViewComponent,
+    TipoEditComponent,
+    TipoDespesaEditComponent,
+    TipoReceitaEditComponent
   ],
   imports: [
     BrowserAnimationsModule,
