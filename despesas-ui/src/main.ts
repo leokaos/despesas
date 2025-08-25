@@ -1,17 +1,18 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
-import { AppModule } from './app/app.module';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
+import { App } from './app/app';
 import { APP_CONFIG } from './app/app-config';
 
-fetch("app-config.json")
-  .then(response => response.json())
-  .then(config => {
+const configUrl = 'app-config.json';
 
-    platformBrowserDynamic([
-      { provide: APP_CONFIG, useValue: config }
-    ])
-      .bootstrapModule(AppModule, {
-        ngZoneEventCoalescing: true
-      }).catch(err => console.error(err));
+fetch(configUrl)
+  .then((response) => response.json())
+  .then((config) => {
 
+    appConfig.providers.push({ provide: APP_CONFIG, useValue: config })
+
+    bootstrapApplication(App, appConfig)
+      .catch((err) => console.error(err));
   });
+
+

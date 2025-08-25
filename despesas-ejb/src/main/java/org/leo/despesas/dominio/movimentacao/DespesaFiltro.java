@@ -23,6 +23,9 @@ public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 	@QueryParam("moeda")
 	private Moeda moeda;
 
+	@QueryParam("debitavel_id")
+	private Long debitavelId;
+
 	private Debitavel debitavel;
 
 	public DespesaFiltro() {
@@ -95,6 +98,8 @@ public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 		eq("debitavel", debitavel);
 
 		eq("moeda", moeda);
+
+		eq("debitavel.id", debitavelId);
 	}
 
 }

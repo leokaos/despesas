@@ -1,13 +1,21 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { TipoMovimentacao } from '../../../models/tipo-movimentacao.model';
-import { Table } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { IconFieldModule } from 'primeng/iconfield';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { InputIconModule } from 'primeng/inputicon';
+import { ColorPickerModule } from 'primeng/colorpicker';
 
 @Component({
   selector: 'app-tipo-view',
-  templateUrl: './tipo-view.component.html',
-  styleUrl: './tipo-view.component.scss'
+  imports: [ButtonModule, TableModule, IconFieldModule, FormsModule, DialogModule, InputIconModule, ReactiveFormsModule, ColorPickerModule],
+  templateUrl: './tipo-view.html',
+  styleUrl: './tipo-view.scss',
+  standalone: true
 })
-export class TipoViewComponent {
+export class TipoView {
 
   @Input()
   titulo: string = "Tipos";

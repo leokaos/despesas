@@ -1,5 +1,9 @@
+@if (!loading) {
+
 <app-tipo-view
                titulo="Tipo de Despesa"
                [data]="data"
                (onRemover)="removerTipoDespesa($event)">
 </app-tipo-view>
+
+}

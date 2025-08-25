@@ -1,4 +1,4 @@
-app.controller('despesaController', function($scope, despesaService, $location, $routeParams, tipoDespesaService, usSpinnerService, DTOptionsBuilder, DTColumnDefBuilder) {
+app.controller('despesaController', function($scope, despesaService, $location, $routeParams, tipoDespesaService, debitavelService, usSpinnerService, DTOptionsBuilder, DTColumnDefBuilder) {
 
 	$scope.dataAtual = new Date();
 	$scope.ano = $scope.dataAtual.getFullYear();
@@ -10,7 +10,9 @@ app.controller('despesaController', function($scope, despesaService, $location, 
 
 	$scope.despesasSelecionadas = [];
 	$scope.tiposDespesa = [];
+	$scope.debitaveis = [];
 	$scope.tipoDespesaSelecionado = null;
+	$scope.debitavelSelecionado = null;
 
 	$scope.dtOptions = DTOptionsBuilder.newOptions();
 	$scope.dtColumnDefs = [
@@ -24,7 +26,8 @@ app.controller('despesaController', function($scope, despesaService, $location, 
 	$scope.initialFiltro = {
 		'dataInicial': dataInicial,
 		'dataFinal': dataFinal,
-		'tipoDespesa': null
+		'tipoDespesa': null,
+		'debitavel_id': null
 	};
 	
 	$scope.filtro = angular.copy($scope.initialFiltro);
@@ -47,6 +50,10 @@ app.controller('despesaController', function($scope, despesaService, $location, 
 	tipoDespesaService.listar(function(tiposDespesa) {
 		$scope.tiposDespesa = tiposDespesa;
 	});
+	
+	debitavelService.listar(function(debitaveis) {
+		$scope.debitaveis = debitaveis;
+	})
 
 	$scope.getMensagemDelete = function() {
 		return 'Despesa deletada com sucesso!';
@@ -61,9 +68,10 @@ app.controller('despesaController', function($scope, despesaService, $location, 
 	};
 
 	$scope.resetFiltro = function() {
-		$scope.filtro = angular.copy($scope.initialFiltro);
-		$scope.tipoDespesaSelecionado = null;
-		$scope.listar();
+	    $scope.filtro = angular.copy($scope.initialFiltro);
+	    $scope.tipoDespesaSelecionado = undefined;
+	    $scope.debitavelSelecionado = undefined;
+	    $scope.listar();
 	}
 
 	$scope.novo = function() {
@@ -108,6 +116,10 @@ app.controller('despesaController', function($scope, despesaService, $location, 
 
 	$scope.selecionarTipoDespesa = function(tipoDespesa) {
 		$scope.filtro.tipoDespesa = tipoDespesa.descricao;
+	}
+	
+	$scope.selecionarDebitavel = function(debitavel) {
+		$scope.filtro.debitavel_id = debitavel.id;
 	}
 
 });

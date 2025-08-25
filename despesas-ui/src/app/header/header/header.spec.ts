@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TipoDespesasViewComponent } from './tipo-despesas-view.component';
+import { Header } from './header';
 
-describe('TipoDespesasViewComponent', () => {
-  let component: TipoDespesasViewComponent;
-  let fixture: ComponentFixture<TipoDespesasViewComponent>;
+describe('Header', () => {
+  let component: Header;
+  let fixture: ComponentFixture<Header>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TipoDespesasViewComponent]
+      imports: [Header]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TipoDespesasViewComponent);
+    fixture = TestBed.createComponent(Header);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

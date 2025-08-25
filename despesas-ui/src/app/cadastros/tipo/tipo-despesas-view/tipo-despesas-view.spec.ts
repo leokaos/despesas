@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TipoDespesaEditComponent } from './tipo-despesa-edit.component';
+import { TipoDespesasView } from './tipo-despesas-view';
 
-describe('TipoDespesaEditComponent', () => {
-  let component: TipoDespesaEditComponent;
-  let fixture: ComponentFixture<TipoDespesaEditComponent>;
+describe('TipoDespesasView', () => {
+  let component: TipoDespesasView;
+  let fixture: ComponentFixture<TipoDespesasView>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TipoDespesaEditComponent]
+      imports: [TipoDespesasView]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TipoDespesaEditComponent);
+    fixture = TestBed.createComponent(TipoDespesasView);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  imports: [RouterModule],
+  templateUrl: './header.html',
+  styleUrl: './header.scss'
 })
-export class HeaderComponent {
+export class Header {
 
   private openSubMenus: Set<string> = new Set();
 
@@ -20,4 +22,5 @@ export class HeaderComponent {
   isSubMenuOpen(menuItem: string): boolean {
     return this.openSubMenus.has(menuItem);
   }
+
 }

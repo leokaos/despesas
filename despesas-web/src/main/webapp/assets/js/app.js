@@ -521,6 +521,15 @@ app.directive('colorable', function() {
 
 		link: function(scope, iElement, iAttrs) {
 
+			// Inicializa com o valor atual
+			scope.colorableSelected = scope.value;
+
+			scope.$watch('value', function(newVal, oldVal) {
+			    if (newVal !== oldVal) {
+			        scope.colorableSelected = newVal;
+			    }
+			}, true); // <-- O true aqui é importante!
+
 			scope.select = function(item) {
 				scope.colorableSelected = item;
 				scope.value = item;
