@@ -4,6 +4,12 @@
 
 <div class="form-panel">
 
+    <div style="display: flex; justify-content: flex-end; padding-bottom: 10px;">
+        <p-button label="Adicionar" severity="secondary" (click)="emitAdicionar()">
+            <i class="pi pi-plus" style="font-size: 1.5rem"></i>
+        </p-button>
+    </div>
+
     <p-table
              #table
              [value]="data"
@@ -45,7 +51,7 @@
                 </td>
                 <td>{{ item.descricao }}</td>
                 <td class="small-column">
-                    <p-button icon="pi pi-pen-to-square" [outlined]="true" size="small" />
+                    <p-button icon="pi pi-pen-to-square" [outlined]="true" size="small" (click)="emitEdit(item)" />
                 </td>
                 <td class="small-column">
                     <p-button icon="pi pi-trash" severity="danger" (click)="openDialog(item)" size="small" />

@@ -1,9 +1,10 @@
 import { MessageService } from 'primeng/api';
 import { TipoDespesaService } from './../../../services/tipo-despesa-service';
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { TipoDespesa } from '../../../models/tipo-movimentacao.model';
+import { AfterViewInit, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { TipoDespesa, TipoMovimentacao } from '../../../models/tipo-movimentacao.model';
 import { TipoView } from '../tipo-view/tipo-view';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tipo-despesas-view',
@@ -18,7 +19,12 @@ export class TipoDespesasView implements OnInit {
   data: TipoDespesa[] = [];
   loading: boolean = true;
 
-  constructor(private tipoDespesaService: TipoDespesaService, private messageService: MessageService, private cdRef: ChangeDetectorRef) { }
+  private tipoDespesaService = inject(TipoDespesaService);
+  private messageService = inject(MessageService);
+  private cdRef = inject(ChangeDetectorRef);
+  private router = inject(Router);
+
+  constructor() { }
 
   ngOnInit(): void {
     this.loadData();
@@ -41,6 +47,14 @@ export class TipoDespesasView implements OnInit {
       this.loadData();
     });
 
+  }
+
+  editTipoDespesa(tipoDespesa: TipoMovimentacao) {
+    this.router.navigate(["tipo-despesa", tipoDespesa.id]);
+  }
+
+  adicionarTipoDespesa() {
+    this.router.navigate(["tipo-despesa"]);
   }
 
 }
