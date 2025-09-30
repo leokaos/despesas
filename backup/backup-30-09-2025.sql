@@ -388,7 +388,7 @@ VISA	28	11	17300.00	6	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 43539.07	3
 98.89	4
-36157.63	5
+34833.72	5
 \.
 
 
@@ -6066,6 +6066,22 @@ t	6041	102	\N
 t	6042	103	\N
 t	6043	108	\N
 t	6044	103	\N
+t	6045	4	\N
+t	6046	108	\N
+t	6047	4	\N
+t	6048	4	\N
+t	6049	4	\N
+t	6050	4	\N
+t	6052	108	101
+t	6054	201	101
+t	6056	201	101
+t	6058	201	101
+t	6060	201	101
+t	6053	201	101
+t	6055	201	101
+t	6057	201	101
+t	6051	201	101
+t	6059	108	101
 \.
 
 
@@ -6148,6 +6164,7 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 96	6	2025-06-11 00:00:00	2025-05-28 00:00:00	t
 97	6	2025-07-11 00:00:00	2025-06-28 00:00:00	t
 98	6	2025-08-11 00:00:00	2025-07-28 00:00:00	t
+101	6	2025-09-11 00:00:00	2025-08-28 00:00:00	t
 \.
 
 
@@ -12049,6 +12066,23 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6033	A BRASILEIRA BRAGA PT	2025-09-30	4.90	2025-08-26	3	EURO
 6039	GLOVO LISBOA PT	2025-09-30	10.25	2025-08-22	3	EURO
 6042	flytap.com 0015595826	2025-09-30	1560.41	2025-09-02	4	EURO
+6045	DA  ELETROPAULO 56301179	2025-09-30	21.82	2025-08-29	5	REAL
+6046	TAR PACOTE ITAU   AGO/25	2025-09-30	71.90	2025-09-02	5	REAL
+6047	PAG BOLETO EDIFICIO MAISON DU ROI	2025-09-30	664.00	2025-09-08	5	REAL
+6048	DA  VIVOSP 13706597739	2025-09-30	162.00	2025-09-10	5	REAL
+6049	DA  COMGAS 48353698	2025-09-30	11.86	2025-09-15	5	REAL
+6050	DA  ELETROPAULO 56301179	2025-09-30	24.05	2025-09-29	5	REAL
+6051	ALURA	2025-09-30	87.20	2025-08-28	6	REAL
+6052	ANUIDADE DIFERENCIADA	2025-09-30	34.00	2025-08-05	6	REAL
+6053	NETFLIX	2025-09-30	44.90	2025-08-11	6	REAL
+6054	AmazonPrimeBR	2025-09-30	19.90	2025-08-12	6	REAL
+6055	APPLE COM/BILL	2025-09-30	21.90	2025-08-20	6	REAL
+6056	DM helphbomaxcom	2025-09-30	39.90	2025-08-21	6	REAL
+6057	DM Spotify	2025-09-30	21.90	2025-08-28	6	REAL
+6058	ALURA 1	2025-09-30	87.20	2025-08-28	6	REAL
+6059	IOF TRANSACOES INTERNACIONAIS	2025-09-30	0.38	2025-09-04	6	REAL
+6060	STEAM PURCHASE	2025-09-30	11.00	2025-08-28	6	REAL
+6061	Pagamento fatura 09/2025	2025-09-11	368.28	2025-09-30	5	REAL
 \.
 
 
@@ -12365,6 +12399,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 5900	6	269.70
 5908	6	269.70
 5918	4	2000.00
+6061	6	368.28
 \.
 
 
@@ -12386,7 +12421,7 @@ SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 7, true);
 -- Name: fatura_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 98, true);
+SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 101, true);
 
 
 --
@@ -12400,7 +12435,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 37, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6044, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6061, true);
 
 
 --
