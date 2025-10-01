@@ -1,6 +1,6 @@
 import { MessageService } from 'primeng/api';
 import { TipoDespesaService } from './../../../services/tipo-despesa-service';
-import { AfterViewInit, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { TipoDespesa, TipoMovimentacao } from '../../../models/tipo-movimentacao.model';
 import { TipoView } from '../tipo-view/tipo-view';
 import { CommonModule } from '@angular/common';
@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-tipo-despesas-view',
   imports: [TipoView, CommonModule],
-  providers: [MessageService],
   templateUrl: './tipo-despesas-view.html',
   styleUrl: './tipo-despesas-view.scss',
   standalone: true
@@ -17,11 +16,10 @@ import { Router } from '@angular/router';
 export class TipoDespesasView implements OnInit {
 
   data: TipoDespesa[] = [];
-  loading: boolean = true;
+  loading = signal<boolean>(true);
 
   private tipoDespesaService = inject(TipoDespesaService);
   private messageService = inject(MessageService);
-  private cdRef = inject(ChangeDetectorRef);
   private router = inject(Router);
 
   constructor() { }
@@ -32,20 +30,21 @@ export class TipoDespesasView implements OnInit {
 
   loadData() {
 
-    this.tipoDespesaService.buscarTipoDespesas().subscribe((data: TipoDespesa[]) => {
-      this.data = [...data];
-      this.loading = false;
-      this.cdRef.detectChanges();
-    });
+    this.tipoDespesaService.fetch()
+      .subscribe((data: TipoDespesa[]) => {
+        this.data = [...data];
+        this.loading.set(false);
+      });
 
   }
 
   removerTipoDespesa(tipoDespesa: TipoDespesa) {
 
-    this.tipoDespesaService.removerTipoDespesa(tipoDespesa).subscribe(() => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Tipo Despesa removida com sucesso!' });
-      this.loadData();
-    });
+    this.tipoDespesaService.remove(tipoDespesa)
+      .subscribe(() => {
+        this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Tipo Despesa removida com sucesso!', life: 3000 });
+        this.loadData();
+      });
 
   }
 

@@ -1,1 +1,5 @@
-<p>tipo-despesa-edit works!</p>
+@if (loading()) {
+<p-progress-spinner ariaLabel="loading" />
+} @else {
+<app-tipo-edit titulo="Tipo de Despesa" [tipo]="tipoDespesa" (onCancel)="cancel()" (onSave)="saveTipoDespesa($event)"></app-tipo-edit>
+}

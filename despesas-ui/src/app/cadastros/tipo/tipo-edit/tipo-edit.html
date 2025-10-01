@@ -28,12 +28,8 @@
 
         <div class="mt-auto pt-4">
             <div class="flex justify-between">
-                <button type="button" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition">
-                    Cancelar
-                </button>
-                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
-                    Salvar
-                </button>
+                <p-button label="Cancelar" [raised]="true" severity="secondary" size="small" (click)="emitCancel()" />
+                <p-button label="Salvar" [raised]="true" severity="success" size="small" [disabled]="!formGroup.valid" (click)="emitSave()" />
             </div>
         </div>
     </form>

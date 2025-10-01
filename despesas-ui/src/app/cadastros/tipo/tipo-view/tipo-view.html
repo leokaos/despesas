@@ -66,8 +66,8 @@
     Tem certeza que deseja remover <b>{{ tipoMovimentacao?.descricao }}</b> ?
 
     <ng-template pTemplate="footer">
-        <p-button label="Cancel" [text]="true" (click)="showDialog = false" />
-        <p-button label="Save" [outlined]="true" (click)="remover()" />
+        <p-button label="Cancel" [raised]="true" severity="secondary" (click)="showDialog = false" />
+        <p-button label="Save" [raised]="true" severity="success" (click)="remover()" />
     </ng-template>
 
 </p-dialog>
