@@ -5,8 +5,8 @@ app.controller('despesaController', function($scope, despesaService, $location, 
 	$scope.mes = $scope.dataAtual.getMonth();
 	$scope.dtInstance;
 
-	var dataInicial = new Date($scope.ano, $scope.mes, 1);
-	var dataFinal = new Date($scope.ano, $scope.mes + 1, 0, 23, 59, 59);
+	var dataInicial = new Date(Date.UTC($scope.ano, $scope.mes, 1));
+	var dataFinal = new Date(Date.UTC($scope.ano, $scope.mes + 1, 0, 23, 59, 59));
 
 	$scope.despesasSelecionadas = [];
 	$scope.tiposDespesa = [];

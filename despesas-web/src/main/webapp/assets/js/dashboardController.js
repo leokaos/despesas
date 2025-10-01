@@ -7,13 +7,13 @@ app.controller('dashboardController', function($scope, $http, dashboardService, 
 	$scope.ano = $scope.dataAtual.getFullYear();
 	$scope.mes = $scope.dataAtual.getMonth();
 
-	$scope.dataInicio = new Date($scope.ano, $scope.mes, 1);
-	$scope.dataFim = new Date($scope.ano, $scope.mes + 1, 0, 23, 59, 59);
+	$scope.dataInicio = new Date(Date.UTC($scope.ano, $scope.mes, 1));
+	$scope.dataFim = new Date(Date.UTC($scope.ano, $scope.mes + 1, 0, 23, 59, 59));
 
 	$scope.loadChart = function() {
 
-		$scope.dataInicio = new Date($scope.ano, $scope.mes, 1);
-		$scope.dataFim = new Date($scope.ano, $scope.mes + 1, 0);	
+		$scope.dataInicio = new Date(Date.UTC($scope.ano, $scope.mes, 1));
+		$scope.dataFim = new Date(Date.UTC($scope.ano, $scope.mes + 1, 0, 23, 59, 59));
 
 		dashboardService.buscarDespesasPorPeriodo($scope.dataInicio, $scope.dataFim, function(data) {
 
