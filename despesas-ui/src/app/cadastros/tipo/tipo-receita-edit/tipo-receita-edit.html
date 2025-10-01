@@ -1,5 +1,5 @@
 @if (loading()) {
-<p-progress-spinner ariaLabel="loading" />
+<app-loader />
 } @else {
 <app-tipo-edit titulo="Tipo de Receita" [tipo]="tipoReceita" (onCancel)="cancel()" (onSave)="saveTipoReceita($event)"></app-tipo-edit>
 }

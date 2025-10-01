@@ -5,16 +5,16 @@ import { TipoDespesa, TipoMovimentacao } from '../../../models/tipo-movimentacao
 import { TipoView } from '../tipo-view/tipo-view';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { Loader } from '../../../components/loader/loader';
 
 @Component({
   selector: 'app-tipo-despesas-view',
-  imports: [TipoView, CommonModule],
+  imports: [TipoView, CommonModule, Loader],
   templateUrl: './tipo-despesas-view.html',
   styleUrl: './tipo-despesas-view.scss',
-  standalone: true
+  standalone: true,
 })
 export class TipoDespesasView implements OnInit {
-
   data: TipoDespesa[] = [];
   loading = signal<boolean>(true);
 
@@ -22,38 +22,35 @@ export class TipoDespesasView implements OnInit {
   private messageService = inject(MessageService);
   private router = inject(Router);
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.loadData();
   }
 
   loadData() {
-
-    this.tipoDespesaService.fetch()
-      .subscribe((data: TipoDespesa[]) => {
-        this.data = [...data];
-        this.loading.set(false);
-      });
-
+    this.tipoDespesaService.fetch().subscribe((data: TipoDespesa[]) => {
+      this.data = [...data];
+      this.loading.set(false);
+    });
   }
 
   removerTipoDespesa(tipoDespesa: TipoDespesa) {
-
+    // prettier-ignore
     this.tipoDespesaService.remove(tipoDespesa)
       .subscribe(() => {
-        this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Tipo Despesa removida com sucesso!', life: 3000 });
+        this.messageService.add({ 
+          severity: 'success', summary: 'Successo', detail: 'Tipo Despesa removida com sucesso!', life: 3000 
+        });
         this.loadData();
       });
-
   }
 
   editTipoDespesa(tipoDespesa: TipoMovimentacao) {
-    this.router.navigate(["tipo-despesa", tipoDespesa.id]);
+    this.router.navigate(['tipo-despesa', tipoDespesa.id]);
   }
 
   adicionarTipoDespesa() {
-    this.router.navigate(["tipo-despesa"]);
+    this.router.navigate(['tipo-despesa']);
   }
-
 }

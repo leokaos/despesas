@@ -1,15 +1,19 @@
 <span class="page-title">
-    <i class="pi pi-chevron-right"></i> {{titulo}}
+    <i class="pi pi-chevron-right"></i> Contas Bancárias
 </span>
 
 <div class="form-panel">
 
     <div style="display: flex; justify-content: flex-end; padding-bottom: 10px;">
-        <p-button label="Adicionar" severity="secondary" (click)="emitAdicionar()">
+        <p-button label="Adicionar" severity="secondary" (click)="add()">
             <i class="pi pi-plus" style="font-size: 1.5rem"></i>
         </p-button>
     </div>
 
+    @if (loading()) {
+    <app-loader />
+    }
+    @else {
     <p-table
              #table
              stripedRows
@@ -40,6 +44,9 @@
                 <th pSortableColumn="descricao">
                     Descrição <p-sortIcon field="descricao" />
                 </th>
+                <th>
+                    Saldo <p-sortIcon field="saldo" />
+                </th>
                 <th class="small-column"></th>
                 <th class="small-column"></th>
             </tr>
@@ -51,8 +58,9 @@
                     <app-color-display [color]="item.cor" />
                 </td>
                 <td>{{ item.descricao }}</td>
+                <td> {{item.moeda.simbolo}} {{item.saldo | number: '1.2-2' : 'pt-BR'}}</td>
                 <td class="small-column">
-                    <p-button icon="pi pi-pen-to-square" [outlined]="true" size="small" (click)="emitEdit(item)" />
+                    <p-button icon="pi pi-pen-to-square" [outlined]="true" size="small" (click)="edit(item)" />
                 </td>
                 <td class="small-column">
                     <p-button icon="pi pi-trash" severity="danger" (click)="openDialog(item)" size="small" />
@@ -61,10 +69,12 @@
         </ng-template>
 
     </p-table>
+    }
+
 </div>
 
-<p-dialog header="Remover {{titulo}}" [modal]="true" position="top" [(visible)]="showDialog" [style]="{ width: '50rem' }">
-    Tem certeza que deseja remover <b>{{ tipoMovimentacao?.descricao }}</b> ?
+<p-dialog header="Remover Contas Bancárias" [modal]="true" position="top" [(visible)]="showDialog" [style]="{ width: '50rem' }">
+    Tem certeza que deseja remover <b>{{ conta?.descricao }}</b> ?
 
     <ng-template pTemplate="footer">
         <p-button label="Cancel" [raised]="true" severity="secondary" (click)="showDialog = false" />

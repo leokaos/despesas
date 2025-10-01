@@ -9,10 +9,11 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
+import { ColorDisplay } from "../../../components/color-display/color-display";
 
 @Component({
   selector: 'app-tipo-view',
-  imports: [ButtonModule, TableModule, IconFieldModule, FormsModule, DialogModule, InputIconModule, ReactiveFormsModule, ColorPickerModule, InputTextModule],
+  imports: [ButtonModule, TableModule, IconFieldModule, FormsModule, DialogModule, InputIconModule, ReactiveFormsModule, ColorPickerModule, InputTextModule, ColorDisplay],
   templateUrl: './tipo-view.html',
   styleUrl: './tipo-view.scss',
   standalone: true
@@ -24,9 +25,6 @@ export class TipoView {
 
   @Input()
   data: TipoMovimentacao[] = [];
-
-  @Input()
-  loading?: boolean = false;
 
   @Output()
   onRemover: EventEmitter<TipoMovimentacao> = new EventEmitter<TipoMovimentacao>();

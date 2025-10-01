@@ -5,10 +5,11 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { TipoView } from '../tipo-view/tipo-view';
 import { Router } from '@angular/router';
+import { Loader } from "../../../components/loader/loader";
 
 @Component({
   selector: 'app-tipo-receitas-view',
-  imports: [TipoView, CommonModule],
+  imports: [TipoView, CommonModule, Loader],
   templateUrl: './tipo-receitas-view.html',
   styleUrl: './tipo-receitas-view.scss'
 })

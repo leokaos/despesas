@@ -1,8 +1,11 @@
+@if (loading()) {
+<app-loader />
+} @else {
 <app-tipo-view
                titulo="Tipo de Receita"
                [data]="data"
-               [loading]="loading()"
                (onRemover)="removerTipoReceita($event)"
                (onEdit)="editTipoReceita($event)"
                (onAdicionar)="adicionarTipoReceita()">
 </app-tipo-view>
+}

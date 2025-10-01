@@ -6,6 +6,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 import { provideHttpClient } from '@angular/common/http';
+import '@angular/common/locales/global/pt';
 
 export const appConfig: ApplicationConfig = {
   providers: [

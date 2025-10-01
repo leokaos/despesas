@@ -3,12 +3,17 @@ import { TipoDespesasView } from './cadastros/tipo/tipo-despesas-view/tipo-despe
 import { TipoReceitasView } from './cadastros/tipo/tipo-receitas-view/tipo-receitas-view';
 import { TipoDespesaEdit } from './cadastros/tipo/tipo-despesa-edit/tipo-despesa-edit';
 import { TipoReceitaEdit } from './cadastros/tipo/tipo-receita-edit/tipo-receita-edit';
+import { ContaView } from './cadastros/debitavel/conta-view/conta-view';
+import { ContaEdit } from './cadastros/debitavel/conta-edit/conta-edit';
 
 export const routes: Routes = [
-    { path: 'tipo-despesas', component: TipoDespesasView },
-    { path: 'tipo-receitas', component: TipoReceitasView },
-    { path: 'tipo-despesa', component: TipoDespesaEdit },
-    { path: 'tipo-despesa/:id', component: TipoDespesaEdit },
-    { path: 'tipo-receita', component: TipoReceitaEdit },
-    { path: 'tipo-receita/:id', component: TipoReceitaEdit },
+  { path: 'tipo-despesas', component: TipoDespesasView },
+  { path: 'tipo-receitas', component: TipoReceitasView },
+  { path: 'tipo-despesa', component: TipoDespesaEdit },
+  { path: 'tipo-despesa/:id', component: TipoDespesaEdit },
+  { path: 'tipo-receita', component: TipoReceitaEdit },
+  { path: 'tipo-receita/:id', component: TipoReceitaEdit },
+  { path: 'contas', component: ContaView },
+  { path: 'conta', component: ContaEdit },
+  { path: 'conta/:id', component: ContaEdit },
 ];

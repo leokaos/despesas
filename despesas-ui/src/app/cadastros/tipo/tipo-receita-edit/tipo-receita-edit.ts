@@ -1,14 +1,14 @@
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TipoEdit } from './../tipo-edit/tipo-edit';
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TipoReceitaService } from '../../../services/tipo-receita-service';
 import { MessageService } from 'primeng/api';
 import { TipoMovimentacao, TipoReceita } from '../../../models/tipo-movimentacao.model';
+import { Loader } from "../../../components/loader/loader";
 
 @Component({
   selector: 'app-tipo-receita-edit',
-  imports: [TipoEdit, ProgressSpinnerModule],
+  imports: [TipoEdit, Loader],
   templateUrl: './tipo-receita-edit.html',
   styleUrl: './tipo-receita-edit.scss'
 })
