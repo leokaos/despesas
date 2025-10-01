@@ -386,9 +386,9 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-43539.07	3
 98.89	4
 34833.72	5
+45227.94	3
 \.
 
 
@@ -6082,6 +6082,7 @@ t	6055	201	101
 t	6057	201	101
 t	6051	201	101
 t	6059	108	101
+t	6063	2	\N
 \.
 
 
@@ -12083,6 +12084,8 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6059	IOF TRANSACOES INTERNACIONAIS	2025-09-30	0.38	2025-09-04	6	REAL
 6060	STEAM PURCHASE	2025-09-30	11.00	2025-08-28	6	REAL
 6061	Pagamento fatura 09/2025	2025-09-11	368.28	2025-09-30	5	REAL
+6062	TRF. P/O CONGRUENT LDA CONGRUENT	2025-10-01	1820.00	2025-09-30	3	EURO
+6063	PAGSERV H.P.T. - HOSPITAL PRIV 52177/047748998	2025-10-01	131.13	2025-09-30	3	EURO
 \.
 
 
@@ -12238,6 +12241,7 @@ t	5825	111	\N
 t	5919	111	\N
 t	5920	10	\N
 t	5921	111	\N
+t	6062	109	\N
 \.
 
 
@@ -12435,7 +12439,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 37, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6061, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6063, true);
 
 
 --
