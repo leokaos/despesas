@@ -1,0 +1,14 @@
+<div
+     class="progress" [class.progress-striped]="striped" [class.progress-animated]="animated">
+
+    <div class="progress-bar" [class]="getBarClass()" [style.width.%]="getSize()">
+
+        @if (showLabel) {
+        <span class="progress-center-label">
+            {{ current }} / {{ total }}
+        </span>
+        }
+
+        <ng-content></ng-content>
+    </div>
+</div>

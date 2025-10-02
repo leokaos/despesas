@@ -7,6 +7,7 @@ import { ContaView } from './cadastros/debitavel/conta-view/conta-view';
 import { ContaEdit } from './cadastros/debitavel/conta-edit/conta-edit';
 import { MetaView } from './cadastros/meta/meta-view/meta-view';
 import { MetaEdit } from './cadastros/meta/meta-edit/meta-edit';
+import { OrcamentoView } from './cadastros/orcamento/orcamento-view/orcamento-view';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -21,4 +22,5 @@ export const routes: Routes = [
   { path: 'metas', component: MetaView },
   { path: 'meta', component: MetaEdit },
   { path: 'meta/:id', component: MetaEdit },
+  { path: 'orcamentos', component: OrcamentoView },
 ];

@@ -1,3 +1,4 @@
+import { Periodo } from './../../../models/periodo.model';
 import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { Loader } from '../../../components/loader/loader';
@@ -5,17 +6,16 @@ import { Table, TableModule } from 'primeng/table';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { FormsModule } from '@angular/forms';
-import { ColorDisplay } from '../../../components/color-display/color-display';
-import { CurrencyPipe, DecimalPipe } from '@angular/common';
+import { DecimalPipe, JsonPipe } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { Meta } from '../../../models/meta.model';
 import { InputTextModule } from 'primeng/inputtext';
-import { SelectMes } from '../../../components/select-mes/select-mes';
 import { Mes } from '../../../models/mes.model';
 import { PanelModule } from 'primeng/panel';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { MetaFiltro, MetaService } from '../../../services/meta-service';
+import { PeriodoView } from '../../../components/periodo-view/periodo-view';
 
 @Component({
   selector: 'app-meta-view',
@@ -28,9 +28,9 @@ import { MetaFiltro, MetaService } from '../../../services/meta-service';
     FormsModule,
     DialogModule,
     InputTextModule,
-    SelectMes,
     PanelModule,
     DecimalPipe,
+    PeriodoView,
   ],
   templateUrl: './meta-view.html',
   styleUrl: './meta-view.scss',
@@ -44,9 +44,7 @@ export class MetaView implements OnInit {
   searchValue?: string;
   showDialog: boolean = false;
   meta?: Meta;
-  mesSelecionado: Mes = Mes.getMesAtual();
-  anoSelecionado: number = new Date().getFullYear();
-  mes = Mes;
+  periodo?: Periodo;
 
   private router = inject(Router);
   private messageService = inject(MessageService);
@@ -55,13 +53,18 @@ export class MetaView implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    this.periodo = {
+      mes: Mes.getMesAtual(),
+      ano: new Date().getFullYear(),
+    } as Periodo;
+
     this.loadData();
   }
 
   loadData() {
     let filtro = {
-      ano: this.anoSelecionado,
-      mes: this.mesSelecionado.id + 1,
+      ano: this.periodo?.ano,
+      mes: (this.periodo?.mes || Mes.JANEIRO).id + 1,
     } as MetaFiltro;
 
     this.metaService.fetch(filtro).subscribe((data: Meta[]) => {
@@ -77,10 +80,6 @@ export class MetaView implements OnInit {
 
   search() {
     this.table?.filterGlobal(this.searchValue, 'contains');
-  }
-
-  changeMes(mes: Mes) {
-    this.mesSelecionado = mes;
   }
 
   add() {
@@ -106,10 +105,5 @@ export class MetaView implements OnInit {
 
   edit(meta: Meta) {
     this.router.navigate(['meta', meta.id]);
-  }
-
-  setToCurrentMonth() {
-    this.mesSelecionado = Mes.getMesAtual();
-    this.anoSelecionado = new Date().getFullYear();
   }
 }

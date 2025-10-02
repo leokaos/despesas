@@ -13,6 +13,9 @@ export class SelectMes {
   @Input()
   initialValue?: Mes;
 
+  @Input()
+  disabled: boolean = false;
+
   @Output()
   onSelect: EventEmitter<Mes> = new EventEmitter<Mes>();
 

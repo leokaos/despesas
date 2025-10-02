@@ -17,8 +17,9 @@ import { Meta } from '../../../models/meta.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { MetaService } from '../../../services/meta-service';
-import { SelectMes } from '../../../components/select-mes/select-mes';
 import { Mes } from '../../../models/mes.model';
+import { PeriodoView } from '../../../components/periodo-view/periodo-view';
+import { Periodo } from '../../../models/periodo.model';
 
 @Component({
   selector: 'app-meta-edit',
@@ -32,7 +33,7 @@ import { Mes } from '../../../models/mes.model';
     FormsModule,
     ReactiveFormsModule,
     Loader,
-    SelectMes,
+    PeriodoView,
   ],
   templateUrl: './meta-edit.html',
   styleUrl: './meta-edit.scss',
@@ -46,8 +47,6 @@ export class MetaEdit {
 
   formGroup!: FormGroup;
   meta?: Meta;
-  mesSelecionado: Mes = Mes.getMesAtual();
-  anoSelecionado: number = new Date().getFullYear();
 
   loading = signal<boolean>(true);
 
@@ -59,27 +58,44 @@ export class MetaEdit {
     if (id) {
       this.metaService.fetchById(parseInt(id)).subscribe((meta: Meta) => {
         this.meta = meta;
-        this.mesSelecionado = Mes.getPorId(this.meta.mes.mes - 1) || Mes.getMesAtual();
         this.buildForm();
       });
     } else {
-      this.setToCurrentMonth();
       this.buildForm();
     }
   }
 
   private buildForm() {
+    let periodo =
+      this.meta && this.meta.mes
+        ? ({ mes: Mes.getPorId(this.meta.mes.mes - 1), ano: this.meta.mes.ano } as Periodo)
+        : null;
+
     this.formGroup = this.formBuilder.group({
-      saldo: [this.meta?.valor || 0, Validators.required],
-      ano: [this.meta?.mes.ano || this.anoSelecionado, Validators.required],
-      mes: [this.mesSelecionado, Validators.required],
+      valor: [this.meta?.valor || 0, Validators.required],
+      periodo: [periodo, Validators.required],
     });
 
     this.loading.set(false);
   }
 
   save() {
-    //{"valor":11111.11,"mes":{"mes":"12","ano":2025}}
+    var meta = {
+      id: this.meta?.id,
+      valor: this.formGroup.get('valor')?.getRawValue(),
+      mes: {
+        mes: this.formGroup.get('periodo')?.getRawValue().mes.id + 1,
+        ano: this.formGroup.get('periodo')?.getRawValue().ano,
+      },
+    } as Meta;
+
+    console.info(meta)
+
+    this.metaService.createOrUpdate(meta).subscribe((_) => {
+      // prettier-ignore
+      this.messageService.add({severity: 'success', summary: 'Sucesso', detail: 'Meta salva com sucesso!', life: 3000 });
+      this.returnToView();
+    });
   }
 
   returnToView() {
@@ -88,12 +104,5 @@ export class MetaEdit {
 
   cancel() {
     this.returnToView();
-  }
-
-  changeMes(mes: Mes) {}
-
-  setToCurrentMonth() {
-    this.mesSelecionado = Mes.getMesAtual();
-    this.anoSelecionado = new Date().getFullYear();
   }
 }

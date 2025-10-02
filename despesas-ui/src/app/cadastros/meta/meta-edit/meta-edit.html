@@ -18,23 +18,7 @@
                 </div>
 
                 <div class="w-4/5">
-                    <div class="flex gap-4 items-center">
-                        <div class="flex-1">
-                            <app-select-mes (onSelect)="changeMes($event)" [initialValue]="mesSelecionado"></app-select-mes>
-                        </div>
-
-                        <div class="flex-none">
-                            <span class="text-gray-400 mx-5">de</span>
-                        </div>
-
-                        <div class="w-32">
-                            <input pInputText type="number" formControlName="ano" placeholder="AAAA" min="2000" max="2030" class="w-full">
-                        </div>
-
-                        <div class="flex-none">
-                            <p-button icon="pi pi-calendar" severity="success" (click)="setToCurrentMonth()" />
-                        </div>
-                    </div>
+                    <app-periodo-view formControlName="periodo"></app-periodo-view>
                 </div>
 
             </div>
@@ -48,7 +32,7 @@
                         <p-inputgroup-addon>
                             <i class="pi pi-money-bill"></i>
                         </p-inputgroup-addon>
-                        <p-inputnumber placeholder="Saldo" formControlName="saldo" locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2" />
+                        <p-inputnumber placeholder="Valor" formControlName="valor" locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2" />
                     </p-inputgroup>
                 </div>
             </div>

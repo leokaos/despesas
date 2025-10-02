@@ -4,11 +4,12 @@ import { Component, Input } from '@angular/core';
   selector: 'app-color-display',
   imports: [],
   templateUrl: './color-display.html',
-  styleUrl: './color-display.scss'
+  styleUrl: './color-display.scss',
 })
 export class ColorDisplay {
+  @Input()
+  color: string = '#000000';
 
   @Input()
-  color: string = "#000000"
-
+  text: string = '';
 }
