@@ -42,12 +42,12 @@ export class TipoReceitaEdit {
 
   }
 
-  private returnView() {
+  private returnToView() {
     this.router.navigate(["tipo-receitas"]);
   }
 
   cancel() {
-    this.returnView();
+    this.returnToView();
   }
 
   saveTipoReceita(tipo: TipoMovimentacao) {
@@ -55,7 +55,7 @@ export class TipoReceitaEdit {
     this.tipoReceitaService.createOrUpdate(tipo)
       .subscribe((_: TipoReceita) => {
         this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Tipo Receita salva com sucesso!', life: 3000 });
-        this.returnView();
+        this.returnToView();
       });
 
   }

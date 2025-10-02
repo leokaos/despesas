@@ -3,6 +3,7 @@ import { APP_CONFIG, AppConfig } from '../app-config';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Meta } from '../models/meta.model';
+import { Mes } from '../models/mes.model';
 
 export interface MetaFiltro {
   mes?: number;
@@ -27,11 +28,15 @@ export class MetaService {
       });
     }
 
-    return this.http.get<Meta[]>(`${this.config.apiUrl}/meta`, { params });
+    return this.http
+      .get<Meta[]>(`${this.config.apiUrl}/meta`, { params })
+      .pipe(map((data: Meta[]) => data.map((meta: Meta) => this.processsMeta(meta))));
   }
 
   fetchById(id: number): Observable<Meta> {
-    return this.http.get<Meta>(`${this.config.apiUrl}/meta/${id}`);
+    return this.http
+      .get<Meta>(`${this.config.apiUrl}/meta/${id}`)
+      .pipe(map((meta: Meta) => this.processsMeta(meta)));
   }
 
   remove(meta: Meta) {
@@ -48,5 +53,14 @@ export class MetaService {
 
   createOrUpdate(meta: Meta): Observable<Meta> {
     return meta.id ? this.update(meta, meta.id) : this.create(meta);
+  }
+
+  private processsMeta(meta: Meta): Meta {
+    let mes = Mes.getPorId(meta.mes?.mes - 1);
+
+    return {
+      ...meta,
+      descricao: `${mes?.name} de ${meta.mes.ano}`,
+    };
   }
 }

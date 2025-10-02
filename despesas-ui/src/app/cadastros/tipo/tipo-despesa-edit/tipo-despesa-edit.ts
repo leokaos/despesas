@@ -36,19 +36,19 @@ export class TipoDespesaEdit implements OnInit {
     }
   }
 
-  private returnView() {
+  private returnToView() {
     this.router.navigate(['tipo-despesas']);
   }
 
   cancel() {
-    this.returnView();
+    this.returnToView();
   }
 
   saveTipoDespesa(tipo: TipoMovimentacao) {
     // prettier-ignore
     this.tipoDespesaService.createOrUpdate(tipo).subscribe((_: TipoDespesa) => {
       this.messageService.add({severity: 'success', summary: 'Sucesso', detail: 'Tipo Despesa salva com sucesso!', life: 3000 });
-      this.returnView();
+      this.returnToView();
     });
   }
 }

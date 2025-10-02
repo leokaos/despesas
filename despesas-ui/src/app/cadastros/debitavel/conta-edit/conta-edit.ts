@@ -80,18 +80,18 @@ export class ContaEdit {
       ...this.formGroup.value,
     } as Conta;
 
-    this.contaService.createOrUpdate(conta).subscribe((data) => {
+    this.contaService.createOrUpdate(conta).subscribe((_) => {
       // prettier-ignore
       this.messageService.add({severity: 'success', summary: 'Sucesso', detail: 'Conta salva com sucesso!', life: 3000 });
-      this.returnView();
+      this.returnToView();
     });
   }
 
   cancel() {
-    this.returnView();
+    this.returnToView();
   }
 
-  returnView() {
+  returnToView() {
     this.router.navigate(['contas']);
   }
 

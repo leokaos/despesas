@@ -19,7 +19,7 @@
 
                 <ng-template #footer>
                     <div class="flex justify-end">
-                        <p-button label="Buscar" icon="pi pi-search" severity="info" size="small" (click)="filter()"/>
+                        <p-button label="Buscar" icon="pi pi-search" severity="info" size="small" (click)="filter()" />
                     </div>
                 </ng-template>
 
@@ -98,7 +98,7 @@
         <ng-template pTemplate="body" let-item>
             <tr>
                 <td>
-                    {{mes.getPorId(item.mes.mes - 1)?.name}} de {{item.mes.ano}}
+                    {{item.descricao}}
                 </td>
                 <td> {{item.valor | number: '1.2-2' : 'pt-BR' }}</td>
                 <td> {{item.valorDiario | number: '1.2-2' : 'pt-BR' }} </td>
@@ -117,7 +117,7 @@
 </div>
 
 <p-dialog header="Remover Contas Bancárias" [modal]="true" position="top" [(visible)]="showDialog" [style]="{ width: '50rem' }">
-    Tem certeza que deseja remover <b>{{ meta?.descricao }}</b> ?
+    Tem certeza que deseja remover <b>meta de {{meta?.descricao}}</b> ?
 
     <ng-template pTemplate="footer">
         <p-button label="Cancel" [raised]="true" severity="secondary" (click)="showDialog = false" />

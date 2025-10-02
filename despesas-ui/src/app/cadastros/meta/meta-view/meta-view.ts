@@ -87,9 +87,26 @@ export class MetaView implements OnInit {
     this.router.navigate(['meta']);
   }
 
-  remover() {}
-  openDialog(meta: Meta) {}
-  edit(meta: Meta) {}
+  remover() {
+    if (this.meta) {
+      // prettier-ignore
+      this.metaService.remove(this.meta).subscribe(() => {
+        this.messageService.add({severity: 'success', summary: 'Successo', detail: 'Meta removida com sucesso!', life: 3000 });
+        this.loadData();
+      });
+    }
+
+    this.showDialog = false;
+  }
+
+  openDialog(meta: Meta) {
+    this.showDialog = true;
+    this.meta = meta;
+  }
+
+  edit(meta: Meta) {
+    this.router.navigate(['meta', meta.id]);
+  }
 
   setToCurrentMonth() {
     this.mesSelecionado = Mes.getMesAtual();
