@@ -1,10 +1,15 @@
-import { HttpClient } from '@angular/common/http';
+import { Orcamento } from './../models/orcamento.model';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { APP_CONFIG, AppConfig } from '../app-config';
-import { Orcamento } from '../models/orcamento.model';
 import { Mes } from '../models/mes.model';
 import { Periodo } from '../models/periodo.model';
+
+export interface OrcamentoFiltro {
+  dataInicial: Date;
+  dataFinal: Date;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -12,16 +17,29 @@ import { Periodo } from '../models/periodo.model';
 export class OrcamentoService {
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) {}
 
-  fetch(): Observable<Orcamento[]> {
+  fetch(filtro: OrcamentoFiltro): Observable<Orcamento[]> {
+    let params = new HttpParams();
+
+    if (filtro) {
+      Object.keys(filtro).forEach((key) => {
+        const value = filtro[key as keyof OrcamentoFiltro];
+        if (value !== undefined && value !== null) {
+          params = params.set(key, value.toString());
+        }
+      });
+    }
+
     return this.http
-      .get<Orcamento[]>(`${this.config.apiUrl}/orcamento`)
+      .get<Orcamento[]>(`${this.config.apiUrl}/orcamento`, { params })
       .pipe(
         map((data: Orcamento[]) => data.map((orcamento: Orcamento) => this.process(orcamento)))
       );
   }
 
   fetchById(id: number): Observable<Orcamento> {
-    return this.http.get<Orcamento>(`${this.config.apiUrl}/orcamento/${id}`);
+    return this.http
+      .get<Orcamento>(`${this.config.apiUrl}/orcamento/${id}`)
+      .pipe(map((data: Orcamento) => this.process(data)));
   }
 
   remove(orcamento: Orcamento) {
@@ -44,7 +62,7 @@ export class OrcamentoService {
     let dataInicial = new Date(orcamento.dataInicial);
 
     let periodo = {
-      mes: Mes.getPorId(dataInicial.getMonth() + 1),
+      mes: Mes.getPorId(dataInicial.getMonth()),
       ano: dataInicial.getFullYear(),
     } as Periodo;
 

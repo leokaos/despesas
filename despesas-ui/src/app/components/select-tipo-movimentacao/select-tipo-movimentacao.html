@@ -1,0 +1,17 @@
+<p-select
+          [options]="tiposDespesa"
+          [(ngModel)]="value"
+          (ngModelChange)="onChangeValue($event)"
+          (blur)="onBlur()"
+          [disabled]="disabled"
+          [placeholder]="placeholder"
+          optionLabel="descricao"
+          styleClass="w-full">
+    <ng-template #selectedItem let-selectedOption>
+        <app-color-display [color]="selectedOption.cor" [text]="selectedOption.descricao" />
+    </ng-template>
+
+    <ng-template let-tipoDespesa #item>
+        <app-color-display [color]="tipoDespesa.cor" [text]="tipoDespesa.descricao" />
+    </ng-template>
+</p-select>
