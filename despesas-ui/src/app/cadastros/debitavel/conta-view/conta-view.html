@@ -4,9 +4,9 @@
 
 <div class="form-panel">
 
-    <div style="display: flex; justify-content: flex-end; padding-bottom: 10px;">
+    <div class="flex justify-end pb-2.5">
         <p-button label="Adicionar" severity="secondary" (click)="add()">
-            <i class="pi pi-plus" style="font-size: 1.5rem"></i>
+            <i class="pi pi-plus text-2xl"></i>
         </p-button>
     </div>
 
@@ -58,7 +58,7 @@
                     <app-color-display [color]="item.cor" />
                 </td>
                 <td>{{ item.descricao }}</td>
-                <td> {{item.moeda.simbolo}} {{item.saldo | number: '1.2-2' : 'pt-BR'}}</td>
+                <td>{{ item.moeda.simbolo }} {{ item.saldo | number: '1.2-2' : 'pt-BR' }}</td>
                 <td class="small-column">
                     <p-button icon="pi pi-pen-to-square" [outlined]="true" size="small" (click)="edit(item)" />
                 </td>
