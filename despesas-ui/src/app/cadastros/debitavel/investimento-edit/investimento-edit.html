@@ -1,0 +1,91 @@
+<span class="page-title">
+    <i class="pi pi-chevron-right"></i> Contas Bancárias
+</span>
+
+<div class="w-full md:w-full lg:w-1/2 mx-auto form-panel flex flex-col">
+
+    @if(loading()){
+    <app-loader />
+    }@else {
+    <form class="flex-1 flex flex-col" [formGroup]="formGroup">
+
+        <div class="flex-1">
+            <div class="flex mb-4">
+                <div class="w-1/5 pr-2 flex items-center">
+                    <label for="descricao">Descrição</label>
+                </div>
+                <div class="w-4/5">
+                    <input type="text" pInputText class="w-full" formControlName="descricao" />
+                </div>
+            </div>
+
+            <div class="flex mb-4">
+                <div class="w-1/5 pr-2 flex items-center">
+                    <label for="cor">Cor</label>
+                </div>
+                <div class="w-4/5">
+                    <p-colorpicker defaultColor="989898" class="w-full" formControlName="cor" />
+                </div>
+            </div>
+
+            <div class="flex mb-4">
+                <div class="w-1/5 pr-2 flex items-center">
+                    <label for="cor">Moeda</label>
+                </div>
+                <div class="w-1/5">
+                    <app-select-moeda (onSelect)="selectMoeda($event)" [initialValue]="investimento?.moeda" />
+                </div>
+            </div>
+
+
+            <div class="flex mb-4">
+                <div class="w-1/5 pr-2 flex items-center">
+                    <label for="cor">Periodiciodade</label>
+                </div>
+                <div class="w-1/5">
+                    <p-select class="w-full" [options]="periodicidade" formControlName="periodicidade"></p-select>
+                </div>
+            </div>
+
+            <div class="flex mb-4">
+                <div class="w-1/5 pr-2 flex items-center">
+                    <label for="cor">Montante</label>
+                </div>
+                <div class="w-2/5">
+                    <p-inputgroup>
+                        <p-inputgroup-addon>
+                            <i class="pi pi-money-bill"></i>
+                        </p-inputgroup-addon>
+                        <p-inputnumber formControlName="montante" locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2" />
+                    </p-inputgroup>
+                </div>
+            </div>
+
+            <div class="flex mb-4">
+                <div class="w-1/5 pr-2 flex items-center">
+                    <label for="cor">Rendimento</label>
+                </div>
+                <div class="w-2/5">
+                    <p-inputgroup>
+                        <p-inputgroup-addon>
+                            <i class="pi pi-percentage"></i>
+                        </p-inputgroup-addon>
+                        <p-inputnumber formControlName="rendimento" locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2" />
+                    </p-inputgroup>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-auto pt-4">
+
+            <div class="flex justify-between">
+                <p-button label="Cancelar" [raised]="true" severity="secondary" size="small" (click)="cancel()" />
+                <p-button label="Salvar" [raised]="true" severity="success" size="small" (click)="save()" [disabled]="!formGroup.valid" />
+            </div>
+
+        </div>
+
+    </form>
+    }
+
+</div>

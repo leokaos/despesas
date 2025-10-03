@@ -14,6 +14,9 @@ import { OrcamentoEdit } from './cadastros/orcamento/orcamento-edit/orcamento-ed
 import { DividaView } from './cadastros/debitavel/divida-view/divida-view';
 import { DividaEdit } from './cadastros/debitavel/divida-edit/divida-edit';
 import { InvestimentoView } from './cadastros/debitavel/investimento-view/investimento-view';
+import { InvestimentoEdit } from './cadastros/debitavel/investimento-edit/investimento-edit';
+import { CartaoCreditoView } from './cadastros/debitavel/cartao-credito-view/cartao-credito-view';
+import { CartaoCreditoEdit } from './cadastros/debitavel/cartao-credito-edit/cartao-credito-edit';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -38,4 +41,9 @@ export const routes: Routes = [
   { path: 'divida', component: DividaEdit },
   { path: 'divida/:id', component: DividaEdit },
   { path: 'investimentos', component: InvestimentoView },
+  { path: 'investimento', component: InvestimentoEdit },
+  { path: 'investimento/:id', component: InvestimentoEdit },
+  { path: 'cartoes', component: CartaoCreditoView },
+  { path: 'cartao', component: CartaoCreditoEdit },
+  { path: 'cartao/:id', component: CartaoCreditoEdit },
 ];

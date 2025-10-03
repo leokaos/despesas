@@ -11,5 +11,5 @@ export class ColorDisplay {
   color: string = '#000000';
 
   @Input()
-  text: string = '';
+  text?: string;
 }

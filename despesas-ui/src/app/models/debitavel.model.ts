@@ -45,4 +45,20 @@ export interface Divida extends Debitavel {
 export interface Investimento extends Debitavel {
   valorReceitas: number;
   yield: number;
+  montante: number;
+  rendimento: number;
+  periodicidade: 'MENSAL' | 'SEMESTRAL' | 'VARIAVEL';
+}
+
+export enum Bandeira {
+  VISA = 'VISA',
+  MASTERCARD = 'MASTERCARD',
+  AMERICAN_EXPRESS = 'AMERICAN_EXPRESS',
+}
+
+export interface CartaoCredito extends Debitavel {
+  bandeira: Bandeira;
+  limite: number;
+  diaDeFechamento: number;
+  diaDeVencimento: number;
 }

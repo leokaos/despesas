@@ -25,16 +25,16 @@ export class ContaService {
       .pipe(map((data) => this.process(data)));
   }
 
-  remove(Conta: Conta) {
-    return this.http.delete(`${this.config.apiUrl}/${this.path}/${Conta.id}`);
+  remove(conta: Conta) {
+    return this.http.delete(`${this.config.apiUrl}/${this.path}/${conta.id}`);
   }
 
-  create(Conta: Conta): Observable<Conta> {
-    return this.http.post<Conta>(`${this.config.apiUrl}/${this.path}/`, Conta);
+  create(conta: Conta): Observable<Conta> {
+    return this.http.post<Conta>(`${this.config.apiUrl}/${this.path}/`, conta);
   }
 
-  update(Conta: Conta, id: number): Observable<Conta> {
-    return this.http.put<Conta>(`${this.config.apiUrl}/${this.path}/`, Conta);
+  update(conta: Conta, id: number): Observable<Conta> {
+    return this.http.put<Conta>(`${this.config.apiUrl}/${this.path}/`, conta);
   }
 
   createOrUpdate(conta: Conta): Observable<Conta> {
