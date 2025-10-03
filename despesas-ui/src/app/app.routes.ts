@@ -11,8 +11,8 @@ import { MetaView } from './cadastros/meta/meta-view/meta-view';
 import { MetaEdit } from './cadastros/meta/meta-edit/meta-edit';
 import { OrcamentoView } from './cadastros/orcamento/orcamento-view/orcamento-view';
 import { OrcamentoEdit } from './cadastros/orcamento/orcamento-edit/orcamento-edit';
-import { DividaView } from './cadastros/movimentacao/divida-view/divida-view';
-import { DividaEdit } from './cadastros/movimentacao/divida-edit/divida-edit';
+import { DividaView } from './cadastros/debitavel/divida-view/divida-view';
+import { DividaEdit } from './cadastros/debitavel/divida-edit/divida-edit';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
