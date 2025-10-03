@@ -9,19 +9,29 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { ColorDisplay } from "../../../components/color-display/color-display";
+import { ColorDisplay } from '../../../components/color-display/color-display';
 
 @Component({
   selector: 'app-tipo-view',
-  imports: [ButtonModule, TableModule, IconFieldModule, FormsModule, DialogModule, InputIconModule, ReactiveFormsModule, ColorPickerModule, InputTextModule, ColorDisplay],
+  imports: [
+    ButtonModule,
+    TableModule,
+    IconFieldModule,
+    FormsModule,
+    DialogModule,
+    InputIconModule,
+    ReactiveFormsModule,
+    ColorPickerModule,
+    InputTextModule,
+    ColorDisplay,
+  ],
   templateUrl: './tipo-view.html',
   styleUrl: './tipo-view.scss',
-  standalone: true
+  standalone: true,
 })
 export class TipoView {
-
   @Input()
-  titulo: string = "Tipos";
+  titulo: string = 'Tipos';
 
   @Input()
   data: TipoMovimentacao[] = [];
@@ -35,6 +45,9 @@ export class TipoView {
   @Output()
   onEdit: EventEmitter<TipoMovimentacao> = new EventEmitter<TipoMovimentacao>();
 
+  @Output()
+  onReload: EventEmitter<void> = new EventEmitter<void>();
+
   @ViewChild('table')
   private table?: Table;
 
@@ -42,7 +55,7 @@ export class TipoView {
   tipoMovimentacao?: TipoMovimentacao;
   showDialog: boolean = false;
 
-  constructor() { }
+  constructor() {}
 
   search() {
     this.table?.filterGlobal(this.searchValue, 'contains');
@@ -54,7 +67,7 @@ export class TipoView {
   }
 
   remover() {
-    this.showDialog = false
+    this.showDialog = false;
     this.onRemover.emit(this.tipoMovimentacao);
   }
 
@@ -66,4 +79,7 @@ export class TipoView {
     this.onEdit.emit(tipoMovimentacao);
   }
 
+  reload() {
+    this.onReload.emit();
+  }
 }

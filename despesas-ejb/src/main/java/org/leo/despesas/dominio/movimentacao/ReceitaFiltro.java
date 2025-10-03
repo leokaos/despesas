@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.ws.rs.QueryParam;
 
 import org.leo.despesas.dominio.debitavel.Debitavel;
-import org.leo.despesas.dominio.debitavel.Investimento;
 import org.leo.despesas.infra.AbstractModelFiltro;
 import org.leo.despesas.infra.Moeda;
 

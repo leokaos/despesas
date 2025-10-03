@@ -12,7 +12,6 @@ import { Loader } from '../../../components/loader/loader';
   imports: [TipoView, CommonModule, Loader],
   templateUrl: './tipo-despesas-view.html',
   styleUrl: './tipo-despesas-view.scss',
-  standalone: true,
 })
 export class TipoDespesasView implements OnInit {
   data: TipoDespesa[] = [];
@@ -39,11 +38,14 @@ export class TipoDespesasView implements OnInit {
     // prettier-ignore
     this.tipoDespesaService.remove(tipoDespesa)
       .subscribe(() => {
-        this.messageService.add({ 
-          severity: 'success', summary: 'Successo', detail: 'Tipo Despesa removida com sucesso!', life: 3000 
-        });
+        this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Tipo Despesa removida com sucesso!', life: 3000 });
         this.loadData();
       });
+  }
+
+  reload() {
+    this.loading.set(true);
+    this.loadData();
   }
 
   editTipoDespesa(tipoDespesa: TipoMovimentacao) {

@@ -62,6 +62,11 @@ export class DividaView {
     });
   }
 
+  reload() {
+    this.loading.set(true);
+    this.loadData();
+  }
+
   add() {
     this.router.navigate(['divida']);
   }

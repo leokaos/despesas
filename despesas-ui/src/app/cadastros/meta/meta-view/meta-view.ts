@@ -73,6 +73,11 @@ export class MetaView implements OnInit {
     });
   }
 
+  reload() {
+    this.loading.set(true);
+    this.loadData();
+  }
+
   filter() {
     this.loading.set(true);
     this.loadData();

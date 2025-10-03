@@ -1,22 +1,23 @@
-import { ContaService } from './../../../services/conta-service';
-import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { DecimalPipe, DatePipe } from '@angular/common';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { DialogModule } from 'primeng/dialog';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { Table, TableModule } from 'primeng/table';
-import { Conta } from '../../../models/debitavel.model';
+import { TableModule, Table } from 'primeng/table';
 import { ColorDisplay } from '../../../components/color-display/color-display';
 import { Loader } from '../../../components/loader/loader';
-import { Router } from '@angular/router';
-import { DecimalPipe } from '@angular/common';
-import { MessageService } from 'primeng/api';
+import { Divida, Investimento } from '../../../models/debitavel.model';
+import { DividaService } from '../../../services/divida-service';
+import { InvestimentoService } from '../../../services/investimento-service';
 
 @Component({
-  selector: 'app-conta-view',
+  selector: 'app-investimento-view',
   imports: [
     ButtonModule,
     TableModule,
@@ -31,20 +32,20 @@ import { MessageService } from 'primeng/api';
     DecimalPipe,
     Loader,
   ],
-  templateUrl: './conta-view.html',
-  styleUrl: './conta-view.scss',
+  templateUrl: './investimento-view.html',
+  styleUrl: './investimento-view.scss',
 })
-export class ContaView implements OnInit {
+export class InvestimentoView {
   @ViewChild('table')
   private table?: Table;
 
   loading = signal<boolean>(true);
-  data: Conta[] = [];
+  data: Investimento[] = [];
   searchValue?: string;
   showDialog: boolean = false;
-  conta?: Conta;
+  investimento?: Investimento;
 
-  private contaService = inject(ContaService);
+  private investimentoService = inject(InvestimentoService);
   private router = inject(Router);
   private messageService = inject(MessageService);
 
@@ -54,11 +55,28 @@ export class ContaView implements OnInit {
     this.loadData();
   }
 
-  loadData() {
-    this.contaService.fetch().subscribe((data: Conta[]) => {
+  private loadData() {
+    this.investimentoService.fetch().subscribe((data: Investimento[]) => {
       this.data = [...data];
       this.loading.set(false);
     });
+  }
+
+  add() {
+    this.router.navigate(['investimento']);
+  }
+
+  edit(divida: Divida) {
+    this.router.navigate(['investimento', divida.id]);
+  }
+
+  search() {
+    this.table?.filterGlobal(this.searchValue, 'contains');
+  }
+
+  openDialog(investimento: Investimento) {
+    this.showDialog = true;
+    this.investimento = investimento;
   }
 
   reload() {
@@ -66,28 +84,11 @@ export class ContaView implements OnInit {
     this.loadData();
   }
 
-  add() {
-    this.router.navigate(['conta']);
-  }
-
-  edit(conta: Conta) {
-    this.router.navigate(['conta', conta.id]);
-  }
-
-  search() {
-    this.table?.filterGlobal(this.searchValue, 'contains');
-  }
-
-  openDialog(conta: Conta) {
-    this.showDialog = true;
-    this.conta = conta;
-  }
-
   remover() {
-    if (this.conta) {
+    if (this.investimento) {
       // prettier-ignore
-      this.contaService.remove(this.conta).subscribe(() => {
-        this.messageService.add({severity: 'success', summary: 'Successo', detail: 'Conta removida com sucesso!', life: 3000 });
+      this.investimentoService.remove(this.investimento).subscribe(() => {
+        this.messageService.add({severity: 'success', summary: 'Successo', detail: 'Investimento removida com sucesso!', life: 3000 });
         this.loadData();
       });
     }

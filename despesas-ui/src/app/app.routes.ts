@@ -13,6 +13,7 @@ import { OrcamentoView } from './cadastros/orcamento/orcamento-view/orcamento-vi
 import { OrcamentoEdit } from './cadastros/orcamento/orcamento-edit/orcamento-edit';
 import { DividaView } from './cadastros/debitavel/divida-view/divida-view';
 import { DividaEdit } from './cadastros/debitavel/divida-edit/divida-edit';
+import { InvestimentoView } from './cadastros/debitavel/investimento-view/investimento-view';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -36,4 +37,5 @@ export const routes: Routes = [
   { path: 'dividas', component: DividaView },
   { path: 'divida', component: DividaEdit },
   { path: 'divida/:id', component: DividaEdit },
+  { path: 'investimentos', component: InvestimentoView },
 ];

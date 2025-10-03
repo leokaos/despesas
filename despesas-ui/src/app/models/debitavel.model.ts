@@ -1,3 +1,4 @@
+import { InvestimentoView } from './../cadastros/debitavel/investimento-view/investimento-view';
 export class Moeda {
   static readonly REAL = new Moeda('REAL', 'R$', 'Real');
   static readonly EURO = new Moeda('EURO', '€', 'Euro');
@@ -39,4 +40,9 @@ export interface Divida extends Debitavel {
   periodicidade: 'MENSAL' | 'SEMESTRAL' | 'VARIAVEL';
   valorTotal: number;
   dataInicio: Date;
+}
+
+export interface Investimento extends Debitavel {
+  valorReceitas: number;
+  yield: number;
 }
