@@ -11,6 +11,8 @@ import { MetaView } from './cadastros/meta/meta-view/meta-view';
 import { MetaEdit } from './cadastros/meta/meta-edit/meta-edit';
 import { OrcamentoView } from './cadastros/orcamento/orcamento-view/orcamento-view';
 import { OrcamentoEdit } from './cadastros/orcamento/orcamento-edit/orcamento-edit';
+import { DividaView } from './cadastros/movimentacao/divida-view/divida-view';
+import { DividaEdit } from './cadastros/movimentacao/divida-edit/divida-edit';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -31,4 +33,7 @@ export const routes: Routes = [
   { path: 'transferencias', component: TransferenciaView },
   { path: 'transferencia', component: TransferenciaEdit },
   { path: 'transferencia/:id', component: TransferenciaEdit },
+  { path: 'dividas', component: DividaView },
+  { path: 'divida', component: DividaEdit },
+  { path: 'divida/:id', component: DividaEdit },
 ];

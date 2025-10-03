@@ -24,7 +24,7 @@ public class InvestimentoFacadeImpl extends AbstractFacade<Investimento, Investi
 	public void consolidar(Investimento investimento) {
 
 		ReceitaFiltro filtro = new ReceitaFiltro();
-		filtro.setInvestimento(investimento);
+		filtro.setDebitavel(investimento);
 
 		BigDecimal totalReceitas = BigDecimal.ZERO;
 

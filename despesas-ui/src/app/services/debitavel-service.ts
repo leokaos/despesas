@@ -12,6 +12,8 @@ export interface DebitavelFiltro {
   providedIn: 'root',
 })
 export class DebitavelService {
+  private readonly path: string = 'debitavel';
+
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) {}
 
   fetch(filtro: DebitavelFiltro): Observable<Debitavel[]> {
@@ -27,26 +29,26 @@ export class DebitavelService {
     }
 
     return this.http
-      .get<Debitavel[]>(`${this.config.apiUrl}/debitavel`, { params })
+      .get<Debitavel[]>(`${this.config.apiUrl}/${this.path}`, { params })
       .pipe(
         map((data: Debitavel[]) => data.map((debitavel: Debitavel) => this.process(debitavel)))
       );
   }
 
   fetchById(id: number): Observable<Debitavel> {
-    return this.http.get<Debitavel>(`${this.config.apiUrl}/debitavel/${id}`);
+    return this.http.get<Debitavel>(`${this.config.apiUrl}/${this.path}/${id}`);
   }
 
   remove(debitavel: Debitavel) {
-    return this.http.delete(`${this.config.apiUrl}/debitavel/${debitavel.id}`);
+    return this.http.delete(`${this.config.apiUrl}/${this.path}/${debitavel.id}`);
   }
 
   create(debitavel: Debitavel): Observable<Debitavel> {
-    return this.http.post<Debitavel>(`${this.config.apiUrl}/debitavel/`, debitavel);
+    return this.http.post<Debitavel>(`${this.config.apiUrl}/${this.path}/`, debitavel);
   }
 
   update(debitavel: Debitavel, id: number): Observable<Debitavel> {
-    return this.http.put<Debitavel>(`${this.config.apiUrl}/debitavel/`, debitavel);
+    return this.http.put<Debitavel>(`${this.config.apiUrl}/${this.path}/`, debitavel);
   }
 
   createOrUpdate(debitavel: Debitavel): Observable<Debitavel> {

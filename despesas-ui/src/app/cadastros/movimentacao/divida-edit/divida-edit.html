@@ -1,5 +1,5 @@
 <span class="page-title">
-    <i class="pi pi-chevron-right"></i> Contas Bancárias
+    <i class="pi pi-chevron-right"></i> Dívida
 </span>
 
 <div class="w-full md:w-full lg:w-1/2 mx-auto form-panel flex flex-col">
@@ -21,10 +21,24 @@
 
             <div class="flex mb-4">
                 <div class="w-1/5 pr-2 flex items-center">
-                    <label for="cor">Cor</label>
+                    <label for="cor">Valor</label>
                 </div>
                 <div class="w-4/5">
-                    <p-colorpicker defaultColor="989898" class="w-full" formControlName="cor" />
+                    <p-inputgroup>
+                        <p-inputgroup-addon>
+                            <i class="pi pi-money-bill"></i>
+                        </p-inputgroup-addon>
+                        <p-inputnumber placeholder="Saldo" formControlName="valorTotal" locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2" />
+                    </p-inputgroup>
+                </div>
+            </div>
+
+            <div class="flex mb-4">
+                <div class="w-1/5 pr-2 flex items-center">
+                    <label for="cor">Data Início</label>
+                </div>
+                <div class="w-4/5">
+                    <p-datepicker [showIcon]="true" formControlName="dataInicio" />
                 </div>
             </div>
 
@@ -32,24 +46,29 @@
                 <div class="w-1/5 pr-2 flex items-center">
                     <label for="cor">Moeda</label>
                 </div>
-                <div class="w-1/3">
-                    <app-select-moeda (onSelect)="selectMoeda($event)" [initialValue]="conta?.moeda" />
+                <div class="w-2/5">
+                    <app-select-moeda [initialValue]="divida?.moeda" (onSelect)="selectMoeda($event)"></app-select-moeda>
                 </div>
             </div>
 
             <div class="flex mb-4">
                 <div class="w-1/5 pr-2 flex items-center">
-                    <label for="cor">Saldo</label>
+                    <label for="cor">Periodiciodade</label>
                 </div>
-                <div class="w-4/5">
-                    <p-inputgroup>
-                        <p-inputgroup-addon>
-                            <i class="pi pi-money-bill"></i>
-                        </p-inputgroup-addon>
-                        <p-inputnumber placeholder="Saldo" formControlName="saldo" locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2" />
-                    </p-inputgroup>
+                <div class="w-2/5">
+                    <p-select class="w-full" [options]="periodicidade" formControlName="periodicidade"></p-select>
                 </div>
             </div>
+
+            <div class="flex mb-4">
+                <div class="w-1/5 pr-2 flex items-center">
+                    <label for="cor">Cor</label>
+                </div>
+                <div class="w-4/5">
+                    <p-colorpicker defaultColor="989898" class="w-full" formControlName="cor" />
+                </div>
+            </div>
+
         </div>
 
         <div class="mt-auto pt-4">

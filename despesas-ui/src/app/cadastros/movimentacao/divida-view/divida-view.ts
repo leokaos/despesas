@@ -1,22 +1,22 @@
-import { ContaService } from './../../../services/conta-service';
-import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject, signal, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { Table, TableModule } from 'primeng/table';
+import { DividaService } from '../../../services/divida-service';
 import { ButtonModule } from 'primeng/button';
+import { Loader } from '../../../components/loader/loader';
+import { DatePipe, DecimalPipe } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { DialogModule } from 'primeng/dialog';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { Table, TableModule } from 'primeng/table';
-import { Conta } from '../../../models/debitavel.model';
 import { ColorDisplay } from '../../../components/color-display/color-display';
-import { Loader } from '../../../components/loader/loader';
-import { Router } from '@angular/router';
-import { DecimalPipe } from '@angular/common';
-import { MessageService } from 'primeng/api';
+import { Divida } from '../../../models/debitavel.model';
 
 @Component({
-  selector: 'app-conta-view',
+  selector: 'app-divida-view',
   imports: [
     ButtonModule,
     TableModule,
@@ -30,21 +30,22 @@ import { MessageService } from 'primeng/api';
     ColorDisplay,
     DecimalPipe,
     Loader,
+    DatePipe,
   ],
-  templateUrl: './conta-view.html',
-  styleUrl: './conta-view.scss',
+  templateUrl: './divida-view.html',
+  styleUrl: './divida-view.scss',
 })
-export class ContaView implements OnInit {
+export class DividaView {
   @ViewChild('table')
   private table?: Table;
 
   loading = signal<boolean>(true);
-  data: Conta[] = [];
+  data: Divida[] = [];
   searchValue?: string;
   showDialog: boolean = false;
-  conta?: Conta;
+  divida?: Divida;
 
-  private contaService = inject(ContaService);
+  private dividaService = inject(DividaService);
   private router = inject(Router);
   private messageService = inject(MessageService);
 
@@ -55,34 +56,34 @@ export class ContaView implements OnInit {
   }
 
   loadData() {
-    this.contaService.fetch().subscribe((data: Conta[]) => {
+    this.dividaService.fetch().subscribe((data: Divida[]) => {
       this.data = [...data];
       this.loading.set(false);
     });
   }
 
   add() {
-    this.router.navigate(['conta']);
+    this.router.navigate(['divida']);
   }
 
-  edit(conta: Conta) {
-    this.router.navigate(['conta', conta.id]);
+  edit(divida: Divida) {
+    this.router.navigate(['divida', divida.id]);
   }
 
   search() {
     this.table?.filterGlobal(this.searchValue, 'contains');
   }
 
-  openDialog(conta: Conta) {
+  openDialog(divida: Divida) {
     this.showDialog = true;
-    this.conta = conta;
+    this.divida = divida;
   }
 
   remover() {
-    if (this.conta) {
+    if (this.divida) {
       // prettier-ignore
-      this.contaService.remove(this.conta).subscribe(() => {
-        this.messageService.add({severity: 'success', summary: 'Successo', detail: 'Conta removida com sucesso!', life: 3000 });
+      this.dividaService.remove(this.divida).subscribe(() => {
+        this.messageService.add({severity: 'success', summary: 'Successo', detail: 'Dívida removida com sucesso!', life: 3000 });
         this.loadData();
       });
     }

@@ -14,6 +14,8 @@ export interface TransferenciaFiltro {
   providedIn: 'root',
 })
 export class TransferenciaService {
+  private readonly path: string = 'transferencia';
+
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) {}
 
   fetch(filtro: TransferenciaFiltro): Observable<Transferencia[]> {
@@ -29,7 +31,7 @@ export class TransferenciaService {
     }
 
     return this.http
-      .get<Transferencia[]>(`${this.config.apiUrl}/transferencia`, { params })
+      .get<Transferencia[]>(`${this.config.apiUrl}/${this.path}`, { params })
       .pipe(
         map((data: Transferencia[]) =>
           data.map((transferencia: Transferencia) => this.process(transferencia))
@@ -39,23 +41,23 @@ export class TransferenciaService {
 
   fetchById(id: number): Observable<Transferencia> {
     return this.http
-      .get<Transferencia>(`${this.config.apiUrl}/transferencia/${id}`)
+      .get<Transferencia>(`${this.config.apiUrl}/${this.path}/${id}`)
       .pipe(map((data: Transferencia) => this.process(data)));
   }
 
   remove(transferencia: Transferencia) {
-    return this.http.delete(`${this.config.apiUrl}/transferencia/${transferencia.id}`);
+    return this.http.delete(`${this.config.apiUrl}/${this.path}/${transferencia.id}`);
   }
 
   create(transferencia: Transferencia): Observable<Transferencia> {
     let payload = {
       transferencia: transferencia,
     };
-    return this.http.post<Transferencia>(`${this.config.apiUrl}/transferencia/`, payload);
+    return this.http.post<Transferencia>(`${this.config.apiUrl}/${this.path}/`, payload);
   }
 
   update(transferencia: Transferencia, id: number): Observable<Transferencia> {
-    return this.http.put<Transferencia>(`${this.config.apiUrl}/transferencia/`, transferencia);
+    return this.http.put<Transferencia>(`${this.config.apiUrl}/${this.path}/`, transferencia);
   }
 
   createOrUpdate(transferencia: Transferencia): Observable<Transferencia> {

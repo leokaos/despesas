@@ -15,6 +15,8 @@ export interface OrcamentoFiltro {
   providedIn: 'root',
 })
 export class OrcamentoService {
+  private readonly path: string = 'orcamento';
+
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) {}
 
   fetch(filtro: OrcamentoFiltro): Observable<Orcamento[]> {
@@ -30,7 +32,7 @@ export class OrcamentoService {
     }
 
     return this.http
-      .get<Orcamento[]>(`${this.config.apiUrl}/orcamento`, { params })
+      .get<Orcamento[]>(`${this.config.apiUrl}/${this.path}`, { params })
       .pipe(
         map((data: Orcamento[]) => data.map((orcamento: Orcamento) => this.process(orcamento)))
       );
@@ -38,20 +40,20 @@ export class OrcamentoService {
 
   fetchById(id: number): Observable<Orcamento> {
     return this.http
-      .get<Orcamento>(`${this.config.apiUrl}/orcamento/${id}`)
+      .get<Orcamento>(`${this.config.apiUrl}/${this.path}/${id}`)
       .pipe(map((data: Orcamento) => this.process(data)));
   }
 
   remove(orcamento: Orcamento) {
-    return this.http.delete(`${this.config.apiUrl}/orcamento/${orcamento.id}`);
+    return this.http.delete(`${this.config.apiUrl}/${this.path}/${orcamento.id}`);
   }
 
   create(orcamento: Orcamento): Observable<Orcamento> {
-    return this.http.post<Orcamento>(`${this.config.apiUrl}/orcamento/`, orcamento);
+    return this.http.post<Orcamento>(`${this.config.apiUrl}/${this.path}/`, orcamento);
   }
 
   update(orcamento: Orcamento, id: number): Observable<Orcamento> {
-    return this.http.put<Orcamento>(`${this.config.apiUrl}/orcamento/`, orcamento);
+    return this.http.put<Orcamento>(`${this.config.apiUrl}/${this.path}/`, orcamento);
   }
 
   createOrUpdate(orcamento: Orcamento): Observable<Orcamento> {

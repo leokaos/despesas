@@ -34,3 +34,9 @@ export interface Debitavel {
 export interface Conta extends Debitavel {
   saldo: number;
 }
+
+export interface Divida extends Debitavel {
+  periodicidade: 'MENSAL' | 'SEMESTRAL' | 'VARIAVEL';
+  valorTotal: number;
+  dataInicio: Date;
+}

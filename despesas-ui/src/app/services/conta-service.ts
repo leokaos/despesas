@@ -9,30 +9,32 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ContaService {
+  private readonly path: string = 'conta';
+
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) {}
 
   fetch(): Observable<Conta[]> {
     return this.http
-      .get<Conta[]>(`${this.config.apiUrl}/conta`)
+      .get<Conta[]>(`${this.config.apiUrl}/${this.path}`)
       .pipe(map((data) => data.map((conta) => this.process(conta))));
   }
 
   fetchById(id: number): Observable<Conta> {
     return this.http
-      .get<Conta>(`${this.config.apiUrl}/conta/${id}`)
+      .get<Conta>(`${this.config.apiUrl}/${this.path}/${id}`)
       .pipe(map((data) => this.process(data)));
   }
 
   remove(Conta: Conta) {
-    return this.http.delete(`${this.config.apiUrl}/conta/${Conta.id}`);
+    return this.http.delete(`${this.config.apiUrl}/${this.path}/${Conta.id}`);
   }
 
   create(Conta: Conta): Observable<Conta> {
-    return this.http.post<Conta>(`${this.config.apiUrl}/conta/`, Conta);
+    return this.http.post<Conta>(`${this.config.apiUrl}/${this.path}/`, Conta);
   }
 
   update(Conta: Conta, id: number): Observable<Conta> {
-    return this.http.put<Conta>(`${this.config.apiUrl}/conta/`, Conta);
+    return this.http.put<Conta>(`${this.config.apiUrl}/${this.path}/`, Conta);
   }
 
   createOrUpdate(conta: Conta): Observable<Conta> {

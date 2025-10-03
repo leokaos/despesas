@@ -14,6 +14,8 @@ export interface MetaFiltro {
   providedIn: 'root',
 })
 export class MetaService {
+  private readonly path: string = 'meta';
+
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) {}
 
   fetch(filtro: MetaFiltro): Observable<Meta[]> {
@@ -29,26 +31,26 @@ export class MetaService {
     }
 
     return this.http
-      .get<Meta[]>(`${this.config.apiUrl}/meta`, { params })
+      .get<Meta[]>(`${this.config.apiUrl}/${this.path}`, { params })
       .pipe(map((data: Meta[]) => data.map((meta: Meta) => this.processsMeta(meta))));
   }
 
   fetchById(id: number): Observable<Meta> {
     return this.http
-      .get<Meta>(`${this.config.apiUrl}/meta/${id}`)
+      .get<Meta>(`${this.config.apiUrl}/${this.path}/${id}`)
       .pipe(map((meta: Meta) => this.processsMeta(meta)));
   }
 
   remove(meta: Meta) {
-    return this.http.delete(`${this.config.apiUrl}/meta/${meta.id}`);
+    return this.http.delete(`${this.config.apiUrl}/${this.path}/${meta.id}`);
   }
 
   create(meta: Meta): Observable<Meta> {
-    return this.http.post<Meta>(`${this.config.apiUrl}/meta/`, meta);
+    return this.http.post<Meta>(`${this.config.apiUrl}/${this.path}/`, meta);
   }
 
   update(meta: Meta, id: number): Observable<Meta> {
-    return this.http.put<Meta>(`${this.config.apiUrl}/meta/`, meta);
+    return this.http.put<Meta>(`${this.config.apiUrl}/${this.path}/`, meta);
   }
 
   createOrUpdate(meta: Meta): Observable<Meta> {
