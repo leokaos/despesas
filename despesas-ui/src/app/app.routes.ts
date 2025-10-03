@@ -1,3 +1,5 @@
+import { TransferenciaEdit } from './cadastros/movimentacao/transferencia-edit/transferencia-edit';
+import { TransferenciaView } from './cadastros/movimentacao/transferencia-view/transferencia-view';
 import { Routes } from '@angular/router';
 import { TipoDespesasView } from './cadastros/tipo/tipo-despesas-view/tipo-despesas-view';
 import { TipoReceitasView } from './cadastros/tipo/tipo-receitas-view/tipo-receitas-view';
@@ -26,4 +28,7 @@ export const routes: Routes = [
   { path: 'orcamentos', component: OrcamentoView },
   { path: 'orcamento', component: OrcamentoEdit },
   { path: 'orcamento/:id', component: OrcamentoEdit },
+  { path: 'transferencias', component: TransferenciaView },
+  { path: 'transferencia', component: TransferenciaEdit },
+  { path: 'transferencia/:id', component: TransferenciaEdit },
 ];

@@ -1,8 +1,9 @@
 <p-select
-          [options]="tiposDespesa"
+          [options]="debitaveis"
           [(ngModel)]="value"
           (ngModelChange)="onChangeValue($event)"
           (blur)="onBlur()"
+          [placeholder]="placeholder"
           [disabled]="disabled"
           optionLabel="descricao"
           class="w-full">

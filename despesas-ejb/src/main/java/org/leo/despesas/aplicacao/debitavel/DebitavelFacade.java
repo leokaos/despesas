@@ -10,7 +10,7 @@ import org.leo.despesas.dominio.debitavel.Debitavel;
 @Local
 public interface DebitavelFacade {
 
-	List<Debitavel> listar();
+	List<Debitavel> listar(Boolean ativo);
 
 	void salvar(Debitavel debitavel);
 

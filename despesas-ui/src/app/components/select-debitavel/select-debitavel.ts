@@ -2,35 +2,37 @@ import { CommonModule } from '@angular/common';
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
-import { TipoMovimentacao } from '../../models/tipo-movimentacao.model';
 import { ColorDisplay } from '../color-display/color-display';
+import { Debitavel } from '../../models/debitavel.model';
 
 @Component({
-  selector: 'app-select-tipo-movimentacao',
-  templateUrl: './select-tipo-movimentacao.html',
-  styleUrl: './select-tipo-movimentacao.scss',
+  selector: 'app-select-debitavel',
+  templateUrl: './select-debitavel.html',
+  styleUrl: './select-debitavel.scss',
   standalone: true,
   imports: [CommonModule, FormsModule, SelectModule, ColorDisplay],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectTipoMovimentacao),
+      useExisting: forwardRef(() => SelectDebitavel),
       multi: true,
     },
   ],
 })
-export class SelectTipoMovimentacao implements ControlValueAccessor {
+export class SelectDebitavel implements ControlValueAccessor {
   @Input()
-  tiposDespesa: TipoMovimentacao[] = [];
+  debitaveis: Debitavel[] = [];
   @Input()
   disabled: boolean = false;
+  @Input()
+  placeholder?: string;
 
-  value: TipoMovimentacao | null = null;
+  value: Debitavel | null = null;
 
-  private onChange: (value: TipoMovimentacao | null) => void = () => {};
+  private onChange: (value: Debitavel | null) => void = () => {};
   private onTouched: () => void = () => {};
 
-  onChangeValue(value: TipoMovimentacao | null): void {
+  onChangeValue(value: Debitavel | null): void {
     this.value = value;
     this.onChange(value);
   }
@@ -39,7 +41,7 @@ export class SelectTipoMovimentacao implements ControlValueAccessor {
     this.onTouched();
   }
 
-  writeValue(value: TipoMovimentacao | null): void {
+  writeValue(value: Debitavel | null): void {
     this.value = value || null;
   }
 

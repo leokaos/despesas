@@ -12,6 +12,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.leo.despesas.aplicacao.despesa.DespesaFacade;
@@ -43,9 +44,21 @@ public class DebitavelFacadeImpl implements DebitavelFacade {
 	private ParametroFacade parametroFacade;
 
 	@Override
-	public List<Debitavel> listar() {
+	public List<Debitavel> listar(Boolean ativo) {
 
-		List<Debitavel> resultList = entityManager.createQuery("SELECT d FROM Debitavel d", Debitavel.class).getResultList();
+		String strQuery = "SELECT d FROM Debitavel d";
+
+		if (ativo != null) {
+			strQuery += " WHERE d.ativo = :ativo";
+		}
+
+		TypedQuery<Debitavel> query = entityManager.createQuery(strQuery, Debitavel.class);
+
+		if (ativo != null) {
+			query.setParameter("ativo", ativo);
+		}
+
+		List<Debitavel> resultList = query.getResultList();
 
 		Collections.sort(resultList, new DebitavelPreferivelComparator(parametroFacade.getDebitavelPrincipal()));
 

@@ -14,13 +14,13 @@ export class ContaService {
   fetch(): Observable<Conta[]> {
     return this.http
       .get<Conta[]>(`${this.config.apiUrl}/conta`)
-      .pipe(map((data) => data.map((conta) => this.convertToConta(conta))));
+      .pipe(map((data) => data.map((conta) => this.process(conta))));
   }
 
   fetchById(id: number): Observable<Conta> {
     return this.http
       .get<Conta>(`${this.config.apiUrl}/conta/${id}`)
-      .pipe(map((data) => this.convertToConta(data)));
+      .pipe(map((data) => this.process(data)));
   }
 
   remove(Conta: Conta) {
@@ -36,18 +36,18 @@ export class ContaService {
   }
 
   createOrUpdate(conta: Conta): Observable<Conta> {
-    var innerConta = this.processConta(conta);
+    var innerConta = this.convert(conta);
     return innerConta.id ? this.update(innerConta, innerConta.id) : this.create(innerConta);
   }
 
-  private convertToConta(conta: any): Conta {
+  private process(conta: any): Conta {
     return {
       ...conta,
       moeda: Moeda.fromCodigo(conta.moeda),
     };
   }
 
-  private processConta(conta: any): Conta {
+  private convert(conta: any): Conta {
     return {
       ...conta,
       tipo: 'CONTA',

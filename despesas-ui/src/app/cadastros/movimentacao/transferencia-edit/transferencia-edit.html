@@ -1,0 +1,84 @@
+<span class="page-title">
+    <i class="pi pi-chevron-right"></i> Transferência
+</span>
+
+<div class="w-full md:w-1/2 mx-auto form-panel flex flex-col">
+
+    @if(loading()){
+    <app-loader />
+    }@else {
+    <form class="flex-1 flex flex-col" [formGroup]="formGroup">
+
+        <div class="flex-1">
+
+            <div class="flex mb-4">
+                <div class="w-1/5 pr-2 flex items-center">
+                    <label for="descricao">Descrição:</label>
+                </div>
+                <div class="w-4/5">
+                    <input pInputText formControlName="descricao" class="w-full" />
+                </div>
+            </div>
+
+            <div class="flex mb-4">
+                <div class="w-1/5 pr-2 flex items-center">
+                    <label for="cor">Valor</label>
+                </div>
+                <div class="w-4/5">
+                    <p-inputgroup>
+                        <p-inputgroup-addon>
+                            <i class="pi pi-money-bill"></i>
+                        </p-inputgroup-addon>
+                        <p-inputnumber placeholder="Valor" formControlName="valor" locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2" />
+                    </p-inputgroup>
+                </div>
+            </div>
+
+            <div class="flex mb-4">
+                <div class="w-1/5 pr-2 flex items-center">
+                    <label for="descricao">Vencimento:</label>
+                </div>
+                <div class="w-4/5">
+                    <p-datepicker [showIcon]="true" formControlName="vencimento" />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 my-8">
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+
+                <div class="md:col-span-5 flex flex-col gap-2">
+                    <app-select-debitavel placeholder="Selecione a origem" [debitaveis]="debitaveis" formControlName="debitavel" />
+                </div>
+
+                <div class="md:col-span-2 flex justify-center items-center py-6">
+                    <div class="flex flex-col items-center gap-2">
+                        <svg class="w-8 h-8 text-blue-500 transform rotate-90 md:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="md:col-span-5 flex flex-col gap-2">
+                    <app-select-debitavel placeholder="Selecione o destino" [debitaveis]="debitaveis" formControlName="creditavel" />
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="mt-auto pt-4">
+
+            <div class="flex justify-between">
+                <p-button label="Cancelar" [raised]="true" severity="secondary" size="small" (click)="cancel()" />
+                <p-button label="Salvar" [raised]="true" severity="success" size="small" (click)="save()" [disabled]="!formGroup.valid" />
+            </div>
+
+        </div>
+
+    </form>
+    }
+
+</div>
