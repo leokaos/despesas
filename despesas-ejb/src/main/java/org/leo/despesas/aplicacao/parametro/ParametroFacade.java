@@ -6,7 +6,6 @@ import java.util.List;
 import javax.ejb.Local;
 
 import org.leo.despesas.dominio.servicotransferencia.Porcentagem;
-import org.leo.despesas.infra.Moeda;
 
 @Local
 public interface ParametroFacade {
@@ -15,7 +14,7 @@ public interface ParametroFacade {
 
 	BigDecimal getTaxaSpot();
 
-	String getUrlParaCotacao(Moeda origem, Moeda destino);
+	String getUrlParaCotacao();
 
 	String buscarParametroPorId(String nome);
 

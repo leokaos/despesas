@@ -1,7 +1,6 @@
 package org.leo.despesas.aplicacao.parametro;
 
 import java.math.BigDecimal;
-import java.text.MessageFormat;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -10,7 +9,6 @@ import javax.persistence.PersistenceContext;
 
 import org.leo.despesas.dominio.parametro.Parametro;
 import org.leo.despesas.dominio.servicotransferencia.Porcentagem;
-import org.leo.despesas.infra.Moeda;
 
 import com.google.common.collect.Lists;
 
@@ -45,11 +43,9 @@ public class ParametroFacadeIml implements ParametroFacade {
 	}
 
 	@Override
-	public String getUrlParaCotacao(Moeda origem, Moeda destino) {
+	public String getUrlParaCotacao() {
 
-		String key = MessageFormat.format("{0}.{1}", origem, destino);
-
-		Parametro parametro = entityManager.find(Parametro.class, key);
+		Parametro parametro = entityManager.find(Parametro.class, "COTACAO_URL");
 
 		return parametro.getValor();
 	}
@@ -61,12 +57,12 @@ public class ParametroFacadeIml implements ParametroFacade {
 
 		return parametro.getValor();
 	}
-	
+
 	@Override
 	public List<String> getIgnoreWords() {
-		
+
 		Parametro parametro = entityManager.find(Parametro.class, "IGNORE_WORDS");
-		
+
 		return Lists.newArrayList(parametro.getValor().split(" "));
 	}
 
