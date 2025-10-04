@@ -50,7 +50,7 @@ export class MetaEdit {
 
   loading = signal<boolean>(true);
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     var id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -89,11 +89,8 @@ export class MetaEdit {
       },
     } as Meta;
 
-    console.info(meta)
-
     this.metaService.createOrUpdate(meta).subscribe((_) => {
-      // prettier-ignore
-      this.messageService.add({severity: 'success', summary: 'Sucesso', detail: 'Meta salva com sucesso!', life: 3000 });
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Meta salva com sucesso!', life: 3000 });
       this.returnToView();
     });
   }

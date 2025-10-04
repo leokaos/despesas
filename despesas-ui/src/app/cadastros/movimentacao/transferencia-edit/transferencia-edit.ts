@@ -1,5 +1,5 @@
 import { TransferenciaService } from './../../../services/transferencia-service';
-import { Component, inject, signal, provideZonelessChangeDetection } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Loader } from '../../../components/loader/loader';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { ButtonModule } from 'primeng/button';
@@ -9,14 +9,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Transferencia } from '../../../models/movimentacao.model';
-import { PeriodoView } from '../../../components/periodo-view/periodo-view';
 import { InputTextModule } from 'primeng/inputtext';
 import { DatePickerModule } from 'primeng/datepicker';
 import { DebitavelFiltro, DebitavelService } from '../../../services/debitavel-service';
 import { forkJoin } from 'rxjs';
 import { Debitavel } from '../../../models/debitavel.model';
 import { SelectDebitavel } from '../../../components/select-debitavel/select-debitavel';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-transferencia-edit',
@@ -48,7 +46,7 @@ export class TransferenciaEdit {
 
   loading = signal<boolean>(true);
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     var id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -95,7 +93,7 @@ export class TransferenciaEdit {
 
     this.transferenciaService.createOrUpdate(transferencia).subscribe((_) => {
       // prettier-ignore
-      this.messageService.add({severity: 'success', summary: 'Sucesso', detail: 'Transferência salva com sucesso!', life: 3000 });
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Transferência salva com sucesso!', life: 3000 });
       this.returnToView();
     });
   }

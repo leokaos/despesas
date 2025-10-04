@@ -9,7 +9,6 @@ import { Debitavel } from '../../models/debitavel.model';
   selector: 'app-select-debitavel',
   templateUrl: './select-debitavel.html',
   styleUrl: './select-debitavel.scss',
-  standalone: true,
   imports: [CommonModule, FormsModule, SelectModule, ColorDisplay],
   providers: [
     {

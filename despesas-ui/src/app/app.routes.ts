@@ -18,6 +18,8 @@ import { InvestimentoEdit } from './cadastros/debitavel/investimento-edit/invest
 import { CartaoCreditoView } from './cadastros/debitavel/cartao-credito-view/cartao-credito-view';
 import { CartaoCreditoEdit } from './cadastros/debitavel/cartao-credito-edit/cartao-credito-edit';
 import { FaturaView } from './cadastros/debitavel/fatura-view/fatura-view';
+import { CotacaoView } from './cadastros/cotacao/cotacao-view/cotacao-view';
+import { CotacaoEdit } from './cadastros/cotacao/cotacao-edit/cotacao-edit';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -48,4 +50,7 @@ export const routes: Routes = [
   { path: 'cartao', component: CartaoCreditoEdit },
   { path: 'cartao/:id', component: CartaoCreditoEdit },
   { path: 'cartao/:id/fatura', component: FaturaView },
+  { path: 'cotacoes', component: CotacaoView },
+  { path: 'cotacao', component: CotacaoEdit },
+  { path: 'cotacao/:id', component: CotacaoEdit },
 ];

@@ -30,11 +30,10 @@ export class TipoReceitaEdit {
 
     if (id) {
 
-      this.tipoReceitaService.fetchById(parseInt(id))
-        .subscribe((tipoReceita: TipoReceita) => {
-          this.tipoReceita = tipoReceita;
-          this.loading.set(false);
-        });
+      this.tipoReceitaService.fetchById(parseInt(id)).subscribe((tipoReceita: TipoReceita) => {
+        this.tipoReceita = tipoReceita;
+        this.loading.set(false);
+      });
 
     } else {
       this.loading.set(false);
@@ -52,11 +51,10 @@ export class TipoReceitaEdit {
 
   saveTipoReceita(tipo: TipoMovimentacao) {
 
-    this.tipoReceitaService.createOrUpdate(tipo)
-      .subscribe((_: TipoReceita) => {
-        this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Tipo Receita salva com sucesso!', life: 3000 });
-        this.returnToView();
-      });
+    this.tipoReceitaService.createOrUpdate(tipo).subscribe((_: TipoReceita) => {
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Tipo Receita salva com sucesso!', life: 3000 });
+      this.returnToView();
+    });
 
   }
 

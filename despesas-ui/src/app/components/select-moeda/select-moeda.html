@@ -1,1 +1,9 @@
-<p-select [options]="moedas" optionLabel="displayValue" class="w-full" (onChange)="emitChange($event)" [(ngModel)]="initialValue" />
+<p-select
+          [options]="moedas"
+          optionLabel="displayValue"
+          class="w-full"
+          (ngModelChange)="onChangeValue($event)"
+          [placeholder]="placeholder"
+          (blur)="onBlur()"
+          (onChange)="emitChange($event)"
+          [(ngModel)]="value" />

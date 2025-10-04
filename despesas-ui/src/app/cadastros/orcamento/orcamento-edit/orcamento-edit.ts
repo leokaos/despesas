@@ -51,7 +51,7 @@ export class OrcamentoEdit implements OnInit {
   orcamento?: Orcamento;
   formGroup!: FormGroup;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     var id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -95,11 +95,8 @@ export class OrcamentoEdit implements OnInit {
       dataFinal: PeriodoUtil.getDataFinal(periodo).getTime(),
     } as Orcamento;
 
-    console.info(JSON.stringify(orcamento));
-
     this.orcamentoService.createOrUpdate(orcamento).subscribe((_) => {
-      // prettier-ignore
-      this.messageService.add({severity: 'success', summary: 'Sucesso', detail: 'Orçamento salvo com sucesso!', life: 3000 });
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Orçamento salvo com sucesso!', life: 3000 });
       this.returnToView();
     });
   }
