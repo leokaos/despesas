@@ -71,7 +71,7 @@ export class DividaEdit {
   private buildForm() {
     this.formGroup = this.formBuilder.group({
       descricao: [this.divida?.descricao, Validators.required],
-      cor: [this.divida?.cor || '#000000', Validators.required],
+      cor: [this.divida?.cor, Validators.required],
       valorTotal: [this.divida?.valorTotal, Validators.required],
       moeda: [this.divida?.moeda, Validators.required],
       dataInicio: [this.divida?.dataInicio, Validators.required],

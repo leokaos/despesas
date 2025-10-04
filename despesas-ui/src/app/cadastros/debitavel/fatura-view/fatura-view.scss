@@ -1,0 +1,33 @@
+.split-view {
+    display: flex;
+    gap: 1rem;
+}
+
+.left-panel {
+    flex: 0 0 35%;
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 6px;
+}
+
+.right-panel {
+    flex: 1;
+    background: white;
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+}
+
+.empty-state {
+    text-align: center;
+    color: #6c757d;
+}
+
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}

@@ -39,14 +39,16 @@ export class CartaoCreditoService {
 
   createOrUpdate(conta: CartaoCredito): Observable<CartaoCredito> {
     var innerCartaoCredito = this.convert(conta);
-    return innerCartaoCredito.id ? this.update(innerCartaoCredito, innerCartaoCredito.id) : this.create(innerCartaoCredito);
+    return innerCartaoCredito.id
+      ? this.update(innerCartaoCredito, innerCartaoCredito.id)
+      : this.create(innerCartaoCredito);
   }
 
   private process(cartaoCredito: any): CartaoCredito {
     return {
       ...cartaoCredito,
       moeda: Moeda.fromCodigo(cartaoCredito.moeda),
-      bandeira: cartaoCredito.bandeiraCartaoCredito as Bandeira
+      bandeira: Bandeira.fromCodigo(cartaoCredito.bandeira),
     };
   }
 
@@ -55,6 +57,7 @@ export class CartaoCreditoService {
       ...cartaoCredito,
       tipo: 'CARTAO',
       moeda: cartaoCredito.moeda.codigo,
+      bandeira: cartaoCredito.bandeira.codigo,
     };
   }
 }

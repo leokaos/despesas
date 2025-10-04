@@ -32,7 +32,7 @@ public class DebitavelSerializerVisitorImpl implements DebitavelSerializerVisito
 
 	@Override
 	public void visit(CartaoCredito cartaoCredito) {
-		cartaoCredito.setBandeiraCartaoCredito(BandeiraCartaoCredito.parse(mapaAtributos.get("bandeiraCartaoCredito")));
+		cartaoCredito.setBandeira(BandeiraCartaoCredito.parse(mapaAtributos.get("bandeira")));
 		cartaoCredito.setDiaDeFechamento(Integer.valueOf(mapaAtributos.get("diaDeFechamento")));
 		cartaoCredito.setDiaDeVencimento(Integer.valueOf(mapaAtributos.get("diaDeVencimento")));
 		cartaoCredito.setLimite(new BigDecimal(mapaAtributos.get("limite")));

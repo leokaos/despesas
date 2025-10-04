@@ -1,4 +1,11 @@
-import { InvestimentoView } from './../cadastros/debitavel/investimento-view/investimento-view';
+import {
+  faCcVisa,
+  faCcMastercard,
+  faCcAmex,
+  IconDefinition,
+} from '@fortawesome/free-brands-svg-icons';
+import { Despesa } from './movimentacao.model';
+
 export class Moeda {
   static readonly REAL = new Moeda('REAL', 'R$', 'Real');
   static readonly EURO = new Moeda('EURO', '€', 'Euro');
@@ -20,6 +27,27 @@ export class Moeda {
 
   static values() {
     return [this.REAL, this.EURO];
+  }
+}
+
+export class Bandeira {
+  static readonly VISA = new Bandeira('VISA', 'Visa', faCcVisa);
+  static readonly MASTERCARD = new Bandeira('MASTERCARD', 'MasterCard', faCcMastercard);
+  static readonly AMERICAN_EXPRESS = new Bandeira('AMERICAN_EXPRESS', 'American Express', faCcAmex);
+
+  private constructor(
+    public readonly codigo: string,
+    public readonly nome: string,
+    public readonly icon: IconDefinition
+  ) {}
+
+  static fromCodigo(codigo: string): Bandeira {
+    const moedas = [Bandeira.VISA, Bandeira.MASTERCARD, Bandeira.AMERICAN_EXPRESS];
+    return moedas.find((m) => m.codigo === codigo) || Bandeira.VISA;
+  }
+
+  static values() {
+    return [Bandeira.VISA, Bandeira.MASTERCARD, Bandeira.AMERICAN_EXPRESS];
   }
 }
 
@@ -50,15 +78,19 @@ export interface Investimento extends Debitavel {
   periodicidade: 'MENSAL' | 'SEMESTRAL' | 'VARIAVEL';
 }
 
-export enum Bandeira {
-  VISA = 'VISA',
-  MASTERCARD = 'MASTERCARD',
-  AMERICAN_EXPRESS = 'AMERICAN_EXPRESS',
-}
-
 export interface CartaoCredito extends Debitavel {
   bandeira: Bandeira;
   limite: number;
   diaDeFechamento: number;
   diaDeVencimento: number;
+}
+
+export interface Fatura {
+  id: number;
+  cartao: CartaoCredito;
+  dataVencimento: Date;
+  dataFechamento: Date;
+  paga: boolean;
+  despesas: Despesa[];
+  valorFatura: number;
 }

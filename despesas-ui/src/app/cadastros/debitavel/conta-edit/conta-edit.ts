@@ -66,7 +66,7 @@ export class ContaEdit {
   private buildForm() {
     this.formGroup = this.formBuilder.group({
       descricao: [this.conta?.descricao || null, Validators.required],
-      cor: [this.conta?.cor || '#000000', Validators.required],
+      cor: [this.conta?.cor, Validators.required],
       saldo: [this.conta?.saldo || 0, Validators.required],
       moeda: [this.conta?.moeda || null, Validators.required],
     });

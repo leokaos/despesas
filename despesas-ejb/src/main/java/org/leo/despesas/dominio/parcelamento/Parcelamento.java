@@ -1,6 +1,7 @@
 package org.leo.despesas.dominio.parcelamento;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,16 +17,16 @@ public abstract class Parcelamento {
 		super();
 	}
 
-	public List<Despesa> parcelar(final Despesa despesa,final BigDecimal numeroParcelas) {
+	public List<Despesa> parcelar(final Despesa despesa, final BigDecimal numeroParcelas) {
 		final List<Despesa> despesas = new ArrayList<Despesa>();
 
-		final BigDecimal valorParcela = despesa.getValor().divide(numeroParcelas);
+		final BigDecimal valorParcela = despesa.getValor().divide(numeroParcelas, 10, RoundingMode.HALF_UP);
 
-		for (int x = 0 ; x < numeroParcelas.intValue() ; x++) {
+		for (int x = 0; x < numeroParcelas.intValue(); x++) {
 			final Despesa despesaParcelada = new Despesa();
 
-			despesaParcelada.setDescricao(createDescricao(x,despesa.getDescricao(),numeroParcelas));
-			despesaParcelada.setVencimento(getDataParcela(x,despesa));
+			despesaParcelada.setDescricao(createDescricao(x, despesa.getDescricao(), numeroParcelas));
+			despesaParcelada.setVencimento(getDataParcela(x, despesa));
 			despesaParcelada.setValor(valorParcela);
 
 			despesaParcelada.setDebitavel(despesa.getDebitavel());
@@ -39,8 +40,8 @@ public abstract class Parcelamento {
 		return despesas;
 	}
 
-	private String createDescricao(final int x,final String descricao,final BigDecimal numeroParcelas) {
-		return MessageFormat.format(FORMATO_DESCRICAO,descricao,x + 1,numeroParcelas);
+	private String createDescricao(final int x, final String descricao, final BigDecimal numeroParcelas) {
+		return MessageFormat.format(FORMATO_DESCRICAO, descricao, x + 1, numeroParcelas);
 	}
 
 	public static Parcelamento create(final String codigo) {
@@ -65,7 +66,7 @@ public abstract class Parcelamento {
 		return null;
 	}
 
-	public abstract Date getDataParcela(int numeroParcela,Despesa despesa);
+	public abstract Date getDataParcela(int numeroParcela, Despesa despesa);
 
 	public abstract String getCodigo();
 

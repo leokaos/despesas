@@ -1,0 +1,138 @@
+@if (loading()) {
+<app-loader />
+}
+@else {
+
+<span class="page-title">
+    <i class="pi pi-chevron-right"></i> Faturas para o cartão: <b>{{cartaoCredito?.descricao}}</b>
+</span>
+
+<div class="form-panel">
+
+    <div class="split-view">
+        <div class="left-panel">
+            <p-table
+                     [value]="faturas"
+                     selectionMode="single"
+                     stripedRows
+                     showGridlines
+                     [rowsPerPageOptions]="[10, 15, 50, 100]"
+                     [(selection)]="fatura"
+                     [paginator]="true"
+                     [rows]="10">
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Data Fechamento</th>
+                        <th>Data Vencimento</th>
+                        <th>Valor</th>
+                        <th>Paga?</th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-item>
+                    <tr [pSelectableRow]="item">
+                        <td>{{ item.dataFechamento | date: 'dd/MM/yyyy' }}</td>
+                        <td>{{ item.dataVencimento | date: 'dd/MM/yyyy'}}</td>
+                        <td class="force-center">{{ item.cartao.moeda.simbolo }} {{ item.valorFatura | number: '1.2-2' : 'pt-BR'}}</td>
+                        <td class="force-center">
+                            @if (item.paga) {
+                            <i class="pi pi-check"></i>
+                            }
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+        </div>
+
+        @if (fatura) {
+        <div class="right-panel">
+
+            <div class="detail-header">
+                <div class="header-info">
+                    <p>Vencimento em: {{ fatura.dataVencimento | date:'dd/MM/yyyy' }}</p>
+                </div>
+                <div class="header-actions">
+                    <p-button icon="pi pi-dollar" label="Pagar Fatura" (click)="showDialog = true" [disabled]="fatura.paga"> </p-button>
+                </div>
+            </div>
+
+            <p-table
+                     [value]="fatura.despesas"
+                     stripedRows
+                     showGridlines
+                     [rowsPerPageOptions]="[10, 15, 50, 100]">
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Categoria</th>
+                        <th>Descrição</th>
+                        <th>Data</th>
+                        <th>Valor</th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-despesa>
+                    <tr>
+                        <td> <app-color-display [color]="despesa.tipo.cor" [text]="despesa.tipo.descricao" /></td>
+                        <td>{{despesa.descricao}}</td>
+                        <td>{{despesa.vencimento | date:'dd/MM/yyyy'}}</td>
+                        <td class="force-center">{{despesa.debitavel.moeda.simbolo }} {{ despesa.valor | number: '1.2-2' : 'pt-BR'}}</td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td colspan="3" class="total-label"><b>Total da Fatura:</b></td>
+                        <td class="total-value force-center"><b>{{fatura.cartao.moeda.simbolo }} {{ fatura.valorFatura | number: '1.2-2' : 'pt-BR'}}</b></td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        }
+
+        @if (!fatura) {
+        <div class="right-panel placeholder">
+            <div class="empty-state">
+                <i class="pi pi-credit-card" style="font-size: 3rem; color: #ccc;"></i>
+                <h3>Selecione uma fatura</h3>
+                <p>Clique em uma fatura da lista ao lado para visualizar suas despesas</p>
+            </div>
+        </div>
+        }
+
+    </div>
+
+</div>
+}
+
+<p-dialog header="Pagar Fatura" [modal]="true" position="top" [(visible)]="showDialog" [style]="{ width: '50rem' }">
+
+    <div class="mb-8">
+
+        <div class="flex items-center gap-4 mb-4">
+            <label for="contaPagamento" class="block text-sm font-medium text-gray-700 w-1/3">
+                Conta de Pagamento
+            </label>
+            <div class="w-2/3">
+                <app-select-debitavel [debitaveis]="contas" [(ngModel)]="conta" />
+            </div>
+        </div>
+
+        <div class="flex items-center gap-4 mb-4">
+            <label for="dataPagamento" class="block text-sm font-medium text-gray-700 w-1/3">
+                Data Pagamento
+            </label>
+            <div class="w-2/3">
+                <p-datepicker [showIcon]="true" appendTo="body" [(ngModel)]="dataPagamento" />
+            </div>
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <p-button label="Cancel" [raised]="true" severity="secondary" (click)="showDialog = false" />
+        <p-button label="Save" [raised]="true" severity="success" (click)="pagarFatura()" />
+    </ng-template>
+
+</p-dialog>

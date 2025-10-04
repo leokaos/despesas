@@ -16,12 +16,12 @@
     @else {
     <p-table
              #table
-             stripedRows
              [value]="data"
              sortMode="single"
              [paginator]="true"
              [rows]="10"
              size="small"
+             stripedRows
              showGridlines
              [rowsPerPageOptions]="[10, 15, 50, 100]"
              [globalFilterFields]="['cor', 'descricao']">

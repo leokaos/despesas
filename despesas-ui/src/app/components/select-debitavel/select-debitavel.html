@@ -6,6 +6,7 @@
           [placeholder]="placeholder"
           [disabled]="disabled"
           optionLabel="descricao"
+          appendTo="body"
           class="w-full">
     <ng-template #selectedItem let-selectedOption>
         <app-color-display [color]="selectedOption.cor" [text]="selectedOption.descricao" />

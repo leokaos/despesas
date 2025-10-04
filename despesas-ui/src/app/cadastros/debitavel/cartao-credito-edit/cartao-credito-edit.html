@@ -1,1 +1,112 @@
-<p>cartao-credito-edit works!</p>
+<span class="page-title">
+    <i class="pi pi-chevron-right"></i> Cartão de Crédito
+</span>
+
+<div class="w-full md:w-full lg:w-1/2 mx-auto form-panel flex flex-col">
+
+    @if(loading()){
+    <app-loader />
+    }@else {
+
+    <form class="space-y-4" [formGroup]="formGroup">
+
+        <div class="flex items-center">
+            <label for="descricao" class="w-40">
+                Descrição
+            </label>
+            <input type="text" pInputText formControlName="descricao" class="flex-1" />
+        </div>
+
+        <div class="flex items-center">
+            <label for="cor" class="w-40">
+                Cor
+            </label>
+            <p-colorpicker defaultColor="000000" formControlName="cor" />
+        </div>
+
+        <div class="flex items-center space-x-4">
+
+            <div class="flex items-center flex-1">
+                <label for="limite" class="w-40">
+                    Limite
+                </label>
+                <div class="flex-1">
+                    <p-inputgroup>
+                        <p-inputgroup-addon>
+                            <i class="pi pi-money-bill"></i>
+                        </p-inputgroup-addon>
+                        <p-inputnumber formControlName="limite" locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2" />
+                    </p-inputgroup>
+                </div>
+            </div>
+
+            <div class="flex items-center flex-1">
+                <label for="moeda" class="w-40">
+                    Moeda
+                </label>
+                <div class="flex-1">
+                    <app-select-moeda (onSelect)="selectMoeda($event)" [initialValue]="cartaoCredito?.moeda" />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="flex items-center space-x-4">
+
+            <div class="flex items-center flex-1">
+                <label for="limite" class="w-40">
+                    Fechamento em
+                </label>
+                <div class="flex-1">
+                    <p-select [options]="dias" class="w-full" formControlName="diaDeFechamento"></p-select>
+                </div>
+            </div>
+
+            <div class="flex items-center flex-1">
+                <label for="moeda" class="w-40">
+                    Vencimento em
+                </label>
+                <div class="flex-1">
+                    <p-select [options]="dias" class="w-full" formControlName="diaDeVencimento"></p-select>
+                </div>
+            </div>
+
+        </div>
+        <div class="flex items-center space-x-4">
+
+            <div class="flex items-center flex-1">
+                <label for="limite" class="w-40">
+                    Bandeira
+                </label>
+                <div class="flex-1">
+
+                    <p-select [options]="bandeiras" optionLabel="name" class="w-full" formControlName="bandeira">
+                        <ng-template #selectedItem let-selectedOption>
+                            <fa-icon [icon]="selectedOption.icon" size="1x" /> {{selectedOption.nome}}
+                        </ng-template>
+                        <ng-template let-option #item>
+                            <fa-icon [icon]="option.icon" size="1x" class="mr-1"/> {{option.nome}}
+                        </ng-template>
+                    </p-select>
+
+                </div>
+            </div>
+
+            <div class="flex items-center flex-1 w-40">
+                <div class="flex-1"> </div>
+            </div>
+
+        </div>
+
+        <div class="mt-auto pt-4">
+
+            <div class="flex justify-between">
+                <p-button label="Cancelar" [raised]="true" severity="secondary" size="small" (click)="cancel()" />
+                <p-button label="Salvar" [raised]="true" severity="success" size="small" (click)="save()" [disabled]="!formGroup.valid" />
+            </div>
+
+        </div>
+    </form>
+    }
+
+</div>

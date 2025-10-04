@@ -1,4 +1,5 @@
 import { Debitavel, Moeda } from './debitavel.model';
+import { TipoDespesa } from './tipo-movimentacao.model';
 export interface Movimentacao {
   id: number;
   descricao: string;
@@ -9,9 +10,11 @@ export interface Movimentacao {
   moeda: Moeda;
 }
 
-export interface Despesa extends Movimentacao {}
+export interface Despesa extends Movimentacao {
+  tipo: TipoDespesa;
+}
 
-export interface Receita extends Movimentacao {}
+export interface Receita extends Movimentacao { }
 
 export interface Transferencia extends Movimentacao {
   creditavel: Debitavel;

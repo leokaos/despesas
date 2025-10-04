@@ -35,7 +35,7 @@ export class TipoEdit implements OnInit {
 
     this.formGroup = this.formBuilder.group({
       descricao: [this.tipo?.descricao || null, Validators.required],
-      cor: [this.tipo?.cor || '#000000', Validators.required]
+      cor: [this.tipo?.cor, Validators.required]
     });
 
   }

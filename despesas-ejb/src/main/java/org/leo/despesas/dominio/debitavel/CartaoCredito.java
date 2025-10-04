@@ -46,9 +46,9 @@ public class CartaoCredito extends Debitavel {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "bandeiraCartaoCredito")
-	private BandeiraCartaoCredito bandeiraCartaoCredito;
+	private BandeiraCartaoCredito bandeira;
 
-	@OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "cartao", cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE }, fetch = FetchType.EAGER)
 	private Set<Fatura> faturas;
 
 	public CartaoCredito() {
@@ -81,12 +81,12 @@ public class CartaoCredito extends Debitavel {
 		this.diaDeFechamento = diaDeFechamento;
 	}
 
-	public BandeiraCartaoCredito getBandeiraCartaoCredito() {
-		return bandeiraCartaoCredito;
+	public BandeiraCartaoCredito getBandeira() {
+		return bandeira;
 	}
 
-	public void setBandeiraCartaoCredito(final BandeiraCartaoCredito bandeiraCartaoCredito) {
-		this.bandeiraCartaoCredito = bandeiraCartaoCredito;
+	public void setBandeira(BandeiraCartaoCredito bandeira) {
+		this.bandeira = bandeira;
 	}
 
 	public BigDecimal getLimiteAtual() {

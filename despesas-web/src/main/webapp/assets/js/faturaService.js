@@ -1,6 +1,6 @@
 app.service('faturaService', function ($http) {
 
-    var pathBase = 'http://localhost:8080/despesas/services/fatura/';
+    var pathBase = 'http://localhost:8080/despesas/services/';
 
     this.listar = function (fn) {
         $http.get(pathBase).success(function (data) {
@@ -44,10 +44,7 @@ app.service('faturaService', function ($http) {
 
         var request = $http({
             method: 'get',
-            url: pathBase + 'cartao/' + id,
-            params: {
-                cartaoCredito: id
-            }
+            url: pathBase + 'cartao/' + id + '/fatura',
         });
 
         request.success(function (data) {

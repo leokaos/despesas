@@ -69,7 +69,7 @@ export class InvestimentoEdit {
   private buildForm() {
     this.formGroup = this.formBuilder.group({
       descricao: [this.investimento?.descricao || null, Validators.required],
-      cor: [this.investimento?.cor || '#000000', Validators.required],
+      cor: [this.investimento?.cor, Validators.required],
       montante: [this.investimento?.montante, Validators.required],
       moeda: [this.investimento?.moeda || null, Validators.required],
       periodicidade: [this.investimento?.periodicidade, Validators.required],

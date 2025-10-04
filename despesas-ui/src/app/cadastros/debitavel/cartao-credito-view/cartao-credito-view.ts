@@ -1,5 +1,5 @@
 import { Component, inject, signal, ViewChild } from '@angular/core';
-import { Bandeira, CartaoCredito } from '../../../models/debitavel.model';
+import { CartaoCredito } from '../../../models/debitavel.model';
 import { CartaoCreditoService } from '../../../services/cartao-credito-service';
 import { DecimalPipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -15,12 +15,6 @@ import { TableModule, Table } from 'primeng/table';
 import { ColorDisplay } from '../../../components/color-display/color-display';
 import { Loader } from '../../../components/loader/loader';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {
-  faCcVisa,
-  faCcMastercard,
-  faCcAmex,
-  IconDefinition,
-} from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-cartao-credito-view',
@@ -43,6 +37,7 @@ import {
   styleUrl: './cartao-credito-view.scss',
 })
 export class CartaoCreditoView {
+
   @ViewChild('table')
   private table?: Table;
 
@@ -52,17 +47,11 @@ export class CartaoCreditoView {
   showDialog: boolean = false;
   cartaoCredito?: CartaoCredito;
 
-  public iconesBandeira: Record<Bandeira, IconDefinition> = {
-    [Bandeira.VISA]: faCcVisa,
-    [Bandeira.MASTERCARD]: faCcMastercard,
-    [Bandeira.AMERICAN_EXPRESS]: faCcAmex,
-  };
-
   private cartaoCreditoService = inject(CartaoCreditoService);
   private router = inject(Router);
   private messageService = inject(MessageService);
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.loadData();
@@ -73,10 +62,6 @@ export class CartaoCreditoView {
       this.data = [...data];
       this.loading.set(false);
     });
-  }
-
-  getIconeBandeira(cartaoCredito: CartaoCredito) {
-    return this.iconesBandeira[cartaoCredito.bandeira];
   }
 
   add() {
@@ -102,14 +87,19 @@ export class CartaoCreditoView {
   }
 
   remover() {
+
     if (this.cartaoCredito) {
-      // prettier-ignore
+
       this.cartaoCreditoService.remove(this.cartaoCredito).subscribe(() => {
-        this.messageService.add({severity: 'success', summary: 'Successo', detail: 'Cartão de Crédito removido com sucesso!', life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Cartão de Crédito removido com sucesso!', life: 3000 });
         this.loadData();
       });
     }
 
     this.showDialog = false;
+  }
+
+  showFaturas(cartaoCredito: CartaoCredito) {
+    this.router.navigate(['cartao', cartaoCredito.id, 'fatura']);
   }
 }
