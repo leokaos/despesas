@@ -9,54 +9,68 @@
     }@else {
     <form class="flex-1 flex flex-col" [formGroup]="formGroup">
 
-        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8 mt-4">
-
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-
-                <div class="md:col-span-5 flex flex-col gap-2">
-                    <app-select-moeda formControlName="origem" placeholder="Moeda de Origem" />
-                </div>
-
-                <div class="md:col-span-2 flex justify-center items-center py-6">
-                    <div class="flex flex-col items-center gap-2">
-                        <svg class="w-8 h-8 text-blue-500 transform rotate-90 md:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                        </svg>
-                    </div>
-                </div>
-
-                <div class="md:col-span-5 flex flex-col gap-2">
-                    <app-select-moeda formControlName="destino" placeholder="Moeda de Destino" />
-                </div>
-
-            </div>
-
-        </div>
-
         <div class="flex-1">
 
-            <div class="flex mb-4">
-                <div class="w-1/5 pr-2 flex items-center">
-                    <label for="descricao">Vencimento:</label>
-                </div>
-                <div class="w-4/5">
-                    <p-datepicker [showIcon]="true" formControlName="data" />
+            <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 shadow-sm">
+
+                <div class="grid grid-cols-12 gap-4 items-center">
+                    <div class="col-span-5 flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-700">Moeda de Origem</label>
+                        <app-select-moeda formControlName="origem" placeholder="Selecione a moeda origem" />
+                    </div>
+
+                    <div class="col-span-2 flex justify-center items-center py-4">
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="p-2 bg-white border border-blue-300 rounded-full shadow-sm">
+                                <svg class="w-6 h-6 text-blue-600 transform rotate-90 md:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-span-5 flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-700">Moeda de Destino</label>
+                        <app-select-moeda formControlName="destino" placeholder="Selecione a moeda destino" />
+                    </div>
                 </div>
             </div>
 
+            <div class="flex justify-end my-8">
+                <p-button label="Buscar Taxa Atual" severity="info" size="small" icon="pi pi-search" [disabled]="!isValidToSearch()" (click)="createNew()" [loading]="loadingCreateNew" />
+            </div>
+
+            @if (cotacao) {
+
             <div class="flex mb-4">
+
                 <div class="w-1/5 pr-2 flex items-center">
-                    <label for="cor">Rate</label>
+                    <label>Data:</label>
                 </div>
-                <div class="w-4/5">
+
+                <div class="w-2/5">
+                    <p-datepicker [showIcon]="true" formControlName="data" dateFormat="dd/mm/yy" placeholder="Selecione a data" class="w-48" />
+                </div>
+
+            </div>
+
+            <div class="flex mb-4">
+
+                <div class="w-1/5 pr-2 flex items-center">
+                    <label>Taxa:</label>
+                </div>
+
+                <div class="w-48">
                     <p-inputgroup>
                         <p-inputgroup-addon>
                             <i class="pi pi-money-bill"></i>
                         </p-inputgroup-addon>
-                        <p-inputnumber placeholder="Rate" formControlName="taxa" locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2" />
+                        <p-inputnumber placeholder="Taxa" formControlName="taxa" locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2" />
                     </p-inputgroup>
                 </div>
+
             </div>
+            }
 
         </div>
 

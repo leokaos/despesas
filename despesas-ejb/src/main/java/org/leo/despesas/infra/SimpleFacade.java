@@ -12,7 +12,7 @@ public interface SimpleFacade<T extends ModelEntity, F extends ModelFiltro<T>> {
 
 	T inserir(T t) throws DespesasException;
 
-	T salvar(T t);
+	T salvar(T t) throws DespesasException;
 
 	List<T> salvar(List<T> list) throws DespesasException;
 

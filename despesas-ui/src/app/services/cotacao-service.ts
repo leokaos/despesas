@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { Moeda } from '../models/debitavel.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { APP_CONFIG, AppConfig } from '../app-config';
 import { Cotacao } from '../models/cotacao.model';
@@ -24,6 +24,16 @@ export class CotacaoService {
   fetchById(id: number): Observable<Cotacao> {
     return this.http
       .get<Cotacao>(`${this.config.apiUrl}/${this.path}/${id}`)
+      .pipe(map((data: Cotacao) => this.process(data)));
+  }
+
+  fetchNew(origem: Moeda, destino: Moeda): Observable<Cotacao> {
+    let params = new HttpParams()
+      .append("origem", origem.codigo)
+      .append("destino", destino.codigo);
+
+    return this.http
+      .get<Cotacao>(`${this.config.apiUrl}/${this.path}/nova`, { params })
       .pipe(map((data: Cotacao) => this.process(data)));
   }
 

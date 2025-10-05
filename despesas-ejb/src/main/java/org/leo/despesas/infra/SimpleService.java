@@ -14,7 +14,7 @@ public interface SimpleService<T extends ModelEntity, F extends ModelFiltro<T>> 
 
 	Response inserir(T t) throws DespesasException;
 
-	Response salvar(T t);
+	Response salvar(T t) throws DespesasException;
 
 	Response deletar(Long id) throws DespesasException;
 

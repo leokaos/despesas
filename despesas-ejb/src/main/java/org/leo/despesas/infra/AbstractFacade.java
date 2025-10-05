@@ -66,16 +66,16 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 		return t;
 	}
 
-	protected void preInserir(E t) {
+	protected void preInserir(E t) throws DespesasException {
 
 	}
 
-	protected void posInserir(E t) {
+	protected void posInserir(E t) throws DespesasException {
 
 	}
 
 	@Override
-	public E salvar(final E t) {
+	public E salvar(final E t) throws DespesasException {
 
 		E antigo = entityManager.find(getClasseEntidade(), t.getId());
 
@@ -90,11 +90,11 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 		return result;
 	}
 
-	protected void preSalvar(E antigo, E novo) {
+	protected void preSalvar(E antigo, E novo) throws DespesasException {
 
 	}
 
-	protected void posSalvar(E antigo, E novo) {
+	protected void posSalvar(E antigo, E novo) throws DespesasException {
 
 	}
 
@@ -128,7 +128,7 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 
 	}
 
-	protected void posDeletar(E entity) {
+	protected void posDeletar(E entity) throws DespesasException {
 
 	}
 

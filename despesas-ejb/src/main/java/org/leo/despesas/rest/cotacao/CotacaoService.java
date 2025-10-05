@@ -1,7 +1,7 @@
 package org.leo.despesas.rest.cotacao;
 
 import javax.ejb.EJB;
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -19,7 +19,7 @@ public class CotacaoService extends AbstractService<CotacaoFacade, Cotacao,Cotac
 	@EJB
 	private CotacaoFacade cotacaoFacade;
 
-	@POST
+	@GET
 	@Path("/nova")
 	@Produces(value = MediaType.APPLICATION_JSON)
 	public Cotacao getCotacaoDaInternet(@QueryParam(value = "origem") Moeda origem, @QueryParam(value = "destino") Moeda destino) {

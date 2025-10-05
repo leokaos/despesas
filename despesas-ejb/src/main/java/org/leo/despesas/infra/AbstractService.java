@@ -48,7 +48,7 @@ public abstract class AbstractService<T extends SimpleFacade<E, F>, E extends Mo
 	@Override
 	@Consumes(value = MediaType.APPLICATION_JSON)
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public Response salvar(final E t) {
+	public Response salvar(final E t) throws DespesasException {
 		E result = getFacade().salvar(t);
 
 		return Response.ok(result).build();

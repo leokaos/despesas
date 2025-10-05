@@ -38,6 +38,7 @@ export class CotacaoEdit {
 
   formGroup!: FormGroup;
   cotacao?: Cotacao;
+  loadingCreateNew: boolean = false;
 
   loading = signal<boolean>(true);
 
@@ -62,8 +63,8 @@ export class CotacaoEdit {
     this.formGroup = this.formBuilder.group({
       taxa: [this.cotacao?.taxa, Validators.required],
       data: [this.cotacao?.data, Validators.required],
-      origem: [this.cotacao?.origem, Validators.required],
-      destino: [this.cotacao?.destino, Validators.required],
+      origem: [{ value: this.cotacao?.origem, disabled: this.cotacao?.id }, Validators.required],
+      destino: [{ value: this.cotacao?.destino, disabled: this.cotacao?.id }, Validators.required],
     });
 
     this.loading.set(false);
@@ -72,14 +73,28 @@ export class CotacaoEdit {
   save() {
 
     let cotacao = {
+      id: this.cotacao?.id,
       ...this.formGroup.value,
-      id: this.cotacao?.id
     } as Cotacao;
 
-    this.cotacaoService.createOrUpdate(cotacao).subscribe((_) => {
-      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cotação salva com sucesso!', life: 3000 });
-      this.returnToView();
-    });
+    if (this.cotacao?.id) {
+      cotacao = {
+        ...this.cotacao,
+        taxa: this.formGroup.get('taxa')?.value,
+        data: this.formGroup.get('data')?.value,
+      } as Cotacao;
+    }
+
+    this.cotacaoService.createOrUpdate(cotacao)
+      .subscribe({
+        next: (_) => {
+          this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cotação salva com sucesso!', life: 3000 });
+          this.returnToView();
+        },
+        error: (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error, life: 3000 });
+        }
+      });
   }
 
   returnToView() {
@@ -89,4 +104,35 @@ export class CotacaoEdit {
   cancel() {
     this.returnToView();
   }
+
+  isValidToSearch(): boolean {
+
+    const origem = this.formGroup.get('origem')?.value;
+    const destino = this.formGroup.get('destino')?.value;
+
+    return !!origem && !!destino && origem !== destino && !this.cotacao?.id;
+  }
+
+  isExistentCotacao(): boolean {
+    return this.cotacao !== null && this.cotacao?.id !== null;
+  }
+
+  createNew() {
+
+    this.loadingCreateNew = true;
+
+    let origem = this.formGroup.get('origem')?.value;
+    let destino = this.formGroup.get('destino')?.value;
+
+    this.cotacaoService.fetchNew(origem, destino).subscribe((cotacao: Cotacao) => {
+      this.cotacao = cotacao;
+
+      this.formGroup.get('taxa')?.setValue(cotacao.taxa);
+      this.formGroup.get('data')?.setValue(cotacao.data);
+
+      this.loadingCreateNew = false;
+    });
+
+  }
+
 }

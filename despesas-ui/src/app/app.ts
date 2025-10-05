@@ -15,8 +15,6 @@ import { MessageService } from 'primeng/api';
 })
 export class App {
 
-  constructor(private messageService: MessageService) {
-
-  }
+  constructor() { }
 
 }
