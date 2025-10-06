@@ -14,7 +14,7 @@ import org.leo.despesas.infra.AbstractService;
 import org.leo.despesas.infra.Moeda;
 
 @Path("/cotacao")
-public class CotacaoService extends AbstractService<CotacaoFacade, Cotacao,CotacaoFiltro> {
+public class CotacaoService extends AbstractService<CotacaoFacade, Cotacao, CotacaoFiltro> {
 
 	@EJB
 	private CotacaoFacade cotacaoFacade;

@@ -53,6 +53,9 @@ export class ServicoTransferenciaView {
   }
 
   loadData() {
+
+    this.loading.set(true);
+
     this.servicoTransferenciaService.fetch().subscribe((data: ServicoTransferencia[]) => {
       this.data = [...data];
       this.loading.set(false);

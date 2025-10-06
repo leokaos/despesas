@@ -4,6 +4,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { APP_CONFIG, AppConfig } from '../app-config';
+import { ServicoTransferencia } from '../models/servico-transferencia.model';
+import { Cotacao } from '../models/cotacao.model';
 
 export interface TransferenciaFiltro {
   dataInicial: Date;
@@ -16,7 +18,7 @@ export interface TransferenciaFiltro {
 export class TransferenciaService {
   private readonly path: string = 'transferencia';
 
-  constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) {}
+  constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
 
   fetch(filtro: TransferenciaFiltro): Observable<Transferencia[]> {
     let params = new HttpParams();
@@ -65,6 +67,38 @@ export class TransferenciaService {
     return innerTransferencia.id
       ? this.update(innerTransferencia, innerTransferencia.id)
       : this.create(innerTransferencia);
+  }
+
+  createRemessa(
+    servico: ServicoTransferencia,
+    debitavel: Debitavel,
+    creditavel: Debitavel,
+    cotacao: Cotacao,
+    valor: number
+  ): Observable<Transferencia> {
+
+    let payload = {
+
+      transferencia: {
+        debitavel: {
+          ...debitavel,
+          moeda: debitavel.moeda.codigo
+        },
+        creditavel: {
+          ...creditavel,
+          moeda: creditavel.moeda.codigo
+        },
+        valor: valor
+      },
+      cotacao: {
+        ...cotacao,
+        destino: cotacao.destino.codigo,
+        origem: cotacao.origem.codigo
+      },
+      servicoTransferencia: servico,
+    }
+
+    return this.http.post<Transferencia>(`${this.config.apiUrl}/${this.path}/`, payload);
   }
 
   private process(transferencia: any): Transferencia {

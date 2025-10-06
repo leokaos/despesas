@@ -56,7 +56,7 @@
                     <label>Taxa Variável</label>
                 </div>
                 <div class="w-4/5">
-                    <p-toggleswitch formControlName="custoVariavel" />
+                    <p-toggleswitch formControlName="custoVariavel" (onChange)="setTaxas($event)"/>
                 </div>
             </div>
 

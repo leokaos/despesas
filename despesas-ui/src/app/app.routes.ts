@@ -1,3 +1,4 @@
+import { CompararServicosTransferencia } from './movimentacao/comparar-servicos-transferencia/comparar-servicos-transferencia';
 import { ServicoTransferenciaEdit } from './cadastros/servico-transferencia/servico-transferencia-edit/servico-transferencia-edit';
 import { ServicoTransferenciaView } from './cadastros/servico-transferencia/servico-transferencia-view/servico-transferencia-view';
 import { TransferenciaEdit } from './cadastros/movimentacao/transferencia-edit/transferencia-edit';
@@ -61,5 +62,6 @@ export const routes: Routes = [
   { path: 'servico-transferencia/:id', component: ServicoTransferenciaEdit },
 
   //MOVIMENTACAO
-  { path: 'pagamentos', component: Pagamentos }
+  { path: 'pagamentos', component: Pagamentos },
+  { path: 'compararServicosTransferencia', component: CompararServicosTransferencia }
 ];

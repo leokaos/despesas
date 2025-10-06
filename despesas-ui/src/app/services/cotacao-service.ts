@@ -5,6 +5,12 @@ import { Observable, map } from 'rxjs';
 import { APP_CONFIG, AppConfig } from '../app-config';
 import { Cotacao } from '../models/cotacao.model';
 
+export interface CotacaoFiltro {
+  origem: Moeda;
+  destino: Moeda;
+  data: Date;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,9 +19,24 @@ export class CotacaoService {
 
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
 
-  fetch(): Observable<Cotacao[]> {
+  fetch(filtro?: CotacaoFiltro): Observable<Cotacao[]> {
+
+    let params = new HttpParams();
+
+    if (filtro?.data) {
+      params = params.set("data", filtro.data.toUTCString());
+    }
+
+    if (filtro?.origem) {
+      params = params.set("origem", filtro.origem.codigo);
+    }
+
+    if (filtro?.destino) {
+      params = params.set("destino", filtro.destino.codigo);
+    }
+
     return this.http
-      .get<Cotacao[]>(`${this.config.apiUrl}/${this.path}`)
+      .get<Cotacao[]>(`${this.config.apiUrl}/${this.path}`, { params: params })
       .pipe(
         map((data: Cotacao[]) => data.map((cotacao: Cotacao) => this.process(cotacao)))
       );

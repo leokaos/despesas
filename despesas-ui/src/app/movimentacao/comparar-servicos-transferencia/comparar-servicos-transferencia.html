@@ -1,0 +1,265 @@
+<span class="page-title">
+    <i class="pi pi-chevron-right"></i> Comparar Serviços de Transferência
+</span>
+
+<div class="form-panel">
+
+    @if (loading()) {
+    <app-loader />
+    } @else {
+    <div class="flex justify-end pb-2.5">
+        <p-button label="Adicionar Serviço..." severity="secondary" (click)="showDialogServicos = true">
+            <i class="pi pi-plus text-2xl"></i>
+        </p-button>
+    </div>
+
+    <p-divider />
+
+    <div class="flex gap-4 items-center">
+
+        <div class="flex-1 flex items-center justify-center">
+            <label class="whitespace-nowrap">
+                Valor IOF:
+            </label>
+        </div>
+
+        <div class="flex-1">
+            <p-inputgroup>
+                <p-inputnumber locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2" [(ngModel)]="iof" [disabled]="true" />
+                <p-inputgroup-addon>
+                    <i class="pi pi-percentage"></i>
+                </p-inputgroup-addon>
+            </p-inputgroup>
+        </div>
+
+        <div class="flex-1 flex items-center justify-center">
+            <label class="whitespace-nowrap">
+                Valor do SPOT:
+            </label>
+        </div>
+
+        <div class="flex-1">
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-money-bill"></i>
+                </p-inputgroup-addon>
+                <p-inputnumber locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="3" [(ngModel)]="spot" [disabled]="true" />
+            </p-inputgroup>
+        </div>
+
+        <div class="flex-1 flex items-center justify-center">
+            <label class="whitespace-nowrap">
+                Transferência de:
+            </label>
+        </div>
+
+        <div class="flex-1 flex items-center">
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-money-bill"></i>
+                </p-inputgroup-addon>
+                <p-inputnumber locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="3" [(ngModel)]="valor" />
+            </p-inputgroup>
+        </div>
+
+        <div class="flex-1 flex items-center justify-center">
+            <label class="whitespace-nowrap">
+                Valor da Cotação:
+            </label>
+        </div>
+
+        <div class="flex-1 flex items-center">
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-money-bill"></i>
+                </p-inputgroup-addon>
+                <p-inputnumber locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="3" [(ngModel)]="taxa" />
+            </p-inputgroup>
+        </div>
+
+        <div class="flex-none flex items-center">
+            <p-button icon="pi pi-search" severity="success" (click)="openCotacaoDialog()" />
+        </div>
+
+    </div>
+
+    <div class="mt-8 pt-8">
+
+        <table class="p-datatable-table fix-height">
+            <thead class="p-datatable-thead" style="position: sticky;">
+                <tr>
+                    <th> Nome do Serviço</th>
+                    @for (servico of servicosSelecionados; track $index) {
+                    <th class="force-center">{{servico.nome}}</th>
+                    }
+                </tr>
+            </thead>
+
+            <tbody class="p-datatable-tbody">
+                <tr>
+                    <td> SPRED </td>
+                    @for (servico of servicosSelecionados; track $index) {
+                    <td class="force-center">{{servico.spred | number: '1.2-2' : 'pt-BR' }}%</td>
+                    }
+                </tr>
+                <tr>
+                    <td> Taxas </td>
+                    @for (servico of servicosSelecionados; track $index) {
+                    <td class="force-center">
+                        @if(servico.custoVariavel){
+                        <p-inputnumber locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="3" [(ngModel)]="servico.taxas" />
+                        }
+                        @else {
+                        {{moedaDestino?.simbolo}} {{servico.taxas | number: '1.2-2' : 'pt-BR' }}
+                        }
+                    </td>
+                    }
+                </tr>
+                <tr>
+                    <td> Total Bruto </td>
+                    @for (servico of servicosSelecionados; track $index) {
+                    <td class="force-center">{{moedaDestino?.simbolo}} {{calcularTotalBruto(servico) | number: '1.2-2' : 'pt-BR' }}</td>
+                    }
+                </tr>
+                <tr>
+                    <td> <b>Total Final</b> </td>
+                    @for (servico of servicosSelecionados; track $index) {
+                    <td class="force-center">{{moedaDestino?.simbolo}} {{calcularTotalLiquido(servico) | number: '1.2-2' : 'pt-BR' }}</td>
+                    }
+                </tr>
+
+                <tr>
+                    <td> </td>
+                    @for (servico of servicosSelecionados; track $index) {
+                    <td class="force-center">
+                        <p-button label="Efetuar" severity="secondary" size="small" (click)="openDialog(servico)" />
+                    </td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <p-dialog header="Adicionar Serviço" [modal]="true" position="top" [(visible)]="showDialogServicos" [style]="{ width: '50rem' }">
+
+        <p-table [value]="getServicosNaoSelecionados()">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th> Nome </th>
+                    <th> SPREAD/Taxas </th>
+                    <th class="small-column"></th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td> {{item.nome}} </td>
+                    <td class="force-center">
+                        {{item.spred | number: '1.2-2' : 'pt-BR' }}% / {{item.taxas | number: '1.2-2' : 'pt-BR' }}
+                    </td>
+                    <td class="small-column">
+                        <p-button icon="pi pi-plus" severity="secondary" size="small" (click)="addServico(item)" />
+                    </td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+
+        <ng-template pTemplate="footer">
+            <p-button label="Cancel" [raised]="true" severity="secondary" (click)="showDialogServicos = false" />
+        </ng-template>
+
+    </p-dialog>
+
+    <p-dialog header="Buscar Cotação" [modal]="true" position="top" [(visible)]="showDialogCotacao" [style]="{ width: '50rem' }">
+
+        <div class="flex gap-4 items-center mb-8">
+
+            <div class="flex-1 flex items-center justify-center">
+                <label class="whitespace-nowrap">
+                    Origem:
+                </label>
+            </div>
+
+            <div class="flex-1">
+                <app-select-moeda [(ngModel)]="moedaOrigem" />
+            </div>
+
+            <div class="flex-1 flex items-center justify-center">
+                <label class="whitespace-nowrap">
+                    Destino:
+                </label>
+            </div>
+
+            <div class="flex-1">
+                <app-select-moeda [(ngModel)]="moedaDestino" />
+            </div>
+
+            <div class="flex-none flex items-center">
+                <p-button icon="pi pi-search" severity="success" (click)="buscarCotacao()" />
+            </div>
+
+        </div>
+
+        @if (!loadingCotacoes()) {
+        <p-table [value]="cotacoes">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th> Data </th>
+                    <th> Taxa de Conversao </th>
+                    <th class="small-column"></th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td> {{item.data | date: "dd/MM/yyyy"}} </td>
+                    <td class="force-center">
+                        {{item.origem.simbolo}} {{ 1 | number: '1.2-2' : 'pt-BR'}} = {{item.destino.simbolo}} {{item.taxa | number: '1.2-2' : 'pt-BR'}}
+                    </td>
+                    <td class="small-column">
+                        <p-button icon="pi pi-check" severity="secondary" size="small" (click)="setCotacao(item)" />
+                    </td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+        }
+
+        <ng-template pTemplate="footer">
+            <p-button label="Cancel" [raised]="true" severity="secondary" (click)="showDialogCotacao = false" />
+        </ng-template>
+
+    </p-dialog>
+
+    <p-dialog header="Efetuar" [modal]="true" position="top" [(visible)]="showDialogEfetuar" [style]="{ width: '25rem' }">
+
+        <div class="flex-1">
+            <div class="flex mb-4">
+                <div class="w-2/5 pr-2 flex items-center">
+                    <label>Debitável:</label>
+                </div>
+
+                <div class="w-3/5">
+                    <app-select-debitavel [debitaveis]="debitaveis" [(ngModel)]="debitavel" />
+                </div>
+            </div>
+            <div class="flex mb-4">
+                <div class="w-2/5 pr-2 flex items-center">
+                    <label>Creditável:</label>
+                </div>
+                <div class="w-3/5">
+                    <app-select-debitavel [debitaveis]="debitaveis" [(ngModel)]="creditavel" />
+                </div>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <p-button label="Efetuar" [raised]="true" severity="secondary" (click)="efetuar()" />
+        </ng-template>
+    </p-dialog>
+    }
+
+</div>

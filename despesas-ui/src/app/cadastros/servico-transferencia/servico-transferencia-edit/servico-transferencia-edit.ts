@@ -11,7 +11,7 @@ import { Loader } from '../../../components/loader/loader';
 import { ServicoTransferencia } from '../../../models/servico-transferencia.model';
 import { ServicoTransferenciaService } from './../../../services/servico-transferencia-service';
 import { Component, inject, signal } from '@angular/core';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { ToggleSwitchChangeEvent, ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
   selector: 'app-servico-transferencia-edit',
@@ -87,5 +87,14 @@ export class ServicoTransferenciaEdit {
 
   cancel() {
     this.returnToView();
+  }
+
+  setTaxas(event: ToggleSwitchChangeEvent) {
+    if (event.checked) {
+      this.formGroup.get('taxas')?.setValue(null);
+      this.formGroup.get('taxas')?.disable();
+    } else {
+      this.formGroup.get('taxas')?.enable();
+    }
   }
 }
