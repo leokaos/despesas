@@ -1,0 +1,18 @@
+<span class="page-title">
+    <i class="pi pi-chevron-right"></i> Movimentação
+</span>
+
+<div class="form-panel">
+
+    <full-calendar [options]="calendarOptions">
+        <ng-template #eventContent let-arg>
+            <div
+                 [style.background-color]="arg.event.extendedProps.cor"
+                 [style.border-color]="arg.event.extendedProps.cor"
+                 class="w-full text-white pl-2">
+                <b>{{ arg.event.title }}</b>
+            </div>
+        </ng-template>
+    </full-calendar>
+
+</div>

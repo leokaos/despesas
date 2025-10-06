@@ -22,6 +22,7 @@ import { CartaoCreditoEdit } from './cadastros/debitavel/cartao-credito-edit/car
 import { FaturaView } from './cadastros/debitavel/fatura-view/fatura-view';
 import { CotacaoView } from './cadastros/cotacao/cotacao-view/cotacao-view';
 import { CotacaoEdit } from './cadastros/cotacao/cotacao-edit/cotacao-edit';
+import { Pagamentos } from './movimentacao/pagamentos/pagamentos';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -58,4 +59,7 @@ export const routes: Routes = [
   { path: 'servicos-transferencia', component: ServicoTransferenciaView },
   { path: 'servico-transferencia', component: ServicoTransferenciaEdit },
   { path: 'servico-transferencia/:id', component: ServicoTransferenciaEdit },
+
+  //MOVIMENTACAO
+  { path: 'pagamentos', component: Pagamentos }
 ];
