@@ -88,7 +88,7 @@ public class Conta extends Debitavel {
 		if (this.equals(transferencia.getDebitavel())) {
 			saldo = saldo.add(transferencia.getValor());
 		} else if (this.equals(transferencia.getCreditavel())) {
-			saldo = saldo.subtract(transferencia.getValor());
+			saldo = saldo.subtract(transferencia.getValorReal());
 		}
 
 	}

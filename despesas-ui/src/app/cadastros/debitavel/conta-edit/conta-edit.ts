@@ -48,7 +48,7 @@ export class ContaEdit {
 
   loading = signal<boolean>(true);
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     var id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -81,8 +81,7 @@ export class ContaEdit {
     } as Conta;
 
     this.contaService.createOrUpdate(conta).subscribe((_) => {
-      // prettier-ignore
-      this.messageService.add({severity: 'success', summary: 'Sucesso', detail: 'Conta salva com sucesso!', life: 3000 });
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Conta salva com sucesso!', life: 3000 });
       this.returnToView();
     });
   }
@@ -95,7 +94,4 @@ export class ContaEdit {
     this.router.navigate(['contas']);
   }
 
-  selectMoeda(moeda: Moeda) {
-    this.formGroup.get('moeda')?.setValue(moeda);
-  }
 }

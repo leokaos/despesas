@@ -45,7 +45,7 @@
                     Moeda
                 </label>
                 <div class="flex-1">
-                    <app-select-moeda (onSelect)="selectMoeda($event)" [initialValue]="cartaoCredito?.moeda" />
+                    <app-select-moeda formControlName="moeda" />
                 </div>
             </div>
 
@@ -85,7 +85,7 @@
                             <fa-icon [icon]="selectedOption.icon" size="1x" /> {{selectedOption.nome}}
                         </ng-template>
                         <ng-template let-option #item>
-                            <fa-icon [icon]="option.icon" size="1x" class="mr-1"/> {{option.nome}}
+                            <fa-icon [icon]="option.icon" size="1x" class="mr-1" /> {{option.nome}}
                         </ng-template>
                     </p-select>
 

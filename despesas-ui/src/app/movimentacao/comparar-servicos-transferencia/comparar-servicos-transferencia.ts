@@ -168,12 +168,23 @@ export class CompararServicosTransferencia implements OnInit {
         this.cotacao,
         this.valor
       ).subscribe((_) => {
-        this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Cotação removida com sucesso!', life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Remessa criada com sucesso!', life: 3000 });
         this.showDialogEfetuar = false;
         this.servicosSelecionados = [];
       });
 
     }
-
   }
+
+  calcularPercentualCusto(servico: ServicoTransferencia): number {
+    const custoTotal = servico.taxas + (this.calcularTotalBruto(servico) * servico.spred / 100);
+    return (custoTotal / this.calcularTotalBruto(servico)) * 100;
+  }
+
+  getTaxaBadgeClass(servico: ServicoTransferencia): string {
+    return servico.custoVariavel
+      ? 'bg-orange-100 text-orange-800 border border-orange-200'
+      : 'bg-green-100 text-green-800 border border-green-200';
+  }
+
 }

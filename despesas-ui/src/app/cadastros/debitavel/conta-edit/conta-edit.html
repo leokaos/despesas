@@ -33,7 +33,7 @@
                     <label for="cor">Moeda</label>
                 </div>
                 <div class="w-1/3">
-                    <app-select-moeda (onSelect)="selectMoeda($event)" [initialValue]="conta?.moeda" />
+                    <app-select-moeda formControlName="moeda" />
                 </div>
             </div>
 
@@ -46,7 +46,7 @@
                         <p-inputgroup-addon>
                             <i class="pi pi-money-bill"></i>
                         </p-inputgroup-addon>
-                        <p-inputnumber placeholder="Saldo" formControlName="saldo" locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2" />
+                        <p-inputnumber placeholder="Saldo" formControlName="saldo" locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2" [disabled]="!!conta?.id" />
                     </p-inputgroup>
                 </div>
             </div>
