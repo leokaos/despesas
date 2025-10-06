@@ -1,3 +1,5 @@
+import { ServicoTransferenciaEdit } from './cadastros/servico-transferencia/servico-transferencia-edit/servico-transferencia-edit';
+import { ServicoTransferenciaView } from './cadastros/servico-transferencia/servico-transferencia-view/servico-transferencia-view';
 import { TransferenciaEdit } from './cadastros/movimentacao/transferencia-edit/transferencia-edit';
 import { TransferenciaView } from './cadastros/movimentacao/transferencia-view/transferencia-view';
 import { Routes } from '@angular/router';
@@ -53,4 +55,7 @@ export const routes: Routes = [
   { path: 'cotacoes', component: CotacaoView },
   { path: 'cotacao', component: CotacaoEdit },
   { path: 'cotacao/:id', component: CotacaoEdit },
+  { path: 'servicos-transferencia', component: ServicoTransferenciaView },
+  { path: 'servico-transferencia', component: ServicoTransferenciaEdit },
+  { path: 'servico-transferencia/:id', component: ServicoTransferenciaEdit },
 ];
