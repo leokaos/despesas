@@ -3,6 +3,7 @@ export interface Meta {
   valorDiario: number;
   valor: number;
   descricao: string;
+  saldo: number;
   mes: {
     mes: number;
     ano: number;

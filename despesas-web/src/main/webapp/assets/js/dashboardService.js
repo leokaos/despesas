@@ -1,6 +1,6 @@
 app.service('dashboardService', function($http) {
 
-	var pathBase = 'http://localhost:8080/despesas/services/dashbboard/';
+	var pathBase = 'http://localhost:8080/despesas/services/dashboard/';
 
 	this.buscarDespesasPorPeriodo = function(dataInicio, dataFim, fn) {
 

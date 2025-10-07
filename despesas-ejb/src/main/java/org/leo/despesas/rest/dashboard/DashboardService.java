@@ -23,7 +23,7 @@ import org.leo.despesas.dominio.movimentacao.TipoGrafico;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.rest.WrapperGraficoVO;
 
-@Path("/dashbboard")
+@Path("/dashboard")
 @RequestScoped
 public class DashboardService {
 

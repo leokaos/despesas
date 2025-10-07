@@ -42,6 +42,18 @@ a:focus {
   text-align: center !important;
 }
 
+.white-panel {
+  text-align: center;
+  background: #ffffff;
+  color: #ccd1d9;
+}
+
+.white-panel p {
+  margin-top: 5px;
+  font-weight: 700;
+  margin-left: 15px;
+}
+
 .white-panel .white-header {
   background: #B5B5B5 !important;
   color: #FFFFFF !important;
