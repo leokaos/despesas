@@ -1,0 +1,74 @@
+<span class="page-title">
+    <i class="pi pi-chevron-right"></i> Dashboard
+</span>
+
+<div class="form-panel mb-8" [style.margin-bottom]="'30px'">
+    <div class="flex items-center justify-between">
+        <div class="w-1/12">
+            <p-button icon="pi pi-chevron-left" [rounded]="true" [text]="true" severity="secondary" />
+        </div>
+        <div class="w-10/12 text-center">
+            <h4 class="text-xl font-semibold text-gray-800">
+                Outubro / 2025
+            </h4>
+        </div>
+        <div class="w-1/12 flex justify-end">
+            <p-button icon="pi pi-chevron-right" [rounded]="true" [text]="true" severity="secondary" />
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+    @for (grafico of graficos; track $index) {
+    <div class="bg-white border border-gray-200">
+        <div class="border-b border-gray-200 px-4 py-3">
+            <h5 class="font-semibold text-gray-800">{{ grafico.titulo }}</h5>
+        </div>
+        <div class="p-4">
+        </div>
+    </div>
+    }
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+    <div class="bg-white shadow-sm border border-gray-200">
+        <p-carousel [value]="debitaveis" [numVisible]="1" [numScroll]="1" [circular]="true" [showIndicators]="false">
+            <ng-template let-debitavel #item>
+                <div class="white-panel">
+                    <div class="white-header">
+                        <h5>{{debitavel.descricao}}</h5>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h1 style="margin-top: 40px;"> {{ debitavel.moeda.simbolo }} {{debitavel.saldo | number: '1.2-2' : 'pt-BR' }}</h1>
+                </div>
+            </ng-template>
+        </p-carousel>
+    </div>
+
+    <div class="bg-white shadow-sm border border-gray-200">
+        <div class="border-b border-gray-200 px-4 py-3">
+            <h5 class="font-semibold text-gray-800">Saldo do Mês</h5>
+        </div>
+        <div class="p-4">
+        </div>
+    </div>
+
+    <div class="bg-white shadow-sm border border-gray-200">
+        <div class="border-b border-gray-200 px-4 py-3">
+            <h5 class="font-semibold text-gray-800">Orçamentos do Mês</h5>
+        </div>
+        <div class="p-4">
+        </div>
+    </div>
+
+    <div class="bg-white shadow-sm border border-gray-200">
+        <div class="border-b border-gray-200 px-4 py-3">
+            <h5 class="font-semibold text-gray-800">Meta do Mês</h5>
+        </div>
+        <div class="p-4">
+        </div>
+    </div>
+
+</div>

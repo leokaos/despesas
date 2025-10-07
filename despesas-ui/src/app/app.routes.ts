@@ -24,6 +24,7 @@ import { FaturaView } from './cadastros/debitavel/fatura-view/fatura-view';
 import { CotacaoView } from './cadastros/cotacao/cotacao-view/cotacao-view';
 import { CotacaoEdit } from './cadastros/cotacao/cotacao-edit/cotacao-edit';
 import { Pagamentos } from './movimentacao/pagamentos/pagamentos';
+import { Dashboard } from './dashboard/dashboard/dashboard';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -63,5 +64,9 @@ export const routes: Routes = [
 
   //MOVIMENTACAO
   { path: 'pagamentos', component: Pagamentos },
-  { path: 'compararServicosTransferencia', component: CompararServicosTransferencia }
+  { path: 'compararServicosTransferencia', component: CompararServicosTransferencia },
+
+  //DASHBOARD
+  { path: '', component: Dashboard },
+  { path: '**', redirectTo: '' }
 ];
