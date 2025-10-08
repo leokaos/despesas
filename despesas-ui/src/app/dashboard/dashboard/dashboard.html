@@ -19,15 +19,23 @@
 </div>
 
 <div class="flex w-full gap-8" style="height: 300px;">
+    @if(!loading()){
     @for (grafico of graficos; track $index) {
     <div class="white-panel flex-1">
         <div class="white-header">
             <h5 class="p-2">{{grafico.titulo}}</h5>
         </div>
-        <div>
-            <p-chart type="doughnut" [data]="data" />
+        <div class="p-3">
+            @if(grafico.tipoGrafico === 'PIZZA'){
+            <p-chart height="240" type="doughnut" [data]="convertPizza(grafico)" class="w-full" [options]="{cutout: '60%',plugins: { legend: { display: false }}}" />
+            }
+
+            @if(grafico.tipoGrafico === 'BARRAS'){
+            <p-chart height="240" type="bar" [data]="convertBarra(grafico)" class="w-full" [options]="{ plugins: { legend: { display: false } } }" />
+            }
         </div>
     </div>
+    }
     }
 </div>
 
@@ -93,19 +101,21 @@
         </div>
         <div>
             @if(!loading()) {
+            <div class="flex flex-col">
+                <div class="flex flex-col p-3">
+                    <span class="text-xl">Disponível</span>
+                    <span class="text-3xl">R$ {{meta?.saldo | number: '1.2-2' : 'pt-BR'}}</span>
+                </div>
 
-            <div class="flex flex-col mt-8">
-                <div class="flex">
-                    <h3 class="w-1/3 text-lg font-semibold">Disponível:</h3>
-                    <h3 class="w-2/3 text-lg">{{meta?.saldo | number: '1.2-2' : 'pt-BR'}}</h3>
-                </div>
-                <div class="flex">
-                    <h4 class="w-1/3 text-base font-medium">Objectivo:</h4>
-                    <h4 class="w-2/3 text-base">{{meta?.valor | number: '1.2-2' : 'pt-BR'}}</h4>
-                </div>
-                <div class="flex">
-                    <h4 class="w-1/3 text-base font-medium">Por Dia:</h4>
-                    <h4 class="w-2/3 text-base">{{meta?.valorDiario | number: '1.2-2' : 'pt-BR'}}</h4>
+                <div class="flex justify-between gap-3">
+                    <div class="flex-1 text-center p-2">
+                        <div class="text-s">Objectivo</div>
+                        <div class="text-base mt-1">R$ {{meta?.valor | number: '1.2-2' : 'pt-BR'}}</div>
+                    </div>
+                    <div class="flex-1 text-center p-2">
+                        <div class="text-s">Por Dia</div>
+                        <div class="text-base mt-1">R$ {{meta?.valorDiario | number: '1.2-2' : 'pt-BR'}}</div>
+                    </div>
                 </div>
             </div>
             }

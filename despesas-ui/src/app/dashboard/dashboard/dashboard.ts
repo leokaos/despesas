@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, inject } from "@angular/core";
+import { Component, OnInit, signal, inject, ChangeDetectorRef } from "@angular/core";
 import { forkJoin } from "rxjs";
 import { Moeda } from "../../models/debitavel.model";
 import { Mes } from "../../models/mes.model";
@@ -9,12 +9,12 @@ import { MetaService, MetaFiltro } from "../../services/meta-service";
 import { OrcamentoService, OrcamentoFiltro } from "../../services/orcamento-service";
 import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { Meta } from "../../models/meta.model";
-import { CommonModule, DecimalPipe } from "@angular/common";
+import { DecimalPipe } from "@angular/common";
 import { AppProgressBar } from "../../components/app-progress-bar/app-progress-bar";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { ButtonModule } from "primeng/button";
 import { ChartModule } from 'primeng/chart';
-
+import { Grafico } from "../../models/dashboard.model";
 
 @Component({
   selector: 'app-dashboard',
@@ -36,6 +36,7 @@ export class Dashboard implements OnInit {
   saldo?: number;
   orcamentos: Orcamento[] = [];
   meta?: Meta;
+  graficos: Grafico[] = [];
 
   loading = signal<boolean>(true);
 
@@ -71,86 +72,19 @@ export class Dashboard implements OnInit {
     forkJoin({
       saldo: this.dashboardService.fetchSaldo(this.dataInicial, this.dataFinal),
       orcamentos: this.orcamentoService.fetch(orcamentoFiltro),
-      metas: this.metaService.fetch(metaFiltro)
+      metas: this.metaService.fetch(metaFiltro),
+      graficos: this.dashboardService.fetchGraficos(this.dataInicial, this.dataFinal)
     }).subscribe((results: any) => {
 
       this.saldo = results.saldo;
       this.orcamentos = results.orcamentos;
       this.meta = results.metas[0] ? results.metas[0] : null;
+      this.graficos = results.graficos;
 
       this.loading.set(false);
     });
 
   }
-
-  debitaveis = [
-    {
-      "limite": 10000.00,
-      "bandeira": "VISA",
-      "limiteAtual": null,
-      "diaDeVencimento": 25,
-      "diaDeFechamento": 10,
-      "tipo": "CARTAO",
-      "saldo": 10000.00,
-      "id": 8,
-      "descricao": "Porto Seguro",
-      "cor": "#0058e6",
-      "ativo": true,
-      "moeda": Moeda.REAL
-    },
-    {
-      "tipo": "CONTA",
-      "saldo": 10000.00,
-      "id": 25,
-      "descricao": "Itaú",
-      "cor": "#a68312",
-      "ativo": true,
-      "moeda": Moeda.REAL
-    },
-    {
-      "tipo": "CONTA",
-      "saldo": 500.00,
-      "id": 26,
-      "descricao": "N26",
-      "cor": "#3fa183",
-      "ativo": true,
-      "moeda": Moeda.EURO
-    }
-  ]
-
-  graficos: any[] = [
-    {
-      "tipoGrafico": "PIZZA",
-      "dados": [],
-      "titulo": "Despesas Por Tipo"
-    },
-    {
-      "tipoGrafico": "PIZZA",
-      "dados": [],
-      "titulo": "Receitas Por Tipo"
-    },
-    {
-      "tipoGrafico": "BARRAS",
-      "dados": [
-        {
-          "legenda": "Receitas",
-          "valor": 0,
-          "cor": "#42E87D"
-        },
-        {
-          "legenda": "Despesas",
-          "valor": 0,
-          "cor": "#F54047"
-        },
-        {
-          "legenda": "Transferências",
-          "valor": 0,
-          "cor": "#706EBB"
-        }
-      ],
-      "titulo": "Extrato Mensal"
-    }
-  ];
 
   isSaldoNegativo(): boolean {
     return (this.saldo || 0) < 0;
@@ -180,6 +114,30 @@ export class Dashboard implements OnInit {
     }
 
     this.loadData();
+  }
+
+  convertBarra(grafico: any): any {
+    return {
+      labels: grafico.dados.map((item: any) => item.legenda),
+      datasets: [
+        {
+          data: grafico.dados.map((item: any) => item.valor),
+          backgroundColor: grafico.dados.map((item: any) => item.cor)
+        }
+      ],
+    };
+  }
+
+  convertPizza(grafico: any): any {
+    return {
+      labels: grafico.dados.map((item: any) => item.legenda),
+      datasets: [
+        {
+          data: grafico.dados.map((item: any) => item.valor),
+          backgroundColor: grafico.dados.map((item: any) => item.cor)
+        }
+      ],
+    };
   }
 
 }
