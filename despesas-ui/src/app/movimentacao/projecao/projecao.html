@@ -1,0 +1,49 @@
+<span class="page-title">
+    <i class="pi pi-chevron-right"></i> Projeção
+</span>
+
+<div class="form-panel" style="min-height: 650px;">
+
+    @if (loading()) {
+    <app-loader />
+    } @else {
+    <p-panel>
+
+        <div class="flex flex-row gap-4 items-center">
+
+            <div class="flex flex-1 justify-center">
+                <label for="dataInicial">
+                    Numero de meses:
+                </label>
+            </div>
+
+            <div class="flex-1">
+                <p-inputnumber [(ngModel)]="meses" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100" />
+            </div>
+
+            <div class="flex flex-1 justify-center">
+                <label for="dataInicial">
+                    Conta:
+                </label>
+            </div>
+
+            <div class="flex-1">
+                <app-select-debitavel [debitaveis]="debitaveis" [(ngModel)]="debitavel" />
+            </div>
+
+            <div class="flex flex-0 justify-end ml-20">
+                <p-button label="Gerar" icon="pi pi-search" severity="info" size="small" (click)="filter()" />
+            </div>
+
+        </div>
+
+    </p-panel>
+
+    @if (data){
+    <div class="p-10">
+        <p-chart type="line" [data]="data" class="w-full" style="height: 500px;" [options]="{maintainAspectRatio: false, aspectRatio: 0.6}" />
+    </div>
+    }
+
+    }
+</div>

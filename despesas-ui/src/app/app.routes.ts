@@ -28,6 +28,7 @@ import { Dashboard } from './dashboard/dashboard/dashboard';
 import { ExtratoMensal } from './graficos/extrato-mensal/extrato-mensal';
 import { GraficoTipoDespesa } from './graficos/grafico-tipo-despesa/grafico-tipo-despesa';
 import { GraficoTipoReceita } from './graficos/grafico-tipo-receita/grafico-tipo-receita';
+import { Projecao } from './movimentacao/projecao/projecao';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -68,6 +69,7 @@ export const routes: Routes = [
   //MOVIMENTACAO
   { path: 'pagamentos', component: Pagamentos },
   { path: 'compararServicosTransferencia', component: CompararServicosTransferencia },
+  { path: 'projecao', component: Projecao },
 
   //GRAFICO
   { path: 'extrato', component: ExtratoMensal },
