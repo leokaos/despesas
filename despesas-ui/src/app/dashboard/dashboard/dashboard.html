@@ -2,23 +2,23 @@
     <i class="pi pi-chevron-right"></i> Dashboard
 </span>
 
-<div class="form-panel mb-8" [style.margin-bottom]="'30px'">
+<div class="form-panel" [style.margin-bottom]="'30px'">
     <div class="flex items-center justify-between">
         <div class="w-1/12">
-            <p-button icon="pi pi-chevron-left" [rounded]="true" [text]="true" severity="secondary" (click)="anterior()" />
+            <p-button icon="pi pi-chevron-left" [rounded]="true" [text]="true" severity="secondary" (click)="anterior()" size="small" />
         </div>
         <div class="w-10/12 text-center">
-            <h4 class="text-xl font-semibold text-gray-800">
+            <h4 class="text-xl">
                 {{Mes.getPorId(mes)?.name}}/{{ano}}
             </h4>
         </div>
         <div class="w-1/12 flex justify-end">
-            <p-button icon="pi pi-chevron-right" [rounded]="true" [text]="true" severity="secondary" (click)="posterior()" />
+            <p-button icon="pi pi-chevron-right" [rounded]="true" [text]="true" severity="secondary" (click)="posterior()" size="small" />
         </div>
     </div>
 </div>
 
-<div class="flex w-full gap-8" style="height: 300px;">
+<div class="flex w-full gap-8" style="height: 350px;">
     @if(!loading()){
     @for (grafico of graficos; track $index) {
     <div class="white-panel flex-1">
@@ -26,12 +26,18 @@
             <h5 class="p-2">{{grafico.titulo}}</h5>
         </div>
         <div class="p-3">
+            @if (grafico.dados && grafico.dados.length > 0 ) {
             @if(grafico.tipoGrafico === 'PIZZA'){
-            <p-chart height="240" type="doughnut" [data]="convertPizza(grafico)" class="w-full" [options]="{cutout: '60%',plugins: { legend: { display: false }}}" />
+            <p-chart height="280" type="doughnut" [data]="convertPizza(grafico)" class="w-full" [options]="{cutout: '70%',plugins: { legend: { display: false }}}" />
             }
 
             @if(grafico.tipoGrafico === 'BARRAS'){
-            <p-chart height="240" type="bar" [data]="convertBarra(grafico)" class="w-full" [options]="{ plugins: { legend: { display: false } } }" />
+            <p-chart height="280" type="bar" [data]="convertBarra(grafico)" class="w-full" [options]="{ plugins: { legend: { display: false } } }" />
+            }
+            } @else {
+            <div class="mt-15 text-2xl">
+                Sem dados!
+            </div>
             }
         </div>
     </div>
@@ -54,18 +60,15 @@
             <h5 class="p-2">Saldo do Mês</h5>
         </div>
         <div class="text-4xl mt-15">
-            @if (!loading()) {
+            @if (!loading() && saldo) {
             <div class="flex items-center gap-2 items-center justify-center">
                 @if(isSaldoPositivo()){
                 <fa-icon [icon]="faArrowUp" style="color: green;" />
-                <div>R$ {{saldo | number: '1.2-2' : 'pt-BR'}}</div>
                 }
-
                 @if (isSaldoNegativo()) {
                 <fa-icon [icon]="faArrowDown" style="color: red;" />
-                <div>R$ ({{ ( (saldo || 0) * -1) | number: '1.2-2' : 'pt-BR'}})</div>
                 }
-
+                <div>{{convertSaldo(saldo)}}</div>
             </div>
             }
         </div>
@@ -101,23 +104,30 @@
         </div>
         <div>
             @if(!loading()) {
+
+            @if (meta) {
             <div class="flex flex-col">
                 <div class="flex flex-col p-3">
                     <span class="text-xl">Disponível</span>
-                    <span class="text-3xl">R$ {{meta?.saldo | number: '1.2-2' : 'pt-BR'}}</span>
+                    <span class="text-3xl">R$ {{meta.saldo | number: '1.2-2' : 'pt-BR'}}</span>
                 </div>
 
                 <div class="flex justify-between gap-3">
                     <div class="flex-1 text-center p-2">
                         <div class="text-s">Objectivo</div>
-                        <div class="text-base mt-1">R$ {{meta?.valor | number: '1.2-2' : 'pt-BR'}}</div>
+                        <div class="text-base mt-1">R$ {{meta.valor | number: '1.2-2' : 'pt-BR'}}</div>
                     </div>
                     <div class="flex-1 text-center p-2">
                         <div class="text-s">Por Dia</div>
-                        <div class="text-base mt-1">R$ {{meta?.valorDiario | number: '1.2-2' : 'pt-BR'}}</div>
+                        <div class="text-base mt-1">R$ {{meta.valorDiario | number: '1.2-2' : 'pt-BR'}}</div>
                     </div>
                 </div>
             </div>
+            } @else {
+            <div class="mt-15 text-2xl">
+                Sem metas definidas!
+            </div>
+            }
             }
         </div>
     </div>

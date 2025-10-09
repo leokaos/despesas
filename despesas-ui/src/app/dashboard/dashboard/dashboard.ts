@@ -1,6 +1,5 @@
-import { Component, OnInit, signal, inject, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, signal, inject } from "@angular/core";
 import { forkJoin } from "rxjs";
-import { Moeda } from "../../models/debitavel.model";
 import { Mes } from "../../models/mes.model";
 import { Orcamento } from "../../models/orcamento.model";
 import { DateUtil } from "../../models/util";
@@ -138,6 +137,16 @@ export class Dashboard implements OnInit {
         }
       ],
     };
+  }
+
+  convertSaldo(saldo: number): string {
+
+    let saldoFormatado = Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(saldo < 0 ? saldo * -1 : saldo);
+
+    return saldo < 0 ? `(${saldoFormatado})` : saldoFormatado;
   }
 
 }
