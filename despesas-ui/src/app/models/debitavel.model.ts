@@ -58,6 +58,7 @@ export interface Debitavel {
   ativo: boolean;
   moeda: Moeda;
   tipo: string;
+  saldo: number;
 }
 
 export interface Conta extends Debitavel {

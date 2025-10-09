@@ -28,11 +28,11 @@
         <div class="p-3">
             @if (grafico.dados && grafico.dados.length > 0 ) {
             @if(grafico.tipoGrafico === 'PIZZA'){
-            <p-chart height="280" type="doughnut" [data]="convertPizza(grafico)" class="w-full" [options]="{cutout: '70%',plugins: { legend: { display: false }}}" />
+            <p-chart height="280" type="doughnut" [data]="convertPizza(grafico)" class="w-full" [options]="{animation:false,cutout: '70%',plugins: { legend: { display: false }}}" />
             }
 
             @if(grafico.tipoGrafico === 'BARRAS'){
-            <p-chart height="280" type="bar" [data]="convertBarra(grafico)" class="w-full" [options]="{ plugins: { legend: { display: false } } }" />
+            <p-chart height="280" type="bar" [data]="convertBarra(grafico)" class="w-full" [options]="{animation:false, plugins: { legend: { display: false } } }" />
             }
             } @else {
             <div class="mt-15 text-2xl">
@@ -47,15 +47,24 @@
 
 <div class="flex w-full gap-8 mt-8" style="height: 200px;">
 
-    <div class="white-panel flex-1">
-        <div class="white-header">
-            <h5 class="p-2">Porto Seguro</h5>
-        </div>
-        <div>
-        </div>
+    <div class="white-panel flex-1 w-1/4">
+        @if(!loading()){
+        <p-carousel [value]="debitaveis" [numVisible]="1" [numScroll]="1" [circular]="true" [showIndicators]="false" (onPage)="setDebitavel($event)">
+            <ng-template let-debitavel #header>
+                <div class="white-header">
+                    <h5 class="p-2">{{debitavelShown?.descricao}}</h5>
+                </div>
+            </ng-template>
+            <ng-template let-debitavel #item>
+                <div class="flex flex-1 text-4xl justify-center items-center" style="height: 150px;">
+                    <div> {{ debitavel.moeda.simbolo }} {{debitavel.saldo | number: '1.2-2' : 'pt-BR' }}</div>
+                </div>
+            </ng-template>
+        </p-carousel>
+        }
     </div>
 
-    <div class="white-panel flex-1">
+    <div class="white-panel flex-1 w-1/4">
         <div class="white-header">
             <h5 class="p-2">Saldo do Mês</h5>
         </div>
@@ -74,7 +83,7 @@
         </div>
     </div>
 
-    <div class="white-panel flex-1">
+    <div class="white-panel flex-1 w-1/4">
         <div class="white-header">
             <h5 class="p-2">Orçamentos do Mês</h5>
         </div>
@@ -82,7 +91,7 @@
             @if(!loading()){
             @for (orcamento of orcamentos; track $index) {
             <div class="flex items-center gap-4 p-4">
-                <div class="flex-none w-1/4">
+                <div class="flex-none w-2/5">
                     {{orcamento.tipoDespesa.descricao}}
                 </div>
                 <div class="flex-1">
@@ -98,7 +107,7 @@
         </div>
     </div>
 
-    <div class="white-panel flex-1">
+    <div class="white-panel flex-1 w-1/4">
         <div class="white-header">
             <h5 class="p-2">Meta do Mês</h5>
         </div>

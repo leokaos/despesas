@@ -14,10 +14,13 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { ButtonModule } from "primeng/button";
 import { ChartModule } from 'primeng/chart';
 import { Grafico } from "../../models/dashboard.model";
+import { DebitavelFiltro, DebitavelService } from "../../services/debitavel-service";
+import { Debitavel } from "../../models/debitavel.model";
+import { CarouselModule, CarouselPageEvent } from 'primeng/carousel';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [DecimalPipe, AppProgressBar, FontAwesomeModule, ButtonModule, ChartModule],
+  imports: [DecimalPipe, AppProgressBar, FontAwesomeModule, ButtonModule, ChartModule, CarouselModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss'
 })
@@ -36,12 +39,15 @@ export class Dashboard implements OnInit {
   orcamentos: Orcamento[] = [];
   meta?: Meta;
   graficos: Grafico[] = [];
+  debitaveis: Debitavel[] = [];
+  debitavelShown?: Debitavel;
 
   loading = signal<boolean>(true);
 
   private metaService = inject(MetaService);
   private orcamentoService = inject(OrcamentoService);
   private dashboardService = inject(DashboardService);
+  private debitavelService = inject(DebitavelService);
 
   readonly Mes = Mes;
 
@@ -60,7 +66,7 @@ export class Dashboard implements OnInit {
 
     let orcamentoFiltro = {
       dataInicial: this.dataInicial,
-      dataFinal: this.dataFinal
+      dataFinal: this.dataFinal,
     } as OrcamentoFiltro;
 
     let metaFiltro = {
@@ -68,17 +74,24 @@ export class Dashboard implements OnInit {
       ano: this.ano,
     } as MetaFiltro;
 
+    let debitavelFiltro = {
+      ativo: true,
+    } as DebitavelFiltro;
+
     forkJoin({
       saldo: this.dashboardService.fetchSaldo(this.dataInicial, this.dataFinal),
+      graficos: this.dashboardService.fetchGraficos(this.dataInicial, this.dataFinal),
       orcamentos: this.orcamentoService.fetch(orcamentoFiltro),
       metas: this.metaService.fetch(metaFiltro),
-      graficos: this.dashboardService.fetchGraficos(this.dataInicial, this.dataFinal)
+      debitaveis: this.debitavelService.fetch(debitavelFiltro),
     }).subscribe((results: any) => {
 
       this.saldo = results.saldo;
+      this.graficos = results.graficos;
       this.orcamentos = results.orcamentos;
       this.meta = results.metas[0] ? results.metas[0] : null;
-      this.graficos = results.graficos;
+      this.debitaveis = results.debitaveis;
+      this.debitavelShown = this.debitaveis[0];
 
       this.loading.set(false);
     });
@@ -147,6 +160,11 @@ export class Dashboard implements OnInit {
     }).format(saldo < 0 ? saldo * -1 : saldo);
 
     return saldo < 0 ? `(${saldoFormatado})` : saldoFormatado;
+  }
+
+  setDebitavel(event: CarouselPageEvent) {
+    let page = event.page || 0;
+    this.debitavelShown = this.debitaveis[page % this.debitaveis.length];
   }
 
 }
