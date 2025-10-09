@@ -25,6 +25,9 @@ import { CotacaoView } from './cadastros/cotacao/cotacao-view/cotacao-view';
 import { CotacaoEdit } from './cadastros/cotacao/cotacao-edit/cotacao-edit';
 import { Pagamentos } from './movimentacao/pagamentos/pagamentos';
 import { Dashboard } from './dashboard/dashboard/dashboard';
+import { ExtratoMensal } from './graficos/extrato-mensal/extrato-mensal';
+import { GraficoTipoDespesa } from './graficos/grafico-tipo-despesa/grafico-tipo-despesa';
+import { GraficoTipoReceita } from './graficos/grafico-tipo-receita/grafico-tipo-receita';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -65,6 +68,11 @@ export const routes: Routes = [
   //MOVIMENTACAO
   { path: 'pagamentos', component: Pagamentos },
   { path: 'compararServicosTransferencia', component: CompararServicosTransferencia },
+
+  //GRAFICO
+  { path: 'extrato', component: ExtratoMensal },
+  { path: 'graficotipodespesa', component: GraficoTipoDespesa },
+  { path: 'graficotiporeceita', component: GraficoTipoReceita },
 
   //DASHBOARD
   { path: '', component: Dashboard },

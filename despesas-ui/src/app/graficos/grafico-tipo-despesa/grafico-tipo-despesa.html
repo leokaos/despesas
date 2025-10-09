@@ -1,0 +1,55 @@
+<span class="page-title">
+    <i class="pi pi-chevron-right"></i> Gráfico por Tipo de Despesa
+</span>
+
+<div class="form-panel" style="min-height: 650px;">
+
+    <p-panel>
+
+        <div class="flex flex-row gap-4 items-center">
+
+            <div class="flex flex-1 justify-center">
+                <label for="dataInicial">
+                    Vencimento Inicial:
+                </label>
+            </div>
+
+            <div class="flex-1">
+                <p-datepicker [iconDisplay]="'input'" [(ngModel)]="dataInicial" [showIcon]="true" inputId="icondisplay" />
+            </div>
+
+            <div class="flex flex-1 justify-center">
+                <label for="dataInicial">
+                    Vencimento Final:
+                </label>
+            </div>
+
+            <div class="flex-1">
+                <p-datepicker [iconDisplay]="'input'" [(ngModel)]="dataFinal" [showIcon]="true" inputId="icondisplay" />
+            </div>
+
+            <div class="flex flex-1 justify-center">
+                <label for="conta">
+                    Períodos:
+                </label>
+            </div>
+
+            <div class="flex-1">
+                <app-select-interval (onChange)="setDates($event)" />
+            </div>
+
+            <div class="flex flex-0 justify-end ml-20">
+                <p-button label="Gerar" icon="pi pi-search" severity="info" size="small" (click)="filter()" />
+            </div>
+
+        </div>
+
+    </p-panel>
+
+    @if (data){
+    <div class="p-10">
+        <p-chart type="line" [data]="data" class="w-full" style="height: 500px;" [options]="{maintainAspectRatio: false, aspectRatio: 0.6}" />
+    </div>
+    }
+
+</div>
