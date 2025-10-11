@@ -31,6 +31,7 @@ import { GraficoTipoDespesa } from './graficos/grafico-tipo-despesa/grafico-tipo
 import { GraficoTipoReceita } from './graficos/grafico-tipo-receita/grafico-tipo-receita';
 import { Projecao } from './movimentacao/projecao/projecao';
 import { LancamentoDespesa } from './movimentacao/lancamento-despesa/lancamento-despesa';
+import { Sumario } from './graficos/sumario/sumario';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -79,6 +80,7 @@ export const routes: Routes = [
   { path: 'extrato', component: ExtratoMensal },
   { path: 'graficotipodespesa', component: GraficoTipoDespesa },
   { path: 'graficotiporeceita', component: GraficoTipoReceita },
+  { path: 'sumario', component: Sumario },
 
   //DASHBOARD
   { path: '', component: Dashboard },

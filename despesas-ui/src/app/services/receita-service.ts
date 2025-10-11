@@ -1,9 +1,15 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { APP_CONFIG, AppConfig } from '../app-config';
 import { Moeda, Debitavel } from '../models/debitavel.model';
 import { Receita } from '../models/movimentacao.model';
+
+export interface ReceitaFiltro {
+  dataInicial: Date,
+  dataFinal: Date,
+  moeda: Moeda,
+}
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +20,24 @@ export class ReceitaService {
 
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
 
-  fetch(): Observable<Receita[]> {
-    return this.http.get<Receita[]>(`${this.config.apiUrl}/${this.path}`);
+  fetch(filtro: ReceitaFiltro): Observable<Receita[]> {
+
+    let params = new HttpParams();
+
+    if (filtro?.dataInicial) {
+      params = params.append("dataInicial", filtro?.dataInicial.toUTCString());
+    }
+
+    if (filtro?.dataFinal) {
+      params = params.append("dataFinal", filtro?.dataFinal.toUTCString());
+    }
+
+    if (filtro?.moeda) {
+      params = params.append("moeda", filtro.moeda?.codigo);
+    }
+
+    return this.http.get<Receita[]>(`${this.config.apiUrl}/${this.path}`, { params })
+      .pipe(map((receitas: Receita[]) => receitas.map((receita: Receita) => this.process(receita))));;
   }
 
   fetchById(id: number): Observable<Receita> {

@@ -2,8 +2,14 @@ import { Debitavel, Moeda } from './../models/debitavel.model';
 import { Inject, Injectable } from '@angular/core';
 import { Despesa } from '../models/movimentacao.model';
 import { map, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { APP_CONFIG, AppConfig } from '../app-config';
+
+export interface DespesaFiltro {
+  dataInicial: Date,
+  dataFinal: Date,
+  moeda: Moeda,
+}
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +20,24 @@ export class DespesaService {
 
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
 
-  fetch(): Observable<Despesa[]> {
-    return this.http.get<Despesa[]>(`${this.config.apiUrl}/${this.path}`);
+  fetch(filtro: DespesaFiltro): Observable<Despesa[]> {
+
+    let params = new HttpParams();
+
+    if (filtro?.dataInicial) {
+      params = params.append("dataInicial", filtro?.dataInicial.toUTCString());
+    }
+
+    if (filtro?.dataFinal) {
+      params = params.append("dataFinal", filtro?.dataFinal.toUTCString());
+    }
+
+    if (filtro?.moeda) {
+      params = params.append("moeda", filtro.moeda?.codigo);
+    }
+
+    return this.http.get<Despesa[]>(`${this.config.apiUrl}/${this.path}`, { params })
+      .pipe(map((despesas: Despesa[]) => despesas.map((despesa: Despesa) => this.process(despesa))));
   }
 
   fetchById(id: number): Observable<Despesa> {

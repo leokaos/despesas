@@ -1,0 +1,9 @@
+::ng-deep .p-datatable tfoot tr:hover {
+    background-color: #f8f9fa !important;
+    cursor: pointer;
+}
+
+::ng-deep .p-datatable tfoot tr:hover td {
+    background-color: #f8f9fa !important;
+    color: #495057;
+}
