@@ -1,6 +1,6 @@
 import { InputTextModule } from 'primeng/inputtext';
 import { TipoReceitaService } from './../../../services/tipo-receita-service';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -26,7 +26,6 @@ import { SelectDebitavel } from '../../../components/select-debitavel/select-deb
 import { SelectTipoMovimentacao } from '../../../components/select-tipo-movimentacao/select-tipo-movimentacao';
 import { ButtonModule } from "primeng/button";
 import { CheckboxModule } from 'primeng/checkbox';
-import { ColorDisplay } from "../../../components/color-display/color-display";
 import { SelectModule } from 'primeng/select';
 
 @Component({
@@ -50,7 +49,7 @@ import { SelectModule } from 'primeng/select';
   templateUrl: './receita-edit.html',
   styleUrl: './receita-edit.scss',
 })
-export class ReceitaEdit {
+export class ReceitaEdit implements OnInit {
 
   debitaveis: Debitavel[] = [];
   tipos: TipoReceita[] = [];
@@ -116,7 +115,7 @@ export class ReceitaEdit {
     };
 
     this.receitaService.createOrUpdate(receita).subscribe((_) => {
-      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Transferência salva com sucesso!', life: 3000 });
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Receita salva com sucesso!', life: 3000 });
       this.returnToView();
     });
   }

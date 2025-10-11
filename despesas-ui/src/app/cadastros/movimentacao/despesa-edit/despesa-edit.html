@@ -1,1 +1,97 @@
-<p>despesa-edit works!</p>
+<span class="page-title">
+    <i class="pi pi-chevron-right"></i> Despesa
+</span>
+
+<div class="w-full md:w-1/2 mx-auto form-panel flex flex-col">
+
+    @if(loading()){
+    <app-loader />
+    }@else {
+    <form class="flex-1 flex flex-col" [formGroup]="formGroup">
+
+        <div class="flex-1">
+
+            <div class="flex mb-4">
+                <div class="w-1/5 pr-2 flex items-center">
+                    <label for="descricao">Descrição:</label>
+                </div>
+                <div class="w-4/5">
+                    <input pInputText formControlName="descricao" class="w-full" />
+                </div>
+            </div>
+
+            <div class="flex mb-4">
+                <div class="w-1/5 pr-2 flex items-center">
+                    <label for="cor">Valor</label>
+                </div>
+                <div class="w-4/5">
+                    <p-inputgroup>
+                        <p-inputgroup-addon>
+                            <i class="pi pi-money-bill"></i>
+                        </p-inputgroup-addon>
+                        <p-inputnumber formControlName="valor" locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2" />
+                    </p-inputgroup>
+                </div>
+            </div>
+
+            <div class="flex mb-4">
+                <div class="w-1/5 pr-2 flex items-center">
+                    <label for="descricao">Vencimento:</label>
+                </div>
+                <div class="w-2/5">
+                    <p-datepicker [showIcon]="true" formControlName="vencimento" />
+                </div>
+            </div>
+
+            <div class="flex mb-4">
+                <div class="w-1/5 pr-2 flex items-center">
+                    <label for="descricao">Tipo:</label>
+                </div>
+                <div class="w-1/5">
+                    <app-select-tipo-movimentacao [tipos]="tipos" formControlName="tipo" />
+                </div>
+            </div>
+
+            <div class="flex mb-4">
+                <div class="w-1/5 pr-2 flex items-center">
+                    <label for="descricao">Debitável:</label>
+                </div>
+                <div class="w-1/5">
+                    <app-select-debitavel [debitaveis]="debitaveis" formControlName="debitavel" />
+                </div>
+                @if (formGroup.get('debitavel')?.value) {
+                <div class="flex-1 flex justify-center items-center">
+                    <div class="bg-green-50 border border-green-200 rounded-lg px-3 py-2 min-w-[140px] text-center">
+                        <div class="text-green-700 font-bold text-sm">
+                            Saldo: {{formGroup.get('debitavel')?.value.moeda?.simbolo }} {{formGroup.get('debitavel')?.value?.saldo | number: '1.2-2' : 'pt-BR'}}
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+
+            <div class="flex mb-4">
+                <div class="w-1/5 pr-2 flex items-center">
+                    <label for="descricao">Despesa já paga?</label>
+                </div>
+                <div class="w-4/5">
+                    <p-checkbox size="large" [binary]="true" formControlName="paga" />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-auto pt-4">
+
+            <div class="flex justify-between">
+                <p-button label="Cancelar" [raised]="true" severity="secondary" size="small" (click)="cancel()" />
+                <p-button label="Salvar" [raised]="true" severity="success" size="small" (click)="save()" [disabled]="!formGroup.valid" />
+            </div>
+
+        </div>
+
+    </form>
+
+    }
+
+</div>

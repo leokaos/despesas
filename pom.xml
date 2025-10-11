@@ -12,6 +12,7 @@
 	<name>Controle Despesas</name>
 
 	<modules>
+		<module>despesas-ui</module>
 		<module>despesas-ejb</module>
 		<module>despesas-web</module>
 		<module>despesas-ear</module>
