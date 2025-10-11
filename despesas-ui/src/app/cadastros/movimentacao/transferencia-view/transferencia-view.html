@@ -16,34 +16,29 @@
                     </div>
                 </ng-template>
 
-                <ng-template #footer>
-                    <div class="flex justify-end">
-                        <p-button label="Buscar" icon="pi pi-search" severity="info" size="small" (click)="filter()" />
-                    </div>
-                </ng-template>
-
-                <div class="flex flex-row gap-4 items-center">
+                <div class="flex flex-row gap-[5vw] items-center">
 
                     <div class="flex-none">
-                        <label for="dataInicial">
-                            Vencimento Inicial:
-                        </label>
+                        <p-floatlabel variant="on">
+                            <p-datepicker inputId="vencimento_inicial" [iconDisplay]="'input'" [(ngModel)]="dataInicial" [showIcon]="true" />
+                            <label for="vencimento_inicial">Vencimento Inicial</label>
+                        </p-floatlabel>
                     </div>
 
                     <div class="flex-none">
-                        <p-datepicker [iconDisplay]="'input'" [(ngModel)]="dataInicial" [showIcon]="true" inputId="icondisplay" />
-                    </div>
-
-                    <div class="flex-none">
-                        <label for="dataInicial">
-                            Vencimento Final:
-                        </label>
-                    </div>
-
-                    <div class="flex-none">
-                        <p-datepicker [iconDisplay]="'input'" [(ngModel)]="dataFinal" [showIcon]="true" inputId="icondisplay" />
+                        <p-floatlabel variant="on">
+                            <p-datepicker inputId="vencimento_final" [iconDisplay]="'input'" [(ngModel)]="dataFinal" [showIcon]="true" />
+                            <label for="vencimento_final">Vencimento Final</label>
+                        </p-floatlabel>
                     </div>
                 </div>
+
+                <ng-template #footer>
+                    <div class="flex gap-2 justify-end">
+                        <p-button label="Buscar" icon="pi pi-search" severity="info" size="small" (click)="filter()" />
+                        <p-button label="Reset" icon="pi pi-refresh" severity="secondary" size="small" (click)="reset()" />
+                    </div>
+                </ng-template>
 
             </p-panel>
 

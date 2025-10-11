@@ -20,7 +20,7 @@ import { DateUtil } from '../../../models/util';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { ColorDisplay } from '../../../components/color-display/color-display';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { Select } from 'primeng/select';
+import { FloatLabelModule } from "primeng/floatlabel";
 
 @Component({
   selector: 'app-transferencia-view',
@@ -39,6 +39,7 @@ import { Select } from 'primeng/select';
     ColorDisplay,
     InputNumberModule,
     DatePipe,
+    FloatLabelModule,
   ],
   templateUrl: './transferencia-view.html',
   styleUrl: './transferencia-view.scss',
@@ -94,6 +95,13 @@ export class TransferenciaView implements OnInit {
     this.table?.filterGlobal(this.searchValue, 'contains');
   }
 
+  reset() {
+    this.dataInicial = DateUtil.getCurrentDataInicial();
+    this.dataFinal = DateUtil.getCurrentDataFinal();
+
+    this.reload();
+  }
+
   add() {
     this.router.navigate(['transferencia']);
   }
@@ -102,7 +110,7 @@ export class TransferenciaView implements OnInit {
     if (this.transferencia) {
       // prettier-ignore
       this.transferenciaService.remove(this.transferencia).subscribe(() => {
-        this.messageService.add({severity: 'success', summary: 'Successo', detail: 'Transferência removida com sucesso!', life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Transferência removida com sucesso!', life: 3000 });
         this.loadData();
       });
     }
