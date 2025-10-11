@@ -102,4 +102,9 @@ public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 		eq("debitavel.id", debitavelId);
 	}
 
+	@Override
+	protected String orderBy() {
+		return "vencimento DESC";
+	}
+
 }

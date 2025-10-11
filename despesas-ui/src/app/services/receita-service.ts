@@ -83,8 +83,8 @@ export class ReceitaService {
   private process(receita: any): Receita {
     return {
       ...receita,
-      vencimento: new Date(receita.vencimento),
-      pagamento: new Date(receita.pagamento),
+      vencimento: receita.vencimento ? new Date(receita.vencimento) : null,
+      pagamento: receita.pagamento ? new Date(receita.pagamento) : null,
       moeda: Moeda.fromCodigo(receita.moeda),
       debitavel: receita.debitavel ? this.processDebitavel(receita.debitavel) : null,
     };

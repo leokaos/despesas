@@ -1,5 +1,5 @@
 <span class="page-title">
-    <i class="pi pi-chevron-right"></i> Receitas
+    <i class="pi pi-chevron-right"></i> Despesas
 </span>
 
 <div class="form-panel">
@@ -35,7 +35,7 @@
                     <div class="flex-none w-60">
                         <p-floatlabel variant="on">
                             <app-select-tipo-movimentacao [tipos]="tipos" [(ngModel)]="tipoSelecionado" />
-                            <label for="tipo">Tipo de Receita</label>
+                            <label for="tipo">Tipo de Despesa</label>
                         </p-floatlabel>
                     </div>
 
@@ -123,36 +123,36 @@
                 <th pSortableColumn="debitavel.descricao">
                     Debitável <p-sortIcon field="debitavel.descricao" />
                 </th>
-                <th pSortableColumn="depositado" class="force-center">
-                    Depositada <p-sortIcon field="depositado" />
+                <th pSortableColumn="paga" class="force-center">
+                    Paga <p-sortIcon field="paga" />
                 </th>
                 <th class="small-column"></th>
                 <th class="small-column"></th>
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-receita>
-            <tr [pSelectableRow]="receita">
-                <td> {{receita.descricao}} </td>
-                <td> {{receita.debitavel.moeda.simbolo}} {{receita.valor | number: '1.2-2' : 'pt-BR'}}</td>
+        <ng-template pTemplate="body" let-despesa>
+            <tr [pSelectableRow]="despesa">
+                <td> {{despesa.descricao}} </td>
+                <td> {{despesa.debitavel.moeda.simbolo}} {{despesa.valor | number: '1.2-2' : 'pt-BR'}}</td>
                 <td>
-                    <app-color-display [color]="receita.tipo.cor" [text]="receita.tipo.descricao" />
+                    <app-color-display [color]="despesa.tipo.cor" [text]="despesa.tipo.descricao" />
                 </td>
-                <td>{{receita.vencimento | date:'dd/MM/yyyy'}}</td>
-                <td>{{receita.pagamento | date:'dd/MM/yyyy'}}</td>
+                <td>{{despesa.vencimento | date:'dd/MM/yyyy'}}</td>
+                <td>{{despesa.pagamento | date:'dd/MM/yyyy'}}</td>
                 <td>
-                    <app-color-display [color]="receita.debitavel.cor" [text]="receita.debitavel.descricao" />
+                    <app-color-display [color]="despesa.debitavel.cor" [text]="despesa.debitavel.descricao" />
                 </td>
                 <td class="force-center">
-                    @if (receita.depositado) {
+                    @if (despesa.paga) {
                     <i class="pi pi-check"></i>
                     }
                 </td>
                 <td class="small-column">
-                    <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(receita)" />
+                    <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(despesa)" />
                 </td>
                 <td class="small-column">
-                    <p-button icon="pi pi-trash" severity="danger" (click)="openDialog(receita)" size="small" />
+                    <p-button icon="pi pi-trash" severity="danger" (click)="openDialog(despesa)" size="small" />
                 </td>
             </tr>
         </ng-template>
@@ -193,7 +193,7 @@
 </div>
 
 <p-dialog header="Remover Contas Bancárias" [modal]="true" position="top" [(visible)]="showDialog" [style]="{ width: '50rem' }">
-    Tem certeza que deseja remover <b>{{receita?.descricao}}</b> ?
+    Tem certeza que deseja remover <b>{{despesa?.descricao}}</b> ?
 
     <ng-template pTemplate="footer">
         <p-button label="Cancel" [raised]="true" severity="secondary" (click)="showDialog = false" />

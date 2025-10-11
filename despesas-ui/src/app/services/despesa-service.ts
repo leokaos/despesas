@@ -4,11 +4,14 @@ import { Despesa } from '../models/movimentacao.model';
 import { map, Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { APP_CONFIG, AppConfig } from '../app-config';
+import { TipoDespesa } from '../models/tipo-movimentacao.model';
 
 export interface DespesaFiltro {
-  dataInicial: Date,
-  dataFinal: Date,
-  moeda: Moeda,
+  dataInicial: Date;
+  dataFinal: Date;
+  moeda: Moeda;
+  tipo: TipoDespesa;
+  debitavel: Debitavel;
 }
 
 @Injectable({
@@ -34,6 +37,14 @@ export class DespesaService {
 
     if (filtro?.moeda) {
       params = params.append("moeda", filtro.moeda?.codigo);
+    }
+
+    if (filtro?.tipo) {
+      params = params.append("tipoDespesa", filtro.tipo.descricao);
+    }
+
+    if (filtro?.debitavel) {
+      params = params.append("debitavel_id", filtro.debitavel.id);
     }
 
     return this.http.get<Despesa[]>(`${this.config.apiUrl}/${this.path}`, { params })
@@ -76,8 +87,8 @@ export class DespesaService {
   private process(despesa: any): Despesa {
     return {
       ...despesa,
-      vencimento: new Date(despesa.vencimento),
-      pagamento: new Date(despesa.pagamento),
+      vencimento: despesa.vencimento ? new Date(despesa.vencimento) : null,
+      pagamento: despesa.pagamento ? new Date(despesa.pagamento) : null,
       moeda: Moeda.fromCodigo(despesa.moeda),
       debitavel: despesa.debitavel ? this.processDebitavel(despesa.debitavel) : null,
     };
