@@ -1,0 +1,203 @@
+<span class="page-title">
+    <i class="pi pi-chevron-right"></i> Receitas
+</span>
+
+<div class="form-panel">
+
+    <div class="flex justify-between items-start pb-2.5">
+
+        <div class="w-8/10">
+
+            <p-panel>
+                <ng-template #header>
+                    <div class="flex items-center gap-2">
+                        <i class="pi pi-filter text-gray-600"></i>
+                        <span class="text-sm font-medium text-gray-700 whitespace-nowrap">Filtrar</span>
+                    </div>
+                </ng-template>
+
+                <div class="flex flex-row gap-[5vw] items-center">
+
+                    <div class="flex-none">
+                        <p-floatlabel variant="on">
+                            <p-datepicker inputId="vencimento_inicial" [iconDisplay]="'input'" [(ngModel)]="dataInicial" [showIcon]="true" />
+                            <label for="vencimento_inicial">Vencimento Inicial</label>
+                        </p-floatlabel>
+                    </div>
+
+                    <div class="flex-none">
+                        <p-floatlabel variant="on">
+                            <p-datepicker inputId="vencimento_final" [iconDisplay]="'input'" [(ngModel)]="dataFinal" [showIcon]="true" />
+                            <label for="vencimento_final">Vencimento Final</label>
+                        </p-floatlabel>
+                    </div>
+
+                    <div class="flex-none w-60">
+                        <p-floatlabel variant="on">
+                            <app-select-tipo-movimentacao [tipos]="tipos" [(ngModel)]="tipoSelecionado" />
+                            <label for="tipo">Tipo de Receita</label>
+                        </p-floatlabel>
+                    </div>
+
+                    <div class="flex-none w-60">
+                        <p-floatlabel variant="on">
+                            <app-select-debitavel [debitaveis]="debitaveis" [(ngModel)]="debitavelSelecionado" />
+                            <label for="debitavel">Debitável</label>
+                        </p-floatlabel>
+                    </div>
+
+                </div>
+
+                <ng-template #footer>
+                    <div class="flex gap-2 justify-end">
+                        <p-button label="Buscar" icon="pi pi-search" severity="info" size="small" (click)="filter()" />
+                        <p-button label="Reset" icon="pi pi-refresh" severity="secondary" size="small" (click)="reset()" />
+                    </div>
+                </ng-template>
+
+            </p-panel>
+
+        </div>
+
+        <div class="w-1/10"></div>
+
+        <div class="w-1/10 flex justify-end">
+            <p-button label="Adicionar" severity="secondary" (click)="add()">
+                <i class="pi pi-plus text-2xl"></i>
+            </p-button>
+        </div>
+    </div>
+
+    @if (loading()) {
+    <app-loader />
+    }
+    @else {
+    <p-table
+             #table
+             stripedRows
+             [value]="data"
+             sortMode="single"
+             [paginator]="true"
+             [rows]="10"
+             size="small"
+             showGridlines
+             selectionMode="multiple"
+             [(selection)]="selectedData"
+             dataKey="id"
+             [rowsPerPageOptions]="[10, 15, 50, 100]"
+             [globalFilterFields]="['valor', 'descricao', 'tipo.descricao', 'debitavel.descricao']">
+
+        <ng-template pTemplate="caption">
+            <div class="flex gap-4 justify-end">
+                <div class="flex items-center">
+                    <button pButton type="button" icon="pi pi-refresh" tooltip="Recarregar" (click)="reload()"> </button>
+                </div>
+                <div class="flex items-center">
+                    <p-iconfield iconPosition="left">
+                        <p-inputicon>
+                            <i class="pi pi-search"></i>
+                        </p-inputicon>
+                        <input pInputText type="text" (input)="search()" [(ngModel)]="searchValue" placeholder="Buscar..." />
+                    </p-iconfield>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="descricao">
+                    Descrição <p-sortIcon field="descricao" />
+                </th>
+                <th pSortableColumn="valor">
+                    Valor <p-sortIcon field="valor" />
+                </th>
+                <th pSortableColumn="tipo.descricao">
+                    Tipo <p-sortIcon field="tipo.descricao" />
+                </th>
+                <th pSortableColumn="vencimento">
+                    Vencimento <p-sortIcon field="vencimento" />
+                </th>
+                <th pSortableColumn="pagamento">
+                    Pagamento <p-sortIcon field="pagamento" />
+                </th>
+                <th pSortableColumn="debitavel.descricao">
+                    Debitável <p-sortIcon field="debitavel.descricao" />
+                </th>
+                <th pSortableColumn="depositado" class="force-center">
+                    Paga <p-sortIcon field="depositado" />
+                </th>
+                <th class="small-column"></th>
+                <th class="small-column"></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-receita>
+            <tr [pSelectableRow]="receita">
+                <td> {{receita.descricao}} </td>
+                <td> {{receita.debitavel.moeda.simbolo}} {{receita.valor | number: '1.2-2' : 'pt-BR'}}</td>
+                <td>
+                    <app-color-display [color]="receita.tipo.cor" [text]="receita.tipo.descricao" />
+                </td>
+                <td>{{receita.vencimento | date:'dd/MM/yyyy'}}</td>
+                <td>{{receita.pagamento | date:'dd/MM/yyyy'}}</td>
+                <td>
+                    <app-color-display [color]="receita.debitavel.cor" [text]="receita.debitavel.descricao" />
+                </td>
+                <td class="force-center">
+                    @if (receita.depositado) {
+                    <i class="pi pi-check"></i>
+                    }
+                </td>
+                <td class="small-column">
+                    <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(receita)" />
+                </td>
+                <td class="small-column">
+                    <p-button icon="pi pi-trash" severity="danger" (click)="openDialog(receita)" size="small" />
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template #emptymessage>
+            <tr>
+                <td colspan="9" class="text-center">
+                    <div class="flex flex-col items-center justify-center py-12 px-4">
+                        <div class="bg-gray-100 rounded-full p-4 mb-4">
+                            <i class="pi pi-database text-3xl text-gray-500"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-2">
+                            Nenhum registro encontrado
+                        </h3>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+    }
+
+</div>
+
+<div class="form-panel indicador">
+    <span>Total:</span>
+    <p>R$ {{data | sum: 'valor' | number: '1.2-2' : 'pt-BR' }}</p>
+</div>
+
+<div class="form-panel indicador">
+    <span>Total Selecionado:</span>
+    <p>R$ {{selectedData | sum: 'valor' | number: '1.2-2' : 'pt-BR' }}</p>
+</div>
+
+<div class="form-panel indicador">
+    <span>Média Selecionado:</span>
+    <p>R$ {{selectedData | avg: 'valor' | number: '1.2-2' : 'pt-BR' }}</p>
+</div>
+
+<p-dialog header="Remover Contas Bancárias" [modal]="true" position="top" [(visible)]="showDialog" [style]="{ width: '50rem' }">
+    Tem certeza que deseja remover <b>{{receita?.descricao}}</b> ?
+
+    <ng-template pTemplate="footer">
+        <p-button label="Cancel" [raised]="true" severity="secondary" (click)="showDialog = false" />
+        <p-button label="Save" [raised]="true" severity="success" (click)="remover()" />
+    </ng-template>
+
+</p-dialog>

@@ -22,6 +22,9 @@ public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 	@QueryParam("moeda")
 	private Moeda moeda;
 
+	@QueryParam("debitavel_id")
+	private Long debitavelId;
+
 	private Debitavel debitavel;
 
 	public Date getDataInicial() {
@@ -91,6 +94,13 @@ public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 
 		eq("moeda", moeda);
 
+		eq("debitavel.id", debitavelId);
+
+	}
+
+	@Override
+	protected String orderBy() {
+		return "vencimento DESC";
 	}
 
 }

@@ -4,11 +4,14 @@ import { Observable, map } from 'rxjs';
 import { APP_CONFIG, AppConfig } from '../app-config';
 import { Moeda, Debitavel } from '../models/debitavel.model';
 import { Receita } from '../models/movimentacao.model';
+import { TipoReceita } from '../models/tipo-movimentacao.model';
 
 export interface ReceitaFiltro {
-  dataInicial: Date,
-  dataFinal: Date,
-  moeda: Moeda,
+  dataInicial: Date;
+  dataFinal: Date;
+  moeda: Moeda;
+  tipo: TipoReceita;
+  debitavel: Debitavel;
 }
 
 @Injectable({
@@ -34,6 +37,14 @@ export class ReceitaService {
 
     if (filtro?.moeda) {
       params = params.append("moeda", filtro.moeda?.codigo);
+    }
+
+    if (filtro?.tipo) {
+      params = params.append("tipoReceita", filtro.tipo.descricao);
+    }
+
+    if (filtro?.debitavel) {
+      params = params.append("debitavel_id", filtro.debitavel.id);
     }
 
     return this.http.get<Receita[]>(`${this.config.apiUrl}/${this.path}`, { params })

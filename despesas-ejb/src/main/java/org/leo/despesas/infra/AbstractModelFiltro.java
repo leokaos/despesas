@@ -72,6 +72,8 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 
 		}
 
+		builder.append(" ORDER BY ").append(className.toLowerCase()).append(".").append(orderBy());
+
 		return builder.toString();
 	}
 
@@ -119,6 +121,10 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 			this.clausulas.add(new NotEqual(property, value));
 		}
 
+	}
+
+	protected String orderBy() {
+		return "id";
 	}
 
 }
