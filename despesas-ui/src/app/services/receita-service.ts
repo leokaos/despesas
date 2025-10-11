@@ -52,7 +52,8 @@ export class ReceitaService {
   }
 
   fetchById(id: number): Observable<Receita> {
-    return this.http.get<Receita>(`${this.config.apiUrl}/${this.path}/${id}`);
+    return this.http.get<Receita>(`${this.config.apiUrl}/${this.path}/${id}`)
+      .pipe(map((receita: any) => this.process(receita)));
   }
 
   remove(receita: Receita) {
@@ -64,7 +65,7 @@ export class ReceitaService {
   }
 
   update(receita: Receita, id: number): Observable<Receita> {
-    return this.http.put<Receita>(`${this.config.apiUrl}/${this.path}/`, receita);
+    return this.http.put<Receita>(`${this.config.apiUrl}/${this.path}/`, this.convert(receita));
   }
 
   createOrUpdate(receita: Receita): Observable<Receita> {

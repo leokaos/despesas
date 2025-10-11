@@ -6,6 +6,7 @@
           [placeholder]="placeholder"
           [disabled]="disabled"
           optionLabel="descricao"
+          dataKey="id"
           appendTo="body"
           (onChange)="emitChange()"
           class="w-full">
@@ -13,7 +14,7 @@
         <app-color-display [color]="selectedOption.cor" [text]="selectedOption.descricao" />
     </ng-template>
 
-    <ng-template let-tipoDespesa #item>
-        <app-color-display [color]="tipoDespesa.cor" [text]="tipoDespesa.descricao" />
+    <ng-template let-debitavel #item>
+        <app-color-display [color]="debitavel.cor" [text]="debitavel.descricao" />
     </ng-template>
 </p-select>
