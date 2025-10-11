@@ -34,6 +34,8 @@ import { LancamentoDespesa } from './movimentacao/lancamento-despesa/lancamento-
 import { Sumario } from './graficos/sumario/sumario';
 import { ReceitaView } from './cadastros/movimentacao/receita-view/receita-view';
 import { DespesaView } from './cadastros/movimentacao/despesa-view/despesa-view';
+import { DespesaEdit } from './cadastros/movimentacao/despesa-edit/despesa-edit';
+import { ReceitaEdit } from './cadastros/movimentacao/receita-edit/receita-edit';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -43,8 +45,12 @@ export const routes: Routes = [
   { path: 'tipo-receita', component: TipoReceitaEdit },
   { path: 'tipo-receita/:id', component: TipoReceitaEdit },
   { path: 'contas', component: ContaView },
-  { path: 'receitas', component: ReceitaView },
   { path: 'despesas', component: DespesaView },
+  { path: 'despesa', component: DespesaEdit },
+  { path: 'despesa/:id', component: DespesaEdit },
+  { path: 'receitas', component: ReceitaView },
+  { path: 'receita', component: ReceitaEdit },
+  { path: 'receita/:id', component: ReceitaEdit },
   { path: 'conta', component: ContaEdit },
   { path: 'conta/:id', component: ContaEdit },
   { path: 'metas', component: MetaView },
