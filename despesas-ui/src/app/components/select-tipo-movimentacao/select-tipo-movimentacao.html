@@ -1,10 +1,11 @@
 <p-select
-          [options]="tiposDespesa"
+          [options]="tipos"
           [(ngModel)]="value"
           (ngModelChange)="onChangeValue($event)"
           (blur)="onBlur()"
           [disabled]="disabled"
           optionLabel="descricao"
+          appendTo="body"
           class="w-full">
     <ng-template #selectedItem let-selectedOption>
         <app-color-display [color]="selectedOption.cor" [text]="selectedOption.descricao" />

@@ -7,6 +7,7 @@
           [disabled]="disabled"
           optionLabel="descricao"
           appendTo="body"
+          (onChange)="emitChange()"
           class="w-full">
     <ng-template #selectedItem let-selectedOption>
         <app-color-display [color]="selectedOption.cor" [text]="selectedOption.descricao" />

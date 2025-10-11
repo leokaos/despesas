@@ -1,0 +1,128 @@
+<span class="page-title">
+    <i class="pi pi-chevron-right"></i> Lançamento de Receita
+</span>
+
+@if (loading()) {
+<app-loader />
+} @else {
+<div class="form-panel">
+
+    <div class="flex gap-4">
+        <div class="flex flex-1 justify-end">
+            <p-button label="Carregar" icon="pi pi-upload" severity="secondary" (click)="visible.set(true)" />
+        </div>
+        <div class="flex-0">
+            <p-button label="Adicionar" icon="pi pi-plus" severity="secondary" (click)=" add()" />
+        </div>
+    </div>
+
+    <div class="my-8">
+        <p-table [value]="receitas">
+            <ng-template #header>
+                <tr>
+                    <th> Descrição </th>
+                    <th class="w-80"> Valor </th>
+                    <th class="w-80"> Vencimento </th>
+                    <th class="w-80"> Tipo </th>
+                    <th class="w-80">
+                        Debitável
+                        <app-select-debitavel [debitaveis]="debitaveis" (onSelect)="setDebitavel($event)" [(ngModel)]="debitavelSelecionado" />
+                    </th>
+                    <th class="small-column">
+                        Paga?
+                        <p-checkbox size="large" [binary]="true" (onChange)="setPaga($event)" [(ngModel)]="receitasDepositadas" />
+                    </th>
+                    <th class="small-column"></th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-receita let-i="rowIndex">
+                <tr>
+                    <td>
+                        <input pInputText [(ngModel)]="receita.descricao" class="w-full" />
+                    </td>
+                    <td>
+                        <p-inputnumber [(ngModel)]="receita.valor" locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2" />
+                    </td>
+                    <td>
+                        <p-datepicker [showIcon]="true" [(ngModel)]="receita.vencimento" appendTo="body" />
+                    </td>
+                    <td>
+                        <app-select-tipo-movimentacao [tipos]="tipos" [(ngModel)]="receita.tipo" />
+                    </td>
+                    <td>
+                        <app-select-debitavel [(ngModel)]="receita.debitavel" [debitaveis]="debitaveis" (onSelect)="setMoeda(receita)"/>
+                    </td>
+                    <td class="small-column">
+                        <p-checkbox [binary]="true" [(ngModel)]="receita.depositado" size="large" />
+                    </td>
+                    <td>
+                        <p-button icon="pi pi-trash" severity="danger" (click)="remover(i)" size="small" />
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="flex w-full">
+        <div class="flex flex-1 justify-end">
+            <p-button icon="pi pi-check" label="Salvar" severity="secondary" size="small" (click)="visibleSave.set(true)" [disabled]="!isAllReceitasValids()" />
+        </div>
+    </div>
+</div>
+
+<div class="form-panel indicador">
+    <span>Total:</span>
+    <p>R$ {{receitas | sum: 'valor' | number: '1.2-2' : 'pt-BR' }}</p>
+</div>
+
+<p-dialog header="Selecionar Arquivo" [style]="{ width: '500px' }" [modal]="true" position="top" [(visible)]="visible">
+
+    <div class="flex flex-col gap-4">
+
+        <div class="flex flex-1 items-center mb-10">
+            <label class="w-40">Debitável</label>
+            <app-select-debitavel class="w-full" [debitaveis]="debitaveis" [(ngModel)]="debitavelSelecionado" />
+        </div>
+
+        <div class="flex flex-1 items-center mb-10">
+            <label class="w-40">Receitas depositadas?</label>
+            <p-checkbox [binary]="true" inputId="checkbox" size="large" [(ngModel)]="receitasDepositadas" />
+        </div>
+
+        <div class="flex flex-1 items-center mb-10">
+            <p-fileupload mode="basic" chooseLabel="Selecionar" (onSelect)="onFileSelect($event)" chooseIcon="pi pi-upload" maxFileSize="1000000" />
+        </div>
+
+    </div>
+
+    <ng-template pTemplate="footer">
+        <div class="flex flex-1 gap-2">
+            <p-button label="Cancelar" icon="pi pi-times" (click)="visible.set(false)" severity="secondary" class="flex flex-1 justify-start" />
+            <p-button label="OK" icon="pi pi-check" class="flex flex-1 justify-end" (click)="upload()" [loading]="loadingUpload()" />
+        </div>
+    </ng-template>
+</p-dialog>
+
+<p-dialog header="Salvar" [style]="{ width: '500px' }" [modal]="true" position="top" [(visible)]="visibleSave">
+
+    <div class="flex flex-col gap-4">
+        <div class="flex flex-1 items-center mb-10">
+            <label class="w-40">Iniciar?</label>
+            <app-progress-bar
+                              [animated]="false"
+                              [total]="total()"
+                              [current]="parcial()"
+                              class="w-full"
+                              [showLabel]="true"
+                              [showState]="false" />
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <div class="flex flex-1 gap-2">
+            <p-button label="Cancelar" icon="pi pi-times" (click)="visibleSave.set(false)" severity="secondary" class="flex flex-1 justify-start" />
+            <p-button label="OK" icon="pi pi-check" class="flex flex-1 justify-end" (click)="save()" />
+        </div>
+    </ng-template>
+</p-dialog>
+}

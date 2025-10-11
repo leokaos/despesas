@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { ColorDisplay } from '../color-display/color-display';
@@ -25,11 +25,13 @@ export class SelectDebitavel implements ControlValueAccessor {
   disabled: boolean = false;
   @Input()
   placeholder?: string;
+  @Output()
+  onSelect: EventEmitter<Debitavel | null> = new EventEmitter<Debitavel | null>();
 
   value: Debitavel | null = null;
 
-  private onChange: (value: Debitavel | null) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: Debitavel | null) => void = () => { };
+  private onTouched: () => void = () => { };
 
   onChangeValue(value: Debitavel | null): void {
     this.value = value;
@@ -54,5 +56,9 @@ export class SelectDebitavel implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+  }
+
+  emitChange() {
+    this.onSelect.emit(this.value);
   }
 }

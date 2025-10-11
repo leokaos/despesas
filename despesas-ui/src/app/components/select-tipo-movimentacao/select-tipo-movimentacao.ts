@@ -21,7 +21,7 @@ import { ColorDisplay } from '../color-display/color-display';
 })
 export class SelectTipoMovimentacao implements ControlValueAccessor {
   @Input()
-  tiposDespesa: TipoMovimentacao[] = [];
+  tipos: TipoMovimentacao[] = [];
   @Input()
   disabled: boolean = false;
 

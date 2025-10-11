@@ -1,3 +1,4 @@
+import { LancamentoReceita } from './movimentacao/lancamento-receita/lancamento-receita';
 import { CompararServicosTransferencia } from './movimentacao/comparar-servicos-transferencia/comparar-servicos-transferencia';
 import { ServicoTransferenciaEdit } from './cadastros/servico-transferencia/servico-transferencia-edit/servico-transferencia-edit';
 import { ServicoTransferenciaView } from './cadastros/servico-transferencia/servico-transferencia-view/servico-transferencia-view';
@@ -29,6 +30,7 @@ import { ExtratoMensal } from './graficos/extrato-mensal/extrato-mensal';
 import { GraficoTipoDespesa } from './graficos/grafico-tipo-despesa/grafico-tipo-despesa';
 import { GraficoTipoReceita } from './graficos/grafico-tipo-receita/grafico-tipo-receita';
 import { Projecao } from './movimentacao/projecao/projecao';
+import { LancamentoDespesa } from './movimentacao/lancamento-despesa/lancamento-despesa';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -69,6 +71,8 @@ export const routes: Routes = [
   //MOVIMENTACAO
   { path: 'pagamentos', component: Pagamentos },
   { path: 'compararServicosTransferencia', component: CompararServicosTransferencia },
+  { path: 'painelDespesas', component: LancamentoDespesa },
+  { path: 'painelReceitas', component: LancamentoReceita },
   { path: 'projecao', component: Projecao },
 
   //GRAFICO

@@ -58,3 +58,16 @@ a:focus {
   background: #B5B5B5 !important;
   color: #FFFFFF !important;
 }
+
+.indicador {
+  float: right;
+  min-width: 300px;
+  border-left: 4px solid #F00;
+  margin-left: 30px;
+}
+
+.indicador>p {
+  color: #bdea74;
+  font-size: 30px;
+  font-weight: bold;
+}

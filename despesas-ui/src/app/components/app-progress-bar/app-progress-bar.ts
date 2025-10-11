@@ -17,19 +17,27 @@ export class AppProgressBar {
 
   @Input() showLabel: boolean = false;
 
-  constructor() {}
+  @Input() showState: boolean = true;
+
+  constructor() { }
 
   getBarClass(): string {
     let classes = 'progress-bar ';
 
     let percent = this.getSize();
 
-    if (percent <= 70.0) {
-      classes += 'progress-bar-success';
-    } else if (percent > 70.0 && percent <= 80.0) {
-      classes += 'progress-bar-warning';
+    if (!this.showState) {
+      classes += 'progress-bar-normal';
     } else {
-      classes += 'progress-bar-danger';
+
+      if (percent <= 70.0) {
+        classes += 'progress-bar-success';
+      } else if (percent > 70.0 && percent <= 80.0) {
+        classes += 'progress-bar-warning';
+      } else {
+        classes += 'progress-bar-danger';
+      }
+
     }
 
     return classes;
