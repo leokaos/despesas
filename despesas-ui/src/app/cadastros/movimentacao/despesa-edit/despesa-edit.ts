@@ -1,3 +1,4 @@
+import { Orcamento } from './../../../models/orcamento.model';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import {
@@ -17,18 +18,21 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
-import { forkJoin } from 'rxjs';
+import { combineLatest, forkJoin } from 'rxjs';
 import { Loader } from '../../../components/loader/loader';
 import { SelectDebitavel } from '../../../components/select-debitavel/select-debitavel';
 import { SelectTipoMovimentacao } from '../../../components/select-tipo-movimentacao/select-tipo-movimentacao';
 import { Debitavel } from '../../../models/debitavel.model';
-import { Despesa, Receita } from '../../../models/movimentacao.model';
-import { TipoDespesa, TipoReceita } from '../../../models/tipo-movimentacao.model';
+import { Despesa } from '../../../models/movimentacao.model';
+import { TipoDespesa, TipoMovimentacao } from '../../../models/tipo-movimentacao.model';
 import { DebitavelService, DebitavelFiltro } from '../../../services/debitavel-service';
-import { ReceitaService } from '../../../services/receita-service';
-import { TipoReceitaService } from '../../../services/tipo-receita-service';
 import { DespesaService } from '../../../services/despesa-service';
 import { TipoDespesaService } from '../../../services/tipo-despesa-service';
+import { AppProgressBar } from "../../../components/app-progress-bar/app-progress-bar";
+import { OrcamentoFiltro, OrcamentoService } from '../../../services/orcamento-service';
+import { DateUtil, PeriodoUtil } from '../../../models/util';
+import { Periodo } from '../../../models/periodo.model';
+import { Mes } from '../../../models/mes.model';
 
 @Component({
   selector: 'app-despesa-edit',
@@ -47,6 +51,7 @@ import { TipoDespesaService } from '../../../services/tipo-despesa-service';
     CheckboxModule,
     SelectModule,
     SelectDebitavel,
+    AppProgressBar
   ],
   templateUrl: './despesa-edit.html',
   styleUrl: './despesa-edit.scss',
@@ -57,6 +62,7 @@ export class DespesaEdit implements OnInit {
   tipos: TipoDespesa[] = [];
   despesa?: Despesa;
   formGroup!: FormGroup;
+  orcamento?: Orcamento;
 
   private router = inject(Router);
   private formBuilder = inject(FormBuilder);
@@ -65,6 +71,7 @@ export class DespesaEdit implements OnInit {
   private despesaService = inject(DespesaService);
   private debitavelService = inject(DebitavelService);
   private tipoDespesaService = inject(TipoDespesaService);
+  private orcamentoService = inject(OrcamentoService);
 
   loading = signal<boolean>(true);
 
@@ -102,10 +109,42 @@ export class DespesaEdit implements OnInit {
       vencimento: [this.despesa?.vencimento, Validators.required],
       tipo: [this.despesa?.tipo, Validators.required],
       debitavel: [this.despesa?.debitavel, Validators.required],
-      paga: [this.despesa?.paga, Validators.required],
+      paga: [this.despesa?.paga || false, Validators.required],
     });
 
+    const tipoSelection$ = this.formGroup.get('tipo')?.valueChanges;
+    const dateSeleciton$ = this.formGroup.get('vencimento')?.valueChanges;
+
+    if (tipoSelection$ && dateSeleciton$) {
+      combineLatest([tipoSelection$, dateSeleciton$]).subscribe(([tipo, date]) => {
+        this.checkOrcamento(tipo, date);
+      });
+    }
+
     this.loading.set(false);
+  }
+
+  checkOrcamento(tipo: TipoMovimentacao, vencimento: Date) {
+
+    if (tipo && vencimento) {
+
+      let periodo = {
+        ano: vencimento.getFullYear(),
+        mes: Mes.getPorId(vencimento.getMonth())
+      } as Periodo;
+
+      let orcamentoFiltro = {
+        dataInicial: PeriodoUtil.getDataInicial(periodo),
+        dataFinal: PeriodoUtil.getDataFinal(periodo),
+        tipo: tipo
+      } as OrcamentoFiltro;
+
+      this.orcamentoService.fetch(orcamentoFiltro).subscribe((orcamentos: Orcamento[]) => {
+        if (orcamentos.length == 1) {
+          this.orcamento = orcamentos[0];
+        }
+      });
+    }
   }
 
   save() {

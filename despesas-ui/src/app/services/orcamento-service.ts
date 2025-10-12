@@ -5,10 +5,12 @@ import { map, Observable } from 'rxjs';
 import { APP_CONFIG, AppConfig } from '../app-config';
 import { Mes } from '../models/mes.model';
 import { Periodo } from '../models/periodo.model';
+import { TipoDespesa } from '../models/tipo-movimentacao.model';
 
 export interface OrcamentoFiltro {
   dataInicial: Date;
   dataFinal: Date;
+  tipo: TipoDespesa;
 }
 
 @Injectable({
@@ -17,18 +19,21 @@ export interface OrcamentoFiltro {
 export class OrcamentoService {
   private readonly path: string = 'orcamento';
 
-  constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) {}
+  constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
 
   fetch(filtro: OrcamentoFiltro): Observable<Orcamento[]> {
     let params = new HttpParams();
 
-    if (filtro) {
-      Object.keys(filtro).forEach((key) => {
-        const value = filtro[key as keyof OrcamentoFiltro];
-        if (value !== undefined && value !== null) {
-          params = params.set(key, value.toString());
-        }
-      });
+    if (filtro.dataInicial) {
+      params = params.append("dataInicial", filtro.dataInicial.toUTCString());
+    }
+
+    if (filtro.dataFinal) {
+      params = params.append("dataFinal", filtro.dataFinal.toUTCString());
+    }
+
+    if (filtro.tipo) {
+      params = params.append("tipoDespesa", filtro.tipo.descricao);
     }
 
     return this.http

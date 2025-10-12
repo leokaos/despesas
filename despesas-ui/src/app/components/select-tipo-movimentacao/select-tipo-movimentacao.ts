@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { SelectChangeEvent, SelectModule } from 'primeng/select';
 import { TipoMovimentacao } from '../../models/tipo-movimentacao.model';
 import { ColorDisplay } from '../color-display/color-display';
 
@@ -24,11 +24,13 @@ export class SelectTipoMovimentacao implements ControlValueAccessor {
   tipos: TipoMovimentacao[] = [];
   @Input()
   disabled: boolean = false;
+  @Output()
+  onSelect: EventEmitter<TipoMovimentacao> = new EventEmitter<TipoMovimentacao>();
 
   value: TipoMovimentacao | null = null;
 
-  private onChange: (value: TipoMovimentacao | null) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: TipoMovimentacao | null) => void = () => { };
+  private onTouched: () => void = () => { };
 
   onChangeValue(value: TipoMovimentacao | null): void {
     this.value = value;
@@ -53,5 +55,9 @@ export class SelectTipoMovimentacao implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+  }
+
+  emitChange(event: SelectChangeEvent) {
+    this.onSelect.emit(event.value);
   }
 }
