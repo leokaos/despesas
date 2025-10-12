@@ -68,7 +68,7 @@ public class MetaFacadeImplTest {
 
 		BigDecimal valorEsperado = new BigDecimal(1800).divide(new BigDecimal(periodo.getDiasParaTermino()), 2, RoundingMode.HALF_UP);
 
-		expect(mockEntityManager.createQuery("SELECT meta FROM Meta meta", Meta.class)).andReturn(mockQuery);
+		expect(mockEntityManager.createQuery("SELECT meta FROM Meta meta ORDER BY meta.id", Meta.class)).andReturn(mockQuery);
 		expect(mockQuery.getResultList()).andReturn(expectedLista);
 		expect(mockMovimentacaoFacade.buscarMovimentacaoPorPeriodo(dataInicial, dataFinal)).andReturn(movimentacaoEsperada);
 
