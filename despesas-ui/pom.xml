@@ -74,7 +74,7 @@
                         <configuration>
                             <resources>
                                 <resource>
-                                    <directory>dist/despesas-ui</directory>
+                                    <directory>dist/despesas-ui/browser</directory>
                                 </resource>
                             </resources>
                             <outputDirectory>../despesas-web/src/main/webapp</outputDirectory>
