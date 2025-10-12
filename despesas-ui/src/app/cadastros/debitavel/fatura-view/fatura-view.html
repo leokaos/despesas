@@ -23,10 +23,18 @@
 
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>Data Fechamento</th>
-                        <th>Data Vencimento</th>
-                        <th>Valor</th>
-                        <th>Paga?</th>
+                        <th pSortableColumn="dataFechamento">
+                            Data Fechamento <p-sortIcon field="dataFechamento" />
+                        </th>
+                        <th pSortableColumn="dataVencimento">
+                            Data Vencimento <p-sortIcon field="dataVencimento" />
+                        </th>
+                        <th pSortableColumn="valorFatura">
+                            Valor <p-sortIcon field="valorFatura" />
+                        </th>
+                        <th pSortableColumn="paga">
+                            Paga? <p-sortIcon field="paga" />
+                        </th>
                     </tr>
                 </ng-template>
 
