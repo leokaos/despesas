@@ -14,25 +14,18 @@ export interface DebitavelFiltro {
 export class DebitavelService {
   private readonly path: string = 'debitavel';
 
-  constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) {}
+  constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
 
   fetch(filtro: DebitavelFiltro): Observable<Debitavel[]> {
     let params = new HttpParams();
 
-    if (filtro) {
-      Object.keys(filtro).forEach((key) => {
-        const value = filtro[key as keyof DebitavelFiltro];
-        if (value !== undefined && value !== null) {
-          params = params.set(key, value.toString());
-        }
-      });
+    if (filtro.ativo) {
+      params = params.append("ativo", filtro.ativo);
     }
 
     return this.http
       .get<Debitavel[]>(`${this.config.apiUrl}/${this.path}`, { params })
-      .pipe(
-        map((data: Debitavel[]) => data.map((debitavel: Debitavel) => this.process(debitavel)))
-      );
+      .pipe(map((data: Debitavel[]) => data.map((debitavel: Debitavel) => DebitavelService.toDTO(debitavel))));
   }
 
   fetchById(id: number): Observable<Debitavel> {
@@ -55,11 +48,17 @@ export class DebitavelService {
     return debitavel.id ? this.update(debitavel, debitavel.id) : this.create(debitavel);
   }
 
-  private process(debitavel: any): Debitavel {
-    let moeda = debitavel.moeda;
+  public static toDTO(debitavel: any): Debitavel {
     return {
       ...debitavel,
-      moeda: Moeda.fromCodigo(moeda),
+      moeda: Moeda.fromCodigo(debitavel.moeda),
+    };
+  }
+
+  public static toEntity(debitavel: any): Debitavel {
+    return {
+      ...debitavel,
+      moeda: debitavel.moeda.codigo,
     };
   }
 }

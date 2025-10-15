@@ -87,15 +87,19 @@ export class TransferenciaEdit {
   save() {
     var transferencia = {
       id: this.transferencia?.id,
-      valorReal: this.transferencia?.valorReal,
       ...this.formGroup.value,
     };
 
-    this.transferenciaService.createOrUpdate(transferencia).subscribe((_) => {
-      // prettier-ignore
-      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Transferência salva com sucesso!', life: 3000 });
-      this.returnToView();
-    });
+    this.transferenciaService.createOrUpdate(transferencia)
+      .subscribe({
+        next: (_) => {
+          this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Transferência salva com sucesso!', life: 3000 });
+          this.returnToView();
+        },
+        error: (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error, life: 3000 });
+        }
+      });
   }
 
   returnToView() {

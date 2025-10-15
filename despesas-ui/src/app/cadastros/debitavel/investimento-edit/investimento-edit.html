@@ -33,7 +33,7 @@
                     <label for="cor">Moeda</label>
                 </div>
                 <div class="w-1/5">
-                    <app-select-moeda (onSelect)="selectMoeda($event)" [initialValue]="investimento?.moeda" />
+                    <app-select-moeda formControlName="moeda" />
                 </div>
             </div>
 

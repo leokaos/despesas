@@ -1,8 +1,9 @@
+import { DecimalPipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-progress-bar',
-  imports: [],
+  imports: [DecimalPipe],
   templateUrl: './app-progress-bar.html',
   styleUrl: './app-progress-bar.scss',
 })

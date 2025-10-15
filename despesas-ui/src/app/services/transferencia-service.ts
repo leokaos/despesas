@@ -6,6 +6,8 @@ import { map, Observable } from 'rxjs';
 import { APP_CONFIG, AppConfig } from '../app-config';
 import { ServicoTransferencia } from '../models/servico-transferencia.model';
 import { Cotacao } from '../models/cotacao.model';
+import { DebitavelService } from './debitavel-service';
+import { CotacaoService } from './cotacao-service';
 
 export interface TransferenciaFiltro {
   dataInicial: Date;
@@ -16,6 +18,7 @@ export interface TransferenciaFiltro {
   providedIn: 'root',
 })
 export class TransferenciaService {
+
   private readonly path: string = 'transferencia';
 
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
@@ -23,28 +26,22 @@ export class TransferenciaService {
   fetch(filtro: TransferenciaFiltro): Observable<Transferencia[]> {
     let params = new HttpParams();
 
-    if (filtro) {
-      Object.keys(filtro).forEach((key) => {
-        const value = filtro[key as keyof TransferenciaFiltro];
-        if (value !== undefined && value !== null) {
-          params = params.set(key, value.toString());
-        }
-      });
+    if (filtro?.dataInicial) {
+      params = params.append("dataInicial", filtro.dataInicial.toUTCString());
+    }
+
+    if (filtro?.dataFinal) {
+      params = params.append("dataFinal", filtro.dataFinal.toUTCString());
     }
 
     return this.http
       .get<Transferencia[]>(`${this.config.apiUrl}/${this.path}`, { params })
-      .pipe(
-        map((data: Transferencia[]) =>
-          data.map((transferencia: Transferencia) => this.process(transferencia))
-        )
-      );
+      .pipe(map((data: Transferencia[]) => data.map((transferencia: Transferencia) => TransferenciaService.toDTO(transferencia))));
   }
 
   fetchById(id: number): Observable<Transferencia> {
-    return this.http
-      .get<Transferencia>(`${this.config.apiUrl}/${this.path}/${id}`)
-      .pipe(map((data: Transferencia) => this.process(data)));
+    return this.http.get<Transferencia>(`${this.config.apiUrl}/${this.path}/${id}`)
+      .pipe(map((data: Transferencia) => TransferenciaService.toDTO(data)));
   }
 
   remove(transferencia: Transferencia) {
@@ -63,10 +60,8 @@ export class TransferenciaService {
   }
 
   createOrUpdate(transferencia: Transferencia): Observable<Transferencia> {
-    var innerTransferencia = this.convert(transferencia);
-    return innerTransferencia.id
-      ? this.update(innerTransferencia, innerTransferencia.id)
-      : this.create(innerTransferencia);
+    var innerTransferencia = TransferenciaService.toEntity(transferencia);
+    return innerTransferencia.id ? this.update(innerTransferencia, innerTransferencia.id) : this.create(innerTransferencia);
   }
 
   createRemessa(
@@ -80,61 +75,34 @@ export class TransferenciaService {
     let payload = {
 
       transferencia: {
-        debitavel: {
-          ...debitavel,
-          moeda: debitavel.moeda.codigo
-        },
-        creditavel: {
-          ...creditavel,
-          moeda: creditavel.moeda.codigo
-        },
+        creditavel: DebitavelService.toEntity(creditavel),
+        debitavel: DebitavelService.toEntity(debitavel),
         valor: valor
       },
-      cotacao: {
-        ...cotacao,
-        destino: cotacao.destino.codigo,
-        origem: cotacao.origem.codigo
-      },
+      cotacao: CotacaoService.toEntity(cotacao),
       servicoTransferencia: servico,
     }
 
     return this.http.post<Transferencia>(`${this.config.apiUrl}/${this.path}/`, payload);
   }
 
-  private process(transferencia: any): Transferencia {
-    let debitavel = this.processDebitavel(transferencia.debitavel);
-    let creditavel = this.processDebitavel(transferencia.creditavel);
+  public static toDTO(transferencia: any): Transferencia {
     return {
       ...transferencia,
-      creditavel: creditavel,
-      debitavel: debitavel,
+      creditavel: DebitavelService.toDTO(transferencia.creditavel),
+      debitavel: DebitavelService.toDTO(transferencia.debitavel),
       moeda: Moeda.fromCodigo(transferencia.moeda),
+      vencimento: new Date(transferencia.vencimento),
     } as Transferencia;
   }
 
-  private processDebitavel(debitavel: any): Debitavel {
-    let moeda = debitavel.moeda;
-    return {
-      ...debitavel,
-      moeda: Moeda.fromCodigo(moeda),
-    };
-  }
-
-  private convert(transferencia: any): Transferencia {
-    let debitavel = this.convertDebitavel(transferencia.debitavel);
-    let creditavel = this.convertDebitavel(transferencia.creditavel);
+  public static toEntity(transferencia: any): Transferencia {
     return {
       ...transferencia,
-      creditavel: creditavel,
-      debitavel: debitavel,
-      moeda: transferencia.moeda?.codigo || debitavel.moeda,
+      moeda: transferencia.moeda?.codigo || transferencia.debitavel.moeda?.codigo,
+      creditavel: DebitavelService.toEntity(transferencia.creditavel),
+      debitavel: DebitavelService.toEntity(transferencia.debitavel),
     } as Transferencia;
   }
 
-  private convertDebitavel(debitavel: any): Debitavel {
-    return {
-      ...debitavel,
-      moeda: debitavel.moeda.codigo,
-    };
-  }
 }

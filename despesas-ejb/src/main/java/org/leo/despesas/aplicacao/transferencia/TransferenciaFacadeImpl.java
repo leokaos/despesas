@@ -23,6 +23,7 @@ import org.leo.despesas.dominio.servicotransferencia.ServicoTransferencia;
 import org.leo.despesas.infra.AbstractFacade;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.infra.exception.DespesasException;
+import org.leo.despesas.infra.exception.ValidationEntityException;
 
 @Stateless
 public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, TransferenciaFiltro> implements TransferenciaFacade {
@@ -102,6 +103,28 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, Trans
 			return inserir(transferencia);
 		}
 
+	}
+
+	@Override
+	protected void preSalvar(Transferencia antigo, Transferencia novo) throws DespesasException {
+
+		if (novo.getValorReal() == null) {
+			if (novo.getCreditavel().getMoeda() == novo.getDebitavel().getMoeda()) {
+				novo.setValorReal(novo.getValor());
+			} else {
+				throw new ValidationEntityException("Alteração em transferências entre debitáveis com diferentes moedas não permitado!");
+			}
+		}
+	}
+
+	@Override
+	protected void posSalvar(Transferencia antigo, Transferencia novo) throws DespesasException {
+
+		debitavelFacade.buscarPorId(antigo.getDebitavel().getId()).estornar(antigo);
+		debitavelFacade.buscarPorId(antigo.getCreditavel().getId()).estornar(antigo);
+
+		debitavelFacade.buscarPorId(novo.getDebitavel().getId()).transferir(novo);
+		debitavelFacade.buscarPorId(novo.getCreditavel().getId()).transferir(novo);
 	}
 
 	@Override

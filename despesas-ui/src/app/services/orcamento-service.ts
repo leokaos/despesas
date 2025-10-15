@@ -17,6 +17,7 @@ export interface OrcamentoFiltro {
   providedIn: 'root',
 })
 export class OrcamentoService {
+
   private readonly path: string = 'orcamento';
 
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
@@ -38,15 +39,13 @@ export class OrcamentoService {
 
     return this.http
       .get<Orcamento[]>(`${this.config.apiUrl}/${this.path}`, { params })
-      .pipe(
-        map((data: Orcamento[]) => data.map((orcamento: Orcamento) => this.process(orcamento)))
-      );
+      .pipe(map((data: Orcamento[]) => data.map((orcamento: Orcamento) => OrcamentoService.toDTO(orcamento))));
   }
 
   fetchById(id: number): Observable<Orcamento> {
     return this.http
       .get<Orcamento>(`${this.config.apiUrl}/${this.path}/${id}`)
-      .pipe(map((data: Orcamento) => this.process(data)));
+      .pipe(map((data: Orcamento) => OrcamentoService.toDTO(data)));
   }
 
   remove(orcamento: Orcamento) {
@@ -65,7 +64,7 @@ export class OrcamentoService {
     return orcamento.id ? this.update(orcamento, orcamento.id) : this.create(orcamento);
   }
 
-  private process(orcamento: Orcamento): Orcamento {
+  public static toDTO(orcamento: any): Orcamento {
     let dataInicial = new Date(orcamento.dataInicial);
 
     let periodo = {

@@ -8,6 +8,7 @@ import { ServicoTransferencia } from '../models/servico-transferencia.model';
   providedIn: 'root'
 })
 export class ServicoTransferenciaService {
+
   private readonly path: string = 'servicotransferencia';
 
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }

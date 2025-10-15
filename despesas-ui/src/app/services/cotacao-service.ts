@@ -38,14 +38,14 @@ export class CotacaoService {
     return this.http
       .get<Cotacao[]>(`${this.config.apiUrl}/${this.path}`, { params: params })
       .pipe(
-        map((data: Cotacao[]) => data.map((cotacao: Cotacao) => this.process(cotacao)))
+        map((data: Cotacao[]) => data.map((cotacao: Cotacao) => CotacaoService.toDTO(cotacao)))
       );
   }
 
   fetchById(id: number): Observable<Cotacao> {
     return this.http
       .get<Cotacao>(`${this.config.apiUrl}/${this.path}/${id}`)
-      .pipe(map((data: Cotacao) => this.process(data)));
+      .pipe(map((data: Cotacao) => CotacaoService.toDTO(data)));
   }
 
   fetchNew(origem: Moeda, destino: Moeda): Observable<Cotacao> {
@@ -55,7 +55,7 @@ export class CotacaoService {
 
     return this.http
       .get<Cotacao>(`${this.config.apiUrl}/${this.path}/nova`, { params })
-      .pipe(map((data: Cotacao) => this.process(data)));
+      .pipe(map((data: Cotacao) => CotacaoService.toDTO(data)));
   }
 
   remove(cotacao: Cotacao) {
@@ -71,11 +71,11 @@ export class CotacaoService {
   }
 
   createOrUpdate(cotacao: Cotacao): Observable<Cotacao> {
-    let innerCotacao = this.convert(cotacao);
+    let innerCotacao = CotacaoService.toEntity(cotacao);
     return innerCotacao.id ? this.update(innerCotacao, innerCotacao.id) : this.create(innerCotacao);
   }
 
-  private process(cotacao: any): Cotacao {
+  public static toDTO(cotacao: any): Cotacao {
     return {
       ...cotacao,
       origem: Moeda.fromCodigo(cotacao.origem),
@@ -84,7 +84,7 @@ export class CotacaoService {
     } as Cotacao;
   }
 
-  private convert(cotacao: any): Cotacao {
+  public static toEntity(cotacao: any): Cotacao {
     return {
       ...cotacao,
       origem: cotacao.origem.codigo,

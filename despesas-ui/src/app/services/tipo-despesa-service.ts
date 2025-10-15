@@ -8,9 +8,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TipoDespesaService {
+
   private readonly path: string = 'tipodespesa';
 
-  constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) {}
+  constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
 
   fetch(): Observable<TipoDespesa[]> {
     return this.http.get<TipoDespesa[]>(`${this.config.apiUrl}/${this.path}`);

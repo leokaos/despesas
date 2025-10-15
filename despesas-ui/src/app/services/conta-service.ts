@@ -11,18 +11,18 @@ import { map, Observable } from 'rxjs';
 export class ContaService {
   private readonly path: string = 'conta';
 
-  constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) {}
+  constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
 
   fetch(): Observable<Conta[]> {
     return this.http
       .get<Conta[]>(`${this.config.apiUrl}/${this.path}`)
-      .pipe(map((data) => data.map((conta) => this.process(conta))));
+      .pipe(map((data) => data.map((conta) => ContaService.toDTO(conta))));
   }
 
   fetchById(id: number): Observable<Conta> {
     return this.http
       .get<Conta>(`${this.config.apiUrl}/${this.path}/${id}`)
-      .pipe(map((data) => this.process(data)));
+      .pipe(map((data) => ContaService.toDTO(data)));
   }
 
   remove(conta: Conta) {
@@ -38,18 +38,18 @@ export class ContaService {
   }
 
   createOrUpdate(conta: Conta): Observable<Conta> {
-    var innerConta = this.convert(conta);
+    var innerConta = ContaService.toEntity(conta);
     return innerConta.id ? this.update(innerConta, innerConta.id) : this.create(innerConta);
   }
 
-  private process(conta: any): Conta {
+  public static toDTO(conta: any): Conta {
     return {
       ...conta,
       moeda: Moeda.fromCodigo(conta.moeda),
     };
   }
 
-  private convert(conta: any): Conta {
+  public static toEntity(conta: any): Conta {
     return {
       ...conta,
       tipo: 'CONTA',

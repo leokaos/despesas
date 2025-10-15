@@ -4,7 +4,7 @@
 
         @if (showLabel) {
         <span class="progress-center-label">
-            {{ current }} / {{ total }}
+            {{ current | number: '1.2-2' : 'pt-BR' }} / {{ total | number: '1.2-2' : 'pt-BR' }}
         </span>
         }
 

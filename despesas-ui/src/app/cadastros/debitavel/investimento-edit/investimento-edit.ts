@@ -51,7 +51,7 @@ export class InvestimentoEdit {
 
   loading = signal<boolean>(true);
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     var id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -86,8 +86,7 @@ export class InvestimentoEdit {
     } as Investimento;
 
     this.investimentoService.createOrUpdate(conta).subscribe((_) => {
-      // prettier-ignore
-      this.messageService.add({severity: 'success', summary: 'Sucesso', detail: 'Investimento salvo com sucesso!', life: 3000 });
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Investimento salvo com sucesso!', life: 3000 });
       this.returnToView();
     });
   }
@@ -100,7 +99,4 @@ export class InvestimentoEdit {
     this.router.navigate(['investimentos']);
   }
 
-  selectMoeda(moeda: Moeda) {
-    this.formGroup.get('moeda')?.setValue(moeda);
-  }
 }

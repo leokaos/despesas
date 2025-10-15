@@ -5,6 +5,7 @@ import { APP_CONFIG, AppConfig } from '../app-config';
 import { Moeda, Debitavel } from '../models/debitavel.model';
 import { Receita } from '../models/movimentacao.model';
 import { TipoReceita } from '../models/tipo-movimentacao.model';
+import { DebitavelService } from './debitavel-service';
 
 export interface ReceitaFiltro {
   dataInicial: Date;
@@ -48,12 +49,12 @@ export class ReceitaService {
     }
 
     return this.http.get<Receita[]>(`${this.config.apiUrl}/${this.path}`, { params })
-      .pipe(map((receitas: Receita[]) => receitas.map((receita: Receita) => this.process(receita))));;
+      .pipe(map((receitas: Receita[]) => receitas.map((receita: Receita) => this.toDTO(receita))));;
   }
 
   fetchById(id: number): Observable<Receita> {
     return this.http.get<Receita>(`${this.config.apiUrl}/${this.path}/${id}`)
-      .pipe(map((receita: any) => this.process(receita)));
+      .pipe(map((receita: any) => this.toDTO(receita)));
   }
 
   remove(receita: Receita) {
@@ -61,11 +62,11 @@ export class ReceitaService {
   }
 
   create(receita: Receita): Observable<Receita> {
-    return this.http.post<Receita>(`${this.config.apiUrl}/${this.path}/`, this.convert(receita));
+    return this.http.post<Receita>(`${this.config.apiUrl}/${this.path}/`, this.toEntity(receita));
   }
 
   update(receita: Receita, id: number): Observable<Receita> {
-    return this.http.put<Receita>(`${this.config.apiUrl}/${this.path}/`, this.convert(receita));
+    return this.http.put<Receita>(`${this.config.apiUrl}/${this.path}/`, this.toEntity(receita));
   }
 
   createOrUpdate(receita: Receita): Observable<Receita> {
@@ -78,38 +79,25 @@ export class ReceitaService {
     formData.append('arquivo', file, file.name);
 
     return this.http.post<Receita[]>(`${this.config.apiUrl}/${this.path}/upload`, formData)
-      .pipe(map((data: Receita[]) => data.map((receita: Receita) => this.process(receita))));
+      .pipe(map((data: Receita[]) => data.map((receita: Receita) => this.toDTO(receita))));
   }
 
-  private process(receita: any): Receita {
+  private toDTO(receita: any): Receita {
     return {
       ...receita,
       vencimento: receita.vencimento ? new Date(receita.vencimento) : null,
       pagamento: receita.pagamento ? new Date(receita.pagamento) : null,
       moeda: Moeda.fromCodigo(receita.moeda),
-      debitavel: receita.debitavel ? this.processDebitavel(receita.debitavel) : null,
+      debitavel: receita.debitavel ? DebitavelService.toDTO(receita.debitavel) : null,
     };
   }
 
-  private processDebitavel(debitavel: any): Debitavel {
-    return {
-      ...debitavel,
-      moeda: Moeda.fromCodigo(debitavel.Moeda),
-    } as Debitavel;
-  }
-
-  private convert(receita: any): Receita {
+  private toEntity(receita: any): Receita {
     return {
       ...receita,
       moeda: receita.moeda.codigo,
-      debitavel: this.convertDebitavel(receita.debitavel)
+      debitavel: DebitavelService.toEntity(receita.debitavel)
     } as Receita;
   }
 
-  private convertDebitavel(debitavel: any): Debitavel {
-    return {
-      ...debitavel,
-      moeda: debitavel.moeda.codigo,
-    } as Debitavel
-  }
 }

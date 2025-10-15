@@ -10,18 +10,18 @@ import { Divida, Moeda } from '../models/debitavel.model';
 export class DividaService {
   private readonly path: string = 'divida';
 
-  constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) {}
+  constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
 
   fetch(): Observable<Divida[]> {
     return this.http
       .get<Divida[]>(`${this.config.apiUrl}/${this.path}`)
-      .pipe(map((data) => data.map((divida) => this.process(divida))));
+      .pipe(map((data) => data.map((divida) => DividaService.toDTO(divida))));
   }
 
   fetchById(id: number): Observable<Divida> {
     return this.http
       .get<Divida>(`${this.config.apiUrl}/${this.path}/${id}`)
-      .pipe(map((data) => this.process(data)));
+      .pipe(map((data) => DividaService.toDTO(data)));
   }
 
   remove(divida: Divida) {
@@ -37,11 +37,11 @@ export class DividaService {
   }
 
   createOrUpdate(divida: Divida): Observable<Divida> {
-    let innerDivida = this.convert(divida);
+    let innerDivida = DividaService.toEntity(divida);
     return innerDivida.id ? this.update(innerDivida, innerDivida.id) : this.create(innerDivida);
   }
 
-  private process(divida: any): Divida {
+  public static toDTO(divida: any): Divida {
     return {
       ...divida,
       dataInicio: new Date(divida.dataInicio),
@@ -49,11 +49,12 @@ export class DividaService {
     };
   }
 
-  private convert(conta: any): Divida {
+  public static toEntity(divida: any): Divida {
     return {
-      ...conta,
+      ...divida,
       tipo: 'DIVIDA',
-      moeda: conta.moeda.codigo,
+      moeda: divida.moeda.codigo,
+      dataInicio: divida.dataInicio.getTime()
     };
   }
 }

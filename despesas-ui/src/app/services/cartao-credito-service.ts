@@ -11,18 +11,18 @@ import { CartaoCredito, Moeda } from '../models/debitavel.model';
 export class CartaoCreditoService {
   private readonly path: string = 'cartao';
 
-  constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) {}
+  constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
 
   fetch(): Observable<CartaoCredito[]> {
     return this.http
       .get<CartaoCredito[]>(`${this.config.apiUrl}/${this.path}`)
-      .pipe(map((data) => data.map((cartaoCredito) => this.process(cartaoCredito))));
+      .pipe(map((data) => data.map((cartaoCredito) => CartaoCreditoService.toDTO(cartaoCredito))));
   }
 
   fetchById(id: number): Observable<CartaoCredito> {
     return this.http
       .get<CartaoCredito>(`${this.config.apiUrl}/${this.path}/${id}`)
-      .pipe(map((data) => this.process(data)));
+      .pipe(map((data) => CartaoCreditoService.toDTO(data)));
   }
 
   remove(cartaoCredito: CartaoCredito) {
@@ -38,13 +38,11 @@ export class CartaoCreditoService {
   }
 
   createOrUpdate(conta: CartaoCredito): Observable<CartaoCredito> {
-    var innerCartaoCredito = this.convert(conta);
-    return innerCartaoCredito.id
-      ? this.update(innerCartaoCredito, innerCartaoCredito.id)
-      : this.create(innerCartaoCredito);
+    var innerCartaoCredito = CartaoCreditoService.toEntity(conta);
+    return innerCartaoCredito.id ? this.update(innerCartaoCredito, innerCartaoCredito.id) : this.create(innerCartaoCredito);
   }
 
-  private process(cartaoCredito: any): CartaoCredito {
+  public static toDTO(cartaoCredito: any): CartaoCredito {
     return {
       ...cartaoCredito,
       moeda: Moeda.fromCodigo(cartaoCredito.moeda),
@@ -52,7 +50,7 @@ export class CartaoCreditoService {
     };
   }
 
-  private convert(cartaoCredito: any): CartaoCredito {
+  public static toEntity(cartaoCredito: any): CartaoCredito {
     return {
       ...cartaoCredito,
       tipo: 'CARTAO',

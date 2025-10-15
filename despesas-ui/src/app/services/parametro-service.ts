@@ -22,13 +22,11 @@ export class ParametroService {
   }
 
   fetchIOF(): Observable<number> {
-    return this.fetchById(this.IOF)
-      .pipe(map((data: string) => parseFloat(data)));
+    return this.fetchById(this.IOF).pipe(map((data: string) => parseFloat(data)));
   }
 
   fetchSPOT(): Observable<number> {
-    return this.fetchById(this.SPOT)
-      .pipe(map((data: string) => parseFloat(data)));
+    return this.fetchById(this.SPOT).pipe(map((data: string) => parseFloat(data)));
   }
 
 }

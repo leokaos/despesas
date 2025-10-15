@@ -10,18 +10,18 @@ import { Investimento, Moeda } from '../models/debitavel.model';
 export class InvestimentoService {
   private readonly path: string = 'investimento';
 
-  constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) {}
+  constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
 
   fetch(): Observable<Investimento[]> {
     return this.http
       .get<Investimento[]>(`${this.config.apiUrl}/${this.path}`)
-      .pipe(map((data) => data.map((investimento) => this.process(investimento))));
+      .pipe(map((data) => data.map((investimento) => InvestimentoService.toDTO(investimento))));
   }
 
   fetchById(id: number): Observable<Investimento> {
     return this.http
       .get<Investimento>(`${this.config.apiUrl}/${this.path}/${id}`)
-      .pipe(map((data) => this.process(data)));
+      .pipe(map((data) => InvestimentoService.toDTO(data)));
   }
 
   remove(investimento: Investimento) {
@@ -37,20 +37,18 @@ export class InvestimentoService {
   }
 
   createOrUpdate(investimento: Investimento): Observable<Investimento> {
-    let innerInvestimento = this.convert(investimento);
-    return innerInvestimento.id
-      ? this.update(innerInvestimento, innerInvestimento.id)
-      : this.create(innerInvestimento);
+    let innerInvestimento = InvestimentoService.toEntity(investimento);
+    return innerInvestimento.id ? this.update(innerInvestimento, innerInvestimento.id) : this.create(innerInvestimento);
   }
 
-  private process(investimento: any): Investimento {
+  public static toDTO(investimento: any): Investimento {
     return {
       ...investimento,
       moeda: Moeda.fromCodigo(investimento.moeda),
     };
   }
 
-  private convert(conta: any): Investimento {
+  public static toEntity(conta: any): Investimento {
     return {
       ...conta,
       tipo: 'INVESTIMENTO',

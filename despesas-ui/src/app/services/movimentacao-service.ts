@@ -13,6 +13,7 @@ export interface MovimentacaoFiltro {
   providedIn: 'root'
 })
 export class MovimentacaoService {
+
   private readonly path: string = 'movimentacao';
 
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
@@ -23,6 +24,6 @@ export class MovimentacaoService {
       .append("dataInicial", filtro.dataInicial.toUTCString())
       .append("dataFinal", filtro.dataFinal.toUTCString());
 
-    return this.http.get<Movimentacao[]>(`${this.config.apiUrl}/${this.path}/buscarPorPeriodo`, { params: params });
+    return this.http.get<Movimentacao[]>(`${this.config.apiUrl}/${this.path}/buscarPorPeriodo`, { params });
   }
 }

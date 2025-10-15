@@ -59,8 +59,19 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita, ReceitaFiltro> im
 	@Override
 	protected void posSalvar(Receita antigo, Receita novo) {
 
+		Debitavel debitavel = debitavelFacade.buscarPorId(novo.getDebitavel().getId());
+
+		if (!novo.getValor().equals(antigo.getValor()) && antigo.isDepositado() && novo.isDepositado()) {
+			debitavel.estornar(antigo);
+			debitavel.creditar(novo);
+		}
+
+		if (antigo.isDepositado() && !novo.isDepositado()) {
+			debitavel.estornar(antigo);
+		}
+
 		if (!antigo.isDepositado() && novo.isDepositado()) {
-			depositar(novo);
+			debitavel.creditar(novo);
 		}
 	}
 

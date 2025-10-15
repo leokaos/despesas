@@ -5,6 +5,7 @@ import { map, Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { APP_CONFIG, AppConfig } from '../app-config';
 import { TipoDespesa } from '../models/tipo-movimentacao.model';
+import { DebitavelService } from './debitavel-service';
 
 export interface DespesaFiltro {
   dataInicial: Date;
@@ -48,11 +49,12 @@ export class DespesaService {
     }
 
     return this.http.get<Despesa[]>(`${this.config.apiUrl}/${this.path}`, { params })
-      .pipe(map((despesas: Despesa[]) => despesas.map((despesa: Despesa) => this.process(despesa))));
+      .pipe(map((despesas: Despesa[]) => despesas.map((despesa: Despesa) => DespesaService.toDTO(despesa))));
   }
 
   fetchById(id: number): Observable<Despesa> {
-    return this.http.get<Despesa>(`${this.config.apiUrl}/${this.path}/${id}`);
+    return this.http.get<Despesa>(`${this.config.apiUrl}/${this.path}/${id}`)
+      .pipe(map((despesa: Despesa) => DespesaService.toDTO(despesa)));
   }
 
   remove(despesa: Despesa) {
@@ -61,14 +63,14 @@ export class DespesaService {
 
   create(despesa: Despesa): Observable<Despesa> {
     let payload = {
-      despesa: this.convert(despesa)
+      despesa: DebitavelService.toEntity(despesa)
     }
 
     return this.http.post<Despesa>(`${this.config.apiUrl}/${this.path}/`, payload);
   }
 
   update(despesa: Despesa, id: number): Observable<Despesa> {
-    return this.http.put<Despesa>(`${this.config.apiUrl}/${this.path}/`, despesa);
+    return this.http.put<Despesa>(`${this.config.apiUrl}/${this.path}/`, DespesaService.toEntity(despesa));
   }
 
   createOrUpdate(despesa: Despesa): Observable<Despesa> {
@@ -81,39 +83,25 @@ export class DespesaService {
     formData.append('arquivo', file, file.name);
 
     return this.http.post<Despesa[]>(`${this.config.apiUrl}/${this.path}/upload`, formData)
-      .pipe(map((data: Despesa[]) => data.map((despesa: Despesa) => this.process(despesa))));
+      .pipe(map((data: Despesa[]) => data.map((despesa: Despesa) => DespesaService.toDTO(despesa))));
   }
 
-  private process(despesa: any): Despesa {
+  public static toDTO(despesa: any): Despesa {
     return {
       ...despesa,
       vencimento: despesa.vencimento ? new Date(despesa.vencimento) : null,
       pagamento: despesa.pagamento ? new Date(despesa.pagamento) : null,
       moeda: Moeda.fromCodigo(despesa.moeda),
-      debitavel: despesa.debitavel ? this.processDebitavel(despesa.debitavel) : null,
+      debitavel: despesa.debitavel ? DebitavelService.toEntity(despesa) : null,
     };
   }
 
-  private processDebitavel(debitavel: any): Debitavel {
-    return {
-      ...debitavel,
-      moeda: Moeda.fromCodigo(debitavel.Moeda),
-    } as Debitavel;
-  }
-
-  private convert(despesa: any): Despesa {
+  public static toEntity(despesa: any): Despesa {
     return {
       ...despesa,
       moeda: despesa.moeda.codigo,
-      debitavel: this.convertDebitavel(despesa.debitavel)
+      debitavel: DebitavelService.toEntity(despesa.debitavel),
     } as Despesa;
-  }
-
-  private convertDebitavel(debitavel: any): Debitavel {
-    return {
-      ...debitavel,
-      moeda: debitavel.moeda.codigo,
-    } as Debitavel
   }
 
 }
