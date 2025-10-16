@@ -104,12 +104,12 @@ export class DespesaView implements OnInit {
 
     forkJoin({
       tipos: this.tipoDespesaService.fetch(),
-      receitas: this.despesaService.fetch(filtroDespesa),
+      despesas: this.despesaService.fetch(filtroDespesa),
       debitaveis: this.debitavelService.fetch(filtroDebitavel)
     }).subscribe((results: any) => {
       this.tipos = [...results.tipos];
       this.debitaveis = [...results.debitaveis];
-      this.data = [...results.receitas];
+      this.data = [...results.despesas];
       this.selectedData = [];
       this.loading.set(false);
     });

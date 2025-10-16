@@ -92,7 +92,7 @@ export class DespesaService {
       vencimento: despesa.vencimento ? new Date(despesa.vencimento) : null,
       pagamento: despesa.pagamento ? new Date(despesa.pagamento) : null,
       moeda: Moeda.fromCodigo(despesa.moeda),
-      debitavel: despesa.debitavel ? DebitavelService.toEntity(despesa) : null,
+      debitavel: despesa.debitavel ? DebitavelService.toDTO(despesa.debitavel) : null,
     };
   }
 
