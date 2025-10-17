@@ -46,12 +46,24 @@
 
         <ng-template pTemplate="header">
             <tr>
-                <th> Cor </th>
-                <th> Bandeira </th>
-                <th> Descrição </th>
-                <th> Limite </th>
-                <th> Dia de Fechamento </th>
-                <th> Dia de Vencimento </th>
+                <th pSortableColumn="cor">
+                    Cor <p-sortIcon field="cor" />
+                </th>
+                <th pSortableColumn="item.bandeira.codigo">
+                    Bandeira <p-sortIcon field="item.bandeira.codigo" />
+                </th>
+                <th pSortableColumn="descricao">
+                    Descrição <p-sortIcon field="descricao" />
+                </th>
+                <th pSortableColumn="limite">
+                    Limite <p-sortIcon field="limite" />
+                </th>
+                <th pSortableColumn="diaDeFechamento">
+                    Dia de Fechamento <p-sortIcon field="diaDeFechamento" />
+                </th>
+                <th pSortableColumn="diaDeVencimento">
+                    Dia de Vencimento <p-sortIcon field="diaDeVencimento" />
+                </th>
                 <th class="small-column"></th>
                 <th class="small-column"></th>
                 <th class="small-column"></th>

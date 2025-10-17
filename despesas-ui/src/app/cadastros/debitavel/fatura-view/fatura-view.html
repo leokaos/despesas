@@ -74,10 +74,18 @@
 
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>Categoria</th>
-                        <th>Descrição</th>
-                        <th>Data</th>
-                        <th>Valor</th>
+                        <th pSortableColumn="tipo.descricao">
+                            Categoria <p-sortIcon field="tipo.descricao" />
+                        </th>
+                        <th pSortableColumn="descricao">
+                            Descrição <p-sortIcon field="descricao" />
+                        </th>
+                        <th pSortableColumn="vencimento">
+                            Data <p-sortIcon field="vencimento" />
+                        </th>
+                        <th pSortableColumn="valor">
+                            Valor <p-sortIcon field="valor" />
+                        </th>
                     </tr>
                 </ng-template>
 

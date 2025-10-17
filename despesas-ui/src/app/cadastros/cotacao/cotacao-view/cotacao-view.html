@@ -44,15 +44,17 @@
 
         <ng-template pTemplate="header">
             <tr>
-                <th> Data </th>
-                <th class="force-center">
-                    Moeda de Origem
+                <th pSortableColumn="data">
+                    Data <p-sortIcon field="data" />
                 </th>
-                <th class="force-center">
-                    Moeda de Destino
+                <th class="force-center" pSortableColumn="origem.nome">
+                    Moeda de Origem <p-sortIcon field="origem.nome" />
                 </th>
-                <th class="force-center">
-                    Taxa de Conversão
+                <th class="force-center" pSortableColumn="destino.nome">
+                    Moeda de Destino <p-sortIcon field="destino.nome" />
+                </th>
+                <th class="force-center" pSortableColumn="taxa">
+                    Taxa de Conversão <p-sortIcon field="taxa" />
                 </th>
                 <th class="small-column"></th>
                 <th class="small-column"></th>

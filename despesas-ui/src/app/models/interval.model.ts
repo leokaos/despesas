@@ -3,7 +3,8 @@ export class Interval {
     static readonly CURRENT_YEAR = new Interval(
         'Ano Atual',
         () => new Date(new Date().getFullYear(), 0, 1, 0, 0, 0),
-        () => new Date());
+        () => new Date()
+    );
 
     static readonly LAST_YEAR = new Interval(
         'Ano Passado',
@@ -19,8 +20,8 @@ export class Interval {
 
     static readonly LAST_MONTH = new Interval(
         'Mês Passado',
-        () => new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth() - 1, 1, 0, 0, 0)),
-        () => new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth(), 0, 23, 59, 59))
+        () => new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1, 0, 0, 0),
+        () => new Date(new Date().getFullYear(), new Date().getMonth(), 0, 23, 59, 59)
     );
 
     static readonly LAST_SIX_MONTH = new Interval(
@@ -32,7 +33,7 @@ export class Interval {
             date.setHours(0, 0, 0, 0);
             return date;
         },
-        () => new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth(), 0, 23, 59, 59))
+        () => new Date(new Date().getFullYear(), new Date().getMonth(), 0, 23, 59, 59)
     );
 
     private constructor(

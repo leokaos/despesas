@@ -8,7 +8,7 @@
 
         <div class="w-8/10">
 
-            <p-panel>
+            <p-panel [toggleable]="true" [collapsed]="true">
                 <ng-template #header>
                     <div class="flex items-center gap-2">
                         <i class="pi pi-filter text-gray-600"></i>
@@ -87,23 +87,23 @@
 
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="cor">
-                    Descrição <p-sortIcon field="cor" />
-                </th>
                 <th pSortableColumn="descricao">
-                    Valor <p-sortIcon field="descricao" />
+                    Descrição <p-sortIcon field="descricao" />
                 </th>
-                <th>
-                    Valor Final <p-sortIcon field="saldo" />
+                <th pSortableColumn="valor">
+                    Valor <p-sortIcon field="valor" />
                 </th>
-                <th>
-                    Vencimento <p-sortIcon field="saldo" />
+                <th pSortableColumn="valorReal">
+                    Valor Final <p-sortIcon field="valorReal" />
                 </th>
-                <th>
-                    Débito em <p-sortIcon field="saldo" />
+                <th pSortableColumn="vencimento">
+                    Vencimento <p-sortIcon field="vencimento" />
                 </th>
-                <th>
-                    Crédito em<p-sortIcon field="saldo" />
+                <th pSortableColumn="debitavel.descricao">
+                    Débito em <p-sortIcon field="debitavel.descricao" />
+                </th>
+                <th pSortableColumn="creditavel.descricao">
+                    Crédito em<p-sortIcon field="creditavel.descricao" />
                 </th>
                 <th class="small-column"></th>
                 <th class="small-column"></th>
