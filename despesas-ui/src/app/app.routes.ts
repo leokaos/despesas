@@ -36,6 +36,7 @@ import { ReceitaView } from './cadastros/movimentacao/receita-view/receita-view'
 import { DespesaView } from './cadastros/movimentacao/despesa-view/despesa-view';
 import { DespesaEdit } from './cadastros/movimentacao/despesa-edit/despesa-edit';
 import { ReceitaEdit } from './cadastros/movimentacao/receita-edit/receita-edit';
+import { AportesView } from './cadastros/debitavel/aportes-view/aportes-view';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -65,6 +66,7 @@ export const routes: Routes = [
   { path: 'dividas', component: DividaView },
   { path: 'divida', component: DividaEdit },
   { path: 'divida/:id', component: DividaEdit },
+  { path: 'divida/:id/aportes', component: AportesView },
   { path: 'investimentos', component: InvestimentoView },
   { path: 'investimento', component: InvestimentoEdit },
   { path: 'investimento/:id', component: InvestimentoEdit },

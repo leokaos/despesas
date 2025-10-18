@@ -36,6 +36,7 @@ import { Divida } from '../../../models/debitavel.model';
   styleUrl: './divida-view.scss',
 })
 export class DividaView {
+
   @ViewChild('table')
   private table?: Table;
 
@@ -49,7 +50,7 @@ export class DividaView {
   private router = inject(Router);
   private messageService = inject(MessageService);
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.loadData();
@@ -86,13 +87,16 @@ export class DividaView {
 
   remover() {
     if (this.divida) {
-      // prettier-ignore
       this.dividaService.remove(this.divida).subscribe(() => {
-        this.messageService.add({severity: 'success', summary: 'Successo', detail: 'Dívida removida com sucesso!', life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Dívida removida com sucesso!', life: 3000 });
         this.loadData();
       });
     }
 
     this.showDialog = false;
+  }
+
+  showAportes(divida: Divida) {
+    this.router.navigate(['divida', divida.id, 'aportes']);
   }
 }

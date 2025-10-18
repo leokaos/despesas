@@ -32,7 +32,13 @@
             </div>
 
             <div class="flex flex-0 justify-end ml-20">
-                <p-button label="Gerar" icon="pi pi-search" severity="info" size="small" (click)="filter()" />
+                <p-button
+                          label="Gerar"
+                          icon="pi pi-search"
+                          severity="info"
+                          size="small"
+                          (click)="filter()"
+                          [disabled]="!meses || !debitavel" />
             </div>
 
         </div>

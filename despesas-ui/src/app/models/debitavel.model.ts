@@ -69,6 +69,7 @@ export interface Divida extends Debitavel {
   periodicidade: 'MENSAL' | 'SEMESTRAL' | 'VARIAVEL';
   valorTotal: number;
   dataInicio: Date;
+  valorRestante: number;
 }
 
 export interface Investimento extends Debitavel {

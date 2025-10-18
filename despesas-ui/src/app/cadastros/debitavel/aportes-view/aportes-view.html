@@ -1,0 +1,72 @@
+@if (loading()) {
+<app-loader />
+}
+@else {
+
+<span class="page-title">
+    <i class="pi pi-chevron-right"></i> Aportes para: <b>{{divida?.descricao}}</b>
+</span>
+
+<div class="w-full md:w-full lg:w-2/3 xl:w-2/3 2xl:w-2/3 mx-auto form-panel">
+
+    <div class="flex flex-wrap justify-between items-center bg-gray-50 rounded-lg p-4 mb-4">
+        <div class="text-center px-4 py-2">
+            <div class="mb-1">Valor Inicial</div>
+            <div class="text-red-600 text-lg font-bold">
+                {{ divida?.moeda?.simbolo }} {{ divida?.valorTotal | number: '1.2-2' : 'pt-BR' }}
+            </div>
+        </div>
+
+        <div class="text-center px-4 py-2">
+            <div class="mb-1">Total de Aportes</div>
+            <div class="text-green-600 text-lg font-bold">
+                {{ divida?.moeda?.simbolo }} {{ transferencias | sum: 'valorReal' | number: '1.2-2' : 'pt-BR' }}
+            </div>
+        </div>
+
+        <div class="text-center px-4 py-2">
+            <div class="mb-1">Restante</div>
+            <div class="text-blue-600 text-lg font-bold">
+                {{ divida?.moeda?.simbolo }} {{ divida?.valorRestante | number: '1.2-2' : 'pt-BR' }}
+            </div>
+        </div>
+    </div>
+
+    <p-table
+             [value]="transferencias"
+             stripedRows
+             showGridlines
+             [rowsPerPageOptions]="[10, 15, 50, 100]">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="vencimento">
+                    Data <p-sortIcon field="vencimento" />
+                </th>
+                <th pSortableColumn="debitavel.descricao">
+                    Origem <p-sortIcon field="debitavel.descricao" />
+                </th>
+                <th pSortableColumn="valorReal">
+                    Valor <p-sortIcon field="valorReal" />
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-transferencia>
+            <tr>
+                <td>{{transferencia.vencimento | date:'dd/MM/yyyy'}} </td>
+                <td> <app-color-display [color]="transferencia.debitavel.cor" [text]="transferencia.debitavel.descricao" /></td>
+                <td> {{transferencia.moeda.simbolo }} {{ transferencia.valorReal | number: '1.2-2' : 'pt-BR'}}</td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+
+    <div class="mt-5 pt-4 ">
+        <div class="flex justify-between">
+            <p-button label="Cancelar" [raised]="true" severity="secondary" size="small" (click)="returnToView()" />
+        </div>
+    </div>
+</div>
+
+}
