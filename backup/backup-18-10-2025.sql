@@ -416,7 +416,7 @@ COPY despesas_db.debitavel (id, cor, descricao, tipo, moeda, ativo) FROM stdin;
 4	#709982	N26	CONTA	EURO	t
 5	#ffb800	Itáu	CONTA	REAL	t
 6	#0047ff	Porto Seguro	CARTAO	REAL	t
-7	#e36017	Financiamento Imobiliario Itau	DIVIDA	REAL	f
+7	#e36017	Financiamento Imobiliario Itau	DIVIDA	REAL	t
 \.
 
 
