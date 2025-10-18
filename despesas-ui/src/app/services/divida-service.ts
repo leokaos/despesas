@@ -54,7 +54,7 @@ export class DividaService {
       ...divida,
       tipo: 'DIVIDA',
       moeda: divida.moeda.codigo,
-      dataInicio: divida.dataInicio.getTime()
+      dataInicio: divida.dataInicio.toISOString()
     };
   }
 }

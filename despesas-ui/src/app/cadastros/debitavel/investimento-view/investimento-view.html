@@ -46,13 +46,27 @@
 
         <ng-template pTemplate="header">
             <tr>
-                <th> Cor </th>
-                <th> Descrição </th>
-                <th> Montante Aplicado </th>
-                <th> Rendimento </th>
-                <th> Periodicidade </th>
-                <th> Total Rendimento </th>
-                <th> Yield </th>
+                <th pSortableColumn="cor">
+                    Cor <p-sortIcon field="cor" />
+                </th>
+                <th pSortableColumn="descricao">
+                    Descrição <p-sortIcon field="descricao" />
+                </th>
+                <th pSortableColumn="montante">
+                    Montante Aplicado <p-sortIcon field="montante" />
+                </th>
+                <th pSortableColumn="rendimento">
+                    Rendimento <p-sortIcon field="rendimento" />
+                </th>
+                <th pSortableColumn="periodicidade">
+                    Periodicidade <p-sortIcon field="periodicidade" />
+                </th>
+                <th pSortableColumn="valorReceitas">
+                    Total Rendimento <p-sortIcon field="valorReceitas" />
+                </th>
+                <th pSortableColumn="yield">
+                    Yield <p-sortIcon field="yield" />
+                </th>
                 <th class="small-column"></th>
                 <th class="small-column"></th>
             </tr>
