@@ -143,7 +143,7 @@ export class LancamentoDespesa implements OnInit {
     this.parcial.set(0);
 
     from(this.despesas).pipe(
-      concatMap(despesa => this.despesaService.createOrUpdate(despesa).pipe(
+      concatMap(despesa => this.despesaService.createOrUpdate(despesa, null).pipe(
         tap(() => {
           this.parcial.update(value => value + 1)
         })

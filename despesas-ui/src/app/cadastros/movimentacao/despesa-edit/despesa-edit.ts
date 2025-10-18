@@ -1,13 +1,8 @@
+import { ParcelamentoVO } from './../../../models/movimentacao.model';
 import { Orcamento } from './../../../models/orcamento.model';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  FormGroup,
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -30,7 +25,7 @@ import { DespesaService } from '../../../services/despesa-service';
 import { TipoDespesaService } from '../../../services/tipo-despesa-service';
 import { AppProgressBar } from "../../../components/app-progress-bar/app-progress-bar";
 import { OrcamentoFiltro, OrcamentoService } from '../../../services/orcamento-service';
-import { DateUtil, PeriodoUtil } from '../../../models/util';
+import { PeriodoUtil } from '../../../models/util';
 import { Periodo } from '../../../models/periodo.model';
 import { Mes } from '../../../models/mes.model';
 
@@ -63,6 +58,8 @@ export class DespesaEdit implements OnInit {
   despesa?: Despesa;
   formGroup!: FormGroup;
   orcamento?: Orcamento;
+  parcelar: boolean = false;
+  tiposParcelamento: string[] = ['Semanal', 'Mensal', 'Semestral', 'Anual'];
 
   private router = inject(Router);
   private formBuilder = inject(FormBuilder);
@@ -110,6 +107,8 @@ export class DespesaEdit implements OnInit {
       tipo: [this.despesa?.tipo, Validators.required],
       debitavel: [this.despesa?.debitavel, Validators.required],
       paga: [this.despesa?.paga || false, Validators.required],
+      numeroParcelas: [null],
+      tipoParcelamento: [null]
     });
 
     const tipoSelection$ = this.formGroup.get('tipo')?.valueChanges;
@@ -148,14 +147,28 @@ export class DespesaEdit implements OnInit {
   }
 
   save() {
-    var receita = {
+    var despesa = {
       id: this.despesa?.id,
       pagamento: this.despesa?.pagamento,
       moeda: this.formGroup.get('debitavel')?.value.moeda,
-      ...this.formGroup.value,
-    };
+      descricao: this.formGroup.get('descricao')?.value,
+      valor: this.formGroup.get('valor')?.value,
+      vencimento: this.formGroup.get('vencimento')?.value,
+      tipo: this.formGroup.get('tipo')?.value,
+      debitavel: this.formGroup.get('debitavel')?.value,
+      paga: this.formGroup.get('paga')?.value,
+    } as Despesa;
 
-    this.despesaService.createOrUpdate(receita).subscribe((_) => {
+    var parcelamentoVO = null;
+
+    if (this.parcelar) {
+      parcelamentoVO = {
+        parcelas: this.formGroup.get('numeroParcelas')?.value,
+        tipo: this.formGroup.get('tipoParcelamento')?.value
+      } as ParcelamentoVO;
+    }
+
+    this.despesaService.createOrUpdate(despesa, parcelamentoVO).subscribe((_) => {
       this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Despesa salva com sucesso!', life: 3000 });
       this.returnToView();
     });

@@ -1,3 +1,4 @@
+import { ParcelamentoVO } from './../models/movimentacao.model';
 import { Debitavel, Moeda } from './../models/debitavel.model';
 import { Inject, Injectable } from '@angular/core';
 import { Despesa } from '../models/movimentacao.model';
@@ -61,9 +62,10 @@ export class DespesaService {
     return this.http.delete(`${this.config.apiUrl}/${this.path}/${despesa.id}`);
   }
 
-  create(despesa: Despesa): Observable<Despesa> {
+  create(despesa: Despesa, parcelamentoVO: ParcelamentoVO | null): Observable<Despesa> {
     let payload = {
-      despesa: DebitavelService.toEntity(despesa)
+      despesa: DespesaService.toEntity(despesa),
+      parcelamentoVO: parcelamentoVO,
     }
 
     return this.http.post<Despesa>(`${this.config.apiUrl}/${this.path}/`, payload);
@@ -73,8 +75,8 @@ export class DespesaService {
     return this.http.put<Despesa>(`${this.config.apiUrl}/${this.path}/`, DespesaService.toEntity(despesa));
   }
 
-  createOrUpdate(despesa: Despesa): Observable<Despesa> {
-    return despesa.id ? this.update(despesa, despesa.id) : this.create(despesa);
+  createOrUpdate(despesa: Despesa, parcelamentoVO: ParcelamentoVO | null): Observable<Despesa> {
+    return despesa.id ? this.update(despesa, despesa.id) : this.create(despesa, parcelamentoVO);
   }
 
   uploadFile(file: File): Observable<Despesa[]> {
