@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.dominio.movimentacao.Movimentacao;
 import org.leo.despesas.infra.Moeda;
 
@@ -28,6 +29,16 @@ public class MovimentacaoFacadeImpl implements MovimentacaoFacade {
 		query.setParameter("moeda", Moeda.EURO);
 
 		return query.getResultList();
+	}
+
+	@Override
+	public long buscarQuantidadeMovimentacaoPorDebitavel(Debitavel debitavel) {
+
+		TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(M) FROM Movimentacao M WHERE M.debitavel = :debitavel", Long.class);
+
+		query.setParameter("debitavel", debitavel);
+
+		return query.getSingleResult();
 	}
 
 }

@@ -5,11 +5,14 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.dominio.movimentacao.Movimentacao;
 
 @Local
 public interface MovimentacaoFacade {
 
-	List<Movimentacao> buscarMovimentacaoPorPeriodo(Date dataInicial,Date dataFinal);
+	List<Movimentacao> buscarMovimentacaoPorPeriodo(Date dataInicial, Date dataFinal);
+
+	long buscarQuantidadeMovimentacaoPorDebitavel(Debitavel debitavel);
 
 }

@@ -34,6 +34,11 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 	}
 
 	@Override
+	public long count(F filtro) {
+		return filtro.count(entityManager, getClasseEntidade());
+	}
+
+	@Override
 	public E buscarPorId(final Long id) throws DespesasException {
 
 		final E entity = entityManager.find(getClasseEntidade(), id);

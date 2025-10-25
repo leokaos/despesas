@@ -47,7 +47,7 @@
                     <label for="cor">Moeda</label>
                 </div>
                 <div class="w-2/5">
-                    <app-select-moeda [initialValue]="divida?.moeda" (onSelect)="selectMoeda($event)"></app-select-moeda>
+                    <app-select-moeda formControlName="moeda"></app-select-moeda>
                 </div>
             </div>
 

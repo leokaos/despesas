@@ -27,13 +27,19 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 	private String filter;
 
 	private static final String SELECT_MODEL = "SELECT {1} FROM {0} {1}";
+	private static final String COUNT_MODEL = "SELECT COUNT({1}) FROM {0} {1}";
 
 	@Override
 	public List<T> getLista(EntityManager entityManager, Class<T> classeDaEntidade) {
 
 		build();
 
-		TypedQuery<T> query = entityManager.createQuery(buildQuery(classeDaEntidade), classeDaEntidade);
+		final String alias = classeDaEntidade.getSimpleName();
+		StringBuilder builder = new StringBuilder(MessageFormat.format(SELECT_MODEL, alias, alias.toLowerCase()));
+
+		String sourceQuery = buildQuery(builder, alias, true);
+
+		TypedQuery<T> query = entityManager.createQuery(sourceQuery, classeDaEntidade);
 
 		Iterator<Clause> it = clausulas.iterator();
 
@@ -44,15 +50,32 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 		return query.getResultList();
 	}
 
+	@Override
+	public long count(EntityManager entityManager, Class<T> classeDaEntidade) {
+
+		build();
+
+		final String alias = classeDaEntidade.getSimpleName();
+		StringBuilder builder = new StringBuilder(MessageFormat.format(COUNT_MODEL, alias, alias.toLowerCase()));
+
+		String sourceQuery = buildQuery(builder, alias, false);
+
+		TypedQuery<Long> query = entityManager.createQuery(sourceQuery, Long.class);
+
+		Iterator<Clause> it = clausulas.iterator();
+
+		while (it.hasNext()) {
+			it.next().colocarValor(query);
+		}
+
+		return query.getSingleResult();
+	}
+
 	protected void build() {
 
 	}
 
-	private String buildQuery(Class<T> classeDaEntidade) {
-
-		final String className = classeDaEntidade.getSimpleName();
-
-		StringBuilder builder = new StringBuilder(MessageFormat.format(SELECT_MODEL, className, className.toLowerCase()));
+	private String buildQuery(StringBuilder builder, String alias, boolean addOrder) {
 
 		Iterator<Clause> it = clausulas.iterator();
 
@@ -72,7 +95,9 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 
 		}
 
-		builder.append(" ORDER BY ").append(className.toLowerCase()).append(".").append(orderBy());
+		if (addOrder) {
+			builder.append(" ORDER BY ").append(alias).append(".").append(orderBy());
+		}
 
 		return builder.toString();
 	}

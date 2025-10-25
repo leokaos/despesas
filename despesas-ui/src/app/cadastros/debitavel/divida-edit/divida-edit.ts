@@ -16,7 +16,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { Loader } from '../../../components/loader/loader';
 import { SelectMoeda } from '../../../components/select-moeda/select-moeda';
-import { Divida, Moeda } from '../../../models/debitavel.model';
+import { Divida } from '../../../models/debitavel.model';
 import { DatePickerModule } from 'primeng/datepicker';
 import { Select } from 'primeng/select';
 import { DividaService } from '../../../services/divida-service';
@@ -53,7 +53,7 @@ export class DividaEdit {
 
   loading = signal<boolean>(true);
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     var id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -88,10 +88,14 @@ export class DividaEdit {
       ...this.formGroup.value,
     } as Divida;
 
-    this.dividaService.createOrUpdate(divida).subscribe((_) => {
-      // prettier-ignore
-      this.messageService.add({severity: 'success', summary: 'Sucesso', detail: 'Dívida salva com sucesso!', life: 3000 });
-      this.returnToView();
+    this.dividaService.createOrUpdate(divida).subscribe({
+      next: (_) => {
+        this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Dívida salva com sucesso!', life: 3000 });
+        this.returnToView();
+      },
+      error: (error) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error, life: 3000 });
+      }
     });
   }
 
@@ -103,7 +107,4 @@ export class DividaEdit {
     this.router.navigate(['dividas']);
   }
 
-  selectMoeda(moeda: Moeda) {
-    this.formGroup.get('moeda')?.setValue(moeda);
-  }
 }
