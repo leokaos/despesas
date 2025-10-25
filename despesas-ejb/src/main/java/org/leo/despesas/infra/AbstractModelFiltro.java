@@ -37,7 +37,7 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 		final String alias = classeDaEntidade.getSimpleName();
 		StringBuilder builder = new StringBuilder(MessageFormat.format(SELECT_MODEL, alias, alias.toLowerCase()));
 
-		String sourceQuery = buildQuery(builder, alias, true);
+		String sourceQuery = buildQuery(builder, alias.toLowerCase(), true);
 
 		TypedQuery<T> query = entityManager.createQuery(sourceQuery, classeDaEntidade);
 
