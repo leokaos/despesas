@@ -85,16 +85,10 @@ export class CotacaoEdit {
       } as Cotacao;
     }
 
-    this.cotacaoService.createOrUpdate(cotacao)
-      .subscribe({
-        next: (_) => {
-          this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cotação salva com sucesso!', life: 3000 });
-          this.returnToView();
-        },
-        error: (error) => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error, life: 3000 });
-        }
-      });
+    this.cotacaoService.createOrUpdate(cotacao).subscribe((_) => {
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cotação salva com sucesso!', life: 3000 });
+      this.returnToView();
+    });
   }
 
   returnToView() {

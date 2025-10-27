@@ -88,14 +88,9 @@ export class DividaEdit {
       ...this.formGroup.value,
     } as Divida;
 
-    this.dividaService.createOrUpdate(divida).subscribe({
-      next: (_) => {
-        this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Dívida salva com sucesso!', life: 3000 });
-        this.returnToView();
-      },
-      error: (error) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error, life: 3000 });
-      }
+    this.dividaService.createOrUpdate(divida).subscribe((_) => {
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Dívida salva com sucesso!', life: 3000 });
+      this.returnToView();
     });
   }
 

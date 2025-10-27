@@ -1,5 +1,6 @@
 import {
   ApplicationConfig,
+  ErrorHandler,
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
@@ -12,6 +13,8 @@ import Aura from '@primeuix/themes/aura';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import '@angular/common/locales/global/pt';
 import { pt } from 'primelocale/pt.json';
+import { GlobalErrorHandler } from './infra/global-error-handler';
+import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,5 +29,7 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideHttpClient(withInterceptorsFromDi()),
     provideRouter(routes, withComponentInputBinding()),
+    MessageService,
+    { provide: ErrorHandler, useClass: GlobalErrorHandler, deps: [MessageService] },
   ],
 };

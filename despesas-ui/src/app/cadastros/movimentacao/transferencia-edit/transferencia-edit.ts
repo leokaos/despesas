@@ -90,16 +90,10 @@ export class TransferenciaEdit {
       ...this.formGroup.value,
     };
 
-    this.transferenciaService.createOrUpdate(transferencia)
-      .subscribe({
-        next: (_) => {
-          this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Transferência salva com sucesso!', life: 3000 });
-          this.returnToView();
-        },
-        error: (error) => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error, life: 3000 });
-        }
-      });
+    this.transferenciaService.createOrUpdate(transferencia).subscribe((_) => {
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Transferência salva com sucesso!', life: 3000 });
+      this.returnToView();
+    });
   }
 
   returnToView() {
