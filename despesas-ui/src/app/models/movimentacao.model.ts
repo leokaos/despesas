@@ -18,6 +18,7 @@ export interface Despesa extends Movimentacao {
 
 export interface Receita extends Movimentacao {
   depositado: boolean;
+  compromissada: boolean;
 }
 
 export interface Transferencia extends Movimentacao {

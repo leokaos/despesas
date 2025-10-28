@@ -52,7 +52,7 @@ public class DashboardFacadeImpl implements DashboardFacade {
 
 		filtroDespesa.setDataInicial(dataInicial);
 		filtroDespesa.setDataFinal(dataFinal);
-		
+
 		filtroDespesa.setMoeda(Moeda.EURO);
 
 		BigDecimal total = BigDecimal.ZERO;
@@ -70,6 +70,7 @@ public class DashboardFacadeImpl implements DashboardFacade {
 
 		filtroTransferencia.setDataInicial(dataInicial);
 		filtroTransferencia.setDataFinal(dataFinal);
+		filtroTransferencia.setMoeda(Moeda.EURO);
 
 		BigDecimal total = BigDecimal.ZERO;
 
@@ -86,7 +87,7 @@ public class DashboardFacadeImpl implements DashboardFacade {
 
 		filtroReceita.setDataInicial(dataInicial);
 		filtroReceita.setDataFinal(dataFinal);
-
+		filtroReceita.setCompromissada(false);
 		filtroReceita.setMoeda(Moeda.EURO);
 
 		BigDecimal total = BigDecimal.ZERO;
@@ -99,7 +100,7 @@ public class DashboardFacadeImpl implements DashboardFacade {
 	}
 
 	@Override
-	public BigDecimal getSaldoGeral(final Date dataInicial,final Date dataFinal) {
+	public BigDecimal getSaldoGeral(final Date dataInicial, final Date dataFinal) {
 		return getValorTotalReceitas(dataInicial, dataFinal).subtract(getValorTotalDespesas(dataInicial, dataFinal));
 	}
 }

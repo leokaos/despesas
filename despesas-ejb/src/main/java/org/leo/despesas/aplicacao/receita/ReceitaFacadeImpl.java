@@ -31,7 +31,7 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita, ReceitaFiltro> im
 		final StringBuilder builder = new StringBuilder();
 
 		builder.append("SELECT NEW org.leo.despesas.rest.GraficoVO(r.tipo.descricao,r.tipo.cor, SUM(r.valor)) FROM Receita r ");
-		builder.append("WHERE r.vencimento BETWEEN :dataInicial AND :dataFinal AND r.moeda = :moeda ");
+		builder.append("WHERE r.vencimento BETWEEN :dataInicial AND :dataFinal AND r.moeda = :moeda AND r.compromissada = :compromissada ");
 		builder.append("GROUP BY r.tipo.descricao, r.tipo.cor");
 
 		final Query query = entityManager.createQuery(builder.toString());
@@ -39,6 +39,7 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita, ReceitaFiltro> im
 		query.setParameter("dataInicial", periodo.getDataInicial());
 		query.setParameter("dataFinal", periodo.getDataFinal());
 		query.setParameter("moeda", Moeda.EURO);
+		query.setParameter("compromissada", false);
 
 		return query.getResultList();
 	}

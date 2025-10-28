@@ -31,6 +31,9 @@ public class Receita extends Movimentacao {
 	@JoinColumn(name = "investimento_id")
 	private Investimento investimento;
 
+	@Column(name = "compromissada")
+	private boolean compromissada;
+
 	public Receita() {
 		super();
 	}
@@ -59,6 +62,14 @@ public class Receita extends Movimentacao {
 		this.investimento = investimento;
 	}
 
+	public boolean isCompromissada() {
+		return compromissada;
+	}
+
+	public void setCompromissada(boolean compromissada) {
+		this.compromissada = compromissada;
+	}
+
 	public void depositar() {
 		this.debitavel.creditar(this);
 
@@ -70,7 +81,7 @@ public class Receita extends Movimentacao {
 	@Override
 	@JsonIgnore
 	public BigDecimal getValorContabilistico() {
-		return this.getValor();
+		return this.compromissada ? BigDecimal.ZERO : this.getValor();
 	}
 
 }

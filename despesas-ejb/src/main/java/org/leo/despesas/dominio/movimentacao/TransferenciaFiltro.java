@@ -6,6 +6,7 @@ import javax.ws.rs.QueryParam;
 
 import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.infra.AbstractModelFiltro;
+import org.leo.despesas.infra.Moeda;
 
 public class TransferenciaFiltro extends AbstractModelFiltro<Transferencia> {
 
@@ -18,6 +19,8 @@ public class TransferenciaFiltro extends AbstractModelFiltro<Transferencia> {
 	private Debitavel debitavel;
 
 	private Debitavel creditavel;
+
+	private Moeda moeda;
 
 	public TransferenciaFiltro() {
 		super();
@@ -37,6 +40,14 @@ public class TransferenciaFiltro extends AbstractModelFiltro<Transferencia> {
 
 	public void setDataFinal(final Date dataFinal) {
 		this.dataFinal = dataFinal;
+	}
+
+	public Moeda getMoeda() {
+		return moeda;
+	}
+
+	public void setMoeda(Moeda moeda) {
+		this.moeda = moeda;
 	}
 
 	public boolean hasDataInicialAndDataFinal() {
@@ -75,6 +86,8 @@ public class TransferenciaFiltro extends AbstractModelFiltro<Transferencia> {
 		eq("debitavel", debitavel);
 
 		eq("creditavel", creditavel);
+
+		eq("moeda", moeda);
 	}
 
 }

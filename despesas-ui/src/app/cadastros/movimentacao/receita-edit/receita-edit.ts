@@ -100,7 +100,8 @@ export class ReceitaEdit implements OnInit {
       vencimento: [this.receita?.vencimento, Validators.required],
       tipo: [this.receita?.tipo, Validators.required],
       debitavel: [this.receita?.debitavel, Validators.required],
-      depositado: [this.receita?.depositado, Validators.required],
+      depositado: [this.receita?.depositado || false, Validators.required],
+      compromissada: [this.receita?.compromissada || false, Validators.required],
     });
 
     this.loading.set(false);

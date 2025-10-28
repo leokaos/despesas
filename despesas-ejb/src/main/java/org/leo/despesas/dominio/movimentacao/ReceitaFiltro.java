@@ -27,6 +27,8 @@ public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 
 	private Debitavel debitavel;
 
+	private Boolean compromissada;
+
 	public Date getDataInicial() {
 		return dataInicial;
 	}
@@ -67,6 +69,14 @@ public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 		this.moeda = moeda;
 	}
 
+	public Boolean getCompromissada() {
+		return compromissada;
+	}
+
+	public void setCompromissada(Boolean compromissada) {
+		this.compromissada = compromissada;
+	}
+
 	public boolean hasDataInicialAndDataFinal() {
 		return dataInicial != null && dataFinal != null;
 	}
@@ -95,6 +105,8 @@ public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 		eq("moeda", moeda);
 
 		eq("debitavel.id", debitavelId);
+
+		eq("compromissada", compromissada);
 
 	}
 
