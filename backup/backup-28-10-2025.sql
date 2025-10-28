@@ -296,7 +296,8 @@ CREATE TABLE despesas_db.receita (
     depositado boolean NOT NULL,
     id bigint NOT NULL,
     tipo_receita_id bigint NOT NULL,
-    investimento_id bigint
+    investimento_id bigint,
+    compromissada boolean DEFAULT false
 );
 
 
@@ -405,6 +406,7 @@ COPY despesas_db.cotacao (id, origem, destino, taxa, data) FROM stdin;
 6	EURO	REAL	6.36	2025-10-16 18:51:24.566
 7	EURO	REAL	6.30	2025-10-17 21:44:10.375
 8	EURO	REAL	6.26	2025-10-25 18:12:32.109
+9	EURO	REAL	6.25	2025-10-28 14:26:20.173
 \.
 
 
@@ -418,6 +420,7 @@ COPY despesas_db.debitavel (id, cor, descricao, tipo, moeda, ativo) FROM stdin;
 5	#ffb800	Itáu	CONTA	REAL	t
 6	#0047ff	Porto Seguro	CARTAO	REAL	t
 7	#e36017	Financiamento Imobiliario Itau	DIVIDA	REAL	f
+18	#f2ff00	IVA 4 Trimestre	DIVIDA	EURO	t
 \.
 
 
@@ -6183,6 +6186,7 @@ t	6153	102	\N
 
 COPY despesas_db.divida (valor_total, periodiciodade, data_inicio, id) FROM stdin;
 121592.98	MENSAL	2017-10-31 20:00:00	7
+1794.00	VARIAVEL	2025-10-28 00:00:00	18
 \.
 
 
@@ -12152,7 +12156,6 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6061	Pagamento fatura 09/2025	2025-09-11	368.28	2025-09-30	5	REAL
 6062	TRF. P/O CONGRUENT LDA CONGRUENT	2025-10-01	1820.00	2025-09-30	3	EURO
 6063	PAGSERV H.P.T. - HOSPITAL PRIV 52177/047748998	2025-10-01	131.13	2025-09-30	3	EURO
-6064	Salário Outubro 2025	\N	4600.00	2025-10-31	3	EURO
 6065	UBR PENDING.UBER.COM	2025-10-02	5.98	2025-10-02	3	EURO
 6066	UBR PENDING.UBER.COM	2025-10-02	5.95	2025-10-02	3	EURO
 6067	GLOVO LISBOA PT	2025-10-02	10.95	2025-10-02	3	EURO
@@ -12242,6 +12245,8 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6151	UBR PENDING.UBER.COM	2025-10-25	5.98	2025-10-14	3	EURO
 6152	GLOVO LISBOA PT	2025-10-25	11.48	2025-10-14	3	EURO
 6153	GLOVO LISBOA PT	2025-10-25	8.55	2025-10-14	3	EURO
+6064	Salário Outubro 2025	\N	4604.60	2025-10-31	3	EURO
+6154	IVA Outubro 2025	\N	1375.40	2025-10-31	3	EURO
 \.
 
 
@@ -12307,102 +12312,103 @@ COTACAO_URL	https://economia.awesomeapi.com.br/json/last/	TEXTO
 -- Data for Name: receita; Type: TABLE DATA; Schema: despesas_db; Owner: despesas
 --
 
-COPY despesas_db.receita (depositado, id, tipo_receita_id, investimento_id) FROM stdin;
-t	44	109	\N
-t	55	109	\N
-t	61	109	\N
-t	196	111	\N
-t	233	109	\N
-t	269	109	\N
-t	367	111	\N
-t	343	109	\N
-t	405	109	\N
-t	447	109	\N
-t	495	109	\N
-t	530	109	\N
-t	629	109	\N
-t	637	111	\N
-t	666	109	\N
-t	728	109	\N
-t	776	111	\N
-t	787	109	\N
-t	810	111	\N
-t	836	109	\N
-t	878	111	\N
-t	860	109	\N
-t	906	109	\N
-t	916	111	\N
-t	950	109	\N
-t	951	109	\N
-t	986	109	\N
-t	1080	109	\N
-t	1120	109	\N
-t	1177	109	\N
-t	1235	111	\N
-t	1183	109	\N
-t	1360	109	\N
-t	1415	109	\N
-t	1524	109	\N
-t	1610	109	\N
-t	1716	111	\N
-t	1717	109	\N
-t	1795	109	\N
-t	1797	111	\N
-t	1798	111	\N
-t	1904	109	\N
-t	1906	109	\N
-t	1989	109	\N
-t	2091	109	\N
-t	2409	109	\N
-t	2451	109	\N
-t	2571	109	\N
-t	2612	109	\N
-t	2701	109	\N
-t	2774	109	\N
-t	2896	109	\N
-t	2974	111	\N
-t	3006	111	\N
-t	2989	109	\N
-t	3081	109	\N
-t	3197	109	\N
-t	3175	109	\N
-t	3200	109	\N
-t	3489	111	\N
-t	3402	109	\N
-t	3640	111	\N
-t	3641	111	\N
-t	3642	111	\N
-t	3494	109	\N
-t	3735	111	\N
-t	3607	109	\N
-t	3818	109	\N
-t	3889	109	\N
-t	92	109	\N
-t	125	109	\N
-t	3890	109	\N
-t	4046	109	\N
-t	4161	109	\N
-t	4354	111	\N
-t	4494	111	\N
-t	4321	109	\N
-t	4436	109	\N
-t	4569	109	\N
-t	4748	111	\N
-t	4718	109	\N
-t	4830	109	\N
-t	5044	111	\N
-t	5045	111	\N
-t	4908	109	\N
-t	5183	109	\N
-t	5369	111	\N
-t	5370	111	\N
-t	5184	109	\N
-t	5825	111	\N
-t	5919	111	\N
-t	5920	10	\N
-t	5921	111	\N
-t	6062	109	\N
-f	6064	109	\N
+COPY despesas_db.receita (depositado, id, tipo_receita_id, investimento_id, compromissada) FROM stdin;
+t	44	109	\N	f
+t	55	109	\N	f
+t	61	109	\N	f
+t	196	111	\N	f
+t	233	109	\N	f
+t	269	109	\N	f
+t	367	111	\N	f
+t	343	109	\N	f
+t	405	109	\N	f
+t	447	109	\N	f
+t	495	109	\N	f
+t	530	109	\N	f
+t	629	109	\N	f
+t	637	111	\N	f
+t	666	109	\N	f
+t	728	109	\N	f
+t	776	111	\N	f
+t	787	109	\N	f
+t	810	111	\N	f
+t	836	109	\N	f
+t	878	111	\N	f
+t	860	109	\N	f
+t	906	109	\N	f
+t	916	111	\N	f
+t	950	109	\N	f
+t	951	109	\N	f
+t	986	109	\N	f
+t	1080	109	\N	f
+t	1120	109	\N	f
+t	1177	109	\N	f
+t	1235	111	\N	f
+t	1183	109	\N	f
+t	1360	109	\N	f
+t	1415	109	\N	f
+t	1524	109	\N	f
+t	1610	109	\N	f
+t	1716	111	\N	f
+t	1717	109	\N	f
+t	1795	109	\N	f
+t	1797	111	\N	f
+t	1798	111	\N	f
+t	1904	109	\N	f
+t	1906	109	\N	f
+t	1989	109	\N	f
+t	2091	109	\N	f
+t	2409	109	\N	f
+t	2451	109	\N	f
+t	2571	109	\N	f
+t	2612	109	\N	f
+t	2701	109	\N	f
+t	2774	109	\N	f
+t	2896	109	\N	f
+t	2974	111	\N	f
+t	3006	111	\N	f
+t	2989	109	\N	f
+t	3081	109	\N	f
+t	3197	109	\N	f
+t	3175	109	\N	f
+t	3200	109	\N	f
+t	3489	111	\N	f
+t	3402	109	\N	f
+t	3640	111	\N	f
+t	3641	111	\N	f
+t	3642	111	\N	f
+t	3494	109	\N	f
+t	3735	111	\N	f
+f	6154	23	\N	t
+t	3607	109	\N	f
+t	3818	109	\N	f
+t	3889	109	\N	f
+t	92	109	\N	f
+t	125	109	\N	f
+t	3890	109	\N	f
+t	4046	109	\N	f
+t	4161	109	\N	f
+t	4354	111	\N	f
+t	4494	111	\N	f
+t	4321	109	\N	f
+t	4436	109	\N	f
+t	4569	109	\N	f
+t	4748	111	\N	f
+t	4718	109	\N	f
+t	4830	109	\N	f
+t	5044	111	\N	f
+t	5045	111	\N	f
+t	4908	109	\N	f
+t	5183	109	\N	f
+t	5369	111	\N	f
+t	5370	111	\N	f
+t	5184	109	\N	f
+t	5825	111	\N	f
+t	5919	111	\N	f
+t	5920	10	\N	f
+t	5921	111	\N	f
+t	6062	109	\N	f
+f	6064	109	\N	f
 \.
 
 
@@ -12442,6 +12448,7 @@ D	3	#4a1ad6	Casa
 D	107	#a1a1a1	Carro
 D	5	#00ff32	Gastos Advogados
 R	10	#00ff66	Acordo Pagamento PENGUIN
+R	23	#194fcf	Pagamento IVA
 \.
 
 
@@ -12573,14 +12580,14 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 -- Name: cotacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 8, true);
+SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 9, true);
 
 
 --
 -- Name: debitavel_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 17, true);
+SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 18, true);
 
 
 --
@@ -12601,7 +12608,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 46, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6153, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6154, true);
 
 
 --
@@ -12622,7 +12629,7 @@ SELECT pg_catalog.setval('despesas_db.servico_transferencia_id_seq', 2, true);
 -- Name: tipo_movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.tipo_movimentacao_id_seq', 22, true);
+SELECT pg_catalog.setval('despesas_db.tipo_movimentacao_id_seq', 23, true);
 
 
 --
