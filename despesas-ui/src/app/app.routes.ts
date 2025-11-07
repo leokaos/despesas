@@ -37,6 +37,9 @@ import { DespesaView } from './cadastros/movimentacao/despesa-view/despesa-view'
 import { DespesaEdit } from './cadastros/movimentacao/despesa-edit/despesa-edit';
 import { ReceitaEdit } from './cadastros/movimentacao/receita-edit/receita-edit';
 import { AportesView } from './cadastros/debitavel/aportes-view/aportes-view';
+import { CalculoRecibosVerdes } from './movimentacao/calculo-recibos-verdes/calculo-recibos-verdes';
+import { FeriadoView } from './cadastros/feriado/feriado-view/feriado-view';
+import { FeriadoEdit } from './cadastros/feriado/feriado-edit/feriado-edit';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -80,6 +83,9 @@ export const routes: Routes = [
   { path: 'servicos-transferencia', component: ServicoTransferenciaView },
   { path: 'servico-transferencia', component: ServicoTransferenciaEdit },
   { path: 'servico-transferencia/:id', component: ServicoTransferenciaEdit },
+  { path: 'feriados', component: FeriadoView },
+  { path: 'feriado', component: FeriadoEdit },
+  { path: 'feriado/:id', component: FeriadoEdit },
 
   //MOVIMENTACAO
   { path: 'pagamentos', component: Pagamentos },
@@ -87,6 +93,7 @@ export const routes: Routes = [
   { path: 'painelDespesas', component: LancamentoDespesa },
   { path: 'painelReceitas', component: LancamentoReceita },
   { path: 'projecao', component: Projecao },
+  { path: 'recibos', component: CalculoRecibosVerdes },
 
   //GRAFICO
   { path: 'extrato', component: ExtratoMensal },

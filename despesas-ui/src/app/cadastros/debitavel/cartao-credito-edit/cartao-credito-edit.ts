@@ -54,7 +54,7 @@ export class CartaoCreditoEdit {
   loading = signal<boolean>(true);
   bandeiras: Bandeira[] = Bandeira.values();
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     var id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -92,8 +92,7 @@ export class CartaoCreditoEdit {
     } as CartaoCredito;
 
     this.cartaoCreditoService.createOrUpdate(cartaoCredito).subscribe((_) => {
-      // prettier-ignore
-      this.messageService.add({severity: 'success', summary: 'Sucesso', detail: 'Cartão de Crédito salvo com sucesso!', life: 3000 });
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cartão de Crédito salvo com sucesso!', life: 3000 });
       this.returnToView();
     });
   }

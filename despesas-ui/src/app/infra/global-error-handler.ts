@@ -9,6 +9,6 @@ export class GlobalErrorHandler implements ErrorHandler {
     private messageService = inject(MessageService);
 
     handleError(error: any) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error, life: 3000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error || error, life: 3000 });
     }
 }

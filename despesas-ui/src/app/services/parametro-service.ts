@@ -11,6 +11,9 @@ export class ParametroService {
   private readonly path: string = 'parametro';
   private readonly IOF: string = 'IOF'
   private readonly SPOT: string = 'SPOT'
+  private readonly VALOR_DIARIO: string = 'VALOR_DIARIO'
+  private readonly PERCENT_IVA: string = 'PERCENT_IVA'
+  private readonly PERCENT_IRS: string = 'PERCENT_IRS'
 
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
 
@@ -28,5 +31,18 @@ export class ParametroService {
   fetchSPOT(): Observable<number> {
     return this.fetchById(this.SPOT).pipe(map((data: string) => parseFloat(data)));
   }
+
+  fetchValorDiario(): Observable<number> {
+    return this.fetchById(this.VALOR_DIARIO).pipe(map((data: string) => parseFloat(data)));
+  }
+
+  fetchPercentIVA(): Observable<number> {
+    return this.fetchById(this.PERCENT_IVA).pipe(map((data: string) => parseFloat(data)));
+  }
+
+  fetchPercentIRS(): Observable<number> {
+    return this.fetchById(this.PERCENT_IRS).pipe(map((data: string) => parseFloat(data)));
+  }
+
 
 }

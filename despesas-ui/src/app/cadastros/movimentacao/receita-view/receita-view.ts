@@ -59,7 +59,7 @@ export class ReceitaView implements OnInit {
 
   loading = signal<boolean>(true);
 
-  data: Receita[] = [];
+  data = signal<Receita[]>([]);
   selectedData: Receita[] = [];
 
   tipos: TipoReceita[] = [];
@@ -109,7 +109,7 @@ export class ReceitaView implements OnInit {
     }).subscribe((results: any) => {
       this.tipos = [...results.tipos];
       this.debitaveis = [...results.debitaveis];
-      this.data = [...results.receitas];
+      this.data.update(_ => results.receitas);
       this.selectedData = [];
       this.loading.set(false);
     });

@@ -1,0 +1,126 @@
+<span class="page-title">
+    <i class="pi pi-chevron-right"></i> Calcular Recibos Verdes
+</span>
+
+<div class="form-panel">
+
+    @if (loading()) {
+    <app-loader />
+    } @else {
+
+    <div class="flex flex-row w-full gap-5">
+
+        <div>
+            <label> Valor Diário: </label>
+            <p-inputNumber [(ngModel)]="valorDiario" (ngModelChange)="setValor()"> </p-inputNumber>
+        </div>
+
+        <div class="grow"></div>
+
+        <div class="flex items-center gap-4">
+            <app-periodo-view [(ngModel)]="periodo"></app-periodo-view>
+            <p-button label="Adicionar" (click)="adicionarItem()" [disabled]="isPeriodoAlreadyInTable()"></p-button>
+        </div>
+
+    </div>
+
+    <div class="flex flex-1 gap-20 min-h-0">
+
+        <div class="w-4/5 my-10">
+
+            <p-table [value]="items()">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Data Inicial</th>
+                        <th>Data Final</th>
+                        <th class="force-center">Dias Trabalhados</th>
+                        <th class="force-center">Valor Bruto</th>
+                        <th class="force-center">IVA</th>
+                        <th class="force-center">Total Líquido</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-i="rowIndex">
+                    <tr>
+                        <td> {{item.dataInicial() | date:'dd/MM/yyyy'}} </td>
+                        <td> {{item.dataFinal() | date:'dd/MM/yyyy'}} </td>
+                        <td class="force-center"> {{item.diasUteis()}} </td>
+                        <td class="force-center"> {{item.valorBruto() | number: '1.2-2' : 'pt-BR'}} </td>
+                        <td class="force-center"> {{item.valorIVA() | number: '1.2-2' : 'pt-BR'}} </td>
+                        <td class="force-center"> {{item.valorLiquido() | number: '1.2-2' : 'pt-BR'}} </td>
+                        <td class="small-column">
+                            <p-button icon="pi pi-plus" severity="warn" (click)="openDialog(item)" size="small" />
+                        </td>
+                        <td class="small-column">
+                            <p-button icon="pi pi-trash" severity="danger" (click)="removeItem(item)" size="small" />
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template #footer>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td class="force-center"><b>Somatório:</b></td>
+                        <td class="force-center">{{getTotalValorBruto() | number: '1.2-2' : 'pt-BR'}}</td>
+                        <td class="force-center">{{getTotalIVA() | number: '1.2-2' : 'pt-BR'}}</td>
+                        <td class="force-center">{{getTotalLiquido() | number: '1.2-2' : 'pt-BR'}}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <div class="w-1/5 my-10">
+
+            <p-table [paginator]="true" [rows]="10" [value]="feriados()">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Data</th>
+                        <th>Tipo</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-date>
+                    <tr>
+                        <td class="text-sm">
+                            {{date.data | date: "dd/MM/yyyy"}}
+                        </td>
+                        <td class="text-sm">
+                            {{date.tipo}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+    <p-dialog header="Selecionar Arquivo" [style]="{ width: '800px' }" [modal]="true" position="top" [(visible)]="visible">
+
+        <div class="flex flex-col gap-4">
+
+            <div class="flex flex-1 items-center mb-10">
+                <label class="w-80">Debitável</label>
+                <app-select-debitavel class="w-60" [debitaveis]="debitaveis" [(ngModel)]="debitavelSelecionado" />
+            </div>
+
+            <div class="flex flex-1 items-center mb-10">
+                <label class="w-80">Tipo Receita para Valor Liquido</label>
+                <app-select-tipo-movimentacao [tipos]="tiposReceita" [(ngModel)]="tipoReceitaLiquida" class="w-60" />
+            </div>
+
+            <div class="flex flex-1 items-center mb-10">
+                <label class="w-80">Tipo Receita para Valor IVA</label>
+                <app-select-tipo-movimentacao [tipos]="tiposReceita" [(ngModel)]="tipoReceitaIVA" class="w-60" />
+            </div>
+
+        </div>
+
+        <ng-template pTemplate="footer">
+            <div class="flex flex-1 gap-2">
+                <p-button label="Cancelar" icon="pi pi-times" (click)="visible.set(false)" severity="secondary" class="flex flex-1 justify-start" />
+                <p-button label="OK" icon="pi pi-check" class="flex flex-1 justify-end" (click)="salvar()" [loading]="loadingSalvar()" />
+            </div>
+        </ng-template>
+    </p-dialog>
+    }
+</div>

@@ -1,28 +1,29 @@
 <div class="flex gap-4 items-center">
-  <div class="flex-1">
-    <app-select-mes [initialValue]="mes" [disabled]="disabled" (onSelect)="onMesSelected($event)"></app-select-mes>
+  <div class="flex-1 w-40">
+    <app-select-mes
+                    [initialValue]="mes"
+                    [disabled]="disabled"
+                    (onSelect)="onMesSelected($event)" />
   </div>
 
   <div class="flex-none">
-    <span class="text-gray-400 mx-5">de</span>
+    <span class="mx-3">de</span>
   </div>
 
-  <div class="w-32">
+  <div>
     <input
-      pInputText
-      type="number"
-      placeholder="AAAA"
-      [(ngModel)]="ano"
-      min="2000"
-      max="2030"
-      class="w-full"
-      [disabled]="disabled"
-      (input)="onYearInput($event)"
-      (blur)="onYearBlur()"
-    />
+           pInputText
+           type="number"
+           placeholder="AAAA"
+           [(ngModel)]="ano"
+           min="2000"
+           max="2030"
+           [disabled]="disabled"
+           (input)="onYearInput($event)"
+           (blur)="onYearBlur()" />
   </div>
 
   <div class="flex-none">
-    <p-button icon="pi pi-calendar" severity="success" [disabled]="disabled" (click)="setCurrent()"/>
+    <p-button icon="pi pi-calendar" severity="success" [disabled]="disabled" (click)="setCurrent()" />
   </div>
 </div>
