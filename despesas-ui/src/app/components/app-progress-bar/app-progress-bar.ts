@@ -20,6 +20,8 @@ export class AppProgressBar {
 
   @Input() showState: boolean = true;
 
+  @Input() currency: boolean = false;
+
   constructor() { }
 
   getBarClass(): string {

@@ -4,7 +4,11 @@
 
         @if (showLabel) {
         <span class="progress-center-label">
+            @if(currency){
             {{ current | number: '1.2-2' : 'pt-BR' }} / {{ total | number: '1.2-2' : 'pt-BR' }}
+            } @else {
+            {{ current | number: '1.0-0' : 'pt-BR' }} / {{ total | number: '1.0-0' : 'pt-BR' }}
+            }
         </span>
         }
 

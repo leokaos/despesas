@@ -9,6 +9,13 @@
     } @else {
     <p-panel>
 
+        <ng-template #header>
+            <div class="flex items-center gap-2">
+                <i class="pi pi-filter text-gray-600"></i>
+                <span class="text-sm font-medium text-gray-700 whitespace-nowrap">Filtrar</span>
+            </div>
+        </ng-template>
+
         <div class="flex flex-row gap-4 items-center">
 
             <div class="flex flex-1 justify-center">
@@ -67,7 +74,7 @@
 
     @if (data){
     <div class="p-10">
-        <p-chart type="bar" [data]="data" class="w-full" style="height: 500px;" [options]="{maintainAspectRatio: false, aspectRatio: 0.6}" />
+        <p-chart type="bar" [data]="data" class="w-full" style="height: 550px;" [options]="{maintainAspectRatio: false, aspectRatio: 0.6}" />
     </div>
     }
 

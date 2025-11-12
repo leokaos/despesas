@@ -99,7 +99,7 @@
                     {{orcamento.tipoDespesa.descricao}}
                 </div>
                 <div class="flex-1">
-                    <app-progress-bar [current]="orcamento.valorConsolidado" [total]="orcamento.valor" [striped]="true" [animated]="true" [showLabel]="true" />
+                    <app-progress-bar [current]="orcamento.valorConsolidado" [total]="orcamento.valor" [striped]="true" [animated]="true" [showLabel]="true" [currency]="true" />
                 </div>
             </div>
             } @empty {

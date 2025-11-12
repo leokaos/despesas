@@ -49,7 +49,7 @@ export class TransferenciaView implements OnInit {
   private table?: Table;
 
   loading = signal<boolean>(true);
-  data: Transferencia[] = [];
+  data = signal<Transferencia[]>([]);
   searchValue?: string;
   showDialog: boolean = false;
   transferencia?: Transferencia;
@@ -76,7 +76,7 @@ export class TransferenciaView implements OnInit {
     } as TransferenciaFiltro;
 
     this.transferenciaService.fetch(filtro).subscribe((data: Transferencia[]) => {
-      this.data = [...data];
+      this.data.update(_ => data);
       this.loading.set(false);
     });
   }
@@ -108,7 +108,6 @@ export class TransferenciaView implements OnInit {
 
   remover() {
     if (this.transferencia) {
-      // prettier-ignore
       this.transferenciaService.remove(this.transferencia).subscribe(() => {
         this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Transferência removida com sucesso!', life: 3000 });
         this.loadData();

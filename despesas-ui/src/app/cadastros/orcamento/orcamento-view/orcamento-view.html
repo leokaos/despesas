@@ -99,7 +99,7 @@
                 <td>{{ item.descricao }}</td>
                 <td>{{item.valor | number: '1.2-2' : 'pt-BR' }}</td>
                 <td class="align-middle">
-                    <app-progress-bar [current]="item.valorConsolidado" [total]="item.valor" [striped]="true" [animated]="true" [showLabel]="true" />
+                    <app-progress-bar [current]="item.valorConsolidado" [total]="item.valor" [striped]="true" [animated]="true" [showLabel]="true" [currency]="true" />
                 </td>
                 <td class="small-column">
                     <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(item)" />
