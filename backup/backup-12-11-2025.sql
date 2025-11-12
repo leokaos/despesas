@@ -414,8 +414,8 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-92.90	4
-74518.45	5
+73234.83	5
+86.91	4
 42181.40	3
 \.
 
@@ -6267,6 +6267,10 @@ t	6220	102	\N
 t	6221	102	\N
 t	6222	102	\N
 t	6223	102	\N
+t	6224	4	\N
+t	6225	4	\N
+t	6226	3	\N
+t	6227	4	\N
 \.
 
 
@@ -12444,6 +12448,10 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6213	UBR PENDING.UBER.COM	2025-11-12	3.92	2025-11-04	3	EURO
 6218	UBR PENDING.UBER.COM	2025-11-12	5.91	2025-11-04	3	EURO
 6223	GLOVO LISBOA PT	2025-11-12	9.90	2025-10-31	3	EURO
+6224	DA COMGAS 48353698	2025-11-12	11.92	2025-11-17	5	REAL
+6225	DA VIVO-SP 13706597739	2025-11-12	162.00	2025-11-10	5	REAL
+6226	PIX QRS TOMMY DESIG10/11	2025-11-12	1109.70	2025-11-10	5	REAL
+6227	Glovo Prime	2025-11-12	5.99	2025-11-03	4	EURO
 \.
 
 
@@ -12823,7 +12831,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 47, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6223, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6227, true);
 
 
 --
