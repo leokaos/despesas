@@ -58,8 +58,8 @@ export class DespesaView implements OnInit {
   private table?: Table;
 
   loading = signal<boolean>(true);
+  data = signal<Despesa[]>([]);
 
-  data: Despesa[] = [];
   selectedData: Despesa[] = [];
 
   tipos: TipoDespesa[] = [];
@@ -109,7 +109,7 @@ export class DespesaView implements OnInit {
     }).subscribe((results: any) => {
       this.tipos = [...results.tipos];
       this.debitaveis = [...results.debitaveis];
-      this.data = [...results.despesas];
+      this.data.update(_ => results.despesas);
       this.selectedData = [];
       this.loading.set(false);
     });

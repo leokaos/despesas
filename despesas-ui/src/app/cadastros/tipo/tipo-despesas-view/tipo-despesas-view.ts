@@ -14,14 +14,15 @@ import { Loader } from '../../../components/loader/loader';
   styleUrl: './tipo-despesas-view.scss',
 })
 export class TipoDespesasView implements OnInit {
-  data: TipoDespesa[] = [];
+
+  data = signal<TipoDespesa[]>([]);
   loading = signal<boolean>(true);
 
   private tipoDespesaService = inject(TipoDespesaService);
   private messageService = inject(MessageService);
   private router = inject(Router);
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.loadData();
@@ -29,13 +30,12 @@ export class TipoDespesasView implements OnInit {
 
   loadData() {
     this.tipoDespesaService.fetch().subscribe((data: TipoDespesa[]) => {
-      this.data = [...data];
+      this.data.set(data);
       this.loading.set(false);
     });
   }
 
   removerTipoDespesa(tipoDespesa: TipoDespesa) {
-    // prettier-ignore
     this.tipoDespesaService.remove(tipoDespesa)
       .subscribe(() => {
         this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Tipo Despesa removida com sucesso!', life: 3000 });

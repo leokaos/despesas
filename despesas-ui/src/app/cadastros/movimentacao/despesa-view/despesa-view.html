@@ -75,7 +75,7 @@
     <p-table
              #table
              stripedRows
-             [value]="data"
+             [value]="data()"
              sortMode="single"
              [paginator]="true"
              [rows]="10"
@@ -179,7 +179,7 @@
 
 <div class="form-panel indicador">
     <span>Total:</span>
-    <p>R$ {{data | sum: 'valor' | number: '1.2-2' : 'pt-BR' }}</p>
+    <p>R$ {{data() | sum: 'valor' | number: '1.2-2' : 'pt-BR' }}</p>
 </div>
 
 <div class="form-panel indicador">

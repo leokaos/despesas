@@ -3,7 +3,7 @@
 } @else {
 <app-tipo-view
                titulo="Tipo de Despesa"
-               [data]="data"
+               [data]="data()"
                (onRemover)="removerTipoDespesa($event)"
                (onEdit)="editTipoDespesa($event)"
                (onAdicionar)="adicionarTipoDespesa()"

@@ -1,5 +1,5 @@
 import { TipoMovimentacao } from './../../../models/tipo-movimentacao.model';
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, input, Input, Output, ViewChild } from '@angular/core';
 import { Table, TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -33,8 +33,7 @@ export class TipoView {
   @Input()
   titulo: string = 'Tipos';
 
-  @Input()
-  data: TipoMovimentacao[] = [];
+  data = input<TipoMovimentacao[]>([]);
 
   @Output()
   onRemover: EventEmitter<TipoMovimentacao> = new EventEmitter<TipoMovimentacao>();
@@ -55,7 +54,7 @@ export class TipoView {
   tipoMovimentacao?: TipoMovimentacao;
   showDialog: boolean = false;
 
-  constructor() {}
+  constructor() { }
 
   search() {
     this.table?.filterGlobal(this.searchValue, 'contains');

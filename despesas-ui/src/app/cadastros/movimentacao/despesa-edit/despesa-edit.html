@@ -50,16 +50,16 @@
                 <div class="w-1/5">
                     <app-select-tipo-movimentacao [tipos]="tipos" formControlName="tipo" />
                 </div>
-                @if (!!orcamento) {
+                @if (orcamento()) {
                 <div class="flex flex-1 justify-center items-center">
                     <app-progress-bar
-                                      [current]="orcamento.valorConsolidado"
-                                      [total]="orcamento.valor"
+                                      [current]="orcamento()!.valorConsolidado"
+                                      [total]="orcamento()!.valor"
                                       [striped]="true"
                                       [animated]="true"
                                       [showLabel]="true"
-                                      class="w-2/5" 
-                                      [currency]="true"/>
+                                      class="w-2/5"
+                                      [currency]="true" />
                 </div>
                 }
             </div>

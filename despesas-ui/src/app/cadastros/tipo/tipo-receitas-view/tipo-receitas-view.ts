@@ -14,14 +14,15 @@ import { Loader } from '../../../components/loader/loader';
   styleUrl: './tipo-receitas-view.scss',
 })
 export class TipoReceitasView implements OnInit {
-  data: TipoReceita[] = [];
+
+  data = signal<TipoReceita[]>([]);
   loading = signal<boolean>(true);
 
   private tipoReceitaService = inject(TipoReceitaService);
   private messageService = inject(MessageService);
   private router = inject(Router);
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.loadData();
@@ -29,13 +30,12 @@ export class TipoReceitasView implements OnInit {
 
   loadData() {
     this.tipoReceitaService.fetch().subscribe((data: TipoReceita[]) => {
-      this.data = [...data];
+      this.data.set(data);
       this.loading.set(false);
     });
   }
 
   removerTipoReceita(tipoReceita: TipoReceita) {
-    // prettier-ignore
     this.tipoReceitaService.remove(tipoReceita)
       .subscribe(() => {
         this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Tipo Receita removida com sucesso!', life: 3000 });

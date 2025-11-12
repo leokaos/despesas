@@ -58,8 +58,8 @@ export class ReceitaView implements OnInit {
   private table?: Table;
 
   loading = signal<boolean>(true);
-
   data = signal<Receita[]>([]);
+
   selectedData: Receita[] = [];
 
   tipos: TipoReceita[] = [];

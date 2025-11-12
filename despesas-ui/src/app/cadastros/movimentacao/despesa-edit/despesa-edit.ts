@@ -57,7 +57,7 @@ export class DespesaEdit implements OnInit {
   tipos: TipoDespesa[] = [];
   despesa?: Despesa;
   formGroup!: FormGroup;
-  orcamento?: Orcamento;
+  orcamento = signal<Orcamento | undefined>(undefined);
   parcelar: boolean = false;
   tiposParcelamento: string[] = ['Semanal', 'Mensal', 'Semestral', 'Anual'];
 
@@ -140,7 +140,7 @@ export class DespesaEdit implements OnInit {
 
       this.orcamentoService.fetch(orcamentoFiltro).subscribe((orcamentos: Orcamento[]) => {
         if (orcamentos.length == 1) {
-          this.orcamento = orcamentos[0];
+          this.orcamento.set(orcamentos[0]);
         }
       });
     }
