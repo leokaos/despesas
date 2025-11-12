@@ -5,11 +5,8 @@ import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -26,8 +23,6 @@ import org.leo.despesas.infra.Periodo;
 
 @RunWith(EasyMockRunner.class)
 public class ProjecaoFacadeImplTest {
-
-	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
 	@TestSubject
 	private ProjecaoFacadeImpl facade = new ProjecaoFacadeImpl();
