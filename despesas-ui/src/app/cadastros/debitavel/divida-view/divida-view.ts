@@ -41,7 +41,7 @@ export class DividaView {
   private table?: Table;
 
   loading = signal<boolean>(true);
-  data: Divida[] = [];
+  data = signal<Divida[]>([]);
   searchValue?: string;
   showDialog: boolean = false;
   divida?: Divida;
@@ -58,7 +58,7 @@ export class DividaView {
 
   loadData() {
     this.dividaService.fetch().subscribe((data: Divida[]) => {
-      this.data = [...data];
+      this.data.update(_ => [...data]);
       this.loading.set(false);
     });
   }

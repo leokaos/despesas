@@ -40,7 +40,7 @@ export class InvestimentoView {
   private table?: Table;
 
   loading = signal<boolean>(true);
-  data: Investimento[] = [];
+  data = signal<Investimento[]>([]);
   searchValue?: string;
   showDialog: boolean = false;
   investimento?: Investimento;
@@ -49,7 +49,7 @@ export class InvestimentoView {
   private router = inject(Router);
   private messageService = inject(MessageService);
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.loadData();
@@ -57,7 +57,7 @@ export class InvestimentoView {
 
   private loadData() {
     this.investimentoService.fetch().subscribe((data: Investimento[]) => {
-      this.data = [...data];
+      this.data.update(_ => [...data]);
       this.loading.set(false);
     });
   }
@@ -88,7 +88,7 @@ export class InvestimentoView {
     if (this.investimento) {
       // prettier-ignore
       this.investimentoService.remove(this.investimento).subscribe(() => {
-        this.messageService.add({severity: 'success', summary: 'Successo', detail: 'Investimento removida com sucesso!', life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Investimento removida com sucesso!', life: 3000 });
         this.loadData();
       });
     }

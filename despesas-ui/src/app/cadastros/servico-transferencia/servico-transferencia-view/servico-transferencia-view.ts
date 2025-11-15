@@ -36,7 +36,7 @@ export class ServicoTransferenciaView {
   private table?: Table;
 
   loading = signal<boolean>(true);
-  data: ServicoTransferencia[] = [];
+  data = signal<ServicoTransferencia[]>([]);
   searchValue?: string;
   showDialog: boolean = false;
   servicoTransferencia?: ServicoTransferencia;
@@ -57,7 +57,7 @@ export class ServicoTransferenciaView {
     this.loading.set(true);
 
     this.servicoTransferenciaService.fetch().subscribe((data: ServicoTransferencia[]) => {
-      this.data = [...data];
+      this.data.update(_ => [...data]);
       this.loading.set(false);
     });
   }

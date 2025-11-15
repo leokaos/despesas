@@ -39,7 +39,7 @@ export class CotacaoView {
   @ViewChild('table')
   private table?: Table;
 
-  data: Cotacao[] = [];
+  data = signal<Cotacao[]>([]);
   searchValue?: string;
   loading = signal<boolean>(true);
   showDialog: boolean = false;
@@ -57,7 +57,7 @@ export class CotacaoView {
 
   loadData() {
     this.cotacaoService.fetch().subscribe((data: Cotacao[]) => {
-      this.data = [...data];
+      this.data.update(_ => [...data]);
       this.loading.set(false);
     });
   }

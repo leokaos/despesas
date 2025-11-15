@@ -48,7 +48,7 @@ export class OrcamentoView implements OnInit {
   @ViewChild('table')
   private table?: Table;
 
-  data: Orcamento[] = [];
+  data = signal<Orcamento[]>([]);
   searchValue?: string;
   loading = signal<boolean>(true);
   showDialog: boolean = false;
@@ -59,7 +59,7 @@ export class OrcamentoView implements OnInit {
   private router = inject(Router);
   private messageService = inject(MessageService);
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.periodo = {
@@ -79,7 +79,7 @@ export class OrcamentoView implements OnInit {
     }
 
     this.orcamentoService.fetch(filtro).subscribe((data: Orcamento[]) => {
-      this.data = [...data];
+      this.data.update(_ => [...data]);
       this.loading.set(false);
     });
   }
@@ -113,9 +113,8 @@ export class OrcamentoView implements OnInit {
 
   remover() {
     if (this.orcamento) {
-      // prettier-ignore
       this.orcamentoService.remove(this.orcamento).subscribe(() => {
-        this.messageService.add({severity: 'success', summary: 'Successo', detail: 'Orçamento removido com sucesso!', life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Orçamento removido com sucesso!', life: 3000 });
         this.loadData();
       });
     }

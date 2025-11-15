@@ -39,7 +39,7 @@ export class ContaView implements OnInit {
   private table?: Table;
 
   loading = signal<boolean>(true);
-  data: Conta[] = [];
+  data = signal<Conta[]>([]);
   searchValue?: string;
   showDialog: boolean = false;
   conta?: Conta;
@@ -48,7 +48,7 @@ export class ContaView implements OnInit {
   private router = inject(Router);
   private messageService = inject(MessageService);
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.loadData();
@@ -56,7 +56,7 @@ export class ContaView implements OnInit {
 
   loadData() {
     this.contaService.fetch().subscribe((data: Conta[]) => {
-      this.data = [...data];
+      this.data.update(_ => [...data]);
       this.loading.set(false);
     });
   }
@@ -87,7 +87,7 @@ export class ContaView implements OnInit {
     if (this.conta) {
       // prettier-ignore
       this.contaService.remove(this.conta).subscribe(() => {
-        this.messageService.add({severity: 'success', summary: 'Successo', detail: 'Conta removida com sucesso!', life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Conta removida com sucesso!', life: 3000 });
         this.loadData();
       });
     }

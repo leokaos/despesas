@@ -40,7 +40,7 @@ export class MetaView implements OnInit {
   private table?: Table;
 
   loading = signal<boolean>(true);
-  data: Meta[] = [];
+  data = signal<Meta[]>([]);
   searchValue?: string;
   showDialog: boolean = false;
   meta?: Meta;
@@ -50,7 +50,7 @@ export class MetaView implements OnInit {
   private messageService = inject(MessageService);
   private metaService = inject(MetaService);
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.periodo = {
@@ -68,7 +68,7 @@ export class MetaView implements OnInit {
     } as MetaFiltro;
 
     this.metaService.fetch(filtro).subscribe((data: Meta[]) => {
-      this.data = [...data];
+      this.data.update(_ => [...data]);
       this.loading.set(false);
     });
   }
@@ -95,7 +95,7 @@ export class MetaView implements OnInit {
     if (this.meta) {
       // prettier-ignore
       this.metaService.remove(this.meta).subscribe(() => {
-        this.messageService.add({severity: 'success', summary: 'Successo', detail: 'Meta removida com sucesso!', life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Meta removida com sucesso!', life: 3000 });
         this.loadData();
       });
     }
