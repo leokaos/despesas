@@ -53,30 +53,40 @@
                 <th pSortableColumn="saldo">
                     Saldo <p-sortIcon field="saldo" />
                 </th>
+                <th pSortableColumn="ativo">
+                    Ativo <p-sortIcon field="ativo" />
+                </th>
                 <th class="small-column"></th>
                 <th class="small-column"></th>
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-item>
-            <tr>
+        <ng-template pTemplate="body" let-conta>
+            <tr [class.texto-vermelho]="!conta.ativo">
                 <td class="small-column">
-                    <app-color-display [color]="item.cor" />
+                    <app-color-display [color]="conta.cor" />
                 </td>
-                <td>{{ item.descricao }}</td>
-                <td>{{ item.moeda.simbolo }} {{ item.saldo | number: '1.2-2' : 'pt-BR' }}</td>
-                <td class="small-column">
-                    <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(item)" />
+                <td>{{ conta.descricao }}</td>
+                <td>{{ conta.moeda.simbolo }} {{ conta.saldo | number: '1.2-2' : 'pt-BR' }}</td>
+                <td class="force-center">
+                    @if (conta.ativo) {
+                    <i class="pi pi-check"></i>
+                    } @else {
+                    <i class="pi pi-times"></i>
+                    }
                 </td>
                 <td class="small-column">
-                    <p-button icon="pi pi-trash" severity="danger" (click)="openDialog(item)" size="small" />
+                    <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(conta)" />
+                </td>
+                <td class="small-column">
+                    <p-button icon="pi pi-trash" severity="danger" (click)="openDialog(conta)" size="small" />
                 </td>
             </tr>
         </ng-template>
 
         <ng-template #emptymessage>
             <tr>
-                <td colspan="5" class="text-center">
+                <td colspan="6" class="text-center">
                     <div class="flex flex-col items-center justify-center py-12 px-4">
                         <div class="bg-gray-100 rounded-full p-4 mb-4">
                             <i class="pi pi-database text-3xl text-gray-500"></i>

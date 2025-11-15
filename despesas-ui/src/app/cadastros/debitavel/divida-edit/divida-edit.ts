@@ -20,6 +20,7 @@ import { Divida } from '../../../models/debitavel.model';
 import { DatePickerModule } from 'primeng/datepicker';
 import { Select } from 'primeng/select';
 import { DividaService } from '../../../services/divida-service';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-divida-edit',
@@ -36,6 +37,7 @@ import { DividaService } from '../../../services/divida-service';
     Loader,
     DatePickerModule,
     Select,
+    CheckboxModule,
   ],
   templateUrl: './divida-edit.html',
   styleUrl: './divida-edit.scss',
@@ -76,6 +78,7 @@ export class DividaEdit {
       moeda: [this.divida?.moeda, Validators.required],
       dataInicio: [this.divida?.dataInicio, Validators.required],
       periodicidade: [this.divida?.periodicidade, Validators.required],
+      ativo: [this.divida?.ativo, Validators.required],
     });
 
     this.loading.set(false);

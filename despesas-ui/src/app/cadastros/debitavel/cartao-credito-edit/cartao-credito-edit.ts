@@ -20,6 +20,7 @@ import { Loader } from '../../../components/loader/loader';
 import { SelectMoeda } from '../../../components/select-moeda/select-moeda';
 import { SelectModule } from 'primeng/select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-cartao-credito-edit',
@@ -37,6 +38,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     InputNumberModule,
     SelectModule,
     FontAwesomeModule,
+    CheckboxModule,
   ],
   templateUrl: './cartao-credito-edit.html',
   styleUrl: './cartao-credito-edit.scss',
@@ -80,6 +82,7 @@ export class CartaoCreditoEdit {
       diaDeFechamento: [this.cartaoCredito?.diaDeFechamento, Validators.required],
       diaDeVencimento: [this.cartaoCredito?.diaDeVencimento, Validators.required],
       bandeira: [this.cartaoCredito?.bandeira, Validators.required],
+      ativo: [this.cartaoCredito?.ativo || false, Validators.required],
     });
 
     this.loading.set(false);

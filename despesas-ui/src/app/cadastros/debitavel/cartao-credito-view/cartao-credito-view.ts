@@ -42,7 +42,7 @@ export class CartaoCreditoView {
   private table?: Table;
 
   loading = signal<boolean>(true);
-  data: CartaoCredito[] = [];
+  data = signal<CartaoCredito[]>([]);
   searchValue?: string;
   showDialog: boolean = false;
   cartaoCredito?: CartaoCredito;
@@ -59,7 +59,7 @@ export class CartaoCreditoView {
 
   private loadData() {
     this.cartaoCreditoService.fetch().subscribe((data: CartaoCredito[]) => {
-      this.data = [...data];
+      this.data.update(_ => [...data]);
       this.loading.set(false);
     });
   }

@@ -34,6 +34,7 @@ public class DebitavelFactory {
 		debitavel.setCor(mapaAtributos.get("cor"));
 		debitavel.setDescricao(mapaAtributos.get("descricao"));
 		debitavel.setMoeda(Moeda.valueOf(mapaAtributos.get("moeda")));
+		debitavel.setAtivo(Boolean.parseBoolean(mapaAtributos.get("ativo")));
 
 		debitavel.accept(new DebitavelSerializerVisitorImpl(mapaAtributos));
 

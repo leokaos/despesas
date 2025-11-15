@@ -67,44 +67,54 @@
                 <th pSortableColumn="yield">
                     Yield <p-sortIcon field="yield" />
                 </th>
+                <th pSortableColumn="ativo">
+                    Ativo <p-sortIcon field="ativo" />
+                </th>
                 <th class="small-column"></th>
                 <th class="small-column"></th>
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-item>
-            <tr>
+        <ng-template pTemplate="body" let-investimento>
+            <tr [class.texto-vermelho]="!investimento.ativo">
                 <td class="small-column">
-                    <app-color-display [color]="item.cor" />
+                    <app-color-display [color]="investimento.cor" />
                 </td>
-                <td>{{item.descricao}}</td>
+                <td>{{investimento.descricao}}</td>
                 <td class="force-center">
-                    {{item.moeda.simbolo }} {{ item.montante | number: '1.2-2' : 'pt-BR'}}
-                </td>
-                <td class="force-center">
-                    {{ item.rendimento | number: '1.2-2' : 'pt-BR'}}%
+                    {{investimento.moeda.simbolo }} {{ investimento.montante | number: '1.2-2' : 'pt-BR'}}
                 </td>
                 <td class="force-center">
-                    {{item.periodicidade}}
+                    {{ investimento.rendimento | number: '1.2-2' : 'pt-BR'}}%
                 </td>
                 <td class="force-center">
-                    {{item.moeda.simbolo }} {{ item.valorReceitas | number: '1.2-2' : 'pt-BR'}}
+                    {{investimento.periodicidade}}
                 </td>
                 <td class="force-center">
-                    {{item.yield | number: '1.2-2' : 'pt-BR'}}%
+                    {{investimento.moeda.simbolo }} {{ investimento.valorReceitas | number: '1.2-2' : 'pt-BR'}}
+                </td>
+                <td class="force-center">
+                    {{investimento.yield | number: '1.2-2' : 'pt-BR'}}%
+                </td>
+                <td class="force-center">
+                    @if (investimento.ativo) {
+                    <i class="pi pi-check"></i>
+                    } @else {
+                    <i class="pi pi-times"></i>
+                    }
                 </td>
                 <td class="small-column">
-                    <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(item)" />
+                    <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(investimento)" />
                 </td>
                 <td class="small-column">
-                    <p-button icon="pi pi-trash" severity="danger" (click)="openDialog(item)" size="small" />
+                    <p-button icon="pi pi-trash" severity="danger" (click)="openDialog(investimento)" size="small" />
                 </td>
             </tr>
         </ng-template>
 
         <ng-template #emptymessage>
             <tr>
-                <td colspan="9" class="text-center">
+                <td colspan="10" class="text-center">
                     <div class="flex flex-col items-center justify-center py-12 px-4">
                         <div class="bg-gray-100 rounded-full p-4 mb-4">
                             <i class="pi pi-database text-3xl text-gray-500"></i>

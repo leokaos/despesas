@@ -19,6 +19,7 @@ import { Conta, Investimento, Moeda } from './../../../models/debitavel.model';
 import { InvestimentoService } from './../../../services/investimento-service';
 import { Component, inject, signal } from '@angular/core';
 import { SelectModule } from 'primeng/select';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-investimento-edit',
@@ -34,6 +35,7 @@ import { SelectModule } from 'primeng/select';
     ReactiveFormsModule,
     Loader,
     SelectModule,
+    CheckboxModule,
   ],
   templateUrl: './investimento-edit.html',
   styleUrl: './investimento-edit.scss',
@@ -74,6 +76,7 @@ export class InvestimentoEdit {
       moeda: [this.investimento?.moeda || null, Validators.required],
       periodicidade: [this.investimento?.periodicidade, Validators.required],
       rendimento: [this.investimento?.rendimento, Validators.required],
+      ativo: [this.investimento?.ativo || false, Validators.required],
     });
 
     this.loading.set(false);
