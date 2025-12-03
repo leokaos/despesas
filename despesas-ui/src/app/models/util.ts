@@ -13,11 +13,11 @@ export class PeriodoUtil {
 export class DateUtil {
   static getCurrentDataInicial() {
     let now = new Date();
-    return new Date(Date.UTC(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0));
+    return new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
   }
 
   static getCurrentDataFinal() {
     let now = new Date();
-    return new Date(Date.UTC(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999));
+    return new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
   }
 }
