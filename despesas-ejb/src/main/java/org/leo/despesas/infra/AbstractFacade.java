@@ -151,9 +151,18 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 
 		org.apache.lucene.search.Query query = qb.keyword().onFields(campos).matching(busca).createQuery();
 
-		javax.persistence.Query persistenceQuery = fullTextEntityManager.createFullTextQuery(query, getClasseEntidade()).setMaxResults(100);
+		javax.persistence.Query persistenceQuery = fullTextEntityManager
+				.createFullTextQuery(query, getClasseEntidade())
+				.setHint("org.hibernate.readOnly", true)
+				.setMaxResults(100);
 
-		return persistenceQuery.getResultList();
+		List<E> list = persistenceQuery.getResultList();
+
+		if (entityManager.isOpen()) {
+			entityManager.clear();
+		}
+
+		return list;
 	}
 
 	protected abstract Class<E> getClasseEntidade();
