@@ -1,7 +1,7 @@
 import { TipoDespesa } from './../models/tipo-movimentacao.model';
 import { Inject, Injectable } from '@angular/core';
 import { APP_CONFIG, AppConfig } from '../app-config';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -14,7 +14,11 @@ export class TipoDespesaService {
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
 
   fetch(): Observable<TipoDespesa[]> {
-    return this.http.get<TipoDespesa[]>(`${this.config.apiUrl}/${this.path}`);
+
+    let params = new HttpParams()
+    params = params.append("order", "descricao");
+
+    return this.http.get<TipoDespesa[]>(`${this.config.apiUrl}/${this.path}`, { params: params });
   }
 
   fetchById(id: number): Observable<TipoDespesa> {

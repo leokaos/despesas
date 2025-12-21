@@ -26,6 +26,12 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 	@QueryParam("filter")
 	private String filter;
 
+	@QueryParam("order")
+	private String order;
+
+	@QueryParam("direction")
+	private String direction;
+
 	private static final String SELECT_MODEL = "SELECT {1} FROM {0} {1}";
 	private static final String COUNT_MODEL = "SELECT COUNT({1}) FROM {0} {1}";
 
@@ -149,7 +155,15 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 	}
 
 	protected String orderBy() {
-		return "id";
+
+		if (StringUtils.isNoneBlank(order, direction)) {
+			return order + " " + direction;
+		} else if (StringUtils.isNotBlank(order)) {
+			return order + " ASC";
+		} else {
+			return "id";
+		}
+
 	}
 
 }

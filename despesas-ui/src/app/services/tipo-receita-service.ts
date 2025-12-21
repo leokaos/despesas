@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { APP_CONFIG, AppConfig } from '../app-config';
 import { TipoReceita } from '../models/tipo-movimentacao.model';
@@ -14,7 +14,11 @@ export class TipoReceitaService {
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
 
   fetch(): Observable<TipoReceita[]> {
-    return this.http.get<TipoReceita[]>(`${this.config.apiUrl}/${this.path}`);
+
+    let params = new HttpParams();
+    params = params.append("order", "descricao");
+
+    return this.http.get<TipoReceita[]>(`${this.config.apiUrl}/${this.path}`, { params: params });
   }
 
   fetchById(id: number): Observable<TipoReceita> {
