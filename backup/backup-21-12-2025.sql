@@ -17,13 +17,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: despesas_db; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: despesas_db; Type: SCHEMA; Schema: -; Owner: despesas
 --
 
 CREATE SCHEMA despesas_db;
 
 
-ALTER SCHEMA despesas_db OWNER TO postgres;
+ALTER SCHEMA despesas_db OWNER TO despesas;
 
 SET default_tablespace = '';
 
@@ -11827,6 +11827,7 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 5484	ARCADIA NOVA ARCADA BRA	2025-05-03	11.50	2025-04-15	3	EURO
 5485	CONTINENTE BRAGA BRAGA	2025-05-03	56.89	2025-04-15	3	EURO
 5486	UBR PENDING.UBER.COM AMSTERDAM NL	2025-05-03	5.90	2025-04-15	3	EURO
+5741	ARCADIA NOVA ARCADA BRA	2025-08-19	9.90	2025-07-29	3	EURO
 5487	UBR PENDING.UBER.COM AMSTERDAM NL	2025-05-03	5.96	2025-04-15	3	EURO
 5488	UBER TRIP AMSTERDAM NL	2025-05-03	6.21	2025-04-15	3	EURO
 5489	UBR PENDING.UBER.COM AMSTERDAM NL	2025-05-03	5.94	2025-04-15	3	EURO
@@ -12081,7 +12082,6 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 5738	GLOVO LISBOA	2025-08-19	8.72	2025-07-30	3	EURO
 5739	MENU CONCEITOS	2025-08-19	13.34	2025-07-29	3	EURO
 5740	GLOVO LISBOA	2025-08-19	9.25	2025-07-29	3	EURO
-5741	ARCADIA NOVA ARCADA BRA	2025-08-19	9.90	2025-07-29	3	EURO
 5742	WORTEN BRAGA NOVA BRAGA	2025-08-19	23.99	2025-07-29	3	EURO
 5743	CONTINENTE	2025-08-19	70.50	2025-07-29	3	EURO
 5744	UBR PENDING.UBER.COM	2025-08-19	5.99	2025-07-29	3	EURO
@@ -13342,9 +13342,10 @@ ALTER TABLE ONLY despesas_db.transferencia
 
 
 --
--- Name: SCHEMA despesas_db; Type: ACL; Schema: -; Owner: postgres
+-- Name: SCHEMA despesas_db; Type: ACL; Schema: -; Owner: despesas
 --
 
+REVOKE ALL ON SCHEMA despesas_db FROM despesas;
 GRANT ALL ON SCHEMA despesas_db TO despesas WITH GRANT OPTION;
 
 
