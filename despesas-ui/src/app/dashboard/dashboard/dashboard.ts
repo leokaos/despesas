@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, inject } from "@angular/core";
+import { Component, OnInit, signal, inject, HostListener } from "@angular/core";
 import { forkJoin } from "rxjs";
 import { Mes } from "../../models/mes.model";
 import { Orcamento } from "../../models/orcamento.model";
@@ -165,6 +165,25 @@ export class Dashboard implements OnInit {
   setDebitavel(event: CarouselPageEvent) {
     let page = event.page || 0;
     this.debitavelShown = this.debitaveis[page % this.debitaveis.length];
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+
+    switch (event.key) {
+      case 'ArrowRight':
+      case 'Right':
+        event.preventDefault();
+        this.posterior();
+        break;
+
+      case 'ArrowLeft':
+      case 'Left':
+        event.preventDefault();
+        this.anterior();
+        break;
+    }
+
   }
 
 }
