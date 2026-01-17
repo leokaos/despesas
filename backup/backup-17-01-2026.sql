@@ -416,7 +416,7 @@ VISA	28	11	17300.00	6	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 42697.98	3
 66.44	4
-61280.32	5
+55852.25	5
 \.
 
 
@@ -6458,6 +6458,21 @@ t	6416	102	\N
 t	6421	4	\N
 t	6417	4	\N
 t	6422	4	\N
+t	6428	107	109
+t	6429	107	109
+t	6430	201	109
+t	6431	201	109
+t	6432	107	109
+t	6433	201	109
+t	6434	201	109
+t	6435	201	109
+t	6436	107	109
+t	6437	107	109
+t	6438	107	109
+t	6439	108	109
+t	6440	201	109
+t	6441	201	109
+t	6442	201	109
 \.
 
 
@@ -6546,6 +6561,7 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 104	6	2025-10-11 00:00:00	2025-09-28 00:00:00	t
 106	6	2025-11-11 00:00:00	2025-10-28 00:00:00	t
 107	6	2025-12-11 00:00:00	2025-11-28 00:00:00	t
+109	6	2026-01-11 00:00:00	2025-12-28 00:00:00	t
 \.
 
 
@@ -12838,6 +12854,22 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6425	Glovo Prime Dez 2025	2026-01-17	5.99	2026-01-03	4	EURO
 6426	PIX TRANSF LOCALIZ13/01	2026-01-17	3297.32	2026-01-13	5	REAL
 6427	PIX TRANSF FERNAND23/12	2026-01-17	73.10	2025-12-23	5	REAL
+6428	POSTO DE SERVICO LT	2026-01-17	83.89	2025-12-04	6	REAL
+6429	SACOMA POINT COMERCIO	2026-01-17	16.56	2025-12-10	6	REAL
+6430	NETFLIX ENTRETENIMENTO	2026-01-17	44.90	2025-12-11	6	REAL
+6431	AmazonPrimeBR	2026-01-17	19.90	2025-12-12	6	REAL
+6432	POSTO CARREFOUR ANCH	2026-01-17	264.44	2025-12-19	6	REAL
+6433	APPLE COM/BILL	2026-01-17	29.90	2025-12-20	6	REAL
+6434	DM helphbomaxcom	2026-01-17	44.90	2025-12-21	6	REAL
+6435	DM Spotify	2026-01-17	23.90	2025-12-25	6	REAL
+6436	POSTO CARREFOUR ANCH	2026-01-17	202.70	2025-12-20	6	REAL
+6437	LOCALIZA RAC ACCAE0	2026-01-17	4536.95	2025-12-20	6	REAL
+6438	UBER PENDING	2026-01-17	23.18	2025-12-20	6	REAL
+6439	IOF TRANSACOES INTERNACIONAIS	2026-01-17	1.67	2025-12-20	6	REAL
+6440	STEAMGAMES COM 4259522 912 1844160	2026-01-17	34.99	2025-12-20	6	REAL
+6441	STEAMGAMES COM 4259522 912 1844160	2026-01-17	12.99	2025-12-24	6	REAL
+6442	ALURA 05/12 SAO PAULO BR	2026-01-17	87.20	2025-12-25	6	REAL
+6443	Pagamento fatura 01/2026	2026-01-08	5428.07	2026-01-17	5	REAL
 \.
 
 
@@ -13182,6 +13214,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 6190	6	284.70
 6233	18	407.10
 6342	6	5397.07
+6443	6	5428.07
 \.
 
 
@@ -13203,7 +13236,7 @@ SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 19, true);
 -- Name: fatura_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 108, true);
+SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 109, true);
 
 
 --
@@ -13224,7 +13257,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 47, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6427, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6443, true);
 
 
 --
