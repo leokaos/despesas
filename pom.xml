@@ -16,6 +16,7 @@
 		<module>despesas-ejb</module>
 		<module>despesas-web</module>
 		<module>despesas-ear</module>
+		<module>despesas-image</module>
 	</modules>
 
 	<properties>
