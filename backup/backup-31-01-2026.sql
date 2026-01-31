@@ -415,7 +415,7 @@ VISA	28	11	17300.00	6	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 38514.63	3
-40625.91	5
+46300.56	5
 66.44	4
 \.
 
@@ -6556,6 +6556,7 @@ t	6523	102	\N
 t	6524	102	\N
 t	6525	4	\N
 t	6526	2	\N
+t	6528	4	\N
 \.
 
 
@@ -13036,6 +13037,8 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6524	GLOVO LISBOA PT	2026-01-25	12.05	2026-01-20	3	EURO
 6525	TRF P/ MARIA FERNANDA MARTINS OLIVEIRA	2026-01-25	26.00	2026-01-19	3	EURO
 6526	Levens	2026-01-25	270.00	2026-01-19	5	REAL
+6527	Transferencia Jesus	2026-01-31	5800.00	2026-01-27	5	REAL
+6528	DA  ELETROPAULO 56301179	2026-01-31	125.35	2026-01-29	5	REAL
 \.
 
 
@@ -13212,6 +13215,7 @@ f	6397	109	\N	f
 f	6396	23	\N	t
 t	6426	111	\N	f
 t	6427	111	\N	f
+t	6527	111	\N	f
 \.
 
 
@@ -13424,7 +13428,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 47, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6526, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6528, true);
 
 
 --
