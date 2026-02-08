@@ -414,8 +414,8 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-46300.56	5
-66.44	4
+60.45	4
+45496.66	5
 37952.66	3
 \.
 
@@ -6594,6 +6594,9 @@ t	6562	107	\N
 t	6563	102	\N
 t	6564	102	\N
 t	6565	4	\N
+t	6566	108	\N
+t	6567	4	\N
+t	6568	108	\N
 \.
 
 
@@ -13113,6 +13116,9 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6563	GLOVO LISBOA	2026-01-31	8.87	2026-01-27	3	EURO
 6564	GLOVO LISBOA	2026-01-31	10.56	2026-01-27	3	EURO
 6565	DD EDP COMERCIAL  16010011942146 PT34100781	2026-01-31	59.69	2026-01-26	3	EURO
+6566	Glovo Prime	2026-02-08	5.99	2026-02-03	4	EURO
+6567	Condominio	2026-02-08	732.00	2026-02-05	5	REAL
+6568	Taxa Itau	2026-02-08	71.90	2026-02-03	5	REAL
 \.
 
 
@@ -13502,7 +13508,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 47, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6565, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6568, true);
 
 
 --
