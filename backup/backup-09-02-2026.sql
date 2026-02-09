@@ -438,6 +438,7 @@ COPY despesas_db.cotacao (id, origem, destino, taxa, data) FROM stdin;
 11	EURO	REAL	6.17	2025-11-07 21:02:21.021
 12	EURO	REAL	6.13	2025-11-12 22:22:15.814
 13	EURO	REAL	6.25	2026-01-19 21:32:16.312
+14	EURO	REAL	6.19	2026-02-09 21:54:48.091
 \.
 
 
@@ -6760,6 +6761,8 @@ COPY despesas_db.feriado (id, date_feriado, tipo) FROM stdin;
 63	2026-01-07	FERIAS
 64	2026-01-08	FERIAS
 65	2026-01-09	FERIAS
+66	2026-02-19	FERIAS
+67	2026-02-20	FERIAS
 \.
 
 
@@ -6778,6 +6781,7 @@ COPY despesas_db.investimento (montante, id, periodicidade, rendimento) FROM std
 COPY despesas_db.meta (id, mes, ano, valor) FROM stdin;
 46	10	2025	1500.00
 47	11	2025	3000.00
+48	2	2026	1000.00
 \.
 
 
@@ -13160,8 +13164,6 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6576	helphbomaxcom	2026-02-08	44.90	2026-01-21	6	REAL
 6577	Spotify	2026-02-08	23.90	2026-01-22	6	REAL
 6578	Pagamento fatura 02/2026	2026-02-05	417.92	2026-02-08	5	REAL
-6580	Salário de Fevereiro/2026	\N	4004.00	2026-02-28	3	EURO
-6579	Valor IVA de Fevereiro/2026	\N	1196.00	2026-02-28	3	EURO
 6581	GLOVO LISBOA PT	2026-02-08	8.55	2026-02-06	3	EURO
 6582	GLOVO LISBOA PT	2026-02-08	9.75	2026-02-05	3	EURO
 6583	IMPOSTO SELO ART 17.3.4	2026-02-08	0.14	2026-02-04	3	EURO
@@ -13183,6 +13185,8 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6600	GLOVO LISBOA PT	2026-02-08	8.50	2026-02-03	3	EURO
 6596	UBR PENDING.UBER.COM	2026-02-08	4.98	2026-02-03	3	EURO
 6601	GLOVO LISBOA PT	2026-02-08	12.20	2026-02-03	3	EURO
+6603	Valor IVA de Fevereiro/2026	\N	1076.40	2026-02-28	3	EURO
+6602	Salário de Fevereiro/2026	\N	3603.60	2026-02-28	3	EURO
 \.
 
 
@@ -13230,6 +13234,8 @@ COPY despesas_db.orcamento (id, tipo_despesa_id, valor, data_inicial, data_final
 41	102	600.00	2025-10-01 01:00:00	2025-10-31 23:59:59.999
 52	301	200.00	2025-11-01 00:00:00	2025-11-30 22:59:59.999
 53	102	450.00	2025-11-01 00:00:00	2025-11-30 22:59:59.999
+54	301	300.00	2026-02-01 00:00:00	2026-02-28 22:59:59.999
+55	102	400.00	2026-02-01 00:00:00	2026-02-28 22:59:59.999
 \.
 
 
@@ -13358,10 +13364,10 @@ t	6343	111	\N	f
 t	6426	111	\N	f
 t	6427	111	\N	f
 t	6527	111	\N	f
-f	6579	23	\N	t
-f	6580	109	\N	f
 t	6397	109	\N	f
 t	6396	23	\N	t
+f	6602	109	\N	f
+f	6603	23	\N	t
 \.
 
 
@@ -13540,7 +13546,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 -- Name: cotacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 13, true);
+SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 14, true);
 
 
 --
@@ -13561,28 +13567,28 @@ SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 110, true);
 -- Name: feriado_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.feriado_id_seq', 65, true);
+SELECT pg_catalog.setval('despesas_db.feriado_id_seq', 67, true);
 
 
 --
 -- Name: meta_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.meta_id_seq', 47, true);
+SELECT pg_catalog.setval('despesas_db.meta_id_seq', 48, true);
 
 
 --
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6601, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6603, true);
 
 
 --
 -- Name: orcamento_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.orcamento_id_seq', 53, true);
+SELECT pg_catalog.setval('despesas_db.orcamento_id_seq', 55, true);
 
 
 --
