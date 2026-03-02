@@ -1,4 +1,4 @@
-FROM wildfly/wildfly:27.0.1.Final-jdk17
+FROM jboss/wildfly:8.2.1.Final
 
 # Cria a pasta despesas_index com as permissões especificadas
 USER root

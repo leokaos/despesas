@@ -1,1 +1,0 @@
-ALTER TABLE despesas_db.RECEITA ADD COLUMN COMPROMISSADA boolean default false;

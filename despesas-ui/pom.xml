@@ -13,9 +13,14 @@
 
 	<name>${project.parent.name} - UI</name>
 	
+	<properties>
+		<despesas.api.url>https://despesas.leoapps.duckdns.org/despesas/services</despesas.api.url>
+	</properties>
+	
 	 <build>
+
         <plugins>
-			<!-- Plugin para executar npm e ng build -->
+
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
@@ -33,8 +38,6 @@
                             <goal>install-node-and-npm</goal>
                         </goals>
                     </execution>
-
-					<!-- Instalar dependências -->
                     <execution>
                         <id>npm install</id>
                         <goals>
@@ -44,8 +47,6 @@
                             <arguments>install</arguments>
                         </configuration>
                     </execution>
-
-					<!-- Build Angular -->
                     <execution>
                         <id>ng build</id>
                         <goals>
@@ -59,12 +60,30 @@
                 </executions>
             </plugin>
 
-			<!-- Copiar arquivos buildados para o web module -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.2.0</version>
                 <executions>
+                    <execution>
+                        <id>filter-config</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.basedir}/dist/despesas-ui/browser/</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/public</directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>app-config.json</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>copy-angular-build</id>
                         <phase>package</phase>

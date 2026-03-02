@@ -7,6 +7,8 @@
 		<groupId>org.leo.despesas</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
+	
+	<name>${project.parent.name} - Docker Image</name>
 
     <artifactId>despesas-image</artifactId>
     <packaging>pom</packaging>

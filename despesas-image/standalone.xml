@@ -139,7 +139,7 @@
         <subsystem xmlns="urn:jboss:domain:datasources:2.0">
             <datasources>
                 <datasource jta="true" jndi-name="java:/DespesasDS" pool-name="despesas" enabled="true" use-ccm="true">
-                    <connection-url>jdbc:postgresql://despesas-database:5432/despesas</connection-url>
+                    <connection-url>jdbc:postgresql://database:5432/despesas</connection-url>
                     <driver-class>org.postgresql.Driver</driver-class>
                     <driver>postgresql</driver>
                     <security>
