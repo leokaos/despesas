@@ -434,9 +434,9 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-44897.34	5
 42983.45	3
-50.07	4
+43650.55	5
+22.68	4
 \.
 
 
@@ -6712,6 +6712,22 @@ t	6667	102	\N
 t	6668	4	\N
 t	6669	4	\N
 t	6670	102	\N
+t	6671	201	111
+t	6672	108	111
+t	6673	201	111
+t	6674	201	111
+t	6675	201	111
+t	6676	201	111
+t	6677	201	111
+t	6678	201	111
+t	6679	201	111
+t	6680	108	111
+t	6682	4	\N
+t	6683	108	\N
+t	6684	4	\N
+t	6685	102	\N
+t	6686	102	\N
+t	6687	4	\N
 \.
 
 
@@ -6802,6 +6818,7 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 107	6	2025-12-11 00:00:00	2025-11-28 00:00:00	t
 109	6	2026-01-11 00:00:00	2025-12-28 00:00:00	t
 110	6	2026-02-11 00:00:00	2026-01-28 00:00:00	t
+111	6	2026-03-11 00:00:00	2026-02-28 00:00:00	t
 \.
 
 
@@ -13339,6 +13356,23 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6668	DD PLANICARECOMP 586517 1       PT83115419	2026-03-02	177.16	2026-02-16	3	EURO
 6669	TRF P/ MARIA FERNANDA MARTINS OLIVEIRA	2026-03-02	52.00	2026-02-15	3	EURO
 6670	GLOVO PORTUGAL LISBOA	2026-03-02	11.52	2026-02-16	3	EURO
+6671	ALURA	2026-03-05	87.20	2026-02-27	6	REAL
+6672	ANUIDADE DIFERENCIADA	2026-03-05	37.00	2026-02-05	6	REAL
+6673	Amazon Digital	2026-03-05	40.41	2026-02-07	6	REAL
+6674	NETFLIX ENTRETENIMENTO	2026-03-05	44.90	2026-02-11	6	REAL
+6675	AmazonPrimeBR	2026-03-05	19.90	2026-02-12	6	REAL
+6676	APPLECOMBILL	2026-03-05	29.90	2026-02-20	6	REAL
+6677	DM *helphbomaxcom	2026-03-05	44.90	2026-02-21	6	REAL
+6678	STEAMGAMES.COM	2026-03-05	23.09	2026-02-24	6	REAL
+6679	DM*Spotify	2026-03-05	23.90	2026-02-27	6	REAL
+6680	IOF TRANSACOES INTERNACIONAIS	2026-03-05	0.80	2026-03-04	6	REAL
+6681	Pagamento fatura 03/2026	2026-03-05	352.00	2026-03-05	5	REAL
+6682	Condominio Março 2026	2026-03-05	732.00	2026-03-04	5	REAL
+6683	Tar Fev/26	2026-03-05	71.90	2026-03-03	5	REAL
+6684	DA Eletropaulo	2026-03-05	90.89	2026-03-02	5	REAL
+6685	Glovo 1	2026-03-05	10.70	2026-03-04	4	EURO
+6686	Glovo 2	2026-03-05	10.70	2026-03-03	4	EURO
+6687	Glovo Prime	2026-03-05	5.99	2026-03-03	4	EURO
 \.
 
 
@@ -13696,6 +13730,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 6443	6	5428.07
 6508	19	2237.90
 6578	6	417.92
+6681	6	352.00
 \.
 
 
@@ -13725,7 +13760,7 @@ SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 19, true);
 -- Name: fatura_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 110, true);
+SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 112, true);
 
 
 --
@@ -13746,7 +13781,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 49, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6670, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6687, true);
 
 
 --
