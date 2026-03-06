@@ -16,5 +16,4 @@ services:
     app:
       image: leokaos/despesas:0.1
       container_name: despesas-app
-      ports:
-        - "8080:8080"
+      volumes: /despesas-index:/opt/jboss/despesas_index
