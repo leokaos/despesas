@@ -11,6 +11,7 @@ import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
 import org.leo.despesas.dominio.orcamento.Orcamento;
 import org.leo.despesas.dominio.orcamento.OrcamentoFiltro;
 import org.leo.despesas.infra.AbstractFacade;
+import org.leo.despesas.infra.Moeda;
 
 @Stateless
 public class OrcamentoFacadeImpl extends AbstractFacade<Orcamento, OrcamentoFiltro> implements OrcamentoFacade {
@@ -43,7 +44,7 @@ public class OrcamentoFacadeImpl extends AbstractFacade<Orcamento, OrcamentoFilt
 		filtro.setDataInicial(orcamento.getDataInicial());
 		filtro.setDataFinal(orcamento.getDataFinal());
 		filtro.setTipoDespesa(orcamento.getTipoDespesa().getDescricao());
-
+		filtro.setMoeda(Moeda.EURO);
 		List<Despesa> despesas = despesaFacade.listar(filtro);
 
 		orcamento.setDespesaDoOrcamento(despesas);
