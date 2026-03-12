@@ -4,7 +4,7 @@
   <module>
     <web>
       <web-uri>despesas-web-1.0-SNAPSHOT.war</web-uri>
-      <context-root>/despesas</context-root>
+      <context-root>/</context-root>
     </web>
   </module>
   <module>
