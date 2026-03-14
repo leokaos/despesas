@@ -434,9 +434,9 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-41944.52	3
-43650.55	5
-22.68	4
+43481.55	5
+41844.52	3
+122.68	4
 \.
 
 
@@ -6763,6 +6763,7 @@ t	6718	107	\N
 t	6719	107	\N
 t	6720	107	\N
 t	6721	2	\N
+t	6722	4	\N
 \.
 
 
@@ -13442,6 +13443,8 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6719	UBR PENDING.UBER.COM	2026-03-06	3.96	2026-03-03	3	EURO
 6720	UBR PENDING.UBER.COM	2026-03-06	3.97	2026-03-03	3	EURO
 6721	TRF MB WAY P/ ANA PAULA DA CUNHA MARTINS CASTRO	2026-03-06	50.00	2026-03-02	3	EURO
+6722	DA Vivo-sp	2026-03-14	169.00	2026-03-13	5	REAL
+6723	Cobrir Conta	\N	100.00	2026-03-11	3	EURO
 \.
 
 
@@ -13800,6 +13803,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 6508	19	2237.90
 6578	6	417.92
 6681	6	352.00
+6723	4	100.00
 \.
 
 
@@ -13850,7 +13854,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 49, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6721, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6723, true);
 
 
 --
