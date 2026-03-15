@@ -91,8 +91,8 @@ export class OrcamentoEdit implements OnInit {
       id: this.orcamento?.id,
       tipoDespesa: this.formGroup.get('tipo')?.getRawValue(),
       valor: this.formGroup.get('valor')?.getRawValue(),
-      dataInicial: PeriodoUtil.getDataInicial(periodo).getTime(),
-      dataFinal: PeriodoUtil.getDataFinal(periodo).getTime(),
+      dataInicial: PeriodoUtil.getDataInicialUTC(periodo).getTime(),
+      dataFinal: PeriodoUtil.getDataFinalUTC(periodo).getTime(),
     } as Orcamento;
 
     this.orcamentoService.createOrUpdate(orcamento).subscribe((_) => {
