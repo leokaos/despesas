@@ -1,3 +1,4 @@
 {
-  "apiUrl": "${despesas.api.url}"
+  "apiUrl": "${despesas.api.url}",
+  "version": "${project.version}"
 }

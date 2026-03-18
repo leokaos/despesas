@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { APP_CONFIG, AppConfig } from '../../app-config';
 
 @Component({
   selector: 'app-header',
@@ -10,6 +11,12 @@ import { RouterModule } from '@angular/router';
 export class Header {
 
   private openSubMenus: Set<string> = new Set();
+  
+  version: string;
+
+  constructor(@Inject(APP_CONFIG) private config: AppConfig) {
+    this.version = config.version;
+   }
 
   toggleSubMenu(menuItem: string): void {
     if (this.openSubMenus.has(menuItem)) {

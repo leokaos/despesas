@@ -74,6 +74,12 @@ a.navbar-brand {
     background-color: #e7e7e7;
 }
 
+.version {
+    position: absolute;
+    right: 0;
+    padding-right: 5px;
+}
+
 @media (min-width: 1200px) {
     .navbar {
         width: 1170px;

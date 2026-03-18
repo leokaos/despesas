@@ -7,7 +7,7 @@
 	<parent>
 		<artifactId>despesas</artifactId>
 		<groupId>org.leo.despesas</groupId>
-		<version>0.6</version>
+		<version>0.7</version>
 	</parent>
 
 	<name>${project.parent.name} - Docker Image</name>

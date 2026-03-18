@@ -1,3 +1,4 @@
 {
-  "apiUrl": "https://despesas.leoapps.duckdns.org/services"
+  "apiUrl": "https://despesas.leoapps.duckdns.org/services",
+  "version": "0.6"
 }
