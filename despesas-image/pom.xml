@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -7,10 +9,79 @@
 		<groupId>org.leo.despesas</groupId>
 		<version>0.6</version>
 	</parent>
-	
+
 	<name>${project.parent.name} - Docker Image</name>
 
-    <artifactId>despesas-image</artifactId>
-    <packaging>pom</packaging>
+	<artifactId>despesas-image</artifactId>
+	<packaging>pom</packaging>
+
+	<properties>
+		<docker.repository>leokaos</docker.repository>
+		<docker.image.name>${docker.repository}/despesas</docker.image.name>
+		<docker.image.tag>${project.version}</docker.image.tag>
+	</properties>
+
+	<build>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>3.1.0</version>
+				
+				<executions>
+				
+					<execution>
+						<id>docker-build</id>
+						<phase>package</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>docker</executable>
+							<workingDirectory>${project.basedir}</workingDirectory>
+							<arguments>
+								<argument>build</argument>
+								<argument>-t</argument>
+								<argument>
+									${docker.image.name}:${docker.image.tag}</argument>
+								<argument>.</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					
+					<execution>
+						<id>docker-push</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>docker</executable>
+							<arguments>
+								<argument>push</argument>
+								<argument>
+									${docker.image.name}:${docker.image.tag}</argument>
+							</arguments>
+						</configuration>
+					</execution>
+
+				</executions>
+				
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>3.1.2</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+
+		</plugins>
+
+	</build>
 
 </project>

@@ -1,1 +1,17 @@
-docker run --name despesas_test -e POSTGRES_PASSWORD=despesas_db -e POSTGRES_USER=despesas -e POSTGRES_DB=despesas -p 5432:5432 -d postgres:11.13-stretch
+# BUILD
+
+`mwnw clean install`
+
+Faz o build da aplicação EAR e Angular
+
+`mvnw versions:set -DnewVersion={newVersion}`
+
+Faz o bump da versão
+
+`git add . && git push`
+
+Finaliza a versão com os pacotes e versão atual
+
+`mvnw clean deploy`
+
+No módulo despesas-image, gera a imagem docker e faz o push para hub
