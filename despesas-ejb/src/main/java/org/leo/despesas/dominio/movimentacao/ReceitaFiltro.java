@@ -27,6 +27,7 @@ public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 
 	private Debitavel debitavel;
 
+	@QueryParam("compromissada")
 	private Boolean compromissada;
 
 	public Date getDataInicial() {
