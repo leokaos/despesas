@@ -13,6 +13,7 @@ export interface ReceitaFiltro {
   moeda: Moeda;
   tipo: TipoReceita;
   debitavel: Debitavel;
+  compromissada: boolean;
 }
 
 @Injectable({
@@ -46,6 +47,10 @@ export class ReceitaService {
 
     if (filtro?.debitavel) {
       params = params.append("debitavel_id", filtro.debitavel.id);
+    }
+
+    if (filtro?.compromissada !== undefined) {
+      params = params.append("compromissada", filtro.compromissada);
     }
 
     return this.http.get<Receita[]>(`${this.config.apiUrl}/${this.path}`, { params })

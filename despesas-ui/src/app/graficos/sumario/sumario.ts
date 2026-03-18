@@ -5,7 +5,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { SelectInterval } from '../../components/select-interval/select-interval';
 import { ButtonModule } from 'primeng/button';
 import { Interval } from '../../models/interval.model';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NumberValueAccessor, ReactiveFormsModule } from '@angular/forms';
 import { SelectMoeda } from '../../components/select-moeda/select-moeda';
 import { Moeda } from '../../models/debitavel.model';
 import { DespesaFiltro, DespesaService } from '../../services/despesa-service';
@@ -78,7 +78,7 @@ export class Sumario {
     this.loading.set(true);
 
     let despesaFiltro = { dataInicial: this.dataInicial, dataFinal: this.dataFinal, moeda: this.moeda, } as DespesaFiltro;
-    let receitaFiltro = { dataInicial: this.dataInicial, dataFinal: this.dataFinal, moeda: this.moeda, } as ReceitaFiltro;
+    let receitaFiltro = { dataInicial: this.dataInicial, dataFinal: this.dataFinal, moeda: this.moeda, compromissada: false, } as ReceitaFiltro;
 
     forkJoin({
       despesas: this.despesaService.fetch(despesaFiltro),
@@ -120,7 +120,7 @@ export class Sumario {
     return [...new Set(this.despesas?.map((despesa) => despesa.tipo.descricao))].sort();
   }
 
-  private filterByMesAno(mes: string, movimentacao: Movimentacao[] | undefined): Movimentacao[] {
+  private filterByTypeAndMesAno(mes: string, movimentacao: Movimentacao[] | undefined): Movimentacao[] {
 
     if (!movimentacao) {
       return [];
@@ -133,18 +133,40 @@ export class Sumario {
     return movimentacao.filter((despesa: any) => despesa.vencimento.getFullYear() === parteAno && despesa.vencimento.getMonth() + 1 === parteMes);
   }
 
-  getTotal(tipo: string, mes: string): number {
+  private filterByType(tipo: string, movimentacao: Movimentacao[] | undefined): Movimentacao[] {
 
-    let despesasFiltrada = this.filterByMesAno(mes, this.despesas).filter((despesa: any) => despesa.tipo.descricao == tipo);
+    if (!movimentacao) {
+      return [];
+    }
+
+    return movimentacao.filter((despesa: any) => despesa.tipo.descricao == tipo);
+  }
+
+  getTotalByTipo(tipo: string): number {
+    return this.filterByType(tipo, this.despesas).reduce((total, item) => total + item.valor, 0);
+  }
+
+  getTotalByMesAndByTipo(tipo: string, mes: string): number {
+
+    let despesasFiltrada = this.filterByTypeAndMesAno(mes, this.despesas).filter((despesa: any) => despesa.tipo.descricao == tipo);
 
     return despesasFiltrada ? despesasFiltrada.reduce((total, item) => total + item.valor, 0) : 0;
   }
 
-  getTotalDespesas(mes: string): number {
-    return this.filterByMesAno(mes, this.despesas).reduce((total, item) => total + item.valor, 0);
+  getTotalDespesasByMes(mes: string): number {
+    return this.filterByTypeAndMesAno(mes, this.despesas).reduce((total, item) => total + item.valor, 0);
   }
 
-  getTotalReceitas(mes: string): number {
-    return this.filterByMesAno(mes, this.receitas).reduce((total, item) => total + item.valor, 0);
+  getTotalReceitasByMes(mes: string): number {
+    return this.filterByTypeAndMesAno(mes, this.receitas).reduce((total, item) => total + item.valor, 0);
   }
+
+  getTotalDespesas(): number {
+    return (this.despesas || []).reduce((total, item) => total + item.valor, 0);
+  }
+
+  getTotalReceitas(): number {
+    return (this.receitas || []).reduce((total, item) => total + item.valor, 0);
+  }
+
 }

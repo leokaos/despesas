@@ -78,14 +78,20 @@
                     @for (item of meses; track $index) {
                     <th class="force-center">{{item}}</th>
                     }
+                    <th class="force-center">
+                        Total/Tipo
+                    </th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-tipo>
                 <tr>
                     <td>{{tipo}}</td>
                     @for(mes of meses; track $index){
-                    <td class="force-center">{{getTotal(tipo,mes) | number: '1.2-2' : 'pt-BR'}}</td>
+                    <td class="force-center">{{getTotalByMesAndByTipo(tipo,mes) | number: '1.2-2' : 'pt-BR'}}</td>
                     }
+                    <td class="force-center">
+                        <b>{{getTotalByTipo(tipo) | number: '1.2-2' : 'pt-BR'}}</b>
+                    </td>
                 </tr>
             </ng-template>
             <ng-template #footer>
@@ -93,25 +99,34 @@
                     <td><b>Total</b></td>
                     @for(mes of meses; track $index){
                     <td class="force-center">
-                        <b>{{getTotalDespesas(mes) | number: '1.2-2' : 'pt-BR'}}</b>
+                        <b>{{getTotalDespesasByMes(mes) | number: '1.2-2' : 'pt-BR'}}</b>
                     </td>
                     }
+                    <td class="force-center">
+                        <b>{{getTotalDespesas() | number: '1.2-2' : 'pt-BR'}}</b>
+                    </td>
                 </tr>
                 <tr>
                     <td><b>Receitas</b></td>
                     @for(mes of meses; track $index){
                     <td class="force-center">
-                        <b>{{getTotalReceitas(mes) | number: '1.2-2' : 'pt-BR'}}</b>
+                        <b>{{getTotalReceitasByMes(mes) | number: '1.2-2' : 'pt-BR'}}</b>
                     </td>
                     }
+                    <td class="force-center">
+                        <b>{{getTotalReceitas() | number: '1.2-2' : 'pt-BR'}}</b>
+                    </td>
                 </tr>
                 <tr>
                     <td><b>Saldo</b></td>
                     @for(mes of meses; track $index){
                     <td class="force-center">
-                        <b>{{ getTotalReceitas(mes) - getTotalDespesas(mes) | number: '1.2-2' : 'pt-BR'}}</b>
+                        <b>{{ getTotalReceitasByMes(mes) - getTotalDespesasByMes(mes) | number: '1.2-2' : 'pt-BR'}}</b>
                     </td>
                     }
+                    <td class="force-center">
+                        <b>{{ getTotalReceitas() - getTotalDespesas() | number: '1.2-2' : 'pt-BR'}}</b>
+                    </td>
                 </tr>
             </ng-template>
         </p-table>
