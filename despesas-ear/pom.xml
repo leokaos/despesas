@@ -5,7 +5,7 @@
 	<parent>
 		<artifactId>despesas</artifactId>
 		<groupId>org.leo.despesas</groupId>
-		<version>0.3</version>
+		<version>0.4</version>
 	</parent>
 
 	<artifactId>despesas-ear</artifactId>
@@ -46,9 +46,16 @@
 						<webModule>
 							<groupId>org.leo.despesas</groupId>
 							<artifactId>despesas-web</artifactId>
-							<contextRoot>/despesas</contextRoot>
+							<contextRoot>/</contextRoot>
+							<bundleFileName>despesas-web-${project.version}.war</bundleFileName>
 						</webModule>
+						<ejbModule>
+							<groupId>org.leo.despesas</groupId>
+							<artifactId>despesas-ejb</artifactId>
+							<bundleFileName>despesas-ejb-${project.version}.jar</bundleFileName>
+						</ejbModule>
 					</modules>
+					<generateApplicationXml>true</generateApplicationXml>
 				</configuration>
 			</plugin>
 			

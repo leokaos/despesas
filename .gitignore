@@ -6,3 +6,4 @@
 *tern-project*
 .hg/*
 **/node_modules/*
+*.versionsBackup
