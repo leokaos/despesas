@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>despesas</artifactId>
 		<groupId>org.leo.despesas</groupId>
-		<version>0.4</version>
+		<version>0.54</version>
 	</parent>
 
 	<artifactId>despesas-ejb</artifactId>
