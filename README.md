@@ -1,12 +1,12 @@
 # BUILD
 
-`mwnw clean install`
-
-Faz o build da aplicação EAR e Angular
-
 `mvnw versions:set -DnewVersion={newVersion}`
 
 Faz o bump da versão
+
+`mwnw clean install`
+
+Faz o build da aplicação EAR e Angular
 
 `git add . && git push`
 

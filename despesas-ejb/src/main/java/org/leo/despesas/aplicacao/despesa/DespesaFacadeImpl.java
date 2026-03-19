@@ -189,10 +189,12 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 
 		if (antigo.isPaga() && !novo.isPaga()) {
 			debitavel.estornar(antigo);
+			novo.abrir();
 		}
 
 		if (!antigo.isPaga() && novo.isPaga()) {
 			debitavel.debitar(novo);
+			novo.fechar();
 		}
 
 	}

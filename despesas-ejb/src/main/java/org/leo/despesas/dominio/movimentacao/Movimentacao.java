@@ -122,8 +122,12 @@ public abstract class Movimentacao implements ModelEntity {
 		this.pagamento = pagamento;
 	}
 
-	protected void fechar() {
+	public void fechar() {
 		setPagamento(new Date());
+	}
+
+	public void abrir() {
+		setPagamento(null);
 	}
 
 	public Moeda getMoeda() {

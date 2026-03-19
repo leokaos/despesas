@@ -90,7 +90,7 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 
 		E result = entityManager.merge(t);
 
-		posSalvar(antigo, t);
+		posSalvar(antigo, result);
 
 		return result;
 	}

@@ -69,10 +69,12 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita, ReceitaFiltro> im
 
 		if (antigo.isDepositado() && !novo.isDepositado()) {
 			debitavel.estornar(antigo);
+			novo.abrir();
 		}
 
 		if (!antigo.isDepositado() && novo.isDepositado()) {
 			debitavel.creditar(novo);
+			novo.fechar();
 		}
 	}
 

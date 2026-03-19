@@ -74,7 +74,6 @@ public class Receita extends Movimentacao {
 		this.debitavel.creditar(this);
 
 		setDepositado(true);
-
 		fechar();
 	}
 
