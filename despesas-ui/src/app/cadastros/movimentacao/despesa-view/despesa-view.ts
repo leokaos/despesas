@@ -86,10 +86,18 @@ export class DespesaView implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.configFiltro(this.despesaService.getFiltro());
     this.loadData();
+
+    this.despesaService.filtro$.subscribe(filtro => {
+      this.configFiltro(filtro);
+    });
   }
 
   loadData() {
+
+    this.loading.set(true);
 
     let filtroDespesa = {
       dataInicial: this.dataInicial,
@@ -112,20 +120,28 @@ export class DespesaView implements OnInit {
       this.data.update(_ => results.despesas);
       this.selectedData = [];
       this.loading.set(false);
+
+      if (this.searchValue) {
+        setTimeout(() => {
+          this.table?.filterGlobal(this.searchValue, 'contains');
+        });
+      }
+
     });
   }
 
   reload() {
-    this.loading.set(true);
+    this.setFiltro();
     this.loadData();
   }
 
   filter() {
-    this.loading.set(true);
+    this.setFiltro();
     this.loadData();
   }
 
   search() {
+    this.setFiltro();
     this.table?.filterGlobal(this.searchValue, 'contains');
   }
 
@@ -138,6 +154,9 @@ export class DespesaView implements OnInit {
     this.dataFinal = DateUtil.getCurrentDataFinal();
     this.tipoSelecionado = undefined;
     this.debitavelSelecionado = undefined;
+    this.searchValue = undefined;
+
+    this.despesaService.resetFiltro();
 
     this.reload();
   }
@@ -161,4 +180,25 @@ export class DespesaView implements OnInit {
   edit(despesa: Despesa) {
     this.router.navigate(['despesa', despesa.id]);
   }
+
+  setFiltro() {
+
+    this.despesaService.setFiltro({
+      dataInicial: this.dataInicial,
+      dataFinal: this.dataFinal,
+      tipo: this.tipoSelecionado,
+      debitavel: this.debitavelSelecionado,
+      searchValue: this.searchValue
+    });
+
+  }
+
+  configFiltro(filtro: DespesaFiltro) {
+    this.dataInicial = filtro.dataInicial;
+    this.dataFinal = filtro.dataFinal;
+    this.tipoSelecionado = filtro.tipo;
+    this.debitavelSelecionado = filtro.debitavel;
+    this.searchValue = filtro.searchValue;
+  }
+
 }

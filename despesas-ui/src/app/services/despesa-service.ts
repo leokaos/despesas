@@ -2,18 +2,20 @@ import { ParcelamentoVO } from './../models/movimentacao.model';
 import { Debitavel, Moeda } from './../models/debitavel.model';
 import { Inject, Injectable } from '@angular/core';
 import { Despesa } from '../models/movimentacao.model';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { APP_CONFIG, AppConfig } from '../app-config';
 import { TipoDespesa } from '../models/tipo-movimentacao.model';
 import { DebitavelService } from './debitavel-service';
+import { DateUtil } from '../models/util';
 
 export interface DespesaFiltro {
   dataInicial: Date;
   dataFinal: Date;
-  moeda: Moeda;
-  tipo: TipoDespesa;
-  debitavel: Debitavel;
+  moeda?: Moeda;
+  tipo?: TipoDespesa;
+  debitavel?: Debitavel;
+  searchValue?: string;
 }
 
 @Injectable({
@@ -104,6 +106,29 @@ export class DespesaService {
       moeda: despesa.moeda.codigo,
       debitavel: DebitavelService.toEntity(despesa.debitavel),
     } as Despesa;
+  }
+
+  private filtroSubject = new BehaviorSubject<DespesaFiltro>({
+    dataInicial: DateUtil.getCurrentDataInicial(),
+    dataFinal: DateUtil.getCurrentDataFinal(),
+  });
+
+  filtro$ = this.filtroSubject.asObservable();
+
+  setFiltro(filtro: Partial<DespesaFiltro>) {
+    const current = this.filtroSubject.getValue();
+    this.filtroSubject.next({ ...current, ...filtro });
+  }
+
+  getFiltro(): DespesaFiltro {
+    return this.filtroSubject.getValue();
+  }
+
+  resetFiltro() {
+    this.filtroSubject.next({
+      dataInicial: DateUtil.getCurrentDataInicial(),
+      dataFinal: DateUtil.getCurrentDataFinal()
+    });
   }
 
 }
