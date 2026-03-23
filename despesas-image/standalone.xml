@@ -139,13 +139,13 @@
         <subsystem xmlns="urn:jboss:domain:datasources:2.0">
             <datasources>
                 <datasource jta="true" jndi-name="java:/DespesasDS" pool-name="despesas" enabled="true" use-ccm="true">
-                    <connection-url>jdbc:postgresql://despesas-database:5432/despesas</connection-url>
-                    <driver-class>org.postgresql.Driver</driver-class>
-                    <driver>postgresql</driver>
-                    <security>
-                        <user-name>despesas</user-name>
-                        <password>despesas_db</password>
-                    </security>
+					<connection-url>jdbc:postgresql://${env.DB_HOST:despesas-database}:${env.DB_PORT:5432}/${env.DB_NAME:despesas}</connection-url>
+					<driver-class>org.postgresql.Driver</driver-class>
+					<driver>postgresql</driver>
+					<security>
+						<user-name>${env.DB_USER:despesas}</user-name>
+						<password>${env.DB_PASSWORD:despesas_db}</password>
+					</security>
                     <validation>
                         <validate-on-match>false</validate-on-match>
                         <background-validation>false</background-validation>
