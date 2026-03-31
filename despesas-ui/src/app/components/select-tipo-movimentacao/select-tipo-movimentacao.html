@@ -7,7 +7,8 @@
           (onChange)="emitChange($event)"
           dataKey="id"
           appendTo="body"
-          class="w-full">
+          class="w-full"
+          showClear="true">
     <ng-template #selectedItem let-selectedOption>
         <app-color-display [color]="selectedOption.cor" [text]="selectedOption.descricao" />
     </ng-template>
