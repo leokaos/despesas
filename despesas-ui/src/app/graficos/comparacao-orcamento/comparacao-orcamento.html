@@ -1,0 +1,79 @@
+<span class="page-title">
+    <i class="pi pi-chevron-right"></i> Comparar Orçamentos
+</span>
+
+<div class="form-panel" style="min-height: 650px;">
+
+    @if (loading()) {
+    <app-loader />
+    } @else {
+
+    <p-panel>
+
+        <ng-template #header>
+            <div class="flex items-center gap-2">
+                <i class="pi pi-filter text-gray-600"></i>
+                <span class="text-sm font-medium text-gray-700 whitespace-nowrap">Filtrar</span>
+            </div>
+        </ng-template>
+
+        <div class="flex flex-row gap-4 items-center">
+
+            <div class="flex flex-1 justify-center">
+                <label for="dataInicial">
+                    Vencimento Inicial:
+                </label>
+            </div>
+
+            <div class="flex-1">
+                <p-datepicker [iconDisplay]="'input'" [(ngModel)]="dataInicial" [showIcon]="true"
+                    inputId="icondisplay" />
+            </div>
+
+            <div class="flex flex-1 justify-center">
+                <label for="dataInicial">
+                    Vencimento Final:
+                </label>
+            </div>
+
+            <div class="flex-1">
+                <p-datepicker [iconDisplay]="'input'" [(ngModel)]="dataFinal" [showIcon]="true" inputId="icondisplay" />
+            </div>
+
+            <div class="flex flex-1 justify-center">
+                <label for="conta">
+                    Períodos:
+                </label>
+            </div>
+
+            <div class="flex-1">
+                <app-select-interval (onChange)="setDates($event)" />
+            </div>
+
+            <div class="flex flex-1 justify-center">
+                <label for="conta">
+                    Tipo de Despesa
+                </label>
+            </div>
+
+            <div class="flex-1">
+                <app-select-tipo-movimentacao [tipos]="tipos" [(ngModel)]="tipoSelecionado" />
+            </div>
+
+            <div class="flex flex-0 justify-end ml-20">
+                <p-button label="Gerar" icon="pi pi-search" severity="info" size="small" (click)="generate()"
+                    [disabled]="!(!!dataInicial && !!dataFinal)" />
+            </div>
+
+        </div>
+
+    </p-panel>
+
+    @if (data) {
+    <div class="p-10">
+        <p-chart type="bar" [data]="data" [options]="options" class="w-full" style="height: 550px;" />
+    </div>
+    }
+    }
+
+</div>

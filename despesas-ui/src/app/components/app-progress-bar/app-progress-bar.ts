@@ -35,7 +35,7 @@ export class AppProgressBar {
 
       if (percent <= 70.0) {
         classes += 'progress-bar-success';
-      } else if (percent > 70.0 && percent <= 80.0) {
+      } else if (percent > 70.0 && percent <= 95.0) {
         classes += 'progress-bar-warning';
       } else {
         classes += 'progress-bar-danger';

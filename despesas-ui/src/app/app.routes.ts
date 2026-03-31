@@ -40,6 +40,7 @@ import { AportesView } from './cadastros/debitavel/aportes-view/aportes-view';
 import { CalculoRecibosVerdes } from './movimentacao/calculo-recibos-verdes/calculo-recibos-verdes';
 import { FeriadoView } from './cadastros/feriado/feriado-view/feriado-view';
 import { FeriadoEdit } from './cadastros/feriado/feriado-edit/feriado-edit';
+import { ComparacaoOrcamento } from './graficos/comparacao-orcamento/comparacao-orcamento';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -100,6 +101,7 @@ export const routes: Routes = [
   { path: 'graficotipodespesa', component: GraficoTipoDespesa },
   { path: 'graficotiporeceita', component: GraficoTipoReceita },
   { path: 'sumario', component: Sumario },
+  { path: 'comparaOrcamentos', component: ComparacaoOrcamento },
 
   //DASHBOARD
   { path: '', component: Dashboard },

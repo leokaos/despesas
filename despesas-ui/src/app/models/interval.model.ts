@@ -3,7 +3,7 @@ export class Interval {
     static readonly CURRENT_YEAR = new Interval(
         'Ano Atual',
         () => new Date(new Date().getFullYear(), 0, 1, 0, 0, 0),
-        () => new Date()
+        () => new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59)
     );
 
     static readonly LAST_YEAR = new Interval(
