@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { APP_CONFIG, AppConfig } from '../app-config';
 import { map, Observable } from 'rxjs';
 import { Grafico } from '../models/dashboard.model';
+import { DateUtil } from '../models/util';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,8 @@ export class DashboardService {
   fetchSaldo(dataInicial: Date, dataFinal: Date): Observable<number> {
 
     let params = new HttpParams();
-    params = params.append("dataInicial", dataInicial.toUTCString());
-    params = params.append("dataFinal", dataFinal.toUTCString());
+    params = params.append("dataInicial", DateUtil.getUTCDate(dataInicial).toUTCString());
+    params = params.append("dataFinal", DateUtil.getUTCDate(dataFinal).toUTCString());
 
     return this.http.get<string>(`${this.config.apiUrl}/${this.path}/saldo`, { params })
       .pipe(map((data: string) => parseFloat(data)));
@@ -25,8 +26,8 @@ export class DashboardService {
   fetchGraficos(dataInicial: Date, dataFinal: Date): Observable<Grafico[]> {
 
     let params = new HttpParams();
-    params = params.append("dataInicial", dataInicial.toUTCString());
-    params = params.append("dataFinal", dataFinal.toUTCString());
+    params = params.append("dataInicial", DateUtil.getUTCDate(dataInicial).toUTCString());
+    params = params.append("dataFinal", DateUtil.getUTCDate(dataFinal).toUTCString());
 
     return this.http.get<Grafico[]>(`${this.config.apiUrl}/${this.path}/main`, { params });
   }

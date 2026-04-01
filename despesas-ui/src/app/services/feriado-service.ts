@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { APP_CONFIG, AppConfig } from '../app-config';
 import { Feriado } from '../models/feriado.model';
+import { DateUtil } from '../models/util';
 
 export interface FeriadoFiltro {
   dataInicial: Date;
@@ -22,11 +23,11 @@ export class FeriadoService {
     let params = new HttpParams();
 
     if (filtro?.dataInicial) {
-      params = params.append("dataInicial", filtro?.dataInicial.toUTCString());
+      params = params.append("dataInicial", DateUtil.getUTCDate(filtro?.dataInicial).toUTCString());
     }
 
     if (filtro?.dataFinal) {
-      params = params.append("dataFinal", filtro?.dataFinal.toUTCString());
+      params = params.append("dataFinal", DateUtil.getUTCDate(filtro?.dataFinal).toUTCString());
     }
 
     return this.http.get<Feriado[]>(`${this.config.apiUrl}/${this.path}`, { params })

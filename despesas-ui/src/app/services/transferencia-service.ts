@@ -8,6 +8,7 @@ import { ServicoTransferencia } from '../models/servico-transferencia.model';
 import { Cotacao } from '../models/cotacao.model';
 import { DebitavelService } from './debitavel-service';
 import { CotacaoService } from './cotacao-service';
+import { DateUtil } from '../models/util';
 
 export interface TransferenciaFiltro {
   dataInicial: Date;
@@ -27,11 +28,11 @@ export class TransferenciaService {
     let params = new HttpParams();
 
     if (filtro?.dataInicial) {
-      params = params.append("dataInicial", filtro.dataInicial.toUTCString());
+      params = params.append("dataInicial", DateUtil.getUTCDate(filtro.dataInicial).toUTCString());
     }
 
     if (filtro?.dataFinal) {
-      params = params.append("dataFinal", filtro.dataFinal.toUTCString());
+      params = params.append("dataFinal", DateUtil.getUTCDate(filtro.dataFinal).toUTCString());
     }
 
     return this.http

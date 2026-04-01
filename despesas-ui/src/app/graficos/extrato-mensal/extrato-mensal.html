@@ -40,22 +40,22 @@
 
             <div class="flex flex-1 justify-center">
                 <label for="conta">
-                    Conta:
-                </label>
-            </div>
-
-            <div class="flex-1">
-                <app-select-debitavel [(ngModel)]="debitavel" [debitaveis]="debitaveis" />
-            </div>
-
-            <div class="flex flex-1 justify-center">
-                <label for="conta">
                     Períodos:
                 </label>
             </div>
 
             <div class="flex-1">
                 <app-select-interval (onChange)="setDates($event)" />
+            </div>
+
+            <div class="flex flex-1 justify-center">
+                <label for="conta">
+                    Conta:
+                </label>
+            </div>
+            
+            <div class="flex-1">
+                <app-select-debitavel [(ngModel)]="debitavel" [debitaveis]="debitaveis" />
             </div>
 
             <div class="flex flex-0 justify-end ml-20">

@@ -14,7 +14,7 @@ export class Interval {
 
     static readonly CURRENT_MONTH = new Interval(
         'Mês Atual',
-        () => new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth(), 1, 0, 0, 0)),
+        () => new Date(new Date().getFullYear(), new Date().getMonth(), 1, 0, 0, 0),
         () => new Date()
     );
 

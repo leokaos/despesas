@@ -74,8 +74,8 @@ export class OrcamentoView implements OnInit {
     let filtro = {} as OrcamentoFiltro;
 
     if (this.periodo) {
-      filtro.dataInicial = PeriodoUtil.getDataInicialUTC(this.periodo);
-      filtro.dataFinal = PeriodoUtil.getDataFinalUTC(this.periodo);
+      filtro.dataInicial = PeriodoUtil.getDataInicial(this.periodo);
+      filtro.dataFinal = PeriodoUtil.getDataFinal(this.periodo);
     }
 
     this.orcamentoService.fetch(filtro).subscribe((data: Orcamento[]) => {

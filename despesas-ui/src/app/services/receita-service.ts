@@ -6,6 +6,7 @@ import { Moeda, Debitavel } from '../models/debitavel.model';
 import { Receita } from '../models/movimentacao.model';
 import { TipoReceita } from '../models/tipo-movimentacao.model';
 import { DebitavelService } from './debitavel-service';
+import { DateUtil } from '../models/util';
 
 export interface ReceitaFiltro {
   dataInicial: Date;
@@ -30,11 +31,11 @@ export class ReceitaService {
     let params = new HttpParams();
 
     if (filtro?.dataInicial) {
-      params = params.append("dataInicial", filtro?.dataInicial.toUTCString());
+      params = params.append("dataInicial", DateUtil.getUTCDate(filtro?.dataInicial).toUTCString());
     }
 
     if (filtro?.dataFinal) {
-      params = params.append("dataFinal", filtro?.dataFinal.toUTCString());
+      params = params.append("dataFinal", DateUtil.getUTCDate(filtro?.dataFinal).toUTCString());
     }
 
     if (filtro?.moeda) {

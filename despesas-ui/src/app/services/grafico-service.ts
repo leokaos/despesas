@@ -5,6 +5,7 @@ import { APP_CONFIG, AppConfig } from '../app-config';
 import { Debitavel } from '../models/debitavel.model';
 import { Extrato } from '../models/extrato.model';
 import { GraficoLinha } from '../models/grafico.model';
+import { DateUtil } from '../models/util';
 
 @Injectable({
   providedIn: 'root'
@@ -33,11 +34,11 @@ export class GraficoService {
     let params = new HttpParams();
 
     if (dataInicial) {
-      params = params.append("dataInicial", dataInicial.toUTCString());
+      params = params.append("dataInicial", DateUtil.getUTCDate(dataInicial).toUTCString());
     }
 
     if (dataFinal) {
-      params = params.append("dataFinal", dataFinal.toUTCString());
+      params = params.append("dataFinal", DateUtil.getUTCDate(dataFinal).toUTCString());
     }
 
     return params;

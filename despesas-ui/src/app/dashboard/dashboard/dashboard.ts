@@ -61,8 +61,8 @@ export class Dashboard implements OnInit {
 
     this.loading.set(true);
 
-    this.dataInicial = new Date(Date.UTC(this.ano, this.mes, 1));
-    this.dataFinal = new Date(Date.UTC(this.ano, this.mes + 1, 0, 23, 59, 59));
+    this.dataInicial = new Date(this.ano, this.mes, 1, 0, 0, 0);
+    this.dataFinal = new Date(this.ano, this.mes + 1, 0, 23, 59, 59);
 
     let orcamentoFiltro = {
       dataInicial: this.dataInicial,
