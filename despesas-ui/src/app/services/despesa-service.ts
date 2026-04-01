@@ -103,6 +103,7 @@ export class DespesaService {
   public static toEntity(despesa: any): Despesa {
     return {
       ...despesa,
+      vencimento: DateUtil.getUTCDate(despesa.vencimento),
       moeda: despesa.moeda.codigo,
       debitavel: DebitavelService.toEntity(despesa.debitavel),
     } as Despesa;

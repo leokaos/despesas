@@ -101,6 +101,7 @@ export class ReceitaService {
   private toEntity(receita: any): Receita {
     return {
       ...receita,
+      vencimento: DateUtil.getUTCDate(receita.vencimento),
       moeda: receita.moeda.codigo,
       debitavel: DebitavelService.toEntity(receita.debitavel)
     } as Receita;

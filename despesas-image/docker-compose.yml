@@ -10,10 +10,9 @@ services:
         POSTGRES_DB: despesas
       ports:
         - "5432:5432"
-      volumes:
-        - /despesas-postgres:/var/lib/postgresql/data
 
     app:
       image: leokaos/despesas:0.1
       container_name: despesas-app
-      volumes: /despesas-index:/opt/jboss/despesas_index
+      volumes: 
+        - /despesas-index:/opt/jboss/despesas_index
