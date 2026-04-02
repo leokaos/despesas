@@ -435,8 +435,8 @@ VISA	28	11	17300.00	6	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 122.68	4
+40797.42	3
 43469.15	5
-41598.26	3
 \.
 
 
@@ -6865,6 +6865,24 @@ t	6821	102	\N
 t	6822	201	\N
 t	6823	102	\N
 t	6813	108	\N
+t	6824	107	\N
+t	6825	107	\N
+t	6826	102	\N
+t	6827	201	\N
+t	6828	107	\N
+t	6829	107	\N
+t	6830	102	\N
+t	6831	107	\N
+t	6832	107	\N
+t	6833	301	\N
+t	6834	107	\N
+t	6835	107	\N
+t	6836	107	\N
+t	6837	102	\N
+t	6838	102	\N
+t	6840	102	\N
+t	6841	4	\N
+t	6842	102	\N
 \.
 
 
@@ -7022,6 +7040,7 @@ COPY despesas_db.meta (id, mes, ano, valor) FROM stdin;
 47	11	2025	3000.00
 48	2	2026	1000.00
 49	3	2026	1300.00
+50	4	2026	1500.00
 \.
 
 
@@ -13647,6 +13666,24 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6821	GLOVO PORTUGAL LISBOA	2026-03-30	10.93	2026-03-26	3	EURO
 6822	PCDIGA BRAGA 4705159 BRAGA	2026-03-30	3923.29	2026-03-26	3	EURO
 6823	GLOVO PORTUGAL LISBOA	2026-03-30	15.05	2026-03-25	3	EURO
+6824	UBR PENDING.UBER.COM	2026-04-01	2.93	2026-03-31	3	EURO
+6825	UBR PENDING.UBER.COM	2026-04-01	2.95	2026-03-31	3	EURO
+6826	GLOVO PORTUGAL LISBOA	2026-04-01	10.40	2026-03-31	3	EURO
+6827	PCDIGA LDA LISBOA	2026-04-01	1.00	2026-03-31	3	EURO
+6828	UBR PENDING.UBER.COM	2026-04-01	5.98	2026-03-31	3	EURO
+6829	UBR PENDING.UBER.COM	2026-04-01	3.94	2026-03-31	3	EURO
+6830	ARCADIA NOVA ARCADA BRA	2026-04-01	7.90	2026-03-31	3	EURO
+6831	UBR PENDING.UBER.COM	2026-04-01	4.95	2026-03-31	3	EURO
+6832	UBR PENDING.UBER.COM	2026-04-01	4.95	2026-03-31	3	EURO
+6833	CONTINENTE BRAGA	2026-04-01	53.40	2026-03-31	3	EURO
+6834	UBR PENDING.UBER.COM	2026-04-01	3.93	2026-03-31	3	EURO
+6835	UBER TRIP	2026-04-01	3.06	2026-03-31	3	EURO
+6836	UBR PENDING.UBER.COM	2026-04-01	2.96	2026-03-31	3	EURO
+6837	GLOVO PORTUGAL LISBOA	2026-04-01	10.59	2026-03-30	3	EURO
+6838	GLOVO PORTUGAL LISBOA	2026-04-01	10.00	2026-03-30	3	EURO
+6840	Glovo 1	2026-04-01	10.40	2026-04-01	3	EURO
+6841	Aluguel	2026-04-01	650.00	2026-04-01	3	EURO
+6842	Glovo	2026-04-01	11.50	2026-04-01	3	EURO
 \.
 
 
@@ -13698,6 +13735,9 @@ COPY despesas_db.orcamento (id, tipo_despesa_id, valor, data_inicial, data_final
 55	102	400.00	2026-02-01 00:00:00	2026-02-28 23:59:59
 56	301	300.00	2026-03-01 00:00:00	2026-03-31 23:59:59
 57	102	300.00	2026-03-01 00:00:00	2026-03-31 23:59:59
+58	102	400.00	2026-04-01 00:00:00	2026-04-30 23:59:59.999
+59	301	300.00	2026-04-01 00:00:00	2026-04-30 23:59:59.999
+60	107	180.00	2026-04-01 00:00:00	2026-04-30 23:59:59.999
 \.
 
 
@@ -14051,21 +14091,21 @@ SELECT pg_catalog.setval('despesas_db.feriado_id_seq', 67, true);
 -- Name: meta_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.meta_id_seq', 49, true);
+SELECT pg_catalog.setval('despesas_db.meta_id_seq', 50, true);
 
 
 --
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6823, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6842, true);
 
 
 --
 -- Name: orcamento_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.orcamento_id_seq', 57, true);
+SELECT pg_catalog.setval('despesas_db.orcamento_id_seq', 60, true);
 
 
 --
