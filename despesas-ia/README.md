@@ -1,0 +1,1 @@
+docker run --rm --name dev-python -it -p 8080:8080 -e UV_PROJECT_ENVIRONMENT=/tmp/.venv -v .:/app python:3.12-slim /bin/bash

@@ -1,0 +1,9 @@
+.venv
+.git
+.gitignore
+*.pyc
+__pycache__
+.idea
+.vscode
+*.log
+tests/
