@@ -1,5 +1,6 @@
 package org.leo.despesas.infra;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -153,10 +154,22 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 
 		javax.persistence.Query persistenceQuery = fullTextEntityManager
 				.createFullTextQuery(query, getClasseEntidade())
+				.setProjection("id")
 				.setHint("org.hibernate.readOnly", true)
-				.setMaxResults(100);
+				.setMaxResults(100)
+				.setFirstResult(0);
 
-		List<E> list = persistenceQuery.getResultList();
+		List<Object[]> resultados = persistenceQuery.getResultList();
+
+	    List<E> list = new ArrayList<E>();
+
+	    for (Object[] row : resultados) {
+	        Long id = (Long) row[0];
+	        E entity = entityManager.find(getClasseEntidade(), id);
+	        if (entity != null) {
+	            list.add(entity);
+	        }
+	    }
 
 		if (entityManager.isOpen()) {
 			entityManager.clear();
