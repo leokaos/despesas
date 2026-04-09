@@ -436,7 +436,7 @@ VISA	28	11	17300.00	6	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 43373.32	5
 116.69	4
-40411.38	3
+40400.09	3
 \.
 
 
@@ -6913,6 +6913,14 @@ t	6869	102	\N
 t	6870	4	\N
 t	6871	108	\N
 t	6872	108	\N
+t	6873	102	\N
+t	6874	201	113
+t	6875	108	113
+t	6876	201	113
+t	6877	201	113
+t	6878	201	113
+t	6879	201	113
+t	6880	201	113
 \.
 
 
@@ -7005,6 +7013,7 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 109	6	2026-01-11 00:00:00	2025-12-28 00:00:00	t
 110	6	2026-02-11 00:00:00	2026-01-28 00:00:00	t
 111	6	2026-03-11 00:00:00	2026-02-28 00:00:00	t
+113	6	2026-04-11 00:00:00	2026-03-28 00:00:00	f
 \.
 
 
@@ -13738,12 +13747,20 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6862	Uber 1	2026-04-06	3.94	2026-04-05	3	EURO
 6865	Psicóloga 	2026-04-07	100.00	2026-04-07	3	EURO
 6869	Glovo	2026-04-07	11.29	2026-04-07	3	EURO
+6873	Glovo	2026-04-08	11.29	2026-04-08	3	EURO
 6854	Açai	2026-04-04	12.64	2026-04-04	3	EURO
 6855	Uber 1	2026-04-04	4.94	2026-04-04	3	EURO
 6861	GLOVO 1	2026-04-06	10.00	2026-04-06	3	EURO
 6867	Uber 1	2026-04-07	2.94	2026-04-07	3	EURO
 6871	IMPOSTO SELO ART 17.3.4	2026-04-07	0.14	2026-04-07	3	EURO
 6872	COM.MAN.CONTA PACOTE PRESTIGE START      032026	2026-04-07	3.50	2026-04-07	3	EURO
+6874	ALURA	2026-04-08	87.20	2026-03-26	6	REAL
+6875	ANUIDADE DIFERENCIADA	2026-04-08	37.00	2026-03-05	6	REAL
+6876	NETFLIX ENTRETENIMENTO	2026-04-08	44.90	2026-03-11	6	REAL
+6877	AmazonPrimeBR	2026-04-08	19.90	2026-03-12	6	REAL
+6878	APPLECOMBILL	2026-04-08	29.90	2026-03-20	6	REAL
+6879	DM helphbomaxcom	2026-04-08	44.90	2026-03-21	6	REAL
+6880	DM Spotify	2026-04-08	23.90	2026-03-26	6	REAL
 \.
 
 
@@ -14137,7 +14154,7 @@ SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 21, true);
 -- Name: fatura_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 112, true);
+SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 113, true);
 
 
 --
@@ -14158,7 +14175,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 50, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6872, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6880, true);
 
 
 --
