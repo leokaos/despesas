@@ -6,6 +6,8 @@ import javax.ejb.Local;
 
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
+import org.leo.despesas.infra.ContentExtractable;
+import org.leo.despesas.infra.ContentUploadble;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.infra.SimpleFacade;
 import org.leo.despesas.infra.exception.DespesasException;
@@ -13,7 +15,7 @@ import org.leo.despesas.rest.GraficoVO;
 import org.leo.despesas.rest.ParcelamentoVO;
 
 @Local
-public interface DespesaFacade extends SimpleFacade<Despesa, DespesaFiltro>, ContentUploadble<Despesa> {
+public interface DespesaFacade extends SimpleFacade<Despesa, DespesaFiltro>, ContentUploadble<Despesa>, ContentExtractable<Despesa> {
 
 	List<GraficoVO> getGraficoPorPeriodo(Periodo periodo);
 

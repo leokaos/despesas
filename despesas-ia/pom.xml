@@ -10,14 +10,14 @@
 		<version>0.14-SNAPSHOT</version>
 	</parent>
 
-	<name>${project.parent.name} - Docker Image</name>
+	<name>${project.parent.name} - Python IA Docker Image</name>
 
-	<artifactId>despesas-image</artifactId>
+	<artifactId>despesas-ia</artifactId>
 	<packaging>pom</packaging>
 
 	<properties>
 		<docker.repository>leokaos</docker.repository>
-		<docker.image.name>${docker.repository}/despesas</docker.image.name>
+		<docker.image.name>${docker.repository}/despesas-ia</docker.image.name>
 		<docker.image.tag>${project.version}</docker.image.tag>
 	</properties>
 

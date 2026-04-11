@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.leo.despesas</groupId>
 	<artifactId>despesas</artifactId>
-	<version>0.14</version>
+	<version>0.14-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Controle Despesas</name>
@@ -17,6 +18,7 @@
 		<module>despesas-web</module>
 		<module>despesas-ear</module>
 		<module>despesas-image</module>
+		<module>despesas-ia</module>
 	</modules>
 
 	<properties>
@@ -117,21 +119,22 @@
 			<dependency>
 				<groupId>org.jboss.resteasy</groupId>
 				<artifactId>resteasy-jaxrs</artifactId>
-				<version>2.3.2.Final</version>
+				<version>3.0.10.Final</version>
 				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.jboss.resteasy</groupId>
 				<artifactId>resteasy-multipart-provider</artifactId>
-				<version>2.3.2.Final</version>
+				<version>3.0.10.Final</version>
 				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.jboss.resteasy</groupId>
 				<artifactId>resteasy-jackson-provider</artifactId>
-				<version>2.3.2.Final</version>
+				<version>3.0.10.Final</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<dependency>

@@ -26,7 +26,7 @@ public class DebitavelDeserializer extends JsonDeserializer<Debitavel> {
 		for (Iterator<Entry<String, JsonNode>> fields = node.getFields(); fields.hasNext();) {
 			Entry<String, JsonNode> entry = fields.next();
 
-			String value = entry.getValue().getValueAsText();
+			String value = entry.getValue().asText();
 
 			mapaAtributos.put(entry.getKey(), value == "null" ? null : value);
 		}

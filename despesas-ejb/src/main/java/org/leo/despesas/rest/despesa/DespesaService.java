@@ -21,6 +21,8 @@ import org.apache.commons.io.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import org.leo.despesas.aplicacao.despesa.DespesaFacade;
+import org.leo.despesas.aplicacao.extractor.ExtractorFacade;
+import org.leo.despesas.dominio.extractor.ExtractVO;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
 import org.leo.despesas.infra.AbstractService;
@@ -37,6 +39,9 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa, Desp
 
 	@EJB
 	private DespesaFacade despesaFacade;
+
+	@EJB
+	private ExtractorFacade extractorFacade;
 
 	@GET
 	@Path(value = "/grafico")
@@ -94,6 +99,34 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa, Desp
 				e.printStackTrace();
 			}
 
+		}
+
+		return null;
+	}
+
+	@POST
+	@Path("/extract")
+	@Consumes("multipart/form-data")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response extract(final MultipartFormDataInput input) {
+
+		try {
+			Map<String, List<InputPart>> form = input.getFormDataMap();
+			InputPart inputPart = form.get("arquivo").get(0);
+
+			InputStream is = inputPart.getBody(InputStream.class, null);
+			byte[] arquivo = IOUtils.toByteArray(is);
+
+			String contentType = inputPart.getMediaType().toString();
+
+			ExtractVO extractVO = extractorFacade.extrair(arquivo, contentType);
+
+			Despesa fromExtraction = despesaFacade.createFromExtraction(extractVO);
+
+			return Response.ok(fromExtraction).build();
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		return null;

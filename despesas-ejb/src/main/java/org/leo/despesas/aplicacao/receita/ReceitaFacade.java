@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import org.leo.despesas.aplicacao.despesa.ContentUploadble;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.ReceitaFiltro;
+import org.leo.despesas.infra.ContentUploadble;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.infra.SimpleFacade;
 import org.leo.despesas.rest.GraficoVO;

@@ -1,6 +1,7 @@
 package org.leo.despesas.aplicacao.despesa;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +15,7 @@ import javax.persistence.Query;
 
 import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
 import org.leo.despesas.dominio.debitavel.Debitavel;
+import org.leo.despesas.dominio.extractor.ExtractVO;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
@@ -197,5 +199,15 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 			novo.fechar();
 		}
 
+	}
+
+	@Override
+	public Despesa createFromExtraction(ExtractVO vo) {
+		try {
+			Date data = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(vo.getData());
+			return construirDespesa(new java.sql.Date(data.getTime()), vo.getDescricao(), vo.getValor());
+		} catch (ParseException e) {
+			return null;
+		}
 	}
 }

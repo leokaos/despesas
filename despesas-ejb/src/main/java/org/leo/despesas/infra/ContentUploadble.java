@@ -1,8 +1,6 @@
-package org.leo.despesas.aplicacao.despesa;
+package org.leo.despesas.infra;
 
 import java.util.List;
-
-import org.leo.despesas.infra.ModelEntity;
 
 public interface ContentUploadble<T extends ModelEntity> {
 
