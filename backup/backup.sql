@@ -434,9 +434,9 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-43373.32	5
+40237.70	3
 116.69	4
-40400.09	3
+43085.62	5
 \.
 
 
@@ -6921,6 +6921,13 @@ t	6877	201	113
 t	6878	201	113
 t	6879	201	113
 t	6880	201	113
+t	6882	107	\N
+t	6884	107	\N
+t	6887	102	\N
+t	6888	102	\N
+t	6891	4	\N
+t	6892	4	\N
+t	6893	102	\N
 \.
 
 
@@ -7013,7 +7020,7 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 109	6	2026-01-11 00:00:00	2025-12-28 00:00:00	t
 110	6	2026-02-11 00:00:00	2026-01-28 00:00:00	t
 111	6	2026-03-11 00:00:00	2026-02-28 00:00:00	t
-113	6	2026-04-11 00:00:00	2026-03-28 00:00:00	f
+113	6	2026-04-11 00:00:00	2026-03-28 00:00:00	t
 \.
 
 
@@ -13761,6 +13768,14 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6878	APPLECOMBILL	2026-04-08	29.90	2026-03-20	6	REAL
 6879	DM helphbomaxcom	2026-04-08	44.90	2026-03-21	6	REAL
 6880	DM Spotify	2026-04-08	23.90	2026-03-26	6	REAL
+6881	Pagamento fatura 04/2026	2026-04-09	287.70	2026-04-10	5	REAL
+6882	uber 1	2026-04-10	2.94	2026-04-09	3	EURO
+6884	uber 2	2026-04-10	2.95	2026-04-09	3	EURO
+6887	Glovo 1	2026-04-10	10.80	2026-04-09	3	EURO
+6888	Glovo 2	2026-04-10	10.00	2026-04-09	3	EURO
+6891	Contabilidade	2026-04-10	73.80	2026-04-08	3	EURO
+6892	Limpeza	2026-04-10	52.00	2026-04-10	3	EURO
+6893	Glovo	2026-04-10	9.90	2026-04-10	3	EURO
 \.
 
 
@@ -14125,6 +14140,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 6578	6	417.92
 6681	6	352.00
 6723	4	100.00
+6881	6	287.70
 \.
 
 
@@ -14175,7 +14191,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 50, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6880, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6893, true);
 
 
 --
