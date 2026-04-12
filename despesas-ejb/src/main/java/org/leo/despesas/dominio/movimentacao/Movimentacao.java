@@ -31,12 +31,19 @@ import org.leo.despesas.infra.ModelEntity;
 import org.leo.despesas.infra.Moeda;
 import org.leo.despesas.rest.DebitavelDeserializer;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @Entity
 @Indexed(index = "movimentacao")
 @Table(name = "movimentacao", schema = "despesas_db")
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "tipoMovimentacao")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = Despesa.class, name = "despesa"),
+    @JsonSubTypes.Type(value = Receita.class, name = "receita")
+})
 public abstract class Movimentacao implements ModelEntity {
 
 	private static final long serialVersionUID = 7650797422719540384L;
