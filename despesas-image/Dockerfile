@@ -14,6 +14,9 @@ RUN mkdir -p /opt/jboss/wildfly/modules/system/layers/base/org/postgresql && \
 # Volta para o usuário jboss (padrão da imagem)
 USER jboss
 
+# Expõe a porta de debug
+EXPOSE 8787
+
 COPY postgresql/ /opt/jboss/wildfly/modules/system/layers/base/org/postgresql
 
 COPY standalone.xml /opt/jboss/wildfly/standalone/configuration/standalone.xml
