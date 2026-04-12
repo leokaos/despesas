@@ -100,6 +100,7 @@ export class TransferenciaService {
   public static toEntity(transferencia: any): Transferencia {
     return {
       ...transferencia,
+      tipoMovimentacao: "transferencia",
       moeda: transferencia.moeda?.codigo || transferencia.debitavel.moeda?.codigo,
       creditavel: DebitavelService.toEntity(transferencia.creditavel),
       debitavel: DebitavelService.toEntity(transferencia.debitavel),

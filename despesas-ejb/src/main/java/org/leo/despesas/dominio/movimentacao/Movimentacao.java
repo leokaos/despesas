@@ -42,7 +42,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "tipoMovimentacao")
 @JsonSubTypes({
     @JsonSubTypes.Type(value = Despesa.class, name = "despesa"),
-    @JsonSubTypes.Type(value = Receita.class, name = "receita")
+    @JsonSubTypes.Type(value = Receita.class, name = "receita"),
+    @JsonSubTypes.Type(value = Transferencia.class, name = "transferencia")
 })
 public abstract class Movimentacao implements ModelEntity {
 
