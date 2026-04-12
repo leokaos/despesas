@@ -1,107 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<artifactId>despesas</artifactId>
 		<groupId>org.leo.despesas</groupId>
-		<version>0.14</version>
+		<version>0.15</version>
 	</parent>
 
 	<artifactId>despesas-ui</artifactId>
 	<packaging>pom</packaging>
 
 	<name>${project.parent.name} - UI</name>
-	
+
 	<properties>
-		<despesas.api.url>https://despesas.leoapps.duckdns.org/services</despesas.api.url>
+		<despesas.api.url>http://localhost:8080/services</despesas.api.url>
 	</properties>
-	
-	 <build>
 
-        <plugins>
+	<build>
 
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.12.1</version>
-                <configuration>
-                    <nodeVersion>v22.20.0</nodeVersion>
-                    <npmVersion>9.6.7</npmVersion>
-                    <workingDirectory>./</workingDirectory>
-                </configuration>
-                <executions>
+		<plugins>
+
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.12.1</version>
+				<configuration>
+					<nodeVersion>v22.20.0</nodeVersion>
+					<npmVersion>9.6.7</npmVersion>
+					<workingDirectory>./</workingDirectory>
+				</configuration>
+				<executions>
 					<!-- Instalar Node e npm -->
-                    <execution>
-                        <id>install node and npm</id>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>npm install</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>install</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>ng build</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run build</arguments>
-                        </configuration>
-                        <phase>compile</phase>
-                    </execution>
-                </executions>
-            </plugin>
+					<execution>
+						<id>install node and npm</id>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>npm install</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>ng build</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>run build</arguments>
+						</configuration>
+						<phase>compile</phase>
+					</execution>
+				</executions>
+			</plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.2.0</version>
-                <executions>
-                    <execution>
-                        <id>filter-config</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.basedir}/dist/despesas-ui/browser/</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${project.basedir}/public</directory>
-                                    <filtering>true</filtering>
-                                    <includes>
-                                        <include>app-config.json</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-angular-build</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <resources>
-                                <resource>
-                                    <directory>dist/despesas-ui/browser</directory>
-                                </resource>
-                            </resources>
-                            <outputDirectory>../despesas-web/src/main/webapp</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-	
-	</project>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>filter-config</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>
+								${project.basedir}/dist/despesas-ui/browser/</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/public</directory>
+									<filtering>true</filtering>
+									<includes>
+										<include>app-config.json</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-angular-build</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>dist/despesas-ui/browser</directory>
+								</resource>
+							</resources>
+							<outputDirectory>../despesas-web/src/main/webapp</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<despesas.api.url>http://localhost:8080/services</despesas.api.url>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>prod</id>
+			<properties>
+				<despesas.api.url>https://despesas.leoapps.duckdns.org/services</despesas.api.url>
+			</properties>
+		</profile>
+
+	</profiles>
+
+</project>

@@ -14,12 +14,13 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.leo.despesas.dominio.movimentacao.Movimentacao;
 import org.leo.despesas.infra.Mes;
 import org.leo.despesas.infra.ModelEntity;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.rest.MetaDeserializer;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @Entity
 @Table(name = "meta", schema = "despesas_db")

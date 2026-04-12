@@ -3,8 +3,9 @@ package org.leo.despesas.rest;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.leo.despesas.dominio.parcelamento.Parcelamento;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonDeserialize(using = ParcelamentoVODeserializer.class)
 public class ParcelamentoVO implements Serializable {

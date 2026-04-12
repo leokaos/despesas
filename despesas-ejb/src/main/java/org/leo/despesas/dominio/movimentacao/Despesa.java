@@ -10,10 +10,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.search.annotations.Indexed;
 import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "despesa", schema = "despesas_db")

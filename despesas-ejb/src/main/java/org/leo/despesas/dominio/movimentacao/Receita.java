@@ -9,9 +9,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.leo.despesas.dominio.debitavel.Investimento;
 import org.leo.despesas.dominio.tipomovimentacao.TipoReceita;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "receita", schema = "despesas_db")

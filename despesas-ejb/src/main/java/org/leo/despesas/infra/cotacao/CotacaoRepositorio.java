@@ -5,12 +5,15 @@ import java.text.MessageFormat;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.MediaType;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.jboss.resteasy.client.ClientRequest;
 import org.leo.despesas.aplicacao.parametro.ParametroFacade;
 import org.leo.despesas.infra.Moeda;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ApplicationScoped
 public class CotacaoRepositorio {
@@ -20,25 +23,30 @@ public class CotacaoRepositorio {
 	@EJB
 	private ParametroFacade parametroFacade;
 
+	private Client client = ClientBuilder.newClient();
+
+	private ObjectMapper mapper = new ObjectMapper();
+
 	public BigDecimal getCotacao(Moeda origem, Moeda destino) {
 
 		try {
-
 			String baseURL = parametroFacade.getUrlParaCotacao();
-
 			String url = MessageFormat.format(PARAMETRO_FORMAT, baseURL, origem.getCodigo(), destino.getCodigo());
 
-			ClientRequest request = new ClientRequest(url);
+			String rawJson = client.target(url).request(MediaType.APPLICATION_JSON).get(String.class);
 
-			String rawJson = request.get(String.class).getEntity();
+			JsonNode json = mapper.readTree(rawJson);
+			String chave = origem.getCodigo() + destino.getCodigo();
+			JsonNode findNode = json.get(chave);
 
-			JsonNode json = new ObjectMapper().readTree(rawJson);
+			if (findNode != null && findNode.has("bid")) {
+				return new BigDecimal(findNode.get("bid").asText());
+			}
 
-			JsonNode findNode = json.get(origem.getCodigo() + destino.getCodigo());
-
-			return findNode != null ? new BigDecimal(findNode.get("bid").getValueAsText()) : null;
+			return null;
 
 		} catch (Exception e) {
+			System.err.println("Erro ao obter cotação: " + e.getMessage());
 			return null;
 		}
 

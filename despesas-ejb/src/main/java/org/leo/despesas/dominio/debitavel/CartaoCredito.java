@@ -17,12 +17,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.time.DateUtils;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
 import org.leo.despesas.infra.util.DataUtil;
 import org.leo.despesas.rest.DebitavelSerializerVisitorImpl;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "cartao", schema = "despesas_db")

@@ -4,7 +4,7 @@
 
 Faz o bump da versão
 
-`mvnw clean install`
+`mvnw clean install -P prod`
 
 Faz o build da aplicação EAR e Angular
 

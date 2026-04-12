@@ -3,13 +3,14 @@ package org.leo.despesas.rest;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.map.DeserializationContext;
-import org.codehaus.jackson.map.JsonDeserializer;
 import org.leo.despesas.dominio.meta.Meta;
 import org.leo.despesas.infra.Mes;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
 
 public class MetaDeserializer extends JsonDeserializer<Meta> {
 
@@ -18,17 +19,17 @@ public class MetaDeserializer extends JsonDeserializer<Meta> {
 
 		JsonNode node = jp.getCodec().readTree(jp);
 
-		int mes = Integer.valueOf(node.get("mes").get("mes").getValueAsText());
-		int ano = Integer.valueOf(node.get("mes").get("ano").getValueAsText());
+		int mes = node.get("mes").get("mes").asInt();
+		int ano = node.get("mes").get("ano").asInt();
 
 		Meta meta = new Meta();
 
 		if (node.get("id") != null) {
-			meta.setId(node.get("id").getLongValue());
+			meta.setId(node.get("id").asLong());
 		}
 
 		meta.setMes(new Mes(mes, ano));
-		meta.setValor(new BigDecimal(node.get("valor").getBigIntegerValue()));
+		meta.setValor(new BigDecimal(node.get("valor").asDouble()));
 
 		return meta;
 	}

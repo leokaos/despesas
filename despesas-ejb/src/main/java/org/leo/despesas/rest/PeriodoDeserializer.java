@@ -6,13 +6,14 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.map.DeserializationContext;
-import org.codehaus.jackson.map.JsonDeserializer;
 import org.leo.despesas.dominio.debitavel.PeriodoFactory;
 import org.leo.despesas.infra.Periodo;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
 
 public class PeriodoDeserializer extends JsonDeserializer<Periodo> {
 
@@ -23,10 +24,10 @@ public class PeriodoDeserializer extends JsonDeserializer<Periodo> {
 
 		Map<String, String> mapaAtributos = new HashMap<String, String>();
 
-		for (Iterator<Entry<String, JsonNode>> fields = node.getFields(); fields.hasNext();) {
+		for (Iterator<Entry<String, JsonNode>> fields = node.fields(); fields.hasNext();) {
 			Entry<String, JsonNode> entry = fields.next();
 
-			String value = entry.getValue().getValueAsText();
+			String value = entry.getValue().asText();
 
 			mapaAtributos.put(entry.getKey(), value == "null" ? null : value);
 		}

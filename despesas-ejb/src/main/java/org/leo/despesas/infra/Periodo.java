@@ -6,8 +6,9 @@ import java.util.Iterator;
 import javax.persistence.Embeddable;
 
 import org.apache.commons.lang3.time.DateUtils;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.leo.despesas.rest.PeriodoDeserializer;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @Embeddable
 @JsonDeserialize(using = PeriodoDeserializer.class)

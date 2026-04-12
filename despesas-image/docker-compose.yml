@@ -12,7 +12,7 @@ services:
         - "5432:5432"
 
     app:
-      image: leokaos/despesas:0.1
+      image: leokaos/despesas:${DESPESAS_VERSION}
       container_name: despesas-app
       volumes: 
         - /despesas-index:/opt/jboss/despesas_index

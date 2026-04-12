@@ -21,7 +21,6 @@ import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -31,6 +30,8 @@ import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.infra.ModelEntity;
 import org.leo.despesas.infra.Moeda;
 import org.leo.despesas.rest.DebitavelDeserializer;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @Entity
 @Indexed(index = "movimentacao")

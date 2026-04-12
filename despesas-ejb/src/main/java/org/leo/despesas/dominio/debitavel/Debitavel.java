@@ -14,7 +14,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
@@ -22,6 +21,8 @@ import org.leo.despesas.infra.ModelEntity;
 import org.leo.despesas.infra.Moeda;
 import org.leo.despesas.rest.DebitavelDeserializer;
 import org.leo.despesas.rest.DebitavelSerializerVisitorImpl;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @Entity
 @Table(name = "debitavel", schema = "despesas_db")
