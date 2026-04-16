@@ -435,8 +435,8 @@ VISA	28	11	17300.00	6	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 42184.62	5
-116.69	4
-37768.17	3
+37721.96	3
+105.74	4
 \.
 
 
@@ -6942,6 +6942,14 @@ t	6904	107	\N
 t	6905	201	\N
 t	6906	107	\N
 t	6907	102	\N
+t	6910	102	\N
+t	6911	102	\N
+t	6912	107	\N
+t	6913	107	\N
+t	6914	2	\N
+t	6915	107	\N
+t	6916	107	\N
+t	6917	102	\N
 \.
 
 
@@ -13802,10 +13810,18 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6903	Glovo	2026-04-13	9.90	2026-04-13	3	EURO
 6904	UBER 1	2026-04-14	2.06	2026-04-14	3	EURO
 6905	PC DIGA NOTEBOOK	2026-04-14	2328.99	2026-04-14	3	EURO
-6906	UBER 2	2026-04-14	2.06	2026-04-14	3	EURO
 6907	GLOVO	2026-04-14	9.90	2026-04-14	3	EURO
 6908	Valor IVA de Maio/2026	\N	1255.80	2026-05-31	3	EURO
 6909	Salário de Maio/2026	\N	4204.20	2026-05-31	3	EURO
+6910	GLOVO PORTUGAL LISBOA	2026-04-15	15.50	2026-04-15	3	EURO
+6911	GLOVO PORTUGAL LISBOA	2026-04-15	9.90	2026-04-15	3	EURO
+6912	UBER RIDES PARIS	2026-04-15	2.96	2026-04-15	3	EURO
+6913	UBER RIDES PARIS	2026-04-15	2.94	2026-04-15	3	EURO
+6914	Farmacia	2026-04-15	9.91	2026-04-14	3	EURO
+6915	Uber 1	2026-04-15	2.06	2026-04-14	3	EURO
+6916	Uber 2	2026-04-15	2.06	2026-04-14	3	EURO
+6906	UBER 2	2026-04-14	2.94	2026-04-14	3	EURO
+6917	Glovo	2026-04-15	10.95	2026-04-14	4	EURO
 \.
 
 
@@ -14226,7 +14242,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 51, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6909, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6917, true);
 
 
 --
