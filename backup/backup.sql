@@ -7109,6 +7109,7 @@ COPY despesas_db.meta (id, mes, ano, valor) FROM stdin;
 48	2	2026	1000.00
 49	3	2026	1300.00
 51	5	2026	2000.00
+52	4	2026	1.00
 \.
 
 
@@ -14235,7 +14236,7 @@ SELECT pg_catalog.setval('despesas_db.feriado_id_seq', 67, true);
 -- Name: meta_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.meta_id_seq', 51, true);
+SELECT pg_catalog.setval('despesas_db.meta_id_seq', 52, true);
 
 
 --
