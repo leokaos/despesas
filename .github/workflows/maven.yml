@@ -26,13 +26,16 @@ jobs:
         cache: maven
 
     - name: Set new version
-      run: mvn versions:set -DnewVersion=${{ github.event.inputs.version }}
+      run: mvn versions:set -DnewVersion=${{ github.event.inputs.version }} -DgenerateBackupPoms=false -DupdateMatchingVersions=false
+
+    - name: Install new parent POM
+      run: mvn install -N
 
     - name: Commit version change
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
-        git add pom.xml */pom.xml */*/pom.xml
+        git add **/pom.xml
         git commit -m "bump version to ${{ github.event.inputs.version }}"
         git push
 
@@ -46,7 +49,7 @@ jobs:
         password: ${{ secrets.DOCKER_TOKEN }}
 
     - name: Deploy to Docker Hub
-      run: mvn clean deploy
+      run: cd despesas-image && mvn clean deploy
 
     - name: Deploy to server
       uses: appleboy/ssh-action@v1
