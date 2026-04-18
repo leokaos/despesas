@@ -7,7 +7,7 @@
 	<parent>
 		<artifactId>despesas</artifactId>
 		<groupId>org.leo.despesas</groupId>
-		<version>0.15</version>
+		<version>0.16</version>
 	</parent>
 
 	<artifactId>despesas-web</artifactId>
