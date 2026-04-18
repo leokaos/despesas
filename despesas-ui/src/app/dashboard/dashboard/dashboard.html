@@ -5,7 +5,8 @@
 <div class="form-panel" [style.margin-bottom]="'30px'">
     <div class="flex items-center justify-between">
         <div class="w-1/12">
-            <p-button icon="pi pi-chevron-left" [rounded]="true" [text]="true" severity="secondary" (click)="anterior()" size="small" />
+            <p-button icon="pi pi-chevron-left" [rounded]="true" [text]="true" severity="secondary" (click)="anterior()"
+                size="small" />
         </div>
         <div class="w-10/12 text-center">
             <h4 class="text-xl">
@@ -13,7 +14,8 @@
             </h4>
         </div>
         <div class="w-1/12 flex justify-end">
-            <p-button icon="pi pi-chevron-right" [rounded]="true" [text]="true" severity="secondary" (click)="posterior()" size="small" />
+            <p-button icon="pi pi-chevron-right" [rounded]="true" [text]="true" severity="secondary"
+                (click)="posterior()" size="small" />
         </div>
     </div>
 </div>
@@ -28,11 +30,13 @@
         <div class="p-3">
             @if (grafico.dados && grafico.dados.length > 0 ) {
             @if(grafico.tipoGrafico === 'PIZZA'){
-            <p-chart height="280" type="doughnut" [data]="convertPizza(grafico)" class="w-full" [options]="{animation:false,cutout: '70%',plugins: { legend: { display: false }}}" />
+            <p-chart height="280" type="doughnut" [data]="convertPizza(grafico)" class="w-full"
+                [options]="{animation:false,cutout: '70%',plugins: { legend: { display: false }}}" />
             }
 
             @if(grafico.tipoGrafico === 'BARRAS'){
-            <p-chart height="280" type="bar" [data]="convertBarra(grafico)" class="w-full" [options]="{animation:false, plugins: { legend: { display: false } } }" />
+            <p-chart height="280" type="bar" [data]="convertBarra(grafico)" class="w-full"
+                [options]="{animation:false, plugins: { legend: { display: false } } }" />
             }
             } @else {
             <div class="mt-15 text-2xl">
@@ -47,9 +51,10 @@
 
 <div class="flex flex-col md:flex-row w-full gap-8 mt-8" style="min-height: 200px;">
 
+    @if(!loading()){
     <div class="white-panel w-full md:w-1/4">
-        @if(!loading()){
-        <p-carousel [value]="debitaveis" [numVisible]="1" [numScroll]="1" [circular]="true" [showIndicators]="false" (onPage)="setDebitavel($event)">
+        <p-carousel [value]="debitaveis" [numVisible]="1" [numScroll]="1" [circular]="true" [showIndicators]="false"
+            (onPage)="setDebitavel($event)">
             <ng-template let-debitavel #header>
                 <div class="white-header">
                     <h5 class="p-2">{{debitavelShown?.descricao}}</h5>
@@ -61,7 +66,6 @@
                 </div>
             </ng-template>
         </p-carousel>
-        }
     </div>
 
     <div class="white-panel w-full md:w-1/4">
@@ -92,21 +96,20 @@
             <h5 class="p-2">Orçamentos do Mês</h5>
         </div>
         <div>
-            @if(!loading()){
             @for (orcamento of orcamentos; track $index) {
             <div class="flex items-center gap-4 p-4">
                 <div class="flex-none w-2/5">
                     {{orcamento.tipoDespesa.descricao}}
                 </div>
                 <div class="flex-1">
-                    <app-progress-bar [current]="orcamento.valorConsolidado" [total]="orcamento.valor" [striped]="true" [animated]="true" [showLabel]="true" [currency]="true" />
+                    <app-progress-bar [current]="orcamento.valorConsolidado" [total]="orcamento.valor" [striped]="true"
+                        [animated]="true" [showLabel]="true" [currency]="true" />
                 </div>
             </div>
             } @empty {
             <div class="mt-15 text-2xl">
                 Sem orçamentos cadastrados!
             </div>
-            }
             }
         </div>
     </div>
@@ -116,8 +119,6 @@
             <h5 class="p-2">Meta do Mês</h5>
         </div>
         <div>
-            @if(!loading()) {
-
             @if (meta) {
             <div class="flex flex-col">
                 <div class="flex flex-col p-3">
@@ -132,7 +133,13 @@
                     </div>
                     <div class="flex-1 text-center p-2">
                         <div class="text-s">Por Dia</div>
-                        <div class="text-base mt-1">R$ {{meta.valorDiario | number: '1.2-2' : 'pt-BR'}}</div>
+                        @if (meta.valorDiario){
+                            <div class="text-base mt-1">R$ {{meta.valorDiario | number: '1.2-2' : 'pt-BR'}}</div>
+                        }
+                        @else{
+                            <div class="text-base mt-1">-</div>
+                        }
+
                     </div>
                 </div>
             </div>
@@ -141,7 +148,7 @@
                 Sem metas definidas!
             </div>
             }
-            }
         </div>
     </div>
+    }
 </div>

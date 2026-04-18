@@ -1,10 +1,12 @@
-name: Build despesas
+name: Release new version
 
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Nova versão (ex: 0.16)'
+        required: true
+        type: string
 
 jobs:
 
@@ -13,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-    - uses: actions/checkout@v5
+    - name: Checkout code
+      uses: actions/checkout@v5
 
     - name: Set up JDK 8
       uses: actions/setup-java@v5
@@ -23,5 +25,35 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
+    - name: Set new version
+      run: mvn versions:set -DnewVersion=${{ github.event.inputs.version }}
+
+    - name: Commit version change
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add pom.xml */pom.xml */*/pom.xml
+        git commit -m "bump version to ${{ github.event.inputs.version }}"
+        git push
+
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -B package -P prod --file pom.xml
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_TOKEN }}
+
+    - name: Deploy to Docker Hub
+      run: mvn clean deploy
+
+    - name: Deploy to server
+      uses: appleboy/ssh-action@v1
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        port: ${{ secrets.SSH_PORT }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          /home/leo/server/despesas/deploy.sh ${{ github.event.inputs.version }}
