@@ -7,3 +7,9 @@
 .hg/*
 **/node_modules/*
 *.versionsBackup
+
+
+#CONFIGURACAO DO BUILD
+despesas-web/src/main/webapp/*
+!despesas-web/src/main/webapp/META-INF/
+!despesas-web/src/main/webapp/WEB-INF/
