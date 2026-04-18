@@ -1,4 +1,4 @@
 {
-  "apiUrl": "${despesas.api.url}",
+  "apiUrl": "http://localhost:8080/services",
   "version": "${project.version}"
 }
