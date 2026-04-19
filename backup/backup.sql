@@ -434,9 +434,9 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-42184.62	5
-105.74	4
-37529.04	3
+37418.85	3
+95.84	4
+42172.22	5
 \.
 
 
@@ -462,6 +462,7 @@ COPY despesas_db.cotacao (id, origem, destino, taxa, data) FROM stdin;
 15	EURO	REAL	6.12	2026-03-06 15:38:54.293
 16	EURO	REAL	5.99	2026-03-17 13:41:04.109
 17	EURO	REAL	6.04	2026-03-19 15:57:56
+18	EURO	REAL	5.85	2026-04-18 23:16:55.717
 \.
 
 
@@ -6954,6 +6955,14 @@ t	6918	107	\N
 t	6919	107	\N
 t	6920	102	\N
 t	6921	4	\N
+t	6922	107	\N
+t	6923	301	\N
+t	6924	102	\N
+t	6925	107	\N
+t	6926	3	\N
+t	6928	102	\N
+t	6929	4	\N
+t	6927	102	\N
 \.
 
 
@@ -13831,6 +13840,14 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6919	Uber 2	2026-04-17	2.93	2026-04-16	3	EURO
 6920	Glovo	2026-04-17	9.90	2026-04-17	3	EURO
 6921	DD PLANICARE	2026-04-17	177.16	2026-04-16	3	EURO
+6922	UBER RIDES PARIS	2026-04-18	4.95	2026-04-18	3	EURO
+6923	CONTINENTE BRAGA BRAGA	2026-04-18	50.89	2026-04-18	3	EURO
+6924	ARCADIA NOVA ARCADA BRA	2026-04-18	4.50	2026-04-18	3	EURO
+6925	UBER RIDES PARIS	2026-04-18	4.95	2026-04-18	3	EURO
+6926	IKEA	2026-04-18	35.00	2026-04-18	3	EURO
+6927	GLOVO	2026-04-18	9.90	2026-04-16	3	EURO
+6928	Glovo	2026-04-18	9.90	2026-04-17	4	EURO
+6929	DA COMGAS	2026-04-18	12.40	2026-04-15	5	REAL
 \.
 
 
@@ -14216,7 +14233,7 @@ COPY public.flyway_schema_history (installed_rank, version, description, type, s
 -- Name: cotacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 17, true);
+SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 18, true);
 
 
 --
@@ -14251,7 +14268,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 52, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6921, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6929, true);
 
 
 --
