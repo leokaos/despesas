@@ -7106,6 +7106,7 @@ COPY despesas_db.feriado (id, date_feriado, tipo) FROM stdin;
 65	2026-01-09	FERIAS
 66	2026-02-19	FERIAS
 67	2026-02-20	FERIAS
+68	2026-04-30	FERIADO
 \.
 
 
@@ -13830,8 +13831,6 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6904	UBER 1	2026-04-14	2.06	2026-04-14	3	EURO
 6905	PC DIGA NOTEBOOK	2026-04-14	2328.99	2026-04-14	3	EURO
 6907	GLOVO	2026-04-14	9.90	2026-04-14	3	EURO
-6908	Valor IVA de Maio/2026	\N	1255.80	2026-05-31	3	EURO
-6909	Salário de Maio/2026	\N	4204.20	2026-05-31	3	EURO
 6910	GLOVO PORTUGAL LISBOA	2026-04-15	15.50	2026-04-15	3	EURO
 6911	GLOVO PORTUGAL LISBOA	2026-04-15	9.90	2026-04-15	3	EURO
 6912	UBER RIDES PARIS	2026-04-15	2.96	2026-04-15	3	EURO
@@ -13857,6 +13856,8 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6931	PARQUE CAFETARIA	2026-04-19	6.95	2026-04-19	3	EURO
 6932	CHURRASQ BRAZA	2026-04-19	12.40	2026-04-19	3	EURO
 6933	UBER RIDES PARIS	2026-04-19	2.93	2026-04-19	3	EURO
+6935	Valor IVA de Maio/2026	\N	1255.80	2026-05-31	3	EURO
+6934	Salário de Maio/2026	\N	4204.20	2026-05-31	3	EURO
 \.
 
 
@@ -14051,8 +14052,8 @@ f	6803	109	\N	f
 f	6802	23	\N	t
 t	6625	109	\N	f
 t	6624	23	\N	t
-f	6908	23	\N	t
-f	6909	109	\N	f
+f	6935	23	\N	t
+f	6934	109	\N	f
 \.
 
 
@@ -14263,7 +14264,7 @@ SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 113, true);
 -- Name: feriado_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.feriado_id_seq', 67, true);
+SELECT pg_catalog.setval('despesas_db.feriado_id_seq', 68, true);
 
 
 --
@@ -14277,7 +14278,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 52, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6933, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6935, true);
 
 
 --
