@@ -435,8 +435,8 @@ VISA	28	11	17300.00	6	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 8.85	4
-37023.93	3
 42172.22	5
+42606.07	3
 \.
 
 
@@ -465,6 +465,7 @@ COPY despesas_db.cotacao (id, origem, destino, taxa, data) FROM stdin;
 18	EURO	REAL	5.85	2026-04-18 23:16:55.717
 19	EURO	REAL	5.84	2026-04-21 14:47:42.11
 20	EURO	REAL	5.87	2026-04-25 11:32:38.822
+21	EURO	REAL	5.84	2026-04-30 11:04:51.768
 \.
 
 
@@ -6994,6 +6995,20 @@ t	6972	102	\N
 t	6973	102	\N
 t	6974	201	\N
 t	6975	107	\N
+t	6976	102	\N
+t	6977	102	\N
+t	6978	102	\N
+t	6979	4	\N
+t	6980	107	\N
+t	6981	102	\N
+t	6982	103	\N
+t	6983	107	\N
+t	6984	102	\N
+t	6985	107	\N
+t	6986	102	\N
+t	6987	102	\N
+t	6988	102	\N
+t	6989	107	\N
 \.
 
 
@@ -7005,7 +7020,7 @@ COPY despesas_db.divida (valor_total, periodiciodade, data_inicio, id) FROM stdi
 121592.98	MENSAL	2017-10-31 20:00:00	7
 407.10	VARIAVEL	2025-11-14 00:00:00	18
 2237.90	VARIAVEL	2025-10-01 20:00:00	19
-3289.00	VARIAVEL	2026-01-01 00:00:00	20
+2555.38	VARIAVEL	2026-05-24 23:00:00	20
 \.
 
 
@@ -13756,8 +13771,6 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6799	UBER 2	2026-03-24	2.94	2026-03-23	3	EURO
 6800	DA Comgas	2026-03-24	12.40	2026-03-16	5	REAL
 6801	Glovo 1	2026-03-24	14.30	2026-03-24	3	EURO
-6802	Valor IVA de Abril/2026	\N	1315.60	2026-04-30	3	EURO
-6803	Salário de Abril/2026	\N	4404.40	2026-04-30	3	EURO
 6625	Salário de Março/2026	2026-03-30	4404.40	2026-03-31	3	EURO
 6804	GLOVO PORTUGAL LISBOA	2026-03-30	11.50	2026-03-30	3	EURO
 6805	POKE HOUSE BRAGA 13500	2026-03-30	12.30	2026-03-30	3	EURO
@@ -13802,6 +13815,7 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6845	Glovo 1	2026-04-02	13.32	2026-03-31	3	EURO
 6846	Eletropaulo	2026-04-02	23.93	2026-03-30	5	REAL
 6847	Glovo	2026-04-02	10.70	2026-04-02	3	EURO
+6803	Salário de Abril/2026	2026-04-30	4404.40	2026-04-30	3	EURO
 6848	Uber 1	2026-04-03	2.96	2026-04-02	3	EURO
 6850	Tarifa Itau	2026-04-03	71.90	2026-04-02	5	REAL
 6852	Glovo	2026-04-03	10.40	2026-04-03	3	EURO
@@ -13908,6 +13922,21 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6973	ALMOCO	2026-04-27	12.40	2026-04-26	3	EURO
 6974	FNAC	2026-04-27	8.19	2026-04-26	3	EURO
 6975	UBER 1	2026-04-27	2.94	2026-04-26	3	EURO
+6802	Valor IVA de Abril/2026	2026-04-30	1315.60	2026-04-30	3	EURO
+6976	GLOVO PORTUGAL LISBOA	2026-04-30	9.96	2026-04-29	3	EURO
+6977	GLOVO PORTUGAL LISBOA	2026-04-30	11.43	2026-04-29	3	EURO
+6978	GLOVO PORTUGAL LISBOA	2026-04-30	9.43	2026-04-28	3	EURO
+6979	DD AGERE, E.M.    00003551270    PT49114479	2026-04-30	22.46	2026-04-28	3	EURO
+6980	UBER RIDES PARIS	2026-04-30	3.94	2026-04-27	3	EURO
+6987	PIZZA HUT	2026-04-30	5.60	2026-04-30	3	EURO
+6981	CHURRASQ BRAZA BRAGA	2026-04-30	12.40	2026-04-27	3	EURO
+6985	UBER RIDES PARIS	2026-04-30	9.97	2026-04-30	3	EURO
+6982	CORTES DE LISBOA	2026-04-30	21.00	2026-04-27	3	EURO
+6984	Glovo	2026-04-30	9.43	2026-04-30	3	EURO
+6986	OLA BRAGA BRAGA	2026-04-30	5.70	2026-04-30	3	EURO
+6983	UBER RIDES PARIS	2026-04-30	2.95	2026-04-27	3	EURO
+6989	UBER RIDES PARIS	2026-04-30	7.99	2026-04-30	3	EURO
+6988	PIZZA HUT	2026-04-30	5.60	2026-04-30	3	EURO
 \.
 
 
@@ -14098,12 +14127,12 @@ t	6396	23	\N	t
 t	6603	23	\N	t
 t	6602	109	\N	f
 t	6628	111	\N	f
-f	6803	109	\N	f
-f	6802	23	\N	t
 t	6625	109	\N	f
 t	6624	23	\N	t
 f	6935	23	\N	t
 f	6934	109	\N	f
+t	6802	23	\N	t
+t	6803	109	\N	f
 \.
 
 
@@ -14293,7 +14322,7 @@ COPY public.flyway_schema_history (installed_rank, version, description, type, s
 -- Name: cotacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 20, true);
+SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 21, true);
 
 
 --
@@ -14328,7 +14357,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 52, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6975, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6989, true);
 
 
 --
