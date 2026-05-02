@@ -436,7 +436,7 @@ VISA	28	11	17300.00	6	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 8.85	4
 42172.22	5
-42606.07	3
+42596.64	3
 \.
 
 
@@ -7009,6 +7009,7 @@ t	6986	102	\N
 t	6987	102	\N
 t	6988	102	\N
 t	6989	107	\N
+t	6990	102	\N
 \.
 
 
@@ -13929,6 +13930,7 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6979	DD AGERE, E.M.    00003551270    PT49114479	2026-04-30	22.46	2026-04-28	3	EURO
 6980	UBER RIDES PARIS	2026-04-30	3.94	2026-04-27	3	EURO
 6987	PIZZA HUT	2026-04-30	5.60	2026-04-30	3	EURO
+6990	GLOVO PORTUGAL LISBOA	2026-05-01	9.43	2026-05-01	3	EURO
 6981	CHURRASQ BRAZA BRAGA	2026-04-30	12.40	2026-04-27	3	EURO
 6985	UBER RIDES PARIS	2026-04-30	9.97	2026-04-30	3	EURO
 6982	CORTES DE LISBOA	2026-04-30	21.00	2026-04-27	3	EURO
@@ -14357,7 +14359,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 52, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6989, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6990, true);
 
 
 --
