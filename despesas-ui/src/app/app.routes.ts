@@ -41,6 +41,7 @@ import { CalculoRecibosVerdes } from './movimentacao/calculo-recibos-verdes/calc
 import { FeriadoView } from './cadastros/feriado/feriado-view/feriado-view';
 import { FeriadoEdit } from './cadastros/feriado/feriado-edit/feriado-edit';
 import { ComparacaoOrcamento } from './graficos/comparacao-orcamento/comparacao-orcamento';
+import { FeriadoManager } from './movimentacao/feriado-manager/feriado-manager';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -95,6 +96,7 @@ export const routes: Routes = [
   { path: 'painelReceitas', component: LancamentoReceita },
   { path: 'projecao', component: Projecao },
   { path: 'recibos', component: CalculoRecibosVerdes },
+  { path: 'controleFeriados', component: FeriadoManager },
 
   //GRAFICO
   { path: 'extrato', component: ExtratoMensal },

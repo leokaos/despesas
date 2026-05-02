@@ -1,0 +1,119 @@
+<span class="page-title">
+  <i class="pi pi-chevron-right"></i> Controle de Feriados
+</span>
+
+@if (loading()) {
+<app-loader />
+} @else {
+<div class="form-panel">
+
+  <div class="flex justify-end pb-2.5">
+    <p-splitButton label="Adicionar" icon="pi pi-plus" severity="secondary" [model]="acoes" />
+  </div>
+
+  <div class="my-8">
+    <p-table [value]="feriados" [loading]="loading()">
+      <ng-template #header>
+        <tr>
+          <th>Nome</th>
+          <th>Data</th>
+          <th>Tipo</th>
+          <th class="small-column">Ações</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-feriado let-i="rowIndex">
+        <tr>
+          <td>{{feriado.nome}}</td>
+          <td><p-datepicker [showIcon]="true" [(ngModel)]="feriado.data" appendTo="body" /></td>
+          <td><p-select class="w-full" [options]="tipos" [(ngModel)]="feriado.tipo" optionLabel="label" optionValue="value" appendTo="body" /></td>
+          <td>
+            <p-button icon="pi pi-trash" severity="danger" (click)="remover(i)" />
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <div class="flex w-full">
+    <div class="flex flex-1 justify-end">
+      <p-button icon="pi pi-check" label="Salvar" severity="secondary" size="small" (click)="showSaveDialog = true" [disabled]="!isTodosFeriadosValidos()" />
+    </div>
+  </div>
+
+  <p-dialog header="Buscar pela API" [(visible)]="showApiDialog" modal="true" [style]="{'width': '25vw'}">
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-1 items-center mb-10">
+        <label class="w-40">Ano:</label>
+        <input pInputText class="w-full" [(ngModel)]="ano" type="number" />
+      </div>
+      <div class="flex flex-1 items-center mb-10">
+        <label class="w-40">Tipo:</label>
+        <p-select class="w-full" [options]="tipos" [(ngModel)]="tipo" optionLabel="label" optionValue="value" appendTo="body" />
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <p-button label="Cancelar" icon="pi pi-times" (click)="showApiDialog = false" severity="secondary" class="flex flex-1 justify-start" />
+      <p-button label="Confirmar" (click)="buscarPelaApi()" [disabled]="!ano || !tipo" />
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog header="Adicionar por Range" [(visible)]="showRangeDialog" modal="true" [style]="{'width': '25vw'}" [focusOnShow]="false">
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-1 items-center mb-10">
+        <label class="w-40">Datas:</label>
+        <p-datepicker class="w-full" [(ngModel)]="datas" [fluid]="true" selectionMode="range" appendTo="body" />
+      </div>
+      <div class="flex flex-1 items-center mb-10">
+        <label class="w-40">Tipo:</label>
+        <p-select class="w-full" [options]="tipos" [(ngModel)]="tipo" optionLabel="label" optionValue="value" appendTo="body" />
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <p-button label="Cancelar" icon="pi pi-times" (click)="showRangeDialog = false" severity="secondary" class="flex flex-1 justify-start" />
+      <p-button label="Confirmar" (click)="gerarPorRange()" [disabled]="!tipo || !datas" />
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog header="Adicionar Unitário" [(visible)]="showUnitDialog" modal="true" [style]="{'width': '25vw'}" [focusOnShow]="false">
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-1 items-center mb-10">
+        <label class="w-40">Data:</label>
+        <p-datepicker class="w-full" [(ngModel)]="data" [fluid]="true" appendTo="body" />
+      </div>
+      <div class="flex flex-1 items-center mb-10">
+        <label class="w-40">Tipo:</label>
+        <p-select class="w-full" [options]="tipos" [(ngModel)]="tipo" optionLabel="label" optionValue="value" appendTo="body" />
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <p-button label="Cancelar" icon="pi pi-times" (click)="showUnitDialog = false" severity="secondary" class="flex flex-1 justify-start" />
+      <p-button label="Confirmar" (click)="adicionarUnitario()" [disabled]="!tipo || !data" />
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog header="Salvar" [style]="{ width: '500px' }" [modal]="true" position="top" [(visible)]="showSaveDialog">
+
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-1 items-center mb-10">
+        <label class="w-40">Iniciar?</label>
+        <app-progress-bar
+          [animated]="false"
+          [total]="total()"
+          [current]="parcial()"
+          class="w-full"
+          [showLabel]="true"
+          [showState]="false"
+          [currency]="false" />
+      </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="flex flex-1 gap-2">
+        <p-button label="Cancelar" icon="pi pi-times" (click)="showSaveDialog = false" severity="secondary" class="flex flex-1 justify-start" />
+        <p-button label="OK" icon="pi pi-check" class="flex flex-1 justify-end" (click)="save()" />
+      </div>
+    </ng-template>
+  </p-dialog>
+
+</div>
+}

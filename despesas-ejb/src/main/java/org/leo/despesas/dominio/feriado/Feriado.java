@@ -34,8 +34,19 @@ public class Feriado implements ModelEntity {
 	@Enumerated(EnumType.STRING)
 	private FeriadoTipo tipo;
 
+	@Column(name = "nome")
+	private String nome;
+
 	public Feriado() {
 		super();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Date getData() {
@@ -54,13 +65,12 @@ public class Feriado implements ModelEntity {
 		this.tipo = tipo;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public String getNome() {
+		return nome;
 	}
 
-	@Override
-	public Long getId() {
-		return this.id;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 }

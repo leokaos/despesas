@@ -66,4 +66,12 @@ public class ParametroFacadeIml implements ParametroFacade {
 		return Lists.newArrayList(parametro.getValor().split(" "));
 	}
 
+	@Override
+	public String getUrlParaFeriados() {
+
+		Parametro parametro = entityManager.find(Parametro.class, "FERIADO_URL");
+
+		return parametro.getValor();
+	}
+
 }

@@ -21,4 +21,6 @@ public interface ParametroFacade {
 	Integer getDebitavelPrincipal();
 	
 	List<String> getIgnoreWords();
+	
+	String getUrlParaFeriados();
 }

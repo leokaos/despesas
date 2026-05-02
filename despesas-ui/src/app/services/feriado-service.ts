@@ -34,6 +34,17 @@ export class FeriadoService {
       .pipe(map((data) => data.map((feriado) => FeriadoService.toDTO(feriado))));
   }
 
+  fetchExterno(ano: number, tipo: string): Observable<Feriado[]> {
+
+    let params = new HttpParams();
+
+    params = params.append("ano", ano);
+    params = params.append("tipo", tipo);
+
+    return this.http.get<Feriado[]>(`${this.config.apiUrl}/${this.path}/externo`, { params })
+      .pipe(map((data) => data.map((feriado) => FeriadoService.toDTO(feriado))));
+  }
+
   fetchById(id: number): Observable<Feriado> {
     return this.http.get<Feriado>(`${this.config.apiUrl}/${this.path}/${id}`)
       .pipe(map((data) => FeriadoService.toDTO(data)));

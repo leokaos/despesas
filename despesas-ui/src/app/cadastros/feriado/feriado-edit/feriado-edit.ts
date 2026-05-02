@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { FeriadoService } from '../../../services/feriado-service';
 import { Feriado } from '../../../models/feriado.model';
-import { DatePicker, DatePickerModule } from "primeng/datepicker";
+import { DatePickerModule } from "primeng/datepicker";
 import { SelectModule } from 'primeng/select';
 
 @Component({
@@ -70,7 +70,8 @@ export class FeriadoEdit implements OnInit {
 
     this.formGroup = this.formBuilder.group({
       tipo: [this.feriado?.tipo, Validators.required],
-      data: [this.feriado?.data, Validators.required]
+      data: [this.feriado?.data, Validators.required],
+      nome: [this.feriado?.nome, Validators.required],
     });
 
     this.loading.set(false);
