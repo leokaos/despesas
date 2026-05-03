@@ -7,11 +7,13 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.TypedQuery;
 
 import org.leo.despesas.dominio.feriado.Feriado;
 import org.leo.despesas.dominio.feriado.FeriadoFiltro;
 import org.leo.despesas.dominio.feriado.FeriadoTipo;
 import org.leo.despesas.infra.AbstractFacade;
+import org.leo.despesas.infra.exception.AlreadyExistentEntityException;
 import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.infra.exception.ValidationEntityException;
 import org.leo.despesas.infra.feriado.FeriadoDTO;
@@ -56,6 +58,18 @@ public class FeriadoFacadeImpl extends AbstractFacade<Feriado, FeriadoFiltro> im
 		} catch (ParseException e) {
 			throw new ValidationEntityException("Erro ao parsear feriados!");
 		}
+	}
+
+	@Override
+	protected void preInserir(Feriado t) throws DespesasException {
+
+		TypedQuery<Feriado> query = entityManager.createQuery("SELECT F from Feriado F where F.data = :data", getClasseEntidade());
+		query.setParameter("data", t.getData());
+
+		if (!query.getResultList().isEmpty()) {
+			throw new AlreadyExistentEntityException("Feriado já existe!");
+		}
+
 	}
 
 	@Override

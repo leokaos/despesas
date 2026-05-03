@@ -70,7 +70,7 @@ export class FeriadoService {
   public static toEntity(feriado: any): Feriado {
     return {
       ...feriado,
-      data: feriado.data.getTime(),
+      data: DateUtil.getUTCDate(feriado.data)
     };
   }
 
