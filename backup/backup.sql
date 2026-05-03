@@ -180,7 +180,8 @@ ALTER TABLE despesas_db.fatura_id_seq OWNER TO despesas;
 CREATE TABLE despesas_db.feriado (
     id bigint NOT NULL,
     date_feriado date NOT NULL,
-    tipo character varying(255)
+    tipo character varying(255),
+    nome character varying(255) DEFAULT 'FERIAS'::character varying NOT NULL
 );
 
 
@@ -436,7 +437,7 @@ VISA	28	11	17300.00	6	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 8.85	4
 42172.22	5
-42596.64	3
+42523.81	3
 \.
 
 
@@ -7010,6 +7011,10 @@ t	6987	102	\N
 t	6988	102	\N
 t	6989	107	\N
 t	6990	102	\N
+t	6991	107	\N
+t	6992	301	\N
+t	6993	102	\N
+t	6994	107	\N
 \.
 
 
@@ -7110,44 +7115,53 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 -- Data for Name: feriado; Type: TABLE DATA; Schema: despesas_db; Owner: despesas
 --
 
-COPY despesas_db.feriado (id, date_feriado, tipo) FROM stdin;
-31	2025-11-24	FERIAS
-32	2025-11-25	FERIAS
-33	2025-11-26	FERIAS
-34	2025-11-27	FERIAS
-35	2025-11-28	FERIAS
-36	2025-12-01	FERIAS
-37	2025-12-02	FERIAS
-38	2025-12-03	FERIAS
-39	2025-12-04	FERIAS
-40	2025-12-05	FERIAS
-41	2025-12-08	FERIAS
-42	2025-12-09	FERIAS
-43	2025-12-10	FERIAS
-44	2025-12-11	FERIAS
-45	2025-12-12	FERIAS
-46	2025-12-15	FERIAS
-47	2025-12-16	FERIAS
-48	2025-12-17	FERIAS
-49	2025-12-18	FERIAS
-50	2025-12-19	FERIAS
-51	2025-12-22	FERIAS
-52	2025-12-23	FERIAS
-53	2025-12-24	FERIAS
-54	2025-12-25	FERIAS
-55	2025-12-26	FERIAS
-56	2025-12-29	FERIAS
-57	2025-12-30	FERIAS
-58	2025-12-31	FERIAS
-59	2026-01-01	FERIAS
-60	2026-01-02	FERIAS
-61	2026-01-05	FERIAS
-62	2026-01-06	FERIAS
-63	2026-01-07	FERIAS
-64	2026-01-08	FERIAS
-65	2026-01-09	FERIAS
-66	2026-02-19	FERIAS
-67	2026-02-20	FERIAS
+COPY despesas_db.feriado (id, date_feriado, tipo, nome) FROM stdin;
+31	2025-11-24	FERIAS	FERIAS
+32	2025-11-25	FERIAS	FERIAS
+33	2025-11-26	FERIAS	FERIAS
+34	2025-11-27	FERIAS	FERIAS
+35	2025-11-28	FERIAS	FERIAS
+36	2025-12-01	FERIAS	FERIAS
+37	2025-12-02	FERIAS	FERIAS
+38	2025-12-03	FERIAS	FERIAS
+39	2025-12-04	FERIAS	FERIAS
+40	2025-12-05	FERIAS	FERIAS
+41	2025-12-08	FERIAS	FERIAS
+42	2025-12-09	FERIAS	FERIAS
+43	2025-12-10	FERIAS	FERIAS
+44	2025-12-11	FERIAS	FERIAS
+45	2025-12-12	FERIAS	FERIAS
+46	2025-12-15	FERIAS	FERIAS
+47	2025-12-16	FERIAS	FERIAS
+48	2025-12-17	FERIAS	FERIAS
+49	2025-12-18	FERIAS	FERIAS
+50	2025-12-19	FERIAS	FERIAS
+51	2025-12-22	FERIAS	FERIAS
+52	2025-12-23	FERIAS	FERIAS
+53	2025-12-24	FERIAS	FERIAS
+54	2025-12-25	FERIAS	FERIAS
+55	2025-12-26	FERIAS	FERIAS
+56	2025-12-29	FERIAS	FERIAS
+57	2025-12-30	FERIAS	FERIAS
+58	2025-12-31	FERIAS	FERIAS
+59	2026-01-01	FERIAS	FERIAS
+60	2026-01-02	FERIAS	FERIAS
+61	2026-01-05	FERIAS	FERIAS
+62	2026-01-06	FERIAS	FERIAS
+63	2026-01-07	FERIAS	FERIAS
+64	2026-01-08	FERIAS	FERIAS
+65	2026-01-09	FERIAS	FERIAS
+66	2026-02-19	FERIAS	FERIAS
+67	2026-02-20	FERIAS	FERIAS
+69	2026-06-04	FERIADO	Corpo de Deus
+70	2026-06-10	FERIADO	Dia de Portugal, de Camões e das Comunidades Portuguesas
+71	2026-08-15	FERIADO	Assunção de Nossa Senhora
+72	2026-10-05	FERIADO	Implantação da República
+73	2026-11-01	FERIADO	Dia de Todos-os-Santos
+74	2026-12-01	FERIADO	Restauração da Independência
+75	2026-12-08	FERIADO	Imaculada Conceição
+76	2026-12-25	FERIADO	Natal
+78	2026-04-30	FERIADO	FERIADO
 \.
 
 
@@ -13893,8 +13907,6 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6931	PARQUE CAFETARIA	2026-04-19	6.95	2026-04-19	3	EURO
 6932	CHURRASQ BRAZA	2026-04-19	12.40	2026-04-19	3	EURO
 6933	UBER RIDES PARIS	2026-04-19	2.93	2026-04-19	3	EURO
-6935	Valor IVA de Maio/2026	\N	1255.80	2026-05-31	3	EURO
-6934	Salário de Maio/2026	\N	4204.20	2026-05-31	3	EURO
 6936	UBER RIDES PARIS	2026-04-25	4.94	2026-04-25	3	EURO
 6939	CONTINENTE	2026-04-25	71.31	2026-04-25	3	EURO
 6942	ARCADIA NOVA ARCADA	2026-04-25	3.50	2026-04-25	3	EURO
@@ -13933,12 +13945,18 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6990	GLOVO PORTUGAL LISBOA	2026-05-01	9.43	2026-05-01	3	EURO
 6981	CHURRASQ BRAZA BRAGA	2026-04-30	12.40	2026-04-27	3	EURO
 6985	UBER RIDES PARIS	2026-04-30	9.97	2026-04-30	3	EURO
+6993	ARCADIA NOVA ARCADA	2026-05-02	4.50	2026-05-02	3	EURO
 6982	CORTES DE LISBOA	2026-04-30	21.00	2026-04-27	3	EURO
 6984	Glovo	2026-04-30	9.43	2026-04-30	3	EURO
 6986	OLA BRAGA BRAGA	2026-04-30	5.70	2026-04-30	3	EURO
+6994	UBER RIDES PARIS	2026-05-02	5.98	2026-05-02	3	EURO
 6983	UBER RIDES PARIS	2026-04-30	2.95	2026-04-27	3	EURO
 6989	UBER RIDES PARIS	2026-04-30	7.99	2026-04-30	3	EURO
+6992	CONTINENTE	2026-05-02	56.37	2026-05-02	3	EURO
 6988	PIZZA HUT	2026-04-30	5.60	2026-04-30	3	EURO
+6991	UBER RIDES PARIS	2026-05-02	5.98	2026-05-02	3	EURO
+6995	Valor IVA de Maio/2026	\N	1255.80	2026-05-31	3	EURO
+6996	Salário de Maio/2026	\N	4204.20	2026-05-31	3	EURO
 \.
 
 
@@ -14012,6 +14030,7 @@ COTACAO_URL	https://economia.awesomeapi.com.br/json/last/	TEXTO
 PERCENT_IVA	0.23	DECIMAL
 PERCENT_IRS	0.23	DECIMAL
 VALOR_DIARIO	260	DECIMAL
+FERIADO_URL	https://date.nager.at/api/v3/PublicHolidays/	TEXTO
 \.
 
 
@@ -14131,10 +14150,10 @@ t	6602	109	\N	f
 t	6628	111	\N	f
 t	6625	109	\N	f
 t	6624	23	\N	t
-f	6935	23	\N	t
-f	6934	109	\N	f
 t	6802	23	\N	t
 t	6803	109	\N	f
+f	6995	23	\N	t
+f	6996	109	\N	f
 \.
 
 
@@ -14317,6 +14336,28 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 --
 
 COPY public.flyway_schema_history (installed_rank, version, description, type, script, checksum, installed_by, installed_on, execution_time, success) FROM stdin;
+1	1	tipo despesa	SQL	V1__tipo_despesa.sql	25462893	despesas	2026-04-01 18:29:39.042256	91	t
+2	2	orcamento	SQL	V2__orcamento.sql	-1106615134	despesas	2026-04-01 18:29:39.154745	22	t
+3	3	receita	SQL	V3__receita.sql	-136584389	despesas	2026-04-01 18:29:39.189541	9	t
+4	4	limite atual cartao	SQL	V4__limite_atual_cartao.sql	-1752950178	despesas	2026-04-01 18:29:39.209074	3	t
+5	5	transferencia	SQL	V5__transferencia.sql	782932152	despesas	2026-04-01 18:29:39.223154	8	t
+6	6	servico transferencia	SQL	V6__servico_transferencia.sql	-393371778	despesas	2026-04-01 18:29:39.240466	7	t
+7	7	parametros	SQL	V7__parametros.sql	216808213	despesas	2026-04-01 18:29:39.257033	14	t
+8	8	cotacao	SQL	V8__cotacao.sql	-342295033	despesas	2026-04-01 18:29:39.281634	12	t
+9	9	add moeda	SQL	V9__add_moeda.sql	-828971077	despesas	2026-04-01 18:29:39.304004	9	t
+10	10	meta	SQL	V10__meta.sql	-141604033	despesas	2026-04-01 18:29:39.323149	7	t
+11	11	add custo variavel	SQL	V11__add_custo_variavel.sql	-210165442	despesas	2026-04-01 18:29:39.340888	3	t
+12	12	investimento	SQL	V12__investimento.sql	-685125310	despesas	2026-04-01 18:29:39.354011	9	t
+13	13	valor real transferencia	SQL	V13__valor_real_transferencia.sql	-1393033778	despesas	2026-04-01 18:29:39.373091	3	t
+14	14	divida	SQL	V14__divida.sql	987906647	despesas	2026-04-01 18:29:39.386366	7	t
+15	15	adicionar status debitavel	SQL	V15__adicionar_status_debitavel.sql	1949633298	despesas	2026-04-01 18:29:39.404234	2	t
+16	16	muda pagamento vencimento de timestamp para date	SQL	V16__muda_pagamento_vencimento_de_timestamp_para_date.sql	1601835407	despesas	2026-04-01 18:29:39.417017	21	t
+17	17	muda parametros cotacao	SQL	V17__muda_parametros_cotacao.sql	1221616328	despesas	2026-04-01 18:29:39.450023	3	t
+18	18	parametro ignore words	SQL	V18__parametro_ignore_words.sql	-2109097148	despesas	2026-04-01 18:29:39.463023	2	t
+19	19	adicionar flag compromissada	SQL	V19__adicionar_flag_compromissada.sql	-490192746	despesas	2026-04-01 18:29:39.475424	3	t
+20	20	adicionar feriados	SQL	V20__adicionar_feriados.sql	1916848403	despesas	2026-04-01 18:29:39.487411	7	t
+21	21	adicionar parametros	SQL	V21__adicionar_parametros.sql	-901845354	despesas	2026-04-01 18:29:39.508956	3	t
+22	22	adicionar feriados url	SQL	V22__adicionar_feriados_url.sql	-210987324	despesas	2026-05-02 20:39:21.327228	68	t
 \.
 
 
@@ -14345,7 +14386,7 @@ SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 113, true);
 -- Name: feriado_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.feriado_id_seq', 68, true);
+SELECT pg_catalog.setval('despesas_db.feriado_id_seq', 78, true);
 
 
 --
@@ -14359,7 +14400,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 52, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6990, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6996, true);
 
 
 --
@@ -14437,6 +14478,14 @@ ALTER TABLE ONLY despesas_db.divida
 
 ALTER TABLE ONLY despesas_db.fatura
     ADD CONSTRAINT fatura_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feriado feriado_date_feriado_unique; Type: CONSTRAINT; Schema: despesas_db; Owner: despesas
+--
+
+ALTER TABLE ONLY despesas_db.feriado
+    ADD CONSTRAINT feriado_date_feriado_unique UNIQUE (date_feriado);
 
 
 --
