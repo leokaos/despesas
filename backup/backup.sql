@@ -435,9 +435,9 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-8.85	4
 42172.22	5
-42523.81	3
+102.86	4
+42415.83	3
 \.
 
 
@@ -7015,6 +7015,8 @@ t	6991	107	\N
 t	6992	301	\N
 t	6993	102	\N
 t	6994	107	\N
+t	6998	108	\N
+t	6999	102	\N
 \.
 
 
@@ -7161,7 +7163,7 @@ COPY despesas_db.feriado (id, date_feriado, tipo, nome) FROM stdin;
 74	2026-12-01	FERIADO	Restauração da Independência
 75	2026-12-08	FERIADO	Imaculada Conceição
 76	2026-12-25	FERIADO	Natal
-78	2026-04-30	FERIADO	FERIADO
+83	2026-05-01	FERIADO	Dia do Trabalho
 \.
 
 
@@ -13955,8 +13957,11 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6992	CONTINENTE	2026-05-02	56.37	2026-05-02	3	EURO
 6988	PIZZA HUT	2026-04-30	5.60	2026-04-30	3	EURO
 6991	UBER RIDES PARIS	2026-05-02	5.98	2026-05-02	3	EURO
-6995	Valor IVA de Maio/2026	\N	1255.80	2026-05-31	3	EURO
-6996	Salário de Maio/2026	\N	4204.20	2026-05-31	3	EURO
+6997	Cobrir Conta	\N	100.00	2026-05-02	3	EURO
+6998	Glovo Prime	2026-05-03	5.99	2026-05-03	4	EURO
+6999	Glovo	2026-05-03	7.98	2026-05-03	3	EURO
+7000	Salário de Maio/2026	\N	4004.00	2026-05-31	3	EURO
+7001	Valor IVA de Maio/2026	\N	1196.00	2026-05-31	3	EURO
 \.
 
 
@@ -14152,8 +14157,8 @@ t	6625	109	\N	f
 t	6624	23	\N	t
 t	6802	23	\N	t
 t	6803	109	\N	f
-f	6995	23	\N	t
-f	6996	109	\N	f
+f	7001	23	\N	t
+f	7000	109	\N	f
 \.
 
 
@@ -14328,6 +14333,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 6681	6	352.00
 6723	4	100.00
 6881	6	287.70
+6997	4	100.00
 \.
 
 
@@ -14386,7 +14392,7 @@ SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 113, true);
 -- Name: feriado_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.feriado_id_seq', 78, true);
+SELECT pg_catalog.setval('despesas_db.feriado_id_seq', 83, true);
 
 
 --
@@ -14400,7 +14406,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 52, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 6996, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7001, true);
 
 
 --
