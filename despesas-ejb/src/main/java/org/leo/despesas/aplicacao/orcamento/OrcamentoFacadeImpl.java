@@ -53,4 +53,9 @@ public class OrcamentoFacadeImpl extends AbstractFacade<Orcamento, OrcamentoFilt
 		return orcamento;
 	}
 
+	@Override
+	protected String getTopicName() {
+		return "orcamento";
+	}
+
 }

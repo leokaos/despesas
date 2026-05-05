@@ -1,9 +1,15 @@
 package org.leo.despesas.infra;
 
+import static org.leo.despesas.infra.eventos.TipoEventoEntidade.CREATE;
+import static org.leo.despesas.infra.eventos.TipoEventoEntidade.DELETE;
+import static org.leo.despesas.infra.eventos.TipoEventoEntidade.UPDATE;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -11,6 +17,7 @@ import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.leo.despesas.aplicacao.parametro.ParametroFacade;
+import org.leo.despesas.infra.eventos.EntidadeEvent;
 import org.leo.despesas.infra.exception.AlreadyExistentEntityException;
 import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.infra.exception.NotFoundEntityException;
@@ -24,6 +31,9 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 
 	@EJB
 	protected ParametroFacade parametroFacade;
+
+	@Inject
+	private Event<EntidadeEvent> event;
 
 	public AbstractFacade() {
 		super();
@@ -69,6 +79,8 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 			entityManager.persist(t);
 		}
 
+		event.fire(new EntidadeEvent(t.getId(), getTopicName(), CREATE));
+
 		return t;
 	}
 
@@ -92,6 +104,8 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 		E result = entityManager.merge(t);
 
 		posSalvar(antigo, result);
+
+		event.fire(new EntidadeEvent(t.getId(), getTopicName(), UPDATE));
 
 		return result;
 	}
@@ -128,6 +142,8 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 		entityManager.remove(entity);
 
 		posDeletar(entity);
+
+		event.fire(new EntidadeEvent(id, getTopicName(), DELETE));
 	}
 
 	protected void preDeletar(E entity) throws DespesasException {
@@ -152,8 +168,7 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 
 		org.apache.lucene.search.Query query = qb.keyword().onFields(campos).matching(busca).createQuery();
 
-		javax.persistence.Query persistenceQuery = fullTextEntityManager
-				.createFullTextQuery(query, getClasseEntidade())
+		javax.persistence.Query persistenceQuery = fullTextEntityManager.createFullTextQuery(query, getClasseEntidade())
 				.setProjection("id")
 				.setHint("org.hibernate.readOnly", true)
 				.setMaxResults(100)
@@ -161,15 +176,18 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 
 		List<Object[]> resultados = persistenceQuery.getResultList();
 
-	    List<E> list = new ArrayList<E>();
+		List<E> list = new ArrayList<E>();
 
-	    for (Object[] row : resultados) {
-	        Long id = (Long) row[0];
-	        E entity = entityManager.find(getClasseEntidade(), id);
-	        if (entity != null) {
-	            list.add(entity);
-	        }
-	    }
+		for (Object[] row : resultados) {
+
+			Long id = (Long) row[0];
+
+			E entity = entityManager.find(getClasseEntidade(), id);
+
+			if (entity != null) {
+				list.add(entity);
+			}
+		}
 
 		if (entityManager.isOpen()) {
 			entityManager.clear();
@@ -179,5 +197,7 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 	}
 
 	protected abstract Class<E> getClasseEntidade();
+
+	protected abstract String getTopicName();
 
 }

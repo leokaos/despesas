@@ -48,7 +48,7 @@ public class Transferencia extends Movimentacao {
 
 	public TipoMovimentacao getTipo() {
 		TipoMovimentacao tipoMovimentacao = new TipoMovimentacao();
-		tipoMovimentacao.setCor("#FFF");
+		tipoMovimentacao.setCor("#E1E1E1");
 		tipoMovimentacao.setDescricao("Transferência");
 		return tipoMovimentacao;
 	}

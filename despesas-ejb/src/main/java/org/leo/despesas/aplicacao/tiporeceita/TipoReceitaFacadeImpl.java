@@ -13,5 +13,10 @@ public class TipoReceitaFacadeImpl extends AbstractFacade<TipoReceita, TipoRecei
 	protected Class<TipoReceita> getClasseEntidade() {
 		return TipoReceita.class;
 	}
+	
+	@Override
+	protected String getTopicName() {
+		return "tipo-receita";
+	}
 
 }

@@ -17,6 +17,7 @@
 
 	<properties>
 		<despesas.api.url>http://localhost:8080/services</despesas.api.url>
+		<despesas.ws.url>http://localhost:8080/socket</despesas.ws.url>
 	</properties>
 
 	<build>
@@ -116,6 +117,7 @@
 			</activation>
 			<properties>
 				<despesas.api.url>http://localhost:8080/services</despesas.api.url>
+				<despesas.ws.url>http://localhost:8080/socket</despesas.ws.url>
 			</properties>
 		</profile>
 
@@ -123,6 +125,7 @@
 			<id>prod</id>
 			<properties>
 				<despesas.api.url>https://despesas.leoapps.duckdns.org/services</despesas.api.url>
+				<despesas.ws.url>https://despesas.leoapps.duckdns.org/socket</despesas.ws.url>
 			</properties>
 		</profile>
 

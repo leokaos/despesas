@@ -59,4 +59,9 @@ public class InvestimentoFacadeImpl extends AbstractFacade<Investimento, Investi
 		return Investimento.class;
 	}
 
+	@Override
+	protected String getTopicName() {
+		return "investimento";
+	}
+
 }

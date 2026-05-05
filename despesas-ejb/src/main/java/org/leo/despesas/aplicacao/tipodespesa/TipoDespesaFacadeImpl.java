@@ -14,4 +14,9 @@ public class TipoDespesaFacadeImpl extends AbstractFacade<TipoDespesa, TipoDespe
 		return TipoDespesa.class;
 	}
 
+	@Override
+	protected String getTopicName() {
+		return "tipo-despesa";
+	}
+
 }

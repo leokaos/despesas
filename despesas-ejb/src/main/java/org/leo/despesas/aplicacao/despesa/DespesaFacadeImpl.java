@@ -198,4 +198,9 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 		}
 
 	}
+
+	@Override
+	protected String getTopicName() {
+		return "despesa";
+	}
 }

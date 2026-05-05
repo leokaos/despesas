@@ -1,5 +1,5 @@
 import { Component, OnInit, signal, inject, HostListener } from "@angular/core";
-import { forkJoin } from "rxjs";
+import { debounceTime, delay, forkJoin, merge, Subscription } from "rxjs";
 import { Mes } from "../../models/mes.model";
 import { Orcamento } from "../../models/orcamento.model";
 import { DateUtil } from "../../models/util";
@@ -17,6 +17,8 @@ import { Grafico } from "../../models/dashboard.model";
 import { DebitavelFiltro, DebitavelService } from "../../services/debitavel-service";
 import { Debitavel } from "../../models/debitavel.model";
 import { CarouselModule, CarouselPageEvent } from 'primeng/carousel';
+import { WebsocketService } from "../../services/websocket-service";
+import { EntidadeEvent } from "../../models/evento.model";
 
 @Component({
   selector: 'app-dashboard',
@@ -44,17 +46,35 @@ export class Dashboard implements OnInit {
 
   loading = signal<boolean>(true);
 
+  private dashboardSubscription!: Subscription;
+
   private metaService = inject(MetaService);
   private orcamentoService = inject(OrcamentoService);
   private dashboardService = inject(DashboardService);
   private debitavelService = inject(DebitavelService);
+  private webSocketService = inject(WebsocketService);
 
   readonly Mes = Mes;
 
   constructor() { }
 
   ngOnInit(): void {
+
     this.loadData();
+
+    this.dashboardSubscription = merge(
+      this.webSocketService.getTopic<EntidadeEvent>("despesa"),
+      this.webSocketService.getTopic<EntidadeEvent>("receita"),
+      this.webSocketService.getTopic<EntidadeEvent>("transferencia"),
+      this.webSocketService.getTopic<EntidadeEvent>("orcamento"),
+      this.webSocketService.getTopic<EntidadeEvent>("meta")
+    ).pipe(
+      debounceTime(300),
+      delay(500)
+    ).subscribe(_ => {
+      this.loadData();
+    });
+
   }
 
   private loadData() {
@@ -183,7 +203,12 @@ export class Dashboard implements OnInit {
         this.anterior();
         break;
     }
+  }
 
+  ngOnDestroy() {
+    if (this.dashboardSubscription) {
+      this.dashboardSubscription.unsubscribe();
+    }
   }
 
 }

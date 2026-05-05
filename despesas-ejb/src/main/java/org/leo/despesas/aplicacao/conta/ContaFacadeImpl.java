@@ -13,4 +13,9 @@ public class ContaFacadeImpl extends AbstractFacade<Conta, ContaFiltro> implemen
 	protected Class<Conta> getClasseEntidade() {
 		return Conta.class;
 	}
+
+	@Override
+	protected String getTopicName() {
+		return "conta";
+	}
 }

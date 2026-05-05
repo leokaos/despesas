@@ -39,4 +39,9 @@ public class MetaFacadeImpl extends AbstractFacade<Meta, MetaFiltro> implements 
 		return Meta.class;
 	}
 
+	@Override
+	protected String getTopicName() {
+		return "meta";
+	}
+
 }

@@ -153,4 +153,9 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, Trans
 		creditavel.estornar(transferencia);
 	}
 
+	@Override
+	protected String getTopicName() {
+		return "transferencia";
+	}
+
 }

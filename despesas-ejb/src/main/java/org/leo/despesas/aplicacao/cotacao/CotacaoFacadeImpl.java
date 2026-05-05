@@ -60,4 +60,9 @@ public class CotacaoFacadeImpl extends AbstractFacade<Cotacao, CotacaoFiltro> im
 
 		return cotacao;
 	}
+
+	@Override
+	protected String getTopicName() {
+		return "cotacao";
+	}
 }

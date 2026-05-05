@@ -14,4 +14,9 @@ public class CartaoFacadeImpl extends AbstractFacade<CartaoCredito, CartaoCredit
 		return CartaoCredito.class;
 	}
 
+	@Override
+	protected String getTopicName() {
+		return "cartaoCredito";
+	}
+
 }

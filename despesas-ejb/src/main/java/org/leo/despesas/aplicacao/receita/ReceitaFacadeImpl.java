@@ -141,4 +141,9 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita, ReceitaFiltro> im
 		}
 	}
 
+	@Override
+	protected String getTopicName() {
+		return "receita";
+	}
+
 }

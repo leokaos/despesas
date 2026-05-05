@@ -2,6 +2,7 @@ import { InjectionToken } from "@angular/core";
 
 export interface AppConfig {
     apiUrl: string,
+    wsUrl: string,
     version: string,
 }
 

@@ -77,4 +77,9 @@ public class FeriadoFacadeImpl extends AbstractFacade<Feriado, FeriadoFiltro> im
 		return Feriado.class;
 	}
 
+	@Override
+	protected String getTopicName() {
+		return "feriado";
+	}
+
 }

@@ -43,4 +43,9 @@ public class FaturaFacadeImpl extends AbstractFacade<Fatura, FaturaFiltro> imple
 		}
 	}
 
+	@Override
+	protected String getTopicName() {
+		return "fatura";
+	}
+
 }

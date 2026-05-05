@@ -59,4 +59,9 @@ public class DividaFacadeImpl extends AbstractFacade<Divida, DividaFiltro> imple
 		return Divida.class;
 	}
 
+	@Override
+	protected String getTopicName() {
+		return "divida";
+	}
+
 }

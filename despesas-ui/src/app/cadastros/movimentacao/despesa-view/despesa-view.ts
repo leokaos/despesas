@@ -12,7 +12,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { TableModule, Table } from 'primeng/table';
-import { forkJoin } from 'rxjs';
+import { debounceTime, delay, forkJoin, Subscription } from 'rxjs';
 import { ColorDisplay } from '../../../components/color-display/color-display';
 import { Loader } from '../../../components/loader/loader';
 import { SelectDebitavel } from '../../../components/select-debitavel/select-debitavel';
@@ -26,6 +26,8 @@ import { SumPipe } from '../../../pipes/sum-pipe';
 import { DebitavelService, DebitavelFiltro } from '../../../services/debitavel-service';
 import { DespesaFiltro, DespesaService } from '../../../services/despesa-service';
 import { TipoDespesaService } from '../../../services/tipo-despesa-service';
+import { WebsocketService } from '../../../services/websocket-service';
+import { EntidadeEvent } from '../../../models/evento.model';
 
 @Component({
   selector: 'app-despesa-view',
@@ -74,11 +76,14 @@ export class DespesaView implements OnInit {
   dataInicial: Date;
   dataFinal: Date;
 
+  private despesaSubscription!: Subscription;
+
   private router = inject(Router);
   private messageService = inject(MessageService);
   private despesaService = inject(DespesaService);
   private tipoDespesaService = inject(TipoDespesaService);
   private debitavelService = inject(DebitavelService);
+  private webSocketService = inject(WebsocketService);
 
   constructor() {
     this.dataInicial = DateUtil.getCurrentDataInicial();
@@ -93,6 +98,17 @@ export class DespesaView implements OnInit {
     this.despesaService.filtro$.subscribe(filtro => {
       this.configFiltro(filtro);
     });
+
+    this.despesaSubscription = this.webSocketService.getTopic<EntidadeEvent>("despesa")
+      .pipe(debounceTime(300), delay(500))
+      .subscribe(evento => {
+        const eventoTyped = evento as EntidadeEvent;
+        if (eventoTyped.tipo == "DELETE") {
+          this.data.update(despesas => despesas.filter(despesa => despesa.id !== eventoTyped.id))
+        } else {
+          this.loadData();
+        }
+      });
   }
 
   loadData() {
@@ -199,6 +215,12 @@ export class DespesaView implements OnInit {
     this.tipoSelecionado = filtro.tipo;
     this.debitavelSelecionado = filtro.debitavel;
     this.searchValue = filtro.searchValue;
+  }
+
+  ngOnDestroy() {
+    if (this.despesaSubscription) {
+      this.despesaSubscription.unsubscribe();
+    }
   }
 
 }

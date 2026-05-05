@@ -14,4 +14,9 @@ public class ServicoTransferenciaFacadeImpl extends AbstractFacade<ServicoTransf
 		return ServicoTransferencia.class;
 	}
 
+	@Override
+	protected String getTopicName() {
+		return "servico-transferencia";
+	}
+
 }
