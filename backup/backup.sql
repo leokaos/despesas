@@ -437,7 +437,7 @@ VISA	28	11	17300.00	6	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 42172.22	5
 102.86	4
-42415.83	3
+41672.23	3
 \.
 
 
@@ -7017,6 +7017,10 @@ t	6993	102	\N
 t	6994	107	\N
 t	6998	108	\N
 t	6999	102	\N
+t	7002	4	\N
+t	7003	4	\N
+t	7004	102	\N
+t	7007	102	\N
 \.
 
 
@@ -13962,6 +13966,10 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 6999	Glovo	2026-05-03	7.98	2026-05-03	3	EURO
 7000	Salário de Maio/2026	\N	4004.00	2026-05-31	3	EURO
 7001	Valor IVA de Maio/2026	\N	1196.00	2026-05-31	3	EURO
+7002	TRF P/ Lucinda dona da casa	2026-05-04	650.00	2026-05-04	3	EURO
+7003	TRF P/ A CUNHA e M MELO,LDA	2026-05-04	73.80	2026-05-04	3	EURO
+7004	GLOVO PORTUGAL LISBOA	2026-05-04	9.90	2026-05-04	3	EURO
+7007	Glovo	2026-05-05	9.90	2026-05-05	3	EURO
 \.
 
 
@@ -14406,14 +14414,14 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 52, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7001, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7007, true);
 
 
 --
 -- Name: orcamento_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.orcamento_id_seq', 63, true);
+SELECT pg_catalog.setval('despesas_db.orcamento_id_seq', 64, true);
 
 
 --
