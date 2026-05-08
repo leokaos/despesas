@@ -435,9 +435,9 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-42172.22	5
 102.86	4
-41652.77	3
+41938.62	5
+41516.16	3
 \.
 
 
@@ -6045,7 +6045,6 @@ t	5951	201	\N
 t	5952	107	\N
 t	5953	107	\N
 t	5954	102	\N
-t	5955	2	\N
 t	5956	102	\N
 t	5957	102	\N
 t	5958	102	\N
@@ -6229,7 +6228,6 @@ t	6139	107	\N
 t	6140	107	\N
 t	6141	102	\N
 t	6142	102	\N
-t	6143	2	\N
 t	6144	102	\N
 t	6145	102	\N
 t	6146	107	\N
@@ -7025,6 +7023,20 @@ t	7007	102	\N
 t	7008	102	\N
 t	7009	107	\N
 t	7010	107	\N
+t	7011	4	\N
+t	7012	102	\N
+t	7013	108	\N
+t	7014	108	\N
+t	7015	108	\N
+t	7016	4	\N
+t	7017	108	\N
+t	5955	4	\N
+t	6143	4	\N
+t	7018	107	\N
+t	7019	102	\N
+t	7020	102	\N
+t	7021	301	\N
+t	7022	107	\N
 \.
 
 
@@ -13977,6 +13989,18 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7008	Glovo	2026-05-06	11.50	2026-05-05	3	EURO
 7009	UBER	2026-05-06	3.97	2026-05-05	3	EURO
 7010	Uber	2026-05-06	3.99	2026-05-05	3	EURO
+7011	VODAFONE	2026-05-07	62.85	2026-05-07	3	EURO
+7012	GLOVO	2026-05-07	9.90	2026-05-06	3	EURO
+7013	IMPOSTO SELO	2026-05-07	0.14	2026-05-06	3	EURO
+7014	CONTA PACOTE	2026-05-07	3.50	2026-05-06	3	EURO
+7015	Segunda Via CNH	2026-05-07	137.79	2026-04-29	5	REAL
+7016	Eletropaulo	2026-05-07	23.91	2026-04-29	5	REAL
+7017	Pacote Itau	2026-05-07	71.90	2026-05-05	5	REAL
+7018	UBER RIDES PORTUGAL	2026-05-07	5.99	2026-05-07	3	EURO
+7019	PIZZA HUT B. ARCADA 470	2026-05-07	2.95	2026-05-07	3	EURO
+7020	PIZZA HUT B. ARCADA 470	2026-05-07	6.30	2026-05-07	3	EURO
+7021	TROFA SAUDE BRAGA BRAGA	2026-05-07	38.00	2026-05-07	3	EURO
+7022	UBER RIDES PORTUGAL	2026-05-07	6.98	2026-05-07	3	EURO
 \.
 
 
@@ -14421,7 +14445,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 52, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7010, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7022, true);
 
 
 --
