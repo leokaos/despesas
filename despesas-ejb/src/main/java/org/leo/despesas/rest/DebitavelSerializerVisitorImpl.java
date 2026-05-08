@@ -27,29 +27,45 @@ public class DebitavelSerializerVisitorImpl implements DebitavelSerializerVisito
 
 	@Override
 	public void visit(Conta conta) {
-		conta.setSaldo(new BigDecimal(mapaAtributos.get("saldo")));
+		conta.setSaldo(getBigDecimalOrNull(mapaAtributos.get("saldo")));
 	}
 
 	@Override
 	public void visit(CartaoCredito cartaoCredito) {
 		cartaoCredito.setBandeira(BandeiraCartaoCredito.parse(mapaAtributos.get("bandeira")));
-		cartaoCredito.setDiaDeFechamento(Integer.valueOf(mapaAtributos.get("diaDeFechamento")));
-		cartaoCredito.setDiaDeVencimento(Integer.valueOf(mapaAtributos.get("diaDeVencimento")));
-		cartaoCredito.setLimite(new BigDecimal(mapaAtributos.get("limite")));
+		cartaoCredito.setDiaDeFechamento(getIntegerOrNull(mapaAtributos.get("diaDeFechamento")));
+		cartaoCredito.setDiaDeVencimento(getIntegerOrNull(mapaAtributos.get("diaDeVencimento")));
+		cartaoCredito.setLimite(getBigDecimalOrNull(mapaAtributos.get("limite")));
 	}
 
 	@Override
 	public void visit(Investimento investimento) {
-		investimento.setMontante(new BigDecimal(mapaAtributos.get("montante")));
+		investimento.setMontante(getBigDecimalOrNull(mapaAtributos.get("montante")));
 		investimento.setPeriodicidade(Periodicidade.valueOf(mapaAtributos.get("periodicidade")));
-		investimento.setRendimento(new BigDecimal(mapaAtributos.get("rendimento")));
+		investimento.setRendimento(getBigDecimalOrNull(mapaAtributos.get("rendimento")));
 	}
 
 	@Override
 	public void visit(Divida divida) {
-		divida.setValorTotal(new BigDecimal(mapaAtributos.get("valorTotal")));
+		divida.setValorTotal(getBigDecimalOrNull(mapaAtributos.get("valorTotal")));
 		divida.setPeriodicidade(Periodicidade.valueOf(mapaAtributos.get("periodicidade")));
 		divida.setDataInicio(getDateOrNull(mapaAtributos.get("dataInicio")));
+	}
+
+	private Integer getIntegerOrNull(String value) {
+		try {
+			return Integer.valueOf(value);
+		} catch (NumberFormatException e) {
+			return null;
+		}
+	}
+
+	private BigDecimal getBigDecimalOrNull(String value) {
+		try {
+			return new BigDecimal(value);
+		} catch (NumberFormatException | NullPointerException e) {
+			return null;
+		}
 	}
 
 	private Date getDateOrNull(String value) {
@@ -62,6 +78,5 @@ public class DebitavelSerializerVisitorImpl implements DebitavelSerializerVisito
 				return null;
 			}
 		}
-
 	}
 }
