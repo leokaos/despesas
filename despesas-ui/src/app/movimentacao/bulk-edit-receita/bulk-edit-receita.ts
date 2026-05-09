@@ -41,7 +41,7 @@ import { ReceitaService } from '../../services/receita-service';
 })
 export class BulkEditReceita {
 
-  receitas: Receita[] = [];
+  receitas = signal<Receita[]>([]);
   tipos: TipoReceita[] = [];
   debitaveis: Debitavel[] = [];
 
@@ -82,21 +82,21 @@ export class BulkEditReceita {
 
   search() {
     if (!this.queryText.trim()) {
-      this.receitas = [];
+      this.receitas.set([]);
       return;
     }
 
     this.searching.set(true);
 
     this.receitaService.search(this.queryText).subscribe((receitas: Receita[]) => {
-      this.receitas = receitas;
+      this.receitas.set(receitas);
       this.searching.set(false);
     });
   }
 
   clear() {
     this.queryText = '';
-    this.receitas = [];
+    this.receitas.set([]);
     this.debitavel = undefined;
     this.vencimento = undefined;
     this.tipoReceita = undefined;
@@ -112,7 +112,7 @@ export class BulkEditReceita {
     this.total.set(this.receitas.length);
     this.parcial.set(0);
 
-    from(this.receitas).pipe(
+    from(this.receitas()).pipe(
       concatMap(receita => this.receitaService.createOrUpdate(receita).pipe(
         tap(() => {
           this.parcial.update(value => value + 1)
@@ -134,20 +134,29 @@ export class BulkEditReceita {
 
   setDebitavel($event: Debitavel | null) {
     if ($event) {
-      this.receitas.forEach(d => d.debitavel = $event);
+      this.receitas().forEach(d => d.debitavel = $event);
     }
   }
 
   setTiporeceita($event: TipoMovimentacao) {
     if ($event) {
-      this.receitas.forEach(d => d.tipo = $event);
+      this.receitas().forEach(d => d.tipo = $event);
     }
   }
 
   setVencimento($event: Date) {
     if ($event) {
-      this.receitas.forEach(d => d.vencimento = $event);
+      this.receitas().forEach(d => d.vencimento = $event);
     }
+  }
+
+  remove(receita: Receita) {
+
+    this.receitaService.remove(receita).subscribe(_ => {
+      this.receitas.update(receitas => receitas.filter(r => r.id !== receita.id));
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Receita removida com sucesso!' });
+    });
+
   }
 
 }

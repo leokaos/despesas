@@ -41,7 +41,7 @@ import { AppProgressBar } from '../../components/app-progress-bar/app-progress-b
 })
 export class BulkEditDespesa implements OnInit {
 
-  despesas: Despesa[] = [];
+  despesas = signal<Despesa[]>([]);
   tipos: TipoDespesa[] = [];
   debitaveis: Debitavel[] = [];
 
@@ -82,21 +82,21 @@ export class BulkEditDespesa implements OnInit {
 
   search() {
     if (!this.queryText.trim()) {
-      this.despesas = [];
+      this.despesas.set([]);
       return;
     }
 
     this.searching.set(true);
 
     this.despesaService.search(this.queryText).subscribe((despesas: Despesa[]) => {
-      this.despesas = despesas;
+      this.despesas.set(despesas);
       this.searching.set(false);
     });
   }
 
   clear() {
     this.queryText = '';
-    this.despesas = [];
+    this.despesas.set([]);
     this.debitavel = undefined;
     this.vencimento = undefined;
     this.tipoDespesa = undefined;
@@ -112,7 +112,7 @@ export class BulkEditDespesa implements OnInit {
     this.total.set(this.despesas.length);
     this.parcial.set(0);
 
-    from(this.despesas).pipe(
+    from(this.despesas()).pipe(
       concatMap(despesa => this.despesaService.createOrUpdate(despesa, null).pipe(
         tap(() => {
           this.parcial.update(value => value + 1)
@@ -134,20 +134,29 @@ export class BulkEditDespesa implements OnInit {
 
   setDebitavel($event: Debitavel | null) {
     if ($event) {
-      this.despesas.forEach(d => d.debitavel = $event);
+      this.despesas().forEach(d => d.debitavel = $event);
     }
   }
 
   setTipoDespesa($event: TipoMovimentacao) {
     if ($event) {
-      this.despesas.forEach(d => d.tipo = $event);
+      this.despesas().forEach(d => d.tipo = $event);
     }
   }
 
   setVencimento($event: Date) {
     if ($event) {
-      this.despesas.forEach(d => d.vencimento = $event);
+      this.despesas().forEach(d => d.vencimento = $event);
     }
+  }
+
+  remove(despesa: Despesa) {
+
+    this.despesaService.remove(despesa).subscribe(_ => {
+      this.despesas.update(despesas => despesas.filter(d => d.id !== despesa.id));
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Despesa removida com sucesso!' });
+    });
+
   }
 
 }
