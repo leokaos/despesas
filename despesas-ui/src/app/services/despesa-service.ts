@@ -55,6 +55,11 @@ export class DespesaService {
       .pipe(map((despesas: Despesa[]) => despesas.map((despesa: Despesa) => DespesaService.toDTO(despesa))));
   }
 
+  search(query: string): Observable<Despesa[]> {
+    return this.http.get<Despesa[]>(`${this.config.apiUrl}/${this.path}?query=${encodeURIComponent(query)}`)
+      .pipe(map((despesas: Despesa[]) => despesas.map((despesa: Despesa) => DespesaService.toDTO(despesa))));
+  }
+
   fetchById(id: number): Observable<Despesa> {
     return this.http.get<Despesa>(`${this.config.apiUrl}/${this.path}/${id}`)
       .pipe(map((despesa: Despesa) => DespesaService.toDTO(despesa)));

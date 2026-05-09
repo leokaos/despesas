@@ -47,8 +47,8 @@ export class AppProgressBar {
   }
 
   getSize() {
+    if (this.total === 0) return 0;
     let percentage = (this.current / this.total) * 100;
-
     return percentage > 100 ? 100 : percentage;
   }
 }

@@ -108,6 +108,16 @@
 		</dependency>
 
 		<dependency>
+			<groupId>cz.jirutka.rsql</groupId>
+			<artifactId>rsql-parser</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.tennaito</groupId>
+			<artifactId>rsql-jpa</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>

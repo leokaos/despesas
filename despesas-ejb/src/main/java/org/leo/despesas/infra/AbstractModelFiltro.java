@@ -6,6 +6,10 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.ws.rs.QueryParam;
 
 import org.apache.commons.lang3.StringUtils;
@@ -17,7 +21,12 @@ import org.leo.despesas.infra.query.LessClause;
 import org.leo.despesas.infra.query.LikeClause;
 import org.leo.despesas.infra.query.NotEqual;
 
+import com.github.tennaito.rsql.jpa.JpaPredicateVisitor;
 import com.google.common.collect.Lists;
+
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.Node;
+import cz.jirutka.rsql.parser.ast.RSQLVisitor;
 
 public abstract class AbstractModelFiltro<T extends ModelEntity> implements ModelFiltro<T> {
 
@@ -32,11 +41,41 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 	@QueryParam("direction")
 	private String direction;
 
+	@QueryParam("query")
+	private String query;
+
 	private static final String SELECT_MODEL = "SELECT {1} FROM {0} {1}";
 	private static final String COUNT_MODEL = "SELECT COUNT({1}) FROM {0} {1}";
 
 	@Override
 	public List<T> getLista(EntityManager entityManager, Class<T> classeDaEntidade) {
+
+		if (StringUtils.isEmpty(this.query)) {
+			return buildAndQuery(entityManager, classeDaEntidade);
+		} else {
+			return parseAndQuery(entityManager, classeDaEntidade);
+		}
+
+	}
+
+	@SuppressWarnings({ "unchecked" })
+	private List<T> parseAndQuery(EntityManager entityManager, Class<T> classeDaEntidade) {
+		Node rootNode = new RSQLParser().parse(this.query);
+
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = cb.createQuery(classeDaEntidade);
+		Root<T> root = criteriaQuery.from(classeDaEntidade);
+
+		RSQLVisitor<Predicate, EntityManager> visitor = new JpaPredicateVisitor<T>().defineRoot(root);
+
+		Predicate predicate = rootNode.accept(visitor, entityManager);
+
+		criteriaQuery.where(predicate);
+
+		return entityManager.createQuery(criteriaQuery).getResultList();
+	}
+
+	private List<T> buildAndQuery(EntityManager entityManager, Class<T> classeDaEntidade) {
 
 		build();
 

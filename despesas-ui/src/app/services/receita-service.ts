@@ -55,12 +55,17 @@ export class ReceitaService {
     }
 
     return this.http.get<Receita[]>(`${this.config.apiUrl}/${this.path}`, { params })
-      .pipe(map((receitas: Receita[]) => receitas.map((receita: Receita) => this.toDTO(receita))));;
+      .pipe(map((receitas: Receita[]) => receitas.map((receita: Receita) => ReceitaService.toDTO(receita))));;
+  }
+
+  search(query: string): Observable<Receita[]> {
+    return this.http.get<Receita[]>(`${this.config.apiUrl}/${this.path}?query=${encodeURIComponent(query)}`)
+      .pipe(map((receitas: Receita[]) => receitas.map((receita: Receita) => ReceitaService.toDTO(receita))));
   }
 
   fetchById(id: number): Observable<Receita> {
     return this.http.get<Receita>(`${this.config.apiUrl}/${this.path}/${id}`)
-      .pipe(map((receita: any) => this.toDTO(receita)));
+      .pipe(map((receita: any) => ReceitaService.toDTO(receita)));
   }
 
   remove(receita: Receita) {
@@ -68,11 +73,11 @@ export class ReceitaService {
   }
 
   create(receita: Receita): Observable<Receita> {
-    return this.http.post<Receita>(`${this.config.apiUrl}/${this.path}/`, this.toEntity(receita));
+    return this.http.post<Receita>(`${this.config.apiUrl}/${this.path}/`, ReceitaService.toEntity(receita));
   }
 
   update(receita: Receita, id: number): Observable<Receita> {
-    return this.http.put<Receita>(`${this.config.apiUrl}/${this.path}/`, this.toEntity(receita));
+    return this.http.put<Receita>(`${this.config.apiUrl}/${this.path}/`, ReceitaService.toEntity(receita));
   }
 
   createOrUpdate(receita: Receita): Observable<Receita> {
@@ -85,10 +90,10 @@ export class ReceitaService {
     formData.append('arquivo', file, file.name);
 
     return this.http.post<Receita[]>(`${this.config.apiUrl}/${this.path}/upload`, formData)
-      .pipe(map((data: Receita[]) => data.map((receita: Receita) => this.toDTO(receita))));
+      .pipe(map((data: Receita[]) => data.map((receita: Receita) => ReceitaService.toDTO(receita))));
   }
 
-  private toDTO(receita: any): Receita {
+  public static toDTO(receita: any): Receita {
     return {
       ...receita,
       vencimento: receita.vencimento ? new Date(receita.vencimento) : null,
@@ -98,7 +103,7 @@ export class ReceitaService {
     };
   }
 
-  private toEntity(receita: any): Receita {
+  public static toEntity(receita: any): Receita {
     return {
       ...receita,
       tipoMovimentacao: "receita",
