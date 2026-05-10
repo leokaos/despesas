@@ -88,10 +88,11 @@ export class BulkEditReceita {
 
     this.searching.set(true);
 
-    this.receitaService.search(this.queryText).subscribe((receitas: Receita[]) => {
-      this.receitas.set(receitas);
-      this.searching.set(false);
-    });
+    this.receitaService.search(this.queryText)
+      .pipe(finalize(() => this.searching.set(false)))
+      .subscribe((receitas: Receita[]) => {
+        this.receitas.set(receitas);
+      });
   }
 
   clear() {

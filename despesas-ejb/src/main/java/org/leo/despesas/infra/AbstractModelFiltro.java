@@ -13,6 +13,7 @@ import javax.persistence.criteria.Root;
 import javax.ws.rs.QueryParam;
 
 import org.apache.commons.lang3.StringUtils;
+import org.leo.despesas.infra.exception.InvalidQueryException;
 import org.leo.despesas.infra.query.BetweenClause;
 import org.leo.despesas.infra.query.Clause;
 import org.leo.despesas.infra.query.EqualClause;
@@ -25,6 +26,7 @@ import com.github.tennaito.rsql.jpa.JpaPredicateVisitor;
 import com.google.common.collect.Lists;
 
 import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.RSQLParserException;
 import cz.jirutka.rsql.parser.ast.Node;
 import cz.jirutka.rsql.parser.ast.RSQLVisitor;
 
@@ -60,19 +62,27 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 
 	@SuppressWarnings({ "unchecked" })
 	private List<T> parseAndQuery(EntityManager entityManager, Class<T> classeDaEntidade) {
-		Node rootNode = new RSQLParser().parse(this.query);
 
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-		CriteriaQuery<T> criteriaQuery = cb.createQuery(classeDaEntidade);
-		Root<T> root = criteriaQuery.from(classeDaEntidade);
+		try {
 
-		RSQLVisitor<Predicate, EntityManager> visitor = new JpaPredicateVisitor<T>().defineRoot(root);
+			Node rootNode = new RSQLParser().parse(this.query);
 
-		Predicate predicate = rootNode.accept(visitor, entityManager);
+			CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+			CriteriaQuery<T> criteriaQuery = cb.createQuery(classeDaEntidade);
+			Root<T> root = criteriaQuery.from(classeDaEntidade);
 
-		criteriaQuery.where(predicate);
+			RSQLVisitor<Predicate, EntityManager> visitor = new JpaPredicateVisitor<T>().defineRoot(root);
 
-		return entityManager.createQuery(criteriaQuery).getResultList();
+			Predicate predicate = rootNode.accept(visitor, entityManager);
+
+			criteriaQuery.where(predicate);
+
+			return entityManager.createQuery(criteriaQuery).getResultList();
+
+		} catch (RSQLParserException e) {
+			throw new InvalidQueryException("Sintaxe inválida!", e);
+		}
+
 	}
 
 	private List<T> buildAndQuery(EntityManager entityManager, Class<T> classeDaEntidade) {

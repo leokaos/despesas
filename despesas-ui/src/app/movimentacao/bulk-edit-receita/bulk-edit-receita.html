@@ -15,7 +15,7 @@
                     placeholder="Digite sua busca ex: descricao=='*agua*';vencimento=gt='2026-01-01'"
                     class="w-full"
                     (keydown.control.enter)="search()" />
-                <p-button label="Buscar" icon="pi pi-search" severity="primary" (click)="search()" [loading]="searching()" />
+                <p-button label="Buscar" icon="pi pi-search" severity="primary" (click)="search()" [disabled]="!this.queryText.trim()" [loading]="searching()" />
                 <p-button label="Limpar" icon="pi pi-times" severity="secondary" (click)="clear()" />
             </div>
         </div>
@@ -27,14 +27,14 @@
                 <tr>
                     <th class="w-120"> Descrição </th>
                     <th class="w-10"> Valor </th>
-                    <th class="w-60"> Vencimento 
-                         <p-datepicker [showIcon]="true" oncsee appendTo="body" (onSelect)="setVencimento($event)" [(ngModel)]="vencimento" />
+                    <th class="w-60"> Vencimento
+                        <p-datepicker [showIcon]="true" oncsee appendTo="body" (onSelect)="setVencimento($event)" [(ngModel)]="vencimento" />
                     </th>
                     <th class="w-80"> Tipo
-                        <app-select-tipo-movimentacao [tipos]="tipos" (onSelect)="setTiporeceita($event)" [(ngModel)]="tipoReceita"/>
+                        <app-select-tipo-movimentacao [tipos]="tipos" (onSelect)="setTiporeceita($event)" [(ngModel)]="tipoReceita" />
                     </th>
                     <th class="w-80"> Debitável
-                        <app-select-debitavel [debitaveis]="debitaveis" (onSelect)="setDebitavel($event)" [(ngModel)]="debitavel"/>
+                        <app-select-debitavel [debitaveis]="debitaveis" (onSelect)="setDebitavel($event)" [(ngModel)]="debitavel" />
                     </th>
                     <th class="small-column"> Depositada? </th>
                     <th class="small-column"> Ações</th>
@@ -82,13 +82,13 @@
         <div class="flex flex-1 items-center mb-10">
             <label class="w-40">Iniciar?</label>
             <app-progress-bar
-                              [animated]="false"
-                              [total]="total()"
-                              [current]="parcial()"
-                              class="w-full"
-                              [showLabel]="true"
-                              [showState]="false"
-                              [currency]="false" />
+                [animated]="false"
+                [total]="total()"
+                [current]="parcial()"
+                class="w-full"
+                [showLabel]="true"
+                [showState]="false"
+                [currency]="false" />
         </div>
     </div>
 

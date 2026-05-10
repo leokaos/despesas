@@ -88,10 +88,11 @@ export class BulkEditDespesa implements OnInit {
 
     this.searching.set(true);
 
-    this.despesaService.search(this.queryText).subscribe((despesas: Despesa[]) => {
-      this.despesas.set(despesas);
-      this.searching.set(false);
-    });
+    this.despesaService.search(this.queryText)
+      .pipe(finalize(() => this.searching.set(false)))
+      .subscribe((despesas: Despesa[]) => {
+        this.despesas.set(despesas);
+      });
   }
 
   clear() {
