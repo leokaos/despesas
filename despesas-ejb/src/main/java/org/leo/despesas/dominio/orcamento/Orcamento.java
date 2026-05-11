@@ -1,7 +1,7 @@
 package org.leo.despesas.dominio.orcamento;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -22,7 +22,7 @@ import org.leo.despesas.infra.ModelEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "orcamento",schema = "despesas_db")
+@Table(name = "orcamento", schema = "despesas_db")
 public class Orcamento implements ModelEntity {
 
 	private static final long serialVersionUID = 3125627003466439125L;
@@ -34,10 +34,10 @@ public class Orcamento implements ModelEntity {
 	private Long id;
 
 	@Column(name = "DATA_FINAL")
-	private Timestamp dataFinal;
+	private Date dataFinal;
 
 	@Column(name = "DATA_INICIAL")
-	private Timestamp dataInicial;
+	private Date dataInicial;
 
 	@ManyToOne
 	@JoinColumn(name = "tipo_despesa_id")
@@ -65,19 +65,19 @@ public class Orcamento implements ModelEntity {
 		this.id = id;
 	}
 
-	public Timestamp getDataFinal() {
-		return this.dataFinal;
+	public Date getDataFinal() {
+		return dataFinal;
 	}
 
-	public void setDataFinal(Timestamp dataFinal) {
+	public void setDataFinal(Date dataFinal) {
 		this.dataFinal = dataFinal;
 	}
 
-	public Timestamp getDataInicial() {
-		return this.dataInicial;
+	public Date getDataInicial() {
+		return dataInicial;
 	}
 
-	public void setDataInicial(Timestamp dataInicial) {
+	public void setDataInicial(Date dataInicial) {
 		this.dataInicial = dataInicial;
 	}
 
