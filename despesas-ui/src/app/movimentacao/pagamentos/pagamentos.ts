@@ -28,6 +28,8 @@ export class Pagamentos implements OnInit {
       locales: [{ code: 'pt-br' }],
       buttonText: { today: "Hoje" },
       events: this.loadEvents.bind(this),
+      height: 'auto',
+      contentHeight: 'auto',
       headerToolbar: {
         left: 'prev,next today',
         center: 'title',
