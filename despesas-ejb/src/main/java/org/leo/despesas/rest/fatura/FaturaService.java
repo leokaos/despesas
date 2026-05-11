@@ -15,7 +15,6 @@ import javax.ws.rs.core.Response;
 import org.leo.despesas.aplicacao.cartao.CartaoFacade;
 import org.leo.despesas.aplicacao.conta.ContaFacade;
 import org.leo.despesas.aplicacao.fatura.FaturaFacade;
-import org.leo.despesas.aplicacao.transferencia.TransferenciaFacade;
 import org.leo.despesas.dominio.debitavel.Conta;
 import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.infra.exception.DespesasException;
@@ -33,9 +32,6 @@ public class FaturaService {
 	@EJB
 	private ContaFacade contaFacade;
 
-	@EJB
-	private TransferenciaFacade transferenciaFacade;
-
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Fatura> buscarFaturaPorCartaoCredito(@PathParam(value = "id") final Long idCartaoCredito) throws DespesasException {
@@ -51,9 +47,9 @@ public class FaturaService {
 		Fatura fatura = faturaFacade.buscarPorId(id);
 		Conta conta = contaFacade.buscarPorId(faturaVO.getDebitavel().getId());
 
-		transferenciaFacade.pagarFatura(fatura, conta, faturaVO.getDataPagamento());
+		Fatura faturaSalva = faturaFacade.pagarFatura(fatura, conta, faturaVO.getDataPagamento());
 
-		return Response.ok().build();
+		return Response.ok(faturaSalva).build();
 	}
 
 }

@@ -19,13 +19,14 @@ export class FaturaService {
       .pipe(map((data) => data.map((fatura) => FaturaService.toDTO(fatura))));
   }
 
-  pay(fatura: Fatura, conta: Conta, dataPagamento: Date): Observable<void> {
+  pay(fatura: Fatura, conta: Conta, dataPagamento: Date): Observable<Fatura> {
     let payload = {
       debitavel: ContaService.toEntity(conta),
       dataPagamento: dataPagamento.getTime(),
     };
 
-    return this.http.put<void>(`${this.config.apiUrl}/cartao/${fatura.cartao.id}/fatura/${fatura.id}`, payload);
+    return this.http.put<Fatura>(`${this.config.apiUrl}/cartao/${fatura.cartao.id}/fatura/${fatura.id}`, payload)
+      .pipe(map(fatura => FaturaService.toDTO(fatura)));
   }
 
   public static toDTO(fatura: any): Fatura {

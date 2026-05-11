@@ -37,7 +37,7 @@ export class FaturaView implements OnInit {
 
   cartaoCredito?: CartaoCredito;
   fatura?: Fatura;
-  faturas: Fatura[] = [];
+  faturas = signal<Fatura[]>([]);
   contas: Conta[] = [];
   loading = signal<boolean>(true);
   showDialog: boolean = false;
@@ -63,6 +63,8 @@ export class FaturaView implements OnInit {
 
     if (id) {
 
+      this.loading.set(true);
+
       this.cartaoCreditoService.fetchById(parseInt(id)).pipe(
         concatMap((cartao: CartaoCredito) => {
           this.cartaoCredito = cartao;
@@ -73,7 +75,7 @@ export class FaturaView implements OnInit {
           });
         })
       ).subscribe(({ faturas, contas }) => {
-        this.faturas = faturas;
+        this.faturas.set(faturas);
         this.contas = contas.filter((conta: Conta) => conta.moeda === this.cartaoCredito?.moeda);
         this.loading.set(false);
       });
@@ -88,9 +90,10 @@ export class FaturaView implements OnInit {
 
     if (this.fatura && this.conta && this.dataPagamento) {
 
-      this.faturaService.pay(this.fatura, this.conta, this.dataPagamento).subscribe((_) => {
+      this.faturaService.pay(this.fatura, this.conta, this.dataPagamento).subscribe((fatura: Fatura) => {
         this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Fatura paga com sucesso!', life: 3000, });
-        this.loadData();
+        this.faturas.update(faturas => faturas.map(f => f.id === fatura.id ? fatura : f));
+        this.fatura = fatura;
       });
 
       this.showDialog = false;

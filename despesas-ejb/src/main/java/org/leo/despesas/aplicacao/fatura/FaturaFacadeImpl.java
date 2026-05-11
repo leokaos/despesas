@@ -1,13 +1,18 @@
 package org.leo.despesas.aplicacao.fatura;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
+import org.leo.despesas.aplicacao.transferencia.TransferenciaFacade;
 import org.leo.despesas.dominio.debitavel.CartaoCredito;
+import org.leo.despesas.dominio.debitavel.Conta;
 import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.debitavel.FaturaFiltro;
+import org.leo.despesas.dominio.movimentacao.Transferencia;
 import org.leo.despesas.infra.AbstractFacade;
 import org.leo.despesas.infra.exception.DespesasException;
 
@@ -15,6 +20,9 @@ import com.google.common.collect.Lists;
 
 @Stateless
 public class FaturaFacadeImpl extends AbstractFacade<Fatura, FaturaFiltro> implements FaturaFacade {
+
+	@EJB
+	private TransferenciaFacade transferenciaFacade;
 
 	@Override
 	protected Class<Fatura> getClasseEntidade() {
@@ -33,6 +41,20 @@ public class FaturaFacadeImpl extends AbstractFacade<Fatura, FaturaFiltro> imple
 		faturas.addAll(query.getResultList());
 
 		return faturas;
+	}
+
+	@Override
+	public Fatura pagarFatura(Fatura fatura, final Conta conta, Date dataPagamento) throws DespesasException {
+
+		fatura = buscarPorId(fatura.getId());
+
+		final Transferencia transferencia = fatura.pagar(conta);
+
+		transferencia.setPagamento(dataPagamento);
+
+		transferenciaFacade.inserir(transferencia);
+
+		return fatura;
 	}
 
 	@Override

@@ -10,11 +10,8 @@ import javax.persistence.TypedQuery;
 
 import org.leo.despesas.aplicacao.conta.ContaFacade;
 import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
-import org.leo.despesas.aplicacao.fatura.FaturaFacade;
 import org.leo.despesas.aplicacao.parametro.ParametroFacade;
-import org.leo.despesas.dominio.debitavel.Conta;
 import org.leo.despesas.dominio.debitavel.Debitavel;
-import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
 import org.leo.despesas.dominio.movimentacao.TransferenciaFiltro;
 import org.leo.despesas.dominio.servicotransferencia.Cotacao;
@@ -32,25 +29,10 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, Trans
 	private ContaFacade contaFacade;
 
 	@EJB
-	private FaturaFacade faturaFacade;
-
-	@EJB
 	private DebitavelFacade debitavelFacade;
 
 	@EJB
 	private ParametroFacade parametroFacade;
-
-	@Override
-	public void pagarFatura(Fatura fatura, final Conta conta, Date dataPagamento) throws DespesasException {
-
-		fatura = faturaFacade.buscarPorId(fatura.getId());
-
-		final Transferencia transferencia = fatura.pagar(conta);
-
-		transferencia.setPagamento(dataPagamento);
-
-		inserir(transferencia);
-	}
 
 	@Override
 	public List<Transferencia> getTransferenciasPorPeriodo(final Periodo periodo) {
