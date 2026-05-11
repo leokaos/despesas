@@ -1,0 +1,23 @@
+<p-dialog header="Salvar" [style]="{ width: '500px' }" [modal]="true" position="top" [(visible)]="visible">
+
+    <div class="flex flex-col gap-4">
+        <div class="flex flex-1 items-center mb-10">
+            <label class="w-40">Iniciar?</label>
+            <app-progress-bar
+                [animated]="false"
+                [total]="total()"
+                [current]="current()"
+                class="w-full"
+                [showLabel]="true"
+                [showState]="false"
+                [currency]="false" />
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <div class="flex flex-1 gap-2">
+            <p-button label="Cancelar" icon="pi pi-times" (click)="cancel()" severity="secondary" class="flex flex-1 justify-start" />
+            <p-button label="OK" icon="pi pi-check" class="flex flex-1 justify-end" (click)="save()" [disabled]="executing()"/>
+        </div>
+    </ng-template>
+</p-dialog>

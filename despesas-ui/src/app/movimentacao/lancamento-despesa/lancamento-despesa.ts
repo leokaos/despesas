@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { DatePickerModule } from 'primeng/datepicker';
-import { concatMap, finalize, forkJoin, from, map, tap } from 'rxjs';
+import { forkJoin, map } from 'rxjs';
 import { DebitavelFiltro, DebitavelService } from '../../services/debitavel-service';
 import { Debitavel } from '../../models/debitavel.model';
 import { Loader } from '../../components/loader/loader';
@@ -16,12 +16,11 @@ import { SelectDebitavel } from '../../components/select-debitavel/select-debita
 import { CheckboxChangeEvent, CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from "primeng/dialog";
 import { FileUploadModule } from 'primeng/fileupload';
-import { AppProgressBar } from "../../components/app-progress-bar/app-progress-bar";
-import { MessageService } from 'primeng/api';
 import { Despesa } from './../../models/movimentacao.model';
 import { TipoDespesa } from '../../models/tipo-movimentacao.model';
 import { DespesaService } from '../../services/despesa-service';
 import { TipoDespesaService } from '../../services/tipo-despesa-service';
+import { AppSaveDialog } from "../../components/app-save-dialog/app-save-dialog";
 
 @Component({
   selector: 'app-lancamento-despesa',
@@ -40,7 +39,7 @@ import { TipoDespesaService } from '../../services/tipo-despesa-service';
     CheckboxModule,
     DialogModule,
     FileUploadModule,
-    AppProgressBar
+    AppSaveDialog
   ],
   templateUrl: './lancamento-despesa.html',
   styleUrl: './lancamento-despesa.scss',
@@ -56,7 +55,6 @@ export class LancamentoDespesa implements OnInit {
   private tipoDespesaService = inject(TipoDespesaService);
   private debitavelService = inject(DebitavelService);
   private despesaService = inject(DespesaService);
-  private messageService = inject(MessageService);
 
   loading = signal<boolean>(true);
   visible = signal<boolean>(false);
@@ -66,12 +64,10 @@ export class LancamentoDespesa implements OnInit {
   debitavelSelecionado?: Debitavel;
   despesasPagas: boolean = false;
 
-  total = signal<number>(0);
-  parcial = signal<number>(0);
-
   constructor() { }
 
   ngOnInit(): void {
+
     let debitavelFiltro = {
       ativo: true,
     } as DebitavelFiltro;
@@ -82,7 +78,6 @@ export class LancamentoDespesa implements OnInit {
     }).subscribe((results: any) => {
       this.tipos = results.tipos;
       this.debitaveis = results.debitaveis;
-
       this.loading.set(false);
     });
   }
@@ -138,34 +133,8 @@ export class LancamentoDespesa implements OnInit {
     } as Despesa;
   }
 
-  save() {
-    this.total.set(this.despesas.length);
-    this.parcial.set(0);
-
-    from(this.despesas).pipe(
-      concatMap(despesa => this.despesaService.createOrUpdate(despesa, null).pipe(
-        tap(() => {
-          this.parcial.update(value => value + 1)
-        })
-      )),
-      finalize(() => {
-
-        this.visibleSave.set(false);
-
-        if (this.parcial() === this.total()) {
-
-          this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Despesas salvas com sucesso!' });
-
-          this.despesas = [];
-          this.debitavelSelecionado = undefined;
-          this.despesasPagas = false;
-          this.total.set(0);
-          this.parcial.set(0);
-        }
-      })).subscribe({
-        error: (error) => this.messageService.add({ severity: 'error', summary: 'Erro', detail: `Erro ao salvar despesas: ${error.message}` })
-      });
-
+  saveDespesa(item: Despesa) {
+    return this.despesaService.createOrUpdate(item, null);
   }
 
   isAllDespesasValids(): boolean {
@@ -176,6 +145,12 @@ export class LancamentoDespesa implements OnInit {
 
   setMoeda(despesa: Despesa) {
     despesa.moeda = despesa.debitavel?.moeda;
+  }
+
+  clear() {
+    this.despesas = [];
+    this.debitavelSelecionado = undefined;
+    this.despesasPagas = false;
   }
 
 }

@@ -1,24 +1,24 @@
-import { Component, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { CheckboxModule } from 'primeng/checkbox';
-import { DatePickerModule } from 'primeng/datepicker';
-import { DialogModule } from 'primeng/dialog';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextModule } from 'primeng/inputtext';
-import { TableModule } from 'primeng/table';
-import { forkJoin, from, concatMap, tap, finalize } from 'rxjs';
-import { AppProgressBar } from '../../components/app-progress-bar/app-progress-bar';
-import { Loader } from '../../components/loader/loader';
-import { SelectDebitavel } from '../../components/select-debitavel/select-debitavel';
-import { SelectTipoMovimentacao } from '../../components/select-tipo-movimentacao/select-tipo-movimentacao';
-import { Debitavel } from '../../models/debitavel.model';
-import { TipoMovimentacao, TipoReceita } from '../../models/tipo-movimentacao.model';
-import { DebitavelService, DebitavelFiltro } from '../../services/debitavel-service';
-import { Receita } from '../../models/movimentacao.model';
-import { TipoReceitaService } from '../../services/tipo-receita-service';
-import { ReceitaService } from '../../services/receita-service';
+import { Component, OnInit, signal, inject } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { MessageService } from "primeng/api";
+import { ButtonModule } from "primeng/button";
+import { CheckboxModule } from "primeng/checkbox";
+import { DatePickerModule } from "primeng/datepicker";
+import { DialogModule } from "primeng/dialog";
+import { InputNumberModule } from "primeng/inputnumber";
+import { InputTextModule } from "primeng/inputtext";
+import { TableModule } from "primeng/table";
+import { forkJoin, finalize } from "rxjs";
+import { AppSaveDialog } from "../../components/app-save-dialog/app-save-dialog";
+import { Loader } from "../../components/loader/loader";
+import { SelectDebitavel } from "../../components/select-debitavel/select-debitavel";
+import { SelectTipoMovimentacao } from "../../components/select-tipo-movimentacao/select-tipo-movimentacao";
+import { Debitavel } from "../../models/debitavel.model";
+import { Receita } from "../../models/movimentacao.model";
+import { TipoReceita, TipoMovimentacao } from "../../models/tipo-movimentacao.model";
+import { DebitavelService, DebitavelFiltro } from "../../services/debitavel-service";
+import { ReceitaService } from "../../services/receita-service";
+import { TipoReceitaService } from "../../services/tipo-receita-service";
 
 @Component({
   selector: 'app-bulk-edit-receita',
@@ -34,12 +34,12 @@ import { ReceitaService } from '../../services/receita-service';
     SelectDebitavel,
     CheckboxModule,
     DialogModule,
-    AppProgressBar
+    AppSaveDialog
   ],
   templateUrl: './bulk-edit-receita.html',
   styleUrl: './bulk-edit-receita.scss',
 })
-export class BulkEditReceita {
+export class BulkEditReceita implements OnInit {
 
   receitas = signal<Receita[]>([]);
   tipos: TipoReceita[] = [];
@@ -49,8 +49,6 @@ export class BulkEditReceita {
   tipoReceita?: TipoReceita;
   debitavel?: Debitavel;
 
-  total = signal<number>(0);
-  parcial = signal<number>(0);
   visibleSave = signal<boolean>(false);
 
   queryText: string = "";
@@ -66,6 +64,7 @@ export class BulkEditReceita {
   constructor() { }
 
   ngOnInit(): void {
+
     let debitavelFiltro = {
       ativo: true,
     } as DebitavelFiltro;
@@ -86,6 +85,10 @@ export class BulkEditReceita {
       return;
     }
 
+    this.debitavel = undefined;
+    this.vencimento = undefined;
+    this.tipoReceita = undefined;
+
     this.searching.set(true);
 
     this.receitaService.search(this.queryText)
@@ -95,42 +98,20 @@ export class BulkEditReceita {
       });
   }
 
+  saveReceita(item: Receita) {
+    return this.receitaService.createOrUpdate(item);
+  }
+
   clear() {
     this.queryText = '';
     this.receitas.set([]);
     this.debitavel = undefined;
     this.vencimento = undefined;
     this.tipoReceita = undefined;
-    this.total.set(0);
-    this.parcial.set(0);
   }
 
   setMoeda(receita: Receita) {
     receita.moeda = receita.debitavel?.moeda;
-  }
-
-  salvar() {
-    this.total.set(this.receitas.length);
-    this.parcial.set(0);
-
-    from(this.receitas()).pipe(
-      concatMap(receita => this.receitaService.createOrUpdate(receita).pipe(
-        tap(() => {
-          this.parcial.update(value => value + 1)
-        })
-      )),
-      finalize(() => {
-
-        this.visibleSave.set(false);
-
-        if (this.parcial() === this.total()) {
-          this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Receitas salvas com sucesso!' });
-          this.clear();
-        }
-
-      })).subscribe({
-        error: (error) => this.messageService.add({ severity: 'error', summary: 'Erro', detail: `Erro ao salvar receitas: ${error.message}` })
-      });
   }
 
   setDebitavel($event: Debitavel | null) {

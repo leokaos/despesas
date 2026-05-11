@@ -20,9 +20,9 @@
         <p-table [value]="receitas">
             <ng-template #header>
                 <tr>
-                    <th> Descrição </th>
-                    <th class="w-80"> Valor </th>
-                    <th class="w-80"> Vencimento </th>
+                    <th class="w-120"> Descrição </th>
+                    <th class="w-10"> Valor </th>
+                    <th class="w-60"> Vencimento </th>
                     <th class="w-80"> Tipo </th>
                     <th class="w-80">
                         Debitável
@@ -102,28 +102,12 @@
         </div>
     </ng-template>
 </p-dialog>
+<app-save-dialog
+    [(visible)]="visibleSave"
+    [items]="receitas"
+    [saveFn]="saveReceita.bind(this)"
+    successMessage="Receitas salvas com sucesso!"
+    (saved)="clear()">
+</app-save-dialog>
 
-<p-dialog header="Salvar" [style]="{ width: '500px' }" [modal]="true" position="top" [(visible)]="visibleSave">
-
-    <div class="flex flex-col gap-4">
-        <div class="flex flex-1 items-center mb-10">
-            <label class="w-40">Iniciar?</label>
-            <app-progress-bar
-                              [animated]="false"
-                              [total]="total()"
-                              [current]="parcial()"
-                              class="w-full"
-                              [showLabel]="true"
-                              [showState]="false"
-                              [currency]="false" />
-        </div>
-    </div>
-
-    <ng-template pTemplate="footer">
-        <div class="flex flex-1 gap-2">
-            <p-button label="Cancelar" icon="pi pi-times" (click)="visibleSave.set(false)" severity="secondary" class="flex flex-1 justify-start" />
-            <p-button label="OK" icon="pi pi-check" class="flex flex-1 justify-end" (click)="save()" />
-        </div>
-    </ng-template>
-</p-dialog>
 }

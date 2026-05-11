@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { DatePickerModule } from 'primeng/datepicker';
-import { concatMap, finalize, forkJoin, from, map, tap } from 'rxjs';
+import { forkJoin, map } from 'rxjs';
 import { DebitavelFiltro, DebitavelService } from '../../services/debitavel-service';
 import { Debitavel } from '../../models/debitavel.model';
 import { Loader } from '../../components/loader/loader';
@@ -16,12 +16,11 @@ import { SelectDebitavel } from '../../components/select-debitavel/select-debita
 import { CheckboxChangeEvent, CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from "primeng/dialog";
 import { FileUploadModule } from 'primeng/fileupload';
-import { AppProgressBar } from "../../components/app-progress-bar/app-progress-bar";
-import { MessageService } from 'primeng/api';
 import { Receita } from '../../models/movimentacao.model';
 import { TipoReceita } from '../../models/tipo-movimentacao.model';
 import { ReceitaService } from '../../services/receita-service';
 import { TipoReceitaService } from '../../services/tipo-receita-service';
+import { AppSaveDialog } from "../../components/app-save-dialog/app-save-dialog";
 
 @Component({
   selector: 'app-lancamento-receita',
@@ -40,7 +39,7 @@ import { TipoReceitaService } from '../../services/tipo-receita-service';
     CheckboxModule,
     DialogModule,
     FileUploadModule,
-    AppProgressBar
+    AppSaveDialog
   ],
   templateUrl: './lancamento-receita.html',
   styleUrl: './lancamento-receita.scss'
@@ -56,7 +55,6 @@ export class LancamentoReceita implements OnInit {
   private tipoReceitaService = inject(TipoReceitaService);
   private debitavelService = inject(DebitavelService);
   private receitaService = inject(ReceitaService);
-  private messageService = inject(MessageService);
 
   loading = signal<boolean>(true);
   visible = signal<boolean>(false);
@@ -66,12 +64,10 @@ export class LancamentoReceita implements OnInit {
   debitavelSelecionado?: Debitavel;
   receitasDepositadas: boolean = false;
 
-  total = signal<number>(0);
-  parcial = signal<number>(0);
-
   constructor() { }
 
   ngOnInit(): void {
+
     let debitavelFiltro = {
       ativo: true,
     } as DebitavelFiltro;
@@ -82,7 +78,6 @@ export class LancamentoReceita implements OnInit {
     }).subscribe((results: any) => {
       this.tipos = results.tipos;
       this.debitaveis = results.debitaveis;
-
       this.loading.set(false);
     });
   }
@@ -138,34 +133,8 @@ export class LancamentoReceita implements OnInit {
     } as Receita;
   }
 
-  save() {
-    this.total.set(this.receitas.length);
-    this.parcial.set(0);
-
-    from(this.receitas).pipe(
-      concatMap(receita => this.receitaService.createOrUpdate(receita).pipe(
-        tap(() => {
-          this.parcial.update(value => value + 1)
-        })
-      )),
-      finalize(() => {
-
-        this.visibleSave.set(false);
-
-        if (this.parcial() === this.total()) {
-
-          this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Receitas salvas com sucesso!' });
-
-          this.receitas = [];
-          this.debitavelSelecionado = undefined;
-          this.receitasDepositadas = false;
-          this.total.set(0);
-          this.parcial.set(0);
-        }
-      })).subscribe({
-        error: (error) => this.messageService.add({ severity: 'error', summary: 'Erro', detail: `Erro ao salvar receita: ${error.message}` })
-      });
-
+  saveReceita(item: Receita) {
+    return this.receitaService.createOrUpdate(item);
   }
 
   isAllReceitasValids(): boolean {
@@ -176,6 +145,11 @@ export class LancamentoReceita implements OnInit {
 
   setMoeda(receita: Receita) {
     receita.moeda = receita.debitavel?.moeda;
+  }
+  clear() {
+    this.receitas = [];
+    this.debitavelSelecionado = undefined;
+    this.receitasDepositadas = false;
   }
 
 }
