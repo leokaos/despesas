@@ -1,0 +1,11 @@
+:host ::ng-deep {
+  .fc-toolbar-title {
+    // Garante que o texto esteja em minúsculo primeiro (padrão do pt-br)
+    text-transform: lowercase; 
+    
+    // Aplica a capitalização apenas na primeira letra da frase
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+}
