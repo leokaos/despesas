@@ -44,20 +44,23 @@
     }
     @else {
     <p-table
-             #table
-             stripedRows
-             [value]="data()"
-             sortMode="single"
-             sortField="tipoDespesa.descricao"
-             [paginator]="true"
-             [rows]="10"
-             size="small"
-             showGridlines
-             [rowsPerPageOptions]="[10, 15, 50, 100]"
-             [globalFilterFields]="['cor', 'descricao']">
+        #table
+        stripedRows
+        [value]="data()"
+        sortMode="single"
+        sortField="tipoDespesa.descricao"
+        [paginator]="true"
+        [rows]="10"
+        size="small"
+        showGridlines
+        [rowsPerPageOptions]="[10, 15, 50, 100]"
+        [globalFilterFields]="['cor', 'descricao']">
 
         <ng-template pTemplate="caption">
             <div class="flex gap-4 justify-end">
+                <div class="flex items-center">
+                    <button pButton type="button" icon="pi pi-clone" pTooltip="Copiar Orçamentos" (click)="showCopyDialog = true" severity="warn" [disabled]="data().length <= 0"> </button>
+                </div>
                 <div class="flex items-center">
                     <button pButton type="button" icon="pi pi-refresh" tooltip="Recarregar" (click)="reload()"> </button>
                 </div>
@@ -130,12 +133,39 @@
 
 </div>
 
-<p-dialog header="Remover Contas Bancárias" [modal]="true" position="top" [(visible)]="showDialog" [style]="{ width: '50rem' }">
+<p-dialog header="Remover Orçamento" [modal]="true" position="top" [(visible)]="showDialog" [style]="{ width: '50rem' }">
     Tem certeza que deseja remover <b> orçamento de {{orcamento?.tipoDespesa?.descricao}} para {{ orcamento?.descricao }}</b> ?
 
     <ng-template pTemplate="footer">
-        <p-button label="Cancel" [raised]="true" severity="secondary" (click)="showDialog = false" />
-        <p-button label="Save" [raised]="true" severity="success" (click)="remover()" />
+        <p-button label="Cancelar" [raised]="true" severity="secondary" (click)="showDialog = false" />
+        <p-button label="OK" [raised]="true" severity="success" (click)="remover()" />
+    </ng-template>
+
+</p-dialog>
+
+<p-dialog header="Copiar Orçamentos" [modal]="true" position="top" [(visible)]="showCopyDialog" [style]="{ width: '50rem' }">
+
+    <div class="flex flex-col gap-4">
+
+        <div class="flex flex-1 items-center mb-10">
+            <label class="w-80">Selecione o mês:</label>
+            <app-periodo-view [(ngModel)]="periodoSelecionado" class="w-full"></app-periodo-view>
+        </div>
+
+    </div>
+
+    @for (item of data(); track $index) {
+    <div class="flex flex-row gap-4 my-5">
+        <label class="w-80">{{item.tipoDespesa.descricao}}</label>
+        <div class="w-100">
+            <app-progress-bar [current]="0" [total]="item.valor" [striped]="true" [animated]="true" [showLabel]="true" [currency]="true" />
+        </div>
+    </div>
+    }
+
+    <ng-template pTemplate="footer">
+        <p-button label="Cancelar" [raised]="true" severity="secondary" (click)="showCopyDialog = false" class="flex flex-1 justify-start" />
+        <p-button label="Confirmar" [raised]="true" severity="success" (click)="confirmarCopia()" />
     </ng-template>
 
 </p-dialog>

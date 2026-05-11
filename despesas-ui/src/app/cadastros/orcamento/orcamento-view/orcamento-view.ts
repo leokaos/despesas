@@ -20,6 +20,7 @@ import { PanelModule } from 'primeng/panel';
 import { Mes } from '../../../models/mes.model';
 import { PeriodoView } from '../../../components/periodo-view/periodo-view';
 import { PeriodoUtil } from '../../../models/util';
+import { concatMap, from, last } from 'rxjs';
 
 @Component({
   selector: 'app-orcamento-view',
@@ -45,6 +46,7 @@ import { PeriodoUtil } from '../../../models/util';
   styleUrl: './orcamento-view.scss',
 })
 export class OrcamentoView implements OnInit {
+
   @ViewChild('table')
   private table?: Table;
 
@@ -52,8 +54,10 @@ export class OrcamentoView implements OnInit {
   searchValue?: string;
   loading = signal<boolean>(true);
   showDialog: boolean = false;
+  showCopyDialog: boolean = false;
   orcamento?: Orcamento;
   periodo?: Periodo;
+  periodoSelecionado?: Periodo;
 
   private orcamentoService = inject(OrcamentoService);
   private router = inject(Router);
@@ -120,5 +124,26 @@ export class OrcamentoView implements OnInit {
     }
 
     this.showDialog = false;
+  }
+
+  confirmarCopia() {
+
+    from(this.data()).pipe(
+      concatMap(item => {
+        let innerItem = {
+          tipoDespesa: item.tipoDespesa,
+          valor: item.valor,
+          dataInicial: PeriodoUtil.getDataInicialUTC(this.periodoSelecionado!).toUTCString(),
+          dataFinal: PeriodoUtil.getDataFinalUTC(this.periodoSelecionado!).toUTCString(),
+        } as Orcamento;
+
+        return this.orcamentoService.createOrUpdate(innerItem)
+      }),
+      last()
+    ).subscribe(_ => {
+      this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Orçamentos copiados com sucesso!', life: 3000 });
+      this.showCopyDialog = false;
+    });
+
   }
 }
