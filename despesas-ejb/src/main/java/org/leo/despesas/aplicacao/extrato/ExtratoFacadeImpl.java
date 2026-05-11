@@ -42,7 +42,8 @@ public class ExtratoFacadeImpl implements ExtratoFacade {
 		builder.append("left join despesas_db.debitavel DD on DD.id = MO.debitavel_id ");
 		builder.append("left join despesas_db.debitavel DC on DC.id = T.creditavel_id ");
 		builder.append("where MO.vencimento between ? and ? and (MO.debitavel_id = ? or T.creditavel_id = ?)) as DATA ");
-		builder.append("group by extract(MONTH from DATA.vencimento), extract(YEAR from DATA.vencimento)");
+		builder.append("group by extract(MONTH from DATA.vencimento), extract(YEAR from DATA.vencimento) ");
+		builder.append("order by extract(YEAR from DATA.vencimento), extract(MONTH from DATA.vencimento)");
 
 		final Query query = entityManager.createNativeQuery(builder.toString());
 
