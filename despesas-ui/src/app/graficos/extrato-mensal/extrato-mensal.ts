@@ -7,7 +7,7 @@ import { ButtonModule } from "primeng/button";
 import { DatePickerModule } from "primeng/datepicker";
 import { SelectDebitavel } from "../../components/select-debitavel/select-debitavel";
 import { Loader } from "../../components/loader/loader";
-import { DebitavelService } from '../../services/debitavel-service';
+import { DebitavelFiltro, DebitavelService } from '../../services/debitavel-service';
 import { Debitavel } from '../../models/debitavel.model';
 import { ExtratoService } from '../../services/extrato-service';
 import { Extrato } from '../../models/extrato.model';
@@ -44,7 +44,10 @@ export class ExtratoMensal implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.debitavelService.fetch({ ativo: true }).subscribe((data) => {
+
+    let filtro = { ativo: true } as DebitavelFiltro;
+
+    this.debitavelService.fetch(filtro).subscribe((data) => {
       this.debitaveis = data;
       this.loading.set(false);
     })

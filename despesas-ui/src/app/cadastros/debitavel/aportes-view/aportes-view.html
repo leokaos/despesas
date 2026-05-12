@@ -20,7 +20,7 @@
         <div class="text-center px-4 py-2">
             <div class="mb-1">Total de Aportes</div>
             <div class="text-green-600 text-lg font-bold">
-                {{ divida?.moeda?.simbolo }} {{ transferencias | sum: 'valorReal' | number: '1.2-2' : 'pt-BR' }}
+                {{ divida?.moeda?.simbolo }} {{ transferencias() | sum: 'valorReal' | number: '1.2-2' : 'pt-BR' }}
             </div>
         </div>
 
@@ -32,11 +32,15 @@
         </div>
     </div>
 
+    <div class="flex justify-end mb-4">
+        <p-button label="Novo Aporte" icon="pi pi-plus" severity="secondary" (click)="openNovoAporteDialog()" [disabled]="(divida?.valorRestante || 0) <= 0" />
+    </div>
+
     <p-table
-             [value]="transferencias"
-             stripedRows
-             showGridlines
-             [rowsPerPageOptions]="[10, 15, 50, 100]">
+        [value]="transferencias()"
+        stripedRows
+        showGridlines
+        [rowsPerPageOptions]="[10, 15, 50, 100]">
 
         <ng-template pTemplate="header">
             <tr>
@@ -68,5 +72,39 @@
         </div>
     </div>
 </div>
+
+<p-dialog header="Novo Aporte" [style]="{ width: '500px' }" [modal]="true" [(visible)]="showDialog">
+
+    <div class="flex flex-col gap-4">
+
+        <div class="flex flex-1 items-center mb-10">
+            <label class="w-40">Valor</label>
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-money-bill"></i>
+                </p-inputgroup-addon>
+                <p-inputnumber locale="pt-BR" [(ngModel)]="transferencia.valor" [minFractionDigits]="2" [maxFractionDigits]="2" />
+            </p-inputgroup>
+        </div>
+
+        <div class="flex flex-1 items-center mb-10">
+            <label class="w-40">Vencimento</label>
+            <p-datepicker dateFormat="dd/mm/yy" [(ngModel)]="transferencia.vencimento" [showIcon]="true" class="w-full" appendTo="body"> </p-datepicker>
+        </div>
+
+        <div class="flex flex-1 items-center mb-10">
+            <label class="w-40">Origem</label>
+            <app-select-debitavel [debitaveis]="debitaveis" [(ngModel)]="transferencia.debitavel" class="w-full"></app-select-debitavel>
+        </div>
+
+    </div>
+
+    <ng-template pTemplate="footer">
+        <div class="flex flex-1 gap-2">
+            <p-button label="Cancelar" icon="pi pi-times" (click)="showDialog.set(false)" severity="secondary" class="flex flex-1 justify-start" />
+            <p-button label="Confirmar" icon="pi pi-check" class="flex flex-1 justify-end" (click)="salvar()" [loading]="salvando()" />
+        </div>
+    </ng-template>
+</p-dialog>
 
 }

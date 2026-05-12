@@ -6,6 +6,7 @@ import { Debitavel, Moeda } from '../models/debitavel.model';
 
 export interface DebitavelFiltro {
   ativo: boolean;
+  moeda: Moeda;
 }
 
 @Injectable({
@@ -21,6 +22,10 @@ export class DebitavelService {
 
     if (filtro.ativo) {
       params = params.append("ativo", filtro.ativo);
+    }
+
+    if (filtro.moeda) {
+      params = params.append("moeda", filtro.moeda.codigo);
     }
 
     return this.http

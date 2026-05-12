@@ -6,11 +6,12 @@ import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.jboss.resteasy.annotations.Form;
 import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
 import org.leo.despesas.dominio.debitavel.Debitavel;
+import org.leo.despesas.dominio.debitavel.DebitavelFiltro;
 
 @Path("/debitavel")
 public class DebitavelService {
@@ -20,7 +21,7 @@ public class DebitavelService {
 
 	@GET
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public List<Debitavel> listar(@QueryParam("ativo") Boolean ativo) {
-		return debitavelFacade.listar(ativo);
+	public List<Debitavel> listar(@Form DebitavelFiltro filtro){
+		return debitavelFacade.listar(filtro);
 	}
 }

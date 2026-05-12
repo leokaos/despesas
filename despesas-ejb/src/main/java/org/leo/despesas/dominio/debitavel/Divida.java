@@ -109,6 +109,12 @@ public class Divida extends Debitavel {
 	@Override
 	public void transferir(Transferencia transferencia) {
 
+		BigDecimal valorRestanteTotal = getValorRestante().subtract(transferencia.getValor());
+
+		if (valorRestanteTotal.doubleValue() <= 0) {
+			this.setAtivo(false);
+		}
+
 	}
 
 	@Override
@@ -138,7 +144,7 @@ public class Divida extends Debitavel {
 
 	@Override
 	public void estornar(Transferencia transferencia) {
-
+		setAtivo(true);
 	}
 
 }

@@ -52,6 +52,10 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, Trans
 	@Override
 	protected void preInserir(Transferencia t) throws DespesasException {
 
+		if (t.getValorReal() == null) {
+			t.setValorReal(t.getValor());
+		}
+
 		if (t.getDebitavel().getMoeda() != t.getCreditavel().getMoeda()) {
 			throw new ValidationEntityException("Transferência entre debitáveis com diferentes moedas não permitado!");
 		}
@@ -59,20 +63,9 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, Trans
 	}
 
 	@Override
-	public Transferencia inserir(Transferencia t) throws DespesasException {
-
-		preInserir(t);
-
-		if (t.getValorReal() == null) {
-			t.setValorReal(t.getValor());
-		}
-
-		Transferencia transferencia = super.inserir(t);
-
+	protected void posInserir(Transferencia t) throws DespesasException {
 		debitavelFacade.buscarPorId(t.getDebitavel().getId()).transferir(t);
 		debitavelFacade.buscarPorId(t.getCreditavel().getId()).transferir(t);
-
-		return transferencia;
 	}
 
 	@Override
