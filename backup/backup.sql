@@ -437,7 +437,7 @@ VISA	28	11	17300.00	6	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 102.86	4
 40794.82	5
-41278.02	3
+41269.83	3
 \.
 
 
@@ -7055,6 +7055,9 @@ t	6111	4	\N
 t	3259	4	\N
 t	846	4	\N
 t	4179	4	\N
+t	7043	102	\N
+t	7044	102	\N
+t	7045	102	\N
 \.
 
 
@@ -14039,6 +14042,10 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7039	GLOVO PORTUGAL LISBOA	2026-05-09	9.90	2026-05-08	3	EURO
 7040	GLOVO LISBOA PT	2026-05-09	10.20	2026-05-06	3	EURO
 7041	GLOVO PORTUGAL LISBOA	2026-05-09	4.80	2026-05-07	3	EURO
+7042	CRED TROFA	2026-05-11	19.00	2026-05-08	3	EURO
+7043	Glovo 1	2026-05-11	8.29	2026-05-10	3	EURO
+7044	Glovo 2	2026-05-11	9.90	2026-05-11	3	EURO
+7045	Glovo 3	2026-05-11	9.00	2026-05-11	3	EURO
 \.
 
 
@@ -14236,6 +14243,7 @@ t	6802	23	\N	t
 t	6803	109	\N	f
 f	7001	23	\N	t
 f	7000	109	\N	f
+t	7042	111	\N	f
 \.
 
 
@@ -14484,7 +14492,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 52, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7041, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7045, true);
 
 
 --
