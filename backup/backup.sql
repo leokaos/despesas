@@ -437,7 +437,7 @@ VISA	28	11	17300.00	6	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 102.86	4
 40794.82	5
-41269.83	3
+38630.99	3
 \.
 
 
@@ -483,7 +483,7 @@ COPY despesas_db.debitavel (id, cor, descricao, tipo, moeda, ativo) FROM stdin;
 7	#e36017	Financiamento Imobiliario Itau	DIVIDA	REAL	f
 18	#f2ff00	IVA 3 Trimestre 2025	DIVIDA	EURO	f
 19	#fff700	IVA 4 Trimestre 2025	DIVIDA	EURO	f
-20	#e8d846	IVA 1 Trimestre 2026	DIVIDA	EURO	t
+20	#e8d846	IVA 1 Trimestre 2026	DIVIDA	EURO	f
 \.
 
 
@@ -7058,6 +7058,10 @@ t	4179	4	\N
 t	7043	102	\N
 t	7044	102	\N
 t	7045	102	\N
+t	7049	108	\N
+t	7050	102	\N
+t	7051	108	\N
+t	7052	102	\N
 \.
 
 
@@ -7228,6 +7232,7 @@ COPY despesas_db.meta (id, mes, ano, valor) FROM stdin;
 49	3	2026	1300.00
 51	5	2026	2000.00
 52	4	2026	100.00
+53	6	2026	2000.00
 \.
 
 
@@ -14046,6 +14051,13 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7043	Glovo 1	2026-05-11	8.29	2026-05-10	3	EURO
 7044	Glovo 2	2026-05-11	9.90	2026-05-11	3	EURO
 7045	Glovo 3	2026-05-11	9.00	2026-05-11	3	EURO
+7046	Valor IVA de Junho/2026	\N	1196.00	2026-06-30	3	EURO
+7047	Salário de Junho/2026	\N	4004.00	2026-06-30	3	EURO
+7048	Aporte em IVA 1 Trimestre 2026	\N	2555.38	2026-05-12	3	EURO
+7049	IMT	2026-05-12	27.00	2026-05-12	3	EURO
+7050	Glovo	2026-05-12	9.90	2026-05-12	3	EURO
+7051	Atestado Medico	2026-05-12	35.00	2026-05-12	3	EURO
+7052	Glovo	2026-05-12	11.56	2026-05-12	3	EURO
 \.
 
 
@@ -14103,6 +14115,9 @@ COPY despesas_db.orcamento (id, tipo_despesa_id, valor, data_inicial, data_final
 61	107	200.00	2026-05-01 00:00:00	2026-05-31 23:59:59.999
 62	102	400.00	2026-05-01 00:00:00	2026-05-31 23:59:59.999
 63	301	300.00	2026-05-01 00:00:00	2026-05-31 23:59:59.999
+65	107	200.00	2026-06-01 00:00:00	2026-06-30 23:59:59
+66	102	400.00	2026-06-01 00:00:00	2026-06-30 23:59:59
+67	301	300.00	2026-06-01 00:00:00	2026-06-30 23:59:59
 \.
 
 
@@ -14244,6 +14259,8 @@ t	6803	109	\N	f
 f	7001	23	\N	t
 f	7000	109	\N	f
 t	7042	111	\N	f
+f	7047	109	\N	f
+f	7046	23	\N	t
 \.
 
 
@@ -14420,6 +14437,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 6881	6	287.70
 6997	4	100.00
 7029	6	242.80
+7048	20	2555.38
 \.
 
 
@@ -14485,21 +14503,21 @@ SELECT pg_catalog.setval('despesas_db.feriado_id_seq', 83, true);
 -- Name: meta_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.meta_id_seq', 52, true);
+SELECT pg_catalog.setval('despesas_db.meta_id_seq', 53, true);
 
 
 --
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7045, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7052, true);
 
 
 --
 -- Name: orcamento_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.orcamento_id_seq', 64, true);
+SELECT pg_catalog.setval('despesas_db.orcamento_id_seq', 67, true);
 
 
 --
