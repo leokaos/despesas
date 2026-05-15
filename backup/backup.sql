@@ -437,7 +437,7 @@ VISA	28	11	17300.00	6	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 102.86	4
 40794.82	5
-38630.99	3
+38614.88	3
 \.
 
 
@@ -468,6 +468,7 @@ COPY despesas_db.cotacao (id, origem, destino, taxa, data) FROM stdin;
 20	EURO	REAL	5.87	2026-04-25 11:32:38.822
 21	EURO	REAL	5.84	2026-04-30 11:04:51.768
 22	EURO	REAL	5.78	2026-05-06 10:03:37.806
+23	EURO	REAL	5.87	2026-05-14 10:02:17.532
 \.
 
 
@@ -7062,6 +7063,8 @@ t	7049	108	\N
 t	7050	102	\N
 t	7051	108	\N
 t	7052	102	\N
+t	7053	102	\N
+t	7054	102	\N
 \.
 
 
@@ -14058,6 +14061,8 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7050	Glovo	2026-05-12	9.90	2026-05-12	3	EURO
 7051	Atestado Medico	2026-05-12	35.00	2026-05-12	3	EURO
 7052	Glovo	2026-05-12	11.56	2026-05-12	3	EURO
+7053	Glovo 1	2026-05-14	6.31	2026-05-13	3	EURO
+7054	Glovo 2	2026-05-14	9.80	2026-05-13	3	EURO
 \.
 
 
@@ -14475,7 +14480,7 @@ COPY public.flyway_schema_history (installed_rank, version, description, type, s
 -- Name: cotacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 22, true);
+SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 23, true);
 
 
 --
@@ -14510,7 +14515,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 53, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7052, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7054, true);
 
 
 --
