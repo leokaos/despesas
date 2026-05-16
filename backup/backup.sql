@@ -469,6 +469,7 @@ COPY despesas_db.cotacao (id, origem, destino, taxa, data) FROM stdin;
 21	EURO	REAL	5.84	2026-04-30 11:04:51.768
 22	EURO	REAL	5.78	2026-05-06 10:03:37.806
 23	EURO	REAL	5.87	2026-05-14 10:02:17.532
+24	EURO	REAL	5.90	2026-05-15 18:41:28.848
 \.
 
 
@@ -14480,7 +14481,7 @@ COPY public.flyway_schema_history (installed_rank, version, description, type, s
 -- Name: cotacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 23, true);
+SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 24, true);
 
 
 --
