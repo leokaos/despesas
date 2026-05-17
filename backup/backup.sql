@@ -437,7 +437,7 @@ VISA	28	11	17300.00	6	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 102.86	4
 40794.82	5
-38614.88	3
+38322.23	3
 \.
 
 
@@ -7066,6 +7066,16 @@ t	7051	108	\N
 t	7052	102	\N
 t	7053	102	\N
 t	7054	102	\N
+t	7055	107	\N
+t	7056	301	\N
+t	7057	102	\N
+t	7058	107	\N
+t	7059	102	\N
+t	7060	102	\N
+t	7061	4	\N
+t	7062	107	\N
+t	7063	107	\N
+t	7064	102	\N
 \.
 
 
@@ -14064,6 +14074,16 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7052	Glovo	2026-05-12	11.56	2026-05-12	3	EURO
 7053	Glovo 1	2026-05-14	6.31	2026-05-13	3	EURO
 7054	Glovo 2	2026-05-14	9.80	2026-05-13	3	EURO
+7055	UBER	2026-05-16	5.99	2026-05-16	3	EURO
+7056	CONTINENTE	2026-05-16	51.04	2026-05-16	3	EURO
+7057	ARCADIA NOVA ARCADA	2026-05-16	6.00	2026-05-16	3	EURO
+7058	UBER	2026-05-16	5.99	2026-05-16	3	EURO
+7059	GLOVO	2026-05-16	16.70	2026-05-15	3	EURO
+7060	GLOVO	2026-05-16	11.90	2026-05-15	3	EURO
+7061	DD PLANICARE	2026-05-16	177.16	2026-05-15	3	EURO
+7062	UBER	2026-05-16	3.99	2026-05-14	3	EURO
+7063	UBER	2026-05-16	3.98	2026-05-14	3	EURO
+7064	GLOVO	2026-05-16	9.90	2026-05-14	3	EURO
 \.
 
 
@@ -14516,7 +14536,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 53, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7054, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7064, true);
 
 
 --
