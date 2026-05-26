@@ -1,5 +1,5 @@
 {
   "apiUrl": "${despesas.api.url}",
-   "wsUrl": "${despesas.ws.url}",
+  "wsUrl": "${despesas.ws.url}",
   "version": "${project.version}"
 }

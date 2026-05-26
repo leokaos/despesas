@@ -12,6 +12,8 @@ import org.leo.despesas.dominio.orcamento.Orcamento;
 import org.leo.despesas.dominio.orcamento.OrcamentoFiltro;
 import org.leo.despesas.infra.AbstractFacade;
 import org.leo.despesas.infra.Moeda;
+import org.leo.despesas.infra.exception.AlreadyExistentEntityException;
+import org.leo.despesas.infra.exception.DespesasException;
 
 @Stateless
 public class OrcamentoFacadeImpl extends AbstractFacade<Orcamento, OrcamentoFiltro> implements OrcamentoFacade {
@@ -22,6 +24,19 @@ public class OrcamentoFacadeImpl extends AbstractFacade<Orcamento, OrcamentoFilt
 	@Override
 	protected Class<Orcamento> getClasseEntidade() {
 		return Orcamento.class;
+	}
+
+	@Override
+	protected void preInserir(Orcamento t) throws DespesasException {
+
+		OrcamentoFiltro filtro = new OrcamentoFiltro();
+		filtro.setDataInicial(t.getDataInicial());
+		filtro.setDataFinal(t.getDataFinal());
+		filtro.setTipoDespesa(t.getTipoDespesa().getDescricao());
+
+		if (this.listar(filtro).size() > 0) {
+			throw new AlreadyExistentEntityException("Orçamento já existe!");
+		}
 	}
 
 	@Override

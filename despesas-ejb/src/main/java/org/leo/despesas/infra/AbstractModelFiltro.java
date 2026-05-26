@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.leo.despesas.infra.exception.InvalidQueryException;
 import org.leo.despesas.infra.query.BetweenClause;
 import org.leo.despesas.infra.query.Clause;
+import org.leo.despesas.infra.query.EqualCaseInsensitiveClause;
 import org.leo.despesas.infra.query.EqualClause;
 import org.leo.despesas.infra.query.GreaterClause;
 import org.leo.despesas.infra.query.LessClause;
@@ -79,7 +80,7 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 
 			return entityManager.createQuery(criteriaQuery).getResultList();
 
-		} catch (RSQLParserException e) {
+		} catch (RSQLParserException | IllegalArgumentException e) {
 			throw new InvalidQueryException("Sintaxe inválida!", e);
 		}
 
@@ -161,6 +162,14 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 
 		if (value != null) {
 			this.clausulas.add(new EqualClause(property, value));
+		}
+
+	}
+
+	protected void eqIgnoreCase(String property, String value) {
+
+		if (value != null) {
+			this.clausulas.add(new EqualCaseInsensitiveClause(property, value));
 		}
 
 	}

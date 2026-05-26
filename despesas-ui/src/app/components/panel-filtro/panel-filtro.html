@@ -1,0 +1,59 @@
+<div class="flex gap-2 w-full">
+
+    <input pInputText
+        [(ngModel)]="queryText"
+        placeholder="Digite sua busca ex: descricao=='*agua*';vencimento=gt='2026-01-01'"
+        class="flex-1"
+        (keydown.control.enter)="search()" />
+
+    <p-button
+        label="Buscar"
+        icon="pi pi-search"
+        severity="primary"
+        (click)="search()"
+        [disabled]="!queryText.trim()"
+        [loading]="searching" />
+
+    <p-button label="Limpar" icon="pi pi-times" severity="secondary" (click)="clear()" />
+
+    <p-floatlabel class="w-100 ml-25" variant="on">
+        <p-select
+            [options]="filtros()"
+            [(ngModel)]="filtro"
+            [disabled]="disabled"
+            (onChange)="emitChange()"
+            dataKey="id"
+            class="w-full"
+            appendTo="body"
+            showClear="true"
+            optionLabel="nome"
+            inputId="filtros">
+        </p-select>
+        <label for="filtros">Filtro</label>
+    </p-floatlabel>
+
+    <p-button icon="pi pi-save" severity="warn" (click)="onClickSave()" />
+
+    <p-button icon="pi pi-trash" severity="danger" (click)="showRemove = true" [disabled]="!filtro" />
+</div>
+
+<p-dialog header="Salvar" [(visible)]="showSalvar" modal="true" [style]="{'width': '25vw'}" position="top">
+    <div class="flex flex-col gap-4">
+        <div class="flex flex-1 items-center mb-10">
+            <label class="w-40">Nome</label>
+            <input pInputText class="w-full" [(ngModel)]="nome" placeholder="Digite o nome do filtro" />
+        </div>
+    </div>
+    <div class="flex justify-content-end gap-2 mt-4">
+        <p-button label="Cancelar" severity="secondary" (click)="showSalvar = false" class="flex flex-1 justify-start"></p-button>
+        <p-button label="Confirmar" severity="primary" (click)="salvar()" [disabled]="!nome"></p-button>
+    </div>
+</p-dialog>
+
+<p-dialog header="Remover" [(visible)]="showRemove" modal="true" [style]="{'width': '25vw'}" position="top">
+    Tem certeza que deseja remover o filtro <b>{{filtro()?.nome}}</b>?
+    <div class="flex justify-content-end gap-2 mt-4">
+        <p-button label="Cancelar" severity="secondary" (click)="showRemove = false" class="flex flex-1 justify-start"></p-button>
+        <p-button label="Confirmar" severity="primary" (click)="deletar()" [disabled]="!filtro"></p-button>
+    </div>
+</p-dialog>

@@ -28,6 +28,7 @@
 		<class>org.leo.despesas.dominio.debitavel.Divida</class>
 		<class>org.leo.despesas.infra.Mes</class>
 		<class>org.leo.despesas.dominio.feriado.Feriado</class>
+		<class>org.leo.despesas.dominio.filtro.Filtro</class>
 
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 

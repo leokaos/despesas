@@ -9,7 +9,11 @@ export class GlobalErrorHandler implements ErrorHandler {
     private messageService = inject(MessageService);
 
     handleError(error: any) {
-        console.info(error)
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error || error, life: 3000 });
+
+        const mensagem = (error.error && typeof error.error === 'object')
+            ? (error.statusText || 'Erro desconhecido')
+            : (error.error || error.statusText || error || 'Erro desconhecido');
+
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: mensagem, life: 3000 });
     }
 }

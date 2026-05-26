@@ -19,6 +19,7 @@ import { TipoReceita, TipoMovimentacao } from "../../models/tipo-movimentacao.mo
 import { DebitavelService, DebitavelFiltro } from "../../services/debitavel-service";
 import { ReceitaService } from "../../services/receita-service";
 import { TipoReceitaService } from "../../services/tipo-receita-service";
+import { PanelFiltro } from "../../components/panel-filtro/panel-filtro";
 
 @Component({
   selector: 'app-bulk-edit-receita',
@@ -34,7 +35,8 @@ import { TipoReceitaService } from "../../services/tipo-receita-service";
     SelectDebitavel,
     CheckboxModule,
     DialogModule,
-    AppSaveDialog
+    AppSaveDialog,
+    PanelFiltro
   ],
   templateUrl: './bulk-edit-receita.html',
   styleUrl: './bulk-edit-receita.scss',
@@ -50,8 +52,6 @@ export class BulkEditReceita implements OnInit {
   debitavel?: Debitavel;
 
   visibleSave = signal<boolean>(false);
-
-  queryText: string = "";
 
   private tipoReceitaService = inject(TipoReceitaService);
   private debitavelService = inject(DebitavelService);
@@ -79,8 +79,8 @@ export class BulkEditReceita implements OnInit {
     });
   }
 
-  search() {
-    if (!this.queryText.trim()) {
+  search(expression: string) {
+    if (!expression) {
       this.receitas.set([]);
       return;
     }
@@ -91,7 +91,7 @@ export class BulkEditReceita implements OnInit {
 
     this.searching.set(true);
 
-    this.receitaService.search(this.queryText)
+    this.receitaService.search(expression)
       .pipe(finalize(() => this.searching.set(false)))
       .subscribe((receitas: Receita[]) => {
         this.receitas.set(receitas);
@@ -103,7 +103,6 @@ export class BulkEditReceita implements OnInit {
   }
 
   clear() {
-    this.queryText = '';
     this.receitas.set([]);
     this.debitavel = undefined;
     this.vencimento = undefined;
