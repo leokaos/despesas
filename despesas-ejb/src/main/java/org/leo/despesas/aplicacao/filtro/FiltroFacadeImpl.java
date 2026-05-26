@@ -61,11 +61,11 @@ public class FiltroFacadeImpl extends AbstractFacade<Filtro, FiltroModelFiltro> 
 
 		validateExpressao(novo.getExpressao());
 
-		if (antigo.getNome() != novo.getNome()) {
+		if (!antigo.getNome().equalsIgnoreCase(novo.getNome())) {
 			validateExistentFiltro(novo.getNome(), novo.getClasse());
 		}
 
-		if (antigo.getClasse() != novo.getClasse()) {
+		if (!antigo.getClasse().equals(novo.getClasse())) {
 			throw new ValidationEntityException("Não é permitido trocar de tipo de filtro!");
 		}
 	}
