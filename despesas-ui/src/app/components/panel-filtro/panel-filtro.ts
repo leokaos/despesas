@@ -9,6 +9,7 @@ import { FiltroService } from '../../services/filtro-service';
 import { MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { QueryService } from '../../services/query-service';
 
 @Component({
   selector: 'app-panel-filtro',
@@ -43,6 +44,7 @@ export class PanelFiltro implements OnInit {
 
   private messageService = inject(MessageService);
   private filtroService = inject(FiltroService);
+  private queryService = inject(QueryService);
 
   queryText: string = "";
   nome: string = "";
@@ -60,7 +62,8 @@ export class PanelFiltro implements OnInit {
 
   search() {
     if (this.queryText && this.queryText.trim().length > 0) {
-      this.onSearch.emit(this.queryText);
+      let queryComputada: string = this.queryService.process(this.queryText);
+      this.onSearch.emit(queryComputada);
     }
   }
 
