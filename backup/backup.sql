@@ -202,6 +202,34 @@ CREATE SEQUENCE despesas_db.feriado_id_seq
 ALTER TABLE despesas_db.feriado_id_seq OWNER TO despesas;
 
 --
+-- Name: filtro; Type: TABLE; Schema: despesas_db; Owner: despesas
+--
+
+CREATE TABLE despesas_db.filtro (
+    id bigint NOT NULL,
+    nome character varying(100) NOT NULL,
+    classe character varying(100) NOT NULL,
+    expressao character varying(500) NOT NULL
+);
+
+
+ALTER TABLE despesas_db.filtro OWNER TO despesas;
+
+--
+-- Name: filtro_id_seq; Type: SEQUENCE; Schema: despesas_db; Owner: despesas
+--
+
+CREATE SEQUENCE despesas_db.filtro_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE despesas_db.filtro_id_seq OWNER TO despesas;
+
+--
 -- Name: investimento; Type: TABLE; Schema: despesas_db; Owner: despesas
 --
 
@@ -435,7 +463,7 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-37906.57	3
+37761.56	3
 102.86	4
 40794.82	5
 \.
@@ -471,6 +499,7 @@ COPY despesas_db.cotacao (id, origem, destino, taxa, data) FROM stdin;
 23	EURO	REAL	5.87	2026-05-14 10:02:17.532
 24	EURO	REAL	5.90	2026-05-15 18:41:28.848
 25	EURO	REAL	5.90	2026-05-17 17:49:56.56
+26	EURO	REAL	5.86	2026-05-26 18:57:59.549
 \.
 
 
@@ -3161,7 +3190,6 @@ t	2997	1	\N
 t	2998	102	\N
 t	2999	102	\N
 t	3000	102	\N
-t	3001	108	\N
 t	3002	4	\N
 t	3004	108	\N
 t	3005	108	\N
@@ -3196,6 +3224,7 @@ t	2890	4	\N
 t	2980	4	\N
 t	2892	4	\N
 t	2976	4	\N
+t	3001	4	\N
 t	3034	102	\N
 t	3035	301	\N
 t	3036	2	\N
@@ -3334,7 +3363,6 @@ t	3174	102	\N
 t	3176	102	\N
 t	3177	102	\N
 t	3178	103	\N
-t	3179	108	\N
 t	3180	102	\N
 t	3181	102	\N
 t	3182	201	62
@@ -3349,6 +3377,7 @@ t	3190	201	62
 t	3192	108	\N
 t	3083	4	\N
 t	3047	4	\N
+t	3179	4	\N
 t	3196	4	\N
 t	3198	102	\N
 t	3199	102	\N
@@ -3568,7 +3597,6 @@ t	3427	107	\N
 t	3428	107	\N
 t	3429	102	\N
 t	3430	201	\N
-t	3431	108	\N
 t	3433	108	\N
 t	3434	108	\N
 t	3435	103	\N
@@ -3629,7 +3657,6 @@ t	3488	4	\N
 t	3490	102	\N
 t	3491	103	\N
 t	3492	201	\N
-t	3493	108	\N
 t	3495	4	\N
 t	3498	102	\N
 t	3499	301	\N
@@ -3653,6 +3680,8 @@ t	3517	103	\N
 t	3518	102	\N
 t	3496	4	\N
 t	3497	4	\N
+t	3431	4	\N
+t	3493	4	\N
 t	3519	102	\N
 t	3520	102	\N
 t	3521	108	\N
@@ -3772,7 +3801,6 @@ t	3647	108	\N
 t	3651	102	\N
 t	3652	102	\N
 t	3653	102	\N
-t	3654	108	\N
 t	3655	102	\N
 t	3656	107	\N
 t	3657	107	\N
@@ -3800,6 +3828,7 @@ t	3546	4	\N
 t	3648	4	\N
 t	3550	4	\N
 t	3646	4	\N
+t	3654	4	\N
 t	3678	4	\N
 t	3679	102	\N
 t	3680	107	\N
@@ -4087,14 +4116,11 @@ t	3968	301	\N
 t	3969	107	\N
 t	3970	201	\N
 t	3971	102	\N
-t	3972	108	\N
-t	3973	108	\N
 t	3974	107	\N
 t	3975	201	\N
 t	3976	201	\N
 t	3977	201	\N
 t	3978	107	\N
-t	3979	108	\N
 t	3980	107	\N
 t	3981	107	\N
 t	3982	3	67
@@ -4111,6 +4137,8 @@ t	3992	107	67
 t	3993	201	67
 t	3994	201	67
 t	3995	201	67
+t	3973	4	\N
+t	3979	4	\N
 t	3996	201	67
 t	3999	107	67
 t	4000	107	67
@@ -4416,7 +4444,6 @@ t	4313	4	\N
 t	4314	102	\N
 t	4319	108	\N
 t	4320	108	\N
-t	4322	108	\N
 t	4323	201	76
 t	4324	201	76
 t	4325	108	76
@@ -4503,7 +4530,6 @@ t	4421	102	\N
 t	4422	102	\N
 t	4423	102	\N
 t	4424	102	\N
-t	4425	108	\N
 t	4426	108	\N
 t	4427	108	\N
 t	4428	102	\N
@@ -4551,7 +4577,6 @@ t	4479	201	79
 t	4480	201	79
 t	4483	108	\N
 t	4489	103	\N
-t	4490	108	\N
 t	4491	201	\N
 t	4318	4	\N
 t	4435	4	\N
@@ -4560,6 +4585,9 @@ t	4317	4	\N
 t	4486	4	\N
 t	4434	4	\N
 t	4484	4	\N
+t	4425	4	\N
+t	4322	4	\N
+t	4490	4	\N
 t	4492	103	\N
 t	4493	103	\N
 t	4495	1	\N
@@ -4665,7 +4693,6 @@ t	4595	102	\N
 t	4596	107	\N
 t	4597	107	\N
 t	4598	102	\N
-t	4599	108	\N
 t	4600	108	\N
 t	4601	102	\N
 t	4603	102	\N
@@ -4714,6 +4741,7 @@ t	4649	107	\N
 t	4650	301	\N
 t	4651	102	\N
 t	4652	102	\N
+t	4599	4	\N
 t	4653	102	\N
 t	4654	102	\N
 t	4655	102	\N
@@ -4777,7 +4805,6 @@ t	4712	102	\N
 t	4713	108	\N
 t	4716	4	\N
 t	4717	4	\N
-t	4719	108	\N
 t	4720	201	\N
 t	4722	201	82
 t	4723	108	82
@@ -4865,9 +4892,10 @@ t	4806	107	\N
 t	4807	102	\N
 t	4808	102	\N
 t	4809	301	\N
-t	4810	102	\N
 t	4714	4	\N
 t	4715	4	\N
+t	4810	2	\N
+t	4719	4	\N
 t	4811	107	\N
 t	4812	107	\N
 t	4813	102	\N
@@ -4910,7 +4938,6 @@ t	4851	102	\N
 t	4852	102	\N
 t	4853	102	\N
 t	4854	102	\N
-t	4855	108	\N
 t	4858	103	\N
 t	4860	108	\N
 t	4861	4	\N
@@ -5019,6 +5046,7 @@ t	4968	107	\N
 t	4963	4	\N
 t	4857	4	\N
 t	4862	4	\N
+t	4855	4	\N
 t	4969	102	\N
 t	4970	107	\N
 t	4971	107	\N
@@ -5465,7 +5493,6 @@ t	5430	102	\N
 t	5433	108	\N
 t	5435	201	\N
 t	5436	103	\N
-t	5437	108	\N
 t	5439	102	\N
 t	5440	102	\N
 t	5441	107	\N
@@ -5479,6 +5506,7 @@ t	5448	107	\N
 t	5366	4	\N
 t	5362	4	\N
 t	5434	4	\N
+t	5437	4	\N
 t	5449	107	\N
 t	5450	102	\N
 t	5451	107	\N
@@ -5552,7 +5580,6 @@ t	5518	108	\N
 t	5519	108	\N
 t	5520	103	\N
 t	5521	107	\N
-t	5522	108	\N
 t	5524	201	94
 t	5525	108	94
 t	5526	201	94
@@ -5631,6 +5658,7 @@ t	5604	102	\N
 t	5605	5	\N
 t	5538	4	\N
 t	5542	4	\N
+t	5522	4	\N
 t	5606	102	\N
 t	5607	102	\N
 t	5608	4	\N
@@ -5740,7 +5768,6 @@ t	5711	107	\N
 t	5712	107	\N
 t	5713	107	\N
 t	5714	4	\N
-t	5716	108	\N
 t	5717	201	\N
 t	5718	108	96
 t	5719	108	96
@@ -5784,6 +5811,7 @@ t	5727	4	\N
 t	5726	4	\N
 t	5731	4	\N
 t	5729	4	\N
+t	5716	4	\N
 t	5764	102	\N
 t	5765	102	\N
 t	5766	102	\N
@@ -5906,8 +5934,6 @@ t	5883	102	\N
 t	5884	102	\N
 t	5885	102	\N
 t	5886	102	\N
-t	5887	108	\N
-t	5888	108	\N
 t	5889	103	\N
 t	5890	108	\N
 t	5891	108	\N
@@ -5936,6 +5962,8 @@ t	5924	102	\N
 t	5917	4	\N
 t	5916	4	\N
 t	5911	4	\N
+t	5887	4	\N
+t	5888	4	\N
 t	5925	107	\N
 t	5926	107	\N
 t	5927	301	\N
@@ -6053,7 +6081,6 @@ t	6039	102	\N
 t	6040	102	\N
 t	6041	102	\N
 t	6042	103	\N
-t	6043	108	\N
 t	6044	103	\N
 t	6046	108	\N
 t	6047	4	\N
@@ -6089,6 +6116,7 @@ t	6082	102	\N
 t	6045	4	\N
 t	6049	4	\N
 t	6048	4	\N
+t	6043	4	\N
 t	6083	301	\N
 t	6084	107	\N
 t	6085	107	\N
@@ -6116,7 +6144,6 @@ t	6096	201	104
 t	6107	201	104
 t	6109	108	\N
 t	6110	4	\N
-t	6113	108	\N
 t	6114	108	\N
 t	6115	4	\N
 t	6116	102	\N
@@ -6240,6 +6267,7 @@ t	6252	107	\N
 t	6193	4	\N
 t	6224	4	\N
 t	6225	4	\N
+t	6113	4	\N
 t	6253	107	\N
 t	6254	102	\N
 t	6255	102	\N
@@ -6374,7 +6402,6 @@ t	6389	4	\N
 t	6390	4	\N
 t	6391	108	\N
 t	6392	108	\N
-t	6393	108	\N
 t	6398	102	\N
 t	6399	102	\N
 t	6400	107	\N
@@ -6392,13 +6419,12 @@ t	6411	107	\N
 t	6412	107	\N
 t	6374	4	\N
 t	6318	4	\N
+t	6393	4	\N
 t	6413	107	\N
 t	6418	108	\N
 t	6423	4	\N
-t	6424	108	\N
 t	6414	107	\N
 t	6419	108	\N
-t	6425	108	\N
 t	6415	301	\N
 t	6420	4	\N
 t	6416	102	\N
@@ -6490,7 +6516,6 @@ t	6514	102	\N
 t	6515	102	\N
 t	6516	102	\N
 t	6517	102	\N
-t	6518	301	\N
 t	6519	301	\N
 t	6520	107	\N
 t	6521	107	\N
@@ -6536,7 +6561,6 @@ t	6562	107	\N
 t	6563	102	\N
 t	6564	102	\N
 t	6565	4	\N
-t	6566	108	\N
 t	6568	108	\N
 t	6569	201	110
 t	6570	107	110
@@ -6544,6 +6568,10 @@ t	6571	107	110
 t	6466	4	\N
 t	6507	4	\N
 t	6506	4	\N
+t	6518	2	\N
+t	6424	4	\N
+t	6425	4	\N
+t	6566	4	\N
 t	6572	107	110
 t	6573	201	110
 t	6574	201	110
@@ -6892,7 +6920,6 @@ t	6953	107	\N
 t	6954	4	\N
 t	6959	107	\N
 t	6958	108	\N
-t	6960	108	\N
 t	6961	102	\N
 t	6962	102	\N
 t	6963	102	\N
@@ -6927,7 +6954,6 @@ t	6991	107	\N
 t	6992	301	\N
 t	6993	102	\N
 t	6994	107	\N
-t	6998	108	\N
 t	6999	102	\N
 t	7002	4	\N
 t	7003	4	\N
@@ -6947,7 +6973,6 @@ t	6143	4	\N
 t	7018	107	\N
 t	7019	102	\N
 t	7020	102	\N
-t	7021	301	\N
 t	7022	107	\N
 t	7023	201	114
 t	7024	108	114
@@ -7028,6 +7053,9 @@ t	7038	4	\N
 t	7039	102	\N
 t	7040	102	\N
 t	7041	102	\N
+t	7021	2	\N
+t	6960	4	\N
+t	6998	4	\N
 t	2975	4	\N
 t	3512	4	\N
 t	392	4	\N
@@ -7100,6 +7128,15 @@ t	7084	107	\N
 t	7085	107	\N
 t	7086	102	\N
 t	7087	102	\N
+t	7088	4	\N
+t	7089	107	\N
+t	7090	102	\N
+t	7091	102	\N
+t	7092	107	\N
+t	7093	102	\N
+t	7094	4	\N
+t	7095	102	\N
+t	3972	4	\N
 \.
 
 
@@ -7248,6 +7285,16 @@ COPY despesas_db.feriado (id, date_feriado, tipo, nome) FROM stdin;
 75	2026-12-08	FERIADO	Imaculada Conceição
 76	2026-12-25	FERIADO	Natal
 83	2026-05-01	FERIADO	Dia do Trabalho
+\.
+
+
+--
+-- Data for Name: filtro; Type: TABLE DATA; Schema: despesas_db; Owner: despesas
+--
+
+COPY despesas_db.filtro (id, nome, classe, expressao) FROM stdin;
+2	CONTAS	despesa	tipo.descricao=='*CONTAS*';vencimento=gt=2026-05-01;moeda=='EURO'
+3	vencimento	despesa	vencimento=gt=${now}
 \.
 
 
@@ -14131,6 +14178,14 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7085	UBER RIDES PORTUGAL	2026-05-23	3.98	2026-05-19	3	EURO
 7086	GLOVO PORTUGAL LISBOA	2026-05-23	9.90	2026-05-19	3	EURO
 7087	GLOVO PORTUGAL LISBOA	2026-05-23	6.80	2026-05-18	3	EURO
+7088	DD AGERE, E.M.    00003551270    PT49114479	2026-05-26	21.49	2026-05-26	3	EURO
+7089	UBER RIDES PORTUGAL	2026-05-26	4.97	2026-05-25	3	EURO
+7090	HUMMY FORUM ALGARVE 2	2026-05-26	5.61	2026-05-25	3	EURO
+7091	PIZZA HUT	2026-05-26	8.45	2026-05-25	3	EURO
+7092	UBER RIDES PORTUGAL	2026-05-26	3.98	2026-05-25	3	EURO
+7093	GLOVO PORTUGAL LISBOA	2026-05-26	8.43	2026-05-25	3	EURO
+7094	DD EDP COMERCIAL 16010011942146 PT34100781	2026-05-26	82.18	2026-05-25	3	EURO
+7095	GLOVO PORTUGAL LISBOA	2026-05-26	9.90	2026-05-24	3	EURO
 \.
 
 
@@ -14541,6 +14596,7 @@ COPY public.flyway_schema_history (installed_rank, version, description, type, s
 20	20	adicionar feriados	SQL	V20__adicionar_feriados.sql	1916848403	despesas	2026-04-01 18:29:39.487411	7	t
 21	21	adicionar parametros	SQL	V21__adicionar_parametros.sql	-901845354	despesas	2026-04-01 18:29:39.508956	3	t
 22	22	adicionar feriados url	SQL	V22__adicionar_feriados_url.sql	-210987324	despesas	2026-05-02 20:39:21.327228	68	t
+23	23	adicionar filtros	SQL	V23__adicionar_filtros.sql	1505917569	despesas	2026-05-26 15:43:32.993642	36	t
 \.
 
 
@@ -14548,7 +14604,7 @@ COPY public.flyway_schema_history (installed_rank, version, description, type, s
 -- Name: cotacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 25, true);
+SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 26, true);
 
 
 --
@@ -14573,6 +14629,13 @@ SELECT pg_catalog.setval('despesas_db.feriado_id_seq', 83, true);
 
 
 --
+-- Name: filtro_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
+--
+
+SELECT pg_catalog.setval('despesas_db.filtro_id_seq', 3, true);
+
+
+--
 -- Name: meta_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
@@ -14583,7 +14646,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 53, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7087, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7095, true);
 
 
 --
@@ -14680,6 +14743,14 @@ ALTER TABLE ONLY despesas_db.feriado
 
 
 --
+-- Name: filtro filtro_pkey; Type: CONSTRAINT; Schema: despesas_db; Owner: despesas
+--
+
+ALTER TABLE ONLY despesas_db.filtro
+    ADD CONSTRAINT filtro_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: investimento investimento_pkey; Type: CONSTRAINT; Schema: despesas_db; Owner: despesas
 --
 
@@ -14749,6 +14820,14 @@ ALTER TABLE ONLY despesas_db.tipo_movimentacao
 
 ALTER TABLE ONLY despesas_db.transferencia
     ADD CONSTRAINT transferencia_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: filtro uk_filtro_nome_classe; Type: CONSTRAINT; Schema: despesas_db; Owner: despesas
+--
+
+ALTER TABLE ONLY despesas_db.filtro
+    ADD CONSTRAINT uk_filtro_nome_classe UNIQUE (nome, classe);
 
 
 --
