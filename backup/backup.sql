@@ -463,7 +463,7 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-37761.56	3
+37725.04	3
 102.86	4
 40794.82	5
 \.
@@ -7137,6 +7137,10 @@ t	7093	102	\N
 t	7094	4	\N
 t	7095	102	\N
 t	3972	4	\N
+t	7096	102	\N
+t	7097	102	\N
+t	7098	102	\N
+t	7099	102	\N
 \.
 
 
@@ -7293,8 +7297,8 @@ COPY despesas_db.feriado (id, date_feriado, tipo, nome) FROM stdin;
 --
 
 COPY despesas_db.filtro (id, nome, classe, expressao) FROM stdin;
-2	CONTAS	despesa	tipo.descricao=='*CONTAS*';vencimento=gt=2026-05-01;moeda=='EURO'
-3	vencimento	despesa	vencimento=gt=${now}
+5	Contas do Mês - REAL	despesa	vencimento=gt=${startOfMonth};tipo.descricao=='CONTAS';moeda=='REAL'
+6	Contas do Mês - EURO	despesa	vencimento=gt=${startOfMonth};tipo.descricao=='CONTAS';moeda=='EURO'
 \.
 
 
@@ -14186,6 +14190,10 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7093	GLOVO PORTUGAL LISBOA	2026-05-26	8.43	2026-05-25	3	EURO
 7094	DD EDP COMERCIAL 16010011942146 PT34100781	2026-05-26	82.18	2026-05-25	3	EURO
 7095	GLOVO PORTUGAL LISBOA	2026-05-26	9.90	2026-05-24	3	EURO
+7096	GLOVO PORTUGAL LISBOA	2026-05-27	8.43	2026-05-27	3	EURO
+7097	GLOVO PORTUGAL LISBOA	2026-05-27	13.10	2026-05-26	3	EURO
+7098	GLOVO PORTUGAL LISBOA	2026-05-27	8.43	2026-05-26	3	EURO
+7099	Glovo	2026-05-27	6.56	2026-05-27	3	EURO
 \.
 
 
@@ -14632,7 +14640,7 @@ SELECT pg_catalog.setval('despesas_db.feriado_id_seq', 83, true);
 -- Name: filtro_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.filtro_id_seq', 3, true);
+SELECT pg_catalog.setval('despesas_db.filtro_id_seq', 7, true);
 
 
 --
@@ -14646,7 +14654,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 53, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7095, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7099, true);
 
 
 --
