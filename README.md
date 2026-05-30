@@ -15,3 +15,5 @@ Finaliza a versão com os pacotes e versão atual
 `mvnw clean deploy`
 
 No módulo despesas-image, gera a imagem docker e faz o push para hub
+
+`mvnw flyway:migrate -Dflyway.url=jdbc:postgresql://localhost:5432/despesas -Dflyway.user=despesas -Dflyway.password=******* -Dflyway.locations=filesystem:sql/ -Dflyway.schemas=despesas_db`

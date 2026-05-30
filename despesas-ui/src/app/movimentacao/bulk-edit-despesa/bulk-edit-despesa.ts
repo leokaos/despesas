@@ -20,6 +20,8 @@ import { DebitavelService, DebitavelFiltro } from "../../services/debitavel-serv
 import { DespesaService } from "../../services/despesa-service";
 import { TipoDespesaService } from "../../services/tipo-despesa-service";
 import { PanelFiltro } from "../../components/panel-filtro/panel-filtro";
+import { SumPipe } from "../../pipes/sum-pipe";
+import { DecimalPipe } from "@angular/common";
 
 @Component({
   selector: 'app-bulk-edit-despesa',
@@ -36,7 +38,9 @@ import { PanelFiltro } from "../../components/panel-filtro/panel-filtro";
     CheckboxModule,
     DialogModule,
     AppSaveDialog,
-    PanelFiltro
+    PanelFiltro,
+    SumPipe,
+    DecimalPipe
   ],
   templateUrl: './bulk-edit-despesa.html',
   styleUrl: './bulk-edit-despesa.scss',
@@ -46,6 +50,7 @@ export class BulkEditDespesa implements OnInit {
   despesas = signal<Despesa[]>([]);
   tipos: TipoDespesa[] = [];
   debitaveis: Debitavel[] = [];
+  selectedData: Despesa[] = [];
 
   vencimento?: Date;
   tipoDespesa?: TipoDespesa;

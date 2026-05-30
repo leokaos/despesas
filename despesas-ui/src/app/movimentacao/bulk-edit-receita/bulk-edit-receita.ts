@@ -20,6 +20,8 @@ import { DebitavelService, DebitavelFiltro } from "../../services/debitavel-serv
 import { ReceitaService } from "../../services/receita-service";
 import { TipoReceitaService } from "../../services/tipo-receita-service";
 import { PanelFiltro } from "../../components/panel-filtro/panel-filtro";
+import { SumPipe } from "../../pipes/sum-pipe";
+import { DecimalPipe } from "@angular/common";
 
 @Component({
   selector: 'app-bulk-edit-receita',
@@ -36,7 +38,9 @@ import { PanelFiltro } from "../../components/panel-filtro/panel-filtro";
     CheckboxModule,
     DialogModule,
     AppSaveDialog,
-    PanelFiltro
+    PanelFiltro,
+    SumPipe,
+    DecimalPipe
   ],
   templateUrl: './bulk-edit-receita.html',
   styleUrl: './bulk-edit-receita.scss',
@@ -46,6 +50,7 @@ export class BulkEditReceita implements OnInit {
   receitas = signal<Receita[]>([]);
   tipos: TipoReceita[] = [];
   debitaveis: Debitavel[] = [];
+  selectedData: Receita[] = [];
 
   vencimento?: Date;
   tipoReceita?: TipoReceita;

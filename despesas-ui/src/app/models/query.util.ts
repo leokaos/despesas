@@ -1,4 +1,4 @@
-import { addDays, format, subDays } from 'date-fns';
+import { addDays, format, subDays, endOfMonth as dateFnsEndOfMonth, endOfYear as dateFnsEndOfYear } from 'date-fns';
 
 export class QueryUtil {
 
@@ -6,6 +6,8 @@ export class QueryUtil {
         ["now", QueryUtil.now],
         ["startOfMonth", QueryUtil.startOfMonth],
         ["startOfYear", QueryUtil.startOfYear],
+        ["endOfMonth", QueryUtil.endOfMonth],
+        ["endOfYear", QueryUtil.endOfYear],
     ]);
 
     constructor() { }
@@ -28,6 +30,22 @@ export class QueryUtil {
         return QueryUtil.decorateWithExpressions(expression, date);
     }
 
+    private static endOfMonth(expression: string) {
+        let now = new Date();
+        let date = dateFnsEndOfMonth(now);
+        date.setHours(23, 59, 59, 999);
+
+        return QueryUtil.decorateWithExpressions(expression, date);
+    }
+
+    private static endOfYear(expression: string) {
+        let now = new Date();
+        let date = dateFnsEndOfYear(now);
+        date.setHours(23, 59, 59, 999);
+
+        return QueryUtil.decorateWithExpressions(expression, date);
+    }
+
     private static decorateWithExpressions(expression: string, dataBase: Date): string {
 
         const operacoes = expression.matchAll(/([+-])\s*(\d+)/g);
@@ -42,7 +60,7 @@ export class QueryUtil {
             }
         }
 
-        return format(finalDate, 'yyyy-MM-dd')
+        return format(finalDate, 'yyyy-MM-dd');
     }
 
 }
