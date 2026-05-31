@@ -96,7 +96,8 @@ CREATE TABLE despesas_db.debitavel (
     descricao character varying(255) NOT NULL,
     tipo character varying(255) NOT NULL,
     moeda character varying(255) NOT NULL,
-    ativo boolean DEFAULT true
+    ativo boolean DEFAULT true,
+    CONSTRAINT chk_debitavel_moeda CHECK (((moeda)::text = ANY ((ARRAY['REAL'::character varying, 'EURO'::character varying])::text[])))
 );
 
 
@@ -282,7 +283,8 @@ CREATE TABLE despesas_db.movimentacao (
     valor numeric(19,2) NOT NULL,
     vencimento date NOT NULL,
     debitavel_id bigint,
-    moeda character varying(255) NOT NULL
+    moeda character varying(255) NOT NULL,
+    CONSTRAINT chk_movimentacao_moeda CHECK (((moeda)::text = ANY ((ARRAY['REAL'::character varying, 'EURO'::character varying])::text[])))
 );
 
 
@@ -463,7 +465,7 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-42849.60	3
+42791.09	3
 102.86	4
 40794.82	5
 \.
@@ -7150,6 +7152,11 @@ t	7105	102	\N
 t	7106	107	\N
 t	7107	107	\N
 t	7108	102	\N
+t	7109	107	\N
+t	7110	301	\N
+t	7111	102	\N
+t	7112	102	\N
+t	7113	107	\N
 \.
 
 
@@ -7306,8 +7313,8 @@ COPY despesas_db.feriado (id, date_feriado, tipo, nome) FROM stdin;
 --
 
 COPY despesas_db.filtro (id, nome, classe, expressao) FROM stdin;
-5	Contas do Mês - REAL	despesa	vencimento=gt=${startOfMonth};tipo.descricao=='CONTAS';moeda=='REAL'
-6	Contas do Mês - EURO	despesa	vencimento=gt=${startOfMonth};tipo.descricao=='CONTAS';moeda=='EURO'
+5	Contas do Mês - REAL	despesa	vencimento=ge=${startOfMonth};vencimento=le=${endOfMonth};tipo.descricao=='CONTAS';moeda=='REAL'
+6	Contas do Mês - EURO	despesa	vencimento=ge=${startOfMonth};vencimento=le=${endOfMonth};tipo.descricao=='CONTAS';moeda=='EURO'
 \.
 
 
@@ -14212,6 +14219,11 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7106	UBER RIDES PORTUGAL	2026-05-29	3.99	2026-05-28	3	EURO
 7107	UBER RIDES PORTUGAL	2026-05-29	3.98	2026-05-28	3	EURO
 7108	GLOVO PORTUGAL LISBOA	2026-05-29	8.43	2026-05-28	3	EURO
+7109	UBER RIDES PORTUGAL	2026-05-30	5.97	2026-05-30	3	EURO
+7110	CONTINENTE BRAGA BRAGA	2026-05-30	40.95	2026-05-30	3	EURO
+7111	ARCADIA NOVA ARCADA	2026-05-30	1.50	2026-05-30	3	EURO
+7112	ARCADIA NOVA ARCADA	2026-05-30	4.10	2026-05-30	3	EURO
+7113	UBER RIDES PORTUGAL	2026-05-30	5.99	2026-05-30	3	EURO
 \.
 
 
@@ -14623,6 +14635,7 @@ COPY public.flyway_schema_history (installed_rank, version, description, type, s
 21	21	adicionar parametros	SQL	V21__adicionar_parametros.sql	-901845354	despesas	2026-04-01 18:29:39.508956	3	t
 22	22	adicionar feriados url	SQL	V22__adicionar_feriados_url.sql	-210987324	despesas	2026-05-02 20:39:21.327228	68	t
 23	23	adicionar filtros	SQL	V23__adicionar_filtros.sql	1505917569	despesas	2026-05-26 15:43:32.993642	36	t
+24	24	adiciona restricao moeda	SQL	V24__adiciona_restricao_moeda.sql	1876975109	despesas	2026-05-30 13:01:03.416423	556	t
 \.
 
 
@@ -14672,7 +14685,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 53, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7108, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7113, true);
 
 
 --
