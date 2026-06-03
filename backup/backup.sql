@@ -465,7 +465,7 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-42725.26	3
+42000.50	3
 102.86	4
 40794.82	5
 \.
@@ -7162,6 +7162,13 @@ t	7115	102	\N
 t	7116	102	\N
 t	7117	102	\N
 t	7118	102	\N
+t	7119	107	\N
+t	7120	107	\N
+t	7121	4	\N
+t	7122	5	\N
+t	7123	102	\N
+t	7124	107	\N
+t	7125	107	\N
 \.
 
 
@@ -14234,6 +14241,13 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7116	GLOVO	2026-05-31	8.43	2026-05-31	3	EURO
 7117	Glovo	2026-06-01	9.90	2026-06-01	3	EURO
 7118	Agua	2026-06-01	2.00	2026-05-31	3	EURO
+7119	UBER RIDES PORTUGAL	2026-06-02	3.99	2026-06-02	3	EURO
+7120	UBER RIDES PORTUGAL	2026-06-02	2.93	2026-06-02	3	EURO
+7121	TRF P/ Lucinda dona da casa	2026-06-02	650.00	2026-06-02	3	EURO
+7122	PAG.DUC  702580101907591	2026-06-02	51.00	2026-06-02	3	EURO
+7123	GLOVO PORTUGAL LISBOA	2026-06-02	9.90	2026-06-02	3	EURO
+7124	UBER RIDES PORTUGAL	2026-06-02	3.99	2026-06-02	3	EURO
+7125	UBER RIDES PORTUGAL	2026-06-02	2.95	2026-06-02	3	EURO
 \.
 
 
@@ -14695,7 +14709,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 53, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7118, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7125, true);
 
 
 --
