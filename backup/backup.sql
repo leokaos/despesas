@@ -465,8 +465,8 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-42712.94	3
-102.86	4
+42699.40	3
+96.87	4
 40794.82	5
 \.
 
@@ -2074,13 +2074,8 @@ t	1800	107	\N
 t	1801	107	\N
 t	1802	102	\N
 t	1803	102	\N
-t	1804	102	\N
-t	1805	102	\N
-t	1806	102	\N
 t	1807	102	\N
 t	1808	102	\N
-t	1809	102	\N
-t	1810	102	\N
 t	1811	201	\N
 t	1812	102	\N
 t	1813	102	\N
@@ -2171,6 +2166,10 @@ t	1898	102	\N
 t	1899	108	\N
 t	1900	108	\N
 t	1901	102	\N
+t	1805	4	\N
+t	1806	4	\N
+t	1809	4	\N
+t	1810	4	\N
 t	1902	108	\N
 t	1903	108	\N
 t	1907	102	\N
@@ -3010,7 +3009,6 @@ t	2807	102	\N
 t	2808	102	\N
 t	2809	102	\N
 t	2810	102	\N
-t	2811	102	\N
 t	2812	102	\N
 t	2813	102	\N
 t	2814	107	\N
@@ -3075,6 +3073,7 @@ t	2763	4	\N
 t	2803	4	\N
 t	2802	4	\N
 t	2762	4	\N
+t	2811	4	\N
 t	2873	103	\N
 t	2874	102	\N
 t	2875	107	\N
@@ -3438,7 +3437,6 @@ t	3254	102	\N
 t	3255	102	\N
 t	3256	102	\N
 t	3257	102	\N
-t	3258	102	\N
 t	3261	108	\N
 t	3263	4	\N
 t	3265	201	63
@@ -3497,7 +3495,6 @@ t	3319	102	\N
 t	3320	108	\N
 t	3321	108	\N
 t	3322	102	\N
-t	3323	102	\N
 t	3324	103	\N
 t	3325	102	\N
 t	3326	102	\N
@@ -3531,6 +3528,8 @@ t	3260	4	\N
 t	3340	4	\N
 t	3341	4	\N
 t	3195	4	\N
+t	3258	4	\N
+t	3323	4	\N
 t	3356	107	\N
 t	3357	301	\N
 t	3358	102	\N
@@ -3559,7 +3558,6 @@ t	3380	102	\N
 t	3383	102	\N
 t	3384	201	\N
 t	3387	201	\N
-t	3388	102	\N
 t	3390	108	\N
 t	3391	108	64
 t	3392	201	64
@@ -3684,6 +3682,7 @@ t	3497	4	\N
 t	3431	4	\N
 t	3493	4	\N
 t	3433	4	\N
+t	3388	4	\N
 t	3519	102	\N
 t	3520	102	\N
 t	3521	108	\N
@@ -4312,14 +4311,12 @@ t	4171	201	72
 t	4263	102	\N
 t	4174	108	\N
 t	4180	201	\N
-t	4181	102	\N
 t	4182	103	\N
 t	4183	201	\N
 t	4184	103	\N
 t	4185	102	\N
 t	4186	102	\N
 t	4187	102	\N
-t	4188	102	\N
 t	4189	102	\N
 t	4190	102	\N
 t	4192	108	\N
@@ -4441,6 +4438,8 @@ t	4311	102	\N
 t	4176	4	\N
 t	4177	4	\N
 t	4175	4	\N
+t	4181	4	\N
+t	4188	4	\N
 t	4312	102	\N
 t	4313	4	\N
 t	4314	102	\N
@@ -7170,6 +7169,11 @@ t	7123	102	\N
 t	7124	107	\N
 t	7125	107	\N
 t	7127	102	\N
+t	7128	102	\N
+t	7129	4	\N
+t	7130	4	\N
+t	7131	4	\N
+t	1804	4	\N
 \.
 
 
@@ -14251,6 +14255,10 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7125	UBER RIDES PORTUGAL	2026-06-02	2.95	2026-06-02	3	EURO
 7126	Reembolso IRS	2026-06-03	722.34	2026-06-03	3	EURO
 7127	Glovo	2026-06-03	9.90	2026-06-03	3	EURO
+7128	Glovo	2026-06-04	9.90	2026-06-04	3	EURO
+7129	IMPOSTO SELO ART 17.3.4	2026-06-04	0.14	2026-06-03	3	EURO
+7130	COM.MAN.CONTA PACOTE PRESTIGE START      052026	2026-06-04	3.50	2026-06-03	3	EURO
+7131	Glovo Prime	2026-06-04	5.99	2026-06-03	4	EURO
 \.
 
 
@@ -14713,7 +14721,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 53, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7127, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7131, true);
 
 
 --
