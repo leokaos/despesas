@@ -465,9 +465,9 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-42699.40	3
 96.87	4
-40794.82	5
+39698.94	5
+42554.42	3
 \.
 
 
@@ -502,6 +502,7 @@ COPY despesas_db.cotacao (id, origem, destino, taxa, data) FROM stdin;
 24	EURO	REAL	5.90	2026-05-15 18:41:28.848
 25	EURO	REAL	5.90	2026-05-17 17:49:56.56
 26	EURO	REAL	5.86	2026-05-26 18:57:59.549
+27	EURO	REAL	5.89	2026-06-05 11:13:52.836
 \.
 
 
@@ -627,7 +628,6 @@ t	74	1	\N
 t	76	401	\N
 t	77	102	\N
 t	78	102	\N
-t	79	401	\N
 t	80	104	\N
 t	81	301	\N
 t	82	1	\N
@@ -637,7 +637,6 @@ t	85	302	\N
 t	86	302	\N
 t	87	401	\N
 t	88	301	\N
-t	89	401	\N
 t	90	1	\N
 t	26	301	\N
 t	27	401	\N
@@ -677,11 +676,12 @@ t	34	301	\N
 t	208	4	\N
 t	324	4	\N
 t	306	4	\N
+t	79	4	\N
+t	89	4	\N
 t	35	108	\N
 t	36	301	\N
 t	37	302	\N
 t	38	201	\N
-t	39	108	\N
 t	40	108	\N
 t	41	108	\N
 t	42	302	\N
@@ -742,7 +742,6 @@ t	215	401	\N
 t	216	302	\N
 t	217	401	\N
 t	218	102	\N
-t	219	401	\N
 t	220	102	\N
 t	234	301	\N
 t	235	301	\N
@@ -793,7 +792,6 @@ t	374	302	\N
 t	377	201	17
 t	378	201	17
 t	379	401	\N
-t	380	401	\N
 t	381	1	\N
 t	382	302	\N
 t	383	302	\N
@@ -820,7 +818,6 @@ t	408	301	\N
 t	409	302	\N
 t	411	1	\N
 t	114	302	\N
-t	116	108	\N
 t	117	302	\N
 t	118	302	\N
 t	119	102	\N
@@ -829,6 +826,10 @@ t	412	301	\N
 t	413	302	\N
 t	415	108	\N
 t	278	4	\N
+t	39	4	\N
+t	219	4	\N
+t	380	4	\N
+t	116	4	\N
 t	416	108	19
 t	417	201	19
 t	418	201	19
@@ -850,7 +851,6 @@ t	436	401	\N
 t	438	302	\N
 t	439	302	\N
 t	440	302	\N
-t	441	401	\N
 t	442	401	\N
 t	443	201	\N
 t	444	102	\N
@@ -908,7 +908,6 @@ t	502	201	20
 t	503	108	\N
 t	504	301	\N
 t	505	301	\N
-t	506	108	\N
 t	507	302	\N
 t	508	401	\N
 t	509	108	\N
@@ -935,7 +934,6 @@ t	532	302	\N
 t	534	1	\N
 t	535	301	\N
 t	536	301	\N
-t	538	401	\N
 t	539	108	\N
 t	540	108	\N
 t	541	301	\N
@@ -978,6 +976,9 @@ t	581	104	\N
 t	582	401	\N
 t	462	4	\N
 t	533	4	\N
+t	441	4	\N
+t	506	4	\N
+t	538	4	\N
 t	583	104	\N
 t	584	102	\N
 t	585	102	\N
@@ -1081,7 +1082,6 @@ t	690	102	\N
 t	691	102	\N
 t	692	102	\N
 t	695	102	\N
-t	696	108	\N
 t	697	102	\N
 t	698	102	\N
 t	699	102	\N
@@ -1123,6 +1123,7 @@ t	598	4	\N
 t	724	4	\N
 t	694	4	\N
 t	596	4	\N
+t	696	4	\N
 t	740	302	\N
 t	741	102	\N
 t	742	1	\N
@@ -1255,7 +1256,6 @@ t	907	301	\N
 t	908	1	\N
 t	909	401	\N
 t	910	401	\N
-t	911	401	\N
 t	912	108	\N
 t	913	302	\N
 t	914	108	\N
@@ -1271,6 +1271,7 @@ t	892	4	\N
 t	822	4	\N
 t	893	4	\N
 t	746	4	\N
+t	911	4	\N
 t	922	102	\N
 t	923	302	\N
 t	924	102	\N
@@ -1349,7 +1350,6 @@ t	1006	302	\N
 t	1007	102	\N
 t	1008	102	\N
 t	1009	102	\N
-t	1010	401	\N
 t	1011	107	\N
 t	1012	107	\N
 t	1013	401	\N
@@ -1421,6 +1421,7 @@ t	1076	4	\N
 t	940	4	\N
 t	1031	4	\N
 t	1027	4	\N
+t	1010	4	\N
 t	1087	302	\N
 t	1088	301	\N
 t	1089	302	\N
@@ -1510,7 +1511,6 @@ t	1180	1	\N
 t	1181	1	\N
 t	1182	102	\N
 t	1184	102	\N
-t	1185	401	\N
 t	1186	401	\N
 t	1187	102	\N
 t	1188	102	\N
@@ -1570,6 +1570,7 @@ t	1117	4	\N
 t	1161	4	\N
 t	1217	4	\N
 t	1239	4	\N
+t	1185	4	\N
 t	1247	108	36
 t	1248	201	36
 t	1249	201	36
@@ -1783,7 +1784,6 @@ t	1486	102	\N
 t	1487	102	\N
 t	1488	102	\N
 t	1489	107	\N
-t	1490	401	\N
 t	1491	108	\N
 t	1492	201	\N
 t	1496	102	\N
@@ -1865,6 +1865,7 @@ t	1574	108	\N
 t	1494	4	\N
 t	1495	4	\N
 t	1427	4	\N
+t	1490	4	\N
 t	1575	102	\N
 t	1576	302	\N
 t	1577	102	\N
@@ -1968,7 +1969,6 @@ t	1686	108	\N
 t	1687	107	\N
 t	1688	107	\N
 t	1689	108	\N
-t	1690	401	\N
 t	1691	102	\N
 t	1692	301	\N
 t	1693	1	\N
@@ -2016,6 +2016,7 @@ t	1615	4	\N
 t	1715	4	\N
 t	1617	4	\N
 t	1713	4	\N
+t	1690	4	\N
 t	1739	102	\N
 t	1740	301	\N
 t	1741	108	\N
@@ -2082,7 +2083,6 @@ t	1813	102	\N
 t	1814	102	\N
 t	1815	102	\N
 t	1816	108	\N
-t	1817	401	\N
 t	1818	102	\N
 t	1819	108	\N
 t	1820	107	\N
@@ -2170,6 +2170,7 @@ t	1805	4	\N
 t	1806	4	\N
 t	1809	4	\N
 t	1810	4	\N
+t	1817	4	\N
 t	1902	108	\N
 t	1903	108	\N
 t	1907	102	\N
@@ -7174,6 +7175,22 @@ t	7129	4	\N
 t	7130	4	\N
 t	7131	4	\N
 t	1804	4	\N
+t	7132	4	\N
+t	7133	4	\N
+t	7134	108	115
+t	7135	201	115
+t	7136	201	115
+t	7137	201	115
+t	7138	201	115
+t	7139	108	115
+t	7140	201	115
+t	7141	201	115
+t	7143	4	\N
+t	7144	4	\N
+t	7145	108	\N
+t	7146	102	\N
+t	7147	4	\N
+t	7148	102	\N
 \.
 
 
@@ -7268,6 +7285,7 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 111	6	2026-03-11 00:00:00	2026-02-28 00:00:00	t
 113	6	2026-04-11 00:00:00	2026-03-28 00:00:00	t
 114	6	2026-05-11 01:00:00	2026-04-28 01:00:00	t
+115	6	2026-06-11 02:00:00	2026-05-28 02:00:00	t
 \.
 
 
@@ -14259,6 +14277,23 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7129	IMPOSTO SELO ART 17.3.4	2026-06-04	0.14	2026-06-03	3	EURO
 7130	COM.MAN.CONTA PACOTE PRESTIGE START      052026	2026-06-04	3.50	2026-06-03	3	EURO
 7131	Glovo Prime	2026-06-04	5.99	2026-06-03	4	EURO
+7132	Vodafone	2026-06-05	49.39	2026-06-05	3	EURO
+7133	Condominio	2026-06-05	732.00	2026-06-05	5	REAL
+7134	IOF TRANSACOES INTERNACIONAIS	2026-06-05	0.41	2026-05-27	6	REAL
+7135	STEAMGAMES.COM 4259522 912	2026-06-05	11.87	2026-05-14	6	REAL
+7136	DM*Spotify SAO PAULO	2026-06-05	23.90	2026-05-27	6	REAL
+7137	APPLE.COM/BILL SAO PAULO	2026-06-05	29.90	2026-05-20	6	REAL
+7138	AmazonPrimeBR SAO PAULO	2026-06-05	19.90	2026-05-12	6	REAL
+7139	ANUIDADE DIFERENCIADA 06/12	2026-06-05	37.00	2026-05-05	6	REAL
+7140	NETFLIX ENTRETENIMENTO	2026-06-05	44.90	2026-05-12	6	REAL
+7141	ALURA 10/12 SAO PAULO	2026-06-05	87.20	2026-05-27	6	REAL
+7142	Pagamento fatura 06/2026	2026-06-04	255.08	2026-06-05	5	REAL
+7143	DA CONGAS	2026-06-05	12.40	2026-05-18	5	REAL
+7144	DA ELETROPAULO	2026-06-05	24.50	2026-05-29	5	REAL
+7145	Tar Pacote ITAU	2026-06-05	71.90	2026-06-02	5	REAL
+7146	Glovo	2026-06-05	8.29	2026-06-05	3	EURO
+7147	Contabilista	2026-06-05	73.80	2026-06-05	3	EURO
+7148	Glovo	2026-06-05	13.50	2026-06-05	3	EURO
 \.
 
 
@@ -14640,6 +14675,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 6997	4	100.00
 7029	6	242.80
 7048	20	2555.38
+7142	6	255.08
 \.
 
 
@@ -14679,7 +14715,7 @@ COPY public.flyway_schema_history (installed_rank, version, description, type, s
 -- Name: cotacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 26, true);
+SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 27, true);
 
 
 --
@@ -14693,7 +14729,7 @@ SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 21, true);
 -- Name: fatura_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 114, true);
+SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 115, true);
 
 
 --
@@ -14721,7 +14757,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 53, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7131, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7148, true);
 
 
 --
