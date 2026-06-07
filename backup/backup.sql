@@ -467,7 +467,7 @@ VISA	28	11	17300.00	6	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 96.87	4
 39698.94	5
-42554.42	3
+42471.29	3
 \.
 
 
@@ -7191,6 +7191,11 @@ t	7145	108	\N
 t	7146	102	\N
 t	7147	4	\N
 t	7148	102	\N
+t	7149	107	\N
+t	7150	107	\N
+t	7151	301	\N
+t	7152	102	\N
+t	7153	102	\N
 \.
 
 
@@ -7373,6 +7378,7 @@ COPY despesas_db.meta (id, mes, ano, valor) FROM stdin;
 52	4	2026	100.00
 53	6	2026	2000.00
 51	5	2026	1500.00
+54	7	2026	2000.00
 \.
 
 
@@ -14294,6 +14300,13 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7146	Glovo	2026-06-05	8.29	2026-06-05	3	EURO
 7147	Contabilista	2026-06-05	73.80	2026-06-05	3	EURO
 7148	Glovo	2026-06-05	13.50	2026-06-05	3	EURO
+7149	Uber	2026-06-06	4.96	2026-06-06	3	EURO
+7150	Uber	2026-06-06	5.97	2026-06-06	3	EURO
+7151	Continente	2026-06-06	59.10	2026-06-06	3	EURO
+7152	Arcadia	2026-06-06	4.10	2026-06-06	3	EURO
+7153	Glovo	2026-06-06	9.00	2026-06-06	3	EURO
+7155	Salário de Julho/2026	\N	4604.60	2026-07-31	3	EURO
+7154	Valor IVA de Julho/2026	\N	1375.40	2026-07-31	3	EURO
 \.
 
 
@@ -14354,6 +14367,9 @@ COPY despesas_db.orcamento (id, tipo_despesa_id, valor, data_inicial, data_final
 65	107	200.00	2026-06-01 00:00:00	2026-06-30 23:59:59
 66	102	400.00	2026-06-01 00:00:00	2026-06-30 23:59:59
 67	301	300.00	2026-06-01 00:00:00	2026-06-30 23:59:59
+68	107	200.00	2026-07-01 00:00:00	2026-07-31 23:59:59
+69	102	400.00	2026-07-01 00:00:00	2026-07-31 23:59:59
+70	301	300.00	2026-07-01 00:00:00	2026-07-31 23:59:59
 \.
 
 
@@ -14498,6 +14514,8 @@ f	7046	23	\N	t
 t	7000	109	\N	f
 t	7001	23	\N	t
 t	7126	111	\N	f
+f	7154	23	\N	t
+f	7155	109	\N	f
 \.
 
 
@@ -14750,21 +14768,21 @@ SELECT pg_catalog.setval('despesas_db.filtro_id_seq', 7, true);
 -- Name: meta_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.meta_id_seq', 53, true);
+SELECT pg_catalog.setval('despesas_db.meta_id_seq', 54, true);
 
 
 --
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7148, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7155, true);
 
 
 --
 -- Name: orcamento_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.orcamento_id_seq', 67, true);
+SELECT pg_catalog.setval('despesas_db.orcamento_id_seq', 70, true);
 
 
 --
