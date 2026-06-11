@@ -467,7 +467,7 @@ VISA	28	11	17300.00	6	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 96.87	4
 39698.94	5
-42453.10	3
+42423.38	3
 \.
 
 
@@ -7198,6 +7198,9 @@ t	7152	102	\N
 t	7153	102	\N
 t	7156	102	\N
 t	7157	102	\N
+t	7158	102	\N
+t	7159	102	\N
+t	7160	102	\N
 \.
 
 
@@ -14311,6 +14314,9 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7154	Valor IVA de Julho/2026	\N	1375.40	2026-07-31	3	EURO
 7156	Glovo	2026-06-07	8.29	2026-06-07	3	EURO
 7157	Glovo	2026-06-08	9.90	2026-06-08	3	EURO
+7158	Glovo	2026-06-10	9.90	2026-06-10	3	EURO
+7159	Glovo	2026-06-10	9.92	2026-06-09	3	EURO
+7160	Glovo	2026-06-10	9.90	2026-06-09	3	EURO
 \.
 
 
@@ -14779,7 +14785,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 54, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7157, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7160, true);
 
 
 --
