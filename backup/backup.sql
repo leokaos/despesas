@@ -467,7 +467,7 @@ VISA	28	11	17300.00	6	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 96.87	4
 39698.94	5
-42291.69	3
+42283.40	3
 \.
 
 
@@ -519,6 +519,7 @@ COPY despesas_db.debitavel (id, cor, descricao, tipo, moeda, ativo) FROM stdin;
 18	#f2ff00	IVA 3 Trimestre 2025	DIVIDA	EURO	f
 19	#fff700	IVA 4 Trimestre 2025	DIVIDA	EURO	f
 20	#e8d846	IVA 1 Trimestre 2026	DIVIDA	EURO	f
+22	#c7bc24	IVA 2 TRIMESTRE 2026	DIVIDA	EURO	t
 \.
 
 
@@ -7209,6 +7210,7 @@ t	7165	107	\N
 t	7166	301	\N
 t	7167	102	\N
 t	7168	107	\N
+t	7169	102	\N
 \.
 
 
@@ -7221,6 +7223,7 @@ COPY despesas_db.divida (valor_total, periodiciodade, data_inicio, id) FROM stdi
 407.10	VARIAVEL	2025-11-14 00:00:00	18
 2237.90	VARIAVEL	2025-10-01 20:00:00	19
 2555.38	VARIAVEL	2026-05-24 23:00:00	20
+3707.60	VARIAVEL	2026-03-31 23:00:00	22
 \.
 
 
@@ -14333,6 +14336,7 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7166	CONTINENTE	2026-06-13	85.29	2026-06-13	3	EURO
 7167	ARCADIA NOVA ARCADA	2026-06-13	4.80	2026-06-13	3	EURO
 7168	UBER RIDES PORTUGAL	2026-06-13	9.94	2026-06-13	3	EURO
+7169	Glovo	2026-06-14	8.29	2026-06-14	3	EURO
 \.
 
 
@@ -14766,7 +14770,7 @@ SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 27, true);
 -- Name: debitavel_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 21, true);
+SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 22, true);
 
 
 --
@@ -14801,7 +14805,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 54, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7168, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7169, true);
 
 
 --
