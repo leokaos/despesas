@@ -1,5 +1,5 @@
 {
-  "apiUrl": "http://localhost:8080/services",
-   "wsUrl": "ws://localhost:8080/socket",
-  "version": "0.19.1"
+  "apiUrl": "${despesas.api.url}",
+  "wsUrl": "${despesas.ws.url}",
+  "version": "${project.version}"
 }
