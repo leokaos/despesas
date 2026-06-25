@@ -4,6 +4,7 @@ export interface Meta {
   valor: number;
   descricao: string;
   saldo: number;
+  gastoDiario: number;
   mes: {
     mes: number;
     ano: number;

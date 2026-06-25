@@ -126,7 +126,7 @@
                     <span class="text-3xl">R$ {{meta.saldo | number: '1.2-2' : 'pt-BR'}}</span>
                 </div>
 
-                <div class="flex justify-between gap-3">
+                <div class="flex justify-between gap-1">
                     <div class="flex-1 text-center p-2">
                         <div class="text-s">Objectivo</div>
                         <div class="text-base mt-1">R$ {{meta.valor | number: '1.2-2' : 'pt-BR'}}</div>
@@ -134,10 +134,20 @@
                     <div class="flex-1 text-center p-2">
                         <div class="text-s">Por Dia</div>
                         @if (meta.valorDiario){
-                            <div class="text-base mt-1">R$ {{meta.valorDiario | number: '1.2-2' : 'pt-BR'}}</div>
+                        <div class="text-base mt-1">R$ {{meta.valorDiario | number: '1.2-2' : 'pt-BR'}}</div>
                         }
                         @else{
-                            <div class="text-base mt-1">-</div>
+                        <div class="text-base mt-1">-</div>
+                        }
+
+                    </div>
+                    <div class="flex-1 text-center p-2">
+                        <div class="text-s">Hoje</div>
+                        @if (meta.gastoDiario){
+                        <div class="text-base mt-1">R$ {{ (meta.valorDiario - meta.gastoDiario) | number: '1.2-2' : 'pt-BR'}}</div>
+                        }
+                        @else{
+                        <div class="text-base mt-1">-</div>
                         }
 
                     </div>

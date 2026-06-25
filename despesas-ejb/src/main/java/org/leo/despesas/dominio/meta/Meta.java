@@ -14,6 +14,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.leo.despesas.dominio.movimentacao.Movimentacao;
 import org.leo.despesas.infra.Mes;
 import org.leo.despesas.infra.ModelEntity;
@@ -41,6 +42,9 @@ public class Meta implements ModelEntity {
 
 	@Transient
 	private BigDecimal saldo = BigDecimal.ZERO;
+
+	@Transient
+	private BigDecimal gastoDiario = BigDecimal.ZERO;
 
 	public Meta() {
 		super();
@@ -78,15 +82,30 @@ public class Meta implements ModelEntity {
 		this.saldo = saldo;
 	}
 
-	public void calcularSaldo(List<Movimentacao> movimentos) {
+	public BigDecimal getGastoDiario() {
+		return gastoDiario;
+	}
 
-		BigDecimal total = BigDecimal.ZERO;
+	public void setGastoDiario(BigDecimal gastoDiario) {
+		this.gastoDiario = gastoDiario;
+	}
+
+	public void calcularSaldos(List<Movimentacao> movimentos) {
+
+		BigDecimal totalSaldo = BigDecimal.ZERO;
+		BigDecimal gastosDiarios = BigDecimal.ZERO;
 
 		for (Movimentacao movimentacao : movimentos) {
-			total = total.add(movimentacao.getValorContabilistico());
+
+			totalSaldo = totalSaldo.add(movimentacao.getValorContabilistico());
+
+			if (DateUtils.isSameDay(new Date(), movimentacao.getVencimento()) && movimentacao.getValorContabilistico().compareTo(BigDecimal.ZERO) < 0) {
+				gastosDiarios = gastosDiarios.add(movimentacao.getValorContabilistico());
+			}
 		}
 
-		this.saldo = total.subtract(valor);
+		this.saldo = totalSaldo.subtract(valor);
+		this.gastoDiario = gastosDiarios.multiply(new BigDecimal(-1));
 	}
 
 	public BigDecimal getValorDiario() {
