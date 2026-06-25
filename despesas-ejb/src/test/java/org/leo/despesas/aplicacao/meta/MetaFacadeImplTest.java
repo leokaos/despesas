@@ -13,7 +13,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import org.apache.commons.lang.time.DateUtils;
 import org.easymock.EasyMockRunner;
 import org.easymock.Mock;
 import org.easymock.MockType;
@@ -53,15 +52,12 @@ public class MetaFacadeImplTest {
 
 		List<Meta> expectedLista = Lists.newArrayList();
 
-		Movimentacao despesaHoje = createDespesa(500.0);
-		despesaHoje.setVencimento(new Date());
-
-		List<Movimentacao> movimentacaoEsperada = Lists.newArrayList(createDespesa(1000.0), createReceita(4000.0), despesaHoje);
+		List<Movimentacao> movimentacaoEsperada = Lists.newArrayList(createDespesa(2000.0), createReceita(4000.0));
 
 		Meta meta = new Meta();
 
 		meta.setMes(new Mes(new Date()));
-		meta.setValor(new BigDecimal(1000));
+		meta.setValor(new BigDecimal(200));
 
 		Periodo periodo = meta.getMes().getPeriodo();
 
@@ -70,8 +66,7 @@ public class MetaFacadeImplTest {
 
 		expectedLista.add(meta);
 
-		BigDecimal valorEsperado = new BigDecimal(1500).divide(new BigDecimal(periodo.getDiasParaTermino()), 2, RoundingMode.HALF_UP);
-		BigDecimal gastoDiarioEsperado = new BigDecimal(500);
+		BigDecimal valorEsperado = new BigDecimal(1800).divide(new BigDecimal(periodo.getDiasParaTermino()), 2, RoundingMode.HALF_UP);
 
 		expect(mockEntityManager.createQuery("SELECT meta FROM Meta meta ORDER BY meta.id", Meta.class)).andReturn(mockQuery);
 		expect(mockQuery.getResultList()).andReturn(expectedLista);
@@ -86,7 +81,6 @@ public class MetaFacadeImplTest {
 		Meta metaResultado = resultado.iterator().next();
 
 		assertEquals(valorEsperado, metaResultado.getValorDiario());
-		assertEquals(gastoDiarioEsperado, metaResultado.getGastoDiario());
 	}
 
 	private Movimentacao createDespesa(double valor) {
@@ -94,7 +88,6 @@ public class MetaFacadeImplTest {
 		Despesa despesa = new Despesa();
 
 		despesa.setValor(new BigDecimal(valor));
-		despesa.setVencimento(DateUtils.addDays(new Date(), +1));
 
 		return despesa;
 	}
@@ -104,7 +97,6 @@ public class MetaFacadeImplTest {
 		Receita receita = new Receita();
 
 		receita.setValor(new BigDecimal(valor));
-		receita.setVencimento(DateUtils.addDays(new Date(), +1));
 
 		return receita;
 	}

@@ -24,7 +24,7 @@ public class MetaFacadeImpl extends AbstractFacade<Meta, MetaFiltro> implements 
 		List<Meta> lista = super.listar(filtro);
 
 		for (Meta meta : lista) {
-			meta.calcularSaldos(buscarMovimentos(meta.getMes().getPeriodo()));
+			meta.calcularSaldo(buscarMovimentos(meta.getMes().getPeriodo()));
 		}
 
 		return lista;
