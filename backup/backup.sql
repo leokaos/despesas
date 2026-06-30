@@ -467,7 +467,7 @@ VISA	28	11	17300.00	6	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 96.87	4
 38551.04	5
-41335.85	3
+46516.06	3
 \.
 
 
@@ -7259,6 +7259,9 @@ t	7215	102	\N
 t	7216	102	\N
 t	7217	102	\N
 t	7218	102	\N
+t	7219	102	\N
+t	7220	107	\N
+t	7221	107	\N
 \.
 
 
@@ -14259,8 +14262,6 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7043	Glovo 1	2026-05-11	8.29	2026-05-10	3	EURO
 7044	Glovo 2	2026-05-11	9.90	2026-05-11	3	EURO
 7045	Glovo 3	2026-05-11	9.00	2026-05-11	3	EURO
-7046	Valor IVA de Junho/2026	\N	1196.00	2026-06-30	3	EURO
-7047	Salário de Junho/2026	\N	4004.00	2026-06-30	3	EURO
 7048	Aporte em IVA 1 Trimestre 2026	\N	2555.38	2026-05-12	3	EURO
 7049	IMT	2026-05-12	27.00	2026-05-12	3	EURO
 7050	Glovo	2026-05-12	9.90	2026-05-12	3	EURO
@@ -14305,6 +14306,7 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7089	UBER RIDES PORTUGAL	2026-05-26	4.97	2026-05-25	3	EURO
 7090	HUMMY FORUM ALGARVE 2	2026-05-26	5.61	2026-05-25	3	EURO
 7001	Valor IVA de Maio/2026	2026-05-29	1196.00	2026-05-31	3	EURO
+7047	Salário de Junho/2026	2026-06-29	4004.00	2026-06-30	3	EURO
 7091	PIZZA HUT	2026-05-26	8.45	2026-05-25	3	EURO
 7092	UBER RIDES PORTUGAL	2026-05-26	3.98	2026-05-25	3	EURO
 7093	GLOVO PORTUGAL LISBOA	2026-05-26	8.43	2026-05-25	3	EURO
@@ -14433,6 +14435,10 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7213	ARCADIA NOVA ARCADA	2026-06-27	6.10	2026-06-27	3	EURO
 7214	UBER RIDES PORTUGAL	2026-06-27	5.96	2026-06-27	3	EURO
 7215	Glovo	2026-06-27	9.76	2026-06-27	3	EURO
+7219	Glovo	2026-06-29	9.90	2026-06-29	3	EURO
+7046	Valor IVA de Junho/2026	2026-06-29	1196.00	2026-06-30	3	EURO
+7220	Uber	2026-06-29	5.95	2026-06-29	3	EURO
+7221	Uber	2026-06-29	3.94	2026-06-29	3	EURO
 \.
 
 
@@ -14635,13 +14641,13 @@ t	6624	23	\N	t
 t	6802	23	\N	t
 t	6803	109	\N	f
 t	7042	111	\N	f
-f	7047	109	\N	f
-f	7046	23	\N	t
 t	7000	109	\N	f
 t	7001	23	\N	t
 t	7126	111	\N	f
 f	7154	23	\N	t
 f	7155	109	\N	f
+t	7046	23	\N	t
+t	7047	109	\N	f
 \.
 
 
@@ -14901,7 +14907,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 54, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7218, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7221, true);
 
 
 --
