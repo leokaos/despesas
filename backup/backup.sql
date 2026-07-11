@@ -466,8 +466,8 @@ VISA	28	11	17300.00	6	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 37310.98	5
-225.66	4
-44827.77	3
+725.66	4
+44293.05	3
 \.
 
 
@@ -7308,6 +7308,10 @@ t	7267	4	\N
 t	7268	301	\N
 t	7269	301	\N
 t	7270	102	\N
+t	7272	102	\N
+t	7273	107	\N
+t	7274	107	\N
+t	7275	102	\N
 \.
 
 
@@ -14490,6 +14494,7 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7223	Aluguel	2026-07-01	650.00	2026-07-01	3	EURO
 7224	Glovo	2026-07-01	8.90	2026-07-01	3	EURO
 7225	Cobrir Conta	\N	300.00	2026-07-03	3	EURO
+7271	Cobrir Conta	\N	500.00	2026-07-09	3	EURO
 7227	PAG.DUC  702480102429448	2026-07-07	51.00	2026-07-07	3	EURO
 7228	DD VODAFONE PORTU 07335462122    PT10100825	2026-07-07	50.66	2026-07-07	3	EURO
 7229	GLOVO PORTUGAL LISBOA	2026-07-07	12.65	2026-07-06	3	EURO
@@ -14534,6 +14539,10 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7268	Continente	2026-07-09	3.13	2026-07-09	3	EURO
 7269	Continente	2026-07-09	0.10	2026-07-09	3	EURO
 7270	Glovo	2026-07-09	10.20	2026-07-09	3	EURO
+7272	Almoço	2026-07-10	17.10	2026-07-10	3	EURO
+7273	Uber	2026-07-10	3.93	2026-07-09	3	EURO
+7274	Uber	2026-07-10	4.94	2026-07-09	3	EURO
+7275	Pizza hut	2026-07-10	8.75	2026-07-09	3	EURO
 \.
 
 
@@ -14923,6 +14932,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 7142	6	255.08
 7225	4	300.00
 7254	6	242.80
+7271	4	500.00
 \.
 
 
@@ -15004,7 +15014,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 54, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7270, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7275, true);
 
 
 --
