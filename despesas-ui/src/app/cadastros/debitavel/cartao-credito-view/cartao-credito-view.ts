@@ -15,11 +15,15 @@ import { TableModule, Table } from 'primeng/table';
 import { ColorDisplay } from '../../../components/color-display/color-display';
 import { Loader } from '../../../components/loader/loader';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { DataViewModule } from 'primeng/dataview';
+import { DataView } from 'primeng/dataview';
 
 @Component({
   selector: 'app-cartao-credito-view',
   imports: [
     ButtonModule,
+    DataViewModule,
     TableModule,
     IconFieldModule,
     FormsModule,
@@ -32,6 +36,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     DecimalPipe,
     Loader,
     FontAwesomeModule,
+    SelectButtonModule,
   ],
   templateUrl: './cartao-credito-view.html',
   styleUrl: './cartao-credito-view.scss',
@@ -40,6 +45,9 @@ export class CartaoCreditoView {
 
   @ViewChild('table')
   private table?: Table;
+
+  @ViewChild(DataView)
+  private dv?: DataView;
 
   loading = signal<boolean>(true);
   data = signal<CartaoCredito[]>([]);
@@ -50,6 +58,13 @@ export class CartaoCreditoView {
   private cartaoCreditoService = inject(CartaoCreditoService);
   private router = inject(Router);
   private messageService = inject(MessageService);
+
+  layoutOptions = [
+    { label: 'List', icon: 'pi pi-bars', value: 'list' },
+    { label: 'Grid', icon: 'pi pi-th-large', value: 'grid' },
+  ];
+
+  selectedLayout = signal<string>('grid');
 
   constructor() { }
 
@@ -73,7 +88,13 @@ export class CartaoCreditoView {
   }
 
   search() {
-    this.table?.filterGlobal(this.searchValue, 'contains');
+    if (this.table) {
+      this.table.filterGlobal(this.searchValue, 'contains');
+    }
+
+    if (this.dv) {
+      this.dv.filter(this.searchValue!!, 'contains');
+    }
   }
 
   openDialog(cartaoCredito: CartaoCredito) {

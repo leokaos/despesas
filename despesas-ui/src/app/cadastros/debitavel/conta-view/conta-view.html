@@ -4,7 +4,16 @@
 
 <div class="form-panel">
 
-    <div class="flex justify-end pb-2.5">
+    <div class="flex pb-2.5">
+
+        <div class="flex flex-1 justify-center">
+            <p-selectbutton [(ngModel)]="selectedLayout" [options]="layoutOptions" [allowEmpty]="false">
+                <ng-template #item let-item>
+                    <i class="pi {{ item.icon }}"></i>
+                </ng-template>
+            </p-selectbutton>
+        </div>
+
         <p-button label="Adicionar" severity="secondary" (click)="add()">
             <i class="pi pi-plus text-2xl"></i>
         </p-button>
@@ -14,17 +23,19 @@
     <app-loader />
     }
     @else {
+
+    @if (selectedLayout() === 'list') {
+
     <p-table
-             #table
-             stripedRows
-             [value]="data()"
-             sortMode="single"
-             [paginator]="true"
-             [rows]="10"
-             size="small"
-             showGridlines
-             [rowsPerPageOptions]="[10, 15, 50, 100]"
-             [globalFilterFields]="['cor', 'descricao']">
+        #table
+        stripedRows
+        [value]="data()"
+        sortMode="single"
+        [paginator]="true"
+        [rows]="10"
+        [rowHover]="true"
+        [rowsPerPageOptions]="[10, 15, 50, 100]"
+        [globalFilterFields]="['descricao']">
 
         <ng-template pTemplate="caption">
             <div class="flex gap-4 justify-end">
@@ -100,6 +111,81 @@
         </ng-template>
 
     </p-table>
+    }
+
+    @if (selectedLayout() === 'grid') {
+    <p-dataview
+        [value]="data()"
+        layout="grid"
+        [paginator]="true"
+        filterBy="descricao"
+        [rowsPerPageOptions]="[10, 15, 50, 100]"
+        rows="10">
+
+        <ng-template #header>
+            <div class="flex gap-4 justify-end">
+                <div class="flex items-center">
+                    <button pButton type="button" icon="pi pi-refresh" tooltip="Recarregar" (click)="reload()"> </button>
+                </div>
+                <div class="flex items-center">
+                    <p-iconfield iconPosition="left">
+                        <p-inputicon>
+                            <i class="pi pi-search"></i>
+                        </p-inputicon>
+                        <input pInputText type="text" (input)="search()" [(ngModel)]="searchValue" placeholder="Buscar..." />
+                    </p-iconfield>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template #grid let-items>
+
+            <div class="grid grid-cols-12 gap-20 my-10">
+
+                @for (conta of items; track conta.id) {
+
+                <div class="col-span-4 p-2">
+
+                    <div class="p-4 border border-[#e2e8f0] rounded shadow-sm hover:shadow-md transition-shadow" [class.texto-vermelho]="!conta.ativo">
+
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex items-center gap-3">
+                                <app-color-display [color]="conta.cor" />
+                                <span class="font-semibold">{{ conta.descricao }}</span>
+                            </div>
+                            <div class="flex gap-1">
+                                <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(conta)" />
+                                <p-button icon="pi pi-trash" severity="danger" size="small" (click)="openDialog(conta)" />
+                            </div>
+                        </div>
+
+                        <div class="mt-2">
+                            <div class="text-sm">Saldo</div>
+                            <div class="text-xl">
+                                {{ conta.moeda.simbolo }} {{ conta.saldo | number: '1.2-2' : 'pt-BR' }}
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end mt-2">
+                            <div>
+                                @if (conta.ativo) {
+                                <span class="text-green-600"><i class="pi pi-check-circle"></i> Ativo</span>
+                                } @else {
+                                <span class="text-red-600"><i class="pi pi-times-circle"></i> Inativo</span>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                } @empty {
+                <div class="col-span-12 text-center py-8">Nenhum registro encontrado</div>
+                }
+            </div>
+        </ng-template>
+    </p-dataview>
+    }
     }
 
 </div>

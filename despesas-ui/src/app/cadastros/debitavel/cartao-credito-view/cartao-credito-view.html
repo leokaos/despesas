@@ -4,7 +4,16 @@
 
 <div class="form-panel">
 
-    <div class="flex justify-end pb-2.5">
+    <div class="flex pb-2.5">
+
+        <div class="flex flex-1 justify-center">
+            <p-selectbutton [(ngModel)]="selectedLayout" [options]="layoutOptions" [allowEmpty]="false">
+                <ng-template #item let-item>
+                    <i class="pi {{ item.icon }}"></i>
+                </ng-template>
+            </p-selectbutton>
+        </div>
+
         <p-button label="Adicionar" severity="secondary" (click)="add()">
             <i class="pi pi-plus text-2xl"></i>
         </p-button>
@@ -14,17 +23,19 @@
     <app-loader />
     }
     @else {
+
+    @if (selectedLayout() === 'list') {
+
     <p-table
-             #table
-             stripedRows
-             [value]="data()"
-             sortMode="single"
-             [paginator]="true"
-             [rows]="10"
-             size="small"
-             showGridlines
-             [rowsPerPageOptions]="[10, 15, 50, 100]"
-             [globalFilterFields]="['cor', 'descricao']">
+        #table
+        stripedRows
+        [value]="data()"
+        sortMode="single"
+        [paginator]="true"
+        [rows]="10"
+        [rowHover]="true"
+        [rowsPerPageOptions]="[10, 15, 50, 100]"
+        [globalFilterFields]="['descricao']">
 
         <ng-template pTemplate="caption">
 
@@ -46,7 +57,7 @@
 
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="cor">
+                <th pSortableColumn="cor" class="small-column">
                     Cor <p-sortIcon field="cor" />
                 </th>
                 <th pSortableColumn="item.bandeira.codigo">
@@ -64,7 +75,7 @@
                 <th pSortableColumn="diaDeVencimento">
                     Dia de Vencimento <p-sortIcon field="diaDeVencimento" />
                 </th>
-                <th pSortableColumn="ativo">
+                <th pSortableColumn="ativo" class="small-column">
                     Ativo <p-sortIcon field="ativo" />
                 </th>
                 <th class="small-column"></th>
@@ -81,17 +92,17 @@
                 <td class="force-center">
                     <fa-icon [icon]="cartao.bandeira.icon" size="2x" />
                 </td>
-                <td>{{cartao.descricao}}</td>
+                <td>{{ cartao.descricao }}</td>
                 <td class="force-center">
-                    {{cartao.moeda.simbolo }} {{ cartao.limite | number: '1.2-2' : 'pt-BR'}}
+                    {{ cartao.moeda.simbolo }} {{ cartao.limite | number: '1.2-2' : 'pt-BR' }}
                 </td>
                 <td class="force-center">
-                    {{ cartao.diaDeFechamento}}
+                    {{ cartao.diaDeFechamento }}
                 </td>
                 <td class="force-center">
-                    {{cartao.diaDeVencimento}}
+                    {{ cartao.diaDeVencimento }}
                 </td>
-                <td class="force-center">
+                <td class="small-column force-center">
                     @if (cartao.ativo) {
                     <i class="pi pi-check"></i>
                     } @else {
@@ -128,9 +139,101 @@
     </p-table>
     }
 
+    @if (selectedLayout() === 'grid') {
+    <p-dataview
+        [value]="data()"
+        layout="grid"
+        [paginator]="true"
+        filterBy="descricao"
+        [rowsPerPageOptions]="[10, 15, 50, 100]"
+        rows="10">
+
+        <ng-template #header>
+            <div class="flex gap-4 justify-end">
+                <div class="flex items-center">
+                    <button pButton type="button" icon="pi pi-refresh" tooltip="Recarregar" (click)="reload()"> </button>
+                </div>
+                <div class="flex items-center">
+                    <p-iconfield iconPosition="left">
+                        <p-inputicon>
+                            <i class="pi pi-search"></i>
+                        </p-inputicon>
+                        <input pInputText type="text" (input)="search()" [(ngModel)]="searchValue" placeholder="Buscar..." />
+                    </p-iconfield>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template #grid let-items>
+
+            <div class="grid grid-cols-12 gap-20 my-10">
+
+                @for (cartao of items; track cartao.id) {
+
+                <div class="col-span-4 p-2">
+
+                    <div class="p-4 border border-[#e2e8f0] rounded shadow-sm hover:shadow-md transition-shadow" [class.texto-vermelho]="!cartao.ativo">
+
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex items-center gap-3">
+                                <app-color-display [color]="cartao.cor" />
+                                <span class="font-semibold">{{ cartao.descricao }}</span>
+                            </div>
+                            <div class="flex gap-1">
+                                <p-button icon="pi pi-list" severity="warn" size="small" (click)="showFaturas(cartao)" />
+                                <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(cartao)" />
+                                <p-button icon="pi pi-trash" severity="danger" size="small" (click)="openDialog(cartao)" />
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 mb-2">
+                            <fa-icon [icon]="cartao.bandeira.icon" size="2x" />
+                            <span class="text-sm text-gray-600">{{ cartao.bandeira.descricao }}</span>
+                        </div>
+
+                        <div class="mt-2">
+                            <div class="text-sm">Limite</div>
+                            <div class="text-xl">
+                                {{ cartao.moeda.simbolo }} {{ cartao.limite | number: '1.2-2' : 'pt-BR' }}
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 mt-3">
+                            <div>
+                                <div class="text-xs text-gray-500">Fechamento</div>
+                                <div class="font-semibold">Dia {{ cartao.diaDeFechamento }}</div>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500">Vencimento</div>
+                                <div class="font-semibold">Dia {{ cartao.diaDeVencimento }}</div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end mt-3">
+                            <div>
+                                @if (cartao.ativo) {
+                                <span class="text-green-600"><i class="pi pi-check-circle"></i> Ativo</span>
+                                } @else {
+                                <span class="text-red-600"><i class="pi pi-times-circle"></i> Inativo</span>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                } @empty {
+                <div class="col-span-12 text-center py-8">Nenhum registro encontrado</div>
+                }
+            </div>
+        </ng-template>
+    </p-dataview>
+    }
+    }
+
 </div>
 
-<p-dialog header="Remover Contas Bancárias" [modal]="true" position="top" [(visible)]="showDialog" [style]="{ width: '50rem' }">
+<p-dialog header="Remover Cartão de Crédito" [modal]="true" position="top" [(visible)]="showDialog" [style]="{ width: '50rem' }">
     Tem certeza que deseja remover <b>{{ cartaoCredito?.descricao }}</b> ?
 
     <ng-template pTemplate="footer">

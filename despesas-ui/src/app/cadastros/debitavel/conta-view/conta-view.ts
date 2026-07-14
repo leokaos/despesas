@@ -14,11 +14,15 @@ import { Loader } from '../../../components/loader/loader';
 import { Router } from '@angular/router';
 import { DecimalPipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
+import { DataViewModule } from 'primeng/dataview';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { DataView } from 'primeng/dataview';
 
 @Component({
   selector: 'app-conta-view',
   imports: [
     ButtonModule,
+    DataViewModule,
     TableModule,
     IconFieldModule,
     FormsModule,
@@ -30,13 +34,18 @@ import { MessageService } from 'primeng/api';
     ColorDisplay,
     DecimalPipe,
     Loader,
+    SelectButtonModule
   ],
   templateUrl: './conta-view.html',
   styleUrl: './conta-view.scss',
 })
 export class ContaView implements OnInit {
+
   @ViewChild('table')
   private table?: Table;
+
+  @ViewChild(DataView)
+  private dv?: DataView;
 
   loading = signal<boolean>(true);
   data = signal<Conta[]>([]);
@@ -47,6 +56,13 @@ export class ContaView implements OnInit {
   private contaService = inject(ContaService);
   private router = inject(Router);
   private messageService = inject(MessageService);
+
+  layoutOptions = [
+    { label: 'List', icon: 'pi pi-bars', value: 'list' },
+    { label: 'Grid', icon: 'pi pi-th-large', value: 'grid' },
+  ];
+
+  selectedLayout = signal<string>('grid');
 
   constructor() { }
 
@@ -75,7 +91,13 @@ export class ContaView implements OnInit {
   }
 
   search() {
-    this.table?.filterGlobal(this.searchValue, 'contains');
+    if (this.table) {
+      this.table.filterGlobal(this.searchValue, 'contains');
+    }
+
+    if (this.dv) {
+      this.dv.filter(this.searchValue!!, 'contains');
+    }
   }
 
   openDialog(conta: Conta) {
