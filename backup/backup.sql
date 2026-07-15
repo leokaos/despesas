@@ -465,7 +465,7 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-44207.68	3
+44113.72	3
 37310.98	5
 725.66	4
 \.
@@ -7308,7 +7308,6 @@ t	7267	4	\N
 t	7268	301	\N
 t	7269	301	\N
 t	7270	102	\N
-t	7272	102	\N
 t	7273	107	\N
 t	7274	107	\N
 t	7275	102	\N
@@ -7316,6 +7315,15 @@ t	7276	301	\N
 t	7277	102	\N
 t	7278	102	\N
 t	7279	2	\N
+t	7280	102	\N
+t	7281	102	\N
+t	7282	102	\N
+t	7283	102	\N
+t	7284	107	\N
+t	7285	102	\N
+t	7287	102	\N
+t	7288	102	\N
+t	7289	102	\N
 \.
 
 
@@ -14543,7 +14551,6 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7268	Continente	2026-07-09	3.13	2026-07-09	3	EURO
 7269	Continente	2026-07-09	0.10	2026-07-09	3	EURO
 7270	Glovo	2026-07-09	10.20	2026-07-09	3	EURO
-7272	Almoço	2026-07-10	17.10	2026-07-10	3	EURO
 7273	Uber	2026-07-10	3.93	2026-07-09	3	EURO
 7274	Uber	2026-07-10	4.94	2026-07-09	3	EURO
 7275	Pizza hut	2026-07-10	8.75	2026-07-09	3	EURO
@@ -14551,6 +14558,15 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7277	ARCADIA NOVA ARCADA	2026-07-11	3.85	2026-07-11	3	EURO
 7278	ARCADIA NOVA ARCADA	2026-07-11	4.80	2026-07-11	3	EURO
 7279	HOSPITAL DIA BRAGA	2026-07-11	6.62	2026-07-11	3	EURO
+7280	Glovo	2026-07-14	9.90	2026-07-14	3	EURO
+7281	NORMALAS BRAGA NOVA ARC	2026-07-14	5.50	2026-07-11	3	EURO
+7282	Glovo	2026-07-14	14.50	2026-07-13	3	EURO
+7283	Glovo	2026-07-14	9.90	2026-07-13	3	EURO
+7284	Gasolina	2026-07-14	30.01	2026-07-13	3	EURO
+7285	BOTECO DO MERCADO	2026-07-14	1.30	2026-07-12	3	EURO
+7287	Pizza Hut	2026-07-14	5.75	2026-07-11	3	EURO
+7288	Almoço	2026-07-14	17.10	2026-07-10	3	EURO
+7289	Braza	2026-07-14	17.10	2026-07-12	3	EURO
 \.
 
 
@@ -15022,7 +15038,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 54, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7279, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7289, true);
 
 
 --
