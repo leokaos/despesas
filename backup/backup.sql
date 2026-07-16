@@ -465,7 +465,7 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-44113.72	3
+44103.82	3
 37310.98	5
 725.66	4
 \.
@@ -7324,6 +7324,7 @@ t	7285	102	\N
 t	7287	102	\N
 t	7288	102	\N
 t	7289	102	\N
+t	7290	102	\N
 \.
 
 
@@ -14567,6 +14568,7 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7287	Pizza Hut	2026-07-14	5.75	2026-07-11	3	EURO
 7288	Almoço	2026-07-14	17.10	2026-07-10	3	EURO
 7289	Braza	2026-07-14	17.10	2026-07-12	3	EURO
+7290	Glovo	2026-07-15	9.90	2026-07-15	3	EURO
 \.
 
 
@@ -15038,7 +15040,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 54, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7289, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7290, true);
 
 
 --
