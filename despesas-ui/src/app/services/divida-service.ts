@@ -1,10 +1,13 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { APP_CONFIG, AppConfig } from '../app-config';
 import { Divida, Moeda } from '../models/debitavel.model';
 import { Transferencia } from '../models/movimentacao.model';
 import { TransferenciaService } from './transferencia-service';
+import { DebitavelFiltro } from './debitavel-service';
+
+export interface DividaFiltro extends DebitavelFiltro { }
 
 @Injectable({
   providedIn: 'root',
@@ -14,9 +17,20 @@ export class DividaService {
 
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
 
-  fetch(): Observable<Divida[]> {
+  fetch(filtro?: DividaFiltro): Observable<Divida[]> {
+
+    let params = new HttpParams();
+
+    if (filtro?.ativo) {
+      params = params.append("ativo", filtro.ativo);
+    }
+
+    if (filtro?.moeda) {
+      params = params.append("moeda", filtro.moeda.codigo);
+    }
+
     return this.http
-      .get<Divida[]>(`${this.config.apiUrl}/${this.path}`)
+      .get<Divida[]>(`${this.config.apiUrl}/${this.path}`, { params })
       .pipe(map((data) => data.map((divida) => DividaService.toDTO(divida))));
   }
 

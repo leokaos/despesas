@@ -5,8 +5,8 @@ import { APP_CONFIG, AppConfig } from '../app-config';
 import { Debitavel, Moeda } from '../models/debitavel.model';
 
 export interface DebitavelFiltro {
-  ativo: boolean;
-  moeda: Moeda;
+  ativo?: boolean;
+  moeda?: Moeda;
 }
 
 @Injectable({
@@ -17,14 +17,14 @@ export class DebitavelService {
 
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
 
-  fetch(filtro: DebitavelFiltro): Observable<Debitavel[]> {
+  fetch(filtro?: DebitavelFiltro): Observable<Debitavel[]> {
     let params = new HttpParams();
 
-    if (filtro.ativo) {
+    if (filtro?.ativo) {
       params = params.append("ativo", filtro.ativo);
     }
 
-    if (filtro.moeda) {
+    if (filtro?.moeda) {
       params = params.append("moeda", filtro.moeda.codigo);
     }
 

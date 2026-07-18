@@ -1,0 +1,17 @@
+:host ::ng-deep {
+    #table {
+        .p-datatable-header {
+            padding-right: 0px;
+            padding-left: 0px;
+        }
+    }
+}
+
+:host ::ng-deep {
+    #dv {
+        .p-dataview-header {
+            padding-right: 0px;
+            padding-left: 0px;
+        }
+    }
+}

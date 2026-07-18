@@ -1,0 +1,18 @@
+<div class="flex">
+    <div class="flex-1">
+        <p-togglebutton
+            [ngModel]="mostrarApenasAtivos()"
+            (ngModelChange)="changeAtivos($event)"
+            [onLabel]="'Apenas Ativos'"
+            [onIcon]="'pi pi-eye'"
+            [offLabel]="'Apenas Ativos'"
+            [offIcon]="'pi pi-eye-slash'" />
+    </div>
+    <button pButton type="button" icon="pi pi-refresh" tooltip="Recarregar" (click)="reload()" class="mx-2"></button>
+    <p-iconfield iconPosition="left">
+        <p-inputicon>
+            <i class="pi pi-search"></i>
+        </p-inputicon>
+        <input pInputText type="text" (input)="search()" [(ngModel)]="searchValue" placeholder="Buscar..." />
+    </p-iconfield>
+</div>

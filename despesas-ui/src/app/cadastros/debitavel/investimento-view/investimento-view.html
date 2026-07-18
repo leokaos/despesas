@@ -1,143 +1,93 @@
-<span class="page-title">
-    <i class="pi pi-chevron-right"></i> Investimentos
-</span>
+<app-base-debitavel-view
+    titulo="Investimentos"
+    [loading]="loading()"
+    [loadingData]="loadingData()"
+    [data]="data()"
+    [filters]="['descricao']"
+    [descricao]="investimento?.descricao"
+    [columns]="columns"
+    [extraActions]="extraActions"
+    [itemTemplate]="itemTemplate"
+    (onAdd)="add()"
+    (onEdit)="edit($event)"
+    (onRemove)="remove()"
+    (onReload)="reload()"
+    (onChangeAtivos)="onChangeAtivos($event)" />
 
-<div class="form-panel">
+<ng-template #itemTemplate let-investimento>
 
-    <div class="flex justify-end pb-2.5">
-        <p-button label="Adicionar" severity="secondary" (click)="add()">
-            <i class="pi pi-plus text-2xl"></i>
-        </p-button>
-    </div>
+    <div class="col-span-4 p-2">
+        <div class="p-4 border border-[#e2e8f0] rounded shadow-sm hover:shadow-md transition-shadow" [class.texto-vermelho]="!investimento.ativo">
 
-    @if (loading()) {
-    <app-loader />
-    }
-    @else {
-    <p-table
-             #table
-             stripedRows
-             [value]="data()"
-             sortMode="single"
-             [paginator]="true"
-             [rows]="10"
-             size="small"
-             showGridlines
-             [rowsPerPageOptions]="[10, 15, 50, 100]"
-             [globalFilterFields]="['cor', 'descricao']">
-
-        <ng-template pTemplate="caption">
-
-            <div class="flex gap-4 justify-end">
-                <div class="flex items-center">
-                    <button pButton type="button" icon="pi pi-refresh" tooltip="Recarregar" (click)="reload()"> </button>
+            <div class="flex justify-between items-start mb-3">
+                <div class="flex items-center gap-3">
+                    <app-color-display [color]="investimento.cor" />
+                    <span class="font-semibold">{{ investimento.descricao }}</span>
                 </div>
-                <div class="flex items-center">
-                    <p-iconfield iconPosition="left">
-                        <p-inputicon>
-                            <i class="pi pi-search"></i>
-                        </p-inputicon>
-                        <input pInputText type="text" (input)="search()" [(ngModel)]="searchValue" placeholder="Buscar..." />
-                    </p-iconfield>
+                <div class="flex gap-1">
+                    <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(investimento)" />
+                    <p-button icon="pi pi-trash" severity="danger" size="small" (click)="openDialog(investimento)" />
                 </div>
             </div>
 
-        </ng-template>
+            <div class="grid grid-cols-2 gap-2 mt-2">
+                <div>
+                    <div class="text-sm text-gray-500">Montante Aplicado</div>
+                    <div class="text-lg">{{ investimento.moeda.simbolo }} {{ investimento.montante | number: '1.2-2' : 'pt-BR' }}</div>
+                </div>
+                <div>
+                    <div class="text-sm text-gray-500">Rendimento</div>
+                    <div class="text-lg">{{ investimento.rendimento | number: '1.2-2' : 'pt-BR' }}%</div>
+                </div>
+                <div>
+                    <div class="text-sm text-gray-500">Periodicidade</div>
+                    <div class="text-base">{{ investimento.periodicidade }}</div>
+                </div>
+                <div>
+                    <div class="text-sm text-gray-500">Total Rendimento</div>
+                    <div class="text-lg">{{ investimento.moeda.simbolo }} {{ investimento.valorReceitas | number: '1.2-2' : 'pt-BR' }}</div>
+                </div>
+                <div>
+                    <div class="text-sm text-gray-500">Yield</div>
+                    <div class="text-lg">{{ investimento.yield | number: '1.2-2' : 'pt-BR' }}%</div>
+                </div>
+            </div>
 
-        <ng-template pTemplate="header">
-            <tr>
-                <th pSortableColumn="cor">
-                    Cor <p-sortIcon field="cor" />
-                </th>
-                <th pSortableColumn="descricao">
-                    Descrição <p-sortIcon field="descricao" />
-                </th>
-                <th pSortableColumn="montante">
-                    Montante Aplicado <p-sortIcon field="montante" />
-                </th>
-                <th pSortableColumn="rendimento">
-                    Rendimento <p-sortIcon field="rendimento" />
-                </th>
-                <th pSortableColumn="periodicidade">
-                    Periodicidade <p-sortIcon field="periodicidade" />
-                </th>
-                <th pSortableColumn="valorReceitas">
-                    Total Rendimento <p-sortIcon field="valorReceitas" />
-                </th>
-                <th pSortableColumn="yield">
-                    Yield <p-sortIcon field="yield" />
-                </th>
-                <th pSortableColumn="ativo">
-                    Ativo <p-sortIcon field="ativo" />
-                </th>
-                <th class="small-column"></th>
-                <th class="small-column"></th>
-            </tr>
-        </ng-template>
+            <div class="flex justify-end mt-3">
+                @if (investimento.ativo) {
+                <span class="text-green-600"><i class="pi pi-check-circle"></i> Ativo</span>
+                } @else {
+                <span class="text-red-600"><i class="pi pi-times-circle"></i> Inativo</span>
+                }
+            </div>
+        </div>
+    </div>
+</ng-template>
 
-        <ng-template pTemplate="body" let-investimento>
-            <tr [class.texto-vermelho]="!investimento.ativo">
-                <td class="small-column">
-                    <app-color-display [color]="investimento.cor" />
-                </td>
-                <td>{{investimento.descricao}}</td>
-                <td class="force-center">
-                    {{investimento.moeda.simbolo }} {{ investimento.montante | number: '1.2-2' : 'pt-BR'}}
-                </td>
-                <td class="force-center">
-                    {{ investimento.rendimento | number: '1.2-2' : 'pt-BR'}}%
-                </td>
-                <td class="force-center">
-                    {{investimento.periodicidade}}
-                </td>
-                <td class="force-center">
-                    {{investimento.moeda.simbolo }} {{ investimento.valorReceitas | number: '1.2-2' : 'pt-BR'}}
-                </td>
-                <td class="force-center">
-                    {{investimento.yield | number: '1.2-2' : 'pt-BR'}}%
-                </td>
-                <td class="force-center">
-                    @if (investimento.ativo) {
-                    <i class="pi pi-check"></i>
-                    } @else {
-                    <i class="pi pi-times"></i>
-                    }
-                </td>
-                <td class="small-column">
-                    <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(investimento)" />
-                </td>
-                <td class="small-column">
-                    <p-button icon="pi pi-trash" severity="danger" (click)="openDialog(investimento)" size="small" />
-                </td>
-            </tr>
-        </ng-template>
+<ng-template #colorTemplate let-investimento>
+    <app-color-display [color]="investimento.cor" />
+</ng-template>
 
-        <ng-template #emptymessage>
-            <tr>
-                <td colspan="10" class="text-center">
-                    <div class="flex flex-col items-center justify-center py-12 px-4">
-                        <div class="bg-gray-100 rounded-full p-4 mb-4">
-                            <i class="pi pi-database text-3xl text-gray-500"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-700 mb-2">
-                            Nenhum registro encontrado
-                        </h3>
-                    </div>
-                </td>
-            </tr>
-        </ng-template>
+<ng-template #montanteTemplate let-investimento>
+    {{ investimento.moeda.simbolo }} {{ investimento.montante | number: '1.2-2' : 'pt-BR' }}
+</ng-template>
 
-    </p-table>
+<ng-template #rendimentoTemplate let-investimento>
+    {{ investimento.rendimento | number: '1.2-2' : 'pt-BR' }}%
+</ng-template>
+
+<ng-template #valorReceitasTemplate let-investimento>
+    {{ investimento.moeda.simbolo }} {{ investimento.valorReceitas | number: '1.2-2' : 'pt-BR' }}
+</ng-template>
+
+<ng-template #yieldTemplate let-investimento>
+    {{ investimento.yield | number: '1.2-2' : 'pt-BR' }}%
+</ng-template>
+
+<ng-template #ativoTemplate let-investimento>
+    @if (investimento.ativo) {
+    <i class="pi pi-check"></i>
+    } @else {
+    <i class="pi pi-times"></i>
     }
-
-</div>
-
-<p-dialog header="Remover Contas Bancárias" [modal]="true" position="top" [(visible)]="showDialog" [style]="{ width: '50rem' }">
-    Tem certeza que deseja remover <b>{{ investimento?.descricao }}</b> ?
-
-    <ng-template pTemplate="footer">
-        <p-button label="Cancel" [raised]="true" severity="secondary" (click)="showDialog = false" />
-        <p-button label="Save" [raised]="true" severity="success" (click)="remover()" />
-    </ng-template>
-
-</p-dialog>
+</ng-template>

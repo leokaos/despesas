@@ -1,80 +1,67 @@
-import { ContaService } from './../../../services/conta-service';
-import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ContaFiltro, ContaService } from './../../../services/conta-service';
+import { Component, inject, OnInit, signal, TemplateRef, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { ColorPickerModule } from 'primeng/colorpicker';
-import { DialogModule } from 'primeng/dialog';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputTextModule } from 'primeng/inputtext';
-import { Table, TableModule } from 'primeng/table';
 import { Conta } from '../../../models/debitavel.model';
 import { ColorDisplay } from '../../../components/color-display/color-display';
-import { Loader } from '../../../components/loader/loader';
 import { Router } from '@angular/router';
 import { DecimalPipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
-import { DataViewModule } from 'primeng/dataview';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { DataView } from 'primeng/dataview';
+import { BaseDebitavelView, ColumnConfig } from '../../../components/base-debitavel-view/base-debitavel-view';
 
 @Component({
   selector: 'app-conta-view',
-  imports: [
-    ButtonModule,
-    DataViewModule,
-    TableModule,
-    IconFieldModule,
-    FormsModule,
-    DialogModule,
-    InputIconModule,
-    ReactiveFormsModule,
-    ColorPickerModule,
-    InputTextModule,
-    ColorDisplay,
-    DecimalPipe,
-    Loader,
-    SelectButtonModule
-  ],
+  imports: [BaseDebitavelView, ColorDisplay, ButtonModule, DecimalPipe],
   templateUrl: './conta-view.html',
   styleUrl: './conta-view.scss',
 })
 export class ContaView implements OnInit {
 
-  @ViewChild('table')
-  private table?: Table;
-
-  @ViewChild(DataView)
-  private dv?: DataView;
-
   loading = signal<boolean>(true);
+  loadingData = signal<boolean>(false);
   data = signal<Conta[]>([]);
-  searchValue?: string;
-  showDialog: boolean = false;
+  showApenasAtivos = signal<boolean>(true);
   conta?: Conta;
+
+  @ViewChild(BaseDebitavelView) baseView!: BaseDebitavelView;
+
+  @ViewChild('colorTemplate', { static: true }) colorTemplate!: TemplateRef<any>;
+  @ViewChild('saldoTemplate', { static: true }) saldoTemplate!: TemplateRef<any>;
+  @ViewChild('ativoTemplate', { static: true }) ativoTemplate!: TemplateRef<any>;
 
   private contaService = inject(ContaService);
   private router = inject(Router);
   private messageService = inject(MessageService);
 
-  layoutOptions = [
-    { label: 'List', icon: 'pi pi-bars', value: 'list' },
-    { label: 'Grid', icon: 'pi pi-th-large', value: 'grid' },
-  ];
-
-  selectedLayout = signal<string>('grid');
+  columns: ColumnConfig[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
+
+    this.columns = [
+      { name: 'Cor', field: 'cor', small: true, template: this.colorTemplate },
+      { name: 'Descrição', field: 'descricao' },
+      { name: 'Saldo', field: 'saldo', template: this.saldoTemplate },
+      { name: 'Ativo', field: 'ativo', center: true, template: this.ativoTemplate }
+    ];
+
     this.loadData();
   }
 
   loadData() {
-    this.contaService.fetch().subscribe((data: Conta[]) => {
+
+    let filtro = {} as ContaFiltro;
+
+    if (this.showApenasAtivos()) {
+      filtro.ativo = true;
+    }
+
+    this.contaService.fetch(filtro).subscribe((data: Conta[]) => {
       this.data.update(_ => [...data]);
       this.loading.set(false);
+      this.loadingData.set(false);
     });
+
   }
 
   reload() {
@@ -86,34 +73,30 @@ export class ContaView implements OnInit {
     this.router.navigate(['conta']);
   }
 
-  edit(conta: Conta) {
-    this.router.navigate(['conta', conta.id]);
+  edit(id: number) {
+    this.router.navigate(['conta', id]);
   }
 
-  search() {
-    if (this.table) {
-      this.table.filterGlobal(this.searchValue, 'contains');
-    }
-
-    if (this.dv) {
-      this.dv.filter(this.searchValue!!, 'contains');
-    }
-  }
-
-  openDialog(conta: Conta) {
-    this.showDialog = true;
-    this.conta = conta;
-  }
-
-  remover() {
+  remove() {
     if (this.conta) {
-      // prettier-ignore
       this.contaService.remove(this.conta).subscribe(() => {
         this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Conta removida com sucesso!', life: 3000 });
         this.loadData();
       });
     }
 
-    this.showDialog = false;
+    this.baseView.showDialog.set(false);
   }
+
+  openDialog(conta: any) {
+    this.conta = conta;
+    this.baseView.showDialog.set(true)
+  }
+
+  onChangeAtivos(ativos: boolean) {
+    this.loadingData.set(true);
+    this.showApenasAtivos.set(ativos);
+    this.loadData();
+  }
+
 }

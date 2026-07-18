@@ -1,131 +1,86 @@
-<span class="page-title">
-    <i class="pi pi-chevron-right"></i> Dívidas
-</span>
+<app-base-debitavel-view
+    titulo="Dívidas"
+    [loading]="loading()"
+    [loadingData]="loadingData()"
+    [data]="data()"
+    [filters]="['descricao']"
+    [descricao]="divida?.descricao"
+    [columns]="columns"
+    [extraActions]="extraActions"
+    [itemTemplate]="itemTemplate"
+    (onAdd)="add()"
+    (onEdit)="edit($event)"
+    (onRemove)="remove()"
+    (onReload)="reload()"
+    (onChangeAtivos)="onChangeAtivos($event)" />
 
-<div class="form-panel">
+<ng-template #itemTemplate let-divida>
 
-    <div class="flex justify-end pb-2.5">
-        <p-button label="Adicionar" severity="secondary" (click)="add()">
-            <i class="pi pi-plus text-2xl"></i>
-        </p-button>
-    </div>
+    <div class="col-span-4 p-2">
+        <div class="p-4 border border-[#e2e8f0] rounded shadow-sm hover:shadow-md transition-shadow" [class.texto-vermelho]="!divida.ativo">
 
-    @if (loading()) {
-    <app-loader />
-    }
-    @else {
-    <p-table
-             #table
-             [value]="data()"
-             sortMode="single"
-             [paginator]="true"
-             [rows]="10"
-             size="small"
-             stripedRows
-             showGridlines
-             [rowsPerPageOptions]="[10, 15, 50, 100]"
-             [globalFilterFields]="['cor', 'descricao', 'valorTotal', 'dataInicio', 'periodicidade', 'valorRestante']">
-
-        <ng-template pTemplate="caption">
-            <div class="flex gap-4 justify-end">
-                <div class="flex items-center">
-                    <button pButton type="button" icon="pi pi-refresh" tooltip="Recarregar" (click)="reload()"> </button>
+            <div class="flex justify-between items-start mb-3">
+                <div class="flex items-center gap-3">
+                    <app-color-display [color]="divida.cor" />
+                    <span class="font-semibold">{{ divida.descricao }}</span>
                 </div>
-                <div class="flex items-center">
-                    <p-iconfield iconPosition="left">
-                        <p-inputicon>
-                            <i class="pi pi-search"></i>
-                        </p-inputicon>
-                        <input pInputText type="text" (input)="search()" [(ngModel)]="searchValue" placeholder="Buscar..." />
-                    </p-iconfield>
+                <div class="flex gap-1">
+                    <p-button icon="pi pi-list" severity="warn" size="small" (click)="showAportes(divida)" />
+                    <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(divida)" />
+                    <p-button icon="pi pi-trash" severity="danger" size="small" (click)="openDialog(divida)" />
                 </div>
             </div>
-        </ng-template>
 
-        <ng-template pTemplate="header">
-            <tr>
-                <th pSortableColumn="cor" class="small-column">
-                    Cor <p-sortIcon field="cor" />
-                </th>
-                <th pSortableColumn="descricao">
-                    Descrição <p-sortIcon field="descricao" />
-                </th>
-                <th pSortableColumn="valorTotal">
-                    Valor Total <p-sortIcon field="valorTotal" />
-                </th>
-                <th pSortableColumn="dataInicio">
-                    Data Início <p-sortIcon field="dataInicio" />
-                </th>
-                <th pSortableColumn="periodicidade">
-                    Periodicidade <p-sortIcon field="periodicidade" />
-                </th>
-                <th pSortableColumn="valorRestante">
-                    Restante <p-sortIcon field="valorRestante" />
-                </th>
-                <th pSortableColumn="ativo">
-                    Ativo <p-sortIcon field="ativo" />
-                </th>
-                <th class="small-column"></th>
-                <th class="small-column"></th>
-                <th class="small-column"></th>
-            </tr>
-        </ng-template>
+            <div class="grid grid-cols-2 gap-2 mt-2">
+                <div>
+                    <div class="text-sm text-gray-500">Valor Total</div>
+                    <div class="text-lg">{{ divida.moeda.simbolo }} {{ divida.valorTotal | number: '1.2-2' : 'pt-BR' }}</div>
+                </div>
+                <div>
+                    <div class="text-sm text-gray-500">Restante</div>
+                    <div class="text-lg">{{ divida.moeda.simbolo }} {{ divida.valorRestante | number: '1.2-2' : 'pt-BR' }}</div>
+                </div>
+                <div>
+                    <div class="text-sm text-gray-500">Data Início</div>
+                    <div class="text-base">{{ divida.dataInicio | date:'dd/MM/yyyy' }}</div>
+                </div>
+                <div>
+                    <div class="text-sm text-gray-500">Periodicidade</div>
+                    <div class="text-base">{{ divida.periodicidade }}</div>
+                </div>
+            </div>
 
-        <ng-template pTemplate="body" let-divida>
-            <tr [class.texto-vermelho]="!divida.ativo">
-                <td class="small-column">
-                    <app-color-display [color]="divida.cor" />
-                </td>
-                <td>{{divida.descricao}}</td>
-                <td>{{divida.moeda.simbolo }} {{ divida.valorTotal | number: '1.2-2' : 'pt-BR'}}</td>
-                <td>{{divida.dataInicio | date:'dd/MM/yyyy'}}</td>
-                <td>{{divida.periodicidade}}</td>
-                <td>{{divida.moeda.simbolo }} {{ divida.valorRestante | number: '1.2-2' : 'pt-BR'}}</td>
-                <td class="force-center">
-                    @if (divida.ativo) {
-                    <i class="pi pi-check"></i>
-                    } @else {
-                    <i class="pi pi-times"></i>
-                    }
-                </td>
-                <td class="small-column">
-                    <p-button icon="pi pi-list" severity="warn" size="small" (click)="showAportes(divida)" />
-                </td>
-                <td class="small-column">
-                    <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(divida)" />
-                </td>
-                <td class="small-column">
-                    <p-button icon="pi pi-trash" severity="danger" (click)="openDialog(divida)" size="small" />
-                </td>
-            </tr>
-        </ng-template>
+            <div class="flex justify-end mt-3">
+                @if (divida.ativo) {
+                <span class="text-green-600"><i class="pi pi-check-circle"></i> Ativo</span>
+                } @else {
+                <span class="text-red-600"><i class="pi pi-times-circle"></i> Inativo</span>
+                }
+            </div>
+        </div>
+    </div>
+</ng-template>
 
-        <ng-template #emptymessage>
-            <tr>
-                <td colspan="10" class="text-center">
-                    <div class="flex flex-col items-center justify-center py-12 px-4">
-                        <div class="bg-gray-100 rounded-full p-4 mb-4">
-                            <i class="pi pi-database text-3xl text-gray-500"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-700 mb-2">
-                            Nenhum registro encontrado
-                        </h3>
-                    </div>
-                </td>
-            </tr>
-        </ng-template>
+<ng-template #colorTemplate let-divida>
+    <app-color-display [color]="divida.cor" />
+</ng-template>
 
-    </p-table>
+<ng-template #valorTotalTemplate let-divida>
+    {{ divida.moeda.simbolo }} {{ divida.valorTotal | number: '1.2-2' : 'pt-BR' }}
+</ng-template>
+
+<ng-template #dataInicioTemplate let-divida>
+    {{ divida.dataInicio | date:'dd/MM/yyyy' }}
+</ng-template>
+
+<ng-template #valorRestanteTemplate let-divida>
+    {{ divida.moeda.simbolo }} {{ divida.valorRestante | number: '1.2-2' : 'pt-BR' }}
+</ng-template>
+
+<ng-template #ativoTemplate let-divida>
+    @if (divida.ativo) {
+    <i class="pi pi-check"></i>
+    } @else {
+    <i class="pi pi-times"></i>
     }
-
-</div>
-
-<p-dialog header="Remover Contas Bancárias" [modal]="true" position="top" [(visible)]="showDialog" [style]="{ width: '50rem' }">
-    Tem certeza que deseja remover <b>{{ divida?.descricao }}</b> ?
-
-    <ng-template pTemplate="footer">
-        <p-button label="Cancel" [raised]="true" severity="secondary" (click)="showDialog = false" />
-        <p-button label="Save" [raised]="true" severity="success" (click)="remover()" />
-    </ng-template>
-
-</p-dialog>
+</ng-template>

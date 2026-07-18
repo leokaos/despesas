@@ -1,0 +1,153 @@
+<span class="page-title">
+    <i class="pi pi-chevron-right"></i> {{ titulo() }}
+</span>
+
+<div class="form-panel">
+
+    <div class="flex pb-2.5">
+
+        <div class="flex flex-1 justify-center">
+            <p-selectbutton [(ngModel)]="selectedLayout" [options]="layoutOptions" [allowEmpty]="false">
+                <ng-template #item let-item>
+                    <i class="pi {{ item.icon }}"></i>
+                </ng-template>
+            </p-selectbutton>
+        </div>
+
+        <p-button label="Adicionar" severity="secondary" (click)="add()">
+            <i class="pi pi-plus text-2xl"></i>
+        </p-button>
+    </div>
+
+    @if (loading()) {
+    <app-loader />
+    }
+    @else {
+
+    @if (selectedLayout() === 'list') {
+
+    <p-table
+        #table
+        id="table"
+        [value]="data()"
+        sortMode="single"
+        [paginator]="true"
+        [rows]="10"
+        stripedRows
+        [rowsPerPageOptions]="[10, 15, 50, 100]"
+        [globalFilterFields]="filters()"
+        [loading]="loadingData()">
+
+        <ng-template pTemplate="caption">
+            <app-debitavel-header (onSearchValueChanged)="search($event)" (onReloadClicked)="reload()" (onApenasAtivosChanged)="onChangeAtivos.emit($event)" />
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                @for (col of columns(); track col.field) {
+                <th [pSortableColumn]="col.field" [class.small-column]="col.small" [class.force-center]="col.center">
+                    {{ col.name }} <p-sortIcon [field]="col.field" />
+                </th>
+                }
+                @for (action of extraActions(); track action) {
+                <th class="small-column"></th>
+                }
+                <th class="small-column"></th>
+                <th class="small-column"></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-item>
+            <tr [class.texto-vermelho]="!item.ativo">
+
+                @for (col of columns(); track col.field) {
+                <td [class.small-column]="col.small" [class.force-center]="col.center">
+                    @if(col.template){
+                    <ng-container *ngTemplateOutlet="col.template; context: { $implicit: item }"></ng-container>
+                    } @else{
+                    {{item[col.field]}}
+                    }
+                </td>
+                }
+
+                @for (action of extraActions(); track action.icon) {
+                <td class="small-column">
+                    <p-button
+                        [icon]="action.icon"
+                        [severity]="action.severity || 'primary'"
+                        size="small"
+                        (click)="action.action(item)" />
+                </td>
+                }
+
+                <td class="small-column">
+                    <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(item.id)" />
+                </td>
+                <td class="small-column">
+                    <p-button icon="pi pi-trash" severity="danger" size="small" (click)="this.showDialog.set(true)" />
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template #emptymessage>
+            <tr>
+                <td [attr.colspan]="columns().length + 2" class="text-center">
+                    <div class="flex flex-col items-center justify-center py-12 px-4">
+                        <div class="bg-gray-100 rounded-full p-4 mb-4">
+                            <i class="pi pi-database text-3xl text-gray-500"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-2">
+                            Nenhum registro encontrado
+                        </h3>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+
+    }
+
+    @if (selectedLayout() === 'grid') {
+    <p-dataview
+        #dv
+        id="dv"
+        [value]="data()"
+        layout="grid"
+        [paginator]="true"
+        [filterBy]="filters().join(',')"
+        [rowsPerPageOptions]="[10, 15, 50, 100]"
+        rows="10"
+        [loading]="loadingData()">
+
+        <ng-template #header>
+            <app-debitavel-header (onSearchValueChanged)="search($event)" (onReloadClicked)="reload()" (onApenasAtivosChanged)="onChangeAtivos.emit($event)" />
+        </ng-template>
+
+        <ng-template #grid let-items>
+
+            <div class="grid grid-cols-12 gap-20 my-10">
+                @for (item of items; track item.id) {
+                <ng-container *ngTemplateOutlet="itemTemplate(); context: { $implicit: item }"></ng-container>
+                }
+
+            </div>
+
+        </ng-template>
+
+    </p-dataview>
+    }
+
+    }
+
+</div>
+
+<p-dialog [header]="`Remover ${titulo()}`" [modal]="true" position="top" [(visible)]="showDialog" [style]="{ width: '50rem' }">
+    Tem certeza que deseja remover <b>{{ descricao() }}</b> ?
+
+    <ng-template pTemplate="footer">
+        <p-button label="Cancel" [raised]="true" severity="secondary" (click)="showDialog.set(false)" />
+        <p-button label="Save" [raised]="true" severity="success" (click)="remove()" />
+    </ng-template>
+
+</p-dialog>
