@@ -1,5 +1,5 @@
 {
-  "apiUrl": "https://despesas.leoapps.duckdns.org/services",
-  "wsUrl": "wss://despesas.leoapps.duckdns.org/socket",
-  "version": "0.35"
+  "apiUrl": "${despesas.api.url}",
+  "wsUrl": "${despesas.ws.url}",
+  "version": "${project.version}"
 }
