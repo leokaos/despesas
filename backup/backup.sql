@@ -457,6 +457,7 @@ ALTER TABLE public.flyway_schema_history OWNER TO despesas;
 
 COPY despesas_db.cartao (bandeiracartaocredito, diadefechamento, diadevencimento, limite, id, limite_atual) FROM stdin;
 VISA	28	11	17300.00	6	\N
+VISA	28	12	3500.00	23	\N
 \.
 
 
@@ -465,9 +466,9 @@ VISA	28	11	17300.00	6	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-43916.76	3
+0.00	4
+44601.41	3
 37310.98	5
-725.66	4
 \.
 
 
@@ -512,7 +513,6 @@ COPY despesas_db.cotacao (id, origem, destino, taxa, data) FROM stdin;
 
 COPY despesas_db.debitavel (id, cor, descricao, tipo, moeda, ativo) FROM stdin;
 3	#ab1fc2	Millenium	CONTA	EURO	t
-4	#709982	N26	CONTA	EURO	t
 5	#ffb800	Itáu	CONTA	REAL	t
 6	#0047ff	Porto Seguro	CARTAO	REAL	t
 7	#e36017	Financiamento Imobiliario Itau	DIVIDA	REAL	f
@@ -520,6 +520,8 @@ COPY despesas_db.debitavel (id, cor, descricao, tipo, moeda, ativo) FROM stdin;
 19	#fff700	IVA 4 Trimestre 2025	DIVIDA	EURO	f
 20	#e8d846	IVA 1 Trimestre 2026	DIVIDA	EURO	f
 22	#c7bc24	IVA 2 TRIMESTRE 2026	DIVIDA	EURO	t
+23	#cfb12d	Gold Prestige	CARTAO	EURO	t
+4	#709982	N26	CONTA	EURO	f
 \.
 
 
@@ -7327,6 +7329,8 @@ t	7289	102	\N
 t	7290	102	\N
 t	7291	102	\N
 t	7292	4	\N
+t	7293	102	\N
+t	7294	107	\N
 \.
 
 
@@ -14573,6 +14577,9 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7290	Glovo	2026-07-15	9.90	2026-07-15	3	EURO
 7291	Glovo	2026-07-16	9.90	2026-07-16	3	EURO
 7292	Planicare	2026-07-16	177.16	2026-07-16	3	EURO
+7293	Glovo	2026-07-17	9.90	2026-07-17	3	EURO
+7294	Sixt	2026-07-17	31.11	2026-07-10	4	EURO
+7295	Fechamento de Conta N26	\N	694.55	2026-07-16	4	EURO
 \.
 
 
@@ -14963,6 +14970,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 7225	4	300.00
 7254	6	242.80
 7271	4	500.00
+7295	3	694.55
 \.
 
 
@@ -15009,7 +15017,7 @@ SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 27, true);
 -- Name: debitavel_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 22, true);
+SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 23, true);
 
 
 --
@@ -15044,7 +15052,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 54, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7292, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7295, true);
 
 
 --
