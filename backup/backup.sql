@@ -467,7 +467,7 @@ VISA	28	12	3500.00	23	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 0.00	4
-44601.41	3
+44320.18	3
 37310.98	5
 \.
 
@@ -7331,6 +7331,13 @@ t	7291	102	\N
 t	7292	4	\N
 t	7293	102	\N
 t	7294	107	\N
+t	7296	102	\N
+t	7297	102	\N
+t	7298	107	\N
+t	7299	301	\N
+t	7300	102	\N
+t	7301	102	\N
+t	7302	107	\N
 \.
 
 
@@ -14580,6 +14587,13 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7293	Glovo	2026-07-17	9.90	2026-07-17	3	EURO
 7294	Sixt	2026-07-17	31.11	2026-07-10	4	EURO
 7295	Fechamento de Conta N26	\N	694.55	2026-07-16	4	EURO
+7296	GLOVO PORTUGAL LISBOA	2026-07-18	9.90	2026-07-18	3	EURO
+7297	TRF P/ MARMITANDO UNIPESSOAL LDA	2026-07-18	200.00	2026-07-18	3	EURO
+7298	UBER RIDES PORTUGAL	2026-07-18	4.95	2026-07-18	3	EURO
+7299	CONTINENTE BRAGA BRAGA	2026-07-18	52.77	2026-07-18	3	EURO
+7300	ARCADIA NOVA ARCADA	2026-07-18	3.85	2026-07-18	3	EURO
+7301	ARCADIA NOVA ARCADA	2026-07-18	4.80	2026-07-18	3	EURO
+7302	UBER RIDES PORTUGAL	2026-07-18	4.96	2026-07-18	3	EURO
 \.
 
 
@@ -15017,7 +15031,7 @@ SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 27, true);
 -- Name: debitavel_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 23, true);
+SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 24, true);
 
 
 --
@@ -15052,7 +15066,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 54, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7295, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7302, true);
 
 
 --
