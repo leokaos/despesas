@@ -8,9 +8,16 @@ export class QueryUtil {
         ["startOfYear", QueryUtil.startOfYear],
         ["endOfMonth", QueryUtil.endOfMonth],
         ["endOfYear", QueryUtil.endOfYear],
+        ["today", QueryUtil.today],
     ]);
 
     constructor() { }
+
+    private static today(expression: string): string {
+        let date = new Date();
+        date.setUTCHours(0, 0, 0, 0);
+        return QueryUtil.decorateWithExpressions(expression, date);
+    }
 
     private static now(expression: string): string {
         return QueryUtil.decorateWithExpressions(expression, new Date());

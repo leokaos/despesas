@@ -11,12 +11,31 @@ import org.leo.despesas.dominio.meta.MetaFiltro;
 import org.leo.despesas.dominio.movimentacao.Movimentacao;
 import org.leo.despesas.infra.AbstractFacade;
 import org.leo.despesas.infra.Periodo;
+import org.leo.despesas.infra.exception.AlreadyExistentEntityException;
+import org.leo.despesas.infra.exception.DespesasException;
+import org.leo.despesas.infra.exception.ValidationEntityException;
 
 @Stateless
 public class MetaFacadeImpl extends AbstractFacade<Meta, MetaFiltro> implements MetaFacade {
 
 	@Inject
 	private MovimentacaoFacade movimentacaoFacade;
+
+	@Override
+	protected void preInserir(Meta t) throws DespesasException {
+
+		if (t.getMes().isNoPassado()) {
+			throw new ValidationEntityException("Meta está no passado!");
+		}
+
+		MetaFiltro filtro = new MetaFiltro();
+		filtro.setAno(t.getMes().getAno());
+		filtro.setMes(t.getMes().getMes());
+
+		if (this.listar(filtro).size() > 0) {
+			throw new AlreadyExistentEntityException("Meta já existe para esse mês!");
+		}
+	}
 
 	@Override
 	public List<Meta> listar(MetaFiltro filtro) {

@@ -41,6 +41,16 @@ public class Mes {
 		this.ano = calendar.get(Calendar.YEAR);
 	}
 
+	public boolean isNoPassado() {
+
+		Calendar calendar = Calendar.getInstance();
+
+		int anoAtual = calendar.get(Calendar.YEAR);
+		int mesAtual = calendar.get(Calendar.MONTH) + 1;
+
+		return this.ano < anoAtual || (this.ano == anoAtual && this.mes < mesAtual);
+	}
+
 	public String getFormatedString() {
 		return new StringBuilder().append(mes).append("/").append(ano).toString();
 	}

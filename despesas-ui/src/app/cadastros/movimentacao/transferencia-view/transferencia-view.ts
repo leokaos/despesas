@@ -21,6 +21,8 @@ import { DatePipe, DecimalPipe } from '@angular/common';
 import { ColorDisplay } from '../../../components/color-display/color-display';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FloatLabelModule } from "primeng/floatlabel";
+import { SumPipe } from '../../../pipes/sum-pipe';
+import { AvgPipe } from '../../../pipes/avg-pipe';
 
 @Component({
   selector: 'app-transferencia-view',
@@ -40,6 +42,8 @@ import { FloatLabelModule } from "primeng/floatlabel";
     InputNumberModule,
     DatePipe,
     FloatLabelModule,
+    SumPipe,
+    AvgPipe
   ],
   templateUrl: './transferencia-view.html',
   styleUrl: './transferencia-view.scss',
@@ -50,6 +54,7 @@ export class TransferenciaView implements OnInit {
 
   loading = signal<boolean>(true);
   data = signal<Transferencia[]>([]);
+  selectedData: Transferencia[] = [];
   searchValue?: string;
   showDialog: boolean = false;
   transferencia?: Transferencia;
@@ -98,6 +103,8 @@ export class TransferenciaView implements OnInit {
   reset() {
     this.dataInicial = DateUtil.getCurrentDataInicial();
     this.dataFinal = DateUtil.getCurrentDataFinal();
+
+    this.searchValue = '';
 
     this.reload();
   }

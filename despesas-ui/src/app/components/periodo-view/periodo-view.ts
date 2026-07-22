@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { Component, forwardRef } from '@angular/core';
 import {
   ControlValueAccessor,
   FormsModule,
@@ -39,10 +39,10 @@ export class PeriodoView implements ControlValueAccessor {
   ano?: number;
   disabled: boolean = false;
 
-  private onChange: (value: any) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: any) => void = () => { };
+  private onTouched: () => void = () => { };
 
-  constructor() {}
+  constructor() { }
 
   onYearInput(event: Event): void {
     const value = (event.target as HTMLInputElement).value;

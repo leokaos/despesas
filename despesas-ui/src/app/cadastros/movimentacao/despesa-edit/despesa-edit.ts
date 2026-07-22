@@ -76,10 +76,9 @@ export class DespesaEdit implements OnInit {
 
   ngOnInit(): void {
     var id = this.activatedRoute.snapshot.paramMap.get('id');
-    var filtro = { ativo: true } as DebitavelFiltro;
 
     var requests: any = {
-      debitaveis: this.debitavelService.fetch(filtro),
+      debitaveis: this.debitavelService.fetch(),
       tipos: this.tipoDespesaService.fetch(),
     };
 

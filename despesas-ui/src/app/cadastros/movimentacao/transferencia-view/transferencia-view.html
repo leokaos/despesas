@@ -58,16 +58,19 @@
     }
     @else {
     <p-table
-             #table
-             stripedRows
-             [value]="data()"
-             sortMode="single"
-             [paginator]="true"
-             [rows]="10"
-             size="small"
-             showGridlines
-             [rowsPerPageOptions]="[10, 15, 50, 100]"
-             [globalFilterFields]="['descricao', 'valor', 'valorReal', 'vencimento', 'debitavel.descricao', 'creditavel.descricao']">
+        #table
+        stripedRows
+        [value]="data()"
+        sortMode="single"
+        [paginator]="true"
+        [rows]="10"
+        size="small"
+        showGridlines
+        selectionMode="multiple"
+        [(selection)]="selectedData"
+        dataKey="id"
+        [rowsPerPageOptions]="[10, 15, 50, 100]"
+        [globalFilterFields]="['descricao', 'valor', 'valorReal', 'vencimento', 'debitavel.descricao', 'creditavel.descricao']">
 
         <ng-template pTemplate="caption">
             <div class="flex gap-4 justify-end">
@@ -110,23 +113,23 @@
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-item>
-            <tr>
-                <td> {{item.descricao}} </td>
-                <td> {{ item.debitavel.moeda.simbolo }} {{item.valor | number: '1.2-2' : 'pt-BR' }}</td>
-                <td> {{ item.creditavel.moeda.simbolo }} {{item.valorReal | number: '1.2-2' : 'pt-BR' }}</td>
-                <td> {{ item.vencimento | date:'dd/MM/yyyy' }}</td>
+        <ng-template pTemplate="body" let-transferencia>
+            <tr [pSelectableRow]="transferencia">
+                <td> {{transferencia.descricao}} </td>
+                <td> {{ transferencia.debitavel.moeda.simbolo }} {{transferencia.valor | number: '1.2-2' : 'pt-BR' }}</td>
+                <td> {{ transferencia.creditavel.moeda.simbolo }} {{transferencia.valorReal | number: '1.2-2' : 'pt-BR' }}</td>
+                <td> {{ transferencia.vencimento | date:'dd/MM/yyyy' }}</td>
                 <td>
-                    <app-color-display [color]="item.debitavel.cor" [text]="item.debitavel.descricao" />
+                    <app-color-display [color]="transferencia.debitavel.cor" [text]="transferencia.debitavel.descricao" />
                 </td>
                 <td>
-                    <app-color-display [color]="item.creditavel.cor" [text]="item.creditavel.descricao" />
+                    <app-color-display [color]="transferencia.creditavel.cor" [text]="transferencia.creditavel.descricao" />
                 </td>
                 <td class="small-column">
-                    <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(item)" />
+                    <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(transferencia)" />
                 </td>
                 <td class="small-column">
-                    <p-button icon="pi pi-trash" severity="danger" (click)="openDialog(item)" size="small" />
+                    <p-button icon="pi pi-trash" severity="danger" (click)="openDialog(transferencia)" size="small" />
                 </td>
             </tr>
         </ng-template>
@@ -151,7 +154,22 @@
 
 </div>
 
-<p-dialog header="Remover Contas Bancárias" [modal]="true" position="top" [(visible)]="showDialog" [style]="{ width: '50rem' }">
+<div class="form-panel indicador">
+    <span>Total:</span>
+    <p>R$ {{data() | sum: 'valor' | number: '1.2-2' : 'pt-BR' }}</p>
+</div>
+
+<div class="form-panel indicador">
+    <span>Total Selecionado:</span>
+    <p>R$ {{selectedData | sum: 'valor' | number: '1.2-2' : 'pt-BR' }}</p>
+</div>
+
+<div class="form-panel indicador">
+    <span>Média Selecionado:</span>
+    <p>R$ {{selectedData | avg: 'valor' | number: '1.2-2' : 'pt-BR' }}</p>
+</div>
+
+<p-dialog header="Remover Transferência" [modal]="true" position="top" [(visible)]="showDialog" [style]="{ width: '50rem' }">
     Tem certeza que deseja remover <b>{{transferencia?.descricao}}</b> ?
 
     <ng-template pTemplate="footer">

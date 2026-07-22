@@ -36,6 +36,7 @@ import { PeriodoView } from '../../../components/periodo-view/periodo-view';
   styleUrl: './meta-view.scss',
 })
 export class MetaView implements OnInit {
+
   @ViewChild('table')
   private table?: Table;
 
@@ -43,8 +44,10 @@ export class MetaView implements OnInit {
   data = signal<Meta[]>([]);
   searchValue?: string;
   showDialog: boolean = false;
+  showCopyDialog: boolean = false;
   meta?: Meta;
   periodo?: Periodo;
+  periodoSelecionado?: Periodo;
 
   private router = inject(Router);
   private messageService = inject(MessageService);
@@ -110,5 +113,24 @@ export class MetaView implements OnInit {
 
   edit(meta: Meta) {
     this.router.navigate(['meta', meta.id]);
+  }
+
+  confirmarCopia() {
+
+    let currentMeta = this.data()[0];
+
+    var innerItem = {
+      valor: currentMeta.valor,
+      mes: {
+        mes: (this.periodoSelecionado?.mes.id || 0) + 1,
+        ano: this.periodoSelecionado?.ano,
+      },
+    } as Meta;
+
+    this.metaService.createOrUpdate(innerItem).subscribe(_ => {
+      this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Meta copiada com sucesso!', life: 3000 });
+      this.showCopyDialog = false;
+    });
+
   }
 }

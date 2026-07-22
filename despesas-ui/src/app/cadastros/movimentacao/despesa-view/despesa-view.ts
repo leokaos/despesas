@@ -122,14 +122,10 @@ export class DespesaView implements OnInit {
       debitavel: this.debitavelSelecionado
     } as DespesaFiltro;
 
-    let filtroDebitavel = {
-      ativo: true
-    } as DebitavelFiltro;
-
     forkJoin({
       tipos: this.tipoDespesaService.fetch(),
       despesas: this.despesaService.fetch(filtroDespesa),
-      debitaveis: this.debitavelService.fetch(filtroDebitavel)
+      debitaveis: this.debitavelService.fetch()
     }).subscribe((results: any) => {
       this.tipos = [...results.tipos];
       this.debitaveis = [...results.debitaveis];

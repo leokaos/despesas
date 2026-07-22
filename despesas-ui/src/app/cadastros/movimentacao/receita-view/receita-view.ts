@@ -20,7 +20,7 @@ import { SumPipe } from '../../../pipes/sum-pipe';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectTipoMovimentacao } from "../../../components/select-tipo-movimentacao/select-tipo-movimentacao";
 import { TipoReceitaService } from '../../../services/tipo-receita-service';
-import { DebitavelFiltro, DebitavelService } from '../../../services/debitavel-service';
+import { DebitavelService } from '../../../services/debitavel-service';
 import { forkJoin } from 'rxjs';
 import { TipoReceita } from '../../../models/tipo-movimentacao.model';
 import { Debitavel } from '../../../models/debitavel.model';
@@ -98,14 +98,10 @@ export class ReceitaView implements OnInit {
       debitavel: this.debitavelSelecionado
     } as ReceitaFiltro;
 
-    let filtroDebitavel = {
-      ativo: true
-    } as DebitavelFiltro;
-
     forkJoin({
       tipos: this.tipoReceitaService.fetch(),
       receitas: this.receitaService.fetch(filtroReceita),
-      debitaveis: this.debitavelService.fetch(filtroDebitavel)
+      debitaveis: this.debitavelService.fetch()
     }).subscribe((results: any) => {
       this.tipos = [...results.tipos];
       this.debitaveis = [...results.debitaveis];

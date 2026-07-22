@@ -70,13 +70,9 @@ export class BulkEditDespesa implements OnInit {
 
   ngOnInit(): void {
 
-    let debitavelFiltro = {
-      ativo: true,
-    } as DebitavelFiltro;
-
     forkJoin({
       tipos: this.tipoDespesaService.fetch(),
-      debitaveis: this.debitavelService.fetch(debitavelFiltro),
+      debitaveis: this.debitavelService.fetch(),
     }).subscribe((results: any) => {
       this.tipos = results.tipos;
       this.debitaveis = results.debitaveis;

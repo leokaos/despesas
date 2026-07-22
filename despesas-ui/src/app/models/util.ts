@@ -1,3 +1,4 @@
+import { Mes } from './mes.model';
 import { Periodo } from './periodo.model';
 
 export class PeriodoUtil {
@@ -15,6 +16,19 @@ export class PeriodoUtil {
 
   static getDataFinalUTC(periodo: Periodo): Date {
     return new Date(Date.UTC(periodo.ano, periodo.mes.id + 1, 0, 23, 59, 59, 999));
+  }
+
+  static getNextMonth(periodo: Periodo): Periodo {
+
+    let mes = periodo.mes.id + 1;
+    let ano = periodo.ano;
+
+    if (mes > 12) {
+      mes = 0;
+      ano++;
+    }
+
+    return { mes: Mes.getPorId(mes), ano: ano } as Periodo;
   }
 }
 

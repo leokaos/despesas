@@ -39,7 +39,7 @@
                     <label for="descricao">Vencimento:</label>
                 </div>
                 <div class="w-2/5">
-                    <p-datepicker [showIcon]="true" formControlName="vencimento" />
+                    <p-datepicker [showIcon]="true" formControlName="vencimento" class="w-full" />
                 </div>
             </div>
 
@@ -47,7 +47,7 @@
                 <div class="w-1/5 pr-2 flex items-center">
                     <label for="descricao">Tipo:</label>
                 </div>
-                <div class="w-1/5">
+                <div class="w-2/5">
                     <app-select-tipo-movimentacao [tipos]="tipos" formControlName="tipo" />
                 </div>
                 @if (orcamento()) {
@@ -68,7 +68,7 @@
                 <div class="w-1/5 pr-2 flex items-center">
                     <label for="descricao">Debitável:</label>
                 </div>
-                <div class="w-1/5">
+                <div class="w-2/5">
                     <app-select-debitavel [debitaveis]="debitaveis" formControlName="debitavel" />
                 </div>
                 @if (formGroup.get('debitavel')?.value) {

@@ -19,14 +19,50 @@ import { Debitavel } from '../../models/debitavel.model';
   ],
 })
 export class SelectDebitavel implements ControlValueAccessor {
-  @Input()
-  debitaveis: Debitavel[] = [];
+
   @Input()
   disabled: boolean = false;
+
   @Input()
   placeholder?: string;
+
   @Output()
   onSelect: EventEmitter<Debitavel | null> = new EventEmitter<Debitavel | null>();
+
+  tipoPriority: { [key: string]: number } = {
+    'CONTA': 1,
+    'CARTAO': 2,
+    'DIVIDA': 3,
+    'INVESTIMENTO': 4,
+  };
+
+  private _debitaveis: Debitavel[] = [];
+
+  @Input()
+  set debitaveis(list: Debitavel[]) {
+    let innerList = list || [];
+
+    this._debitaveis = [...innerList].sort((a, b) => {
+
+      if (a.ativo !== b.ativo) {
+        return a.ativo ? -1 : 1;
+      }
+
+      const priorityA = this.tipoPriority[a.tipo] || 99;
+      const priorityB = this.tipoPriority[b.tipo] || 99;
+
+      if (priorityA !== priorityB) {
+        return priorityA - priorityB;
+      }
+
+      return (a.descricao || '').localeCompare(b.descricao || '');
+    });
+
+  }
+
+  get debitaveis(): Debitavel[] {
+    return this._debitaveis;
+  }
 
   value: Debitavel | null = null;
 
@@ -60,5 +96,9 @@ export class SelectDebitavel implements ControlValueAccessor {
 
   emitChange() {
     this.onSelect.emit(this.value);
+  }
+
+  isOptionDisabled(debitavel: Debitavel): boolean {
+    return !debitavel.ativo;
   }
 }

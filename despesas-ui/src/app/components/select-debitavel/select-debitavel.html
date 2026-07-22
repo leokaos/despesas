@@ -1,21 +1,22 @@
 <p-select
-          [options]="debitaveis"
-          [(ngModel)]="value"
-          (ngModelChange)="onChangeValue($event)"
-          (blur)="onBlur()"
-          [placeholder]="placeholder"
-          [disabled]="disabled"
-          optionLabel="descricao"
-          dataKey="id"
-          appendTo="body"
-          (onChange)="emitChange()"
-          class="w-full"
-          showClear="true">
-    <ng-template #selectedItem let-selectedOption>
-        <app-color-display [color]="selectedOption.cor" [text]="selectedOption.descricao" />
+    [options]="debitaveis"
+    [(ngModel)]="value"
+    (ngModelChange)="onChangeValue($event)"
+    (blur)="onBlur()"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    optionLabel="descricao"
+    dataKey="id"
+    appendTo="body"
+    (onChange)="emitChange()"
+    class="w-full"
+    showClear="true"
+    [optionDisabled]="'isOptionDisabled'">
+    <ng-template #selectedItem let-debitavel>
+        <app-color-display [color]="debitavel.cor" [text]="debitavel.descricao" [class.texto-vermelho]="!debitavel.ativo" />
     </ng-template>
 
     <ng-template let-debitavel #item>
-        <app-color-display [color]="debitavel.cor" [text]="debitavel.descricao" />
+        <app-color-display [color]="debitavel.cor" [text]="debitavel.descricao" [class.texto-vermelho]="!debitavel.ativo" />
     </ng-template>
 </p-select>

@@ -42,19 +42,22 @@
     }
     @else {
     <p-table
-             #table
-             stripedRows
-             [value]="data()"
-             sortMode="single"
-             [paginator]="true"
-             [rows]="10"
-             size="small"
-             showGridlines
-             [rowsPerPageOptions]="[10, 15, 50, 100]"
-             [globalFilterFields]="['cor', 'descricao']">
+        #table
+        stripedRows
+        [value]="data()"
+        sortMode="single"
+        [paginator]="true"
+        [rows]="10"
+        size="small"
+        showGridlines
+        [rowsPerPageOptions]="[10, 15, 50, 100]"
+        [globalFilterFields]="['cor', 'descricao']">
 
         <ng-template pTemplate="caption">
             <div class="flex gap-4 justify-end">
+                <div class="flex items-center">
+                    <button pButton type="button" icon="pi pi-clone" pTooltip="Copiar Orçamentos" (click)="showCopyDialog = true" severity="warn" [disabled]="data().length <= 0"> </button>
+                </div>
                 <div class="flex items-center">
                     <button pButton type="button" icon="pi pi-refresh" tooltip="Recarregar" (click)="reload()"> </button>
                 </div>
@@ -127,6 +130,31 @@
     <ng-template pTemplate="footer">
         <p-button label="Cancel" [raised]="true" severity="secondary" (click)="showDialog = false" />
         <p-button label="Save" [raised]="true" severity="success" (click)="remover()" />
+    </ng-template>
+
+</p-dialog>
+
+<p-dialog header="Copiar Metas" [modal]="true" position="top" [(visible)]="showCopyDialog" [style]="{ width: '40rem' }">
+
+    <div class="flex flex-col gap-4">
+
+        <div class="flex flex-1 items-center mb-10">
+            <label class="w-40">Selecione o mês:</label>
+            <app-periodo-view [(ngModel)]="periodoSelecionado" class="w-full"></app-periodo-view>
+        </div>
+
+    </div>
+
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 flex items-center justify-between">
+        <span class="text-gray-700">{{data()[0]?.descricao || 'Sem meta'}}</span>
+        <span class="text-lg font-bold text-blue-600">
+            $ {{data()[0]?.valor | number: '1.2-2' : 'pt-BR' }}
+        </span>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <p-button label="Cancelar" [raised]="true" severity="secondary" (click)="showCopyDialog = false" class="flex flex-1 justify-start" />
+        <p-button label="Confirmar" [raised]="true" severity="success" (click)="confirmarCopia()" [disabled]="!periodoSelecionado" />
     </ng-template>
 
 </p-dialog>

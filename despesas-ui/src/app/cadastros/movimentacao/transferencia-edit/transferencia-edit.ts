@@ -50,10 +50,9 @@ export class TransferenciaEdit {
 
   ngOnInit(): void {
     var id = this.activatedRoute.snapshot.paramMap.get('id');
-    var filtro = { ativo: true } as DebitavelFiltro;
 
     var requests: any = {
-      debitaveis: this.debitavelService.fetch(filtro),
+      debitaveis: this.debitavelService.fetch(),
     };
 
     if (id) {
