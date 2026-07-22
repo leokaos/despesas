@@ -467,8 +467,8 @@ VISA	28	12	3500.00	23	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 0.00	4
-44601.41	3
 37310.98	5
+44270.52	3
 \.
 
 
@@ -504,6 +504,7 @@ COPY despesas_db.cotacao (id, origem, destino, taxa, data) FROM stdin;
 25	EURO	REAL	5.90	2026-05-17 17:49:56.56
 26	EURO	REAL	5.86	2026-05-26 18:57:59.549
 27	EURO	REAL	5.89	2026-06-05 11:13:52.836
+28	EURO	REAL	5.86	2026-07-19 21:01:32.456
 \.
 
 
@@ -519,9 +520,9 @@ COPY despesas_db.debitavel (id, cor, descricao, tipo, moeda, ativo) FROM stdin;
 18	#f2ff00	IVA 3 Trimestre 2025	DIVIDA	EURO	f
 19	#fff700	IVA 4 Trimestre 2025	DIVIDA	EURO	f
 20	#e8d846	IVA 1 Trimestre 2026	DIVIDA	EURO	f
-22	#c7bc24	IVA 2 TRIMESTRE 2026	DIVIDA	EURO	t
-23	#cfb12d	Gold Prestige	CARTAO	EURO	t
 4	#709982	N26	CONTA	EURO	f
+23	#ff03dd	Gold Prestige	CARTAO	EURO	t
+22	#c7bc24	IVA 2 Trimestre 2026 	DIVIDA	EURO	t
 \.
 
 
@@ -7331,6 +7332,19 @@ t	7291	102	\N
 t	7292	4	\N
 t	7293	102	\N
 t	7294	107	\N
+t	7296	102	\N
+t	7297	102	\N
+t	7298	107	\N
+t	7299	301	\N
+t	7300	102	\N
+t	7301	102	\N
+t	7302	107	\N
+t	7303	107	\N
+t	7304	102	\N
+t	7305	102	\N
+t	7306	107	\N
+t	7307	102	\N
+t	7308	102	\N
 \.
 
 
@@ -7343,7 +7357,7 @@ COPY despesas_db.divida (valor_total, periodiciodade, data_inicio, id) FROM stdi
 407.10	VARIAVEL	2025-11-14 00:00:00	18
 2237.90	VARIAVEL	2025-10-01 20:00:00	19
 2555.38	VARIAVEL	2026-05-24 23:00:00	20
-3707.60	VARIAVEL	2026-03-31 23:00:00	22
+3707.60	VARIAVEL	2026-09-20 23:00:00	22
 \.
 
 
@@ -14580,6 +14594,19 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7293	Glovo	2026-07-17	9.90	2026-07-17	3	EURO
 7294	Sixt	2026-07-17	31.11	2026-07-10	4	EURO
 7295	Fechamento de Conta N26	\N	694.55	2026-07-16	4	EURO
+7296	GLOVO PORTUGAL LISBOA	2026-07-18	9.90	2026-07-18	3	EURO
+7297	TRF P/ MARMITANDO UNIPESSOAL LDA	2026-07-18	200.00	2026-07-18	3	EURO
+7298	UBER RIDES PORTUGAL	2026-07-18	4.95	2026-07-18	3	EURO
+7299	CONTINENTE BRAGA BRAGA	2026-07-18	52.77	2026-07-18	3	EURO
+7300	ARCADIA NOVA ARCADA	2026-07-18	3.85	2026-07-18	3	EURO
+7304	OLA BRAGA BRAGA	2026-07-19	5.70	2026-07-19	3	EURO
+7306	UBER RIDES PORTUGAL	2026-07-19	3.93	2026-07-19	3	EURO
+7301	ARCADIA NOVA ARCADA	2026-07-18	4.80	2026-07-18	3	EURO
+7307	Glovo	2026-07-20	9.90	2026-07-20	3	EURO
+7302	UBER RIDES PORTUGAL	2026-07-18	4.96	2026-07-18	3	EURO
+7305	CHURRASQUEIRA BRAZA	2026-07-19	16.30	2026-07-19	3	EURO
+7308	Glovo	2026-07-21	9.90	2026-07-21	3	EURO
+7303	UBER RIDES PORTUGAL	2026-07-19	3.93	2026-07-19	3	EURO
 \.
 
 
@@ -15010,14 +15037,14 @@ COPY public.flyway_schema_history (installed_rank, version, description, type, s
 -- Name: cotacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 27, true);
+SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 28, true);
 
 
 --
 -- Name: debitavel_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 23, true);
+SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 24, true);
 
 
 --
@@ -15052,7 +15079,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 54, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7295, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7308, true);
 
 
 --
