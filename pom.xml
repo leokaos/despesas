@@ -7,7 +7,7 @@
 
 	<groupId>org.leo.despesas</groupId>
 	<artifactId>despesas</artifactId>
-	<version>0.36.1</version>
+	<version>0.37</version>
 	<packaging>pom</packaging>
 
 	<name>Controle Despesas</name>
