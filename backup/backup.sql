@@ -468,7 +468,7 @@ VISA	28	12	3500.00	23	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 0.00	4
 37310.98	5
-44270.52	3
+44264.64	3
 \.
 
 
@@ -521,8 +521,8 @@ COPY despesas_db.debitavel (id, cor, descricao, tipo, moeda, ativo) FROM stdin;
 19	#fff700	IVA 4 Trimestre 2025	DIVIDA	EURO	f
 20	#e8d846	IVA 1 Trimestre 2026	DIVIDA	EURO	f
 4	#709982	N26	CONTA	EURO	f
-23	#ff03dd	Gold Prestige	CARTAO	EURO	t
 22	#c7bc24	IVA 2 Trimestre 2026 	DIVIDA	EURO	t
+23	#ff9e03	Gold Prestige	CARTAO	EURO	t
 \.
 
 
@@ -7345,6 +7345,8 @@ t	7305	102	\N
 t	7306	107	\N
 t	7307	102	\N
 t	7308	102	\N
+t	7309	107	\N
+t	7310	107	\N
 \.
 
 
@@ -14607,6 +14609,8 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7305	CHURRASQUEIRA BRAZA	2026-07-19	16.30	2026-07-19	3	EURO
 7308	Glovo	2026-07-21	9.90	2026-07-21	3	EURO
 7303	UBER RIDES PORTUGAL	2026-07-19	3.93	2026-07-19	3	EURO
+7309	Uber	2026-07-22	2.93	2026-07-22	3	EURO
+7310	Uber	2026-07-22	2.95	2026-07-22	3	EURO
 \.
 
 
@@ -15072,14 +15076,14 @@ SELECT pg_catalog.setval('despesas_db.filtro_id_seq', 7, true);
 -- Name: meta_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.meta_id_seq', 54, true);
+SELECT pg_catalog.setval('despesas_db.meta_id_seq', 55, true);
 
 
 --
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7308, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7310, true);
 
 
 --
