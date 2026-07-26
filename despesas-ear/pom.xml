@@ -7,7 +7,7 @@
 	<parent>
 		<artifactId>despesas</artifactId>
 		<groupId>org.leo.despesas</groupId>
-		<version>0.36.1</version>
+		<version>0.38</version>
 	</parent>
 
 	<artifactId>despesas-ear</artifactId>
@@ -40,7 +40,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ear-plugin</artifactId>
-				<version>2.10.1</version>
+				<version>3.3.0</version>
 				<configuration>
 					<version>7</version>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>

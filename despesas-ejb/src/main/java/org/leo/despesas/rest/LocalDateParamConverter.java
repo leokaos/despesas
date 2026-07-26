@@ -18,7 +18,7 @@ public class LocalDateParamConverter implements ParamConverter<LocalDate> {
 
 		try {
 			return LocalDate.parse(value, FORMATTER);
-		} catch (Exception e2) {
+		} catch (Exception e) {
 			throw new IllegalArgumentException("Formato de data inválido: " + value);
 		}
 	}

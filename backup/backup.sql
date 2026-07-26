@@ -30,6 +30,43 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: alerta; Type: TABLE; Schema: despesas_db; Owner: despesas
+--
+
+CREATE TABLE despesas_db.alerta (
+    id bigint NOT NULL,
+    tipo character varying(50) NOT NULL
+);
+
+
+ALTER TABLE despesas_db.alerta OWNER TO despesas;
+
+--
+-- Name: alerta_cartao_credito; Type: TABLE; Schema: despesas_db; Owner: despesas
+--
+
+CREATE TABLE despesas_db.alerta_cartao_credito (
+    id bigint NOT NULL
+);
+
+
+ALTER TABLE despesas_db.alerta_cartao_credito OWNER TO despesas;
+
+--
+-- Name: alerta_id_seq; Type: SEQUENCE; Schema: despesas_db; Owner: despesas
+--
+
+CREATE SEQUENCE despesas_db.alerta_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE despesas_db.alerta_id_seq OWNER TO despesas;
+
+--
 -- Name: cartao; Type: TABLE; Schema: despesas_db; Owner: despesas
 --
 
@@ -452,6 +489,22 @@ CREATE TABLE public.flyway_schema_history (
 ALTER TABLE public.flyway_schema_history OWNER TO despesas;
 
 --
+-- Data for Name: alerta; Type: TABLE DATA; Schema: despesas_db; Owner: despesas
+--
+
+COPY despesas_db.alerta (id, tipo) FROM stdin;
+\.
+
+
+--
+-- Data for Name: alerta_cartao_credito; Type: TABLE DATA; Schema: despesas_db; Owner: despesas
+--
+
+COPY despesas_db.alerta_cartao_credito (id) FROM stdin;
+\.
+
+
+--
 -- Data for Name: cartao; Type: TABLE DATA; Schema: despesas_db; Owner: despesas
 --
 
@@ -467,8 +520,8 @@ VISA	28	12	3500.00	23	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 0.00	4
-37310.98	5
-44270.52	3
+37298.58	5
+44093.56	3
 \.
 
 
@@ -521,8 +574,8 @@ COPY despesas_db.debitavel (id, cor, descricao, tipo, moeda, ativo) FROM stdin;
 19	#fff700	IVA 4 Trimestre 2025	DIVIDA	EURO	f
 20	#e8d846	IVA 1 Trimestre 2026	DIVIDA	EURO	f
 4	#709982	N26	CONTA	EURO	f
-23	#ff03dd	Gold Prestige	CARTAO	EURO	t
 22	#c7bc24	IVA 2 Trimestre 2026 	DIVIDA	EURO	t
+23	#ff9e03	Gold Prestige	CARTAO	EURO	t
 \.
 
 
@@ -7345,6 +7398,15 @@ t	7305	102	\N
 t	7306	107	\N
 t	7307	102	\N
 t	7308	102	\N
+t	7309	107	\N
+t	7310	107	\N
+t	7311	4	\N
+t	7312	102	\N
+t	7313	4	\N
+t	7314	301	\N
+t	7315	102	\N
+t	7316	107	\N
+t	7317	107	\N
 \.
 
 
@@ -14607,6 +14669,15 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7305	CHURRASQUEIRA BRAZA	2026-07-19	16.30	2026-07-19	3	EURO
 7308	Glovo	2026-07-21	9.90	2026-07-21	3	EURO
 7303	UBER RIDES PORTUGAL	2026-07-19	3.93	2026-07-19	3	EURO
+7309	Uber	2026-07-22	2.93	2026-07-22	3	EURO
+7310	Uber	2026-07-22	2.95	2026-07-22	3	EURO
+7311	Comgas	2026-07-23	12.40	2026-07-20	5	REAL
+7312	Continente	2026-07-24	15.60	2026-07-24	3	EURO
+7313	DD EDP COMERCIAL 16010011942146 PT34100781	2026-07-24	74.98	2026-07-24	3	EURO
+7314	Continente	2026-07-25	65.84	2026-07-25	3	EURO
+7315	ARCADIA NOVA ARCADA	2026-07-25	4.80	2026-07-25	3	EURO
+7316	Uber	2026-07-25	4.93	2026-07-25	3	EURO
+7317	Uber	2026-07-25	4.93	2026-07-25	3	EURO
 \.
 
 
@@ -15034,6 +15105,13 @@ COPY public.flyway_schema_history (installed_rank, version, description, type, s
 
 
 --
+-- Name: alerta_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
+--
+
+SELECT pg_catalog.setval('despesas_db.alerta_id_seq', 1, false);
+
+
+--
 -- Name: cotacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
@@ -15072,14 +15150,14 @@ SELECT pg_catalog.setval('despesas_db.filtro_id_seq', 7, true);
 -- Name: meta_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.meta_id_seq', 54, true);
+SELECT pg_catalog.setval('despesas_db.meta_id_seq', 55, true);
 
 
 --
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7308, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7317, true);
 
 
 --
@@ -15224,6 +15302,22 @@ ALTER TABLE ONLY despesas_db.parametros
 
 
 --
+-- Name: alerta pk_alerta; Type: CONSTRAINT; Schema: despesas_db; Owner: despesas
+--
+
+ALTER TABLE ONLY despesas_db.alerta
+    ADD CONSTRAINT pk_alerta PRIMARY KEY (id);
+
+
+--
+-- Name: alerta_cartao_credito pk_alerta_cartao_credito; Type: CONSTRAINT; Schema: despesas_db; Owner: despesas
+--
+
+ALTER TABLE ONLY despesas_db.alerta_cartao_credito
+    ADD CONSTRAINT pk_alerta_cartao_credito PRIMARY KEY (id);
+
+
+--
 -- Name: receita receita_pkey; Type: CONSTRAINT; Schema: despesas_db; Owner: despesas
 --
 
@@ -15332,6 +15426,14 @@ ALTER TABLE ONLY despesas_db.divida
 
 ALTER TABLE ONLY despesas_db.fatura
     ADD CONSTRAINT fatura_cartao FOREIGN KEY (cartao_id) REFERENCES despesas_db.cartao(id);
+
+
+--
+-- Name: alerta_cartao_credito fk_alerta_cartao_credito; Type: FK CONSTRAINT; Schema: despesas_db; Owner: despesas
+--
+
+ALTER TABLE ONLY despesas_db.alerta_cartao_credito
+    ADD CONSTRAINT fk_alerta_cartao_credito FOREIGN KEY (id) REFERENCES despesas_db.alerta(id);
 
 
 --
