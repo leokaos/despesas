@@ -72,4 +72,12 @@ public class DataUtil extends DateUtils {
 	public static Date from(final LocalDate localDate) {
 		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
+
+	public static boolean estaNosProximosDias(final LocalDate targetDate, int days) {
+
+		LocalDate hoje = LocalDate.now();
+		LocalDate dataLimite = hoje.plusDays(days);
+
+		return !targetDate.isBefore(hoje) && !targetDate.isAfter(dataLimite);
+	}
 }

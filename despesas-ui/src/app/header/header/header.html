@@ -21,6 +21,7 @@
       <a routerLink="investimentos">Investimentos</a>
       <a routerLink="dividas">Dívidas</a>
       <a routerLink="feriados">Feriados</a>
+      <a routerLink="alertas">Alertas</a>
     </div>
   </div>
 
@@ -52,6 +53,18 @@
       <a routerLink="projecao">Projeção</a>
       <a routerLink="comparaOrcamentos">Comparação de Orçamentos</a>
     </div>
+  </div>
+
+  <div class="alerta">
+    <p-button
+      label="Alertas"
+      [icon]="notificacoes().length > 0 ? 'pi pi-bell' : 'pi pi-bell-slash'"
+      severity="secondary"
+      class="mr-20"
+      [rounded]="true"
+      [badge]="`${notificacoes().length}`"
+      [badgeSeverity]="notificacoes().length == 0 ? 'secondary' : 'danger'"
+      [disabled]="notificacoes().length == 0" />
   </div>
 
   <div class="version">

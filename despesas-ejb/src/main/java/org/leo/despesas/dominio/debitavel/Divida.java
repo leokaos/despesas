@@ -1,6 +1,7 @@
 package org.leo.despesas.dominio.debitavel;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -36,9 +37,12 @@ public class Divida extends Debitavel {
 	@Enumerated(EnumType.STRING)
 	private Periodicidade periodicidade;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "data_inicio")
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInicio;
+
+	@Column(name = "data_limite")
+	private LocalDate dataLimite;
 
 	@OneToMany(mappedBy = "creditavel", fetch = FetchType.EAGER)
 	private Set<Transferencia> pagamentos;
@@ -70,6 +74,14 @@ public class Divida extends Debitavel {
 
 	public void setDataInicio(Date dataInicio) {
 		this.dataInicio = dataInicio;
+	}
+
+	public LocalDate getDataLimite() {
+		return dataLimite;
+	}
+
+	public void setDataLimite(LocalDate dataLimite) {
+		this.dataLimite = dataLimite;
 	}
 
 	@JsonIgnore
