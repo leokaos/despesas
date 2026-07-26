@@ -1,7 +1,7 @@
 package org.leo.despesas.dominio.debitavel;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -11,8 +11,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Receita;
@@ -37,8 +35,7 @@ public class Divida extends Debitavel {
 	private Periodicidade periodicidade;
 
 	@Column(name = "data_inicio")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataInicio;
+	private LocalDate dataInicio;
 
 	@OneToMany(mappedBy = "creditavel", fetch = FetchType.EAGER)
 	private Set<Transferencia> pagamentos;
@@ -64,11 +61,11 @@ public class Divida extends Debitavel {
 		this.periodicidade = periodicidade;
 	}
 
-	public Date getDataInicio() {
+	public LocalDate getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(Date dataInicio) {
+	public void setDataInicio(LocalDate dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 

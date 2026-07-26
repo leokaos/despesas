@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import javax.ws.rs.QueryParam;
 
 import org.leo.despesas.infra.AbstractModelFiltro;
-import org.leo.despesas.infra.util.DataUtil;
 
 public class FeriadoFiltro extends AbstractModelFiltro<Feriado> {
 
@@ -38,7 +37,7 @@ public class FeriadoFiltro extends AbstractModelFiltro<Feriado> {
 	@Override
 	protected void build() {
 
-		between("data", DataUtil.from(dataInicial), DataUtil.from(dataFinal));
+		between("data", dataInicial,dataFinal);
 
 	}
 

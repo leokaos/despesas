@@ -1,6 +1,6 @@
 package org.leo.despesas.dominio.feriado;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.leo.despesas.infra.ModelEntity;
 
@@ -28,8 +26,7 @@ public class Feriado implements ModelEntity {
 	private Long id;
 
 	@Column(name = "date_feriado")
-	@Temporal(TemporalType.DATE)
-	private Date data;
+	private LocalDate data;
 
 	@Enumerated(EnumType.STRING)
 	private FeriadoTipo tipo;
@@ -49,11 +46,11 @@ public class Feriado implements ModelEntity {
 		this.id = id;
 	}
 
-	public Date getData() {
+	public LocalDate getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 

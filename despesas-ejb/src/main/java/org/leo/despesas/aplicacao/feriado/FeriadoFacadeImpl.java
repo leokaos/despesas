@@ -1,8 +1,8 @@
 package org.leo.despesas.aplicacao.feriado;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -24,7 +24,7 @@ import com.google.common.collect.Lists;
 @Stateless
 public class FeriadoFacadeImpl extends AbstractFacade<Feriado, FeriadoFiltro> implements FeriadoFacade {
 
-	private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	@Inject
 	private FeriadoRepositorio feriadoRepositorio;
@@ -39,13 +39,13 @@ public class FeriadoFacadeImpl extends AbstractFacade<Feriado, FeriadoFiltro> im
 
 			for (FeriadoDTO feriadoDTO : feriadosExternos) {
 
-				Date data = FORMATTER.parse(feriadoDTO.getDate());
+				LocalDate data = LocalDate.parse(feriadoDTO.getDate(), FORMATTER);
 
-				if (data.after(new Date()) && feriadoDTO.getCounties() == null) {
+				if (data.isAfter(LocalDate.now()) && feriadoDTO.getCounties() == null) {
 
 					Feriado feriado = new Feriado();
 					feriado.setTipo(tipo);
-					feriado.setData(new java.sql.Date(data.getTime()));
+					feriado.setData(data);
 					feriado.setNome(feriadoDTO.getLocalName());
 
 					feriados.add(feriado);
@@ -55,7 +55,7 @@ public class FeriadoFacadeImpl extends AbstractFacade<Feriado, FeriadoFiltro> im
 
 			return feriados;
 
-		} catch (ParseException e) {
+		} catch (DateTimeParseException e) {
 			throw new ValidationEntityException("Erro ao parsear feriados!");
 		}
 	}

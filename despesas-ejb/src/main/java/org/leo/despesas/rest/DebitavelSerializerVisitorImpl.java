@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Map;
 
@@ -49,7 +51,7 @@ public class DebitavelSerializerVisitorImpl implements DebitavelSerializerVisito
 	public void visit(Divida divida) {
 		divida.setValorTotal(getBigDecimalOrNull(mapaAtributos.get("valorTotal")));
 		divida.setPeriodicidade(Periodicidade.valueOf(mapaAtributos.get("periodicidade")));
-		divida.setDataInicio(getDateOrNull(mapaAtributos.get("dataInicio")));
+		divida.setDataInicio(getLocalDateOrNull(mapaAtributos.get("dataInicio")));
 	}
 
 	private Integer getIntegerOrNull(String value) {
@@ -68,6 +70,7 @@ public class DebitavelSerializerVisitorImpl implements DebitavelSerializerVisito
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private Date getDateOrNull(String value) {
 		try {
 			return FORMAT.parse(value);
@@ -75,6 +78,18 @@ public class DebitavelSerializerVisitorImpl implements DebitavelSerializerVisito
 			try {
 				return new Date(Integer.valueOf(value));
 			} catch (NumberFormatException ex) {
+				return null;
+			}
+		}
+	}
+
+	private LocalDate getLocalDateOrNull(String value) {
+		try {
+			return LocalDate.parse(value);
+		} catch (DateTimeParseException e) {
+			try {
+				return LocalDate.parse(value.substring(0, 10));
+			} catch (Exception ex) {
 				return null;
 			}
 		}
