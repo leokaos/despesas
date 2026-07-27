@@ -175,7 +175,7 @@ ALTER TABLE despesas_db.despesa OWNER TO despesas;
 CREATE TABLE despesas_db.divida (
     valor_total numeric(19,2) NOT NULL,
     periodiciodade character varying(255) NOT NULL,
-    data_inicio timestamp without time zone NOT NULL,
+    data_inicio date NOT NULL,
     id bigint NOT NULL
 );
 
@@ -7415,11 +7415,11 @@ t	7317	107	\N
 --
 
 COPY despesas_db.divida (valor_total, periodiciodade, data_inicio, id) FROM stdin;
-121592.98	MENSAL	2017-10-31 20:00:00	7
-407.10	VARIAVEL	2025-11-14 00:00:00	18
-2237.90	VARIAVEL	2025-10-01 20:00:00	19
-2555.38	VARIAVEL	2026-05-24 23:00:00	20
-3707.60	VARIAVEL	2026-09-20 23:00:00	22
+121592.98	MENSAL	2017-10-31	7
+407.10	VARIAVEL	2025-11-14	18
+2237.90	VARIAVEL	2025-10-01	19
+2555.38	VARIAVEL	2026-05-24	20
+3707.60	VARIAVEL	2026-09-20	22
 \.
 
 
