@@ -44,6 +44,7 @@ import { ComparacaoOrcamento } from './graficos/comparacao-orcamento/comparacao-
 import { FeriadoManager } from './movimentacao/feriado-manager/feriado-manager';
 import { BulkEditDespesa } from './movimentacao/bulk-edit-despesa/bulk-edit-despesa';
 import { BulkEditReceita } from './movimentacao/bulk-edit-receita/bulk-edit-receita';
+import { AlertView } from './cadastros/alerta/alert-view/alert-view';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -90,6 +91,7 @@ export const routes: Routes = [
   { path: 'feriados', component: FeriadoView },
   { path: 'feriado', component: FeriadoEdit },
   { path: 'feriado/:id', component: FeriadoEdit },
+  { path: 'alertas', component: AlertView },
 
   //MOVIMENTACAO
   { path: 'pagamentos', component: Pagamentos },

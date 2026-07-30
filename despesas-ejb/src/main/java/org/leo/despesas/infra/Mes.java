@@ -84,4 +84,8 @@ public class Mes {
 		this.ano = ano;
 	}
 
+	public static Mes mesAtual() {
+		return new Mes(new Date());
+	}
+
 }

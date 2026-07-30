@@ -37,6 +37,9 @@ public class Divida extends Debitavel {
 	@Column(name = "data_inicio")
 	private LocalDate dataInicio;
 
+	@Column(name = "data_limite")
+	private LocalDate dataLimite;
+
 	@OneToMany(mappedBy = "creditavel", fetch = FetchType.EAGER)
 	private Set<Transferencia> pagamentos;
 
@@ -67,6 +70,14 @@ public class Divida extends Debitavel {
 
 	public void setDataInicio(LocalDate dataInicio) {
 		this.dataInicio = dataInicio;
+	}
+
+	public LocalDate getDataLimite() {
+		return dataLimite;
+	}
+
+	public void setDataLimite(LocalDate dataLimite) {
+		this.dataLimite = dataLimite;
 	}
 
 	@JsonIgnore

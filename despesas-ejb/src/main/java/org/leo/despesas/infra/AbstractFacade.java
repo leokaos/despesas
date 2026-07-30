@@ -12,6 +12,9 @@ import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
@@ -42,6 +45,18 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 	@Override
 	public List<E> listar(F filtro) {
 		return filtro.getLista(entityManager, getClasseEntidade());
+	}
+
+	@Override
+	public List<E> listarTodos() {
+
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<E> cq = cb.createQuery(getClasseEntidade());
+		Root<E> root = cq.from(getClasseEntidade());
+
+		cq.select(root);
+
+		return entityManager.createQuery(cq).getResultList();
 	}
 
 	@Override
@@ -168,9 +183,7 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 
 		org.apache.lucene.search.Query query = qb.keyword().onFields(campos).matching(busca).createQuery();
 
-		javax.persistence.Query persistenceQuery = fullTextEntityManager
-				.createFullTextQuery(query, getClasseEntidade())
-				.setProjection("id");
+		javax.persistence.Query persistenceQuery = fullTextEntityManager.createFullTextQuery(query, getClasseEntidade()).setProjection("id");
 
 		persistenceQuery.setHint("org.hibernate.readOnly", true);
 		persistenceQuery.setMaxResults(100);

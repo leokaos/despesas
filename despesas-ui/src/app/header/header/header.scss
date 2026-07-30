@@ -81,6 +81,13 @@ a.navbar-brand {
     padding-right: 5px;
 }
 
+.alerta {
+    position: absolute;
+    right: 0;
+    margin-top: 6px;
+    padding-right: 150px;
+}
+
 @media (min-width: 1200px) {
     .navbar {
         width: 1170px;

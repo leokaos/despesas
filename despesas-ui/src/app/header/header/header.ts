@@ -1,33 +1,26 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, input, output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { APP_CONFIG, AppConfig } from '../../app-config';
+import { Notificacao } from '../../models/notificacao.model';
+import { ButtonModule, ButtonSeverity } from 'primeng/button';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterModule],
+  imports: [RouterModule, ButtonModule],
   templateUrl: './header.html',
   styleUrl: './header.scss'
 })
 export class Header {
 
-  private openSubMenus: Set<string> = new Set();
-  
+  notificacoes = input.required<Notificacao[]>();
+
+  onOpenNotificacao = output<boolean>();
+
   version: string;
 
-  constructor(@Inject(APP_CONFIG) private config: AppConfig) {
+  constructor(@Inject(APP_CONFIG) config: AppConfig) {
     this.version = config.version;
-   }
-
-  toggleSubMenu(menuItem: string): void {
-    if (this.openSubMenus.has(menuItem)) {
-      this.openSubMenus.delete(menuItem);
-    } else {
-      this.openSubMenus.add(menuItem);
-    }
-  }
-
-  isSubMenuOpen(menuItem: string): boolean {
-    return this.openSubMenus.has(menuItem);
   }
 
 }
