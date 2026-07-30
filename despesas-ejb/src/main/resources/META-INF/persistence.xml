@@ -31,6 +31,11 @@
         <class>org.leo.despesas.infra.Mes</class>
         <class>org.leo.despesas.dominio.feriado.Feriado</class>
         <class>org.leo.despesas.dominio.filtro.Filtro</class>
+        <class>org.leo.despesas.dominio.alerta.Alerta</class>
+        <class>org.leo.despesas.dominio.alerta.AlertaDespesaRecorrente</class>
+        <class>org.leo.despesas.dominio.alerta.AlertaLimitePagamentoDivida</class>
+        <class>org.leo.despesas.dominio.alerta.AlertaPagamentoFaturaCartao</class>
+        <class>org.leo.despesas.dominio.notificacao.Notificacao</class>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 

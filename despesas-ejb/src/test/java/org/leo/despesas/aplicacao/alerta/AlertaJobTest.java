@@ -4,6 +4,8 @@ import static org.easymock.EasyMock.capture;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ import org.leo.despesas.dominio.alerta.AlertaLimitePagamentoDivida;
 import org.leo.despesas.dominio.alerta.AlertaPagamentoFaturaCartao;
 import org.leo.despesas.dominio.debitavel.CartaoCredito;
 import org.leo.despesas.dominio.debitavel.Divida;
+import org.leo.despesas.dominio.notificacao.Notificacao;
 import org.leo.despesas.dominio.notificacao.NotificacaoFiltro;
 
 @RunWith(EasyMockRunner.class)
@@ -32,29 +35,14 @@ public class AlertaJobTest {
 	@TestSubject
 	private AlertaJob job = new AlertaJob();
 
-	@Mock(type = MockType.STRICT)
+	@Mock(type = MockType.NICE)
 	private AlertaFacade mockAlertaFacade;
 
-	@Mock(type = MockType.STRICT)
+	@Mock(type = MockType.NICE)
 	private NotificacaoFacade mockNotificacaoFacade;
 
 	@Test
-	public void test() {
-
-		Capture<AlertaFiltro> captureAlertaFiltro = new Capture<AlertaFiltro>();
-		Capture<NotificacaoFiltro> captureNotificacaoFiltro = new Capture<NotificacaoFiltro>();
-
-		expect(mockAlertaFacade.listar(capture(captureAlertaFiltro))).andReturn(getData());
-		expect(mockNotificacaoFacade.listar(capture(captureNotificacaoFiltro))).andReturn(new ArrayList<>()).times(3);
-
-		replay(mockAlertaFacade, mockNotificacaoFacade);
-
-		job.executar();
-
-		verify(mockAlertaFacade, mockNotificacaoFacade);
-	}
-
-	private List<Alerta> getData() {
+	public void test() throws Exception {
 
 		List<Alerta> data = new ArrayList<>();
 
@@ -80,7 +68,24 @@ public class AlertaJobTest {
 		data.add(alerta2);
 		data.add(alerta3);
 
-		return data;
+		Capture<AlertaFiltro> captureAlertaFiltro = new Capture<AlertaFiltro>();
+		Capture<NotificacaoFiltro> captureNotificacaoFiltro = new Capture<NotificacaoFiltro>();
+		Capture<Notificacao> captureNotificacao = new Capture<Notificacao>();
+
+		expect(mockAlertaFacade.listar(capture(captureAlertaFiltro))).andReturn(data);
+		expect(mockNotificacaoFacade.listar(capture(captureNotificacaoFiltro))).andReturn(new ArrayList<>()).times(3);
+
+		expect(mockNotificacaoFacade.inserir(capture(captureNotificacao))).andReturn(new Notificacao()).once();
+
+		replay(mockAlertaFacade, mockNotificacaoFacade);
+
+		job.executar();
+
+		verify(mockAlertaFacade, mockNotificacaoFacade);
+
+		assertEquals(alerta1, captureNotificacao.getValue().getAlerta());
+		assertFalse(captureNotificacao.getValue().isExecutado());
+
 	}
 
 }

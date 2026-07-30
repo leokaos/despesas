@@ -57,14 +57,15 @@
 
   <div class="alerta">
     <p-button
-      label="Alertas"
+      label="Notificações"
       [icon]="notificacoes().length > 0 ? 'pi pi-bell' : 'pi pi-bell-slash'"
       severity="secondary"
       class="mr-20"
       [rounded]="true"
       [badge]="`${notificacoes().length}`"
       [badgeSeverity]="notificacoes().length == 0 ? 'secondary' : 'danger'"
-      [disabled]="notificacoes().length == 0" />
+      [disabled]="notificacoes().length == 0"
+      (click)="onOpenNotificacao.emit(true)" />
   </div>
 
   <div class="version">

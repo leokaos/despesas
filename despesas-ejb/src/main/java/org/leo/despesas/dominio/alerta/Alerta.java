@@ -1,7 +1,5 @@
 package org.leo.despesas.dominio.alerta;
 
-import java.util.Optional;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,6 +14,7 @@ import javax.persistence.Table;
 
 import org.leo.despesas.dominio.notificacao.Notificacao;
 import org.leo.despesas.infra.ModelEntity;
+import org.leo.despesas.infra.alerta.AlertaProcessorVisitor;
 
 @Entity
 @Table(name = "alerta", schema = "despesas_db")
@@ -32,6 +31,9 @@ public abstract class Alerta implements ModelEntity {
 	@Column(name = "tipo")
 	@Enumerated(EnumType.STRING)
 	private TipoAlerta tipo;
+
+	@Column(name = "dias_antes_de_aviso")
+	protected int diasAntesDeAviso;
 
 	public Alerta() {
 		super();
@@ -53,8 +55,18 @@ public abstract class Alerta implements ModelEntity {
 		this.tipo = tipo;
 	}
 
-	public abstract Optional<Notificacao> gerarNotificacao();
+	public int getDiasAntesDeAviso() {
+		return diasAntesDeAviso;
+	}
+
+	public void setDiasAntesDeAviso(int diasAntesDeAviso) {
+		this.diasAntesDeAviso = diasAntesDeAviso;
+	}
+
+	public abstract Notificacao gerarNotificacao();
 
 	public abstract String getDescricao();
+
+	public abstract void accept(AlertaProcessorVisitor visitor);
 
 }

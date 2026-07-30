@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.leo.despesas.dominio.alerta.Alerta;
+import org.leo.despesas.infra.Mes;
 import org.leo.despesas.infra.ModelEntity;
 
 @Entity
@@ -36,6 +38,9 @@ public class Notificacao implements ModelEntity {
 
 	@Column(name = "target_date")
 	private LocalDate targetDate;
+
+	@Embedded
+	private Mes mes;
 
 	public Notificacao() {
 		super();
@@ -71,6 +76,14 @@ public class Notificacao implements ModelEntity {
 
 	public void setTargetDate(LocalDate targetDate) {
 		this.targetDate = targetDate;
+	}
+
+	public Mes getMes() {
+		return mes;
+	}
+
+	public void setMes(Mes mes) {
+		this.mes = mes;
 	}
 
 }

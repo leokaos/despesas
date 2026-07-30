@@ -55,6 +55,7 @@ export class AlertView implements OnInit {
     'DESPESA_RECORRENTE': 'Alerta de despesa recorrente',
     'VALOR_LIMITE_DIVIDA': 'Data limite de dívida'
   };
+
   constructor() { }
 
   ngOnInit(): void {

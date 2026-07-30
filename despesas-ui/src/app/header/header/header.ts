@@ -1,8 +1,9 @@
-import { Component, Inject, input } from '@angular/core';
+import { Component, Inject, input, output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { APP_CONFIG, AppConfig } from '../../app-config';
 import { Notificacao } from '../../models/notificacao.model';
 import { ButtonModule, ButtonSeverity } from 'primeng/button';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +14,8 @@ import { ButtonModule, ButtonSeverity } from 'primeng/button';
 export class Header {
 
   notificacoes = input.required<Notificacao[]>();
+
+  onOpenNotificacao = output<boolean>();
 
   version: string;
 
