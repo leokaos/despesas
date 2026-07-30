@@ -521,7 +521,7 @@ VISA	28	12	3500.00	23	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 0.00	4
 37298.58	5
-44061.48	3
+50041.48	3
 \.
 
 
@@ -7401,7 +7401,6 @@ t	7308	102	\N
 t	7309	107	\N
 t	7310	107	\N
 t	7311	4	\N
-t	7312	102	\N
 t	7313	4	\N
 t	7314	301	\N
 t	7315	102	\N
@@ -7410,6 +7409,7 @@ t	7317	107	\N
 t	7318	4	\N
 t	7319	107	\N
 t	7320	107	\N
+t	7312	301	\N
 \.
 
 
@@ -7595,6 +7595,7 @@ COPY despesas_db.meta (id, mes, ano, valor) FROM stdin;
 51	5	2026	1500.00
 53	6	2026	2500.00
 54	7	2026	2000.00
+56	8	2026	2000.00
 \.
 
 
@@ -14520,8 +14521,6 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7151	Continente	2026-06-06	59.10	2026-06-06	3	EURO
 7152	Arcadia	2026-06-06	4.10	2026-06-06	3	EURO
 7153	Glovo	2026-06-06	9.00	2026-06-06	3	EURO
-7155	Salário de Julho/2026	\N	4604.60	2026-07-31	3	EURO
-7154	Valor IVA de Julho/2026	\N	1375.40	2026-07-31	3	EURO
 7156	Glovo	2026-06-07	8.29	2026-06-07	3	EURO
 7157	Glovo	2026-06-08	9.90	2026-06-08	3	EURO
 7158	Glovo	2026-06-10	9.90	2026-06-10	3	EURO
@@ -14555,6 +14554,7 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7186	Uber	2026-06-20	4.96	2026-06-20	3	EURO
 7187	CONTINENTE	2026-06-20	65.33	2026-06-20	3	EURO
 7188	Glovo	2026-06-20	15.50	2026-06-20	3	EURO
+7154	Valor IVA de Julho/2026	2026-07-29	1375.40	2026-07-31	3	EURO
 7189	IKEA	2026-06-21	54.36	2026-06-21	3	EURO
 7192	TOMATINO	2026-06-21	9.20	2026-06-21	3	EURO
 7190	Uber	2026-06-21	4.96	2026-06-21	3	EURO
@@ -14684,6 +14684,9 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7318	Agere	2026-07-28	25.19	2026-07-26	3	EURO
 7319	Uber	2026-07-28	3.94	2026-07-28	3	EURO
 7320	Uber	2026-07-28	2.95	2026-07-28	3	EURO
+7155	Salário de Julho/2026	2026-07-29	4604.60	2026-07-31	3	EURO
+7321	Salário de Agosto/2026	\N	4204.20	2026-08-31	3	EURO
+7322	Valor IVA de Agosto/2026	\N	1255.80	2026-08-31	3	EURO
 \.
 
 
@@ -14747,6 +14750,9 @@ COPY despesas_db.orcamento (id, tipo_despesa_id, valor, data_inicial, data_final
 68	107	200.00	2026-07-01 00:00:00	2026-07-31 23:59:59
 69	102	400.00	2026-07-01 00:00:00	2026-07-31 23:59:59
 70	301	300.00	2026-07-01 00:00:00	2026-07-31 23:59:59
+71	107	200.00	2026-08-01 00:00:00	2026-08-31 23:59:59
+72	102	400.00	2026-08-01 00:00:00	2026-08-31 23:59:59
+73	301	300.00	2026-08-01 00:00:00	2026-08-31 23:59:59
 \.
 
 
@@ -14889,10 +14895,12 @@ t	7042	111	\N	f
 t	7000	109	\N	f
 t	7001	23	\N	t
 t	7126	111	\N	f
-f	7154	23	\N	t
-f	7155	109	\N	f
 t	7046	23	\N	t
 t	7047	109	\N	f
+t	7155	109	\N	f
+t	7154	23	\N	t
+f	7321	109	\N	f
+f	7322	23	\N	t
 \.
 
 
@@ -15156,21 +15164,21 @@ SELECT pg_catalog.setval('despesas_db.filtro_id_seq', 7, true);
 -- Name: meta_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.meta_id_seq', 55, true);
+SELECT pg_catalog.setval('despesas_db.meta_id_seq', 56, true);
 
 
 --
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7320, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7322, true);
 
 
 --
 -- Name: orcamento_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.orcamento_id_seq', 70, true);
+SELECT pg_catalog.setval('despesas_db.orcamento_id_seq', 73, true);
 
 
 --
