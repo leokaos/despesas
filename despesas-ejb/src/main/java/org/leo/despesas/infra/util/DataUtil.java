@@ -11,6 +11,7 @@ import static java.util.Calendar.YEAR;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -76,8 +77,11 @@ public class DataUtil extends DateUtils {
 	public static boolean estaNosProximosDias(final LocalDate targetDate, int days) {
 
 		LocalDate hoje = LocalDate.now();
-		LocalDate dataLimite = hoje.plusDays(days);
 
-		return !targetDate.isBefore(hoje) && !targetDate.isAfter(dataLimite);
+		if (hoje.isAfter(targetDate)) {
+			return false;
+		}
+
+		return ChronoUnit.DAYS.between(hoje, targetDate) <= days;
 	}
 }

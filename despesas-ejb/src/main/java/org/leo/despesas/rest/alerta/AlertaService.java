@@ -9,6 +9,7 @@ import javax.ws.rs.core.Response;
 
 import org.leo.despesas.aplicacao.alerta.AlertaFacade;
 import org.leo.despesas.aplicacao.alerta.AlertaJob;
+import org.leo.despesas.aplicacao.notificacao.NotificacaoJob;
 import org.leo.despesas.dominio.alerta.Alerta;
 import org.leo.despesas.dominio.alerta.AlertaFiltro;
 import org.leo.despesas.infra.AbstractService;
@@ -23,6 +24,9 @@ public class AlertaService extends AbstractService<AlertaFacade, Alerta, AlertaF
 	@EJB
 	private AlertaJob alertaJob;
 
+	@EJB
+	private NotificacaoJob notificacaoJob;
+
 	@Override
 	protected AlertaFacade getFacade() {
 		return this.alertaFacade;
@@ -36,4 +40,11 @@ public class AlertaService extends AbstractService<AlertaFacade, Alerta, AlertaF
 		return Response.ok().build();
 	}
 
+	@GET
+	@Path("/test")
+	@Produces(value = MediaType.APPLICATION_JSON)
+	public Response bbbbb() throws DespesasException {
+		notificacaoJob.executar();
+		return Response.ok().build();
+	}
 }
