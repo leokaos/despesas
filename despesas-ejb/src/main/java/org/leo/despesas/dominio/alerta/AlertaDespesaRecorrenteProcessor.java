@@ -1,5 +1,6 @@
 package org.leo.despesas.dominio.alerta;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -8,7 +9,6 @@ import javax.enterprise.context.ApplicationScoped;
 import org.leo.despesas.aplicacao.notificacao.NotificacaoFacade;
 import org.leo.despesas.dominio.notificacao.Notificacao;
 import org.leo.despesas.dominio.notificacao.NotificacaoFiltro;
-import org.leo.despesas.infra.Mes;
 import org.leo.despesas.infra.exception.DespesasException;
 
 @ApplicationScoped
@@ -22,10 +22,12 @@ public class AlertaDespesaRecorrenteProcessor implements AlertaProcessor<AlertaD
 
 		try {
 
+			LocalDate proximaData = alerta.findProximaData();
+
 			NotificacaoFiltro filtro = new NotificacaoFiltro();
 			filtro.setAlertaOrigem(alerta);
-			filtro.setExecutado(false);
-			filtro.setMes(Mes.mesAtual());
+			filtro.setTargetDate(null);
+			filtro.setTargetDate(proximaData);
 
 			List<Notificacao> notificacoes = this.notificacaoFacade.listar(filtro);
 

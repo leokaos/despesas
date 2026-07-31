@@ -11,7 +11,6 @@ import javax.inject.Inject;
 
 import org.leo.despesas.dominio.notificacao.Notificacao;
 import org.leo.despesas.dominio.notificacao.NotificacaoFiltro;
-import org.leo.despesas.infra.Mes;
 import org.leo.despesas.infra.notificacao.NotificacaoRepositorio;
 
 @Stateless
@@ -29,7 +28,6 @@ public class NotificacaoJob {
 
 		NotificacaoFiltro filtro = new NotificacaoFiltro();
 		filtro.setExecutado(false);
-		filtro.setMes(Mes.mesAtual());
 
 		List<Notificacao> notificacoes = this.notificacaoFacade.listar(filtro);
 

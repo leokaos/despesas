@@ -10,6 +10,7 @@ import javax.persistence.Table;
 
 import org.leo.despesas.dominio.notificacao.Notificacao;
 import org.leo.despesas.infra.alerta.AlertaProcessorVisitor;
+import org.leo.despesas.infra.util.DataUtil;
 
 @Entity
 @Table(name = "alerta_despesa_recorrente", schema = "despesas_db")
@@ -55,17 +56,21 @@ public class AlertaDespesaRecorrente extends Alerta {
 		this.diaAlvo = diaAlvo;
 	}
 
+	public LocalDate findProximaData() {
+		return tipoPeriodicidade.getCalculator().apply(this);
+	}
+
 	public boolean isDentroDoTempoDeAviso() {
 
-		LocalDate minimaDataParaAvisar = tipoPeriodicidade.getCalculator().next(this).minusDays(diasAntesDeAviso);
+		LocalDate dataAlvo = tipoPeriodicidade.getCalculator().apply(this);
 
-		return minimaDataParaAvisar.isEqual(LocalDate.now()) || minimaDataParaAvisar.isAfter(LocalDate.now());
+		return DataUtil.estaNosProximosDias(dataAlvo, diasAntesDeAviso);
 	}
 
 	@Override
 	public Notificacao gerarNotificacao() {
 
-		LocalDate targetDate = tipoPeriodicidade.getCalculator().next(this);
+		LocalDate targetDate = tipoPeriodicidade.getCalculator().apply(this);
 
 		Notificacao notificacao = new Notificacao();
 		notificacao.setAlerta(this);

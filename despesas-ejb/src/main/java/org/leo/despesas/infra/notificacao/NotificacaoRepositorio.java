@@ -1,6 +1,6 @@
 package org.leo.despesas.infra.notificacao;
 
-import java.text.MessageFormat;
+import java.time.format.DateTimeFormatter;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -12,8 +12,6 @@ import com.pengrad.telegrambot.response.SendResponse;
 
 @ApplicationScoped
 public class NotificacaoRepositorio {
-
-	private static final String MESSAGE_FORMAT = "Data limite {0} para {1}!";
 
 	private static final String BOT_TOKEN_ENV = "TELEGRAM_BOT_TOKEN";
 	private static final String CHAT_ID_ENV = "TELEGRAM_CHAT_ID";
@@ -27,7 +25,16 @@ public class NotificacaoRepositorio {
 	}
 
 	public void sendNotificacao(Notificacao notificacao) {
-		sendMessage(MessageFormat.format(MESSAGE_FORMAT, notificacao.getTargetDate(), notificacao.getAlerta().getDescricao()));
+
+		DateTimeFormatter data = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("🔔 *ALERTA DE VENCIMENTO* 🔔\n\n");
+		sb.append("📅 *Data Limite:* ").append(notificacao.getTargetDate().format(data)).append("\n");
+		sb.append("📋 *Descrição:* ").append(notificacao.getAlerta().getDescricao()).append("\n");
+
+		sendMessage(sb.toString());
 	}
 
 	private void sendMessage(String message) {

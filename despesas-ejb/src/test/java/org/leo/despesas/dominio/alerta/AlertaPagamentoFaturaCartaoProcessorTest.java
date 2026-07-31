@@ -20,7 +20,6 @@ import org.leo.despesas.aplicacao.notificacao.NotificacaoFacade;
 import org.leo.despesas.dominio.debitavel.CartaoCredito;
 import org.leo.despesas.dominio.notificacao.Notificacao;
 import org.leo.despesas.dominio.notificacao.NotificacaoFiltro;
-import org.leo.despesas.infra.Mes;
 
 import com.google.common.collect.Lists;
 
@@ -51,7 +50,6 @@ public class AlertaPagamentoFaturaCartaoProcessorTest {
 
 		assertEquals(alerta, filtro.getAlertaOrigem());
 		assertFalse(filtro.isExecutado());
-		assertEquals(Mes.mesAtual(), filtro.getMes());
 	}
 
 	private AlertaPagamentoFaturaCartao createNewAlerta() {

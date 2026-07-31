@@ -21,7 +21,7 @@ public class AlertaLimitePagamentoDividaProcessor implements AlertaProcessor<Ale
 
 		try {
 
-			if (alerta.isDataLimiteDividaNosProximosDias()) {
+			if (alerta.getDivida().isAtivo() && alerta.isDataLimiteDividaProximosDias()) {
 
 				NotificacaoFiltro filtro = new NotificacaoFiltro();
 				filtro.setAlertaOrigem(alerta);

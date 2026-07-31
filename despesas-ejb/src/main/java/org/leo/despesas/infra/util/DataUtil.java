@@ -9,6 +9,7 @@ import static java.util.Calendar.SECOND;
 import static java.util.Calendar.YEAR;
 
 import java.text.SimpleDateFormat;
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -21,6 +22,12 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.leo.despesas.infra.Periodo;
 
 public class DataUtil extends DateUtils {
+
+	public static Clock CLOCK = Clock.systemDefaultZone();
+
+	public static void setClock(Clock newClock) {
+		CLOCK = newClock;
+	}
 
 	private static final SimpleDateFormat FORMAT_MES = new SimpleDateFormat("MM/yyyy");
 
@@ -76,7 +83,7 @@ public class DataUtil extends DateUtils {
 
 	public static boolean estaNosProximosDias(final LocalDate targetDate, int days) {
 
-		LocalDate hoje = LocalDate.now();
+		LocalDate hoje = LocalDate.now(CLOCK);
 
 		if (hoje.isAfter(targetDate)) {
 			return false;
@@ -84,4 +91,5 @@ public class DataUtil extends DateUtils {
 
 		return ChronoUnit.DAYS.between(hoje, targetDate) <= days;
 	}
+
 }

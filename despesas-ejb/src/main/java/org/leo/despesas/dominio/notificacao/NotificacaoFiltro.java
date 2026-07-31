@@ -1,15 +1,15 @@
 package org.leo.despesas.dominio.notificacao;
 
+import java.time.LocalDate;
+
 import org.leo.despesas.dominio.alerta.Alerta;
 import org.leo.despesas.infra.AbstractModelFiltro;
-import org.leo.despesas.infra.Mes;
 
 public class NotificacaoFiltro extends AbstractModelFiltro<Notificacao> {
 
 	private Alerta alertaOrigem;
-
 	private boolean executado = false;
-	private Mes mes;
+	private LocalDate targetDate;
 
 	public NotificacaoFiltro() {
 		super();
@@ -31,12 +31,12 @@ public class NotificacaoFiltro extends AbstractModelFiltro<Notificacao> {
 		this.executado = executado;
 	}
 
-	public Mes getMes() {
-		return mes;
+	public LocalDate getTargetDate() {
+		return targetDate;
 	}
 
-	public void setMes(Mes mes) {
-		this.mes = mes;
+	public void setTargetDate(LocalDate targetDate) {
+		this.targetDate = targetDate;
 	}
 
 	@Override
