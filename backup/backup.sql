@@ -35,22 +35,26 @@ SET default_with_oids = false;
 
 CREATE TABLE despesas_db.alerta (
     id bigint NOT NULL,
-    tipo character varying(50) NOT NULL
+    tipo character varying(50) NOT NULL,
+    dias_antes_de_aviso integer NOT NULL
 );
 
 
 ALTER TABLE despesas_db.alerta OWNER TO despesas;
 
 --
--- Name: alerta_cartao_credito; Type: TABLE; Schema: despesas_db; Owner: despesas
+-- Name: alerta_despesa_recorrente; Type: TABLE; Schema: despesas_db; Owner: despesas
 --
 
-CREATE TABLE despesas_db.alerta_cartao_credito (
-    id bigint NOT NULL
+CREATE TABLE despesas_db.alerta_despesa_recorrente (
+    id bigint NOT NULL,
+    titulo character varying(255) NOT NULL,
+    tipo_periodicidade character varying(50) NOT NULL,
+    dia_alvo integer NOT NULL
 );
 
 
-ALTER TABLE despesas_db.alerta_cartao_credito OWNER TO despesas;
+ALTER TABLE despesas_db.alerta_despesa_recorrente OWNER TO despesas;
 
 --
 -- Name: alerta_id_seq; Type: SEQUENCE; Schema: despesas_db; Owner: despesas
@@ -65,6 +69,30 @@ CREATE SEQUENCE despesas_db.alerta_id_seq
 
 
 ALTER TABLE despesas_db.alerta_id_seq OWNER TO despesas;
+
+--
+-- Name: alerta_limite_pagamento_divida; Type: TABLE; Schema: despesas_db; Owner: despesas
+--
+
+CREATE TABLE despesas_db.alerta_limite_pagamento_divida (
+    id bigint NOT NULL,
+    divida_id bigint
+);
+
+
+ALTER TABLE despesas_db.alerta_limite_pagamento_divida OWNER TO despesas;
+
+--
+-- Name: alerta_pagamento_fatura_cartao; Type: TABLE; Schema: despesas_db; Owner: despesas
+--
+
+CREATE TABLE despesas_db.alerta_pagamento_fatura_cartao (
+    id bigint NOT NULL,
+    cartao_credito_id bigint
+);
+
+
+ALTER TABLE despesas_db.alerta_pagamento_fatura_cartao OWNER TO despesas;
 
 --
 -- Name: cartao; Type: TABLE; Schema: despesas_db; Owner: despesas
@@ -176,7 +204,8 @@ CREATE TABLE despesas_db.divida (
     valor_total numeric(19,2) NOT NULL,
     periodiciodade character varying(255) NOT NULL,
     data_inicio date NOT NULL,
-    id bigint NOT NULL
+    id bigint NOT NULL,
+    data_limite date
 );
 
 
@@ -342,6 +371,36 @@ CREATE SEQUENCE despesas_db.movimentacao_id_seq
 ALTER TABLE despesas_db.movimentacao_id_seq OWNER TO despesas;
 
 --
+-- Name: notificacao; Type: TABLE; Schema: despesas_db; Owner: despesas
+--
+
+CREATE TABLE despesas_db.notificacao (
+    id bigint NOT NULL,
+    executado boolean DEFAULT false NOT NULL,
+    origem_alerta_id bigint,
+    target_date date,
+    mes integer,
+    ano integer
+);
+
+
+ALTER TABLE despesas_db.notificacao OWNER TO despesas;
+
+--
+-- Name: notificacao_id_seq; Type: SEQUENCE; Schema: despesas_db; Owner: despesas
+--
+
+CREATE SEQUENCE despesas_db.notificacao_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE despesas_db.notificacao_id_seq OWNER TO despesas;
+
+--
 -- Name: orcamento; Type: TABLE; Schema: despesas_db; Owner: despesas
 --
 
@@ -492,15 +551,41 @@ ALTER TABLE public.flyway_schema_history OWNER TO despesas;
 -- Data for Name: alerta; Type: TABLE DATA; Schema: despesas_db; Owner: despesas
 --
 
-COPY despesas_db.alerta (id, tipo) FROM stdin;
+COPY despesas_db.alerta (id, tipo, dias_antes_de_aviso) FROM stdin;
+1	VALOR_LIMITE_DIVIDA	10
+2	FATURA_CARTAO_CREDITO	10
+3	FATURA_CARTAO_CREDITO	10
+4	DESPESA_RECORRENTE	10
+5	DESPESA_RECORRENTE	10
 \.
 
 
 --
--- Data for Name: alerta_cartao_credito; Type: TABLE DATA; Schema: despesas_db; Owner: despesas
+-- Data for Name: alerta_despesa_recorrente; Type: TABLE DATA; Schema: despesas_db; Owner: despesas
 --
 
-COPY despesas_db.alerta_cartao_credito (id) FROM stdin;
+COPY despesas_db.alerta_despesa_recorrente (id, titulo, tipo_periodicidade, dia_alvo) FROM stdin;
+4	Condomínio	DIA_UTIL	15
+5	Aluguel	DIA_UTIL	8
+\.
+
+
+--
+-- Data for Name: alerta_limite_pagamento_divida; Type: TABLE DATA; Schema: despesas_db; Owner: despesas
+--
+
+COPY despesas_db.alerta_limite_pagamento_divida (id, divida_id) FROM stdin;
+1	22
+\.
+
+
+--
+-- Data for Name: alerta_pagamento_fatura_cartao; Type: TABLE DATA; Schema: despesas_db; Owner: despesas
+--
+
+COPY despesas_db.alerta_pagamento_fatura_cartao (id, cartao_credito_id) FROM stdin;
+2	6
+3	23
 \.
 
 
@@ -521,7 +606,7 @@ VISA	28	12	3500.00	23	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 0.00	4
 37298.58	5
-50041.48	3
+49989.48	3
 \.
 
 
@@ -7410,6 +7495,7 @@ t	7318	4	\N
 t	7319	107	\N
 t	7320	107	\N
 t	7312	301	\N
+t	7323	4	\N
 \.
 
 
@@ -7417,12 +7503,12 @@ t	7312	301	\N
 -- Data for Name: divida; Type: TABLE DATA; Schema: despesas_db; Owner: despesas
 --
 
-COPY despesas_db.divida (valor_total, periodiciodade, data_inicio, id) FROM stdin;
-121592.98	MENSAL	2017-10-31	7
-407.10	VARIAVEL	2025-11-14	18
-2237.90	VARIAVEL	2025-10-01	19
-2555.38	VARIAVEL	2026-05-24	20
-3707.60	VARIAVEL	2026-09-20	22
+COPY despesas_db.divida (valor_total, periodiciodade, data_inicio, id, data_limite) FROM stdin;
+121592.98	MENSAL	2017-10-31	7	\N
+407.10	VARIAVEL	2025-11-14	18	\N
+2237.90	VARIAVEL	2025-10-01	19	\N
+2555.38	VARIAVEL	2026-05-24	20	\N
+3707.60	VARIAVEL	2026-09-20	22	2026-09-20
 \.
 
 
@@ -14687,6 +14773,15 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7155	Salário de Julho/2026	2026-07-29	4604.60	2026-07-31	3	EURO
 7321	Salário de Agosto/2026	\N	4204.20	2026-08-31	3	EURO
 7322	Valor IVA de Agosto/2026	\N	1255.80	2026-08-31	3	EURO
+7323	LImpeza	2026-07-30	52.00	2026-07-30	3	EURO
+\.
+
+
+--
+-- Data for Name: notificacao; Type: TABLE DATA; Schema: despesas_db; Owner: despesas
+--
+
+COPY despesas_db.notificacao (id, executado, origem_alerta_id, target_date, mes, ano) FROM stdin;
 \.
 
 
@@ -15115,6 +15210,9 @@ COPY public.flyway_schema_history (installed_rank, version, description, type, s
 22	22	adicionar feriados url	SQL	V22__adicionar_feriados_url.sql	-210987324	despesas	2026-05-02 20:39:21.327228	68	t
 23	23	adicionar filtros	SQL	V23__adicionar_filtros.sql	1505917569	despesas	2026-05-26 15:43:32.993642	36	t
 24	24	adiciona restricao moeda	SQL	V24__adiciona_restricao_moeda.sql	1876975109	despesas	2026-05-30 13:01:03.416423	556	t
+25	25	mudar timestamp para date	SQL	V25__mudar_timestamp_para_date.sql	-1773607855	despesas	2026-07-30 18:40:52.277409	35	t
+26	26	estrutura de alertas	SQL	V26__estrutura_de_alertas.sql	864265175	despesas	2026-07-30 18:41:46.597733	46	t
+27	27	estrutura de notificacao	SQL	V27__estrutura_de_notificacao.sql	1261704511	despesas	2026-07-30 18:41:46.71015	23	t
 \.
 
 
@@ -15122,7 +15220,7 @@ COPY public.flyway_schema_history (installed_rank, version, description, type, s
 -- Name: alerta_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.alerta_id_seq', 1, false);
+SELECT pg_catalog.setval('despesas_db.alerta_id_seq', 5, true);
 
 
 --
@@ -15171,7 +15269,14 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 56, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7322, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7323, true);
+
+
+--
+-- Name: notificacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
+--
+
+SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 1, false);
 
 
 --
@@ -15193,6 +15298,38 @@ SELECT pg_catalog.setval('despesas_db.servico_transferencia_id_seq', 2, true);
 --
 
 SELECT pg_catalog.setval('despesas_db.tipo_movimentacao_id_seq', 23, true);
+
+
+--
+-- Name: alerta_despesa_recorrente alerta_despesa_recorrente_pkey; Type: CONSTRAINT; Schema: despesas_db; Owner: despesas
+--
+
+ALTER TABLE ONLY despesas_db.alerta_despesa_recorrente
+    ADD CONSTRAINT alerta_despesa_recorrente_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: alerta_limite_pagamento_divida alerta_limite_pagamento_divida_pkey; Type: CONSTRAINT; Schema: despesas_db; Owner: despesas
+--
+
+ALTER TABLE ONLY despesas_db.alerta_limite_pagamento_divida
+    ADD CONSTRAINT alerta_limite_pagamento_divida_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: alerta_pagamento_fatura_cartao alerta_pagamento_fatura_cartao_pkey; Type: CONSTRAINT; Schema: despesas_db; Owner: despesas
+--
+
+ALTER TABLE ONLY despesas_db.alerta_pagamento_fatura_cartao
+    ADD CONSTRAINT alerta_pagamento_fatura_cartao_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: alerta alerta_pkey; Type: CONSTRAINT; Schema: despesas_db; Owner: despesas
+--
+
+ALTER TABLE ONLY despesas_db.alerta
+    ADD CONSTRAINT alerta_pkey PRIMARY KEY (id);
 
 
 --
@@ -15300,6 +15437,14 @@ ALTER TABLE ONLY despesas_db.movimentacao
 
 
 --
+-- Name: notificacao notificacao_pkey; Type: CONSTRAINT; Schema: despesas_db; Owner: despesas
+--
+
+ALTER TABLE ONLY despesas_db.notificacao
+    ADD CONSTRAINT notificacao_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: orcamento orcamento_pkey; Type: CONSTRAINT; Schema: despesas_db; Owner: despesas
 --
 
@@ -15313,22 +15458,6 @@ ALTER TABLE ONLY despesas_db.orcamento
 
 ALTER TABLE ONLY despesas_db.parametros
     ADD CONSTRAINT parametros_pkey PRIMARY KEY (nome);
-
-
---
--- Name: alerta pk_alerta; Type: CONSTRAINT; Schema: despesas_db; Owner: despesas
---
-
-ALTER TABLE ONLY despesas_db.alerta
-    ADD CONSTRAINT pk_alerta PRIMARY KEY (id);
-
-
---
--- Name: alerta_cartao_credito pk_alerta_cartao_credito; Type: CONSTRAINT; Schema: despesas_db; Owner: despesas
---
-
-ALTER TABLE ONLY despesas_db.alerta_cartao_credito
-    ADD CONSTRAINT pk_alerta_cartao_credito PRIMARY KEY (id);
 
 
 --
@@ -15384,6 +15513,30 @@ ALTER TABLE ONLY public.flyway_schema_history
 --
 
 CREATE INDEX flyway_schema_history_s_idx ON public.flyway_schema_history USING btree (success);
+
+
+--
+-- Name: alerta_despesa_recorrente alerta_despesa_recorrente_id_fkey; Type: FK CONSTRAINT; Schema: despesas_db; Owner: despesas
+--
+
+ALTER TABLE ONLY despesas_db.alerta_despesa_recorrente
+    ADD CONSTRAINT alerta_despesa_recorrente_id_fkey FOREIGN KEY (id) REFERENCES despesas_db.alerta(id);
+
+
+--
+-- Name: alerta_limite_pagamento_divida alerta_limite_pagamento_divida_id_fkey; Type: FK CONSTRAINT; Schema: despesas_db; Owner: despesas
+--
+
+ALTER TABLE ONLY despesas_db.alerta_limite_pagamento_divida
+    ADD CONSTRAINT alerta_limite_pagamento_divida_id_fkey FOREIGN KEY (id) REFERENCES despesas_db.alerta(id);
+
+
+--
+-- Name: alerta_pagamento_fatura_cartao alerta_pagamento_fatura_cartao_id_fkey; Type: FK CONSTRAINT; Schema: despesas_db; Owner: despesas
+--
+
+ALTER TABLE ONLY despesas_db.alerta_pagamento_fatura_cartao
+    ADD CONSTRAINT alerta_pagamento_fatura_cartao_id_fkey FOREIGN KEY (id) REFERENCES despesas_db.alerta(id);
 
 
 --
@@ -15443,14 +15596,6 @@ ALTER TABLE ONLY despesas_db.fatura
 
 
 --
--- Name: alerta_cartao_credito fk_alerta_cartao_credito; Type: FK CONSTRAINT; Schema: despesas_db; Owner: despesas
---
-
-ALTER TABLE ONLY despesas_db.alerta_cartao_credito
-    ADD CONSTRAINT fk_alerta_cartao_credito FOREIGN KEY (id) REFERENCES despesas_db.alerta(id);
-
-
---
 -- Name: investimento investimento_debitavel_fk; Type: FK CONSTRAINT; Schema: despesas_db; Owner: despesas
 --
 
@@ -15472,6 +15617,14 @@ ALTER TABLE ONLY despesas_db.receita
 
 ALTER TABLE ONLY despesas_db.movimentacao
     ADD CONSTRAINT movimentacao_debitavel_fk FOREIGN KEY (debitavel_id) REFERENCES despesas_db.debitavel(id);
+
+
+--
+-- Name: notificacao notificacao_origem_alerta_id_fkey; Type: FK CONSTRAINT; Schema: despesas_db; Owner: despesas
+--
+
+ALTER TABLE ONLY despesas_db.notificacao
+    ADD CONSTRAINT notificacao_origem_alerta_id_fkey FOREIGN KEY (origem_alerta_id) REFERENCES despesas_db.alerta(id);
 
 
 --
