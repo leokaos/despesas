@@ -8,14 +8,14 @@ import java.util.function.Function;
 
 public enum TipoPeriodicidade {
 
-	DIA_UTIL(alerta -> {
+	DIA_UTIL(diaAlvo -> {
 
 		LocalDate data = LocalDate.now(CLOCK);
 
-		if (data.getDayOfMonth() > alerta.getDiaAlvo()) {
-			data = data.withDayOfMonth(alerta.getDiaAlvo()).plusMonths(1);
+		if (data.getDayOfMonth() > diaAlvo) {
+			data = data.withDayOfMonth(diaAlvo).plusMonths(1);
 		} else {
-			data = data.withDayOfMonth(alerta.getDiaAlvo());
+			data = data.withDayOfMonth(diaAlvo);
 		}
 
 		while (data.getDayOfWeek() == DayOfWeek.SATURDAY || data.getDayOfWeek() == DayOfWeek.SUNDAY) {
@@ -25,13 +25,13 @@ public enum TipoPeriodicidade {
 		return data;
 	});
 
-	private final Function<AlertaDespesaRecorrente, LocalDate> calculator;
+	private final Function<Integer, LocalDate> calculator;
 
-	private TipoPeriodicidade(Function<AlertaDespesaRecorrente, LocalDate> calculator) {
+	private TipoPeriodicidade(Function<Integer, LocalDate> calculator) {
 		this.calculator = calculator;
 	}
 
-	public Function<AlertaDespesaRecorrente, LocalDate> getCalculator() {
+	public Function<Integer, LocalDate> getCalculator() {
 		return calculator;
 	}
 

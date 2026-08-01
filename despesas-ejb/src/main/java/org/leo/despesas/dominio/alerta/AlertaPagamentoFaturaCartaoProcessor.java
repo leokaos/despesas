@@ -20,15 +20,20 @@ public class AlertaPagamentoFaturaCartaoProcessor implements AlertaProcessor<Ale
 	public void processarAlerta(AlertaPagamentoFaturaCartao alerta) {
 
 		try {
-			
-			NotificacaoFiltro filtro = new NotificacaoFiltro();
-			filtro.setAlertaOrigem(alerta);
-			filtro.setExecutado(false);
 
-			List<Notificacao> notificacoes = this.notificacaoFacade.listar(filtro);
+			if (alerta.isProximaFaturaNosProximosDias()) {
 
-			if (notificacoes.isEmpty() && alerta.isProximaFaturaNosProximosDias()) {
-				notificacaoFacade.inserir(alerta.gerarNotificacao());
+				NotificacaoFiltro filtro = new NotificacaoFiltro();
+				filtro.setAlertaOrigem(alerta);
+				filtro.setExecutado(false);
+				filtro.setTargetDate(alerta.getCartao().getDataProximaFatura());
+
+				List<Notificacao> notificacoes = this.notificacaoFacade.listar(filtro);
+
+				if (notificacoes.isEmpty()) {
+					notificacaoFacade.inserir(alerta.gerarNotificacao());
+				}
+
 			}
 
 		} catch (DespesasException e) {

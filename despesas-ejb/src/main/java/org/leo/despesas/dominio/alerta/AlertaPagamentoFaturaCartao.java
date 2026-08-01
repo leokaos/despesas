@@ -58,8 +58,7 @@ public class AlertaPagamentoFaturaCartao extends Alerta {
 	}
 
 	public boolean isProximaFaturaNosProximosDias() {
-		LocalDate proximaFatura = LocalDate.now().withDayOfMonth(cartao.getDiaDeVencimento());
-		return cartao.isAtivo() && estaNosProximosDias(proximaFatura, diasAntesDeAviso);
+		return cartao.isAtivo() && estaNosProximosDias(cartao.getDataProximaFatura(), diasAntesDeAviso);
 	}
 
 }

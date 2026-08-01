@@ -57,12 +57,12 @@ public class AlertaDespesaRecorrente extends Alerta {
 	}
 
 	public LocalDate findProximaData() {
-		return tipoPeriodicidade.getCalculator().apply(this);
+		return tipoPeriodicidade.getCalculator().apply(diaAlvo);
 	}
 
 	public boolean isDentroDoTempoDeAviso() {
 
-		LocalDate dataAlvo = tipoPeriodicidade.getCalculator().apply(this);
+		LocalDate dataAlvo = tipoPeriodicidade.getCalculator().apply(diaAlvo);
 
 		return DataUtil.estaNosProximosDias(dataAlvo, diasAntesDeAviso);
 	}
@@ -70,7 +70,7 @@ public class AlertaDespesaRecorrente extends Alerta {
 	@Override
 	public Notificacao gerarNotificacao() {
 
-		LocalDate targetDate = tipoPeriodicidade.getCalculator().apply(this);
+		LocalDate targetDate = tipoPeriodicidade.getCalculator().apply(diaAlvo);
 
 		Notificacao notificacao = new Notificacao();
 		notificacao.setAlerta(this);
