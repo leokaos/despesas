@@ -16,6 +16,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { CommonModule } from '@angular/common';
 import { PanelModule } from 'primeng/panel';
 import { map } from 'rxjs';
+import { AlertWizzard } from "../alert-wizard/alert-wizard";
 
 @Component({
   selector: 'app-alert-view',
@@ -38,8 +39,9 @@ import { map } from 'rxjs';
     ProgressBarModule,
     ReactiveFormsModule,
     CommonModule,
-    PanelModule
-  ],
+    PanelModule,
+    AlertWizzard
+],
   templateUrl: './alert-view.html',
   styleUrl: './alert-view.scss',
 })
@@ -47,15 +49,10 @@ export class AlertView implements OnInit {
 
   data = signal<Alerta[]>([]);
   loading = signal<boolean>(true);
+  showDialog = false;
   searchValue?: string;
 
   private alertaService = inject(AlertaService);
-
-  tipoAlertaMap: any = {
-    'FATURA_CARTAO_CREDITO': 'Lembrete de fatura de cartão de crédito',
-    'DESPESA_RECORRENTE': 'Alerta de despesa recorrente',
-    'VALOR_LIMITE_DIVIDA': 'Data limite de dívida'
-  };
 
   constructor() { }
 
@@ -74,27 +71,26 @@ export class AlertView implements OnInit {
 
   processAlerta(alerta: any): any {
 
-    let detalhe = '';
-
     if (alerta.tipo === 'FATURA_CARTAO_CREDITO') {
-      detalhe = `Fatura vence todo dia ${alerta.cartao?.diaDeFechamento || ''}`;
+      alerta.tipoLabel = 'Lembrete de fatura de cartão de crédito';
+      alerta.detalhe = `Fatura vence todo dia ${alerta.cartao?.diaDeFechamento || ''}`;
     }
 
     if (alerta.tipo === 'VALOR_LIMITE_DIVIDA') {
-      detalhe = `Pagamento Limite em ${alerta.divida?.dataLimite ? new Date(alerta.divida.dataLimite).toLocaleDateString('pt-BR') : ''}`;
+      alerta.tipoLabel = 'Data limite de dívida';
+      alerta.detalhe = `Pagamento Limite em ${alerta.divida?.dataLimite ? new Date(alerta.divida.dataLimite).toLocaleDateString('pt-BR') : ''}`;
     }
 
     if (alerta.tipo === 'DESPESA_RECORRENTE') {
-      detalhe = `Todo dia ${alerta.diaAlvo || ''}`;
+      alerta.tipoLabel = 'Alerta de despesa recorrente';
+      alerta.detalhe = `Todo dia ${alerta.diaAlvo || ''}`;
     }
-
-    alerta.detalhe = detalhe;
 
     return alerta;
   }
 
   public add() {
-
+    this.showDialog = true;
   }
 
   public reload() {

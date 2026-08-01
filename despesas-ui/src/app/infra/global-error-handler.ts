@@ -9,6 +9,7 @@ export class GlobalErrorHandler implements ErrorHandler {
     private messageService = inject(MessageService);
 
     handleError(error: any) {
+        console.info(error)
 
         const mensagem = (error.error && typeof error.error === 'object')
             ? (error.statusText || 'Erro desconhecido')

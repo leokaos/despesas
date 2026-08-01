@@ -1,0 +1,36 @@
+<p-dialog header="Adicionar Alerta " [visible]="showDialog()" (visibleChange)="fechar.emit()" position="top" [modal]="true" [style]="{ width: '50rem' }" [draggable]="false">
+
+    <p-stepper [value]="passoAtual" class="basis-[50rem]">
+        <p-step-list>
+            <p-step [value]="1">Informações Gerais</p-step>
+            <p-step [value]="2">Detalhes</p-step>
+            <p-step [value]="3">Sumário</p-step>
+        </p-step-list>
+        <p-step-panels>
+            <p-step-panel [value]="1">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <app-alert-wizard-step1 (onTipoSelected)="carregarComponente($event)" #step1 />
+                </ng-template>
+            </p-step-panel>
+
+            <p-step-panel [value]="2">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <ng-container *ngComponentOutlet="step2"></ng-container>
+                </ng-template>
+            </p-step-panel>
+
+            <p-step-panel [value]="3">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <app-alert-wizard-step3 #step3 />
+                </ng-template>
+            </p-step-panel>
+
+        </p-step-panels>
+    </p-stepper>
+
+    <ng-template pTemplate="footer">
+        <p-button label="Cancelar" severity="secondary" (click)="cancelar()"> </p-button>
+        <p-button label="Próximo" severity="primary" [disabled]="!isStepValido()" (click)="proximoPasso()"> </p-button>
+    </ng-template>
+
+</p-dialog>

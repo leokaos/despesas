@@ -47,8 +47,8 @@
                 <th class="force-center" pSortableColumn="descricao">
                     Descrição <p-sortIcon field="descricao" />
                 </th>
-                <th pSortableColumn="tipo">
-                    Tipo <p-sortIcon field="tipo" />
+                <th pSortableColumn="tipoLabel">
+                    Tipo <p-sortIcon field="tipoLabel" />
                 </th>
                 <th pSortableColumn="diasAntesDeAviso">
                     Aviso em (dias) <p-sortIcon field="diasAntesDeAviso" />
@@ -64,7 +64,7 @@
         <ng-template pTemplate="body" let-alerta>
             <tr>
                 <td> {{alerta.descricao}} </td>
-                <td> {{ tipoAlertaMap[alerta.tipo] || alerta.tipo }} </td>
+                <td> {{alerta.tipoLabel}} </td>
                 <td class="force-center"> {{alerta.diasAntesDeAviso}} </td>
                 <td class="force-center"> {{alerta.detalhe}} </td>
                 <td class="small-column">
@@ -92,6 +92,9 @@
         </ng-template>
 
     </p-table>
+
+    <app-alert-wizard [showDialog]="showDialog" (fechar)="showDialog = false" />
+
     }
 
 </div>

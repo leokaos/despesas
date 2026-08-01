@@ -10,5 +10,6 @@ export interface Alerta {
     tipo: TipoAlerta;
     descricao: string;
     detalhe: string;
+    tipoLabel: string;
 }
 
