@@ -8,7 +8,7 @@ import org.leo.despesas.infra.AbstractModelFiltro;
 public class NotificacaoFiltro extends AbstractModelFiltro<Notificacao> {
 
 	private Alerta alertaOrigem;
-	private boolean executado = false;
+	private Boolean executado;
 	private LocalDate targetDate;
 
 	public NotificacaoFiltro() {
@@ -45,6 +45,8 @@ public class NotificacaoFiltro extends AbstractModelFiltro<Notificacao> {
 		eq("alerta", alertaOrigem);
 
 		eq("executado", executado);
+
+		eq("targetDate", targetDate);
 	}
 
 }

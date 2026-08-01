@@ -22,17 +22,20 @@ public class AlertaDespesaRecorrenteProcessor implements AlertaProcessor<AlertaD
 
 		try {
 
-			LocalDate proximaData = alerta.findProximaData();
+			if (alerta.isDentroDoTempoDeAviso()) {
 
-			NotificacaoFiltro filtro = new NotificacaoFiltro();
-			filtro.setAlertaOrigem(alerta);
-			filtro.setTargetDate(null);
-			filtro.setTargetDate(proximaData);
+				LocalDate proximaData = alerta.findProximaData();
 
-			List<Notificacao> notificacoes = this.notificacaoFacade.listar(filtro);
+				NotificacaoFiltro filtro = new NotificacaoFiltro();
+				filtro.setAlertaOrigem(alerta);
+				filtro.setTargetDate(proximaData);
 
-			if (notificacoes.isEmpty() && alerta.isDentroDoTempoDeAviso()) {
-				notificacaoFacade.inserir(alerta.gerarNotificacao());
+				List<Notificacao> notificacoes = this.notificacaoFacade.listar(filtro);
+
+				if (notificacoes.isEmpty()) {
+					notificacaoFacade.inserir(alerta.gerarNotificacao());
+				}
+
 			}
 
 		} catch (DespesasException e) {

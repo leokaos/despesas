@@ -25,7 +25,6 @@ public class AlertaPagamentoFaturaCartaoProcessor implements AlertaProcessor<Ale
 
 				NotificacaoFiltro filtro = new NotificacaoFiltro();
 				filtro.setAlertaOrigem(alerta);
-				filtro.setExecutado(false);
 				filtro.setTargetDate(alerta.getCartao().getDataProximaFatura());
 
 				List<Notificacao> notificacoes = this.notificacaoFacade.listar(filtro);

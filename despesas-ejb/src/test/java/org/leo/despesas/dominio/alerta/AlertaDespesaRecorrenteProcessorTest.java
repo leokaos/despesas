@@ -50,7 +50,7 @@ public class AlertaDespesaRecorrenteProcessorTest {
 
 		AlertaDespesaRecorrente alerta = new AlertaDespesaRecorrente();
 		alerta.setTipoPeriodicidade(TipoPeriodicidade.DIA_UTIL);
-		alerta.setDiaAlvo(15);
+		alerta.setDiaAlvo(8);
 		alerta.setDiasAntesDeAviso(10);
 
 		Capture<NotificacaoFiltro> captureFiltro = new Capture<>();
@@ -107,21 +107,12 @@ public class AlertaDespesaRecorrenteProcessorTest {
 		alerta.setDiaAlvo(25);
 		alerta.setDiasAntesDeAviso(10);
 
-		Capture<NotificacaoFiltro> captureFiltro = new Capture<>();
-
-		expect(mockNotificacaoFacade.listar(capture(captureFiltro))).andReturn(Lists.newArrayList());
-
 		replay(mockNotificacaoFacade);
 
 		processor.processarAlerta(alerta);
 
 		verify(mockNotificacaoFacade);
 
-		NotificacaoFiltro filtro = captureFiltro.getValue();
-
-		assertEquals(alerta, filtro.getAlertaOrigem());
-		assertEquals(alerta.findProximaData(), filtro.getTargetDate());
 	}
-
 
 }

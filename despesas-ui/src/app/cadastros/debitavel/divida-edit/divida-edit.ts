@@ -79,6 +79,7 @@ export class DividaEdit {
       dataInicio: [this.divida?.dataInicio, Validators.required],
       periodicidade: [this.divida?.periodicidade, Validators.required],
       ativo: [this.divida?.ativo, Validators.required],
+      dataLimite: [this.divida?.dataLimite],
     });
 
     this.loading.set(false);

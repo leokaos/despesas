@@ -21,30 +21,24 @@ public class AlertaService extends AbstractService<AlertaFacade, Alerta, AlertaF
 	@EJB
 	private AlertaFacade alertaFacade;
 
-	@EJB
-	private AlertaJob alertaJob;
-
-	@EJB
-	private NotificacaoJob notificacaoJob;
-
 	@Override
 	protected AlertaFacade getFacade() {
 		return this.alertaFacade;
 	}
 
+	@EJB
+	private AlertaJob alertaJob;
+	
+	@EJB
+	private NotificacaoJob notificacaoJob;
+
 	@GET
 	@Path("/run")
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public Response aaaaaa() throws DespesasException {
+	public Response buscarPorId() throws DespesasException {
 		alertaJob.executar();
-		return Response.ok().build();
-	}
-
-	@GET
-	@Path("/test")
-	@Produces(value = MediaType.APPLICATION_JSON)
-	public Response bbbbb() throws DespesasException {
 		notificacaoJob.executar();
 		return Response.ok().build();
 	}
+
 }

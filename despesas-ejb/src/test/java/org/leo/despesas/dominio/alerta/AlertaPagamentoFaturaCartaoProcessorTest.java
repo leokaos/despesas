@@ -64,7 +64,7 @@ public class AlertaPagamentoFaturaCartaoProcessorTest {
 		NotificacaoFiltro filtro = captureNotificacaoFiltro.getValue();
 
 		assertEquals(alerta, filtro.getAlertaOrigem());
-		assertFalse(filtro.isExecutado());
+		assertEquals(LocalDate.of(2026, 1, 8), filtro.getTargetDate());
 	}
 
 	@Test
