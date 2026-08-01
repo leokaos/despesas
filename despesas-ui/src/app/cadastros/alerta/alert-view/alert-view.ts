@@ -15,6 +15,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { CommonModule } from '@angular/common';
 import { PanelModule } from 'primeng/panel';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-alert-view',
@@ -63,10 +64,33 @@ export class AlertView implements OnInit {
   }
 
   loadData() {
-    this.alertaService.fetch().subscribe((data: Alerta[]) => {
+    this.alertaService.fetch().pipe(
+      map(data => data.map(alerta => this.processAlerta(alerta)))
+    ).subscribe((data: Alerta[]) => {
       this.data.update(_ => [...data]);
       this.loading.set(false);
     });
+  }
+
+  processAlerta(alerta: any): any {
+
+    let detalhe = '';
+
+    if (alerta.tipo === 'FATURA_CARTAO_CREDITO') {
+      detalhe = `Fatura vence todo dia ${alerta.cartao?.diaDeFechamento || ''}`;
+    }
+
+    if (alerta.tipo === 'VALOR_LIMITE_DIVIDA') {
+      detalhe = `Pagamento Limite em ${alerta.divida?.dataLimite ? new Date(alerta.divida.dataLimite).toLocaleDateString('pt-BR') : ''}`;
+    }
+
+    if (alerta.tipo === 'DESPESA_RECORRENTE') {
+      detalhe = `Todo dia ${alerta.diaAlvo || ''}`;
+    }
+
+    alerta.detalhe = detalhe;
+
+    return alerta;
   }
 
   public add() {

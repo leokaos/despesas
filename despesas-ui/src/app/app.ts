@@ -3,7 +3,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { Header } from './header/header/header';
 import { ToastModule } from 'primeng/toast';
-import { NotificacaoService } from './services/notificacao-service';
+import { NotificacaoFiltro, NotificacaoService } from './services/notificacao-service';
 import { Notificacao } from './models/notificacao.model';
 import { debounceTime, delay, merge, Subscription } from 'rxjs';
 import { WebsocketService } from './services/websocket-service';
@@ -12,6 +12,7 @@ import { DrawerModule } from 'primeng/drawer';
 import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { TipoAlerta } from './models/alerta.model';
 import { BadgeModule } from 'primeng/badge';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -33,11 +34,13 @@ import { BadgeModule } from 'primeng/badge';
 export class App implements OnInit {
 
   notificacoes = signal<Notificacao[]>([]);
+  notificacaoSendoExecutada = signal<Notificacao | null>(null);
 
   openNotifications: boolean = false;
 
   private notificacaoService = inject(NotificacaoService);
   private webSocketService = inject(WebsocketService);
+  private messageService = inject(MessageService);
 
   private notificacaoSubscription!: Subscription;
 
@@ -63,7 +66,11 @@ export class App implements OnInit {
   }
 
   loadData() {
-    this.notificacaoService.fetch().subscribe(data => {
+    let filtro = {
+      executado: false
+    } as NotificacaoFiltro;
+
+    this.notificacaoService.fetch(filtro).subscribe(data => {
       this.notificacoes.set(data);
     });
   }
@@ -76,8 +83,17 @@ export class App implements OnInit {
     return diffDays;
   }
 
-  executarNotificacao(_t18: Notificacao) {
-    throw new Error('Method not implemented.');
+  executarNotificacao(notificacao: Notificacao) {
+
+    this.notificacaoSendoExecutada.set(notificacao);
+
+    notificacao.executado = true;
+
+    this.notificacaoService.createOrUpdate(notificacao).subscribe(_ => {
+      this.notificacoes.update(n => n.filter(item => item.id !== notificacao.id));
+      this.notificacaoSendoExecutada.set(null);
+      this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Notificação atualizada!', life: 3000 });
+    });
   }
 
   ngOnDestroy() {

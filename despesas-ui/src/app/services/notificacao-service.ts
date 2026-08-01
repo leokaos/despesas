@@ -1,8 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
 import { APP_CONFIG, AppConfig } from '../app-config';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Notificacao } from '../models/notificacao.model';
 import { map, Observable } from 'rxjs';
+
+export interface NotificacaoFiltro {
+  executado: boolean;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -13,9 +17,16 @@ export class NotificacaoService {
 
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
 
-  fetch(): Observable<Notificacao[]> {
+  fetch(filtro?: NotificacaoFiltro): Observable<Notificacao[]> {
+
+    let params = new HttpParams();
+
+    if (filtro?.executado !== undefined) {
+      params = params.append("executado", filtro.executado);
+    }
+
     return this.http
-      .get<Notificacao[]>(`${this.config.apiUrl}/${this.path}`)
+      .get<Notificacao[]>(`${this.config.apiUrl}/${this.path}`, { params })
       .pipe(map((data) => data.map((notificacao) => notificacao)));
   }
 

@@ -50,7 +50,8 @@
                         size="small"
                         severity="primary"
                         class="p-button-sm p-button-rounded"
-                        (click)="executarNotificacao(notif)">
+                        (click)="executarNotificacao(notif)"
+                        [loading]="notificacaoSendoExecutada()?.id ==  notif.id">
                     </button>
                 </div>
             </div>

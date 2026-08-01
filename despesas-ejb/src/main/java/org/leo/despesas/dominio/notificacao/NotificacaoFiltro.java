@@ -2,13 +2,18 @@ package org.leo.despesas.dominio.notificacao;
 
 import java.time.LocalDate;
 
+import javax.ws.rs.QueryParam;
+
 import org.leo.despesas.dominio.alerta.Alerta;
 import org.leo.despesas.infra.AbstractModelFiltro;
 
 public class NotificacaoFiltro extends AbstractModelFiltro<Notificacao> {
 
 	private Alerta alertaOrigem;
+
+	@QueryParam("executado")
 	private Boolean executado;
+
 	private LocalDate targetDate;
 
 	public NotificacaoFiltro() {

@@ -15,10 +15,14 @@ import javax.persistence.Table;
 import org.leo.despesas.dominio.notificacao.Notificacao;
 import org.leo.despesas.infra.ModelEntity;
 import org.leo.despesas.infra.alerta.AlertaProcessorVisitor;
+import org.leo.despesas.rest.AlertaDeserializer;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @Entity
 @Table(name = "alerta", schema = "despesas_db")
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonDeserialize(using = AlertaDeserializer.class)
 public abstract class Alerta implements ModelEntity {
 
 	private static final long serialVersionUID = 3937060574469790488L;

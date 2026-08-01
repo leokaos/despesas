@@ -9,5 +9,6 @@ export interface Alerta {
     id: number;
     tipo: TipoAlerta;
     descricao: string;
+    detalhe: string;
 }
 

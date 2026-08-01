@@ -44,17 +44,17 @@
 
         <ng-template pTemplate="header">
             <tr>
-                <th class="force-center" pSortableColumn="origem.id">
-                    Descrição <p-sortIcon field="origem.nome" />
+                <th class="force-center" pSortableColumn="descricao">
+                    Descrição <p-sortIcon field="descricao" />
                 </th>
-                <th pSortableColumn="data">
-                    Tipo <p-sortIcon field="data" />
+                <th pSortableColumn="tipo">
+                    Tipo <p-sortIcon field="tipo" />
                 </th>
-                <th pSortableColumn="data">
-                    Aviso em (dias) <p-sortIcon field="data" />
+                <th pSortableColumn="diasAntesDeAviso">
+                    Aviso em (dias) <p-sortIcon field="diasAntesDeAviso" />
                 </th>
-                <th pSortableColumn="data" class="force-center">
-                    Detalhes <p-sortIcon field="data" />
+                <th pSortableColumn="detalhe" class="force-center">
+                    Detalhes <p-sortIcon field="detalhe" />
                 </th>
                 <th class="small-column"></th>
                 <th class="small-column"></th>
@@ -66,17 +66,7 @@
                 <td> {{alerta.descricao}} </td>
                 <td> {{ tipoAlertaMap[alerta.tipo] || alerta.tipo }} </td>
                 <td class="force-center"> {{alerta.diasAntesDeAviso}} </td>
-                <td class="force-center">
-                    @if (alerta.tipo == 'FATURA_CARTAO_CREDITO') {
-                        Fatura vence todo dia {{alerta.cartao.diaDeFechamento}}
-                    }
-                    @if (alerta.tipo == 'VALOR_LIMITE_DIVIDA') {
-                        Pagamento Limite em {{alerta.divida.dataLimite | date: 'dd/MM/yyyy'}}
-                    }
-                    @if (alerta.tipo == 'DESPESA_RECORRENTE') {
-                        Todo dia {{alerta.diaAlvo}}
-                    }
-                </td>
+                <td class="force-center"> {{alerta.detalhe}} </td>
                 <td class="small-column">
                     <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(alerta)" />
                 </td>
