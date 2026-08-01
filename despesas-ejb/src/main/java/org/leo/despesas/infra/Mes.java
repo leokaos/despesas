@@ -2,6 +2,7 @@ package org.leo.despesas.infra;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Embeddable;
 
@@ -86,6 +87,21 @@ public class Mes {
 
 	public static Mes mesAtual() {
 		return new Mes(new Date());
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Mes mesObj = (Mes) o;
+		return Objects.equals(mes, mesObj.mes) && Objects.equals(ano, mesObj.ano);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(mes, ano);
 	}
 
 }

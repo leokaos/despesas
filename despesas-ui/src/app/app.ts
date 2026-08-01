@@ -76,6 +76,10 @@ export class App implements OnInit {
     return diffDays;
   }
 
+  executarNotificacao(_t18: Notificacao) {
+    throw new Error('Method not implemented.');
+  }
+
   ngOnDestroy() {
     if (this.notificacaoSubscription) {
       this.notificacaoSubscription.unsubscribe();

@@ -45,8 +45,8 @@ public class AlertaLimitePagamentoDivida extends Alerta {
 		return notificacao;
 	}
 
-	public boolean isDataLimiteDividaNosProximosDias() {
-		return divida.isAtivo() && estaNosProximosDias(divida.getDataLimite(), diasAntesDeAviso);
+	public boolean isDataLimiteDividaProximosDias() {
+		return estaNosProximosDias(divida.getDataLimite(), diasAntesDeAviso);
 	}
 
 	@Override

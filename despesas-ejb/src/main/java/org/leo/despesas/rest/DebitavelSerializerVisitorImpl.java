@@ -52,6 +52,7 @@ public class DebitavelSerializerVisitorImpl implements DebitavelSerializerVisito
 		divida.setValorTotal(getBigDecimalOrNull(mapaAtributos.get("valorTotal")));
 		divida.setPeriodicidade(Periodicidade.valueOf(mapaAtributos.get("periodicidade")));
 		divida.setDataInicio(getLocalDateOrNull(mapaAtributos.get("dataInicio")));
+		divida.setDataLimite(getLocalDateOrNull(mapaAtributos.get("dataLimite")));
 	}
 
 	private Integer getIntegerOrNull(String value) {

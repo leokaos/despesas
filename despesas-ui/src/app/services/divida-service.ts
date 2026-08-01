@@ -6,6 +6,7 @@ import { Divida, Moeda } from '../models/debitavel.model';
 import { Transferencia } from '../models/movimentacao.model';
 import { TransferenciaService } from './transferencia-service';
 import { DebitavelFiltro } from './debitavel-service';
+import { DateUtil } from '../models/util';
 
 export interface DividaFiltro extends DebitavelFiltro { }
 
@@ -67,6 +68,7 @@ export class DividaService {
     return {
       ...divida,
       dataInicio: new Date(divida.dataInicio),
+      dataLimite: new Date(divida.dataLimite),
       moeda: Moeda.fromCodigo(divida.moeda),
     };
   }
@@ -76,7 +78,8 @@ export class DividaService {
       ...divida,
       tipo: 'DIVIDA',
       moeda: divida.moeda.codigo,
-      dataInicio: divida.dataInicio.toISOString()
+      dataInicio: DateUtil.getUTCDate(divida.dataInicio).toISOString(),
+      dataLimite: divida.dataLimite ? DateUtil.getUTCDate(divida.dataLimite).toISOString() : null
     };
   }
 }

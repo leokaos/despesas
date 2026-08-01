@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import org.leo.despesas.aplicacao.notificacao.NotificacaoFacade;
 import org.leo.despesas.dominio.notificacao.Notificacao;
 import org.leo.despesas.dominio.notificacao.NotificacaoFiltro;
-import org.leo.despesas.infra.Mes;
 import org.leo.despesas.infra.exception.DespesasException;
 
 @ApplicationScoped
@@ -22,15 +21,18 @@ public class AlertaPagamentoFaturaCartaoProcessor implements AlertaProcessor<Ale
 
 		try {
 
-			NotificacaoFiltro filtro = new NotificacaoFiltro();
-			filtro.setAlertaOrigem(alerta);
-			filtro.setExecutado(false);
-			filtro.setMes(Mes.mesAtual());
+			if (alerta.isProximaFaturaNosProximosDias()) {
 
-			List<Notificacao> notificacoes = this.notificacaoFacade.listar(filtro);
+				NotificacaoFiltro filtro = new NotificacaoFiltro();
+				filtro.setAlertaOrigem(alerta);
+				filtro.setTargetDate(alerta.getCartao().getDataProximaFatura());
 
-			if (notificacoes.isEmpty() && alerta.isProximaFaturaNosProximosDias()) {
-				notificacaoFacade.inserir(alerta.gerarNotificacao());
+				List<Notificacao> notificacoes = this.notificacaoFacade.listar(filtro);
+
+				if (notificacoes.isEmpty()) {
+					notificacaoFacade.inserir(alerta.gerarNotificacao());
+				}
+
 			}
 
 		} catch (DespesasException e) {

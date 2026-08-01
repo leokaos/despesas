@@ -3,6 +3,7 @@ package org.leo.despesas.dominio.debitavel;
 import static org.apache.commons.lang3.time.DateUtils.isSameDay;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.time.DateUtils;
+import org.leo.despesas.dominio.alerta.TipoPeriodicidade;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
@@ -120,6 +122,10 @@ public class CartaoCredito extends Debitavel {
 		}
 
 		return null;
+	}
+
+	public LocalDate getDataProximaFatura() {
+		return TipoPeriodicidade.DIA_UTIL.getCalculator().apply(diaDeVencimento);
 	}
 
 	@Override

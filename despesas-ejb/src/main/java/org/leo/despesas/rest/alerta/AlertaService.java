@@ -9,6 +9,7 @@ import javax.ws.rs.core.Response;
 
 import org.leo.despesas.aplicacao.alerta.AlertaFacade;
 import org.leo.despesas.aplicacao.alerta.AlertaJob;
+import org.leo.despesas.aplicacao.notificacao.NotificacaoJob;
 import org.leo.despesas.dominio.alerta.Alerta;
 import org.leo.despesas.dominio.alerta.AlertaFiltro;
 import org.leo.despesas.infra.AbstractService;
@@ -20,19 +21,23 @@ public class AlertaService extends AbstractService<AlertaFacade, Alerta, AlertaF
 	@EJB
 	private AlertaFacade alertaFacade;
 
-	@EJB
-	private AlertaJob alertaJob;
-
 	@Override
 	protected AlertaFacade getFacade() {
 		return this.alertaFacade;
 	}
 
+	@EJB
+	private AlertaJob alertaJob;
+	
+	@EJB
+	private NotificacaoJob notificacaoJob;
+
 	@GET
 	@Path("/run")
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public Response aaaaaa() throws DespesasException {
+	public Response buscarPorId() throws DespesasException {
 		alertaJob.executar();
+		notificacaoJob.executar();
 		return Response.ok().build();
 	}
 

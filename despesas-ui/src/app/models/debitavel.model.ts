@@ -70,6 +70,7 @@ export interface Divida extends Debitavel {
   valorTotal: number;
   dataInicio: Date;
   valorRestante: number;
+  dataLimite: Date;
 }
 
 export interface Investimento extends Debitavel {
