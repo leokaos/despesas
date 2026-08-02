@@ -4,7 +4,6 @@ import static org.leo.despesas.infra.util.DataUtil.estaNosProximosDias;
 
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,7 +19,7 @@ public class AlertaPagamentoFaturaCartao extends Alerta {
 
 	private static final long serialVersionUID = -6444085653952299136L;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "cartao_credito_id", nullable = true)
 	private CartaoCredito cartao;
 

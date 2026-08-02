@@ -1,36 +1,141 @@
-<p-dialog header="Adicionar Alerta " [visible]="showDialog()" (visibleChange)="fechar.emit()" position="top" [modal]="true" [style]="{ width: '50rem' }" [draggable]="false">
+<p-dialog
+    [(visible)]="showDialog"
+    header="Adicionar Alerta"
+    position="top"
+    [modal]="true"
+    [draggable]="false"
+    [style]="{ width: '50rem', minHeight: '25rem' }"
+    [contentStyle]="{ display: 'flex', flexDirection: 'column', minHeight: '25rem' }">
 
-    <p-stepper [value]="passoAtual" class="basis-[50rem]">
-        <p-step-list>
-            <p-step [value]="1">Informações Gerais</p-step>
-            <p-step [value]="2">Detalhes</p-step>
-            <p-step [value]="3">Sumário</p-step>
-        </p-step-list>
-        <p-step-panels>
-            <p-step-panel [value]="1">
-                <ng-template #content let-activateCallback="activateCallback">
-                    <app-alert-wizard-step1 (onTipoSelected)="carregarComponente($event)" #step1 />
-                </ng-template>
-            </p-step-panel>
+    <div class="flex-1">
+        <p-stepper [value]="step" class="basis-[50rem]">
+            <p-step-list>
+                <p-step [value]="1">Informações Gerais</p-step>
+                <p-step [value]="2">Detalhes</p-step>
+                <p-step [value]="3">Sumário</p-step>
+            </p-step-list>
 
-            <p-step-panel [value]="2">
-                <ng-template #content let-activateCallback="activateCallback">
-                    <ng-container *ngComponentOutlet="step2"></ng-container>
-                </ng-template>
-            </p-step-panel>
+            <p-step-panels>
 
-            <p-step-panel [value]="3">
-                <ng-template #content let-activateCallback="activateCallback">
-                    <app-alert-wizard-step3 #step3 />
-                </ng-template>
-            </p-step-panel>
+                <p-step-panel [value]="1">
+                    <ng-template #content let-activateCallback="activateCallback">
+                        <div class="flex flex-col gap-4 p-4">
+                            <div class="flex flex-col gap-2">
+                                <label for="tipo">Tipo de Alerta</label>
+                                <p-select [options]="tiposAlerta" optionLabel="label" optionValue="value" placeholder="Selecione" class="w-full" appendTo="body" [(ngModel)]="alerta.tipo" />
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="dias">Dias antes do aviso</label>
+                                <p-inputnumber [min]="1" [max]="365" [showButtons]="true" class="w-full" [(ngModel)]="alerta.diasAntesDeAviso" />
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-step-panel>
 
-        </p-step-panels>
-    </p-stepper>
+                <p-step-panel [value]="2">
+                    <ng-template #content let-activateCallback="activateCallback">
+
+                        @if (alerta.tipo === 'FATURA_CARTAO_CREDITO') {
+                        <div class="flex flex-col gap-4 p-4">
+                            <div class="flex flex-col gap-2">
+                                <label for="cartao">Selecione a Cartão de Crédito para o Alerta</label>
+                                <app-select-debitavel class="w-full" [debitaveis]="cartoes()" [(ngModel)]="alerta.cartao" />
+                            </div>
+                        </div>
+                        }
+
+                        @if (alerta.tipo === 'VALOR_LIMITE_DIVIDA') {
+                        <div class="flex flex-col gap-4 p-4">
+                            <div class="flex flex-col gap-2">
+                                <label for="cartao">Selecione a Dívida para o Alerta</label>
+                                <app-select-debitavel class="w-full" [debitaveis]="dividas()" [(ngModel)]="alerta.divida" />
+                            </div>
+                        </div>
+                        }
+
+                        @if (alerta.tipo === 'DESPESA_RECORRENTE') {
+                        <div class="flex flex-col gap-4 p-4">
+                            <div class="flex flex-col gap-2">
+                                <label for="titulo">Título da Despesa</label>
+                                <input pInputText id="titulo" type="text" class="w-full" [(ngModel)]="alerta.titulo" placeholder="Ex: Condomínio, Netflix..." />
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="flex flex-col gap-2">
+                                    <label for="tipoPeriodicidade">Tipo de Periodicidade</label>
+                                    <p-select [options]="tiposPeriodicidade" [(ngModel)]="alerta.tipoPeriodicidade" optionLabel="label" optionValue="value" placeholder="Selecione" class="w-full" appendTo="body" />
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label for="diaAlvo">Dia Alvo</label>
+                                    <p-inputNumber [(ngModel)]="alerta.diaAlvo" [min]="1" [max]="31" placeholder="Ex: 15" class="w-full" />
+                                </div>
+                            </div>
+                        </div>
+                        }
+
+                    </ng-template>
+                </p-step-panel>
+                <p-step-panel [value]="3">
+                    <ng-template #content let-activateCallback="activateCallback">
+                        <ul class="flex flex-col gap-4 p-4 text-base list-none m-0">
+                            <li class="flex items-center gap-2">
+                                <span class="font-semibold min-w-36">Tipo:</span>
+                                <span>{{ getTipoAlertaLabel() }}</span>
+                            </li>
+
+                            <li class="flex items-center gap-2">
+                                <span class="font-semibold min-w-36">Aviso prévio:</span>
+                                <span>{{ alerta.diasAntesDeAviso }} dias antes</span>
+                            </li>
+
+                            @if (alerta.tipo === 'FATURA_CARTAO_CREDITO') {
+                            <li class="flex items-center gap-2">
+                                <span class="font-semibold min-w-36">Cartão:</span>
+                                <span>{{ alerta.cartao?.descricao }}</span>
+                            </li>
+                            }
+
+                            @if (alerta.tipo === 'VALOR_LIMITE_DIVIDA') {
+                            <li class="flex items-center gap-2">
+                                <span class="font-semibold min-w-36">Dívida:</span>
+                                <span>{{ alerta.divida?.descricao }}</span>
+                            </li>
+                            }
+
+                            @if (alerta.tipo === 'DESPESA_RECORRENTE') {
+                            <li class="flex items-center gap-2">
+                                <span class="font-semibold min-w-36">Título:</span>
+                                <span>{{ alerta.titulo }}</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="font-semibold min-w-36">Periodicidade:</span>
+                                <span>{{ getTipoPeriodicidadeLabel() }}</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="font-semibold min-w-36">Dia alvo:</span>
+                                <span>Dia {{ alerta.diaAlvo }}</span>
+                            </li>
+                            }
+                        </ul>
+                    </ng-template>
+                </p-step-panel>
+
+            </p-step-panels>
+        </p-stepper>
+    </div>
 
     <ng-template pTemplate="footer">
-        <p-button label="Cancelar" severity="secondary" (click)="cancelar()"> </p-button>
-        <p-button label="Próximo" severity="primary" [disabled]="!isStepValido()" (click)="proximoPasso()"> </p-button>
+        <div class="w-full flex items-center justify-between">
+            @if (step > 1) {
+            <p-button label="Anterior" severity="secondary" (click)="anterior()" />
+            }
+            @if (step
+            < 3) {
+                <p-button label="Próximo" severity="primary" (click)="proximo()" [disabled]="!isValid()" class="ml-auto" />
+            }
+            @if (step === 3) {
+            <p-button label="Concluir" severity="primary" (click)="save()" [disabled]="!isAllValid()" />
+            }
+        </div>
     </ng-template>
 
 </p-dialog>

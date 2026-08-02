@@ -1,5 +1,9 @@
 package org.leo.despesas.dominio.alerta;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,20 +13,29 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.leo.despesas.dominio.notificacao.Notificacao;
 import org.leo.despesas.infra.ModelEntity;
 import org.leo.despesas.infra.alerta.AlertaProcessorVisitor;
-import org.leo.despesas.rest.AlertaDeserializer;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Entity
 @Table(name = "alerta", schema = "despesas_db")
 @Inheritance(strategy = InheritanceType.JOINED)
-@JsonDeserialize(using = AlertaDeserializer.class)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "tipo", visible = true)
+//@formatter:off
+@JsonSubTypes({ 
+	@JsonSubTypes.Type(value = AlertaDespesaRecorrente.class, name = "DESPESA_RECORRENTE"), 
+	@JsonSubTypes.Type(value = AlertaPagamentoFaturaCartao.class, name = "FATURA_CARTAO_CREDITO"),
+	@JsonSubTypes.Type(value = AlertaLimitePagamentoDivida.class, name = "VALOR_LIMITE_DIVIDA")
+})
+//@formatter:on
 public abstract class Alerta implements ModelEntity {
 
 	private static final long serialVersionUID = 3937060574469790488L;
@@ -38,6 +51,10 @@ public abstract class Alerta implements ModelEntity {
 
 	@Column(name = "dias_antes_de_aviso")
 	protected int diasAntesDeAviso;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "alerta", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Notificacao> notificacoes = new ArrayList<>();
 
 	public Alerta() {
 		super();
@@ -65,6 +82,14 @@ public abstract class Alerta implements ModelEntity {
 
 	public void setDiasAntesDeAviso(int diasAntesDeAviso) {
 		this.diasAntesDeAviso = diasAntesDeAviso;
+	}
+
+	public List<Notificacao> getNotificacoes() {
+		return notificacoes;
+	}
+
+	public void setNotificacoes(List<Notificacao> notificacoes) {
+		this.notificacoes = notificacoes;
 	}
 
 	public abstract Notificacao gerarNotificacao();

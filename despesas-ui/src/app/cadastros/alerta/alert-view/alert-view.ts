@@ -1,7 +1,7 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { TableModule } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ToolbarModule } from 'primeng/toolbar';
 import { Loader } from "../../../components/loader/loader";
@@ -15,8 +15,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { CommonModule } from '@angular/common';
 import { PanelModule } from 'primeng/panel';
-import { map } from 'rxjs';
+import { forkJoin, map } from 'rxjs';
 import { AlertWizzard } from "../alert-wizard/alert-wizard";
+import { CartaoCreditoService } from '../../../services/cartao-credito-service';
+import { DividaService } from '../../../services/divida-service';
+import { CartaoCredito, Divida } from '../../../models/debitavel.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-alert-view',
@@ -41,18 +45,30 @@ import { AlertWizzard } from "../alert-wizard/alert-wizard";
     CommonModule,
     PanelModule,
     AlertWizzard
-],
+  ],
   templateUrl: './alert-view.html',
   styleUrl: './alert-view.scss',
 })
 export class AlertView implements OnInit {
 
+
+  @ViewChild('table')
+  private table?: Table;
+
   data = signal<Alerta[]>([]);
   loading = signal<boolean>(true);
-  showDialog = false;
+  showDialogAdd = signal<boolean>(false);
+  showDialogDelete = signal<boolean>(false);
   searchValue?: string;
+  alerta?: Alerta;
+
+  cartoes = signal<CartaoCredito[]>([]);
+  dividas = signal<Divida[]>([]);
 
   private alertaService = inject(AlertaService);
+  private cartaoCreditoService = inject(CartaoCreditoService);
+  private dividaService = inject(DividaService);
+  private messageService = inject(MessageService);
 
   constructor() { }
 
@@ -61,12 +77,18 @@ export class AlertView implements OnInit {
   }
 
   loadData() {
-    this.alertaService.fetch().pipe(
-      map(data => data.map(alerta => this.processAlerta(alerta)))
-    ).subscribe((data: Alerta[]) => {
-      this.data.update(_ => [...data]);
+
+    forkJoin({
+      alertas: this.alertaService.fetch(),
+      cartoes: this.cartaoCreditoService.fetch({ ativo: true }),
+      dividas: this.dividaService.fetch({ ativo: true })
+    }).subscribe(({ alertas, cartoes, dividas }) => {
+      this.data.set(alertas.map(alerta => this.processAlerta(alerta)));
+      this.cartoes.set(cartoes);
+      this.dividas.set(dividas);
       this.loading.set(false);
     });
+
   }
 
   processAlerta(alerta: any): any {
@@ -90,23 +112,41 @@ export class AlertView implements OnInit {
   }
 
   public add() {
-    this.showDialog = true;
+    this.showDialogAdd.set(true);
   }
 
   public reload() {
-
+    this.loading.set(true);
+    this.loadData();
   }
 
   public search() {
-
+    this.table?.filterGlobal(this.searchValue, 'contains');
   }
 
   public openDialog(alerta: Alerta) {
-
+    this.showDialogDelete.set(true);
+    this.alerta = alerta;
   }
 
-  public edit(alerta: Alerta) {
+  save($event: Alerta) {
+    this.alertaService.createOrUpdate($event).subscribe(_ => {
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Alerta Criado com sucesso!', life: 3000 });
+      this.showDialogAdd.set(false);
+    });
+  }
 
+  remover() {
+
+    if (this.alerta) {
+
+      this.alertaService.remove(this.alerta).subscribe(() => {
+        this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Alert removido com sucesso!', life: 3000 });
+        this.loadData();
+      });
+    }
+
+    this.showDialogDelete.set(false);
   }
 
 }

@@ -24,7 +24,7 @@
         size="small"
         showGridlines
         [rowsPerPageOptions]="[10, 15, 50, 100]"
-        [globalFilterFields]="['cor', 'descricao']">
+        [globalFilterFields]="['tipoLabel', 'descricao', 'diasAntesDeAviso', 'detalhe']">
 
         <ng-template pTemplate="caption">
             <div class="flex gap-4 justify-end">
@@ -57,7 +57,6 @@
                     Detalhes <p-sortIcon field="detalhe" />
                 </th>
                 <th class="small-column"></th>
-                <th class="small-column"></th>
             </tr>
         </ng-template>
 
@@ -67,9 +66,6 @@
                 <td> {{alerta.tipoLabel}} </td>
                 <td class="force-center"> {{alerta.diasAntesDeAviso}} </td>
                 <td class="force-center"> {{alerta.detalhe}} </td>
-                <td class="small-column">
-                    <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(alerta)" />
-                </td>
                 <td class="small-column">
                     <p-button icon="pi pi-trash" severity="danger" (click)="openDialog(alerta)" size="small" />
                 </td>
@@ -93,8 +89,18 @@
 
     </p-table>
 
-    <app-alert-wizard [showDialog]="showDialog" (fechar)="showDialog = false" />
+    <app-alert-wizard [(showDialog)]="showDialogAdd" [cartoes]="cartoes()" [dividas]="dividas()" (onSave)="save($event)" />
 
     }
 
 </div>
+
+<p-dialog header="Remover Alerta" [modal]="true" position="top" [(visible)]="showDialogDelete" [style]="{ width: '50rem' }">
+    Tem certeza que deseja remover <b>{{alerta?.descricao}}</b> ?
+
+    <ng-template pTemplate="footer">
+        <p-button label="Cancel" [raised]="true" severity="secondary" (click)="showDialogDelete.set(false)" />
+        <p-button label="Save" [raised]="true" severity="success" (click)="remover()" />
+    </ng-template>
+
+</p-dialog>

@@ -2,6 +2,7 @@ package org.leo.despesas.rest.alerta;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -39,6 +40,13 @@ public class AlertaService extends AbstractService<AlertaFacade, Alerta, AlertaF
 		alertaJob.executar();
 		notificacaoJob.executar();
 		return Response.ok().build();
+	}
+	
+	@POST
+	@Path("/run")
+	@Produces(value = MediaType.APPLICATION_JSON)
+	public Response churros(Alerta alerta) throws DespesasException {
+		return Response.ok(alerta).build();
 	}
 
 }

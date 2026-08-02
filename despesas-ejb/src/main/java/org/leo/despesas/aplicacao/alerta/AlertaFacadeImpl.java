@@ -10,6 +10,7 @@ import org.leo.despesas.dominio.alerta.AlertaFiltro;
 import org.leo.despesas.infra.AbstractFacade;
 import org.leo.despesas.infra.alerta.AlertaProcessorVisitor;
 import org.leo.despesas.infra.exception.DespesasException;
+import org.leo.despesas.infra.exception.ValidationEntityException;
 
 @Stateless
 public class AlertaFacadeImpl extends AbstractFacade<Alerta, AlertaFiltro> implements AlertaFacade {
@@ -35,6 +36,17 @@ public class AlertaFacadeImpl extends AbstractFacade<Alerta, AlertaFiltro> imple
 		for (Alerta alerta : alertas) {
 			alerta.accept(visitor);
 		}
+	}
+
+	@Override
+	protected void preDeletar(Alerta entity) throws DespesasException {
+
+		boolean notificacoesEmAberto = entity.getNotificacoes().stream().anyMatch(notificaoca -> !notificaoca.isExecutado());
+
+		if (notificacoesEmAberto) {
+			throw new ValidationEntityException("Ainda existem notificações em aberto para esse alerta!");
+		}
+
 	}
 
 }

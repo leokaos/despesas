@@ -2,7 +2,6 @@ package org.leo.despesas.dominio.alerta;
 
 import static org.leo.despesas.infra.util.DataUtil.estaNosProximosDias;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,7 +17,7 @@ public class AlertaLimitePagamentoDivida extends Alerta {
 
 	private static final long serialVersionUID = 5906177258449995082L;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "divida_id", nullable = true)
 	private Divida divida;
 
