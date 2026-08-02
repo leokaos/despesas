@@ -22,7 +22,7 @@ public class NotificacaoJob {
 	@Inject
 	private NotificacaoRepositorio notificacaoRepositorio;
 
-	@Schedule(hour = "8", minute = "0", persistent = false)
+	@Schedule(hour = "9", minute = "0", persistent = false)
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void executar() {
 
