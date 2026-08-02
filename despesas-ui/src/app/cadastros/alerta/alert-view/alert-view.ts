@@ -133,6 +133,7 @@ export class AlertView implements OnInit {
     this.alertaService.createOrUpdate($event).subscribe(_ => {
       this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Alerta Criado com sucesso!', life: 3000 });
       this.showDialogAdd.set(false);
+      this.loadData();
     });
   }
 
