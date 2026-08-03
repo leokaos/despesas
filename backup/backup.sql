@@ -377,10 +377,8 @@ ALTER TABLE despesas_db.movimentacao_id_seq OWNER TO despesas;
 CREATE TABLE despesas_db.notificacao (
     id bigint NOT NULL,
     executado boolean DEFAULT false NOT NULL,
-    origem_alerta_id bigint,
-    target_date date,
-    mes integer,
-    ano integer
+    origem_alerta_id bigint NOT NULL,
+    target_date date NOT NULL
 );
 
 
@@ -604,7 +602,7 @@ VISA	28	12	3500.00	23	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-49763.60	3
+49602.51	3
 0.00	4
 37298.58	5
 \.
@@ -7500,6 +7498,13 @@ t	7324	102	\N
 t	7325	107	\N
 t	7326	107	\N
 t	7327	107	\N
+t	7328	107	\N
+t	7329	301	\N
+t	7330	107	\N
+t	7331	107	\N
+t	7332	102	\N
+t	7333	107	\N
+t	7334	104	\N
 \.
 
 
@@ -7686,6 +7691,7 @@ COPY despesas_db.meta (id, mes, ano, valor) FROM stdin;
 53	6	2026	2500.00
 54	7	2026	2000.00
 56	8	2026	2000.00
+57	9	2026	2000.00
 \.
 
 
@@ -14782,6 +14788,15 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7326	UBER RIDES PORTUGA	2026-08-01	3.94	2026-07-31	3	EURO
 7327	CORTES DE LISBOA	2026-08-01	18.00	2026-07-31	3	EURO
 7325	Uber	2026-07-31	3.94	2026-07-31	3	EURO
+7328	Uber	2026-08-02	4.94	2026-08-01	3	EURO
+7329	Continente	2026-08-02	44.98	2026-08-01	3	EURO
+7330	Uber	2026-08-02	4.94	2026-08-01	3	EURO
+7331	UBER RIDES PORTUGAL	2026-08-02	4.96	2026-08-02	3	EURO
+7332	CHURRASQUEIRA BRAZA	2026-08-02	18.10	2026-08-02	3	EURO
+7333	UBER RIDES PORTUGAL	2026-08-02	2.94	2026-08-02	3	EURO
+7334	C&A Calças	2026-08-02	80.23	2026-08-02	3	EURO
+7336	Salário de Setembro/2026	\N	4404.40	2026-09-30	3	EURO
+7337	Valor IVA de Setembro/2026	\N	1315.60	2026-09-30	3	EURO
 \.
 
 
@@ -14789,10 +14804,10 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 -- Data for Name: notificacao; Type: TABLE DATA; Schema: despesas_db; Owner: despesas
 --
 
-COPY despesas_db.notificacao (id, executado, origem_alerta_id, target_date, mes, ano) FROM stdin;
-3	f	2	2026-08-11	\N	\N
-4	f	5	2026-08-10	\N	\N
-5	f	3	2026-08-12	\N	\N
+COPY despesas_db.notificacao (id, executado, origem_alerta_id, target_date) FROM stdin;
+3	f	2	2026-08-11
+4	f	5	2026-08-10
+5	f	3	2026-08-12
 \.
 
 
@@ -14859,6 +14874,9 @@ COPY despesas_db.orcamento (id, tipo_despesa_id, valor, data_inicial, data_final
 71	107	200.00	2026-08-01 00:00:00	2026-08-31 23:59:59
 72	102	400.00	2026-08-01 00:00:00	2026-08-31 23:59:59
 73	301	300.00	2026-08-01 00:00:00	2026-08-31 23:59:59
+74	107	200.00	2026-09-01 00:00:00	2026-09-30 23:59:59
+75	102	400.00	2026-09-01 00:00:00	2026-09-30 23:59:59
+76	301	300.00	2026-09-01 00:00:00	2026-09-30 23:59:59
 \.
 
 
@@ -15007,6 +15025,8 @@ t	7155	109	\N	f
 t	7154	23	\N	t
 f	7321	109	\N	f
 f	7322	23	\N	t
+f	7336	109	\N	f
+f	7337	23	\N	t
 \.
 
 
@@ -15224,6 +15244,7 @@ COPY public.flyway_schema_history (installed_rank, version, description, type, s
 25	25	mudar timestamp para date	SQL	V25__mudar_timestamp_para_date.sql	-1773607855	despesas	2026-07-30 18:40:52.277409	35	t
 26	26	estrutura de alertas	SQL	V26__estrutura_de_alertas.sql	864265175	despesas	2026-07-30 18:41:46.597733	46	t
 27	27	estrutura de notificacao	SQL	V27__estrutura_de_notificacao.sql	1261704511	despesas	2026-07-30 18:41:46.71015	23	t
+28	28	ajustes notificacao alerta	SQL	V28__ajustes_notificacao_alerta.sql	-1850403229	despesas	2026-08-02 10:55:56.482131	46	t
 \.
 
 
@@ -15273,14 +15294,14 @@ SELECT pg_catalog.setval('despesas_db.filtro_id_seq', 7, true);
 -- Name: meta_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.meta_id_seq', 56, true);
+SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 
 
 --
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7327, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7337, true);
 
 
 --
@@ -15294,7 +15315,7 @@ SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 5, true);
 -- Name: orcamento_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.orcamento_id_seq', 73, true);
+SELECT pg_catalog.setval('despesas_db.orcamento_id_seq', 76, true);
 
 
 --
@@ -15543,11 +15564,27 @@ ALTER TABLE ONLY despesas_db.alerta_limite_pagamento_divida
 
 
 --
+-- Name: alerta_limite_pagamento_divida alerta_limite_pagamento_divida_id_fkey_divida; Type: FK CONSTRAINT; Schema: despesas_db; Owner: despesas
+--
+
+ALTER TABLE ONLY despesas_db.alerta_limite_pagamento_divida
+    ADD CONSTRAINT alerta_limite_pagamento_divida_id_fkey_divida FOREIGN KEY (divida_id) REFERENCES despesas_db.divida(id);
+
+
+--
 -- Name: alerta_pagamento_fatura_cartao alerta_pagamento_fatura_cartao_id_fkey; Type: FK CONSTRAINT; Schema: despesas_db; Owner: despesas
 --
 
 ALTER TABLE ONLY despesas_db.alerta_pagamento_fatura_cartao
     ADD CONSTRAINT alerta_pagamento_fatura_cartao_id_fkey FOREIGN KEY (id) REFERENCES despesas_db.alerta(id);
+
+
+--
+-- Name: alerta_pagamento_fatura_cartao alerta_pagamento_fatura_cartao_id_fkey_cartao; Type: FK CONSTRAINT; Schema: despesas_db; Owner: despesas
+--
+
+ALTER TABLE ONLY despesas_db.alerta_pagamento_fatura_cartao
+    ADD CONSTRAINT alerta_pagamento_fatura_cartao_id_fkey_cartao FOREIGN KEY (cartao_credito_id) REFERENCES despesas_db.cartao(id);
 
 
 --
