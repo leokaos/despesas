@@ -23,6 +23,22 @@ public enum TipoPeriodicidade {
 		}
 
 		return data;
+	}),
+	NO_MAXIMO(diaAlvo -> {
+
+		LocalDate data = LocalDate.now(CLOCK);
+
+		if (data.getDayOfMonth() > diaAlvo) {
+			data = data.withDayOfMonth(diaAlvo).plusMonths(1);
+		} else {
+			data = data.withDayOfMonth(diaAlvo);
+		}
+
+		while (data.getDayOfWeek() == DayOfWeek.SATURDAY || data.getDayOfWeek() == DayOfWeek.SUNDAY) {
+			data = data.minusDays(1);
+		}
+
+		return data;
 	});
 
 	private final Function<Integer, LocalDate> calculator;

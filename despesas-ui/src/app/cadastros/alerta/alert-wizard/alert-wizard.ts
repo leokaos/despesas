@@ -43,7 +43,8 @@ export class AlertWizzard {
   ];
 
   tiposPeriodicidade = [
-    { label: 'Dia Útil', value: 'DIA_UTIL' }
+    { label: 'Dia Útil', value: 'DIA_UTIL' },
+    { label: 'Até o Dia', value: 'NO_MAXIMO' }
   ];
 
   private readonly stepValidators: Record<number, () => boolean> = {

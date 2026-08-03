@@ -1,24 +1,17 @@
 package org.leo.despesas.aplicacao.debitavel;
 
-import static org.easymock.EasyMock.anyObject;
-import static org.easymock.EasyMock.capture;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import org.easymock.Capture;
-import org.easymock.EasyMockRunner;
-import org.easymock.Mock;
-import org.easymock.MockType;
-import org.easymock.TestSubject;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.leo.despesas.aplicacao.despesa.DespesaFacade;
 import org.leo.despesas.aplicacao.receita.ReceitaFacade;
 import org.leo.despesas.aplicacao.transferencia.TransferenciaFacade;
@@ -29,48 +22,46 @@ import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
 import org.leo.despesas.dominio.movimentacao.Movimentacao;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.ReceitaFiltro;
-import org.leo.despesas.dominio.movimentacao.Transferencia;
 import org.leo.despesas.dominio.movimentacao.TransferenciaFiltro;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.google.common.collect.Lists;
 
-@RunWith(EasyMockRunner.class)
-public class DebitavelFacadeImplTest {
+@ExtendWith(MockitoExtension.class)
+class DebitavelFacadeImplTest {
 
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
-	@TestSubject
+	@InjectMocks
 	private DebitavelFacade facade = new DebitavelFacadeImpl();
 
-	@Mock(type = MockType.STRICT)
+	@Mock
 	private DespesaFacade mockDespesaFacade;
 
-	@Mock(type = MockType.STRICT)
+	@Mock
 	private ReceitaFacade mockReceitaFacade;
 
-	@Mock(type = MockType.STRICT)
+	@Mock
 	private TransferenciaFacade mockTransferenciaFacade;
 
 	@Test
-	public void test() throws Exception {
-
+	void test() throws Exception {
 		Debitavel debitavel = new Conta();
 		debitavel.setId(10L);
 
-		Capture<DespesaFiltro> captureDespesaFiltro = new Capture<DespesaFiltro>();
-		Capture<ReceitaFiltro> captureReceitaFiltro = new Capture<ReceitaFiltro>();
+		ArgumentCaptor<DespesaFiltro> captureDespesaFiltro = ArgumentCaptor.forClass(DespesaFiltro.class);
+		ArgumentCaptor<ReceitaFiltro> captureReceitaFiltro = ArgumentCaptor.forClass(ReceitaFiltro.class);
 
-		expect(mockDespesaFacade.listar(capture(captureDespesaFiltro))).andReturn(createListaDeDespesas());
-		expect(mockReceitaFacade.listar(capture(captureReceitaFiltro))).andReturn(createListaDeReceita());
-
-		expect(mockTransferenciaFacade.listar(anyObject(TransferenciaFiltro.class))).andReturn(Lists.<Transferencia>newArrayList()).times(2);
-
-		replay(mockDespesaFacade, mockReceitaFacade, mockTransferenciaFacade);
+		when(mockDespesaFacade.listar(captureDespesaFiltro.capture())).thenReturn(createListaDeDespesas());
+		when(mockReceitaFacade.listar(captureReceitaFiltro.capture())).thenReturn(createListaDeReceita());
+		when(mockTransferenciaFacade.listar(any(TransferenciaFiltro.class))).thenReturn(Lists.newArrayList());
 
 		BigDecimal mediaVariacao = facade.getMediaVariacao(debitavel);
 
-		verify(mockDespesaFacade, mockReceitaFacade, mockTransferenciaFacade);
-
+		verify(mockTransferenciaFacade, times(2)).listar(any(TransferenciaFiltro.class));
 		assertEquals(new BigDecimal("56.00"), mediaVariacao);
 	}
 
@@ -90,10 +81,9 @@ public class DebitavelFacadeImplTest {
 		return (Receita) setValues(valor, date, new Receita());
 	}
 
-	private Movimentacao setValues(double valor, String date, Movimentacao mov) throws ParseException {
+	private Movimentacao setValues(double valor, String date, Movimentacao mov) throws Exception {
 		mov.setValor(new BigDecimal(valor));
 		mov.setVencimento(DATE_FORMAT.parse(date));
 		return mov;
 	}
-
 }
