@@ -564,7 +564,7 @@ COPY despesas_db.alerta (id, tipo, dias_antes_de_aviso) FROM stdin;
 
 COPY despesas_db.alerta_despesa_recorrente (id, titulo, tipo_periodicidade, dia_alvo) FROM stdin;
 4	Condomínio	DIA_UTIL	15
-5	Aluguel	DIA_UTIL	8
+5	Aluguel	NO_MAXIMO	8
 \.
 
 
@@ -602,7 +602,7 @@ VISA	28	12	3500.00	23	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-49602.51	3
+48952.51	3
 0.00	4
 37298.58	5
 \.
@@ -7505,6 +7505,14 @@ t	7331	107	\N
 t	7332	102	\N
 t	7333	107	\N
 t	7334	104	\N
+t	7338	4	\N
+t	7339	108	117
+t	7340	201	117
+t	7341	201	117
+t	7342	201	117
+t	7344	201	117
+t	7343	201	117
+t	7345	4	120
 \.
 
 
@@ -7602,6 +7610,8 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 114	6	2026-05-11 01:00:00	2026-04-28 01:00:00	t
 115	6	2026-06-11 02:00:00	2026-05-28 02:00:00	t
 116	6	2026-07-11 01:00:00	2026-06-28 01:00:00	t
+117	6	2026-08-11 01:00:00	2026-07-28 01:00:00	f
+120	23	2026-09-12 00:00:00	2026-08-28 00:00:00	f
 \.
 
 
@@ -14797,6 +14807,14 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7334	C&A Calças	2026-08-02	80.23	2026-08-02	3	EURO
 7336	Salário de Setembro/2026	\N	4404.40	2026-09-30	3	EURO
 7337	Valor IVA de Setembro/2026	\N	1315.60	2026-09-30	3	EURO
+7338	Aluguel	2026-08-03	650.00	2026-08-03	3	EURO
+7339	ANUIDADE DIFERENCIADA 08/12	2026-08-03	37.00	2026-07-07	6	REAL
+7340	NETFLIX ENTRETENIMENTO BARUERI	2026-08-03	44.90	2026-07-11	6	REAL
+7341	AmazonPrimeBR	2026-08-03	19.90	2026-07-12	6	REAL
+7342	APPLE.COM/BILL	2026-08-03	29.90	2026-07-20	6	REAL
+7343	ALURA	2026-08-03	87.20	2026-08-28	6	REAL
+7344	DM*Spotify	2026-08-03	23.90	2026-07-28	6	REAL
+7345	Glovo Prime	2026-08-03	5.99	2026-08-03	23	EURO
 \.
 
 
@@ -14806,8 +14824,9 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 
 COPY despesas_db.notificacao (id, executado, origem_alerta_id, target_date) FROM stdin;
 3	f	2	2026-08-11
-4	f	5	2026-08-10
 5	f	3	2026-08-12
+4	t	5	2026-08-10
+6	f	5	2026-08-07
 \.
 
 
@@ -15252,7 +15271,7 @@ COPY public.flyway_schema_history (installed_rank, version, description, type, s
 -- Name: alerta_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.alerta_id_seq', 5, true);
+SELECT pg_catalog.setval('despesas_db.alerta_id_seq', 6, true);
 
 
 --
@@ -15273,7 +15292,7 @@ SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 24, true);
 -- Name: fatura_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 116, true);
+SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 120, true);
 
 
 --
@@ -15301,14 +15320,14 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7337, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7345, true);
 
 
 --
 -- Name: notificacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 5, true);
+SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 6, true);
 
 
 --
