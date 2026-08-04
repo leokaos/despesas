@@ -10,35 +10,35 @@ public enum TipoPeriodicidade {
 
 	DIA_UTIL(diaAlvo -> {
 
-		LocalDate data = LocalDate.now(CLOCK);
+	    LocalDate data = LocalDate.now(CLOCK);
 
-		if (data.getDayOfMonth() > diaAlvo) {
-			data = data.withDayOfMonth(diaAlvo).plusMonths(1);
-		} else {
-			data = data.withDayOfMonth(diaAlvo);
-		}
+	    if (data.getDayOfMonth() > diaAlvo) {
+	        data = data.plusMonths(1);
+	    }
 
-		while (data.getDayOfWeek() == DayOfWeek.SATURDAY || data.getDayOfWeek() == DayOfWeek.SUNDAY) {
-			data = data.plusDays(1);
-		}
+	    data = data.withDayOfMonth(Math.min(diaAlvo, data.lengthOfMonth()));
 
-		return data;
+	    while (data.getDayOfWeek() == DayOfWeek.SATURDAY || data.getDayOfWeek() == DayOfWeek.SUNDAY) {
+	        data = data.plusDays(1);
+	    }
+
+	    return data;
 	}),
 	NO_MAXIMO(diaAlvo -> {
 
-		LocalDate data = LocalDate.now(CLOCK);
+	    LocalDate data = LocalDate.now(CLOCK);
 
-		if (data.getDayOfMonth() > diaAlvo) {
-			data = data.withDayOfMonth(diaAlvo).plusMonths(1);
-		} else {
-			data = data.withDayOfMonth(diaAlvo);
-		}
+	    if (data.getDayOfMonth() > diaAlvo) {
+	        data = data.plusMonths(1);
+	    }
 
-		while (data.getDayOfWeek() == DayOfWeek.SATURDAY || data.getDayOfWeek() == DayOfWeek.SUNDAY) {
-			data = data.minusDays(1);
-		}
+	    data = data.withDayOfMonth(Math.min(diaAlvo, data.lengthOfMonth()));
 
-		return data;
+	    while (data.getDayOfWeek() == DayOfWeek.SATURDAY || data.getDayOfWeek() == DayOfWeek.SUNDAY) {
+	        data = data.minusDays(1);
+	    }
+
+	    return data;
 	});
 
 	private final Function<Integer, LocalDate> calculator;

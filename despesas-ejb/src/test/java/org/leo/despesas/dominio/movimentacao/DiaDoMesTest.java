@@ -1,13 +1,13 @@
 package org.leo.despesas.dominio.movimentacao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.leo.despesas.infra.exception.DespesasException;
 
 public class DiaDoMesTest {
@@ -16,22 +16,14 @@ public class DiaDoMesTest {
 
 	@Test
 	public void deveriaSoltarExcecaoPorqueDiaMaiorQue28AdaptarFalseTest() {
-		try {
-			DiaDoMes.from(30, false);
-			fail();
-		} catch (DespesasException e) {
-			assertEquals("Dia nao permitido!", e.getMessage());
-		}
+		DespesasException exception = assertThrows(DespesasException.class, () -> DiaDoMes.from(30, false));
+		assertEquals("Dia nao permitido!", exception.getMessage());
 	}
 
 	@Test
 	public void deveriaSoltarExcecaoPorqueDiaMaiorQue31Test() {
-		try {
-			DiaDoMes.from(40, true);
-			fail();
-		} catch (DespesasException e) {
-			assertEquals("Dia nao permitido!", e.getMessage());
-		}
+		DespesasException exception = assertThrows(DespesasException.class, () -> DiaDoMes.from(40, true));
+		assertEquals("Dia nao permitido!", exception.getMessage());
 	}
 
 	@Test

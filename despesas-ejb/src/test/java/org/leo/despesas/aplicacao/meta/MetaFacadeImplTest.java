@@ -1,9 +1,8 @@
 package org.leo.despesas.aplicacao.meta;
 
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -13,12 +12,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import org.easymock.EasyMockRunner;
-import org.easymock.Mock;
-import org.easymock.MockType;
-import org.easymock.TestSubject;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.leo.despesas.aplicacao.movimentacao.MovimentacaoFacade;
 import org.leo.despesas.dominio.meta.Meta;
 import org.leo.despesas.dominio.meta.MetaFiltro;
@@ -27,23 +22,26 @@ import org.leo.despesas.dominio.movimentacao.Movimentacao;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.infra.Mes;
 import org.leo.despesas.infra.Periodo;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.google.common.collect.Lists;
 
-@RunWith(value = EasyMockRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class MetaFacadeImplTest {
 
-	@Mock(type = MockType.STRICT)
+	@Mock
 	private EntityManager mockEntityManager;
 
-	@Mock(type = MockType.STRICT)
+	@Mock
 	private TypedQuery<Meta> mockQuery;
 
-	@Mock(type = MockType.STRICT)
+	@Mock
 	private MovimentacaoFacade mockMovimentacaoFacade;
 
-	@TestSubject
-	final MetaFacade facade = new MetaFacadeImpl();
+	@InjectMocks
+	private MetaFacadeImpl facade = new MetaFacadeImpl();
 
 	@Test
 	public void deveriaRetornarValorDiarioEsperadoTest() throws Exception {
@@ -68,15 +66,15 @@ public class MetaFacadeImplTest {
 
 		BigDecimal valorEsperado = new BigDecimal(1800).divide(new BigDecimal(periodo.getDiasParaTermino()), 2, RoundingMode.HALF_UP);
 
-		expect(mockEntityManager.createQuery("SELECT meta FROM Meta meta ORDER BY meta.id", Meta.class)).andReturn(mockQuery);
-		expect(mockQuery.getResultList()).andReturn(expectedLista);
-		expect(mockMovimentacaoFacade.buscarMovimentacaoPorPeriodo(dataInicial, dataFinal)).andReturn(movimentacaoEsperada);
-
-		replayAll();
+		when(mockEntityManager.createQuery("SELECT meta FROM Meta meta ORDER BY meta.id", Meta.class)).thenReturn(mockQuery);
+		when(mockQuery.getResultList()).thenReturn(expectedLista);
+		when(mockMovimentacaoFacade.buscarMovimentacaoPorPeriodo(dataInicial, dataFinal)).thenReturn(movimentacaoEsperada);
 
 		List<Meta> resultado = facade.listar(filtro);
 
-		verifyAll();
+		verify(mockEntityManager).createQuery("SELECT meta FROM Meta meta ORDER BY meta.id", Meta.class);
+		verify(mockQuery).getResultList();
+		verify(mockMovimentacaoFacade).buscarMovimentacaoPorPeriodo(dataInicial, dataFinal);
 
 		Meta metaResultado = resultado.iterator().next();
 
@@ -99,14 +97,6 @@ public class MetaFacadeImplTest {
 		receita.setValor(new BigDecimal(valor));
 
 		return receita;
-	}
-
-	private void verifyAll() {
-		verify(mockEntityManager, mockQuery, mockMovimentacaoFacade);
-	}
-
-	private void replayAll() {
-		replay(mockEntityManager, mockQuery, mockMovimentacaoFacade);
 	}
 
 }

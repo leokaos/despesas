@@ -19,7 +19,7 @@ class TipoPeriodicidadeTest {
 
 	private static final ZoneId ZONE = ZoneId.systemDefault();
 	private static final Clock CLOCK_ORIGINAL = DataUtil.CLOCK;
-	private static final LocalDate BASE = LocalDate.of(2026, 1, 1);
+	private static final LocalDate BASE = LocalDate.of(2026, 1, 15);
 
 	@BeforeEach
 	void fixarRelogio() {
@@ -33,10 +33,10 @@ class TipoPeriodicidadeTest {
 
 	static Stream<Arguments> casosDiaUtil() {
 		return Stream.of(
-				Arguments.of(1, LocalDate.of(2026, 1, 1)),
-				Arguments.of(3, LocalDate.of(2026, 1, 5)),
-				Arguments.of(4, LocalDate.of(2026, 1, 5)),
-				Arguments.of(10, LocalDate.of(2026, 1, 12)),
+				Arguments.of(1, LocalDate.of(2026, 2, 2)),
+				Arguments.of(3, LocalDate.of(2026, 2, 3)),
+				Arguments.of(4, LocalDate.of(2026, 2, 4)),
+				Arguments.of(10, LocalDate.of(2026, 2, 10)),
 				Arguments.of(15, LocalDate.of(2026, 1, 15)),
 				Arguments.of(31, LocalDate.of(2026, 2, 2)));
 	}
@@ -50,10 +50,10 @@ class TipoPeriodicidadeTest {
 
 	static Stream<Arguments> casosNoMaximo() {
 		return Stream.of(
-				Arguments.of(1, LocalDate.of(2026, 1, 1)),
-				Arguments.of(3, LocalDate.of(2026, 1, 2)),
-				Arguments.of(4, LocalDate.of(2026, 1, 2)),
-				Arguments.of(10, LocalDate.of(2026, 1, 9)),
+				Arguments.of(1, LocalDate.of(2026, 1, 30)),
+				Arguments.of(3, LocalDate.of(2026, 2, 3)),
+				Arguments.of(4, LocalDate.of(2026, 2, 4)),
+				Arguments.of(10, LocalDate.of(2026, 2, 10)),
 				Arguments.of(15, LocalDate.of(2026, 1, 15)),
 				Arguments.of(31, LocalDate.of(2026, 1, 30)));
 	}

@@ -1,8 +1,7 @@
 package org.leo.despesas.dominio;
 
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -11,7 +10,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.leo.despesas.dominio.debitavel.CartaoCredito;
 import org.leo.despesas.dominio.debitavel.Fatura;
 import org.leo.despesas.dominio.movimentacao.Despesa;
@@ -34,10 +33,10 @@ public class CartaoCreditoTest {
 
 		final Fatura fatura = cartao.getFaturas().iterator().next();
 
-		assertEquals(formatter.format(fatura.getDataFechamento()), "28/06/2015");
-		assertEquals(formatter.format(fatura.getDataVencimento()), "11/07/2015");
-		assertEquals(cartao.getFaturas().size(), 1);
-		assertThat(fatura.getDespesas(), hasItem(despesa));
+		assertEquals("28/06/2015", formatter.format(fatura.getDataFechamento()));
+		assertEquals("11/07/2015", formatter.format(fatura.getDataVencimento()));
+		assertEquals(1, cartao.getFaturas().size());
+		assertTrue(fatura.getDespesas().contains(despesa));
 	}
 
 	@Test
@@ -58,12 +57,12 @@ public class CartaoCreditoTest {
 
 		final Fatura fatura = cartao.getFaturas().iterator().next();
 
-		assertEquals(formatter.format(fatura.getDataFechamento()), "28/06/2015");
-		assertEquals(formatter.format(fatura.getDataVencimento()), "11/07/2015");
-		assertEquals(cartao.getFaturas().size(), 1);
-		assertEquals(fatura.getDespesas().size(), 2);
-		assertThat(fatura.getDespesas(), hasItem(despesa1));
-		assertThat(fatura.getDespesas(), hasItem(despesa2));
+		assertEquals("28/06/2015", formatter.format(fatura.getDataFechamento()));
+		assertEquals("11/07/2015", formatter.format(fatura.getDataVencimento()));
+		assertEquals(1, cartao.getFaturas().size());
+		assertEquals(2, fatura.getDespesas().size());
+		assertTrue(fatura.getDespesas().contains(despesa1));
+		assertTrue(fatura.getDespesas().contains(despesa2));
 	}
 
 	@Test
@@ -79,8 +78,8 @@ public class CartaoCreditoTest {
 
 		final Fatura fatura = cartao.getFaturas().iterator().next();
 
-		assertEquals(formatter.format(fatura.getDataFechamento()), "28/03/2020");
-		assertEquals(formatter.format(fatura.getDataVencimento()), "11/04/2020");
+		assertEquals("28/03/2020", formatter.format(fatura.getDataFechamento()));
+		assertEquals("11/04/2020", formatter.format(fatura.getDataVencimento()));
 	}
 
 	@Test
@@ -126,21 +125,21 @@ public class CartaoCreditoTest {
 			}
 		});
 
-		assertEquals(faturas.size(), 2);
+		assertEquals(2, faturas.size());
 
 		final Iterator<Fatura> iterator = faturas.iterator();
 
 		final Fatura faturaAgosto = iterator.next();
 		final Fatura faturaJulho = iterator.next();
 
-		assertEquals(faturaJulho.getDataFechamento(), formatter.parse("28/06/2015"));
-		assertEquals(faturaAgosto.getDataFechamento(), formatter.parse("28/08/2015"));
+		assertEquals(formatter.parse("28/06/2015"), faturaJulho.getDataFechamento());
+		assertEquals(formatter.parse("28/08/2015"), faturaAgosto.getDataFechamento());
 
-		assertEquals(faturaJulho.getDataVencimento(), formatter.parse("11/07/2015"));
-		assertEquals(faturaAgosto.getDataVencimento(), formatter.parse("11/09/2015"));
+		assertEquals(formatter.parse("11/07/2015"), faturaJulho.getDataVencimento());
+		assertEquals(formatter.parse("11/09/2015"), faturaAgosto.getDataVencimento());
 
-		assertThat(faturaJulho.getDespesas(), hasItem(despesa1));
-		assertThat(faturaAgosto.getDespesas(), hasItem(despesa2));
+		assertTrue(faturaJulho.getDespesas().contains(despesa1));
+		assertTrue(faturaAgosto.getDespesas().contains(despesa2));
 	}
 
 	@Test
@@ -158,7 +157,6 @@ public class CartaoCreditoTest {
 		cartao.debitar(createDespesa("28/03/2023"));
 
 		assertEquals(1, cartao.getFaturas().size());
-
 	}
 
 	private Despesa createDespesa(String data) throws Exception {

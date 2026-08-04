@@ -1,33 +1,31 @@
 package org.leo.despesas.aplicacao.projecao;
 
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 import org.apache.commons.lang3.time.DateUtils;
-import org.easymock.EasyMockRunner;
-import org.easymock.Mock;
-import org.easymock.MockType;
-import org.easymock.TestSubject;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
 import org.leo.despesas.dominio.debitavel.Conta;
 import org.leo.despesas.dominio.projecao.Projecao;
 import org.leo.despesas.infra.Periodo;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(EasyMockRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ProjecaoFacadeImplTest {
 
-	@TestSubject
+	@InjectMocks
 	private ProjecaoFacadeImpl facade = new ProjecaoFacadeImpl();
 
-	@Mock(type = MockType.STRICT)
+	@Mock
 	private DebitavelFacade mockDebitavelFacade;
 
 	@Test
@@ -42,13 +40,11 @@ public class ProjecaoFacadeImplTest {
 
 		Periodo periodo = new Periodo(dataInicial, dataFinal);
 
-		expect(mockDebitavelFacade.getMediaVariacao(conta)).andReturn(new BigDecimal("10"));
-
-		replay(mockDebitavelFacade);
+		when(mockDebitavelFacade.getMediaVariacao(conta)).thenReturn(new BigDecimal("10"));
 
 		Projecao projecao = facade.criarProjecao(conta, periodo);
 
-		verify(mockDebitavelFacade);
+		verify(mockDebitavelFacade).getMediaVariacao(conta);
 
 		assertNotNull(projecao);
 		assertEquals(13, projecao.getItens().size());

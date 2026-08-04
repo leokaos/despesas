@@ -1,46 +1,45 @@
 package org.leo.despesas.dominio.alerta;
 
-import static org.easymock.EasyMock.capture;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
 
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
-import org.easymock.Capture;
-import org.easymock.EasyMockRunner;
-import org.easymock.Mock;
-import org.easymock.MockType;
-import org.easymock.TestSubject;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.leo.despesas.aplicacao.notificacao.NotificacaoFacade;
 import org.leo.despesas.dominio.notificacao.Notificacao;
 import org.leo.despesas.dominio.notificacao.NotificacaoFiltro;
 import org.leo.despesas.infra.util.DataUtil;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.google.common.collect.Lists;
 
-@RunWith(EasyMockRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class AlertaDespesaRecorrenteProcessorTest {
 
-	@TestSubject
+	@InjectMocks
 	private AlertaDespesaRecorrenteProcessor processor = new AlertaDespesaRecorrenteProcessor();
 
-	@Mock(type = MockType.STRICT)
+	@Mock
 	private NotificacaoFacade mockNotificacaoFacade;
 
-	@Before
+	@BeforeEach
 	public void before() {
 		DataUtil.setClock(Clock.fixed(LocalDate.of(2026, 1, 2).atStartOfDay(ZoneId.systemDefault()).toInstant(), ZoneId.systemDefault()));
 	}
 
-	@After
+	@AfterEach
 	public void after() {
 		DataUtil.setClock(Clock.systemDefaultZone());
 	}
@@ -53,14 +52,12 @@ public class AlertaDespesaRecorrenteProcessorTest {
 		alerta.setDiaAlvo(8);
 		alerta.setDiasAntesDeAviso(10);
 
-		Capture<NotificacaoFiltro> captureFiltro = new Capture<>();
-		expect(mockNotificacaoFacade.listar(capture(captureFiltro))).andReturn(Lists.newArrayList(new Notificacao()));
-
-		replay(mockNotificacaoFacade);
+		ArgumentCaptor<NotificacaoFiltro> captureFiltro = ArgumentCaptor.forClass(NotificacaoFiltro.class);
+		when(mockNotificacaoFacade.listar(any(NotificacaoFiltro.class))).thenReturn(Lists.newArrayList(new Notificacao()));
 
 		processor.processarAlerta(alerta);
 
-		verify(mockNotificacaoFacade);
+		verify(mockNotificacaoFacade).listar(captureFiltro.capture());
 
 		NotificacaoFiltro filtro = captureFiltro.getValue();
 
@@ -76,17 +73,16 @@ public class AlertaDespesaRecorrenteProcessorTest {
 		alerta.setDiaAlvo(8);
 		alerta.setDiasAntesDeAviso(10);
 
-		Capture<NotificacaoFiltro> captureFiltro = new Capture<>();
-		Capture<Notificacao> captureNotificacao = new Capture<>();
+		ArgumentCaptor<NotificacaoFiltro> captureFiltro = ArgumentCaptor.forClass(NotificacaoFiltro.class);
+		ArgumentCaptor<Notificacao> captureNotificacao = ArgumentCaptor.forClass(Notificacao.class);
 
-		expect(mockNotificacaoFacade.listar(capture(captureFiltro))).andReturn(Lists.newArrayList());
-		expect(mockNotificacaoFacade.inserir(capture(captureNotificacao))).andReturn(new Notificacao());
-
-		replay(mockNotificacaoFacade);
+		when(mockNotificacaoFacade.listar(any(NotificacaoFiltro.class))).thenReturn(Lists.newArrayList());
+		when(mockNotificacaoFacade.inserir(any(Notificacao.class))).thenReturn(new Notificacao());
 
 		processor.processarAlerta(alerta);
 
-		verify(mockNotificacaoFacade);
+		verify(mockNotificacaoFacade).listar(captureFiltro.capture());
+		verify(mockNotificacaoFacade).inserir(captureNotificacao.capture());
 
 		NotificacaoFiltro filtro = captureFiltro.getValue();
 
@@ -107,12 +103,9 @@ public class AlertaDespesaRecorrenteProcessorTest {
 		alerta.setDiaAlvo(25);
 		alerta.setDiasAntesDeAviso(10);
 
-		replay(mockNotificacaoFacade);
-
 		processor.processarAlerta(alerta);
 
-		verify(mockNotificacaoFacade);
-
+		verifyNoInteractions(mockNotificacaoFacade);
 	}
 
 }

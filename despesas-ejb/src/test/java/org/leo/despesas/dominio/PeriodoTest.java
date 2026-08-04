@@ -1,10 +1,11 @@
 package org.leo.despesas.dominio;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.infra.util.DataUtil;
 
