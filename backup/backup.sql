@@ -14826,7 +14826,7 @@ COPY despesas_db.notificacao (id, executado, origem_alerta_id, target_date) FROM
 3	f	2	2026-08-11
 5	f	3	2026-08-12
 4	t	5	2026-08-10
-6	f	5	2026-08-07
+6	t	5	2026-08-07
 \.
 
 
