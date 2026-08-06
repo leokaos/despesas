@@ -592,8 +592,8 @@ COPY despesas_db.alerta_pagamento_fatura_cartao (id, cartao_credito_id) FROM std
 --
 
 COPY despesas_db.cartao (bandeiracartaocredito, diadefechamento, diadevencimento, limite, id, limite_atual) FROM stdin;
-VISA	28	11	17300.00	6	\N
 VISA	28	12	3500.00	23	\N
+VISA	3	11	17300.00	6	\N
 \.
 
 
@@ -602,7 +602,7 @@ VISA	28	12	3500.00	23	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-48952.51	3
+48854.02	3
 0.00	4
 37298.58	5
 \.
@@ -7513,6 +7513,11 @@ t	7342	201	117
 t	7344	201	117
 t	7343	201	117
 t	7345	4	120
+t	7346	2	\N
+t	7347	4	\N
+t	7351	201	117
+t	7352	201	124
+t	7353	201	125
 \.
 
 
@@ -7612,6 +7617,8 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 116	6	2026-07-11 01:00:00	2026-06-28 01:00:00	t
 117	6	2026-08-11 01:00:00	2026-07-28 01:00:00	f
 120	23	2026-09-12 00:00:00	2026-08-28 00:00:00	f
+124	6	2026-09-11 00:00:00	2026-08-28 00:00:00	f
+125	6	2026-10-11 00:00:00	2026-09-28 00:00:00	f
 \.
 
 
@@ -14815,6 +14822,14 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7343	ALURA	2026-08-03	87.20	2026-08-28	6	REAL
 7344	DM*Spotify	2026-08-03	23.90	2026-07-28	6	REAL
 7345	Glovo Prime	2026-08-03	5.99	2026-08-03	23	EURO
+7346	Terapia	2026-08-05	50.00	2026-08-05	3	EURO
+7347	VODAFONE	2026-08-05	48.49	2026-08-05	3	EURO
+7348	Demon Slayer Box 1/3	2026-08-05	300.01	2026-08-03	6	REAL
+7349	Demon Slayer Box 2/3	2026-08-05	300.01	2026-09-03	6	REAL
+7350	Demon Slayer Box 3/3	2026-08-05	300.01	2026-10-03	6	REAL
+7351	Demon Slayer Box 1/3	2026-08-05	300.01	2026-07-27	6	REAL
+7352	Demon Slayer Box 2/3	2026-08-05	300.01	2026-08-27	6	REAL
+7353	Demon Slayer Box 3/3	2026-08-05	300.01	2026-09-27	6	REAL
 \.
 
 
@@ -15292,7 +15307,7 @@ SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 24, true);
 -- Name: fatura_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 120, true);
+SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 125, true);
 
 
 --
@@ -15320,7 +15335,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7345, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7353, true);
 
 
 --
