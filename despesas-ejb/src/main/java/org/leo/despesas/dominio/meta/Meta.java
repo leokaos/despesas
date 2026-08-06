@@ -1,8 +1,10 @@
 package org.leo.despesas.dominio.meta;
 
+import static org.leo.despesas.infra.util.DataUtil.CLOCK;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Embedded;
@@ -93,7 +95,7 @@ public class Meta implements ModelEntity {
 
 		Periodo periodo = this.mes.getPeriodo();
 
-		if (periodo.pertenceAoPeriodo(new Date())) {
+		if (periodo.pertenceAoPeriodo(LocalDate.now(CLOCK))) {
 			return this.saldo.divide(new BigDecimal(periodo.getDiasParaTermino()), 2, RoundingMode.HALF_UP);
 		}
 

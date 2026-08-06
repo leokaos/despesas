@@ -1,7 +1,7 @@
 package org.leo.despesas.aplicacao.transferencia;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -21,6 +21,7 @@ import org.leo.despesas.infra.AbstractFacade;
 import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.infra.exception.ValidationEntityException;
+import org.leo.despesas.infra.util.DataUtil;
 
 @Stateless
 public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, TransferenciaFiltro> implements TransferenciaFacade {
@@ -52,12 +53,12 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, Trans
 	@Override
 	protected void preInserir(Transferencia t) throws DespesasException {
 
-		if (t.getValorReal() == null) {
-			t.setValorReal(t.getValor());
+		if (t.getDebitavel().getMoeda() != t.getCreditavel().getMoeda() && t.getValorReal() == null) {
+			throw new ValidationEntityException("Transferência entre debitáveis com diferentes moedas não permitado!");
 		}
 
-		if (t.getDebitavel().getMoeda() != t.getCreditavel().getMoeda()) {
-			throw new ValidationEntityException("Transferência entre debitáveis com diferentes moedas não permitado!");
+		if (t.getValorReal() == null) {
+			t.setValorReal(t.getValor());
 		}
 
 	}
@@ -82,8 +83,8 @@ public class TransferenciaFacadeImpl extends AbstractFacade<Transferencia, Trans
 
 			transferencia.setValorReal(new BigDecimal(valorReal));
 			transferencia.setDescricao("Remessa Internacional");
-			transferencia.setVencimento(new Date());
-			transferencia.setPagamento(new Date());
+			transferencia.setVencimento(LocalDate.now(DataUtil.CLOCK));
+			transferencia.setPagamento(LocalDate.now(DataUtil.CLOCK));
 			transferencia.setMoeda(transferencia.getCreditavel().getMoeda());
 
 			return inserir(transferencia);

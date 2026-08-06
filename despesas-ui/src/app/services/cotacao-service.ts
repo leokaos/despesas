@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { APP_CONFIG, AppConfig } from '../app-config';
 import { Cotacao } from '../models/cotacao.model';
+import { DateUtil } from '../models/util';
 
 export interface CotacaoFiltro {
   origem: Moeda;
@@ -24,7 +25,7 @@ export class CotacaoService {
     let params = new HttpParams();
 
     if (filtro?.data) {
-      params = params.set("data", filtro.data.toUTCString());
+      params = params.set("data", DateUtil.formatDate(filtro.data));
     }
 
     if (filtro?.origem) {
@@ -89,7 +90,7 @@ export class CotacaoService {
       ...cotacao,
       origem: cotacao.origem.codigo,
       destino: cotacao.destino.codigo,
-      data: cotacao.data.getTime(),
+      data: DateUtil.formatDate(cotacao.data),
     } as Cotacao;
   }
 }

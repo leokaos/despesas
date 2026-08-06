@@ -1,6 +1,6 @@
 package org.leo.despesas.dominio.movimentacao;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.ws.rs.QueryParam;
 
@@ -11,10 +11,10 @@ import org.leo.despesas.infra.Moeda;
 public class TransferenciaFiltro extends AbstractModelFiltro<Transferencia> {
 
 	@QueryParam("dataInicial")
-	private Date dataInicial;
+	private LocalDate dataInicial;
 
 	@QueryParam("dataFinal")
-	private Date dataFinal;
+	private LocalDate dataFinal;
 
 	private Debitavel debitavel;
 
@@ -26,19 +26,19 @@ public class TransferenciaFiltro extends AbstractModelFiltro<Transferencia> {
 		super();
 	}
 
-	public Date getDataInicial() {
+	public LocalDate getDataInicial() {
 		return dataInicial;
 	}
 
-	public void setDataInicial(final Date dataInicial) {
+	public void setDataInicial(LocalDate dataInicial) {
 		this.dataInicial = dataInicial;
 	}
 
-	public Date getDataFinal() {
+	public LocalDate getDataFinal() {
 		return dataFinal;
 	}
 
-	public void setDataFinal(final Date dataFinal) {
+	public void setDataFinal(LocalDate dataFinal) {
 		this.dataFinal = dataFinal;
 	}
 

@@ -1,7 +1,7 @@
 package org.leo.despesas.dominio.orcamento;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -34,10 +34,10 @@ public class Orcamento implements ModelEntity {
 	private Long id;
 
 	@Column(name = "DATA_FINAL")
-	private Date dataFinal;
+	private LocalDate dataFinal;
 
 	@Column(name = "DATA_INICIAL")
-	private Date dataInicial;
+	private LocalDate dataInicial;
 
 	@ManyToOne
 	@JoinColumn(name = "tipo_despesa_id")
@@ -65,19 +65,19 @@ public class Orcamento implements ModelEntity {
 		this.id = id;
 	}
 
-	public Date getDataFinal() {
+	public LocalDate getDataFinal() {
 		return dataFinal;
 	}
 
-	public void setDataFinal(Date dataFinal) {
+	public void setDataFinal(LocalDate dataFinal) {
 		this.dataFinal = dataFinal;
 	}
 
-	public Date getDataInicial() {
+	public LocalDate getDataInicial() {
 		return dataInicial;
 	}
 
-	public void setDataInicial(Date dataInicial) {
+	public void setDataInicial(LocalDate dataInicial) {
 		this.dataInicial = dataInicial;
 	}
 

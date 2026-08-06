@@ -29,7 +29,6 @@ import com.google.common.collect.Lists;
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.RSQLParserException;
 import cz.jirutka.rsql.parser.ast.Node;
-import cz.jirutka.rsql.parser.ast.RSQLVisitor;
 
 public abstract class AbstractModelFiltro<T extends ModelEntity> implements ModelFiltro<T> {
 
@@ -72,7 +71,9 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 			CriteriaQuery<T> criteriaQuery = cb.createQuery(classeDaEntidade);
 			Root<T> root = criteriaQuery.from(classeDaEntidade);
 
-			RSQLVisitor<Predicate, EntityManager> visitor = new JpaPredicateVisitor<T>().defineRoot(root);
+			JpaPredicateVisitor<T> visitor = new JpaPredicateVisitor<T>();
+			visitor.defineRoot(root);
+			visitor.getBuilderTools().setArgumentParser(new CustomArgumentParser());
 
 			Predicate predicate = rootNode.accept(visitor, entityManager);
 

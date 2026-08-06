@@ -1,6 +1,6 @@
 package org.leo.despesas.aplicacao.fatura;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -17,6 +17,6 @@ public interface FaturaFacade extends SimpleFacade<Fatura, FaturaFiltro> {
 
 	List<Fatura> buscarFaturaPorCartaoCredito(CartaoCredito cartaoCredito);
 
-	Fatura pagarFatura(Fatura fatura, Conta conta, Date dataPagamento) throws DespesasException;
+	Fatura pagarFatura(Fatura fatura, Conta conta, LocalDate dataPagamento) throws DespesasException;
 
 }

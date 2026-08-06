@@ -2,7 +2,7 @@ package org.leo.despesas.rest.despesa;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +41,7 @@ public class DespesaService extends AbstractService<DespesaFacade, Despesa, Desp
 	@GET
 	@Path(value = "/grafico")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<GraficoVO> buscarPorPeriodo(@QueryParam("dataInicial") final Date dataInicial, @QueryParam("dataFinal") final Date dataFinal) {
+	public List<GraficoVO> buscarPorPeriodo(@QueryParam("dataInicial") final LocalDate dataInicial, @QueryParam("dataFinal") final LocalDate dataFinal) {
 		return despesaFacade.getGraficoPorPeriodo(new Periodo(dataInicial, dataFinal));
 	}
 

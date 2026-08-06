@@ -1,6 +1,6 @@
 package org.leo.despesas.aplicacao.movimentacao;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -19,7 +19,7 @@ public class MovimentacaoFacadeImpl implements MovimentacaoFacade {
 	protected EntityManager entityManager;
 
 	@Override
-	public List<Movimentacao> buscarMovimentacaoPorPeriodo(Date dataInicial, Date dataFinal) {
+	public List<Movimentacao> buscarMovimentacaoPorPeriodo(LocalDate dataInicial, LocalDate dataFinal) {
 
 		TypedQuery<Movimentacao> query = entityManager.createQuery("SELECT M FROM Movimentacao M WHERE M.vencimento BETWEEN :dataInicial AND :dataFinal AND M.moeda = :moeda", Movimentacao.class);
 

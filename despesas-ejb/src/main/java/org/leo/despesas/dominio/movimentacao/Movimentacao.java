@@ -1,7 +1,7 @@
 package org.leo.despesas.dominio.movimentacao;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -29,6 +27,7 @@ import org.hibernate.search.annotations.Store;
 import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.infra.ModelEntity;
 import org.leo.despesas.infra.Moeda;
+import org.leo.despesas.infra.util.DataUtil;
 import org.leo.despesas.rest.DebitavelDeserializer;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -41,9 +40,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "tipoMovimentacao")
 @JsonSubTypes({
-    @JsonSubTypes.Type(value = Despesa.class, name = "despesa"),
-    @JsonSubTypes.Type(value = Receita.class, name = "receita"),
-    @JsonSubTypes.Type(value = Transferencia.class, name = "transferencia")
+		@JsonSubTypes.Type(value = Despesa.class, name = "despesa"),
+		@JsonSubTypes.Type(value = Receita.class, name = "receita"),
+		@JsonSubTypes.Type(value = Transferencia.class, name = "transferencia")
 })
 public abstract class Movimentacao implements ModelEntity {
 
@@ -62,12 +61,10 @@ public abstract class Movimentacao implements ModelEntity {
 	private BigDecimal valor;
 
 	@Column(name = "vencimento")
-	@Temporal(TemporalType.DATE)
-	private Date vencimento;
+	private LocalDate vencimento;
 
 	@Column(name = "pagamento")
-	@Temporal(TemporalType.DATE)
-	private Date pagamento;
+	private LocalDate pagamento;
 
 	@ManyToOne
 	@JoinColumn(name = "debitavel_id")
@@ -106,12 +103,20 @@ public abstract class Movimentacao implements ModelEntity {
 		this.valor = valor;
 	}
 
-	public Date getVencimento() {
+	public LocalDate getVencimento() {
 		return vencimento;
 	}
 
-	public void setVencimento(final Date vencimento) {
+	public void setVencimento(LocalDate vencimento) {
 		this.vencimento = vencimento;
+	}
+
+	public LocalDate getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(LocalDate pagamento) {
+		this.pagamento = pagamento;
 	}
 
 	public Debitavel getDebitavel() {
@@ -123,16 +128,8 @@ public abstract class Movimentacao implements ModelEntity {
 		this.debitavel = debitavel;
 	}
 
-	public Date getPagamento() {
-		return pagamento;
-	}
-
-	public void setPagamento(final Date pagamento) {
-		this.pagamento = pagamento;
-	}
-
 	public void fechar() {
-		setPagamento(new Date());
+		setPagamento(LocalDate.now(DataUtil.CLOCK));
 	}
 
 	public void abrir() {

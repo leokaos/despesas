@@ -3,8 +3,8 @@ package org.leo.despesas.dominio.parcelamento;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.MessageFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.leo.despesas.dominio.movimentacao.Despesa;
@@ -66,7 +66,7 @@ public abstract class Parcelamento {
 		return null;
 	}
 
-	public abstract Date getDataParcela(int numeroParcela, Despesa despesa);
+	public abstract LocalDate getDataParcela(int numeroParcela, Despesa despesa);
 
 	public abstract String getCodigo();
 

@@ -5,10 +5,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -45,9 +45,10 @@ public class GraficoFacadeImplTest {
 	@Test
 	public void getGraficoDespesaComUmaSerieComCincoPontosTest() throws Exception {
 
-		final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		final Date dataInicial = format.parse("01/05/2015 00:00:00");
-		final Date dataFinal = format.parse("30/06/2015 23:59:59");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		final LocalDate dataInicial = LocalDate.parse("2015-05-01", formatter);
+		final LocalDate dataFinal = LocalDate.parse("2015-06-30", formatter);
 
 		when(mockEntityManager.createQuery(getHQL())).thenReturn(mockQuery);
 		when(mockQuery.setParameter("dataInicial", dataInicial)).thenReturn(mockQuery);
@@ -73,9 +74,10 @@ public class GraficoFacadeImplTest {
 	@Test
 	public void getGraficoDespesaComDuasSerieComTresPontosTest() throws Exception {
 
-		final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		final Date dataInicial = format.parse("01/05/2015 00:00:00");
-		final Date dataFinal = format.parse("30/06/2015 23:59:59");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		final LocalDate dataInicial = LocalDate.parse("2015-05-01", formatter);
+		final LocalDate dataFinal = LocalDate.parse("2015-06-30", formatter);
 
 		when(mockEntityManager.createQuery(getHQL())).thenReturn(mockQuery);
 		when(mockQuery.setParameter("dataInicial", dataInicial)).thenReturn(mockQuery);

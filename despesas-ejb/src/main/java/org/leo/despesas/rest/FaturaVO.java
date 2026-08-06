@@ -1,7 +1,7 @@
 package org.leo.despesas.rest;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.leo.despesas.dominio.debitavel.Debitavel;
 
@@ -10,7 +10,7 @@ public class FaturaVO implements Serializable {
 	private static final long serialVersionUID = 8460849659987595679L;
 
 	private Debitavel debitavel;
-	private Date dataPagamento;
+	private LocalDate dataPagamento;
 
 	public Debitavel getDebitavel() {
 		return debitavel;
@@ -20,11 +20,11 @@ public class FaturaVO implements Serializable {
 		this.debitavel = debitavel;
 	}
 
-	public Date getDataPagamento() {
+	public LocalDate getDataPagamento() {
 		return dataPagamento;
 	}
 
-	public void setDataPagamento(Date dataPagamento) {
+	public void setDataPagamento(LocalDate dataPagamento) {
 		this.dataPagamento = dataPagamento;
 	}
 

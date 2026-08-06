@@ -3,6 +3,7 @@ package org.leo.despesas.aplicacao.grafico;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,12 +37,13 @@ public class GraficoFacadeImpl implements GraficoFacade {
 	private TipoReceitaFacade tipoReceitaFacade;
 
 	@Override
-	public GraficoLinha getGraficoDespesas(final Date dataInicial, final Date dataFinal) {
+	public GraficoLinha getGraficoDespesas(final LocalDate dataInicial, final LocalDate dataFinal) {
 
 		try {
 
 			// PEGANDO OS RESULTADOS
 			final StringBuilder builder = new StringBuilder();
+
 			builder.append("SELECT d.tipo.descricao , MONTH(d.vencimento) , YEAR(d.vencimento) , SUM(d.valor) FROM Despesa d ");
 			builder.append("WHERE d.vencimento BETWEEN :dataInicial AND :dataFinal AND d.moeda = :moeda ");
 			builder.append("GROUP BY d.tipo.descricao , MONTH(d.vencimento) , YEAR(d.vencimento) ");
@@ -57,7 +59,7 @@ public class GraficoFacadeImpl implements GraficoFacade {
 	}
 
 	@Override
-	public GraficoLinha getGraficoReceitas(Date dataInicial, Date dataFinal) {
+	public GraficoLinha getGraficoReceitas(LocalDate dataInicial, LocalDate dataFinal) {
 
 		try {
 
@@ -78,7 +80,7 @@ public class GraficoFacadeImpl implements GraficoFacade {
 	}
 
 	@SuppressWarnings("unchecked")
-	private GraficoLinha gerarGrafico(final Date dataInicial, final Date dataFinal, final StringBuilder builder, final List<? extends TipoMovimentacao> listaTipoDespesas, String titulo) throws ParseException {
+	private GraficoLinha gerarGrafico(LocalDate dataInicial, LocalDate dataFinal, StringBuilder builder, List<? extends TipoMovimentacao> listaTipoDespesas, String titulo) throws ParseException {
 
 		final Query query = entityManager.createQuery(builder.toString());
 
@@ -87,7 +89,6 @@ public class GraficoFacadeImpl implements GraficoFacade {
 		query.setParameter("moeda", Moeda.EURO);
 		final List<Object[]> resultList = query.getResultList();
 
-		// FORMATO OBJS: Carro 5 2015 300
 		final List<Serie> series = new ArrayList<>();
 		final SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -106,7 +107,6 @@ public class GraficoFacadeImpl implements GraficoFacade {
 				series.add(serie);
 			}
 
-			// CÁLCULO LONG DIA
 			final String data = new StringBuilder().append(1).append("-").append(value[1]).append("-").append(value[2]).toString();
 			final Date dataConvertida = format.parse(data);
 

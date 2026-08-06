@@ -1,7 +1,8 @@
 package org.leo.despesas.dominio.debitavel;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,10 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
 import org.leo.despesas.infra.ModelEntity;
@@ -43,12 +41,10 @@ public class Fatura implements ModelEntity {
 	private CartaoCredito cartao;
 
 	@Column(name = "data_vencimento")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataVencimento;
+	private LocalDate dataVencimento;
 
 	@Column(name = "data_fechamento")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataFechamento;
+	private LocalDate dataFechamento;
 
 	@OneToMany(mappedBy = "fatura", fetch = FetchType.EAGER)
 	private Set<Despesa> despesas;
@@ -85,19 +81,19 @@ public class Fatura implements ModelEntity {
 		this.cartao = cartao;
 	}
 
-	public Date getDataVencimento() {
+	public LocalDate getDataVencimento() {
 		return dataVencimento;
 	}
 
-	public void setDataVencimento(final Date dataVencimento) {
+	public void setDataVencimento(LocalDate dataVencimento) {
 		this.dataVencimento = dataVencimento;
 	}
 
-	public Date getDataFechamento() {
+	public LocalDate getDataFechamento() {
 		return dataFechamento;
 	}
 
-	public void setDataFechamento(final Date dataFechamento) {
+	public void setDataFechamento(LocalDate dataFechamento) {
 		this.dataFechamento = dataFechamento;
 	}
 
@@ -127,34 +123,29 @@ public class Fatura implements ModelEntity {
 		return total;
 	}
 
-	public boolean pertenceFatura(final Date dataBase) {
+	public boolean pertenceFatura(final LocalDate dataBase) {
 		return getPeriodo().pertenceAoPeriodo(dataBase);
 	}
 
 	private Periodo getPeriodo() {
-
-		Date dataFinal = DateUtils.addMilliseconds(DateUtils.addDays(dataFechamento, 1), -1);
-
-		Date inicial = DataUtil.addMonths(dataFechamento, -1);
-
-		return new Periodo(inicial, dataFinal);
+		return new Periodo(dataFechamento.minusMonths(1), dataFechamento);
 	}
 
 	public Transferencia pagar(final Conta conta) throws DespesasException {
-		
+
 		if (!conta.getMoeda().equals(this.getCartao().getMoeda())) {
 			throw new DespesasException("Conta com moeda diferente do cartao!");
 		}
 
 		final Transferencia transferencia = new Transferencia();
 
-		transferencia.setDescricao("Pagamento fatura " + DataUtil.formatarMes(dataVencimento));
+		transferencia.setDescricao("Pagamento fatura " + dataVencimento.format(DateTimeFormatter.ofPattern("MM/yyyy")));
 		transferencia.setCreditavel(getCartao());
 		transferencia.setDebitavel(conta);
-		transferencia.setPagamento(new Date());
+		transferencia.setPagamento(LocalDate.now(DataUtil.CLOCK));
 		transferencia.setValor(getValorFatura());
 		transferencia.setValorReal(getValorFatura());
-		transferencia.setVencimento(new Date());
+		transferencia.setVencimento(LocalDate.now(DataUtil.CLOCK));
 		transferencia.setMoeda(conta.getMoeda());
 
 		setPaga(true);

@@ -1,6 +1,6 @@
 package org.leo.despesas.rest.movimentacao;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -24,7 +24,7 @@ public class MovimentacaoService {
 	@GET
 	@Path(value = "/buscarPorPeriodo")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Movimentacao> buscarPorPeriodo(@QueryParam("dataInicial") final Date dataInicial,@QueryParam("dataFinal") final Date dataFinal) {
+	public List<Movimentacao> buscarPorPeriodo(@QueryParam("dataInicial") final LocalDate dataInicial,@QueryParam("dataFinal") final LocalDate dataFinal) {
 		return movimentacaoFacade.buscarMovimentacaoPorPeriodo(dataInicial,dataFinal);
 	}
 

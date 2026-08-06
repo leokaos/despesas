@@ -6,9 +6,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
@@ -35,8 +34,8 @@ public class ProjecaoFacadeImplTest {
 		conta.setId(10L);
 		conta.setSaldo(new BigDecimal("0"));
 
-		Date dataInicial = DateUtils.addDays(new Date(), 1);
-		Date dataFinal = DateUtils.addYears(dataInicial, 1);
+		LocalDate dataInicial = LocalDate.now().plusDays(1);
+		LocalDate dataFinal = dataInicial.plusYears(1);
 
 		Periodo periodo = new Periodo(dataInicial, dataFinal);
 
@@ -62,5 +61,4 @@ public class ProjecaoFacadeImplTest {
 		assertEquals(new BigDecimal("110"), projecao.getItens().get(10).getValor());
 		assertEquals(new BigDecimal("120"), projecao.getItens().get(11).getValor());
 	}
-
 }

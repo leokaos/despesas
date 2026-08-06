@@ -7,7 +7,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,7 @@ import com.google.common.collect.Lists;
 @ExtendWith(MockitoExtension.class)
 class DebitavelFacadeImplTest {
 
-	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	@InjectMocks
 	private DebitavelFacade facade = new DebitavelFacadeImpl();
@@ -65,25 +66,29 @@ class DebitavelFacadeImplTest {
 		assertEquals(new BigDecimal("56.00"), mediaVariacao);
 	}
 
-	private List<Despesa> createListaDeDespesas() throws Exception {
-		return Lists.newArrayList(createDespesa(20.0, "01/01/2019"), createDespesa(40.0, "01/05/2019"));
+	private List<Despesa> createListaDeDespesas() {
+		return Lists.newArrayList(
+				createDespesa(20.0, "01/01/2019"),
+				createDespesa(40.0, "01/05/2019"));
 	}
 
-	private List<Receita> createListaDeReceita() throws Exception {
-		return Lists.newArrayList(createReceita(200.0, "05/01/2019"), createReceita(140.0, "05/05/2019"));
+	private List<Receita> createListaDeReceita() {
+		return Lists.newArrayList(
+				createReceita(200.0, "05/01/2019"),
+				createReceita(140.0, "05/05/2019"));
 	}
 
-	private Despesa createDespesa(double valor, String date) throws Exception {
+	private Despesa createDespesa(double valor, String date) {
 		return (Despesa) setValues(valor, date, new Despesa());
 	}
 
-	private Receita createReceita(double valor, String date) throws Exception {
+	private Receita createReceita(double valor, String date) {
 		return (Receita) setValues(valor, date, new Receita());
 	}
 
-	private Movimentacao setValues(double valor, String date, Movimentacao mov) throws Exception {
+	private Movimentacao setValues(double valor, String date, Movimentacao mov) {
 		mov.setValor(new BigDecimal(valor));
-		mov.setVencimento(DATE_FORMAT.parse(date));
+		mov.setVencimento(LocalDate.parse(date, DATE_FORMATTER));
 		return mov;
 	}
 }

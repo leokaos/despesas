@@ -2,13 +2,12 @@ package org.leo.despesas.rest;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 import javax.ws.rs.ext.ParamConverter;
 
 public class LocalDateParamConverter implements ParamConverter<LocalDate> {
 
-	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.ENGLISH);
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	@Override
 	public LocalDate fromString(String value) {

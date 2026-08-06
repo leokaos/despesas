@@ -1,6 +1,6 @@
 package org.leo.despesas.aplicacao.grafico;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.ejb.Local;
 
@@ -9,8 +9,8 @@ import org.leo.despesas.infra.grafico.GraficoLinha;
 @Local
 public interface GraficoFacade {
 
-	GraficoLinha getGraficoDespesas(Date dataInicial, Date dataFinal);
+	GraficoLinha getGraficoDespesas(LocalDate dataInicial, LocalDate dataFinal);
 
-	GraficoLinha getGraficoReceitas(Date dataInicial, Date dataFinal);
+	GraficoLinha getGraficoReceitas(LocalDate dataInicial, LocalDate dataFinal);
 
 }

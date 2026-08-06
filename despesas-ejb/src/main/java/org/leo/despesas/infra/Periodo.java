@@ -1,11 +1,11 @@
 package org.leo.despesas.infra;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Iterator;
 
 import javax.persistence.Embeddable;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.leo.despesas.rest.PeriodoDeserializer;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -14,25 +14,33 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(using = PeriodoDeserializer.class)
 public class Periodo {
 
-	private Date dataInicial;
-	private Date dataFinal;
+	private LocalDate dataInicial;
+	private LocalDate dataFinal;
 
 	public Periodo() {
 		super();
 	}
 
-	public Periodo(Date dataInicial, Date dataFinal) {
+	public Periodo(LocalDate dataInicial, LocalDate dataFinal) {
 		super();
 		this.dataInicial = dataInicial;
 		this.dataFinal = dataFinal;
 	}
 
-	public Date getDataInicial() {
+	public LocalDate getDataInicial() {
 		return dataInicial;
 	}
 
-	public Date getDataFinal() {
+	public void setDataInicial(LocalDate dataInicial) {
+		this.dataInicial = dataInicial;
+	}
+
+	public LocalDate getDataFinal() {
 		return dataFinal;
+	}
+
+	public void setDataFinal(LocalDate dataFinal) {
+		this.dataFinal = dataFinal;
 	}
 
 	@Override
@@ -40,25 +48,15 @@ public class Periodo {
 		return new StringBuilder().append(dataInicial).append(" - ").append(dataFinal).toString();
 	}
 
-	public boolean pertenceAoPeriodo(Date dataBase) {
-		return dataInicial.before(dataBase) && dataFinal.after(dataBase);
+	public boolean pertenceAoPeriodo(LocalDate dataBase) {
+		return dataInicial.isBefore(dataBase) && dataFinal.isAfter(dataBase);
 	}
 
 	public int getDiasParaTermino() {
-
-		int dias = 0;
-
-		Date data = new Date();
-
-		while (data.before(dataFinal)) {
-			dias++;
-			data = DateUtils.addDays(data, 1);
-		}
-
-		return dias;
+		return (int) ChronoUnit.DAYS.between(LocalDate.now(), dataFinal);
 	}
 
-	public Iterator<Date> getIterator(int field) {
+	public Iterator<LocalDate> getIterator(ChronoUnit field) {
 		return new PeriodoIterator(field, this);
 	}
 }

@@ -1,27 +1,13 @@
 package org.leo.despesas.infra.util;
 
-import static java.util.Calendar.DAY_OF_MONTH;
-import static java.util.Calendar.HOUR_OF_DAY;
-import static java.util.Calendar.MILLISECOND;
-import static java.util.Calendar.MINUTE;
-import static java.util.Calendar.MONTH;
-import static java.util.Calendar.SECOND;
-import static java.util.Calendar.YEAR;
-
-import java.text.SimpleDateFormat;
 import java.time.Clock;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.leo.despesas.infra.Periodo;
 
-public class DataUtil extends DateUtils {
+public final class DataUtil extends DateUtils {
 
 	public static Clock CLOCK = Clock.systemDefaultZone();
 
@@ -29,56 +15,16 @@ public class DataUtil extends DateUtils {
 		CLOCK = newClock;
 	}
 
-	private static final SimpleDateFormat FORMAT_MES = new SimpleDateFormat("MM/yyyy");
-
-	private static List<Integer> FIELDS;
-
-	static {
-		FIELDS = new LinkedList<>();
-
-		FIELDS.add(YEAR);
-		FIELDS.add(MONTH);
-		FIELDS.add(DAY_OF_MONTH);
-		FIELDS.add(HOUR_OF_DAY);
-		FIELDS.add(MINUTE);
-		FIELDS.add(SECOND);
-		FIELDS.add(MILLISECOND);
-	}
-
-	public static String formatarMes(final Date date) {
-		return FORMAT_MES.format(date);
-	}
-
-	public static Date maximo(final Date date, final int field) {
-
-		if (!FIELDS.contains(field)) {
-			throw new IllegalArgumentException("Field not valid!");
-		}
-
-		final Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-
-		for (int x = FIELDS.indexOf(field) + 1; x < FIELDS.size(); x++) {
-			calendar.set(FIELDS.get(x), calendar.getActualMaximum(FIELDS.get(x)));
-		}
-
-		return calendar.getTime();
-	}
-
 	public static Periodo getMesAtual() {
-		return getMes(new Date());
+		return getMes(LocalDate.now(CLOCK));
 	}
 
-	public static Periodo getMes(final Date dataBase) {
+	public static Periodo getMes(final LocalDate dataBase) {
 
-		final Date dataIncial = DataUtil.truncate(dataBase, Calendar.MONTH);
-		final Date dataFinal = DataUtil.maximo(dataBase, Calendar.MONTH);
+		LocalDate dataInicial = dataBase.withDayOfMonth(1);
+		LocalDate dataFinal = dataBase.withDayOfMonth(dataBase.lengthOfMonth());
 
-		return new Periodo(dataIncial, dataFinal);
-	}
-
-	public static Date from(final LocalDate localDate) {
-		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		return new Periodo(dataInicial, dataFinal);
 	}
 
 	public static boolean estaNosProximosDias(final LocalDate targetDate, int days) {

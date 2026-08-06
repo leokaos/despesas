@@ -2,7 +2,7 @@ package org.leo.despesas.rest.extrato;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -30,7 +30,7 @@ public class ExtratoService {
 
 	@GET
 	@Produces(APPLICATION_JSON)
-	public List<Extrato> getProjecao(@QueryParam("dataInicial") Date dataInicio, @QueryParam("dataFinal") Date dataFinal, @QueryParam("id") Long id) throws DespesasException {
+	public List<Extrato> getProjecao(@QueryParam("dataInicial") LocalDate dataInicio, @QueryParam("dataFinal") LocalDate dataFinal, @QueryParam("id") Long id) throws DespesasException {
 
 		Debitavel debitavel = debitavelFacade.buscarPorId(id);
 

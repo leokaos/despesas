@@ -1,13 +1,11 @@
 package org.leo.despesas.aplicacao.cotacao;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.TypedQuery;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.leo.despesas.dominio.servicotransferencia.Cotacao;
 import org.leo.despesas.dominio.servicotransferencia.CotacaoFiltro;
 import org.leo.despesas.infra.AbstractFacade;
@@ -15,6 +13,7 @@ import org.leo.despesas.infra.Moeda;
 import org.leo.despesas.infra.cotacao.CotacaoRepositorio;
 import org.leo.despesas.infra.exception.AlreadyExistentEntityException;
 import org.leo.despesas.infra.exception.DespesasException;
+import org.leo.despesas.infra.util.DataUtil;
 
 @Stateless
 public class CotacaoFacadeImpl extends AbstractFacade<Cotacao, CotacaoFiltro> implements CotacaoFacade {
@@ -31,15 +30,11 @@ public class CotacaoFacadeImpl extends AbstractFacade<Cotacao, CotacaoFiltro> im
 	protected void preInserir(Cotacao cotacao) throws DespesasException {
 		super.preInserir(cotacao);
 
-		String sql = "SELECT c FROM Cotacao c WHERE c.data BETWEEN :data_inicial AND :data_final AND c.origem = :origem AND c.destino = :destino";
+		String sql = "SELECT c FROM Cotacao c WHERE c.data = :data AND c.origem = :origem AND c.destino = :destino";
 
 		TypedQuery<Cotacao> query = entityManager.createQuery(sql, getClasseEntidade());
 
-		Date inicio = DateUtils.truncate(cotacao.getData(), Calendar.DAY_OF_MONTH);
-		Date fim = DateUtils.addSeconds(DateUtils.truncate(DateUtils.addDays(cotacao.getData(), 1), Calendar.DAY_OF_MONTH), -1);
-
-		query.setParameter("data_inicial", inicio);
-		query.setParameter("data_final", fim);
+		query.setParameter("data", cotacao.getData());
 		query.setParameter("origem", cotacao.getOrigem());
 		query.setParameter("destino", cotacao.getDestino());
 
@@ -53,7 +48,7 @@ public class CotacaoFacadeImpl extends AbstractFacade<Cotacao, CotacaoFiltro> im
 
 		Cotacao cotacao = new Cotacao();
 
-		cotacao.setData(new Date());
+		cotacao.setData(LocalDate.now(DataUtil.CLOCK));
 		cotacao.setDestino(destino);
 		cotacao.setOrigem(origem);
 		cotacao.setTaxa(cotacaoRepositorio.getCotacao(origem, destino));

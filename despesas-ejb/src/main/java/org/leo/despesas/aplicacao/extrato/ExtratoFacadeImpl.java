@@ -1,14 +1,12 @@
 package org.leo.despesas.aplicacao.extrato;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TemporalType;
 
 import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.dominio.extrato.Extrato;
@@ -23,7 +21,7 @@ public class ExtratoFacadeImpl implements ExtratoFacade {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Extrato> buscarPorPeriodo(Date dataInicio, Date dataFinal, Debitavel debitavel) {
+	public List<Extrato> buscarPorPeriodo(LocalDate dataInicio, LocalDate dataFinal, Debitavel debitavel) {
 
 		StringBuilder builder = new StringBuilder();
 
@@ -50,8 +48,8 @@ public class ExtratoFacadeImpl implements ExtratoFacade {
 		query.setParameter(1, debitavel.getId());
 		query.setParameter(2, debitavel.getId());
 
-		query.setParameter(3, new Timestamp(dataInicio.getTime()), TemporalType.TIMESTAMP);
-		query.setParameter(4, new Timestamp(dataFinal.getTime()), TemporalType.TIMESTAMP);
+		query.setParameter(3, java.sql.Date.valueOf(dataInicio));
+		query.setParameter(4, java.sql.Date.valueOf(dataFinal));
 
 		query.setParameter(5, debitavel.getId());
 		query.setParameter(6, debitavel.getId());

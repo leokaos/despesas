@@ -1,24 +1,24 @@
 package org.leo.despesas.dominio.projecao;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class ProjecaoItem {
 
-	private Date data;
+	private LocalDate data;
 	private BigDecimal valor;
 
-	public ProjecaoItem(Date data, BigDecimal valor) {
+	public ProjecaoItem(LocalDate data, BigDecimal valor) {
 		super();
 		this.data = data;
 		this.valor = valor;
 	}
 
-	public Date getData() {
+	public LocalDate getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 

@@ -1,6 +1,6 @@
 package org.leo.despesas.rest.grafico;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -23,14 +23,14 @@ public class GraficoService {
 	@GET
 	@Path(value = "/despesas")
 	@Produces(MediaType.APPLICATION_JSON)
-	public GraficoLinha getGraficoDespesas(@QueryParam("dataInicial") final Date dataInicial, @QueryParam("dataFinal") final Date dataFinal) {
+	public GraficoLinha getGraficoDespesas(@QueryParam("dataInicial") final LocalDate dataInicial, @QueryParam("dataFinal") final LocalDate dataFinal) {
 		return graficoFacade.getGraficoDespesas(dataInicial, dataFinal);
 	}
 
 	@GET
 	@Path(value = "/receitas")
 	@Produces(MediaType.APPLICATION_JSON)
-	public GraficoLinha getGraficoReceitas(@QueryParam("dataInicial") final Date dataInicial, @QueryParam("dataFinal") final Date dataFinal) {
+	public GraficoLinha getGraficoReceitas(@QueryParam("dataInicial") final LocalDate dataInicial, @QueryParam("dataFinal") LocalDate dataFinal) {
 		return graficoFacade.getGraficoReceitas(dataInicial, dataFinal);
 	}
 

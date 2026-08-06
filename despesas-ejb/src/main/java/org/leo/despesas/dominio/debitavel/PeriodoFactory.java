@@ -1,30 +1,32 @@
 package org.leo.despesas.dominio.debitavel;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 import org.leo.despesas.infra.Periodo;
 
 public class PeriodoFactory {
 
-	public static final DateFormat FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+	public static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
 	public static Periodo parse(Map<String, String> mapaAtributos) {
 
 		try {
+			String dataInicialStr = mapaAtributos.get("dataInicial");
+			String dataFinalStr = mapaAtributos.get("dataFinal");
 
-			Date dataInicial = FORMAT.parse(mapaAtributos.get("dataInicial"));
+			if (dataInicialStr == null || dataFinalStr == null) {
+				return null;
+			}
 
-			Date dataFinal = FORMAT.parse(mapaAtributos.get("dataFinal"));
+			LocalDate dataInicial = LocalDate.parse(dataInicialStr, FORMAT);
+			LocalDate dataFinal = LocalDate.parse(dataFinalStr, FORMAT);
 
 			return new Periodo(dataInicial, dataFinal);
 
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			return null;
 		}
 	}
-
 }

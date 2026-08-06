@@ -28,11 +28,11 @@ export class TransferenciaService {
     let params = new HttpParams();
 
     if (filtro?.dataInicial) {
-      params = params.append("dataInicial", DateUtil.getUTCDate(filtro.dataInicial).toUTCString());
+      params = params.append("dataInicial", DateUtil.formatDate(filtro.dataInicial));
     }
 
     if (filtro?.dataFinal) {
-      params = params.append("dataFinal", DateUtil.getUTCDate(filtro.dataFinal).toUTCString());
+      params = params.append("dataFinal", DateUtil.formatDate(filtro.dataFinal));
     }
 
     return this.http
@@ -78,7 +78,8 @@ export class TransferenciaService {
       transferencia: {
         creditavel: DebitavelService.toEntity(creditavel),
         debitavel: DebitavelService.toEntity(debitavel),
-        valor: valor
+        valor: valor,
+        tipoMovimentacao: "transferencia"
       },
       cotacao: CotacaoService.toEntity(cotacao),
       servicoTransferencia: servico,

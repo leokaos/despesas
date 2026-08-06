@@ -1,11 +1,10 @@
 package org.leo.despesas.aplicacao.debitavel;
 
-import static org.apache.commons.lang3.time.DateUtils.isSameDay;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -13,7 +12,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.leo.despesas.aplicacao.despesa.DespesaFacade;
 import org.leo.despesas.aplicacao.parametro.ParametroFacade;
 import org.leo.despesas.aplicacao.receita.ReceitaFacade;
@@ -97,16 +95,16 @@ public class DebitavelFacadeImpl implements DebitavelFacade {
 			return valorTotal;
 		}
 
-		Date menorData = null;
-		Date maiorData = null;
+		LocalDate menorData = null;
+		LocalDate maiorData = null;
 
 		for (Movimentacao movimentacao : movimentacoes) {
 
-			if (menorData == null || menorData.after(movimentacao.getVencimento())) {
+			if (menorData == null || menorData.isAfter(movimentacao.getVencimento())) {
 				menorData = movimentacao.getVencimento();
 			}
 
-			if (maiorData == null || maiorData.before(movimentacao.getVencimento())) {
+			if (maiorData == null || maiorData.isBefore(movimentacao.getVencimento())) {
 				maiorData = movimentacao.getVencimento();
 			}
 
@@ -118,16 +116,11 @@ public class DebitavelFacadeImpl implements DebitavelFacade {
 
 	}
 
-	private BigDecimal getNumeroDeMeses(Date menorData, Date maiorData) {
+	private BigDecimal getNumeroDeMeses(LocalDate menorData, LocalDate maiorData) {
 
-		BigDecimal total = BigDecimal.ZERO;
+		long count = ChronoUnit.MONTHS.between(menorData, maiorData) + 1;
 
-		while (menorData.before(maiorData) || isSameDay(menorData, maiorData)) {
-			total = total.add(new BigDecimal(1));
-			menorData = DateUtils.addMonths(menorData, 1);
-		}
-
-		return total;
+		return BigDecimal.valueOf(count);
 	}
 
 }

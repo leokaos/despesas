@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -54,21 +54,24 @@ public class MetaFacadeImplTest {
 
 		Meta meta = new Meta();
 
-		meta.setMes(new Mes(new Date()));
+		meta.setMes(new Mes(LocalDate.now()));
 		meta.setValor(new BigDecimal(200));
 
 		Periodo periodo = meta.getMes().getPeriodo();
 
-		Date dataInicial = periodo.getDataInicial();
-		Date dataFinal = periodo.getDataFinal();
+		LocalDate dataInicial = periodo.getDataInicial();
+		LocalDate dataFinal = periodo.getDataFinal();
 
 		expectedLista.add(meta);
 
-		BigDecimal valorEsperado = new BigDecimal(1800).divide(new BigDecimal(periodo.getDiasParaTermino()), 2, RoundingMode.HALF_UP);
+		BigDecimal valorEsperado = new BigDecimal(1800)
+				.divide(new BigDecimal(periodo.getDiasParaTermino()), 2, RoundingMode.HALF_UP);
 
-		when(mockEntityManager.createQuery("SELECT meta FROM Meta meta ORDER BY meta.id", Meta.class)).thenReturn(mockQuery);
+		when(mockEntityManager.createQuery("SELECT meta FROM Meta meta ORDER BY meta.id", Meta.class))
+				.thenReturn(mockQuery);
 		when(mockQuery.getResultList()).thenReturn(expectedLista);
-		when(mockMovimentacaoFacade.buscarMovimentacaoPorPeriodo(dataInicial, dataFinal)).thenReturn(movimentacaoEsperada);
+		when(mockMovimentacaoFacade.buscarMovimentacaoPorPeriodo(dataInicial, dataFinal))
+				.thenReturn(movimentacaoEsperada);
 
 		List<Meta> resultado = facade.listar(filtro);
 
@@ -82,21 +85,14 @@ public class MetaFacadeImplTest {
 	}
 
 	private Movimentacao createDespesa(double valor) {
-
 		Despesa despesa = new Despesa();
-
 		despesa.setValor(new BigDecimal(valor));
-
 		return despesa;
 	}
 
 	private Movimentacao createReceita(double valor) {
-
 		Receita receita = new Receita();
-
 		receita.setValor(new BigDecimal(valor));
-
 		return receita;
 	}
-
 }

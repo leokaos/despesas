@@ -1,10 +1,7 @@
 package org.leo.despesas.dominio.debitavel;
 
-import static org.apache.commons.lang3.time.DateUtils.isSameDay;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,12 +14,10 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.leo.despesas.dominio.alerta.TipoPeriodicidade;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
-import org.leo.despesas.infra.util.DataUtil;
 import org.leo.despesas.rest.DebitavelSerializerVisitorImpl;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -113,7 +108,7 @@ public class CartaoCredito extends Debitavel {
 		this.faturas = faturas;
 	}
 
-	public Fatura getFaturaPorData(final Date dataBase) {
+	public Fatura getFaturaPorData(LocalDate dataBase) {
 
 		for (final Fatura fatura : faturas) {
 			if (fatura.pertenceFatura(dataBase)) {
@@ -137,18 +132,16 @@ public class CartaoCredito extends Debitavel {
 
 			faturaPorData = new Fatura(this);
 
-			Date dataFechamento = new Date(despesa.getVencimento().getTime());
-			dataFechamento = DataUtil.setDays(dataFechamento, this.diaDeFechamento);
+			LocalDate dataFechamento = despesa.getVencimento().withDayOfMonth(this.diaDeFechamento);
 
-			if (dataFechamento.before(despesa.getVencimento()) || isSameDay(dataFechamento, despesa.getVencimento())) {
-				dataFechamento = DateUtils.addMonths(dataFechamento, 1);
+			if (dataFechamento.isBefore(despesa.getVencimento()) || dataFechamento.isEqual(despesa.getVencimento())) {
+				dataFechamento = dataFechamento.plusMonths(1);
 			}
 
-			Date dataVencimento = new Date(dataFechamento.getTime());
-			dataVencimento = DataUtil.setDays(dataVencimento, this.diaDeVencimento);
+			LocalDate dataVencimento = dataFechamento.withDayOfMonth(this.diaDeVencimento);
 
-			if (diaDeFechamento > diaDeVencimento) {
-				dataVencimento = DateUtils.addMonths(dataVencimento, 1);
+			if (this.diaDeFechamento > this.diaDeVencimento) {
+				dataVencimento = dataVencimento.plusMonths(1);
 			}
 
 			faturaPorData.setDataVencimento(dataVencimento);
@@ -158,7 +151,7 @@ public class CartaoCredito extends Debitavel {
 		}
 
 		if (faturaPorData.isPaga()) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Fatura já está paga");
 		}
 
 		faturaPorData.getDespesas().add(despesa);

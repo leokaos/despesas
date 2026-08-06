@@ -1,8 +1,10 @@
 package org.leo.despesas.aplicacao.projecao;
 
+import static org.leo.despesas.infra.util.DataUtil.CLOCK;
+
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Iterator;
 
 import javax.ejb.EJB;
@@ -23,7 +25,7 @@ public class ProjecaoFacadeImpl implements ProjecaoFacade {
 	@Override
 	public Projecao criarProjecao(Debitavel debitavel, Periodo periodo) throws DespesasException {
 
-		if (periodo.getDataInicial().before(new Date())) {
+		if (periodo.getDataInicial().isBefore(LocalDate.now(CLOCK))) {
 			throw new DespesasException("Data inválida!");
 		}
 
@@ -32,7 +34,7 @@ public class ProjecaoFacadeImpl implements ProjecaoFacade {
 		BigDecimal valorMedio = debitavelFacade.getMediaVariacao(debitavel);
 		BigDecimal saldo = debitavel.getSaldo();
 
-		Iterator<Date> it = periodo.getIterator(Calendar.MONTH);
+		Iterator<LocalDate> it = periodo.getIterator(ChronoUnit.MONTHS);
 
 		while (it.hasNext()) {
 			saldo = saldo.add(valorMedio);

@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { APP_CONFIG, AppConfig } from '../app-config';
 import { Movimentacao } from '../models/movimentacao.model';
+import { DateUtil } from '../models/util';
 
 export interface MovimentacaoFiltro {
   dataInicial: Date,
@@ -21,8 +22,8 @@ export class MovimentacaoService {
   fetch(filtro: MovimentacaoFiltro): Observable<Movimentacao[]> {
 
     let params = new HttpParams()
-      .append("dataInicial", filtro.dataInicial.toUTCString())
-      .append("dataFinal", filtro.dataFinal.toUTCString());
+      .append("dataInicial", DateUtil.formatDate(filtro.dataInicial))
+      .append("dataFinal", DateUtil.formatDate(filtro.dataFinal));
 
     return this.http.get<Movimentacao[]>(`${this.config.apiUrl}/${this.path}/buscarPorPeriodo`, { params });
   }

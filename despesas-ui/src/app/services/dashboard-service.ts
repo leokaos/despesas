@@ -16,8 +16,8 @@ export class DashboardService {
   fetchSaldo(dataInicial: Date, dataFinal: Date): Observable<number> {
 
     let params = new HttpParams();
-    params = params.append("dataInicial", DateUtil.getUTCDate(dataInicial).toUTCString());
-    params = params.append("dataFinal", DateUtil.getUTCDate(dataFinal).toUTCString());
+    params = params.append("dataInicial", DateUtil.formatDate(dataInicial));
+    params = params.append("dataFinal", DateUtil.formatDate(dataFinal));
 
     return this.http.get<string>(`${this.config.apiUrl}/${this.path}/saldo`, { params })
       .pipe(map((data: string) => parseFloat(data)));
@@ -26,8 +26,8 @@ export class DashboardService {
   fetchGraficos(dataInicial: Date, dataFinal: Date): Observable<Grafico[]> {
 
     let params = new HttpParams();
-    params = params.append("dataInicial", DateUtil.getUTCDate(dataInicial).toUTCString());
-    params = params.append("dataFinal", DateUtil.getUTCDate(dataFinal).toUTCString());
+    params = params.append("dataInicial", DateUtil.formatDate(dataInicial));
+    params = params.append("dataFinal", DateUtil.formatDate(dataFinal));
 
     return this.http.get<Grafico[]>(`${this.config.apiUrl}/${this.path}/main`, { params });
   }

@@ -2,11 +2,10 @@ package org.leo.despesas.rest.dashboard;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -41,10 +40,10 @@ public class DashboardService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<WrapperGraficoVO> buscarPorPeriodo(@QueryParam("dataInicial") String dataInicialStr, @QueryParam("dataFinal") String dataFinalStr) throws ParseException {
 
-		SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", Locale.ENGLISH);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-		Date dataInicial = formatter.parse(dataInicialStr);
-		Date dataFinal = formatter.parse(dataFinalStr);
+		LocalDate dataInicial = LocalDate.parse(dataInicialStr, formatter);
+		LocalDate dataFinal = LocalDate.parse(dataFinalStr, formatter);
 
 		List<WrapperGraficoVO> wrappers = new ArrayList<WrapperGraficoVO>();
 		Periodo periodo = new Periodo(dataInicial, dataFinal);
@@ -66,10 +65,10 @@ public class DashboardService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public BigDecimal buscarSaldoPorPeriodo(@QueryParam("dataInicial") String dataInicialStr, @QueryParam("dataFinal") String dataFinalStr) throws ParseException {
 
-		SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", Locale.ENGLISH);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-		Date dataInicial = formatter.parse(dataInicialStr);
-		Date dataFinal = formatter.parse(dataFinalStr);
+		LocalDate dataInicial = LocalDate.parse(dataInicialStr, formatter);
+		LocalDate dataFinal = LocalDate.parse(dataFinalStr, formatter);
 
 		return dashboardFacade.getSaldoGeral(dataInicial, dataFinal);
 	}

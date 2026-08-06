@@ -34,11 +34,11 @@ export class GraficoService {
     let params = new HttpParams();
 
     if (dataInicial) {
-      params = params.append("dataInicial", DateUtil.getUTCDate(dataInicial).toUTCString());
+      params = params.append("dataInicial", DateUtil.formatDate(dataInicial));
     }
 
     if (dataFinal) {
-      params = params.append("dataFinal", DateUtil.getUTCDate(dataFinal).toUTCString());
+      params = params.append("dataFinal", DateUtil.formatDate(dataFinal));
     }
 
     return params;

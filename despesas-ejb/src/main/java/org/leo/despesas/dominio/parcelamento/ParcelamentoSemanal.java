@@ -1,9 +1,8 @@
 package org.leo.despesas.dominio.parcelamento;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.leo.despesas.dominio.movimentacao.Despesa;
-import org.leo.despesas.infra.util.DataUtil;
 
 public class ParcelamentoSemanal extends Parcelamento {
 
@@ -14,8 +13,8 @@ public class ParcelamentoSemanal extends Parcelamento {
 	}
 
 	@Override
-	public Date getDataParcela(int numeroParcela,Despesa despesa) {
-		return DataUtil.addDays(despesa.getVencimento(),numeroParcela * 7);
+	public LocalDate getDataParcela(int numeroParcela,Despesa despesa) {
+		return despesa.getVencimento().plusDays(numeroParcela * 7);
 	}
 
 	@Override

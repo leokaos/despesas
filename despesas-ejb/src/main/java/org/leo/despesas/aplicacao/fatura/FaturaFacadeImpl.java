@@ -1,6 +1,6 @@
 package org.leo.despesas.aplicacao.fatura;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -44,7 +44,7 @@ public class FaturaFacadeImpl extends AbstractFacade<Fatura, FaturaFiltro> imple
 	}
 
 	@Override
-	public Fatura pagarFatura(Fatura fatura, final Conta conta, Date dataPagamento) throws DespesasException {
+	public Fatura pagarFatura(Fatura fatura, final Conta conta, LocalDate dataPagamento) throws DespesasException {
 
 		fatura = buscarPorId(fatura.getId());
 

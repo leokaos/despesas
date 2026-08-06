@@ -3,23 +3,21 @@ package org.leo.despesas.dominio;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 import org.leo.despesas.infra.Periodo;
-import org.leo.despesas.infra.util.DataUtil;
 
 public class PeriodoTest {
 
 	@Test
 	public void pertenceAoPeriodoTest() {
-		final Date dataBase = new Date();
+		final LocalDate dataBase = LocalDate.now();
 
-		Periodo periodo = new Periodo(dataBase,DataUtil.addDays(dataBase,10));
+		Periodo periodo = new Periodo(dataBase, dataBase.plusDays(10));
 
-		assertFalse(periodo.pertenceAoPeriodo(DataUtil.addDays(dataBase,-10)));
-		assertTrue(periodo.pertenceAoPeriodo(DataUtil.addDays(dataBase,5)));
-		assertFalse(periodo.pertenceAoPeriodo(DataUtil.addDays(dataBase,15)));
+		assertFalse(periodo.pertenceAoPeriodo(dataBase.minusDays(10)));
+		assertTrue(periodo.pertenceAoPeriodo(dataBase.plusDays(5)));
+		assertFalse(periodo.pertenceAoPeriodo(dataBase.plusDays(15)));
 	}
-
 }

@@ -1,9 +1,9 @@
 package org.leo.despesas.aplicacao.receita;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -94,7 +94,7 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita, ReceitaFiltro> im
 
 			final List<Receita> lista = new ArrayList<>();
 
-			final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 			for (final String line : content) {
 
@@ -102,7 +102,7 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita, ReceitaFiltro> im
 
 				String[] row = line.split(";");
 
-				final Date data = format.parse(row[0]);
+				final LocalDate data = LocalDate.parse(row[0], formatter);
 				final String descricao = row[1].trim();
 				final BigDecimal valor = new BigDecimal(row[2]);
 
@@ -118,7 +118,7 @@ public class ReceitaFacadeImpl extends AbstractFacade<Receita, ReceitaFiltro> im
 		return null;
 	}
 
-	private Receita construirReceita(final Date data, final String descricao, final BigDecimal valor) {
+	private Receita construirReceita(final LocalDate data, final String descricao, final BigDecimal valor) {
 
 		final Receita receita = new Receita();
 

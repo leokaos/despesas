@@ -1,7 +1,7 @@
 package org.leo.despesas.dominio.servicotransferencia;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.leo.despesas.infra.ModelEntity;
 import org.leo.despesas.infra.Moeda;
@@ -41,8 +39,7 @@ public class Cotacao implements ModelEntity {
 	private BigDecimal taxa;
 
 	@Column(name = "DATA")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date data;
+	private LocalDate data;
 
 	public Cotacao() {
 		super();
@@ -80,11 +77,11 @@ public class Cotacao implements ModelEntity {
 		this.taxa = taxa;
 	}
 
-	public Date getData() {
+	public LocalDate getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 

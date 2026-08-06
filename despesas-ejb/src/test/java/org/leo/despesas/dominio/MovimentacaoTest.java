@@ -1,12 +1,10 @@
 package org.leo.despesas.dominio;
 
-import static org.apache.commons.lang3.time.DateUtils.truncate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 import org.leo.despesas.dominio.debitavel.Conta;
@@ -25,8 +23,8 @@ public class MovimentacaoTest {
 		despesa.setValor(new BigDecimal("10.00"));
 		despesa.pagar();
 
-		assertEquals(conta.getSaldo(),new BigDecimal("90.00"));
-		assertEquals(truncate(despesa.getPagamento(),Calendar.DAY_OF_MONTH),truncate(new Date(),Calendar.DAY_OF_MONTH));
+		assertEquals(new BigDecimal("90.00"), conta.getSaldo());
+		assertEquals(LocalDate.now(), despesa.getPagamento());
 		assertTrue(despesa.isPaga());
 	}
 
@@ -41,9 +39,8 @@ public class MovimentacaoTest {
 
 		receita.depositar();
 
-		assertEquals(conta.getSaldo(),new BigDecimal("110.00"));
-		assertEquals(truncate(receita.getPagamento(),Calendar.DAY_OF_MONTH),truncate(new Date(),Calendar.DAY_OF_MONTH));
+		assertEquals(new BigDecimal("110.00"), conta.getSaldo());
+		assertEquals(LocalDate.now(), receita.getPagamento());
 		assertTrue(receita.isDepositado());
 	}
-
 }

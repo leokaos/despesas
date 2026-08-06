@@ -1,7 +1,6 @@
 package org.leo.despesas.infra;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import javax.persistence.Embeddable;
@@ -33,21 +32,18 @@ public class Mes {
 		this.ano = ano;
 	}
 
-	public Mes(Date data) {
+	public Mes(LocalDate data) {
 		super();
-
-		Calendar calendar = DataUtil.toCalendar(data);
-
-		this.mes = calendar.get(Calendar.MONTH) + 1;
-		this.ano = calendar.get(Calendar.YEAR);
+		this.mes = data.getMonthValue();
+		this.ano = data.getYear();
 	}
 
 	public boolean isNoPassado() {
 
-		Calendar calendar = Calendar.getInstance();
+		LocalDate hoje = LocalDate.now(DataUtil.CLOCK);
 
-		int anoAtual = calendar.get(Calendar.YEAR);
-		int mesAtual = calendar.get(Calendar.MONTH) + 1;
+		int anoAtual = hoje.getYear();
+		int mesAtual = hoje.getMonthValue();
 
 		return this.ano < anoAtual || (this.ano == anoAtual && this.mes < mesAtual);
 	}
@@ -57,14 +53,10 @@ public class Mes {
 	}
 
 	public Periodo getPeriodo() {
+		LocalDate data = LocalDate.of(ano, mes, 1);
 
-		Calendar calendar = Calendar.getInstance();
-
-		calendar.set(Calendar.MONTH, mes - 1);
-		calendar.set(Calendar.YEAR, ano);
-
-		Date dataInicial = DataUtil.truncate(calendar.getTime(), Calendar.MONTH);
-		Date dataFinal = DataUtil.maximo(calendar.getTime(), Calendar.MONTH);
+		LocalDate dataInicial = data.withDayOfMonth(1);
+		LocalDate dataFinal = data.withDayOfMonth(data.lengthOfMonth());
 
 		return new Periodo(dataInicial, dataFinal);
 	}
@@ -86,7 +78,7 @@ public class Mes {
 	}
 
 	public static Mes mesAtual() {
-		return new Mes(new Date());
+		return new Mes(LocalDate.now(DataUtil.CLOCK));
 	}
 
 	@Override

@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ import org.leo.despesas.dominio.parcelamento.ParcelamentoSemestral;
 
 public class DespesaTest {
 
-	private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	@Test
 	public void parcelamentoMensalTest() throws Exception {
@@ -26,7 +26,7 @@ public class DespesaTest {
 
 		despesa.setValor(new BigDecimal("400"));
 		despesa.setDescricao("despesa");
-		despesa.setVencimento(dateFormat.parse("01/01/2015"));
+		despesa.setVencimento(LocalDate.parse("01/01/2015", formatter));
 
 		Parcelamento parcelamento = new ParcelamentoMensal();
 
@@ -45,7 +45,7 @@ public class DespesaTest {
 
 		despesa.setValor(new BigDecimal("400"));
 		despesa.setDescricao("despesa");
-		despesa.setVencimento(dateFormat.parse("01/01/2015"));
+		despesa.setVencimento(LocalDate.parse("01/01/2015", formatter));
 
 		Parcelamento parcelamento = new ParcelamentoSemanal();
 
@@ -64,7 +64,7 @@ public class DespesaTest {
 
 		despesa.setValor(new BigDecimal("400"));
 		despesa.setDescricao("despesa");
-		despesa.setVencimento(dateFormat.parse("01/01/2015"));
+		despesa.setVencimento(LocalDate.parse("01/01/2015", formatter));
 
 		Parcelamento parcelamento = new ParcelamentoSemestral();
 
@@ -83,7 +83,7 @@ public class DespesaTest {
 
 		despesa.setValor(new BigDecimal("400"));
 		despesa.setDescricao("despesa");
-		despesa.setVencimento(dateFormat.parse("01/01/2015"));
+		despesa.setVencimento(LocalDate.parse("01/01/2015", formatter));
 
 		Parcelamento parcelamento = new ParcelamentoAnual();
 
@@ -96,14 +96,13 @@ public class DespesaTest {
 		assertTrue(parcelas.contains(createDespesa("100", "despesa 4/4", "01/01/2018")));
 	}
 
-	private Despesa createDespesa(String valor, String descricao, String vencimento) throws ParseException {
+	private Despesa createDespesa(String valor, String descricao, String vencimento) {
 		Despesa despesa = new Despesa();
 
 		despesa.setValor(new BigDecimal(valor));
 		despesa.setDescricao(descricao);
-		despesa.setVencimento(dateFormat.parse(vencimento));
+		despesa.setVencimento(LocalDate.parse(vencimento, formatter));
 
 		return despesa;
 	}
-
 }

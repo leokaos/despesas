@@ -1,8 +1,8 @@
 package org.leo.despesas.aplicacao.dashboard;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -33,7 +33,7 @@ public class DashboardFacadeImpl implements DashboardFacade {
 	private TransferenciaFacade transferenciaFacade;
 
 	@Override
-	public List<GraficoVO> getExtratoMes(final Date dataInicial, final Date dataFinal) {
+	public List<GraficoVO> getExtratoMes(final LocalDate dataInicial, final LocalDate dataFinal) {
 
 		final List<GraficoVO> graficoVOs = new ArrayList<>();
 
@@ -46,7 +46,7 @@ public class DashboardFacadeImpl implements DashboardFacade {
 		return graficoVOs;
 	}
 
-	private BigDecimal getValorTotalDespesas(final Date dataInicial, final Date dataFinal) {
+	private BigDecimal getValorTotalDespesas(final LocalDate dataInicial, final LocalDate dataFinal) {
 
 		final DespesaFiltro filtroDespesa = new DespesaFiltro();
 
@@ -64,7 +64,7 @@ public class DashboardFacadeImpl implements DashboardFacade {
 		return total;
 	}
 
-	private BigDecimal getValorTotalTransferencias(final Date dataInicial, final Date dataFinal) {
+	private BigDecimal getValorTotalTransferencias(final LocalDate dataInicial, final LocalDate dataFinal) {
 
 		final TransferenciaFiltro filtroTransferencia = new TransferenciaFiltro();
 
@@ -81,7 +81,7 @@ public class DashboardFacadeImpl implements DashboardFacade {
 		return total;
 	}
 
-	private BigDecimal getValorTotalReceitas(final Date dataInicial, final Date dataFinal) {
+	private BigDecimal getValorTotalReceitas(final LocalDate dataInicial, final LocalDate dataFinal) {
 
 		final ReceitaFiltro filtroReceita = new ReceitaFiltro();
 
@@ -100,7 +100,7 @@ public class DashboardFacadeImpl implements DashboardFacade {
 	}
 
 	@Override
-	public BigDecimal getSaldoGeral(final Date dataInicial, final Date dataFinal) {
+	public BigDecimal getSaldoGeral(final LocalDate dataInicial, final LocalDate dataFinal) {
 		return getValorTotalReceitas(dataInicial, dataFinal).subtract(getValorTotalDespesas(dataInicial, dataFinal));
 	}
 }

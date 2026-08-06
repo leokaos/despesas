@@ -23,11 +23,11 @@ export class FeriadoService {
     let params = new HttpParams();
 
     if (filtro?.dataInicial) {
-      params = params.append("dataInicial", DateUtil.getUTCDate(filtro?.dataInicial).toUTCString());
+      params = params.append("dataInicial", DateUtil.formatDate(filtro?.dataInicial));
     }
 
     if (filtro?.dataFinal) {
-      params = params.append("dataFinal", DateUtil.getUTCDate(filtro?.dataFinal).toUTCString());
+      params = params.append("dataFinal", DateUtil.formatDate(filtro?.dataFinal));
     }
 
     return this.http.get<Feriado[]>(`${this.config.apiUrl}/${this.path}`, { params })

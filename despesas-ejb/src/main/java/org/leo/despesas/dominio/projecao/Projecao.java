@@ -2,7 +2,7 @@ package org.leo.despesas.dominio.projecao;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.google.common.collect.Lists;
@@ -25,7 +25,7 @@ public class Projecao implements Serializable {
 		this.itens = itens;
 	}
 
-	public void addItem(Date date, BigDecimal saldo) {
+	public void addItem(LocalDate date, BigDecimal saldo) {
 		itens.add(new ProjecaoItem(date, saldo));
 	}
 

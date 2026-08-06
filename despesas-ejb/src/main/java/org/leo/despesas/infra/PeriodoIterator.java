@@ -1,39 +1,35 @@
 package org.leo.despesas.infra;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Iterator;
 
-import org.apache.commons.lang3.time.DateUtils;
+public class PeriodoIterator implements Iterator<LocalDate> {
 
-public class PeriodoIterator implements Iterator<Date> {
+	private final ChronoUnit chronoUnit;
+	private final Periodo periodo;
+	private LocalDate atual;
 
-	private int calendarField;
-	private Periodo periodo;
-
-	private Date atual;
-
-	public PeriodoIterator(int calendarField, Periodo periodo) {
+	public PeriodoIterator(ChronoUnit chronoUnit, Periodo periodo) {
 		super();
-		this.calendarField = calendarField;
+		this.chronoUnit = chronoUnit;
 		this.periodo = periodo;
 	}
 
 	@Override
 	public boolean hasNext() {
-
 		if (atual == null) {
 			return true;
 		}
 
-		return addField(atual).before(periodo.getDataFinal()) || addField(atual).equals(periodo.getDataFinal());
+		LocalDate proximo = addField(atual);
+		return !proximo.isAfter(periodo.getDataFinal());
 	}
 
 	@Override
-	public Date next() {
-
+	public LocalDate next() {
 		if (atual == null) {
-			atual = DateUtils.truncate(periodo.getDataInicial(), calendarField);
+			atual = periodo.getDataInicial();
 		} else {
 			atual = addField(atual);
 		}
@@ -41,29 +37,24 @@ public class PeriodoIterator implements Iterator<Date> {
 		return atual;
 	}
 
-	private Date addField(Date target) {
+	private LocalDate addField(LocalDate target) {
+		LocalDate retorno = null;
 
-		Date retorno = null;
-
-		switch (calendarField) {
-		case Calendar.YEAR:
-			retorno = DateUtils.addYears(atual, 1);
+		switch (chronoUnit) {
+		case YEARS:
+			retorno = target.plusYears(1);
 			break;
 
-		case Calendar.MONTH:
-			retorno = DateUtils.addMonths(atual, 1);
+		case MONTHS:
+			retorno = target.plusMonths(1);
 			break;
 
-		case Calendar.DAY_OF_MONTH:
-			retorno = DateUtils.addDays(atual, 1);
-			break;
-
-		case Calendar.HOUR_OF_DAY:
-			retorno = DateUtils.addHours(atual, 1);
+		case DAYS:
+			retorno = target.plusDays(1);
 			break;
 
 		default:
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Unsupported ChronoUnit: " + chronoUnit);
 		}
 
 		return retorno;
@@ -71,7 +62,6 @@ public class PeriodoIterator implements Iterator<Date> {
 
 	@Override
 	public void remove() {
-
+		throw new UnsupportedOperationException("Remove operation not supported");
 	}
-
 }
