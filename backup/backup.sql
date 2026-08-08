@@ -603,7 +603,7 @@ VISA	3	11	17300.00	6	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 48854.02	3
-35926.64	5
+35194.64	5
 0.00	4
 \.
 
@@ -7521,6 +7521,7 @@ t	7353	201	125
 t	7354	108	\N
 t	7355	4	\N
 t	7357	4	\N
+t	7358	4	\N
 \.
 
 
@@ -14837,6 +14838,7 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7355	Eletropaulo	2026-08-06	25.23	2026-07-29	5	REAL
 7356	Pagamento fatura 08/2026	2026-08-05	542.81	2026-08-06	5	REAL
 7357	Condominio	2026-08-06	732.00	2026-08-06	5	REAL
+7358	Condominio	2026-08-07	732.00	2026-08-07	5	REAL
 \.
 
 
@@ -14849,7 +14851,7 @@ COPY despesas_db.notificacao (id, executado, origem_alerta_id, target_date) FROM
 4	t	5	2026-08-10
 6	t	5	2026-08-07
 3	t	2	2026-08-11
-7	f	7	2026-08-14
+7	t	7	2026-08-14
 \.
 
 
@@ -15345,7 +15347,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7357, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7358, true);
 
 
 --
