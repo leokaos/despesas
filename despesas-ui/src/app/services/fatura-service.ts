@@ -6,6 +6,7 @@ import { map, Observable } from 'rxjs';
 import { CartaoCreditoService } from './cartao-credito-service';
 import { DespesaService } from './despesa-service';
 import { ContaService } from './conta-service';
+import { DateUtil } from '../models/util';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,7 @@ export class FaturaService {
   pay(fatura: Fatura, conta: Conta, dataPagamento: Date): Observable<Fatura> {
     let payload = {
       debitavel: ContaService.toEntity(conta),
-      dataPagamento: dataPagamento.getTime(),
+      dataPagamento: DateUtil.formatDate(dataPagamento),
     };
 
     return this.http.put<Fatura>(`${this.config.apiUrl}/cartao/${fatura.cartao.id}/fatura/${fatura.id}`, payload)
