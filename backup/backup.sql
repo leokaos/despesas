@@ -555,6 +555,7 @@ COPY despesas_db.alerta (id, tipo, dias_antes_de_aviso) FROM stdin;
 3	FATURA_CARTAO_CREDITO	10
 5	DESPESA_RECORRENTE	10
 7	DESPESA_RECORRENTE	15
+8	DESPESA_RECORRENTE	5
 \.
 
 
@@ -565,6 +566,7 @@ COPY despesas_db.alerta (id, tipo, dias_antes_de_aviso) FROM stdin;
 COPY despesas_db.alerta_despesa_recorrente (id, titulo, tipo_periodicidade, dia_alvo) FROM stdin;
 5	Aluguel	NO_MAXIMO	8
 7	Condomínio	NO_MAXIMO	15
+8	Contabilidade	NO_MAXIMO	8
 \.
 
 
@@ -592,8 +594,8 @@ COPY despesas_db.alerta_pagamento_fatura_cartao (id, cartao_credito_id) FROM std
 --
 
 COPY despesas_db.cartao (bandeiracartaocredito, diadefechamento, diadevencimento, limite, id, limite_atual) FROM stdin;
-VISA	28	12	3500.00	23	\N
 VISA	3	11	17300.00	6	\N
+VISA	10	12	3500.00	23	\N
 \.
 
 
@@ -604,7 +606,7 @@ VISA	3	11	17300.00	6	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 35194.64	5
 0.00	4
-48502.80	3
+48423.01	3
 \.
 
 
@@ -7538,6 +7540,8 @@ t	7371	107	\N
 t	7372	104	\N
 t	7373	104	\N
 t	7374	107	\N
+t	7376	107	126
+t	7377	4	\N
 \.
 
 
@@ -7635,10 +7639,11 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 114	6	2026-05-11	2026-04-28	t
 115	6	2026-06-11	2026-05-28	t
 116	6	2026-07-11	2026-06-28	t
-120	23	2026-09-12	2026-08-28	f
 124	6	2026-09-11	2026-08-28	f
 125	6	2026-10-11	2026-09-28	f
 117	6	2026-08-11	2026-07-28	t
+126	23	2026-09-12	2026-09-10	f
+120	23	2026-08-12	2026-07-10	t
 \.
 
 
@@ -14871,6 +14876,9 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7365	UBER RIDES	2026-08-10	2.95	2026-08-08	3	EURO
 7372	Tenis	2026-08-10	110.25	2026-08-09	3	EURO
 7374	Gasolina	2026-08-10	51.55	2026-08-10	3	EURO
+7375	Pagamento fatura 09/2026	2026-08-11	5.99	2026-08-11	3	EURO
+7376	Europcar	2026-08-11	219.19	2026-08-11	23	EURO
+7377	Contabilidade	2026-08-11	73.80	2026-08-11	3	EURO
 \.
 
 
@@ -14879,11 +14887,11 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 --
 
 COPY despesas_db.notificacao (id, executado, origem_alerta_id, target_date) FROM stdin;
-5	f	3	2026-08-12
 4	t	5	2026-08-10
-6	t	5	2026-08-07
 3	t	2	2026-08-11
+6	t	5	2026-08-07
 7	t	7	2026-08-14
+5	t	3	2026-08-12
 \.
 
 
@@ -15286,6 +15294,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 7271	4	500.00
 7295	3	694.55
 7356	6	542.81
+7375	23	5.99
 \.
 
 
@@ -15330,7 +15339,7 @@ COPY public.flyway_schema_history (installed_rank, version, description, type, s
 -- Name: alerta_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.alerta_id_seq', 7, true);
+SELECT pg_catalog.setval('despesas_db.alerta_id_seq', 8, true);
 
 
 --
@@ -15351,7 +15360,7 @@ SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 24, true);
 -- Name: fatura_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 125, true);
+SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 126, true);
 
 
 --
@@ -15379,7 +15388,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7374, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7377, true);
 
 
 --
