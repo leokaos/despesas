@@ -606,7 +606,7 @@ VISA	10	12	3500.00	23	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 35194.64	5
 0.00	4
-48423.01	3
+48389.63	3
 \.
 
 
@@ -7542,6 +7542,10 @@ t	7373	104	\N
 t	7374	107	\N
 t	7376	107	126
 t	7377	4	\N
+t	7378	107	\N
+t	7379	102	\N
+t	7380	102	\N
+t	7381	107	\N
 \.
 
 
@@ -7554,7 +7558,7 @@ COPY despesas_db.divida (valor_total, periodiciodade, data_inicio, id, data_limi
 407.10	VARIAVEL	2025-11-14	18	\N
 2237.90	VARIAVEL	2025-10-01	19	\N
 2555.38	VARIAVEL	2026-05-24	20	\N
-3707.60	VARIAVEL	2026-09-20	22	2026-09-20
+3189.30	VARIAVEL	2026-09-20	22	2026-09-25
 \.
 
 
@@ -14879,6 +14883,10 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7375	Pagamento fatura 09/2026	2026-08-11	5.99	2026-08-11	3	EURO
 7376	Europcar	2026-08-11	219.19	2026-08-11	23	EURO
 7377	Contabilidade	2026-08-11	73.80	2026-08-11	3	EURO
+7378	UBER RIDES	2026-08-12	7.94	2026-08-12	3	EURO
+7379	HUMMY FORUM	2026-08-12	9.74	2026-08-12	3	EURO
+7380	PIZZA HUT	2026-08-12	8.75	2026-08-12	3	EURO
+7381	UBER RIDES	2026-08-12	6.95	2026-08-12	3	EURO
 \.
 
 
@@ -15388,7 +15396,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7377, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7381, true);
 
 
 --
