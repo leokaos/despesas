@@ -604,9 +604,9 @@ VISA	10	12	3500.00	23	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-35194.64	5
 0.00	4
 48389.63	3
+35745.24	5
 \.
 
 
@@ -7522,7 +7522,6 @@ t	7352	201	124
 t	7353	201	125
 t	7354	108	\N
 t	7355	4	\N
-t	7357	4	\N
 t	7358	4	\N
 t	7359	102	\N
 t	7360	102	\N
@@ -7546,6 +7545,8 @@ t	7378	107	\N
 t	7379	102	\N
 t	7380	102	\N
 t	7381	107	\N
+t	7382	4	\N
+t	7383	4	\N
 \.
 
 
@@ -14862,7 +14863,6 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7354	Pacote Itau	2026-08-06	71.90	2026-08-04	5	REAL
 7355	Eletropaulo	2026-08-06	25.23	2026-07-29	5	REAL
 7356	Pagamento fatura 08/2026	2026-08-05	542.81	2026-08-06	5	REAL
-7357	Condominio	2026-08-06	732.00	2026-08-06	5	REAL
 7358	Condominio	2026-08-07	732.00	2026-08-07	5	REAL
 7366	GLOVO	2026-08-10	15.25	2026-08-06	3	EURO
 7367	IMPOSTO SELO ART 17.3.4	2026-08-10	0.14	2026-08-05	3	EURO
@@ -14887,6 +14887,8 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7379	HUMMY FORUM	2026-08-12	9.74	2026-08-12	3	EURO
 7380	PIZZA HUT	2026-08-12	8.75	2026-08-12	3	EURO
 7381	UBER RIDES	2026-08-12	6.95	2026-08-12	3	EURO
+7382	VIVO	2026-08-13	169.00	2026-08-10	5	REAL
+7383	CONGAS	2026-08-13	12.40	2026-08-17	5	REAL
 \.
 
 
@@ -15396,7 +15398,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7381, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7383, true);
 
 
 --
