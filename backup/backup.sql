@@ -605,8 +605,8 @@ VISA	10	12	3500.00	23	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 0.00	4
-48389.63	3
 35745.24	5
+48383.71	3
 \.
 
 
@@ -7547,6 +7547,7 @@ t	7380	102	\N
 t	7381	107	\N
 t	7382	4	\N
 t	7383	4	\N
+t	7384	2	\N
 \.
 
 
@@ -7703,6 +7704,49 @@ COPY despesas_db.feriado (id, date_feriado, tipo, nome) FROM stdin;
 75	2026-12-08	FERIADO	Imaculada Conceição
 76	2026-12-25	FERIADO	Natal
 83	2026-05-01	FERIADO	Dia do Trabalho
+84	2027-01-01	FERIADO	Ano Novo
+85	2027-02-09	FERIADO	Carnaval
+86	2027-03-26	FERIADO	Sexta-feira Santa
+87	2027-03-28	FERIADO	Domingo de Páscoa
+88	2027-04-25	FERIADO	Dia da Liberdade
+89	2027-05-01	FERIADO	Dia do Trabalhador
+90	2027-05-27	FERIADO	Corpo de Deus
+91	2027-06-10	FERIADO	Dia de Portugal, de Camões e das Comunidades Portuguesas
+92	2027-08-15	FERIADO	Assunção de Nossa Senhora
+93	2027-10-05	FERIADO	Implantação da República
+94	2027-11-01	FERIADO	Dia de Todos-os-Santos
+95	2027-12-01	FERIADO	Restauração da Independência
+96	2027-12-08	FERIADO	Imaculada Conceição
+97	2027-12-25	FERIADO	Natal
+98	2026-11-30	FERIAS	FERIAS
+99	2027-12-02	FERIAS	FERIAS
+100	2027-12-03	FERIAS	FERIAS
+101	2027-12-04	FERIAS	FERIAS
+102	2027-12-05	FERIAS	FERIAS
+103	2027-12-06	FERIAS	FERIAS
+104	2027-12-07	FERIAS	FERIAS
+105	2026-12-09	FERIAS	FERIAS
+106	2026-12-10	FERIAS	FERIAS
+107	2026-12-11	FERIAS	FERIAS
+108	2026-12-12	FERIAS	FERIAS
+109	2026-12-13	FERIAS	FERIAS
+110	2026-12-14	FERIAS	FERIAS
+111	2026-12-15	FERIAS	FERIAS
+112	2026-12-16	FERIAS	FERIAS
+113	2026-12-17	FERIAS	FERIAS
+114	2026-12-18	FERIAS	FERIAS
+115	2026-12-19	FERIAS	FERIAS
+116	2026-12-20	FERIAS	FERIAS
+117	2026-12-21	FERIAS	FERIAS
+118	2026-12-22	FERIAS	FERIAS
+119	2026-12-23	FERIAS	FERIAS
+120	2026-12-24	FERIAS	FERIAS
+121	2026-12-26	FERIAS	FERIAS
+122	2026-12-27	FERIAS	FERIAS
+123	2026-12-28	FERIAS	FERIAS
+124	2026-12-29	FERIAS	FERIAS
+125	2026-12-30	FERIAS	FERIAS
+126	2026-12-31	FERIAS	FERIAS
 \.
 
 
@@ -14889,6 +14933,7 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7381	UBER RIDES	2026-08-12	6.95	2026-08-12	3	EURO
 7382	VIVO	2026-08-13	169.00	2026-08-10	5	REAL
 7383	CONGAS	2026-08-13	12.40	2026-08-17	5	REAL
+7384	Farmacia	2026-08-14	5.92	2026-08-13	3	EURO
 \.
 
 
@@ -15377,7 +15422,7 @@ SELECT pg_catalog.setval('despesas_db.fatura_id_seq', 126, true);
 -- Name: feriado_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.feriado_id_seq', 83, true);
+SELECT pg_catalog.setval('despesas_db.feriado_id_seq', 126, true);
 
 
 --
@@ -15398,7 +15443,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7383, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7384, true);
 
 
 --
