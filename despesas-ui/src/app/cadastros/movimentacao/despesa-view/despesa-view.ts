@@ -23,7 +23,7 @@ import { TipoDespesa } from '../../../models/tipo-movimentacao.model';
 import { DateUtil } from '../../../models/util';
 import { AvgPipe } from '../../../pipes/avg-pipe';
 import { SumPipe } from '../../../pipes/sum-pipe';
-import { DebitavelService, DebitavelFiltro } from '../../../services/debitavel-service';
+import { DebitavelService } from '../../../services/debitavel-service';
 import { DespesaFiltro, DespesaService } from '../../../services/despesa-service';
 import { TipoDespesaService } from '../../../services/tipo-despesa-service';
 import { WebsocketService } from '../../../services/websocket-service';

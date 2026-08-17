@@ -36,7 +36,7 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 	protected ParametroFacade parametroFacade;
 
 	@Inject
-	private Event<EntidadeEvent> event;
+	protected Event<EntidadeEvent> event;
 
 	public AbstractFacade() {
 		super();
@@ -134,7 +134,7 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 	}
 
 	@Override
-	public List<E> salvar(final List<E> list) throws DespesasException {
+	public List<E> inserir(final List<E> list) throws DespesasException {
 
 		List<E> result = Lists.newArrayList();
 

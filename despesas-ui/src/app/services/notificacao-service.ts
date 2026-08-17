@@ -27,7 +27,7 @@ export class NotificacaoService {
 
     return this.http
       .get<Notificacao[]>(`${this.config.apiUrl}/${this.path}`, { params })
-      .pipe(map((data) => data.map((notificacao) => notificacao)));
+      .pipe(map((data) => data.map((notificacao) => NotificacaoService.toDTO(notificacao))));
   }
 
   fetchById(id: number): Observable<Notificacao> {
@@ -51,6 +51,19 @@ export class NotificacaoService {
   createOrUpdate(notificacao: Notificacao): Observable<Notificacao> {
     var innerNotificacao = notificacao;
     return innerNotificacao.id ? this.update(innerNotificacao, innerNotificacao.id) : this.create(innerNotificacao);
+  }
+
+  public static toDTO(notificacao: any): Notificacao {
+    return {
+      ...notificacao,
+      targetDate: new Date(notificacao.targetDate)
+    };
+  }
+
+  public static toEntity(notificacao: any): Notificacao {
+    return {
+      ...notificacao,
+    } as Notificacao;
   }
 
 }

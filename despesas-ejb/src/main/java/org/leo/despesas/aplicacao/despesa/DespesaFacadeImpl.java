@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import org.leo.despesas.aplicacao.debitavel.DebitavelFacade;
+import org.leo.despesas.aplicacao.notificacao.NotificacaoFacade;
 import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.dominio.movimentacao.Despesa;
 import org.leo.despesas.dominio.movimentacao.DespesaFiltro;
@@ -29,6 +30,9 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 
 	@EJB
 	private DebitavelFacade debitavelFacade;
+
+	@EJB
+	private NotificacaoFacade notificacaoFacade;
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -63,7 +67,7 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 
 		if (parcelamentoVO != null) {
 
-			salvar(parcelamentoVO.getTipoParcelamento().parcelar(despesa, parcelamentoVO.getNumeroParcelas()));
+			inserir(parcelamentoVO.getTipoParcelamento().parcelar(despesa, parcelamentoVO.getNumeroParcelas()));
 
 			return null;
 
@@ -175,6 +179,24 @@ public class DespesaFacadeImpl extends AbstractFacade<Despesa, DespesaFiltro> im
 			debitavel.estornar(despesa);
 
 		}
+	}
+
+	@Override
+	protected void preInserir(Despesa t) throws DespesasException {
+
+		if (t.getNotificacao() != null) {
+			t.setNotificacao(notificacaoFacade.buscarPorId(t.getNotificacao().getId()));
+		}
+
+	}
+
+	@Override
+	protected void posInserir(Despesa despesa) throws DespesasException {
+
+		if (despesa.getNotificacao() != null && !despesa.getNotificacao().isExecutado()) {
+			notificacaoFacade.executarNotificacao(despesa.getNotificacao());
+		}
+
 	}
 
 	@Override

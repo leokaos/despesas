@@ -4,6 +4,6 @@ export interface Notificacao {
     id: number;
     executado: boolean;
     alerta: Alerta;
-    targetDate: string;
+    targetDate: Date;
     mes: null | string;
 }

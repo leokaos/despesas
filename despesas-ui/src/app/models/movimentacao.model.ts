@@ -1,4 +1,5 @@
 import { Debitavel, Moeda } from './debitavel.model';
+import { Notificacao } from './notificacao.model';
 import { TipoMovimentacao } from './tipo-movimentacao.model';
 
 export interface Movimentacao {
@@ -14,6 +15,7 @@ export interface Movimentacao {
 
 export interface Despesa extends Movimentacao {
   paga: boolean;
+  notificacao?: Notificacao;
 }
 
 export interface Receita extends Movimentacao {

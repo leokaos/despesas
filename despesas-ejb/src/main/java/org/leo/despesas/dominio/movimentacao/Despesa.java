@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import org.hibernate.search.annotations.Indexed;
 import org.leo.despesas.dominio.debitavel.Fatura;
+import org.leo.despesas.dominio.notificacao.Notificacao;
 import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -34,6 +35,10 @@ public class Despesa extends Movimentacao {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fatura_id", nullable = true)
 	private Fatura fatura;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "notificacao_id", nullable = true)
+	private Notificacao notificacao;
 
 	public Despesa() {
 		super();
@@ -62,6 +67,14 @@ public class Despesa extends Movimentacao {
 
 	public void setFatura(final Fatura fatura) {
 		this.fatura = fatura;
+	}
+
+	public Notificacao getNotificacao() {
+		return notificacao;
+	}
+
+	public void setNotificacao(Notificacao notificacao) {
+		this.notificacao = notificacao;
 	}
 
 	public void pagar() {

@@ -7,6 +7,8 @@ import org.leo.despesas.aplicacao.alerta.AlertaFacade;
 import org.leo.despesas.dominio.notificacao.Notificacao;
 import org.leo.despesas.dominio.notificacao.NotificacaoFiltro;
 import org.leo.despesas.infra.AbstractFacade;
+import org.leo.despesas.infra.eventos.EntidadeEvent;
+import org.leo.despesas.infra.eventos.TipoEventoEntidade;
 import org.leo.despesas.infra.exception.DespesasException;
 
 @Stateless
@@ -28,6 +30,12 @@ public class NotificacaoFacadeImpl extends AbstractFacade<Notificacao, Notificac
 	@Override
 	protected void preSalvar(Notificacao antigo, Notificacao novo) throws DespesasException {
 		novo.setAlerta(alertaFacade.buscarPorId(antigo.getAlerta().getId()));
+	}
+
+	@Override
+	public void executarNotificacao(Notificacao notificacao) throws DespesasException {
+		notificacao.setExecutado(true);
+		event.fire(new EntidadeEvent(notificacao.getId(), getTopicName(), TipoEventoEntidade.UPDATE));
 	}
 
 }
