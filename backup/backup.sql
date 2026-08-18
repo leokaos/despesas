@@ -7499,7 +7499,6 @@ t	7323	4	\N
 t	7324	102	\N
 t	7325	107	\N
 t	7326	107	\N
-t	7327	107	\N
 t	7328	107	\N
 t	7329	301	\N
 t	7330	107	\N
@@ -7531,6 +7530,7 @@ t	7363	301	\N
 t	7364	102	\N
 t	7365	107	\N
 t	7366	102	\N
+t	7327	104	\N
 t	7367	108	\N
 t	7368	108	\N
 t	7369	102	\N
@@ -14958,11 +14958,11 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 --
 
 COPY despesas_db.notificacao (id, executado, origem_alerta_id, target_date) FROM stdin;
-4	t	5	2026-08-10
-3	t	2	2026-08-11
-6	t	5	2026-08-07
-7	t	7	2026-08-14
-5	t	3	2026-08-12
+4	f	5	2026-08-10
+3	f	2	2026-08-11
+6	f	5	2026-08-07
+7	f	7	2026-08-14
+5	f	3	2026-08-12
 \.
 
 
@@ -15466,7 +15466,7 @@ SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7392, true);
 -- Name: notificacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 7, true);
+SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 8, true);
 
 
 --
