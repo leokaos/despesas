@@ -643,6 +643,7 @@ COPY despesas_db.cotacao (id, origem, destino, taxa, data) FROM stdin;
 26	EURO	REAL	5.86	2026-05-26
 27	EURO	REAL	5.89	2026-06-05
 28	EURO	REAL	5.86	2026-07-19
+29	EURO	REAL	6.04	2026-08-19
 \.
 
 
@@ -15419,7 +15420,7 @@ SELECT pg_catalog.setval('despesas_db.alerta_id_seq', 8, true);
 -- Name: cotacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 28, true);
+SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 29, true);
 
 
 --
