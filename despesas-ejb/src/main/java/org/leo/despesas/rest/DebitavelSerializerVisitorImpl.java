@@ -9,6 +9,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Map;
 
+import org.leo.despesas.dominio.debitavel.Ativo;
 import org.leo.despesas.dominio.debitavel.BandeiraCartaoCredito;
 import org.leo.despesas.dominio.debitavel.CartaoCredito;
 import org.leo.despesas.dominio.debitavel.Conta;
@@ -53,6 +54,11 @@ public class DebitavelSerializerVisitorImpl implements DebitavelSerializerVisito
 		divida.setPeriodicidade(Periodicidade.valueOf(mapaAtributos.get("periodicidade")));
 		divida.setDataInicio(getLocalDateOrNull(mapaAtributos.get("dataInicio")));
 		divida.setDataLimite(getLocalDateOrNull(mapaAtributos.get("dataLimite")));
+	}
+
+	@Override
+	public void visit(Ativo ativo) {
+
 	}
 
 	private Integer getIntegerOrNull(String value) {

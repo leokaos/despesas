@@ -36,6 +36,7 @@
         <class>org.leo.despesas.dominio.alerta.AlertaLimitePagamentoDivida</class>
         <class>org.leo.despesas.dominio.alerta.AlertaPagamentoFaturaCartao</class>
         <class>org.leo.despesas.dominio.notificacao.Notificacao</class>
+        <class>org.leo.despesas.dominio.debitavel.Ativo</class>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 

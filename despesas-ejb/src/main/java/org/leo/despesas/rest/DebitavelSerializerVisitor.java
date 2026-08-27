@@ -1,5 +1,6 @@
 package org.leo.despesas.rest;
 
+import org.leo.despesas.dominio.debitavel.Ativo;
 import org.leo.despesas.dominio.debitavel.CartaoCredito;
 import org.leo.despesas.dominio.debitavel.Conta;
 import org.leo.despesas.dominio.debitavel.Divida;
@@ -10,9 +11,11 @@ public interface DebitavelSerializerVisitor {
 	void visit(Conta conta);
 
 	void visit(CartaoCredito cartaoCredito);
-	
+
 	void visit(Investimento investimento);
-	
+
 	void visit(Divida divida);
+
+	void visit(Ativo ativo);
 
 }
