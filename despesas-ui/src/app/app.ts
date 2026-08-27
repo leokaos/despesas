@@ -75,9 +75,8 @@ export class App implements OnInit {
     });
   }
 
-  calcularDiasRestantes(targetDate: string): number {
+  calcularDiasRestantes(target: Date): number {
     const hoje = new Date();
-    const target = new Date(targetDate);
     const diffTime = target.getTime() - hoje.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
