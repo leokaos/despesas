@@ -625,8 +625,8 @@ VISA	10	12	3500.00	23	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-45704.51	3
 0.00	4
+45649.09	3
 35745.24	5
 \.
 
@@ -7595,6 +7595,11 @@ t	7406	107	\N	\N
 t	7407	102	\N	\N
 t	7408	107	\N	\N
 t	7409	107	\N	\N
+t	7410	102	\N	\N
+t	7411	107	\N	\N
+t	7412	102	\N	\N
+t	7413	103	\N	\N
+t	7414	107	\N	\N
 \.
 
 
@@ -15006,6 +15011,11 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7407	GLOVO PORTUGAL LISBOA	2026-08-27	13.00	2026-08-21	3	EURO
 7408	UBER RIDES PORTUGAL	2026-08-27	3.96	2026-08-21	3	EURO
 7409	UBER RIDES PORTUGAL	2026-08-27	2.93	2026-08-21	3	EURO
+7410	Glovo	2026-08-28	15.25	2026-08-28	3	EURO
+7411	Uber	2026-08-28	3.93	2026-08-28	3	EURO
+7412	Poke House	2026-08-28	12.30	2026-08-28	3	EURO
+7413	Cortes de Lisboa	2026-08-28	21.00	2026-08-28	3	EURO
+7414	Uber	2026-08-28	2.94	2026-08-28	3	EURO
 \.
 
 
@@ -15019,6 +15029,7 @@ COPY despesas_db.notificacao (id, executado, origem_alerta_id, target_date) FROM
 7	t	7	2026-08-14
 6	t	5	2026-08-07
 4	t	5	2026-08-10
+9	f	5	2026-09-08
 \.
 
 
@@ -15518,14 +15529,14 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7409, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7414, true);
 
 
 --
 -- Name: notificacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 8, true);
+SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 9, true);
 
 
 --
