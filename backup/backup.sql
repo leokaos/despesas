@@ -15038,6 +15038,7 @@ COPY despesas_db.notificacao (id, executado, origem_alerta_id, target_date) FROM
 6	t	5	2026-08-07
 4	t	5	2026-08-10
 9	f	5	2026-09-08
+10	f	7	2026-09-15
 \.
 
 
@@ -15544,7 +15545,7 @@ SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7418, true);
 -- Name: notificacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 9, true);
+SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 10, true);
 
 
 --
