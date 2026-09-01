@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import javax.persistence.Embeddable;
 
+import org.leo.despesas.infra.util.DataUtil;
 import org.leo.despesas.rest.PeriodoDeserializer;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -49,11 +50,11 @@ public class Periodo {
 	}
 
 	public boolean pertenceAoPeriodo(LocalDate dataBase) {
-		return dataInicial.isBefore(dataBase) && dataFinal.isAfter(dataBase);
+		return !dataBase.isBefore(dataInicial) && !dataBase.isAfter(dataFinal);
 	}
 
 	public int getDiasParaTermino() {
-		return (int) ChronoUnit.DAYS.between(LocalDate.now(), dataFinal);
+		return (int) ChronoUnit.DAYS.between(LocalDate.now(DataUtil.CLOCK), dataFinal) + 1;
 	}
 
 	public Iterator<LocalDate> getIterator(ChronoUnit field) {

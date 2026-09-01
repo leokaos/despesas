@@ -19,9 +19,10 @@ import org.leo.despesas.infra.query.Clause;
 import org.leo.despesas.infra.query.EqualCaseInsensitiveClause;
 import org.leo.despesas.infra.query.EqualClause;
 import org.leo.despesas.infra.query.GreaterClause;
+import org.leo.despesas.infra.query.InClause;
 import org.leo.despesas.infra.query.LessClause;
 import org.leo.despesas.infra.query.LikeClause;
-import org.leo.despesas.infra.query.NotEqual;
+import org.leo.despesas.infra.query.NotEqualClause;
 
 import com.github.tennaito.rsql.jpa.JpaPredicateVisitor;
 import com.google.common.collect.Lists;
@@ -208,7 +209,15 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 	protected void notEqual(String property, String value) {
 
 		if (StringUtils.isNotEmpty(value)) {
-			this.clausulas.add(new NotEqual(property, value));
+			this.clausulas.add(new NotEqualClause(property, value));
+		}
+
+	}
+
+	protected void in(String property, List<?> values) {
+
+		if (values != null && !values.isEmpty()) {
+			this.clausulas.add(new InClause(property, values));
 		}
 
 	}

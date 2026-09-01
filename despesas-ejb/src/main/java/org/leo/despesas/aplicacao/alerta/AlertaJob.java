@@ -14,7 +14,7 @@ public class AlertaJob {
 	@EJB
 	private AlertaFacade alertaFacade;
 
-	@Schedule(hour = "1", minute = "0", persistent = false)
+	@Schedule(hour = "2", minute = "0", persistent = false)
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void executar() {
 		try {

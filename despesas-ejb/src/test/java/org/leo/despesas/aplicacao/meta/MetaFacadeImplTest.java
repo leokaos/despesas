@@ -22,6 +22,7 @@ import org.leo.despesas.dominio.movimentacao.Movimentacao;
 import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.infra.Mes;
 import org.leo.despesas.infra.Periodo;
+import org.leo.despesas.infra.util.DataUtil;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -54,7 +55,7 @@ public class MetaFacadeImplTest {
 
 		Meta meta = new Meta();
 
-		meta.setMes(new Mes(LocalDate.now()));
+		meta.setMes(new Mes(LocalDate.now(DataUtil.CLOCK)));
 		meta.setValor(new BigDecimal(200));
 
 		Periodo periodo = meta.getMes().getPeriodo();
@@ -64,14 +65,11 @@ public class MetaFacadeImplTest {
 
 		expectedLista.add(meta);
 
-		BigDecimal valorEsperado = new BigDecimal(1800)
-				.divide(new BigDecimal(periodo.getDiasParaTermino()), 2, RoundingMode.HALF_UP);
+		BigDecimal valorEsperado = new BigDecimal(1800).divide(new BigDecimal(periodo.getDiasParaTermino()), 2, RoundingMode.HALF_UP);
 
-		when(mockEntityManager.createQuery("SELECT meta FROM Meta meta ORDER BY meta.id", Meta.class))
-				.thenReturn(mockQuery);
+		when(mockEntityManager.createQuery("SELECT meta FROM Meta meta ORDER BY meta.id", Meta.class)).thenReturn(mockQuery);
 		when(mockQuery.getResultList()).thenReturn(expectedLista);
-		when(mockMovimentacaoFacade.buscarMovimentacaoPorPeriodo(dataInicial, dataFinal))
-				.thenReturn(movimentacaoEsperada);
+		when(mockMovimentacaoFacade.buscarMovimentacaoPorPeriodo(dataInicial, dataFinal)).thenReturn(movimentacaoEsperada);
 
 		List<Meta> resultado = facade.listar(filtro);
 

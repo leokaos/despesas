@@ -26,10 +26,20 @@ public abstract class BaseDebitavelFiltro<T extends ModelEntity> extends Abstrac
 		this.moeda = moeda;
 	}
 
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
 	@Override
 	protected void build() {
 		eq("moeda", moeda);
 		eq("ativo", ativo);
+
+		internalBuild();
 	}
 
 	protected void internalBuild() {

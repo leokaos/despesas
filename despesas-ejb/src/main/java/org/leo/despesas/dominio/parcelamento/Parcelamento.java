@@ -18,21 +18,29 @@ public abstract class Parcelamento {
 	}
 
 	public List<Despesa> parcelar(final Despesa despesa, final BigDecimal numeroParcelas) {
+
 		final List<Despesa> despesas = new ArrayList<Despesa>();
 
-		final BigDecimal valorParcela = despesa.getValor().divide(numeroParcelas, 10, RoundingMode.HALF_UP);
+		final BigDecimal valorParcela = despesa.getValor().divide(numeroParcelas, 2, RoundingMode.HALF_UP);
+		final BigDecimal erroArredondamento = despesa.getValor().subtract(valorParcela.multiply(numeroParcelas));
 
 		for (int x = 0; x < numeroParcelas.intValue(); x++) {
+
 			final Despesa despesaParcelada = new Despesa();
 
 			despesaParcelada.setDescricao(createDescricao(x, despesa.getDescricao(), numeroParcelas));
 			despesaParcelada.setVencimento(getDataParcela(x, despesa));
-			despesaParcelada.setValor(valorParcela);
 
 			despesaParcelada.setDebitavel(despesa.getDebitavel());
 			despesaParcelada.setTipo(despesa.getTipo());
 			despesaParcelada.setPaga(despesa.isPaga());
 			despesaParcelada.setMoeda(despesa.getMoeda());
+
+			despesaParcelada.setValor(valorParcela);
+
+			if (x + 1 == numeroParcelas.intValue()) {
+				despesaParcelada.setValor(valorParcela.add(erroArredondamento));
+			}
 
 			despesas.add(despesaParcelada);
 		}
