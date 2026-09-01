@@ -626,7 +626,7 @@ VISA	10	12	3500.00	23	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 0.00	4
-45561.58	3
+51014.69	3
 35745.24	5
 \.
 
@@ -7604,6 +7604,8 @@ t	7415	107	\N	\N
 t	7416	301	\N	\N
 t	7417	102	\N	\N
 t	7418	107	\N	\N
+t	7419	107	\N	\N
+t	7420	107	\N	\N
 \.
 
 
@@ -14928,8 +14930,6 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7319	Uber	2026-07-28	3.94	2026-07-28	3	EURO
 7320	Uber	2026-07-28	2.95	2026-07-28	3	EURO
 7155	Salário de Julho/2026	2026-07-29	4604.60	2026-07-31	3	EURO
-7321	Salário de Agosto/2026	\N	4204.20	2026-08-31	3	EURO
-7322	Valor IVA de Agosto/2026	\N	1255.80	2026-08-31	3	EURO
 7323	LImpeza	2026-07-30	52.00	2026-07-30	3	EURO
 7324	Marmita	2026-07-31	200.00	2026-08-01	3	EURO
 7326	UBER RIDES PORTUGA	2026-08-01	3.94	2026-07-31	3	EURO
@@ -15009,6 +15009,7 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7401	UBER RIDES PORTUGAL	2026-08-27	2.93	2026-08-24	3	EURO
 7402	UBER RIDES PORTUGAL	2026-08-27	4.94	2026-08-24	3	EURO
 7403	CONTINENTE BRAGA BRAGA	2026-08-27	59.45	2026-08-24	3	EURO
+7322	Valor IVA de Agosto/2026	2026-08-31	1255.80	2026-08-31	3	EURO
 7404	ISERVICES BRAGA BRAGA	2026-08-27	76.95	2026-08-24	3	EURO
 7405	ARCADIA NOVA ARCADA	2026-08-27	4.55	2026-08-24	3	EURO
 7406	UBER RIDES PORTUGAL	2026-08-27	4.95	2026-08-24	3	EURO
@@ -15020,10 +15021,13 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7412	Poke House	2026-08-28	12.30	2026-08-28	3	EURO
 7413	Cortes de Lisboa	2026-08-28	21.00	2026-08-28	3	EURO
 7414	Uber	2026-08-28	2.94	2026-08-28	3	EURO
-7415	UBER RIDES	2026-08-29	4.93	2026-08-31	3	EURO
-7416	CONTINENTE	2026-08-29	72.82	2026-08-31	3	EURO
-7417	ARCADIA NOVA ARCADA	2026-08-29	4.80	2026-08-31	3	EURO
-7418	UBER RIDES	2026-08-29	4.96	2026-08-31	3	EURO
+7415	UBER RIDES	2026-08-29	4.93	2026-08-29	3	EURO
+7416	CONTINENTE	2026-08-29	72.82	2026-08-29	3	EURO
+7417	ARCADIA NOVA ARCADA	2026-08-29	4.80	2026-08-29	3	EURO
+7418	UBER RIDES	2026-08-29	4.96	2026-08-29	3	EURO
+7321	Salário de Agosto/2026	2026-08-31	4204.20	2026-08-31	3	EURO
+7419	Uber	2026-08-31	3.94	2026-08-30	3	EURO
+7420	Uber	2026-08-31	2.95	2026-08-30	3	EURO
 \.
 
 
@@ -15039,6 +15043,7 @@ COPY despesas_db.notificacao (id, executado, origem_alerta_id, target_date) FROM
 4	t	5	2026-08-10
 9	f	5	2026-09-08
 10	f	7	2026-09-15
+11	f	2	2026-09-11
 \.
 
 
@@ -15254,10 +15259,10 @@ t	7046	23	\N	t
 t	7047	109	\N	f
 t	7155	109	\N	f
 t	7154	23	\N	t
-f	7321	109	\N	f
-f	7322	23	\N	t
 f	7336	109	\N	f
 f	7337	23	\N	t
+t	7321	109	\N	f
+t	7322	23	\N	t
 \.
 
 
@@ -15538,14 +15543,14 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7418, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7420, true);
 
 
 --
 -- Name: notificacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 10, true);
+SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 11, true);
 
 
 --
