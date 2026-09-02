@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 import javax.ws.rs.QueryParam;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class DebitavelFiltro extends BaseDebitavelFiltro<Debitavel> {
 
 	@QueryParam("tipo")
@@ -17,6 +19,9 @@ public class DebitavelFiltro extends BaseDebitavelFiltro<Debitavel> {
 	protected void internalBuild() {
 		super.internalBuild();
 
-		in("tipo", Arrays.asList(tipos.split(",")));
+		if (StringUtils.isNotBlank(tipos)) {
+			in("tipo", Arrays.asList(tipos.split(",")));
+		}
+
 	}
 }
