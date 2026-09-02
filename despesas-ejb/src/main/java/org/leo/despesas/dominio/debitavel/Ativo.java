@@ -45,7 +45,7 @@ public class Ativo extends Debitavel {
 	@Override
 	public void transferir(Transferencia transferencia) {
 
-		if (transferencia.getCreditavel() == null) {
+		if (transferencia.getCreditavel().getId() == getId()) {
 			valorTotal = valorTotal.add(transferencia.getValor());
 		}
 
@@ -78,7 +78,7 @@ public class Ativo extends Debitavel {
 	@Override
 	public void estornar(Transferencia transferencia) {
 
-		if (transferencia.getCreditavel() == null) {
+		if (transferencia.getCreditavel().getId() == getId()) {
 			valorTotal = valorTotal.subtract(transferencia.getValor());
 		}
 
