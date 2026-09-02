@@ -626,7 +626,7 @@ VISA	10	12	3500.00	23	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 0.00	4
-51014.69	3
+59687.61	3
 35745.24	5
 \.
 
@@ -684,6 +684,7 @@ COPY despesas_db.debitavel (id, cor, descricao, tipo, moeda, ativo) FROM stdin;
 22	#c7bc24	IVA 2 Trimestre 2026 	DIVIDA	EURO	t
 23	#ff9e03	Gold Prestige	CARTAO	EURO	t
 25	#3B3B3B	JEEP AVENGER	ATIVO	EURO	t
+26	#ff7300	FINANCIAMENTO CARRO	DIVIDA	EURO	t
 \.
 
 
@@ -7606,6 +7607,24 @@ t	7417	102	\N	\N
 t	7418	107	\N	\N
 t	7419	107	\N	\N
 t	7420	107	\N	\N
+t	7422	107	\N	\N
+t	7423	107	\N	\N
+t	7424	107	\N	\N
+t	7425	107	\N	\N
+t	7426	107	\N	\N
+t	7427	107	\N	\N
+t	7428	107	\N	\N
+t	7429	107	\N	\N
+t	7430	107	\N	\N
+t	7431	107	\N	\N
+t	7432	107	\N	\N
+t	7433	107	\N	\N
+t	7434	108	\N	\N
+t	7435	107	\N	\N
+t	7436	107	\N	\N
+t	7437	2	\N	\N
+t	7438	102	\N	\N
+t	7439	107	\N	\N
 \.
 
 
@@ -7619,6 +7638,7 @@ COPY despesas_db.divida (valor_total, periodiciodade, data_inicio, id, data_limi
 2237.90	VARIAVEL	2025-10-01	19	\N
 2555.38	VARIAVEL	2026-05-24	20	\N
 3189.30	VARIAVEL	2026-09-20	22	2026-09-25
+10540.84	MENSAL	2026-09-01	26	2030-08-31
 \.
 
 
@@ -15028,6 +15048,25 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7321	Salário de Agosto/2026	2026-08-31	4204.20	2026-08-31	3	EURO
 7419	Uber	2026-08-31	3.94	2026-08-30	3	EURO
 7420	Uber	2026-08-31	2.95	2026-08-30	3	EURO
+7421	CONCESS.CREDITO. EMP. N. 3863448902	2026-09-01	9200.00	2026-08-31	3	EURO
+7422	Seguro Carro 1/12	2026-09-01	28.08	2026-09-01	3	EURO
+7423	Seguro Carro 2/12	2026-09-01	28.08	2026-10-01	3	EURO
+7424	Seguro Carro 3/12	2026-09-01	28.08	2026-11-01	3	EURO
+7425	Seguro Carro 4/12	2026-09-01	28.08	2026-12-01	3	EURO
+7426	Seguro Carro 5/12	2026-09-01	28.08	2027-01-01	3	EURO
+7427	Seguro Carro 6/12	2026-09-01	28.08	2027-02-01	3	EURO
+7428	Seguro Carro 7/12	2026-09-01	28.08	2027-03-01	3	EURO
+7429	Seguro Carro 8/12	2026-09-01	28.08	2027-04-01	3	EURO
+7430	Seguro Carro 9/12	2026-09-01	28.08	2027-05-01	3	EURO
+7431	Seguro Carro 10/12	2026-09-01	28.08	2027-06-01	3	EURO
+7432	Seguro Carro 11/12	2026-09-01	28.08	2027-07-01	3	EURO
+7433	Seguro Carro 12/12	2026-09-01	28.10	2027-08-01	3	EURO
+7434	PAG. IMP. SELO EMP. N.         3863448902	2026-09-01	161.92	2026-08-31	3	EURO
+7435	TRF P/ OCIDENTAL VIDA CP RKP2865781	2026-09-01	5.24	2026-08-31	3	EURO
+7436	UBER RIDES PORTUGAL	2026-09-01	3.94	2026-08-31	3	EURO
+7437	CLINICA STA MADALENABRA	2026-09-01	6.30	2026-08-31	3	EURO
+7438	PIZZA HUT	2026-09-01	8.75	2026-08-31	3	EURO
+7439	UBER RIDES PORTUGAL	2026-09-01	3.95	2026-08-31	3	EURO
 \.
 
 
@@ -15263,6 +15302,7 @@ f	7336	109	\N	f
 f	7337	23	\N	t
 t	7321	109	\N	f
 t	7322	23	\N	t
+t	7421	111	\N	t
 \.
 
 
@@ -15508,7 +15548,7 @@ SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 29, true);
 -- Name: debitavel_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 25, true);
+SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 26, true);
 
 
 --
@@ -15543,7 +15583,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7420, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7439, true);
 
 
 --
