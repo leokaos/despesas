@@ -2,6 +2,7 @@ package org.leo.despesas.dominio.debitavel;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -17,6 +18,9 @@ public class Ativo extends Debitavel {
 	private static final long serialVersionUID = 4734557151152113449L;
 
 	public static final String CODIGO_TIPO = "ATIVO";
+
+	@Column(name = "valor_total")
+	private BigDecimal valorTotal;
 
 	public Ativo() {
 		super();
@@ -41,6 +45,10 @@ public class Ativo extends Debitavel {
 	@Override
 	public void transferir(Transferencia transferencia) {
 
+		if (transferencia.getCreditavel() == null) {
+			valorTotal = valorTotal.add(transferencia.getValor());
+		}
+
 	}
 
 	@Override
@@ -50,12 +58,12 @@ public class Ativo extends Debitavel {
 
 	@Override
 	public void accept(DebitavelSerializerVisitorImpl visitor) {
-
+		visitor.visit(this);
 	}
 
 	@Override
 	public BigDecimal getSaldo() {
-		return BigDecimal.ZERO;
+		return this.valorTotal;
 	}
 
 	@Override
@@ -69,6 +77,10 @@ public class Ativo extends Debitavel {
 
 	@Override
 	public void estornar(Transferencia transferencia) {
+
+		if (transferencia.getCreditavel() == null) {
+			valorTotal = valorTotal.subtract(transferencia.getValor());
+		}
 
 	}
 

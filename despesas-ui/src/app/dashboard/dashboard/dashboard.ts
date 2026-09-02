@@ -96,6 +96,7 @@ export class Dashboard implements OnInit {
 
     let debitavelFiltro = {
       ativo: true,
+      tipos: ['CONTA', 'CARTAO']
     } as DebitavelFiltro;
 
     forkJoin({
