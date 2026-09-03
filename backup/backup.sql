@@ -99,7 +99,8 @@ ALTER TABLE despesas_db.alerta_pagamento_fatura_cartao OWNER TO despesas;
 --
 
 CREATE TABLE despesas_db.ativo (
-    id bigint NOT NULL
+    id bigint NOT NULL,
+    valor_total numeric(19,2) DEFAULT 0 NOT NULL
 );
 
 
@@ -605,8 +606,8 @@ COPY despesas_db.alerta_pagamento_fatura_cartao (id, cartao_credito_id) FROM std
 -- Data for Name: ativo; Type: TABLE DATA; Schema: despesas_db; Owner: despesas
 --
 
-COPY despesas_db.ativo (id) FROM stdin;
-25
+COPY despesas_db.ativo (id, valor_total) FROM stdin;
+25	29114.51
 \.
 
 
@@ -626,8 +627,8 @@ VISA	10	12	3500.00	23	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 0.00	4
-59687.61	3
 35745.24	5
+31822.79	3
 \.
 
 
@@ -7625,6 +7626,11 @@ t	7436	107	\N	\N
 t	7437	2	\N	\N
 t	7438	102	\N	\N
 t	7439	107	\N	\N
+t	7440	4	\N	\N
+t	7441	107	\N	\N
+t	7442	107	\N	\N
+t	7443	107	\N	\N
+t	7444	102	\N	\N
 \.
 
 
@@ -15067,6 +15073,12 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7437	CLINICA STA MADALENABRA	2026-09-01	6.30	2026-08-31	3	EURO
 7438	PIZZA HUT	2026-09-01	8.75	2026-08-31	3	EURO
 7439	UBER RIDES PORTUGAL	2026-09-01	3.95	2026-08-31	3	EURO
+7440	Aluguel	2026-09-02	650.00	2026-09-02	3	EURO
+7441	UBER RIDES	2026-09-02	3.94	2026-09-02	3	EURO
+7442	EST SERVICO SANTOS DA CUNHA 6 - BRA	2026-09-02	80.37	2026-09-02	3	EURO
+7443	SAO MARCOS 4700-099 BRAGA	2026-09-02	1.50	2026-09-02	3	EURO
+7444	GLOVO	2026-09-02	14.50	2026-09-02	3	EURO
+7446	Pagamento Carro	\N	27114.51	2026-09-01	3	EURO
 \.
 
 
@@ -15080,9 +15092,10 @@ COPY despesas_db.notificacao (id, executado, origem_alerta_id, target_date) FROM
 7	t	7	2026-08-14
 6	t	5	2026-08-07
 4	t	5	2026-08-10
-9	f	5	2026-09-08
 10	f	7	2026-09-15
 11	f	2	2026-09-11
+9	t	5	2026-09-08
+12	f	8	2026-09-08
 \.
 
 
@@ -15488,6 +15501,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 7356	6	542.81
 7375	23	5.99
 7395	25	2000.00
+7446	25	27114.51
 \.
 
 
@@ -15527,6 +15541,7 @@ COPY public.flyway_schema_history (installed_rank, version, description, type, s
 29	29	ajuste fatura	SQL	V29__ajuste_fatura.sql	-622854866	despesas	2026-08-06 12:49:20.266085	51	t
 30	30	adicionar notificacao despesa	SQL	V30__adicionar_notificacao_despesa.sql	-2059628199	despesas	2026-08-27 19:28:27.623216	26	t
 31	31	criar tabela ativo	SQL	V31__criar_tabela_ativo.sql	1196749870	despesas	2026-08-27 19:28:27.696438	15	t
+32	32	adicionar campo valor ativo	SQL	V32__adicionar_campo_valor_ativo.sql	539953492	despesas	2026-09-02 22:37:36.722507	34	t
 \.
 
 
@@ -15583,14 +15598,14 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7439, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7446, true);
 
 
 --
 -- Name: notificacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 11, true);
+SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 12, true);
 
 
 --
