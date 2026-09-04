@@ -145,6 +145,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 		<!--NECESSARIO PARA RODAR POR CONTA DO HIBERNATE VELHO-->
 		<dependency>
 			<groupId>net.bytebuddy</groupId>

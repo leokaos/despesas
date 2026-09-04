@@ -13,10 +13,17 @@ import javax.persistence.Table;
 
 import org.leo.despesas.infra.ModelEntity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "tipo_movimentacao", schema = "despesas_db")
 @DiscriminatorColumn(name = "tipo")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Setter
+@Getter
+@NoArgsConstructor
 public class TipoMovimentacao implements ModelEntity {
 
 	private static final long serialVersionUID = 6836888332543689391L;
@@ -32,34 +39,5 @@ public class TipoMovimentacao implements ModelEntity {
 
 	@Column(name = "cor")
 	private String cor;
-
-	public TipoMovimentacao() {
-		super();
-	}
-
-	@Override
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(final Long id) {
-		this.id = id;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(final String descricao) {
-		this.descricao = descricao;
-	}
-
-	public String getCor() {
-		return cor;
-	}
-
-	public void setCor(final String cor) {
-		this.cor = cor;
-	}
 
 }
