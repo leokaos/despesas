@@ -7,8 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "parametros", schema = "despesas_db")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Parametro implements Serializable {
 
 	private static final long serialVersionUID = 1080932091839453706L;
@@ -22,33 +29,5 @@ public class Parametro implements Serializable {
 
 	@Column(name = "VALOR")
 	private String valor;
-
-	public Parametro() {
-		super();
-	}
-
-	public String getNome() {
-		return this.nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getTipo() {
-		return this.tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
-	public String getValor() {
-		return this.valor;
-	}
-
-	public void setValor(String valor) {
-		this.valor = valor;
-	}
 
 }

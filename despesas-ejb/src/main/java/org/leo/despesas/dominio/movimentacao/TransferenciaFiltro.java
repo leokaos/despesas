@@ -8,6 +8,13 @@ import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.infra.AbstractModelFiltro;
 import org.leo.despesas.infra.Moeda;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class TransferenciaFiltro extends AbstractModelFiltro<Transferencia> {
 
 	@QueryParam("dataInicial")
@@ -21,62 +28,6 @@ public class TransferenciaFiltro extends AbstractModelFiltro<Transferencia> {
 	private Debitavel creditavel;
 
 	private Moeda moeda;
-
-	public TransferenciaFiltro() {
-		super();
-	}
-
-	public LocalDate getDataInicial() {
-		return dataInicial;
-	}
-
-	public void setDataInicial(LocalDate dataInicial) {
-		this.dataInicial = dataInicial;
-	}
-
-	public LocalDate getDataFinal() {
-		return dataFinal;
-	}
-
-	public void setDataFinal(LocalDate dataFinal) {
-		this.dataFinal = dataFinal;
-	}
-
-	public Moeda getMoeda() {
-		return moeda;
-	}
-
-	public void setMoeda(Moeda moeda) {
-		this.moeda = moeda;
-	}
-
-	public boolean hasDataInicialAndDataFinal() {
-		return dataInicial != null && dataFinal != null;
-	}
-
-	public boolean hasDataInicial() {
-		return dataInicial != null;
-	}
-
-	public boolean hasDataFinal() {
-		return dataFinal != null;
-	}
-
-	public Debitavel getDebitavel() {
-		return debitavel;
-	}
-
-	public void setDebitavel(Debitavel debitavel) {
-		this.debitavel = debitavel;
-	}
-
-	public Debitavel getCreditavel() {
-		return creditavel;
-	}
-
-	public void setCreditavel(Debitavel creditavel) {
-		this.creditavel = creditavel;
-	}
 
 	@Override
 	protected void build() {

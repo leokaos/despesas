@@ -16,8 +16,15 @@ import javax.persistence.Table;
 import org.leo.despesas.infra.ModelEntity;
 import org.leo.despesas.infra.Moeda;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "cotacao", schema = "despesas_db")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Cotacao implements ModelEntity {
 
 	private static final long serialVersionUID = 8325205388002175958L;
@@ -40,49 +47,5 @@ public class Cotacao implements ModelEntity {
 
 	@Column(name = "DATA")
 	private LocalDate data;
-
-	public Cotacao() {
-		super();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Moeda getOrigem() {
-		return origem;
-	}
-
-	public void setOrigem(Moeda origem) {
-		this.origem = origem;
-	}
-
-	public Moeda getDestino() {
-		return destino;
-	}
-
-	public void setDestino(Moeda destino) {
-		this.destino = destino;
-	}
-
-	public BigDecimal getTaxa() {
-		return taxa;
-	}
-
-	public void setTaxa(BigDecimal taxa) {
-		this.taxa = taxa;
-	}
-
-	public LocalDate getData() {
-		return data;
-	}
-
-	public void setData(LocalDate data) {
-		this.data = data;
-	}
 
 }

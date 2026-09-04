@@ -16,8 +16,15 @@ import javax.persistence.Table;
 import org.leo.despesas.dominio.alerta.Alerta;
 import org.leo.despesas.infra.ModelEntity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "notificacao", schema = "despesas_db")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Notificacao implements ModelEntity {
 
 	private static final long serialVersionUID = 3641699997412117252L;
@@ -36,41 +43,5 @@ public class Notificacao implements ModelEntity {
 
 	@Column(name = "target_date")
 	private LocalDate targetDate;
-
-	public Notificacao() {
-		super();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public boolean isExecutado() {
-		return executado;
-	}
-
-	public void setExecutado(boolean executado) {
-		this.executado = executado;
-	}
-
-	public Alerta getAlerta() {
-		return alerta;
-	}
-
-	public void setAlerta(Alerta alerta) {
-		this.alerta = alerta;
-	}
-
-	public LocalDate getTargetDate() {
-		return targetDate;
-	}
-
-	public void setTargetDate(LocalDate targetDate) {
-		this.targetDate = targetDate;
-	}
 
 }

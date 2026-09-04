@@ -14,9 +14,16 @@ import org.leo.despesas.dominio.tipomovimentacao.TipoReceita;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "receita", schema = "despesas_db")
 @PrimaryKeyJoinColumn(name = "id")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Receita extends Movimentacao {
 
 	private static final long serialVersionUID = -2809658495598686884L;
@@ -34,42 +41,6 @@ public class Receita extends Movimentacao {
 
 	@Column(name = "compromissada")
 	private boolean compromissada;
-
-	public Receita() {
-		super();
-	}
-
-	public boolean isDepositado() {
-		return depositado;
-	}
-
-	public void setDepositado(final boolean depositado) {
-		this.depositado = depositado;
-	}
-
-	public TipoReceita getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(final TipoReceita tipo) {
-		this.tipo = tipo;
-	}
-
-	public Investimento getInvestimento() {
-		return investimento;
-	}
-
-	public void setInvestimento(Investimento investimento) {
-		this.investimento = investimento;
-	}
-
-	public boolean isCompromissada() {
-		return compromissada;
-	}
-
-	public void setCompromissada(boolean compromissada) {
-		this.compromissada = compromissada;
-	}
 
 	public void depositar() {
 		this.debitavel.creditar(this);

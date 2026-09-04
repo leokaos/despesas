@@ -14,8 +14,15 @@ import javax.persistence.Table;
 
 import org.leo.despesas.infra.ModelEntity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "feriado", schema = "despesas_db")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Feriado implements ModelEntity {
 
 	private static final long serialVersionUID = 4169767769355199976L;
@@ -33,41 +40,5 @@ public class Feriado implements ModelEntity {
 
 	@Column(name = "nome")
 	private String nome;
-
-	public Feriado() {
-		super();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public LocalDate getData() {
-		return data;
-	}
-
-	public void setData(LocalDate data) {
-		this.data = data;
-	}
-
-	public FeriadoTipo getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(FeriadoTipo tipo) {
-		this.tipo = tipo;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
 
 }

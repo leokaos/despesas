@@ -17,10 +17,17 @@ import org.leo.despesas.dominio.tipomovimentacao.TipoDespesa;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "despesa", schema = "despesas_db")
 @PrimaryKeyJoinColumn(name = "id")
 @Indexed
+@Getter
+@Setter
+@NoArgsConstructor
 public class Despesa extends Movimentacao {
 
 	private static final long serialVersionUID = -832942623220660512L;
@@ -34,48 +41,12 @@ public class Despesa extends Movimentacao {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fatura_id", nullable = true)
+	@JsonIgnore
 	private Fatura fatura;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "notificacao_id", nullable = true)
 	private Notificacao notificacao;
-
-	public Despesa() {
-		super();
-	}
-
-	public boolean isPaga() {
-		return paga;
-	}
-
-	public void setPaga(final boolean paga) {
-		this.paga = paga;
-	}
-
-	public TipoDespesa getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(TipoDespesa tipo) {
-		this.tipo = tipo;
-	}
-
-	@JsonIgnore
-	public Fatura getFatura() {
-		return fatura;
-	}
-
-	public void setFatura(final Fatura fatura) {
-		this.fatura = fatura;
-	}
-
-	public Notificacao getNotificacao() {
-		return notificacao;
-	}
-
-	public void setNotificacao(Notificacao notificacao) {
-		this.notificacao = notificacao;
-	}
 
 	public void pagar() {
 		debitavel.debitar(this);

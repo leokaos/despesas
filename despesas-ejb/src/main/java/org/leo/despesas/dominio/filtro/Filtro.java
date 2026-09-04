@@ -10,8 +10,15 @@ import javax.persistence.Table;
 
 import org.leo.despesas.infra.ModelEntity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "filtro", schema = "despesas_db")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Filtro implements ModelEntity {
 
 	private static final long serialVersionUID = -4520402971910298724L;
@@ -29,41 +36,5 @@ public class Filtro implements ModelEntity {
 
 	@Column(name = "classe")
 	private String classe;
-
-	public Filtro() {
-		super();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getExpressao() {
-		return expressao;
-	}
-
-	public void setExpressao(String expressao) {
-		this.expressao = expressao;
-	}
-
-	public String getClasse() {
-		return classe;
-	}
-
-	public void setClasse(String classe) {
-		this.classe = classe;
-	}
 
 }

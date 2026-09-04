@@ -12,9 +12,16 @@ import javax.persistence.Table;
 import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.dominio.tipomovimentacao.TipoMovimentacao;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "transferencia", schema = "despesas_db")
 @PrimaryKeyJoinColumn(name = "id")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Transferencia extends Movimentacao {
 
 	private static final long serialVersionUID = 4682865005993932139L;
@@ -25,26 +32,6 @@ public class Transferencia extends Movimentacao {
 
 	@Column(name = "valor_real")
 	private BigDecimal valorReal;
-
-	public Transferencia() {
-		super();
-	}
-
-	public Debitavel getCreditavel() {
-		return creditavel;
-	}
-
-	public void setCreditavel(Debitavel creditavel) {
-		this.creditavel = creditavel;
-	}
-
-	public BigDecimal getValorReal() {
-		return valorReal;
-	}
-
-	public void setValorReal(BigDecimal valorReal) {
-		this.valorReal = valorReal;
-	}
 
 	public TipoMovimentacao getTipo() {
 		TipoMovimentacao tipoMovimentacao = new TipoMovimentacao();

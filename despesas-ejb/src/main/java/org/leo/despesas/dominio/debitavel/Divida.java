@@ -19,8 +19,13 @@ import org.leo.despesas.rest.DebitavelSerializerVisitorImpl;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "divida", schema = "despesas_db")
+@Getter
+@Setter
 public class Divida extends Debitavel {
 
 	private static final long serialVersionUID = -6519041279325299586L;
@@ -41,52 +46,12 @@ public class Divida extends Debitavel {
 	private LocalDate dataLimite;
 
 	@OneToMany(mappedBy = "creditavel", fetch = FetchType.EAGER)
+	@JsonIgnore
 	private Set<Transferencia> pagamentos;
 
 	public Divida() {
 		super();
 		setTipo(CODIGO_TIPO);
-	}
-
-	public BigDecimal getValorTotal() {
-		return valorTotal;
-	}
-
-	public void setValorTotal(BigDecimal valorTotal) {
-		this.valorTotal = valorTotal;
-	}
-
-	public Periodicidade getPeriodicidade() {
-		return periodicidade;
-	}
-
-	public void setPeriodicidade(Periodicidade periodicidade) {
-		this.periodicidade = periodicidade;
-	}
-
-	public LocalDate getDataInicio() {
-		return dataInicio;
-	}
-
-	public void setDataInicio(LocalDate dataInicio) {
-		this.dataInicio = dataInicio;
-	}
-
-	public LocalDate getDataLimite() {
-		return dataLimite;
-	}
-
-	public void setDataLimite(LocalDate dataLimite) {
-		this.dataLimite = dataLimite;
-	}
-
-	@JsonIgnore
-	public Set<Transferencia> getPagamentos() {
-		return pagamentos;
-	}
-
-	public void setPagamentos(Set<Transferencia> pagamentos) {
-		this.pagamentos = pagamentos;
 	}
 
 	public BigDecimal getValorRestante() {

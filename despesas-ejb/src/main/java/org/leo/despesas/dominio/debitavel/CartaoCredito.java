@@ -22,8 +22,13 @@ import org.leo.despesas.rest.DebitavelSerializerVisitorImpl;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "cartao", schema = "despesas_db")
+@Getter
+@Setter
 public class CartaoCredito extends Debitavel {
 
 	private static final long serialVersionUID = -1135677579840442143L;
@@ -47,65 +52,12 @@ public class CartaoCredito extends Debitavel {
 	private BandeiraCartaoCredito bandeira;
 
 	@OneToMany(mappedBy = "cartao", cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE }, fetch = FetchType.EAGER)
-	private Set<Fatura> faturas;
+	@JsonIgnore
+	private Set<Fatura> faturas = new HashSet<Fatura>();
 
 	public CartaoCredito() {
 		super();
-		this.faturas = new HashSet<Fatura>();
 		setTipo(CODIGO_TIPO);
-	}
-
-	public BigDecimal getLimite() {
-		return limite;
-	}
-
-	public void setLimite(final BigDecimal limite) {
-		this.limite = limite;
-	}
-
-	public Integer getDiaDeVencimento() {
-		return diaDeVencimento;
-	}
-
-	public void setDiaDeVencimento(final Integer diaDeVencimento) {
-		this.diaDeVencimento = diaDeVencimento;
-	}
-
-	public Integer getDiaDeFechamento() {
-		return diaDeFechamento;
-	}
-
-	public void setDiaDeFechamento(final Integer diaDeFechamento) {
-		this.diaDeFechamento = diaDeFechamento;
-	}
-
-	public BandeiraCartaoCredito getBandeira() {
-		return bandeira;
-	}
-
-	public void setBandeira(BandeiraCartaoCredito bandeira) {
-		this.bandeira = bandeira;
-	}
-
-	public BigDecimal getLimiteAtual() {
-		return limiteAtual;
-	}
-
-	public void setLimiteAtual(final BigDecimal limiteAtual) {
-		this.limiteAtual = limiteAtual;
-	}
-
-	public String getTipo() {
-		return CODIGO_TIPO;
-	}
-
-	@JsonIgnore
-	public Set<Fatura> getFaturas() {
-		return faturas;
-	}
-
-	public void setFaturas(final Set<Fatura> faturas) {
-		this.faturas = faturas;
 	}
 
 	public Fatura getFaturaPorData(LocalDate dataBase) {

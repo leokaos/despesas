@@ -21,8 +21,15 @@ import org.leo.despesas.infra.ModelEntity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "orcamento", schema = "despesas_db")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Orcamento implements ModelEntity {
 
 	private static final long serialVersionUID = 3125627003466439125L;
@@ -47,72 +54,11 @@ public class Orcamento implements ModelEntity {
 	private BigDecimal valor;
 
 	@Transient
+	@JsonIgnore
 	private List<Despesa> despesaDoOrcamento;
 
 	@Transient
 	private BigDecimal valorConsolidado;
-
-	public Orcamento() {
-		super();
-	}
-
-	@Override
-	public Long getId() {
-		return this.id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public LocalDate getDataFinal() {
-		return dataFinal;
-	}
-
-	public void setDataFinal(LocalDate dataFinal) {
-		this.dataFinal = dataFinal;
-	}
-
-	public LocalDate getDataInicial() {
-		return dataInicial;
-	}
-
-	public void setDataInicial(LocalDate dataInicial) {
-		this.dataInicial = dataInicial;
-	}
-
-	public TipoDespesa getTipoDespesa() {
-		return tipoDespesa;
-	}
-
-	public void setTipoDespesa(TipoDespesa tipoDespesa) {
-		this.tipoDespesa = tipoDespesa;
-	}
-
-	public BigDecimal getValor() {
-		return this.valor;
-	}
-
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
-	}
-
-	@JsonIgnore
-	public List<Despesa> getDespesaDoOrcamento() {
-		return despesaDoOrcamento;
-	}
-
-	public void setDespesaDoOrcamento(List<Despesa> despesaDoOrcamento) {
-		this.despesaDoOrcamento = despesaDoOrcamento;
-	}
-
-	public BigDecimal getValorConsolidado() {
-		return valorConsolidado;
-	}
-
-	public void setValorConsolidado(BigDecimal valorConsolidado) {
-		this.valorConsolidado = valorConsolidado;
-	}
 
 	public void consolidar() {
 		valorConsolidado = BigDecimal.ZERO;

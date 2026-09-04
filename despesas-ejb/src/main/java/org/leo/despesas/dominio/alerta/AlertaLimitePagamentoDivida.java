@@ -11,8 +11,15 @@ import org.leo.despesas.dominio.debitavel.Divida;
 import org.leo.despesas.dominio.notificacao.Notificacao;
 import org.leo.despesas.infra.alerta.AlertaProcessorVisitor;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "alerta_limite_pagamento_divida", schema = "despesas_db")
+@Getter
+@Setter
+@NoArgsConstructor
 public class AlertaLimitePagamentoDivida extends Alerta {
 
 	private static final long serialVersionUID = 5906177258449995082L;
@@ -20,18 +27,6 @@ public class AlertaLimitePagamentoDivida extends Alerta {
 	@ManyToOne
 	@JoinColumn(name = "divida_id", nullable = true)
 	private Divida divida;
-
-	public AlertaLimitePagamentoDivida() {
-		super();
-	}
-
-	public Divida getDivida() {
-		return divida;
-	}
-
-	public void setDivida(Divida divida) {
-		this.divida = divida;
-	}
 
 	@Override
 	public Notificacao gerarNotificacao() {

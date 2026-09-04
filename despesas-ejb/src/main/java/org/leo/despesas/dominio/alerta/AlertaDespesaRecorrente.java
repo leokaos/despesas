@@ -12,8 +12,15 @@ import org.leo.despesas.dominio.notificacao.Notificacao;
 import org.leo.despesas.infra.alerta.AlertaProcessorVisitor;
 import org.leo.despesas.infra.util.DataUtil;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "alerta_despesa_recorrente", schema = "despesas_db")
+@Getter
+@Setter
+@NoArgsConstructor
 public class AlertaDespesaRecorrente extends Alerta {
 
 	private static final long serialVersionUID = -5282519238519370892L;
@@ -27,34 +34,6 @@ public class AlertaDespesaRecorrente extends Alerta {
 
 	@Column(name = "dia_alvo")
 	private int diaAlvo;
-
-	public AlertaDespesaRecorrente() {
-		super();
-	}
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public TipoPeriodicidade getTipoPeriodicidade() {
-		return tipoPeriodicidade;
-	}
-
-	public void setTipoPeriodicidade(TipoPeriodicidade tipoPeriodicidade) {
-		this.tipoPeriodicidade = tipoPeriodicidade;
-	}
-
-	public int getDiaAlvo() {
-		return diaAlvo;
-	}
-
-	public void setDiaAlvo(int diaAlvo) {
-		this.diaAlvo = diaAlvo;
-	}
 
 	public LocalDate findProximaData() {
 		return tipoPeriodicidade.getCalculator().apply(diaAlvo);

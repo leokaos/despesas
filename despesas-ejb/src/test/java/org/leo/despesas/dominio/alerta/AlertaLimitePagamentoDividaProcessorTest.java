@@ -69,7 +69,7 @@ public class AlertaLimitePagamentoDividaProcessorTest {
 		NotificacaoFiltro filtro = captureFiltro.getValue();
 
 		assertEquals(alerta, filtro.getAlertaOrigem());
-		assertFalse(filtro.isExecutado());
+		assertFalse(filtro.getExecutado());
 	}
 
 	@Test
@@ -98,7 +98,7 @@ public class AlertaLimitePagamentoDividaProcessorTest {
 		NotificacaoFiltro filtro = captureFiltro.getValue();
 
 		assertEquals(alerta, filtro.getAlertaOrigem());
-		assertFalse(filtro.isExecutado());
+		assertFalse(filtro.getExecutado());
 
 		Notificacao notificacao = captureNotificacao.getValue();
 

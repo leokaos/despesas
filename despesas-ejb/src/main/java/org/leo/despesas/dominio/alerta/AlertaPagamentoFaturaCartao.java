@@ -13,8 +13,15 @@ import org.leo.despesas.dominio.debitavel.CartaoCredito;
 import org.leo.despesas.dominio.notificacao.Notificacao;
 import org.leo.despesas.infra.alerta.AlertaProcessorVisitor;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "alerta_pagamento_fatura_cartao", schema = "despesas_db")
+@Getter
+@Setter
+@NoArgsConstructor
 public class AlertaPagamentoFaturaCartao extends Alerta {
 
 	private static final long serialVersionUID = -6444085653952299136L;
@@ -22,18 +29,6 @@ public class AlertaPagamentoFaturaCartao extends Alerta {
 	@ManyToOne
 	@JoinColumn(name = "cartao_credito_id", nullable = true)
 	private CartaoCredito cartao;
-
-	public AlertaPagamentoFaturaCartao() {
-		super();
-	}
-
-	public CartaoCredito getCartao() {
-		return cartao;
-	}
-
-	public void setCartao(CartaoCredito cartao) {
-		this.cartao = cartao;
-	}
 
 	@Override
 	public Notificacao gerarNotificacao() {

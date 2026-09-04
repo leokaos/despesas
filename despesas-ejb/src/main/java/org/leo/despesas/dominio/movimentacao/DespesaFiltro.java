@@ -9,6 +9,13 @@ import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.infra.AbstractModelFiltro;
 import org.leo.despesas.infra.Moeda;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 
 	@QueryParam("dataInicial")
@@ -27,50 +34,6 @@ public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 	private Long debitavelId;
 
 	private Debitavel debitavel;
-
-	public DespesaFiltro() {
-		super();
-	}
-
-	public LocalDate getDataInicial() {
-		return dataInicial;
-	}
-
-	public void setDataInicial(LocalDate dataInicial) {
-		this.dataInicial = dataInicial;
-	}
-
-	public LocalDate getDataFinal() {
-		return dataFinal;
-	}
-
-	public void setDataFinal(LocalDate dataFinal) {
-		this.dataFinal = dataFinal;
-	}
-
-	public String getTipoDespesa() {
-		return tipoDespesa;
-	}
-
-	public void setTipoDespesa(String tipoDespesa) {
-		this.tipoDespesa = tipoDespesa;
-	}
-
-	public Moeda getMoeda() {
-		return moeda;
-	}
-
-	public void setMoeda(Moeda moeda) {
-		this.moeda = moeda;
-	}
-
-	public Debitavel getDebitavel() {
-		return debitavel;
-	}
-
-	public void setDebitavel(Debitavel debitavel) {
-		this.debitavel = debitavel;
-	}
 
 	public boolean hasDataInicialAndDataFinal() {
 		return dataInicial != null && dataFinal != null;

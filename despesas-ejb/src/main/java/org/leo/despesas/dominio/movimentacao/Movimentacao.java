@@ -34,6 +34,10 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Indexed(index = "movimentacao")
 @Table(name = "movimentacao", schema = "despesas_db")
@@ -44,6 +48,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 		@JsonSubTypes.Type(value = Receita.class, name = "receita"),
 		@JsonSubTypes.Type(value = Transferencia.class, name = "transferencia")
 })
+@Getter
+@Setter
+@NoArgsConstructor
 public abstract class Movimentacao implements ModelEntity {
 
 	private static final long serialVersionUID = 7650797422719540384L;
@@ -68,65 +75,12 @@ public abstract class Movimentacao implements ModelEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "debitavel_id")
+	@JsonDeserialize(using = DebitavelDeserializer.class)
 	protected Debitavel debitavel;
 
 	@Column(name = "moeda")
 	@Enumerated(EnumType.STRING)
 	private Moeda moeda;
-
-	public Movimentacao() {
-		super();
-	}
-
-	@Override
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(final Long id) {
-		this.id = id;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(final String descricao) {
-		this.descricao = descricao;
-	}
-
-	public BigDecimal getValor() {
-		return valor;
-	}
-
-	public void setValor(final BigDecimal valor) {
-		this.valor = valor;
-	}
-
-	public LocalDate getVencimento() {
-		return vencimento;
-	}
-
-	public void setVencimento(LocalDate vencimento) {
-		this.vencimento = vencimento;
-	}
-
-	public LocalDate getPagamento() {
-		return pagamento;
-	}
-
-	public void setPagamento(LocalDate pagamento) {
-		this.pagamento = pagamento;
-	}
-
-	public Debitavel getDebitavel() {
-		return debitavel;
-	}
-
-	@JsonDeserialize(using = DebitavelDeserializer.class)
-	public void setDebitavel(final Debitavel debitavel) {
-		this.debitavel = debitavel;
-	}
 
 	public void fechar() {
 		setPagamento(LocalDate.now(DataUtil.CLOCK));
@@ -134,14 +88,6 @@ public abstract class Movimentacao implements ModelEntity {
 
 	public void abrir() {
 		setPagamento(null);
-	}
-
-	public Moeda getMoeda() {
-		return moeda;
-	}
-
-	public void setMoeda(Moeda moeda) {
-		this.moeda = moeda;
 	}
 
 	@Override

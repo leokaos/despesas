@@ -25,8 +25,15 @@ import org.leo.despesas.infra.Periodo;
 import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.infra.util.DataUtil;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "fatura", schema = "despesas_db")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Fatura implements ModelEntity {
 
 	private static final long serialVersionUID = -4047341391900604495L;
@@ -47,70 +54,15 @@ public class Fatura implements ModelEntity {
 	private LocalDate dataFechamento;
 
 	@OneToMany(mappedBy = "fatura", fetch = FetchType.EAGER)
-	private Set<Despesa> despesas;
+	private Set<Despesa> despesas = new HashSet<>();
 
 	@Column(name = "paga")
 	private boolean paga;
-
-	public Fatura() {
-		super();
-
-		this.despesas = new HashSet<Despesa>();
-	}
 
 	public Fatura(final CartaoCredito cartao) {
 		this();
 
 		this.cartao = cartao;
-	}
-
-	@Override
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(final Long id) {
-		this.id = id;
-	}
-
-	public CartaoCredito getCartao() {
-		return cartao;
-	}
-
-	public void setCartao(final CartaoCredito cartao) {
-		this.cartao = cartao;
-	}
-
-	public LocalDate getDataVencimento() {
-		return dataVencimento;
-	}
-
-	public void setDataVencimento(LocalDate dataVencimento) {
-		this.dataVencimento = dataVencimento;
-	}
-
-	public LocalDate getDataFechamento() {
-		return dataFechamento;
-	}
-
-	public void setDataFechamento(LocalDate dataFechamento) {
-		this.dataFechamento = dataFechamento;
-	}
-
-	public Set<Despesa> getDespesas() {
-		return despesas;
-	}
-
-	public void setDespesas(final Set<Despesa> despesas) {
-		this.despesas = despesas;
-	}
-
-	public boolean isPaga() {
-		return paga;
-	}
-
-	public void setPaga(final boolean paga) {
-		this.paga = paga;
 	}
 
 	public BigDecimal getValorFatura() {

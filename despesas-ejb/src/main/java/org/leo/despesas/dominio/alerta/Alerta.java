@@ -25,17 +25,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "alerta", schema = "despesas_db")
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "tipo", visible = true)
-//@formatter:off
-@JsonSubTypes({ 
-	@JsonSubTypes.Type(value = AlertaDespesaRecorrente.class, name = "DESPESA_RECORRENTE"), 
-	@JsonSubTypes.Type(value = AlertaPagamentoFaturaCartao.class, name = "FATURA_CARTAO_CREDITO"),
-	@JsonSubTypes.Type(value = AlertaLimitePagamentoDivida.class, name = "VALOR_LIMITE_DIVIDA")
+@JsonSubTypes({
+		@JsonSubTypes.Type(value = AlertaDespesaRecorrente.class, name = "DESPESA_RECORRENTE"),
+		@JsonSubTypes.Type(value = AlertaPagamentoFaturaCartao.class, name = "FATURA_CARTAO_CREDITO"),
+		@JsonSubTypes.Type(value = AlertaLimitePagamentoDivida.class, name = "VALOR_LIMITE_DIVIDA")
 })
-//@formatter:on
+@Getter
+@Setter
+@NoArgsConstructor
 public abstract class Alerta implements ModelEntity {
 
 	private static final long serialVersionUID = 3937060574469790488L;
@@ -55,42 +60,6 @@ public abstract class Alerta implements ModelEntity {
 	@JsonIgnore
 	@OneToMany(mappedBy = "alerta", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Notificacao> notificacoes = new ArrayList<>();
-
-	public Alerta() {
-		super();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public TipoAlerta getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(TipoAlerta tipo) {
-		this.tipo = tipo;
-	}
-
-	public int getDiasAntesDeAviso() {
-		return diasAntesDeAviso;
-	}
-
-	public void setDiasAntesDeAviso(int diasAntesDeAviso) {
-		this.diasAntesDeAviso = diasAntesDeAviso;
-	}
-
-	public List<Notificacao> getNotificacoes() {
-		return notificacoes;
-	}
-
-	public void setNotificacoes(List<Notificacao> notificacoes) {
-		this.notificacoes = notificacoes;
-	}
 
 	public abstract Notificacao gerarNotificacao();
 

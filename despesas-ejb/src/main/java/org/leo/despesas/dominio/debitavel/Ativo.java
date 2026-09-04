@@ -11,8 +11,13 @@ import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
 import org.leo.despesas.rest.DebitavelSerializerVisitorImpl;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "ativo", schema = "despesas_db")
+@Getter
+@Setter
 public class Ativo extends Debitavel {
 
 	private static final long serialVersionUID = 4734557151152113449L;
@@ -24,12 +29,7 @@ public class Ativo extends Debitavel {
 
 	public Ativo() {
 		super();
-
 		setTipo(CODIGO_TIPO);
-	}
-
-	public String getTipo() {
-		return CODIGO_TIPO;
 	}
 
 	@Override

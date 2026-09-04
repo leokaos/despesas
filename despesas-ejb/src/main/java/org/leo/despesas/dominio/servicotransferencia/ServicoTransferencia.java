@@ -14,8 +14,15 @@ import javax.persistence.Table;
 
 import org.leo.despesas.infra.ModelEntity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "servico_transferencia", schema = "despesas_db")
+@Getter
+@Setter
+@NoArgsConstructor
 public class ServicoTransferencia implements ModelEntity {
 
 	private static final long serialVersionUID = -8754012359474676770L;
@@ -36,50 +43,6 @@ public class ServicoTransferencia implements ModelEntity {
 
 	@Column(name = "CUSTO_VARIAVEL")
 	private boolean custoVariavel;
-
-	public ServicoTransferencia() {
-		super();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public BigDecimal getSpred() {
-		return spred;
-	}
-
-	public void setSpred(BigDecimal spred) {
-		this.spred = spred;
-	}
-
-	public BigDecimal getTaxas() {
-		return taxas;
-	}
-
-	public void setTaxas(BigDecimal taxas) {
-		this.taxas = taxas;
-	}
-
-	public boolean isCustoVariavel() {
-		return custoVariavel;
-	}
-
-	public void setCustoVariavel(boolean custoVariavel) {
-		this.custoVariavel = custoVariavel;
-	}
 
 	public double calcularValorParaTransferencia(Cotacao cotacao, BigDecimal spot, Porcentagem iof, BigDecimal valor) {
 

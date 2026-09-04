@@ -3,6 +3,9 @@ package org.leo.despesas.dominio.debitavel;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+
+@Getter
 public enum BandeiraCartaoCredito {
 
 	VISA("Visa"), MASTERCARD("MasterCard"), AMERICAN_EXPRESS("American Express");
@@ -21,10 +24,6 @@ public enum BandeiraCartaoCredito {
 
 	private BandeiraCartaoCredito(String nome) {
 		this.nome = nome;
-	}
-
-	public String getNome() {
-		return nome;
 	}
 
 	public static BandeiraCartaoCredito parse(String nome) {

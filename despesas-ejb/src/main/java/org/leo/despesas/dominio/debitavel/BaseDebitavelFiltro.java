@@ -6,6 +6,13 @@ import org.leo.despesas.infra.AbstractModelFiltro;
 import org.leo.despesas.infra.ModelEntity;
 import org.leo.despesas.infra.Moeda;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public abstract class BaseDebitavelFiltro<T extends ModelEntity> extends AbstractModelFiltro<T> {
 
 	@QueryParam("moeda")
@@ -13,26 +20,6 @@ public abstract class BaseDebitavelFiltro<T extends ModelEntity> extends Abstrac
 
 	@QueryParam("ativo")
 	private Boolean ativo;
-
-	public BaseDebitavelFiltro() {
-		super();
-	}
-
-	public Moeda getMoeda() {
-		return moeda;
-	}
-
-	public void setMoeda(Moeda moeda) {
-		this.moeda = moeda;
-	}
-
-	public Boolean getAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(Boolean ativo) {
-		this.ativo = ativo;
-	}
 
 	@Override
 	protected void build() {

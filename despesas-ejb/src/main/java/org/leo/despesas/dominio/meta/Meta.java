@@ -24,9 +24,16 @@ import org.leo.despesas.rest.MetaDeserializer;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "meta", schema = "despesas_db")
 @JsonDeserialize(using = MetaDeserializer.class)
+@Getter
+@Setter
+@NoArgsConstructor
 public class Meta implements ModelEntity {
 
 	private static final long serialVersionUID = 6313644358726789152L;
@@ -43,42 +50,6 @@ public class Meta implements ModelEntity {
 
 	@Transient
 	private BigDecimal saldo = BigDecimal.ZERO;
-
-	public Meta() {
-		super();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Mes getMes() {
-		return mes;
-	}
-
-	public void setMes(Mes mes) {
-		this.mes = mes;
-	}
-
-	public BigDecimal getValor() {
-		return valor;
-	}
-
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
-	}
-
-	public BigDecimal getSaldo() {
-		return saldo;
-	}
-
-	public void setSaldo(BigDecimal saldo) {
-		this.saldo = saldo;
-	}
 
 	public void calcularSaldo(List<Movimentacao> movimentos) {
 

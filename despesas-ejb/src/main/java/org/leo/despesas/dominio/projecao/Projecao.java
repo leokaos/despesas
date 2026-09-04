@@ -7,23 +7,18 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class Projecao implements Serializable {
 
 	private static final long serialVersionUID = -3806316926897965193L;
 
 	private List<ProjecaoItem> itens = Lists.newArrayList();
-
-	public Projecao() {
-		super();
-	}
-
-	public List<ProjecaoItem> getItens() {
-		return itens;
-	}
-
-	public void setItens(List<ProjecaoItem> itens) {
-		this.itens = itens;
-	}
 
 	public void addItem(LocalDate date, BigDecimal saldo) {
 		itens.add(new ProjecaoItem(date, saldo));

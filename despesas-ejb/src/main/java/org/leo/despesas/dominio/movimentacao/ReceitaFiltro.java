@@ -8,6 +8,13 @@ import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.infra.AbstractModelFiltro;
 import org.leo.despesas.infra.Moeda;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 
 	@QueryParam("dataInicial")
@@ -29,70 +36,6 @@ public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 
 	@QueryParam("compromissada")
 	private Boolean compromissada;
-
-	public LocalDate getDataInicial() {
-		return dataInicial;
-	}
-
-	public void setDataInicial(LocalDate dataInicial) {
-		this.dataInicial = dataInicial;
-	}
-
-	public LocalDate getDataFinal() {
-		return dataFinal;
-	}
-
-	public void setDataFinal(LocalDate dataFinal) {
-		this.dataFinal = dataFinal;
-	}
-
-	public String getTipoReceita() {
-		return tipoReceita;
-	}
-
-	public Debitavel getDebitavel() {
-		return debitavel;
-	}
-
-	public void setDebitavel(Debitavel debitavel) {
-		this.debitavel = debitavel;
-	}
-
-	public void setTipoReceita(String tipoReceita) {
-		this.tipoReceita = tipoReceita;
-	}
-
-	public Moeda getMoeda() {
-		return moeda;
-	}
-
-	public void setMoeda(Moeda moeda) {
-		this.moeda = moeda;
-	}
-
-	public Boolean getCompromissada() {
-		return compromissada;
-	}
-
-	public void setCompromissada(Boolean compromissada) {
-		this.compromissada = compromissada;
-	}
-
-	public boolean hasDataInicialAndDataFinal() {
-		return dataInicial != null && dataFinal != null;
-	}
-
-	public boolean hasDataInicial() {
-		return dataInicial != null;
-	}
-
-	public boolean hasDataFinal() {
-		return dataFinal != null;
-	}
-
-	public boolean hasTipoReceita() {
-		return tipoReceita != null;
-	}
 
 	@Override
 	protected void build() {

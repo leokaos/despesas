@@ -6,6 +6,9 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.function.Function;
 
+import lombok.Getter;
+
+@Getter
 public enum TipoPeriodicidade {
 
 	DIA_UTIL(diaAlvo -> {
@@ -45,10 +48,6 @@ public enum TipoPeriodicidade {
 
 	private TipoPeriodicidade(Function<Integer, LocalDate> calculator) {
 		this.calculator = calculator;
-	}
-
-	public Function<Integer, LocalDate> getCalculator() {
-		return calculator;
 	}
 
 }

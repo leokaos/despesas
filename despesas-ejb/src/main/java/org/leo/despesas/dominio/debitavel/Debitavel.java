@@ -24,10 +24,17 @@ import org.leo.despesas.rest.DebitavelSerializerVisitorImpl;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "debitavel", schema = "despesas_db")
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonDeserialize(using = DebitavelDeserializer.class)
+@Getter
+@Setter
+@NoArgsConstructor
 public abstract class Debitavel implements ModelEntity {
 
 	private static final long serialVersionUID = -2096306756580686432L;
@@ -52,59 +59,6 @@ public abstract class Debitavel implements ModelEntity {
 
 	private boolean ativo = true;
 
-	public Debitavel() {
-		super();
-	}
-
-	@Override
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(final Long id) {
-		this.id = id;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(final String descricao) {
-		this.descricao = descricao;
-	}
-
-	public String getCor() {
-		return cor;
-	}
-
-	public void setCor(final String cor) {
-		this.cor = cor;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
-	public Moeda getMoeda() {
-		return moeda;
-	}
-
-	public void setMoeda(Moeda moeda) {
-		this.moeda = moeda;
-	}
-
-	public boolean isAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
-	}
-
 	public abstract void debitar(Despesa despesa);
 
 	public abstract void creditar(Receita receita);
@@ -118,8 +72,8 @@ public abstract class Debitavel implements ModelEntity {
 	public abstract BigDecimal getSaldo();
 
 	public abstract void estornar(Despesa despesa);
-	
+
 	public abstract void estornar(Receita receita);
-	
+
 	public abstract void estornar(Transferencia transferencia);
 }

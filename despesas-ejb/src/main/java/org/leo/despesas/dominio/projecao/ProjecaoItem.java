@@ -3,31 +3,16 @@ package org.leo.despesas.dominio.projecao;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class ProjecaoItem {
 
-	private LocalDate data;
-	private BigDecimal valor;
-
-	public ProjecaoItem(LocalDate data, BigDecimal valor) {
-		super();
-		this.data = data;
-		this.valor = valor;
-	}
-
-	public LocalDate getData() {
-		return data;
-	}
-
-	public void setData(LocalDate data) {
-		this.data = data;
-	}
-
-	public BigDecimal getValor() {
-		return valor;
-	}
-
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
-	}
+	private final LocalDate data;
+	private final BigDecimal valor;
 
 }

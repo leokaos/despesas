@@ -7,6 +7,13 @@ import javax.ws.rs.QueryParam;
 import org.leo.despesas.dominio.alerta.Alerta;
 import org.leo.despesas.infra.AbstractModelFiltro;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class NotificacaoFiltro extends AbstractModelFiltro<Notificacao> {
 
 	private Alerta alertaOrigem;
@@ -15,34 +22,6 @@ public class NotificacaoFiltro extends AbstractModelFiltro<Notificacao> {
 	private Boolean executado;
 
 	private LocalDate targetDate;
-
-	public NotificacaoFiltro() {
-		super();
-	}
-
-	public Alerta getAlertaOrigem() {
-		return alertaOrigem;
-	}
-
-	public void setAlertaOrigem(Alerta alertaOrigem) {
-		this.alertaOrigem = alertaOrigem;
-	}
-
-	public boolean isExecutado() {
-		return executado;
-	}
-
-	public void setExecutado(boolean executado) {
-		this.executado = executado;
-	}
-
-	public LocalDate getTargetDate() {
-		return targetDate;
-	}
-
-	public void setTargetDate(LocalDate targetDate) {
-		this.targetDate = targetDate;
-	}
 
 	@Override
 	protected void build() {

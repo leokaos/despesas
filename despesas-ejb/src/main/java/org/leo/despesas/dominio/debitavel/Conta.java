@@ -11,8 +11,13 @@ import org.leo.despesas.dominio.movimentacao.Receita;
 import org.leo.despesas.dominio.movimentacao.Transferencia;
 import org.leo.despesas.rest.DebitavelSerializerVisitorImpl;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "conta", schema = "despesas_db")
+@Getter
+@Setter
 public class Conta extends Debitavel {
 
 	private static final long serialVersionUID = -6946595134001817926L;
@@ -26,18 +31,6 @@ public class Conta extends Debitavel {
 		super();
 
 		setTipo(CODIGO_TIPO);
-	}
-
-	public BigDecimal getSaldo() {
-		return saldo;
-	}
-
-	public void setSaldo(final BigDecimal saldo) {
-		this.saldo = saldo;
-	}
-
-	public String getTipo() {
-		return CODIGO_TIPO;
 	}
 
 	@Override
