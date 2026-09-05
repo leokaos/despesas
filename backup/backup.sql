@@ -626,9 +626,9 @@ VISA	10	12	3500.00	23	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
+31440.32	3
 0.00	4
-35745.24	5
-31822.79	3
+34205.60	5
 \.
 
 
@@ -666,6 +666,7 @@ COPY despesas_db.cotacao (id, origem, destino, taxa, data) FROM stdin;
 27	EURO	REAL	5.89	2026-06-05
 28	EURO	REAL	5.86	2026-07-19
 29	EURO	REAL	6.04	2026-08-19
+30	EURO	REAL	5.95	2026-09-04
 \.
 
 
@@ -7631,6 +7632,26 @@ t	7441	107	\N	\N
 t	7442	107	\N	\N
 t	7443	107	\N	\N
 t	7444	102	\N	\N
+t	7447	108	124	\N
+t	7448	201	124	\N
+t	7449	201	124	\N
+t	7450	201	124	\N
+t	7451	201	124	\N
+t	7453	4	\N	\N
+t	7454	108	\N	\N
+t	7455	108	\N	\N
+t	7456	4	\N	\N
+t	7457	4	\N	\N
+t	7458	102	\N	\N
+t	7459	108	\N	\N
+t	7460	108	\N	\N
+t	7461	107	\N	\N
+t	7462	102	\N	\N
+t	7463	102	\N	\N
+t	7464	104	\N	\N
+t	7465	3	\N	\N
+t	7466	102	\N	\N
+t	7467	4	\N	\N
 \.
 
 
@@ -7729,11 +7750,11 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 114	6	2026-05-11	2026-04-28	t
 115	6	2026-06-11	2026-05-28	t
 116	6	2026-07-11	2026-06-28	t
-124	6	2026-09-11	2026-08-28	f
 125	6	2026-10-11	2026-09-28	f
 117	6	2026-08-11	2026-07-28	t
 126	23	2026-09-12	2026-09-10	f
 120	23	2026-08-12	2026-07-10	t
+124	6	2026-09-11	2026-08-28	t
 \.
 
 
@@ -14984,7 +15005,6 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7349	Demon Slayer Box 2/3	2026-08-05	300.01	2026-09-03	6	REAL
 7350	Demon Slayer Box 3/3	2026-08-05	300.01	2026-10-03	6	REAL
 7351	Demon Slayer Box 1/3	2026-08-05	300.01	2026-07-27	6	REAL
-7352	Demon Slayer Box 2/3	2026-08-05	300.01	2026-08-27	6	REAL
 7353	Demon Slayer Box 3/3	2026-08-05	300.01	2026-09-27	6	REAL
 7354	Pacote Itau	2026-08-06	71.90	2026-08-04	5	REAL
 7355	Eletropaulo	2026-08-06	25.23	2026-07-29	5	REAL
@@ -15036,6 +15056,7 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7402	UBER RIDES PORTUGAL	2026-08-27	4.94	2026-08-24	3	EURO
 7403	CONTINENTE BRAGA BRAGA	2026-08-27	59.45	2026-08-24	3	EURO
 7322	Valor IVA de Agosto/2026	2026-08-31	1255.80	2026-08-31	3	EURO
+7352	Demon Slayer Box 2/3	2026-08-05	299.99	2026-08-27	6	REAL
 7404	ISERVICES BRAGA BRAGA	2026-08-27	76.95	2026-08-24	3	EURO
 7405	ARCADIA NOVA ARCADA	2026-08-27	4.55	2026-08-24	3	EURO
 7406	UBER RIDES PORTUGAL	2026-08-27	4.95	2026-08-24	3	EURO
@@ -15079,6 +15100,27 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7443	SAO MARCOS 4700-099 BRAGA	2026-09-02	1.50	2026-09-02	3	EURO
 7444	GLOVO	2026-09-02	14.50	2026-09-02	3	EURO
 7446	Pagamento Carro	\N	27114.51	2026-09-01	3	EURO
+7447	ANUIDADE DIFERENCIADA	2026-09-04	37.00	2026-08-05	6	REAL
+7448	NETFLIX.COM	2026-09-04	44.90	2026-08-11	6	REAL
+7449	AmazonPrimeBR	2026-09-04	19.90	2026-08-12	6	REAL
+7450	APPLE.COM/BILL	2026-09-04	29.90	2026-08-20	6	REAL
+7451	DM*Spotify	2026-09-04	23.90	2026-08-27	6	REAL
+7452	Pagamento fatura 09/2026	2026-09-04	455.59	2026-09-04	5	REAL
+7453	Condominio	2026-09-04	732.00	2026-09-04	5	REAL
+7454	Tar Pacote	2026-09-04	71.90	2026-09-02	5	REAL
+7455	Policia Federal - Passaporte	2026-09-04	257.25	2026-09-01	5	REAL
+7456	Eletropaulo	2026-09-04	22.90	2026-08-31	5	REAL
+7457	DD VODAFONE PORTU 07335462122 PT10100825	2026-09-04	59.88	2026-09-03	3	EURO
+7458	TOMATINO	2026-09-04	0.10	2026-09-03	3	EURO
+7459	COM.MAN.CONTA PACOTE PRESTIGE START	2026-09-04	3.50	2026-09-03	3	EURO
+7460	IMPOSTO SELO ART 17.3.4	2026-09-04	0.14	2026-09-03	3	EURO
+7461	DD OCIDENTAL 00533467306 VIDA CP	2026-09-04	3.37	2026-09-04	3	EURO
+7462	TRF P/ MARMITANDO UNIPESSOAL LDA	2026-09-04	200.00	2026-09-04	3	EURO
+7463	PIZZA HUT	2026-09-04	8.75	2026-09-04	3	EURO
+7464	C&A	2026-09-04	13.24	2026-09-04	3	EURO
+7465	IKEA	2026-09-04	14.99	2026-09-04	3	EURO
+7466	NORMAL	2026-09-04	4.70	2026-09-03	3	EURO
+7467	CONTABILIDADE	2026-09-04	73.80	2026-09-04	3	EURO
 \.
 
 
@@ -15092,11 +15134,12 @@ COPY despesas_db.notificacao (id, executado, origem_alerta_id, target_date) FROM
 7	t	7	2026-08-14
 6	t	5	2026-08-07
 4	t	5	2026-08-10
-10	f	7	2026-09-15
-11	f	2	2026-09-11
 9	t	5	2026-09-08
-12	f	8	2026-09-08
 13	f	3	2026-09-12
+11	t	2	2026-09-11
+10	t	7	2026-09-15
+12	t	8	2026-09-08
+14	f	3	2026-09-12
 \.
 
 
@@ -15503,6 +15546,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 7375	23	5.99
 7395	25	2000.00
 7446	25	27114.51
+7452	6	455.59
 \.
 
 
@@ -15557,7 +15601,7 @@ SELECT pg_catalog.setval('despesas_db.alerta_id_seq', 8, true);
 -- Name: cotacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 29, true);
+SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 30, true);
 
 
 --
@@ -15599,14 +15643,14 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7446, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7467, true);
 
 
 --
 -- Name: notificacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 13, true);
+SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 14, true);
 
 
 --
