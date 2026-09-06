@@ -626,7 +626,7 @@ VISA	10	12	3500.00	23	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-31440.32	3
+31304.04	3
 0.00	4
 34205.60	5
 \.
@@ -7652,6 +7652,10 @@ t	7464	104	\N	\N
 t	7465	3	\N	\N
 t	7466	102	\N	\N
 t	7467	4	\N	\N
+t	7468	102	\N	\N
+t	7469	1	\N	\N
+t	7470	301	\N	\N
+t	7471	102	\N	\N
 \.
 
 
@@ -15121,6 +15125,10 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7465	IKEA	2026-09-04	14.99	2026-09-04	3	EURO
 7466	NORMAL	2026-09-04	4.70	2026-09-03	3	EURO
 7467	CONTABILIDADE	2026-09-04	73.80	2026-09-04	3	EURO
+7468	QS 1201049	2026-09-05	12.10	2026-09-05	3	EURO
+7469	LEV ATM 8281	2026-09-05	40.00	2026-09-05	3	EURO
+7470	CONTINENTE	2026-09-05	79.38	2026-09-05	3	EURO
+7471	ARCADIA NOVA ARCADA	2026-09-05	4.80	2026-09-05	3	EURO
 \.
 
 
@@ -15140,6 +15148,7 @@ COPY despesas_db.notificacao (id, executado, origem_alerta_id, target_date) FROM
 10	t	7	2026-09-15
 12	t	8	2026-09-08
 14	f	3	2026-09-12
+15	f	3	2026-09-12
 \.
 
 
@@ -15643,14 +15652,14 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7467, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7471, true);
 
 
 --
 -- Name: notificacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 14, true);
+SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 15, true);
 
 
 --
