@@ -26,9 +26,7 @@ public class AlertaDespesaRecorrenteProcessor implements AlertaProcessor<AlertaD
 
 				LocalDate proximaData = alerta.findProximaData();
 
-				NotificacaoFiltro filtro = new NotificacaoFiltro();
-				filtro.setAlertaOrigem(alerta);
-				filtro.setTargetDate(proximaData);
+				NotificacaoFiltro filtro = NotificacaoFiltro.builder().alertaOrigem(alerta).targetDate(proximaData).build();
 
 				List<Notificacao> notificacoes = this.notificacaoFacade.listar(filtro);
 

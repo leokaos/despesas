@@ -7,6 +7,8 @@ import javax.ws.rs.QueryParam;
 import org.leo.despesas.dominio.alerta.Alerta;
 import org.leo.despesas.infra.AbstractModelFiltro;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +16,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class NotificacaoFiltro extends AbstractModelFiltro<Notificacao> {
 
 	private Alerta alertaOrigem;

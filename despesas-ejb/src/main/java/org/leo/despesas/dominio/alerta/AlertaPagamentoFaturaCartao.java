@@ -2,8 +2,6 @@ package org.leo.despesas.dominio.alerta;
 
 import static org.leo.despesas.infra.util.DataUtil.estaNosProximosDias;
 
-import java.time.LocalDate;
-
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -36,7 +34,7 @@ public class AlertaPagamentoFaturaCartao extends Alerta {
 		Notificacao notificacao = new Notificacao();
 		notificacao.setAlerta(this);
 		notificacao.setExecutado(false);
-		notificacao.setTargetDate(LocalDate.now().withDayOfMonth(cartao.getDiaDeVencimento()));
+		notificacao.setTargetDate(cartao.getDataProximaFatura());
 
 		return notificacao;
 	}

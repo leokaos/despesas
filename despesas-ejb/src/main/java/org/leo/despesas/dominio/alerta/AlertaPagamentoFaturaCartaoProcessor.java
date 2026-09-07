@@ -23,9 +23,7 @@ public class AlertaPagamentoFaturaCartaoProcessor implements AlertaProcessor<Ale
 
 			if (alerta.isProximaFaturaNosProximosDias()) {
 
-				NotificacaoFiltro filtro = new NotificacaoFiltro();
-				filtro.setAlertaOrigem(alerta);
-				filtro.setTargetDate(alerta.getCartao().getDataProximaFatura());
+				NotificacaoFiltro filtro = NotificacaoFiltro.builder().alertaOrigem(alerta).targetDate(alerta.getCartao().getDataProximaFatura()).build();
 
 				List<Notificacao> notificacoes = this.notificacaoFacade.listar(filtro);
 

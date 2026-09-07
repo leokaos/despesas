@@ -41,7 +41,7 @@ public class AlertaFacadeImpl extends AbstractFacade<Alerta, AlertaFiltro> imple
 	@Override
 	protected void preDeletar(Alerta entity) throws DespesasException {
 
-		boolean notificacoesEmAberto = entity.getNotificacoes().stream().anyMatch(notificaoca -> !notificaoca.isExecutado());
+		boolean notificacoesEmAberto = entity.getNotificacoes().stream().anyMatch(notificacao -> !notificacao.isExecutado());
 
 		if (notificacoesEmAberto) {
 			throw new ValidationEntityException("Ainda existem notificações em aberto para esse alerta!");
