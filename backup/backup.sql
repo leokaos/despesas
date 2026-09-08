@@ -626,7 +626,7 @@ VISA	10	12	3500.00	23	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-31289.08	3
+28089.88	3
 0.00	4
 34205.60	5
 \.
@@ -683,10 +683,10 @@ COPY despesas_db.debitavel (id, cor, descricao, tipo, moeda, ativo) FROM stdin;
 19	#fff700	IVA 4 Trimestre 2025	DIVIDA	EURO	f
 20	#e8d846	IVA 1 Trimestre 2026	DIVIDA	EURO	f
 4	#709982	N26	CONTA	EURO	f
-22	#c7bc24	IVA 2 Trimestre 2026 	DIVIDA	EURO	t
 23	#ff9e03	Gold Prestige	CARTAO	EURO	t
 25	#3B3B3B	JEEP AVENGER	ATIVO	EURO	t
 26	#ff7300	FINANCIAMENTO CARRO	DIVIDA	EURO	t
+22	#c7bc24	IVA 2 Trimestre 2026 	DIVIDA	EURO	f
 \.
 
 
@@ -7657,6 +7657,7 @@ t	7469	1	\N	\N
 t	7470	301	\N	\N
 t	7471	102	\N	\N
 t	7472	102	\N	\N
+t	7474	102	\N	\N
 \.
 
 
@@ -15131,6 +15132,8 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7470	CONTINENTE	2026-09-05	79.38	2026-09-05	3	EURO
 7471	ARCADIA NOVA ARCADA	2026-09-05	4.80	2026-09-05	3	EURO
 7472	BRAZA	2026-09-06	14.96	2026-09-06	3	EURO
+7473	PAGAMENTO IVA	\N	3189.30	2026-09-06	3	EURO
+7474	Glovo	2026-09-07	9.90	2026-09-07	3	EURO
 \.
 
 
@@ -15139,19 +15142,16 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 --
 
 COPY despesas_db.notificacao (id, executado, origem_alerta_id, target_date) FROM stdin;
+18	f	3	2026-09-14
 3	t	2	2026-08-11
 5	t	3	2026-08-12
 7	t	7	2026-08-14
 6	t	5	2026-08-07
 4	t	5	2026-08-10
 9	t	5	2026-09-08
-13	f	3	2026-09-12
 11	t	2	2026-09-11
 10	t	7	2026-09-15
 12	t	8	2026-09-08
-14	f	3	2026-09-12
-15	f	3	2026-09-12
-16	f	3	2026-09-12
 \.
 
 
@@ -15404,7 +15404,6 @@ D	201	#ff0000	Nerdisse
 D	301	#00ffe0	Supermercado
 D	302	#c658d1	Almoço
 D	401	#bdff00	Consumo
-D	1	#c9c9c9	Saques
 D	2	#f0f261	Medico
 D	4	#8f5151	Contas
 D	3	#4a1ad6	Casa
@@ -15412,6 +15411,7 @@ D	107	#a1a1a1	Carro
 D	5	#00ff32	Gastos Advogados
 R	10	#00ff66	Acordo Pagamento PENGUIN
 R	23	#194fcf	Pagamento IVA
+D	1	#22a39b	Saques
 \.
 
 
@@ -15559,6 +15559,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 7395	25	2000.00
 7446	25	27114.51
 7452	6	455.59
+7473	22	3189.30
 \.
 
 
@@ -15655,14 +15656,14 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7472, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7474, true);
 
 
 --
 -- Name: notificacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 16, true);
+SELECT pg_catalog.setval('despesas_db.notificacao_id_seq', 18, true);
 
 
 --
