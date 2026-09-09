@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import javax.ws.rs.QueryParam;
 
-import org.apache.commons.lang3.StringUtils;
 import org.leo.despesas.dominio.debitavel.Debitavel;
 import org.leo.despesas.infra.AbstractModelFiltro;
 import org.leo.despesas.infra.Moeda;
@@ -35,22 +34,6 @@ public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 
 	private Debitavel debitavel;
 
-	public boolean hasDataInicialAndDataFinal() {
-		return dataInicial != null && dataFinal != null;
-	}
-
-	public boolean hasDataInicial() {
-		return dataInicial != null;
-	}
-
-	public boolean hasDataFinal() {
-		return dataFinal != null;
-	}
-
-	public boolean hasTipoDespesa() {
-		return StringUtils.isNotEmpty(tipoDespesa);
-	}
-
 	@Override
 	protected void build() {
 
@@ -63,11 +46,9 @@ public class DespesaFiltro extends AbstractModelFiltro<Despesa> {
 		eq("moeda", moeda);
 
 		eq("debitavel.id", debitavelId);
-	}
 
-	@Override
-	protected String orderBy() {
-		return "vencimento DESC";
+		order("vencimento", "DESC");
+
 	}
 
 }

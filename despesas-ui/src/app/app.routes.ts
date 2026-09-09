@@ -45,6 +45,7 @@ import { FeriadoManager } from './movimentacao/feriado-manager/feriado-manager';
 import { BulkEditDespesa } from './movimentacao/bulk-edit-despesa/bulk-edit-despesa';
 import { BulkEditReceita } from './movimentacao/bulk-edit-receita/bulk-edit-receita';
 import { AlertView } from './cadastros/alerta/alert-view/alert-view';
+import { AtivoView } from './cadastros/debitavel/ativo-view/ativo-view';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -92,6 +93,7 @@ export const routes: Routes = [
   { path: 'feriado', component: FeriadoEdit },
   { path: 'feriado/:id', component: FeriadoEdit },
   { path: 'alertas', component: AlertView },
+  { path: 'ativos', component: AtivoView },
 
   //MOVIMENTACAO
   { path: 'pagamentos', component: Pagamentos },

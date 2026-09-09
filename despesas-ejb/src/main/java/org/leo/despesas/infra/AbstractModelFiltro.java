@@ -1,31 +1,21 @@
 package org.leo.despesas.infra;
 
-import java.text.MessageFormat;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.ws.rs.QueryParam;
 
 import org.apache.commons.lang3.StringUtils;
 import org.leo.despesas.infra.exception.InvalidQueryException;
-import org.leo.despesas.infra.query.BetweenClause;
-import org.leo.despesas.infra.query.Clause;
-import org.leo.despesas.infra.query.EqualCaseInsensitiveClause;
-import org.leo.despesas.infra.query.EqualClause;
-import org.leo.despesas.infra.query.GreaterClause;
-import org.leo.despesas.infra.query.InClause;
-import org.leo.despesas.infra.query.LessClause;
-import org.leo.despesas.infra.query.LikeClause;
-import org.leo.despesas.infra.query.NotEqualClause;
+import org.leo.despesas.infra.query.FilterClause;
 
 import com.github.tennaito.rsql.jpa.JpaPredicateVisitor;
-import com.google.common.collect.Lists;
 
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.RSQLParserException;
@@ -33,7 +23,7 @@ import cz.jirutka.rsql.parser.ast.Node;
 
 public abstract class AbstractModelFiltro<T extends ModelEntity> implements ModelFiltro<T> {
 
-	private List<Clause> clausulas = Lists.newArrayList();
+	private List<FilterClause> clausulas = new ArrayList<>();
 
 	@QueryParam("filter")
 	private String filter;
@@ -47,9 +37,6 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 	@QueryParam("query")
 	private String query;
 
-	private static final String SELECT_MODEL = "SELECT {1} FROM {0} {1}";
-	private static final String COUNT_MODEL = "SELECT COUNT({1}) FROM {0} {1}";
-
 	@Override
 	public List<T> getLista(EntityManager entityManager, Class<T> classeDaEntidade) {
 
@@ -61,7 +48,6 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 
 	}
 
-	@SuppressWarnings({ "unchecked" })
 	private List<T> parseAndQuery(EntityManager entityManager, Class<T> classeDaEntidade) {
 
 		try {
@@ -92,20 +78,32 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 
 		build();
 
-		final String alias = classeDaEntidade.getSimpleName();
-		StringBuilder builder = new StringBuilder(MessageFormat.format(SELECT_MODEL, alias, alias.toLowerCase()));
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = cb.createQuery(classeDaEntidade);
+		Root<T> root = criteriaQuery.from(classeDaEntidade);
 
-		String sourceQuery = buildQuery(builder, alias.toLowerCase(), true);
+		List<Predicate> predicates = new ArrayList<>();
 
-		TypedQuery<T> query = entityManager.createQuery(sourceQuery, classeDaEntidade);
-
-		Iterator<Clause> it = clausulas.iterator();
-
-		while (it.hasNext()) {
-			it.next().colocarValor(query);
+		for (FilterClause clause : clausulas) {
+			predicates.add(clause.toPredicate(cb, root));
 		}
 
-		return query.getResultList();
+		if (!predicates.isEmpty()) {
+			criteriaQuery.where(predicates.toArray(new Predicate[0]));
+		}
+
+		if (StringUtils.isNotBlank(order)) {
+
+			Path<?> orderPath = root.get(order);
+
+			if ("DESC".equalsIgnoreCase(direction)) {
+				criteriaQuery.orderBy(cb.desc(orderPath));
+			} else {
+				criteriaQuery.orderBy(cb.asc(orderPath));
+			}
+		}
+
+		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 
 	@Override
@@ -113,57 +111,33 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 
 		build();
 
-		final String alias = classeDaEntidade.getSimpleName();
-		StringBuilder builder = new StringBuilder(MessageFormat.format(COUNT_MODEL, alias, alias.toLowerCase()));
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Long> criteriaQuery = cb.createQuery(Long.class);
+		Root<T> root = criteriaQuery.from(classeDaEntidade);
 
-		String sourceQuery = buildQuery(builder, alias, false);
+		criteriaQuery.select(cb.count(root));
 
-		TypedQuery<Long> query = entityManager.createQuery(sourceQuery, Long.class);
+		List<Predicate> predicates = new ArrayList<>();
 
-		Iterator<Clause> it = clausulas.iterator();
-
-		while (it.hasNext()) {
-			it.next().colocarValor(query);
+		for (FilterClause clause : clausulas) {
+			predicates.add(clause.toPredicate(cb, root));
 		}
 
-		return query.getSingleResult();
+		if (!predicates.isEmpty()) {
+			criteriaQuery.where(predicates.toArray(new Predicate[0]));
+		}
+
+		return entityManager.createQuery(criteriaQuery).getSingleResult();
 	}
 
 	protected void build() {
 
 	}
 
-	private String buildQuery(StringBuilder builder, String alias, boolean addOrder) {
-
-		Iterator<Clause> it = clausulas.iterator();
-
-		if (it.hasNext()) {
-			builder.append(" WHERE");
-		}
-
-		while (it.hasNext()) {
-
-			builder.append(" ");
-
-			it.next().colocarClause(builder);
-
-			if (it.hasNext()) {
-				builder.append(" AND ");
-			}
-
-		}
-
-		if (addOrder) {
-			builder.append(" ORDER BY ").append(alias).append(".").append(orderBy());
-		}
-
-		return builder.toString();
-	}
-
 	protected void eq(String property, Object value) {
 
 		if (value != null) {
-			this.clausulas.add(new EqualClause(property, value));
+			clausulas.add((cb, root) -> cb.equal(root.get(property), value));
 		}
 
 	}
@@ -171,7 +145,7 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 	protected void eqIgnoreCase(String property, String value) {
 
 		if (value != null) {
-			this.clausulas.add(new EqualCaseInsensitiveClause(property, value));
+			clausulas.add((cb, root) -> cb.equal(cb.lower(root.get(property)), value.toLowerCase()));
 		}
 
 	}
@@ -179,59 +153,48 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 	protected void between(String property, Object minimo, Object maximo) {
 
 		if (minimo != null && maximo != null) {
-			this.clausulas.add(new BetweenClause(property, minimo, maximo));
+			clausulas.add((cb, root) -> cb.between(root.get(property), (Comparable) minimo, (Comparable) maximo));
 		}
 	}
 
 	protected void like(String property, String value) {
 
 		if (value != null && !value.isEmpty()) {
-			this.clausulas.add(new LikeClause(property, value));
+			clausulas.add((cb, root) -> cb.like(cb.lower(root.get(property)), "%" + value.toLowerCase() + "%"));
 		}
-
 	}
 
-	protected void greaterOrEqualThan(String property, Comparable<?> comparable) {
+	protected void greaterOrEqualThan(String property, Comparable<?> value) {
 
-		if (comparable != null) {
-			this.clausulas.add(new GreaterClause(property, comparable, true));
+		if (value != null) {
+			clausulas.add((cb, root) -> cb.greaterThanOrEqualTo(root.get(property), (Comparable) value));
 		}
-
 	}
 
-	protected void lessOrEqualThan(String property, Comparable<?> comparable) {
+	protected void lessOrEqualThan(String property, Comparable<?> value) {
 
-		if (comparable != null) {
-			this.clausulas.add(new LessClause(property, comparable, true));
+		if (value != null) {
+			clausulas.add((cb, root) -> cb.lessThanOrEqualTo(root.get(property), (Comparable) value));
 		}
 	}
 
 	protected void notEqual(String property, String value) {
 
 		if (StringUtils.isNotEmpty(value)) {
-			this.clausulas.add(new NotEqualClause(property, value));
+			clausulas.add((cb, root) -> cb.notEqual(root.get(property), value));
 		}
-
 	}
 
 	protected void in(String property, List<?> values) {
 
 		if (values != null && !values.isEmpty()) {
-			this.clausulas.add(new InClause(property, values));
+			clausulas.add((cb, root) -> root.get(property).in(values));
 		}
-
 	}
 
-	protected String orderBy() {
-
-		if (StringUtils.isNoneBlank(order, direction)) {
-			return order + " " + direction;
-		} else if (StringUtils.isNotBlank(order)) {
-			return order + " ASC";
-		} else {
-			return "id";
-		}
-
+	protected void order(String order, String direction) {
+		this.order = order;
+		this.direction = direction;
 	}
 
 }

@@ -52,11 +52,8 @@ public class ReceitaFiltro extends AbstractModelFiltro<Receita> {
 
 		eq("compromissada", compromissada);
 
-	}
+		order("vencimento", "DESC");
 
-	@Override
-	protected String orderBy() {
-		return "vencimento DESC";
 	}
 
 }

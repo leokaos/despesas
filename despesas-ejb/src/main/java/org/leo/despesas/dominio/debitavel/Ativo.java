@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import org.leo.despesas.dominio.movimentacao.Despesa;
@@ -26,6 +28,10 @@ public class Ativo extends Debitavel {
 
 	@Column(name = "valor_total")
 	private BigDecimal valorTotal;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "tipo_ativo")
+	private TipoAtivo tipoAtivo;
 
 	public Ativo() {
 		super();

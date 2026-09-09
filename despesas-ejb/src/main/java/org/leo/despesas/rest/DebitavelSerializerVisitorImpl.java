@@ -16,6 +16,7 @@ import org.leo.despesas.dominio.debitavel.Conta;
 import org.leo.despesas.dominio.debitavel.Divida;
 import org.leo.despesas.dominio.debitavel.Investimento;
 import org.leo.despesas.dominio.debitavel.Periodicidade;
+import org.leo.despesas.dominio.debitavel.TipoAtivo;
 
 public class DebitavelSerializerVisitorImpl implements DebitavelSerializerVisitor {
 
@@ -58,7 +59,8 @@ public class DebitavelSerializerVisitorImpl implements DebitavelSerializerVisito
 
 	@Override
 	public void visit(Ativo ativo) {
-
+		ativo.setValorTotal(getBigDecimalOrNull(mapaAtributos.get("valorTotal")));
+		ativo.setTipoAtivo(TipoAtivo.valueOf(mapaAtributos.get("tipoAtivo")));
 	}
 
 	private Integer getIntegerOrNull(String value) {

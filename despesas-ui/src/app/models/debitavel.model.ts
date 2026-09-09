@@ -39,7 +39,7 @@ export class Bandeira {
     public readonly codigo: string,
     public readonly nome: string,
     public readonly icon: IconDefinition
-  ) {}
+  ) { }
 
   static fromCodigo(codigo: string): Bandeira {
     const moedas = [Bandeira.VISA, Bandeira.MASTERCARD, Bandeira.AMERICAN_EXPRESS];
@@ -86,6 +86,11 @@ export interface CartaoCredito extends Debitavel {
   limite: number;
   diaDeFechamento: number;
   diaDeVencimento: number;
+}
+
+export interface Ativo extends Debitavel {
+  valorTotal: number;
+  tipoAtivo: string;
 }
 
 export interface Fatura {
