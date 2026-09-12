@@ -627,7 +627,7 @@ VISA	10	12	3500.00	23	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 0.00	4
-27995.96	3
+27758.01	3
 34205.60	5
 \.
 
@@ -7663,6 +7663,8 @@ t	7476	2	\N	\N
 t	7477	2	\N	\N
 t	7478	2	\N	\N
 t	7479	102	\N	\N
+t	7480	301	\N	\N
+t	7481	4	126	\N
 \.
 
 
@@ -7763,9 +7765,9 @@ COPY despesas_db.fatura (id, cartao_id, data_vencimento, data_fechamento, paga) 
 116	6	2026-07-11	2026-06-28	t
 125	6	2026-10-11	2026-09-28	f
 117	6	2026-08-11	2026-07-28	t
-126	23	2026-09-12	2026-09-10	f
 120	23	2026-08-12	2026-07-10	t
 124	6	2026-09-11	2026-08-28	t
+126	23	2026-09-12	2026-09-10	t
 \.
 
 
@@ -15144,6 +15146,9 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7477	Farmacia	2026-09-08	5.12	2026-09-08	3	EURO
 7478	Terapia	2026-09-08	50.00	2026-09-08	3	EURO
 7479	Glovo	2026-09-09	9.90	2026-09-09	3	EURO
+7480	Continente	2026-09-11	12.77	2026-09-10	3	EURO
+7481	Glovo Prime	2026-09-11	5.99	2026-09-03	23	EURO
+7482	Pagamento fatura 09/2026	2026-09-11	225.18	2026-09-11	3	EURO
 \.
 
 
@@ -15152,7 +15157,7 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 --
 
 COPY despesas_db.notificacao (id, executado, origem_alerta_id, target_date) FROM stdin;
-18	f	3	2026-09-14
+18	t	3	2026-09-14
 3	t	2	2026-08-11
 5	t	3	2026-08-12
 7	t	7	2026-08-14
@@ -15570,6 +15575,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 7446	25	27114.51
 7452	6	455.59
 7473	22	3189.30
+7482	23	225.18
 \.
 
 
@@ -15666,7 +15672,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7479, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7482, true);
 
 
 --
