@@ -16,7 +16,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Conta, Moeda } from '../../../models/debitavel.model';
+import { Conta } from '../../../models/debitavel.model';
 import { Loader } from '../../../components/loader/loader';
 import { CheckboxModule } from 'primeng/checkbox';
 
@@ -71,7 +71,7 @@ export class ContaEdit {
       cor: [this.conta?.cor, Validators.required],
       saldo: [this.conta?.saldo || 0, Validators.required],
       moeda: [this.conta?.moeda || null, Validators.required],
-      ativo:[this.conta?.ativo || false, Validators.required],
+      ativo: [this.conta?.ativo || false, Validators.required],
     });
 
     this.loading.set(false);

@@ -27,7 +27,7 @@ export class AtivoView {
   @ViewChild(BaseDebitavelView) baseView!: BaseDebitavelView;
 
   @ViewChild('colorTemplate', { static: true }) colorTemplate!: TemplateRef<any>;
-  @ViewChild('saldoTemplate', { static: true }) saldoTemplate!: TemplateRef<any>;
+  @ViewChild('valorTemplate', { static: true }) valorTemplate!: TemplateRef<any>;
   @ViewChild('ativoTemplate', { static: true }) ativoTemplate!: TemplateRef<any>;
 
   private ativoService = inject(AtivoService);
@@ -39,7 +39,7 @@ export class AtivoView {
   TIPO_ATIVO_ICONES: { [key: string]: string } = {
     'CARRO': 'pi pi-car',
     'APARTAMENTO': 'pi pi-building',
-    'TERRENO': 'pi pi-map-marker',
+    'TERRENO': 'pi pi-map',
     'CASA': 'pi pi-home',
   };
 
@@ -50,7 +50,8 @@ export class AtivoView {
     this.columns = [
       { name: 'Cor', field: 'cor', small: true, template: this.colorTemplate },
       { name: 'Descrição', field: 'descricao' },
-      { name: 'Saldo', field: 'saldo', template: this.saldoTemplate },
+      { name: 'Tipo', field: 'tipoAtivo' },
+      { name: 'Valor Total', field: 'valorTotal', template: this.valorTemplate },
       { name: 'Ativo', field: 'ativo', center: true, template: this.ativoTemplate }
     ];
 
@@ -79,11 +80,11 @@ export class AtivoView {
   }
 
   add() {
-    this.router.navigate(['conta']);
+    this.router.navigate(['ativo']);
   }
 
   edit(id: number) {
-    this.router.navigate(['conta', id]);
+    this.router.navigate(['ativo', id]);
   }
 
   remove() {

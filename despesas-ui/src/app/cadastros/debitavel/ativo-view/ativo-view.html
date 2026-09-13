@@ -13,32 +13,38 @@
     (onReload)="reload()"
     (onChangeAtivos)="onChangeAtivos($event)" />
 
-<ng-template #itemTemplate let-conta>
+<ng-template #itemTemplate let-ativo>
 
     <div class="col-span-4 p-2">
 
-        <div class="p-4 border border-[#e2e8f0] rounded shadow-sm hover:shadow-md transition-shadow" [class.texto-vermelho]="!conta.ativo">
+        <div class="relative p-4 border border-[#e2e8f0] rounded shadow-sm hover:shadow-md transition-shadow" [class.texto-vermelho]="!ativo.ativo">
 
             <div class="flex justify-between items-start mb-3">
                 <div class="flex items-center gap-3">
-                    <app-color-display [color]="conta.cor" />
-                    <i [class]="TIPO_ATIVO_ICONES[conta.tipoAtivo] || 'pi pi-tag'" class="text-xl"> </i>
-                    <span class="font-semibold">{{ conta.descricao }}</span>
+                    <app-color-display [color]="ativo.cor" />
+                    <span class="font-semibold">{{ ativo.descricao }}</span>
                 </div>
                 <div class="flex gap-1">
-                    <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(conta.id)" />
-                    <p-button icon="pi pi-trash" severity="danger" size="small" (click)="openDialog(conta)" />
+                    <p-button icon="pi pi-pen-to-square" size="small" (click)="edit(ativo.id)" />
+                    <p-button icon="pi pi-trash" severity="danger" size="small" (click)="openDialog(ativo)" />
                 </div>
             </div>
+
             <div class="mt-2">
                 <div class="text-sm">Valor Total</div>
                 <div class="text-xl">
-                    {{ conta.moeda.simbolo }} {{ conta.valorTotal | number: '1.2-2' : 'pt-BR' }}
+                    {{ ativo.moeda.simbolo }} {{ ativo.valorTotal | number: '1.2-2' : 'pt-BR' }}
                 </div>
             </div>
-            <div class="flex justify-end mt-2">
+
+            <div class="flex justify-between items-center mt-2">
+
+                <span class="px-2 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700">
+                    <i [class]="TIPO_ATIVO_ICONES[ativo.tipoAtivo] || 'pi pi-tag'" class="mr-1"></i> {{ ativo.tipoAtivo }}
+                </span>
+
                 <div>
-                    @if (conta.ativo) {
+                    @if (ativo.ativo) {
                     <span class="text-green-600"><i class="pi pi-check-circle"></i> Ativo</span>
                     } @else {
                     <span class="text-red-600"><i class="pi pi-times-circle"></i> Inativo</span>
@@ -49,18 +55,18 @@
     </div>
 </ng-template>
 
-<ng-template #colorTemplate let-conta>
-    <app-color-display [color]="conta.cor" />
+<ng-template #colorTemplate let-ativo>
+    <app-color-display [color]="ativo.cor" />
 </ng-template>
 
-<ng-template #ativoTemplate let-conta>
-    @if (conta.ativo) {
+<ng-template #ativoTemplate let-ativo>
+    @if (ativo.ativo) {
     <i class="pi pi-check"></i>
     } @else {
     <i class="pi pi-times"></i>
     }
 </ng-template>
 
-<ng-template #saldoTemplate let-conta>
-    {{ conta.moeda.simbolo }} {{ conta.saldo | number: '1.2-2' : 'pt-BR' }}
+<ng-template #valorTemplate let-ativo>
+    {{ ativo.moeda.simbolo }} {{ ativo.saldo | number: '1.2-2' : 'pt-BR' }}
 </ng-template>

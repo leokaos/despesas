@@ -46,6 +46,7 @@ import { BulkEditDespesa } from './movimentacao/bulk-edit-despesa/bulk-edit-desp
 import { BulkEditReceita } from './movimentacao/bulk-edit-receita/bulk-edit-receita';
 import { AlertView } from './cadastros/alerta/alert-view/alert-view';
 import { AtivoView } from './cadastros/debitavel/ativo-view/ativo-view';
+import { AtivoEdit } from './cadastros/debitavel/ativo-edit/ativo-edit';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -94,6 +95,8 @@ export const routes: Routes = [
   { path: 'feriado/:id', component: FeriadoEdit },
   { path: 'alertas', component: AlertView },
   { path: 'ativos', component: AtivoView },
+  { path: 'ativo', component: AtivoEdit },
+  { path: 'ativo/:id', component: AtivoEdit },
 
   //MOVIMENTACAO
   { path: 'pagamentos', component: Pagamentos },
