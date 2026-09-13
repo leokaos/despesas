@@ -94,7 +94,7 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 
 		if (StringUtils.isNotBlank(order)) {
 
-			Path<?> orderPath = root.get(order);
+			Path<?> orderPath = getPath(root, order);
 
 			if ("DESC".equalsIgnoreCase(direction)) {
 				criteriaQuery.orderBy(cb.desc(orderPath));
@@ -134,10 +134,22 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 
 	}
 
+	@SuppressWarnings("unchecked")
+	protected <X> Path<X> getPath(Path<?> root, String property) {
+
+		Path<?> path = root;
+
+		for (String part : property.split("\\.")) {
+			path = path.get(part);
+		}
+
+		return (Path<X>) path;
+	}
+
 	protected void eq(String property, Object value) {
 
 		if (value != null) {
-			clausulas.add((cb, root) -> cb.equal(root.get(property), value));
+			clausulas.add((cb, root) -> cb.equal(getPath(root, property), value));
 		}
 
 	}
@@ -145,7 +157,7 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 	protected void eqIgnoreCase(String property, String value) {
 
 		if (value != null) {
-			clausulas.add((cb, root) -> cb.equal(cb.lower(root.get(property)), value.toLowerCase()));
+			clausulas.add((cb, root) -> cb.equal(cb.lower(getPath(root, property)), value.toLowerCase()));
 		}
 
 	}
@@ -153,42 +165,42 @@ public abstract class AbstractModelFiltro<T extends ModelEntity> implements Mode
 	protected void between(String property, Object minimo, Object maximo) {
 
 		if (minimo != null && maximo != null) {
-			clausulas.add((cb, root) -> cb.between(root.get(property), (Comparable) minimo, (Comparable) maximo));
+			clausulas.add((cb, root) -> cb.between(getPath(root, property), (Comparable) minimo, (Comparable) maximo));
 		}
 	}
 
 	protected void like(String property, String value) {
 
 		if (value != null && !value.isEmpty()) {
-			clausulas.add((cb, root) -> cb.like(cb.lower(root.get(property)), "%" + value.toLowerCase() + "%"));
+			clausulas.add((cb, root) -> cb.like(cb.lower(getPath(root, property)), "%" + value.toLowerCase() + "%"));
 		}
 	}
 
 	protected void greaterOrEqualThan(String property, Comparable<?> value) {
 
 		if (value != null) {
-			clausulas.add((cb, root) -> cb.greaterThanOrEqualTo(root.get(property), (Comparable) value));
+			clausulas.add((cb, root) -> cb.greaterThanOrEqualTo(getPath(root, property), (Comparable) value));
 		}
 	}
 
 	protected void lessOrEqualThan(String property, Comparable<?> value) {
 
 		if (value != null) {
-			clausulas.add((cb, root) -> cb.lessThanOrEqualTo(root.get(property), (Comparable) value));
+			clausulas.add((cb, root) -> cb.lessThanOrEqualTo(getPath(root, property), (Comparable) value));
 		}
 	}
 
 	protected void notEqual(String property, String value) {
 
 		if (StringUtils.isNotEmpty(value)) {
-			clausulas.add((cb, root) -> cb.notEqual(root.get(property), value));
+			clausulas.add((cb, root) -> cb.notEqual(getPath(root, property), value));
 		}
 	}
 
 	protected void in(String property, List<?> values) {
 
 		if (values != null && !values.isEmpty()) {
-			clausulas.add((cb, root) -> root.get(property).in(values));
+			clausulas.add((cb, root) -> getPath(root, property).in(values));
 		}
 	}
 
