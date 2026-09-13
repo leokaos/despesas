@@ -7,7 +7,7 @@
 	<parent>
 		<artifactId>despesas</artifactId>
 		<groupId>org.leo.despesas</groupId>
-		<version>0.48.3</version>
+		<version>0.49</version>
 	</parent>
 
 	<artifactId>despesas-ear</artifactId>
