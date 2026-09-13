@@ -36,7 +36,7 @@ export class AlertaService {
   }
 
   update(alerta: Alerta, id: number): Observable<Alerta> {
-    return this.http.put<Alerta>(`${this.config.apiUrl}/${this.path}/`, alerta);
+    return this.http.put<Alerta>(`${this.config.apiUrl}/${this.path}/${id}`, alerta);
   }
 
   createOrUpdate(alerta: Alerta): Observable<Alerta> {

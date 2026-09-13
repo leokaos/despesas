@@ -6,6 +6,7 @@ import static org.leo.despesas.infra.eventos.TipoEventoEntidade.UPDATE;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.ejb.EJB;
 import javax.enterprise.event.Event;
@@ -24,6 +25,7 @@ import org.leo.despesas.infra.eventos.EntidadeEvent;
 import org.leo.despesas.infra.exception.AlreadyExistentEntityException;
 import org.leo.despesas.infra.exception.DespesasException;
 import org.leo.despesas.infra.exception.NotFoundEntityException;
+import org.leo.despesas.infra.exception.UpdateEntityMismatchException;
 
 import com.google.common.collect.Lists;
 
@@ -108,9 +110,13 @@ public abstract class AbstractFacade<E extends ModelEntity, F extends ModelFiltr
 	}
 
 	@Override
-	public E salvar(final E t) throws DespesasException {
+	public E salvar(Long id, final E t) throws DespesasException {
 
-		E antigo = entityManager.find(getClasseEntidade(), t.getId());
+		if (!Objects.equals(id, t.getId())) {
+			throw new UpdateEntityMismatchException("ID da entidade diferente do ID da URL");
+		}
+
+		E antigo = entityManager.find(getClasseEntidade(), id);
 
 		entityManager.detach(antigo);
 

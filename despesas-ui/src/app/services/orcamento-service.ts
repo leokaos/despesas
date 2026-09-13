@@ -58,7 +58,7 @@ export class OrcamentoService {
   }
 
   update(orcamento: Orcamento, id: number): Observable<Orcamento> {
-    return this.http.put<Orcamento>(`${this.config.apiUrl}/${this.path}/`, orcamento);
+    return this.http.put<Orcamento>(`${this.config.apiUrl}/${this.path}/${id}`, orcamento);
   }
 
   createOrUpdate(orcamento: Orcamento): Observable<Orcamento> {

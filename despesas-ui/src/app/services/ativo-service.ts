@@ -48,7 +48,7 @@ export class AtivoService {
   }
 
   update(ativo: Ativo, id: number): Observable<Ativo> {
-    return this.http.put<Ativo>(`${this.config.apiUrl}/${this.path}/`, ativo);
+    return this.http.put<Ativo>(`${this.config.apiUrl}/${this.path}/${id}`, ativo);
   }
 
   createOrUpdate(ativo: Ativo): Observable<Ativo> {

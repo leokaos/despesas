@@ -47,7 +47,7 @@ export class InvestimentoService {
   }
 
   update(investimento: Investimento, id: number): Observable<Investimento> {
-    return this.http.put<Investimento>(`${this.config.apiUrl}/${this.path}/`, investimento);
+    return this.http.put<Investimento>(`${this.config.apiUrl}/${this.path}/${id}`, investimento);
   }
 
   createOrUpdate(investimento: Investimento): Observable<Investimento> {

@@ -6,7 +6,6 @@ import { QueryUtil } from '../models/query.util';
 })
 export class QueryService {
 
-
   process(queryText: string): string {
 
     return queryText.replace(/\$\{([^}]+)\}/g, (_, expression) => {
@@ -26,7 +25,6 @@ export class QueryService {
       }
 
       return funcao(expression);
-
     });
   }
 

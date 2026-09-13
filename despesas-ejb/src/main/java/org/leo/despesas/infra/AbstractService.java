@@ -46,10 +46,11 @@ public abstract class AbstractService<T extends SimpleFacade<E, F>, E extends Mo
 
 	@PUT
 	@Override
+	@Path("/{id}")
 	@Consumes(value = MediaType.APPLICATION_JSON)
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public Response salvar(final E t) throws DespesasException {
-		E result = getFacade().salvar(t);
+	public Response salvar(@PathParam(value = "id") final Long id, final E t) throws DespesasException {
+		E result = getFacade().salvar(id, t);
 
 		return Response.ok(result).build();
 	}
@@ -60,7 +61,7 @@ public abstract class AbstractService<T extends SimpleFacade<E, F>, E extends Mo
 	public Response deletar(@PathParam(value = "id") final Long id) throws DespesasException {
 		getFacade().deletar(id);
 
-		return Response.ok().build();
+		return Response.noContent().build();
 	}
 
 	@GET

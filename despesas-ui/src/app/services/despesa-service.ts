@@ -79,7 +79,7 @@ export class DespesaService {
   }
 
   update(despesa: Despesa, id: number): Observable<Despesa> {
-    return this.http.put<Despesa>(`${this.config.apiUrl}/${this.path}/`, DespesaService.toEntity(despesa));
+    return this.http.put<Despesa>(`${this.config.apiUrl}/${this.path}/${id}`, DespesaService.toEntity(despesa));
   }
 
   createOrUpdate(despesa: Despesa, parcelamentoVO: ParcelamentoVO | null): Observable<Despesa> {

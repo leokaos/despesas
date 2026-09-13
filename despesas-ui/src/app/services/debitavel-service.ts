@@ -51,7 +51,7 @@ export class DebitavelService {
   }
 
   update(debitavel: Debitavel, id: number): Observable<Debitavel> {
-    return this.http.put<Debitavel>(`${this.config.apiUrl}/${this.path}/`, debitavel);
+    return this.http.put<Debitavel>(`${this.config.apiUrl}/${this.path}/${id}`, debitavel);
   }
 
   createOrUpdate(debitavel: Debitavel): Observable<Debitavel> {

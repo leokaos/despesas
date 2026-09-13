@@ -34,7 +34,7 @@ export class TipoReceitaService {
   }
 
   update(tipoReceita: TipoReceita, id: number): Observable<TipoReceita> {
-    return this.http.put<TipoReceita>(`${this.config.apiUrl}/${this.path}/`, tipoReceita);
+    return this.http.put<TipoReceita>(`${this.config.apiUrl}/${this.path}/${id}`, tipoReceita);
   }
 
   createOrUpdate(tipoReceita: TipoReceita): Observable<TipoReceita> {

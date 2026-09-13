@@ -48,7 +48,7 @@ export class ContaService {
   }
 
   update(conta: Conta, id: number): Observable<Conta> {
-    return this.http.put<Conta>(`${this.config.apiUrl}/${this.path}/`, conta);
+    return this.http.put<Conta>(`${this.config.apiUrl}/${this.path}/${id}`, conta);
   }
 
   createOrUpdate(conta: Conta): Observable<Conta> {

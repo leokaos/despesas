@@ -30,7 +30,7 @@ export class ServicoTransferenciaService {
   }
 
   update(servicoTransferencia: ServicoTransferencia, id: number): Observable<ServicoTransferencia> {
-    return this.http.put<ServicoTransferencia>(`${this.config.apiUrl}/${this.path}/`, servicoTransferencia);
+    return this.http.put<ServicoTransferencia>(`${this.config.apiUrl}/${this.path}/${id}`, servicoTransferencia);
   }
 
   createOrUpdate(servicoTransferencia: ServicoTransferencia): Observable<ServicoTransferencia> {

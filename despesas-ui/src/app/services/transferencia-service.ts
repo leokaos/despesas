@@ -57,7 +57,7 @@ export class TransferenciaService {
   }
 
   update(transferencia: Transferencia, id: number): Observable<Transferencia> {
-    return this.http.put<Transferencia>(`${this.config.apiUrl}/${this.path}/`, transferencia);
+    return this.http.put<Transferencia>(`${this.config.apiUrl}/${this.path}/${id}`, transferencia);
   }
 
   createOrUpdate(transferencia: Transferencia): Observable<Transferencia> {

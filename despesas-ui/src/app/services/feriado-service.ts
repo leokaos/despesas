@@ -59,7 +59,7 @@ export class FeriadoService {
   }
 
   update(feriado: Feriado, id: number): Observable<Feriado> {
-    return this.http.put<Feriado>(`${this.config.apiUrl}/${this.path}/`, feriado);
+    return this.http.put<Feriado>(`${this.config.apiUrl}/${this.path}/${id}`, feriado);
   }
 
   createOrUpdate(feriado: Feriado): Observable<Feriado> {

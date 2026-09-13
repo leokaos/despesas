@@ -77,7 +77,7 @@ export class ReceitaService {
   }
 
   update(receita: Receita, id: number): Observable<Receita> {
-    return this.http.put<Receita>(`${this.config.apiUrl}/${this.path}/`, ReceitaService.toEntity(receita));
+    return this.http.put<Receita>(`${this.config.apiUrl}/${this.path}/${id}`, ReceitaService.toEntity(receita));
   }
 
   createOrUpdate(receita: Receita): Observable<Receita> {

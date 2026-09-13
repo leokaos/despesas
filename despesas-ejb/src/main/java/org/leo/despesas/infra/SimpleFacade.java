@@ -16,7 +16,7 @@ public interface SimpleFacade<T extends ModelEntity, F extends ModelFiltro<T>> {
 
 	T inserir(T t) throws DespesasException;
 
-	T salvar(T t) throws DespesasException;
+	T salvar(Long id, T t) throws DespesasException;
 
 	List<T> inserir(List<T> list) throws DespesasException;
 

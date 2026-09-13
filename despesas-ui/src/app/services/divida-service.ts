@@ -50,7 +50,7 @@ export class DividaService {
   }
 
   update(divida: Divida, id: number): Observable<Divida> {
-    return this.http.put<Divida>(`${this.config.apiUrl}/${this.path}/`, divida);
+    return this.http.put<Divida>(`${this.config.apiUrl}/${this.path}/${id}`, divida);
   }
 
   createOrUpdate(divida: Divida): Observable<Divida> {

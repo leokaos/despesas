@@ -50,7 +50,7 @@ export class MetaService {
   }
 
   update(meta: Meta, id: number): Observable<Meta> {
-    return this.http.put<Meta>(`${this.config.apiUrl}/${this.path}/`, meta);
+    return this.http.put<Meta>(`${this.config.apiUrl}/${this.path}/${id}`, meta);
   }
 
   createOrUpdate(meta: Meta): Observable<Meta> {

@@ -68,7 +68,7 @@ export class CotacaoService {
   }
 
   update(cotacao: Cotacao, id: number): Observable<Cotacao> {
-    return this.http.put<Cotacao>(`${this.config.apiUrl}/${this.path}/`, cotacao);
+    return this.http.put<Cotacao>(`${this.config.apiUrl}/${this.path}/${id}`, cotacao);
   }
 
   createOrUpdate(cotacao: Cotacao): Observable<Cotacao> {

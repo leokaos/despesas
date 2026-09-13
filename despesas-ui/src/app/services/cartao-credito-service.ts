@@ -47,7 +47,7 @@ export class CartaoCreditoService {
   }
 
   update(cartaoCredito: CartaoCredito, id: number): Observable<CartaoCredito> {
-    return this.http.put<CartaoCredito>(`${this.config.apiUrl}/${this.path}/`, cartaoCredito);
+    return this.http.put<CartaoCredito>(`${this.config.apiUrl}/${this.path}/${id}`, cartaoCredito);
   }
 
   createOrUpdate(conta: CartaoCredito): Observable<CartaoCredito> {

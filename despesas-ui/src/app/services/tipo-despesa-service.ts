@@ -34,7 +34,7 @@ export class TipoDespesaService {
   }
 
   update(tipoDespesa: TipoDespesa, id: number): Observable<TipoDespesa> {
-    return this.http.put<TipoDespesa>(`${this.config.apiUrl}/${this.path}/`, tipoDespesa);
+    return this.http.put<TipoDespesa>(`${this.config.apiUrl}/${this.path}/${id}`, tipoDespesa);
   }
 
   createOrUpdate(tipoDespesa: TipoDespesa): Observable<TipoDespesa> {

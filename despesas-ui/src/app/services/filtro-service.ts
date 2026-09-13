@@ -48,7 +48,7 @@ export class FiltroService {
   }
 
   update(feriado: Filtro, id: number): Observable<Filtro> {
-    return this.http.put<Filtro>(`${this.config.apiUrl}/${this.path}/`, feriado);
+    return this.http.put<Filtro>(`${this.config.apiUrl}/${this.path}/${id}`, feriado);
   }
 
   createOrUpdate(filtro: Filtro): Observable<Filtro> {

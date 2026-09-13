@@ -45,7 +45,7 @@ export class NotificacaoService {
   }
 
   update(notificacao: Notificacao, id: number): Observable<Notificacao> {
-    return this.http.put<Notificacao>(`${this.config.apiUrl}/${this.path}/`, notificacao);
+    return this.http.put<Notificacao>(`${this.config.apiUrl}/${this.path}/${id}`, notificacao);
   }
 
   createOrUpdate(notificacao: Notificacao): Observable<Notificacao> {
