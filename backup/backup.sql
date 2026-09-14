@@ -100,7 +100,8 @@ ALTER TABLE despesas_db.alerta_pagamento_fatura_cartao OWNER TO despesas;
 
 CREATE TABLE despesas_db.ativo (
     id bigint NOT NULL,
-    valor_total numeric(19,2) DEFAULT 0 NOT NULL
+    valor_total numeric(19,2) DEFAULT 0 NOT NULL,
+    tipo_ativo character varying(255) DEFAULT 0 NOT NULL
 );
 
 
@@ -606,8 +607,8 @@ COPY despesas_db.alerta_pagamento_fatura_cartao (id, cartao_credito_id) FROM std
 -- Data for Name: ativo; Type: TABLE DATA; Schema: despesas_db; Owner: despesas
 --
 
-COPY despesas_db.ativo (id, valor_total) FROM stdin;
-25	29114.51
+COPY despesas_db.ativo (id, valor_total, tipo_ativo) FROM stdin;
+25	29114.51	CARRO
 \.
 
 
@@ -627,7 +628,7 @@ VISA	10	12	3500.00	23	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 0.00	4
-27758.01	3
+27587.18	3
 34205.60	5
 \.
 
@@ -684,9 +685,9 @@ COPY despesas_db.debitavel (id, cor, descricao, tipo, moeda, ativo) FROM stdin;
 20	#e8d846	IVA 1 Trimestre 2026	DIVIDA	EURO	f
 4	#709982	N26	CONTA	EURO	f
 23	#ff9e03	Gold Prestige	CARTAO	EURO	t
-25	#3B3B3B	JEEP AVENGER	ATIVO	EURO	t
 26	#ff7300	FINANCIAMENTO CARRO	DIVIDA	EURO	t
 22	#c7bc24	IVA 2 Trimestre 2026 	DIVIDA	EURO	f
+25	#3B3B3B	JEEP AVENGER	ATIVO	EURO	t
 \.
 
 
@@ -7665,6 +7666,15 @@ t	7478	2	\N	\N
 t	7479	102	\N	\N
 t	7480	301	\N	\N
 t	7481	4	126	\N
+t	7483	104	\N	\N
+t	7484	301	\N	\N
+t	7485	104	\N	\N
+t	7486	102	\N	\N
+t	7487	102	\N	\N
+t	7488	301	\N	\N
+t	7489	107	\N	\N
+t	7490	102	\N	\N
+t	7491	102	\N	\N
 \.
 
 
@@ -15149,6 +15159,15 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7480	Continente	2026-09-11	12.77	2026-09-10	3	EURO
 7481	Glovo Prime	2026-09-11	5.99	2026-09-03	23	EURO
 7482	Pagamento fatura 09/2026	2026-09-11	225.18	2026-09-11	3	EURO
+7483	Camisetas	2026-09-13	40.20	2026-09-13	3	EURO
+7485	Declaton	2026-09-13	14.95	2026-09-13	3	EURO
+7486	Braza Brasil	2026-09-13	18.10	2026-09-13	3	EURO
+7487	Arcadia	2026-09-13	4.80	2026-09-12	3	EURO
+7488	Continente	2026-09-13	57.60	2026-09-12	3	EURO
+7489	via verde	2026-09-13	6.39	2026-09-11	3	EURO
+7490	Hummy	2026-09-13	8.30	2026-09-11	3	EURO
+7491	Glovo	2026-09-13	12.40	2026-09-11	3	EURO
+7484	Continente	2026-09-13	8.09	2026-09-13	3	EURO
 \.
 
 
@@ -15616,6 +15635,7 @@ COPY public.flyway_schema_history (installed_rank, version, description, type, s
 30	30	adicionar notificacao despesa	SQL	V30__adicionar_notificacao_despesa.sql	-2059628199	despesas	2026-08-27 19:28:27.623216	26	t
 31	31	criar tabela ativo	SQL	V31__criar_tabela_ativo.sql	1196749870	despesas	2026-08-27 19:28:27.696438	15	t
 32	32	adicionar campo valor ativo	SQL	V32__adicionar_campo_valor_ativo.sql	539953492	despesas	2026-09-02 22:37:36.722507	34	t
+33	33	adicionar campo tipo ativo	SQL	V33__adicionar_campo_tipo_ativo.sql	-1596888698	despesas	2026-09-13 11:01:20.093419	21	t
 \.
 
 
@@ -15672,7 +15692,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7482, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7491, true);
 
 
 --
