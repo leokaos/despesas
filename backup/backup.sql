@@ -628,7 +628,7 @@ VISA	10	12	3500.00	23	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 0.00	4
-27382.13	3
+27281.13	3
 34205.60	5
 \.
 
@@ -7677,6 +7677,7 @@ t	7490	102	\N	\N
 t	7491	102	\N	\N
 t	7492	4	\N	\N
 t	7494	3	\N	\N
+t	7495	3	\N	\N
 \.
 
 
@@ -15173,6 +15174,7 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7492	Planicare	2026-09-14	181.04	2026-09-14	3	EURO
 7493	Ajuste no valor da fatura do cartao	2026-09-15	5.99	2026-09-15	3	EURO
 7494	Mesa	2026-09-15	30.00	2026-09-15	3	EURO
+7495	Mesa	2026-09-16	101.00	2026-09-15	3	EURO
 \.
 
 
@@ -15698,7 +15700,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7494, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7495, true);
 
 
 --
