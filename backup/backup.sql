@@ -628,7 +628,7 @@ VISA	10	12	3500.00	23	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 0.00	4
-27281.13	3
+27158.72	3
 34205.60	5
 \.
 
@@ -7678,6 +7678,12 @@ t	7491	102	\N	\N
 t	7492	4	\N	\N
 t	7494	3	\N	\N
 t	7495	3	\N	\N
+t	7496	3	\N	\N
+t	7497	102	\N	\N
+t	7498	301	\N	\N
+t	7499	102	\N	\N
+t	7500	102	\N	\N
+t	7501	102	\N	\N
 \.
 
 
@@ -15175,6 +15181,12 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7493	Ajuste no valor da fatura do cartao	2026-09-15	5.99	2026-09-15	3	EURO
 7494	Mesa	2026-09-15	30.00	2026-09-15	3	EURO
 7495	Mesa	2026-09-16	101.00	2026-09-15	3	EURO
+7496	IKEA	2026-09-19	12.93	2026-09-19	3	EURO
+7497	TOMATINO	2026-09-19	9.20	2026-09-19	3	EURO
+7498	CONTINENTE	2026-09-19	77.23	2026-09-19	3	EURO
+7499	ARCADIA	2026-09-19	4.80	2026-09-19	3	EURO
+7500	PIZZA HUT	2026-09-19	6.50	2026-09-18	3	EURO
+7501	GLOVO PORTUGAL LISBOA	2026-09-19	11.75	2026-09-17	3	EURO
 \.
 
 
@@ -15700,7 +15712,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7495, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7501, true);
 
 
 --
