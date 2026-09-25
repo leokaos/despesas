@@ -627,7 +627,7 @@ VISA	10	12	3500.00	23	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-26682.00	3
+26639.14	3
 0.00	4
 34205.60	5
 \.
@@ -7691,6 +7691,8 @@ t	7505	107	\N	\N
 t	7506	107	\N	\N
 t	7507	2	\N	\N
 t	7508	108	\N	\N
+t	7509	4	\N	\N
+t	7510	2	\N	\N
 \.
 
 
@@ -15201,6 +15203,8 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7502	Braza Braga	2026-09-20	18.10	2026-09-20	3	EURO
 7503	Pedagio	2026-09-20	1.80	2026-09-20	3	EURO
 7504	Amazon Compra	2026-09-21	35.51	2026-09-21	3	EURO
+7509	Agere	2026-09-24	23.91	2026-09-24	3	EURO
+7510	Farmacia	2026-09-24	18.95	2026-09-22	3	EURO
 \.
 
 
@@ -15726,7 +15730,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7508, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7510, true);
 
 
 --
