@@ -627,7 +627,7 @@ VISA	10	12	3500.00	23	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-26447.37	3
+26314.94	3
 0.00	4
 34205.60	5
 \.
@@ -7697,6 +7697,11 @@ t	7511	102	\N	\N
 t	7512	108	\N	\N
 t	7513	107	\N	\N
 t	7514	4	\N	\N
+t	7515	107	\N	\N
+t	7516	301	\N	\N
+t	7517	104	\N	\N
+t	7518	102	\N	\N
+t	7519	102	\N	\N
 \.
 
 
@@ -15213,6 +15218,11 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7512	CORTES DE LISBOA	2026-09-25	21.00	2026-09-25	3	EURO
 7513	EST SERVICO SANTOS DA CUNHA 6	2026-09-25	83.68	2026-09-25	3	EURO
 7514	DD EDP COMERCIAL  16010011942146 PT34100781	2026-09-25	71.80	2026-09-25	3	EURO
+7515	WASHWELL	2026-09-26	35.00	2026-09-28	3	EURO
+7516	CONTINENTE	2026-09-26	62.71	2026-09-28	3	EURO
+7517	SPRINGFIELD	2026-09-26	24.07	2026-09-28	3	EURO
+7518	ARCADIA NOVA ARCADA	2026-09-26	5.85	2026-09-28	3	EURO
+7519	ARCADIA NOVA ARCADA	2026-09-26	4.80	2026-09-28	3	EURO
 \.
 
 
@@ -15738,7 +15748,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 57, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7514, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7519, true);
 
 
 --
