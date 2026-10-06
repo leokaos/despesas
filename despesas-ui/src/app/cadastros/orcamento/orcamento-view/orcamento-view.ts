@@ -19,7 +19,7 @@ import { MessageService } from 'primeng/api';
 import { PanelModule } from 'primeng/panel';
 import { Mes } from '../../../models/mes.model';
 import { PeriodoView } from '../../../components/periodo-view/periodo-view';
-import { PeriodoUtil } from '../../../models/util';
+import { DateUtil, PeriodoUtil } from '../../../models/util';
 import { concatMap, from, last } from 'rxjs';
 
 @Component({
@@ -133,8 +133,8 @@ export class OrcamentoView implements OnInit {
         let innerItem = {
           tipoDespesa: item.tipoDespesa,
           valor: item.valor,
-          dataInicial: PeriodoUtil.getDataInicialUTC(this.periodoSelecionado!).toUTCString(),
-          dataFinal: PeriodoUtil.getDataFinalUTC(this.periodoSelecionado!).toUTCString(),
+          dataInicial: DateUtil.formatDate(PeriodoUtil.getDataInicialUTC(this.periodoSelecionado!)),
+          dataFinal: DateUtil.formatDate(PeriodoUtil.getDataFinalUTC(this.periodoSelecionado!)),
         } as Orcamento;
 
         return this.orcamentoService.createOrUpdate(innerItem)
