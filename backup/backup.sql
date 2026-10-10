@@ -15320,11 +15320,11 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 
 COPY despesas_db.notificacao (id, executado, origem_alerta_id, target_date) FROM stdin;
 18	t	3	2026-09-14
-22	f	3	2026-10-12
 19	t	5	2026-10-08
 23	t	8	2026-10-08
 21	t	2	2026-10-12
 20	t	7	2026-10-15
+22	t	3	2026-10-12
 3	t	2	2026-08-11
 5	t	3	2026-08-12
 7	t	7	2026-08-14
