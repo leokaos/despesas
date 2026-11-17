@@ -628,6 +628,7 @@ VISA	10	12	3500.00	23	\N
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
 24097.98	3
+6468.76	28
 0.00	4
 31877.66	5
 \.
@@ -689,6 +690,7 @@ COPY despesas_db.debitavel (id, cor, descricao, tipo, moeda, ativo) FROM stdin;
 25	#3B3B3B	JEEP AVENGER	ATIVO	EURO	t
 27	#e7eb0e	IVA 4 Trimestre 2026	DIVIDA	EURO	f
 26	#ff7300	FINANCIAMENTO CARRO	DIVIDA	EURO	t
+28	#0e89ed	Unipessoal Millenium	CONTA	EURO	t
 \.
 
 
@@ -15969,7 +15971,7 @@ SELECT pg_catalog.setval('despesas_db.cotacao_id_seq', 30, true);
 -- Name: debitavel_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 27, true);
+SELECT pg_catalog.setval('despesas_db.debitavel_id_seq', 28, true);
 
 
 --
