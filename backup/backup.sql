@@ -629,8 +629,8 @@ VISA	10	12	3500.00	23	\N
 COPY despesas_db.conta (saldo, id) FROM stdin;
 0.00	4
 31877.66	5
-4901.66	28
 24132.98	3
+4883.66	28
 \.
 
 
@@ -7863,6 +7863,7 @@ t	7687	108	\N	\N
 t	7688	301	\N	\N
 t	7689	102	\N	\N
 t	7690	108	\N	\N
+t	7692	108	\N	\N
 \.
 
 
@@ -15556,6 +15557,7 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7690	Salario outubro/2026	2026-11-18	1567.10	2026-10-31	28	EURO
 7689	Glovo	2026-11-18	10.20	2026-11-18	3	EURO
 7691	Salario outubro/2026 	2026-11-18	1567.10	2026-10-31	3	EURO
+7692	PAG.DUC -156490281216703	2026-11-20	18.00	2026-11-20	28	EURO
 \.
 
 
@@ -16101,7 +16103,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 58, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7691, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7692, true);
 
 
 --
