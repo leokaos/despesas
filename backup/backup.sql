@@ -627,9 +627,9 @@ VISA	10	12	3500.00	23	\N
 --
 
 COPY despesas_db.conta (saldo, id) FROM stdin;
-0.00	4
-24132.98	3
 4883.66	28
+24132.98	3
+0.00	4
 30893.26	5
 \.
 
@@ -7862,7 +7862,6 @@ t	7686	108	\N	\N
 t	7687	108	\N	\N
 t	7688	301	\N	\N
 t	7689	102	\N	\N
-t	7690	108	\N	\N
 t	7692	108	\N	\N
 t	7693	4	\N	\N
 t	7694	4	\N	\N
@@ -15557,13 +15556,12 @@ COPY despesas_db.movimentacao (id, descricao, pagamento, valor, vencimento, debi
 7686	IMPOSTO SELO ART 17.3.4	2026-11-18	0.14	2026-11-04	3	EURO
 7687	COM.MAN.CONTA PACOTE PRESTIGE START      102026	2026-11-18	3.50	2026-11-04	3	EURO
 7688	CONTINENTE BOM DIA BRAG	2026-11-18	4.68	2026-11-04	3	EURO
-7690	Salario outubro/2026	2026-11-18	1567.10	2026-10-31	28	EURO
 7689	Glovo	2026-11-18	10.20	2026-11-18	3	EURO
-7691	Salario outubro/2026 	2026-11-18	1567.10	2026-10-31	3	EURO
 7692	PAG.DUC -156490281216703	2026-11-20	18.00	2026-11-20	28	EURO
 7693	Congas	2026-11-23	12.40	2026-11-16	5	REAL
 7694	VIVO	2026-11-23	172.00	2026-11-10	5	REAL
 7695	Pagamento Diarista	2026-11-23	800.00	2026-11-05	5	REAL
+7696	Salario Outubro	\N	1567.10	2026-10-31	28	EURO
 \.
 
 
@@ -15816,7 +15814,6 @@ t	7421	111	\N	t
 t	7493	111	\N	f
 t	7520	109	\N	f
 t	7521	23	\N	t
-t	7691	109	\N	f
 \.
 
 
@@ -16012,6 +16009,7 @@ COPY despesas_db.transferencia (id, creditavel_id, valor_real) FROM stdin;
 7640	26	219.28
 7643	23	5.99
 7651	23	625.06
+7696	3	1567.10
 \.
 
 
@@ -16109,7 +16107,7 @@ SELECT pg_catalog.setval('despesas_db.meta_id_seq', 58, true);
 -- Name: movimentacao_id_seq; Type: SEQUENCE SET; Schema: despesas_db; Owner: despesas
 --
 
-SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7695, true);
+SELECT pg_catalog.setval('despesas_db.movimentacao_id_seq', 7696, true);
 
 
 --
