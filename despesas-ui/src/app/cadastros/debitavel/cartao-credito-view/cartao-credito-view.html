@@ -37,10 +37,18 @@
                 <span class="text-sm text-gray-600">{{ cartao.bandeira.descricao }}</span>
             </div>
 
-            <div class="mt-2">
-                <div class="text-sm">Limite</div>
-                <div class="text-xl">
-                    {{ cartao.moeda.simbolo }} {{ cartao.limite | number: '1.2-2' : 'pt-BR' }}
+            <div class="grid grid-cols-2 gap-2 mt-2">
+                <div>
+                    <div class="text-sm">Limite</div>
+                    <div class="text-xl">
+                        {{ cartao.moeda.simbolo }} {{ cartao.limite | number: '1.2-2' : 'pt-BR' }}
+                    </div>
+                </div>
+                <div>
+                    <div class="text-sm">Saldo</div>
+                    <div class="text-xl">
+                        {{ cartao.moeda.simbolo }} {{ cartao.saldo | number: '1.2-2' : 'pt-BR' }}
+                    </div>
                 </div>
             </div>
 

@@ -1,0 +1,230 @@
+<span class="page-title">
+  <i class="pi pi-chevron-right"></i> Simulador de FIIs Kinea
+</span>
+
+<div class="form-panel">
+
+  @if (loading()) {
+    <app-loader />
+  } @else {
+
+    <!-- Barra superior: select + adicionar -->
+    <div class="flex flex-row w-full gap-5 mb-4">
+      <div>
+        <label>Fundo: </label>
+        <p-select
+          [options]="fundos()"
+          [(ngModel)]="fundoSelecionado"
+          optionLabel="ticker"
+          placeholder="Selecione um FII">
+          <ng-template pTemplate="item" let-f>
+            <div class="flex flex-col">
+              <span><b>{{ f.ticker }}</b> — {{ f.segmento }}</span>
+              <span class="text-xs text-gray-500">
+                Inicial: {{ f.cotaInicial | number:'1.2-2':'pt-BR' }} ·
+                Atual: {{ f.cotaHoje | number:'1.2-2':'pt-BR' }}
+              </span>
+            </div>
+          </ng-template>
+        </p-select>
+      </div>
+
+      <div class="grow"></div>
+
+      <div class="flex items-center gap-4">
+        <p-button
+          label="Adicionar"
+          icon="pi pi-plus"
+          (click)="adicionarFundo()"
+          [disabled]="!fundoSelecionado">
+        </p-button>
+      </div>
+    </div>
+
+    <!-- Cards da carteira -->
+    <div class="w-full my-6 portfolio-section">
+      <div class="portfolio-carousel">
+        <p-button
+          class="carousel-button"
+          icon="pi pi-chevron-left"
+          severity="secondary"
+          size="small"
+          [rounded]="true"
+          pTooltip="Anterior"
+          (click)="portfolioCarousel.scrollBy({ left: -360, behavior: 'smooth' })">
+        </p-button>
+
+        <div class="portfolio-grid" #portfolioCarousel>
+          @for (item of carteira(); track item.fundo.id) {
+            <article
+              class="portfolio-card"
+              [class.portfolio-card-selected]="fundoDestacado() === item.fundo.ticker"
+              [style.backgroundColor]="item.fundo.cor"
+              tabindex="0"
+              (click)="selecionarFundo(item.fundo.ticker)"
+              (keydown.enter)="selecionarFundo(item.fundo.ticker)"
+              (keydown.space)="$event.preventDefault(); selecionarFundo(item.fundo.ticker)">
+              <div class="portfolio-ticker">
+                <strong>{{ item.fundo.ticker }}</strong>
+              </div>
+
+              <div class="portfolio-value">
+                <span>Inicial</span>
+                <strong>{{ item.fundo.cotaInicial | number:'1.2-2':'pt-BR' }}</strong>
+              </div>
+
+              <div class="portfolio-value">
+                <span>Atual</span>
+                <strong>{{ item.fundo.cotaHoje | number:'1.2-2':'pt-BR' }}</strong>
+              </div>
+
+              <div
+                class="portfolio-investment"
+                (click)="$event.stopPropagation()"
+                (keydown)="$event.stopPropagation()">
+                <span>Investir</span>
+                <p-inputNumber
+                  [(ngModel)]="item.valorInvestir"
+                  mode="currency"
+                  currency="BRL"
+                  locale="pt-BR"
+                  [min]="0"
+                  [showButtons]="false">
+                </p-inputNumber>
+              </div>
+
+              <p-button
+                icon="pi pi-trash"
+                severity="danger"
+                size="small"
+                [text]="true"
+                [rounded]="true"
+                pTooltip="Remover fundo"
+                (click)="$event.stopPropagation(); removerItem(item)">
+                (keydown)="$event.stopPropagation()">
+              </p-button>
+            </article>
+          } @empty {
+            <div class="portfolio-empty">
+              Selecione um fundo e clique em Adicionar para montar sua carteira.
+            </div>
+          }
+        </div>
+
+        <p-button
+          class="carousel-button"
+          icon="pi pi-chevron-right"
+          severity="secondary"
+          size="small"
+          [rounded]="true"
+          pTooltip="Próximo"
+          (click)="portfolioCarousel.scrollBy({ left: 360, behavior: 'smooth' })">
+        </p-button>
+      </div>
+    </div>
+
+    <!-- Tabela 2: Rendimentos mensais -->
+    <div class="w-full my-6">
+      <h3 class="text-lg font-semibold mb-2">Rendimentos Mensais (10/2025 a 10/2026)</h3>
+      <p-table [value]="rendimentos()" [paginator]="true" [rows]="13" scrollable scrollHeight="400px">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Competência</th>
+            <th>Mês Pagamento</th>
+            @for (item of carteira(); track item.fundo.id) {
+              <th
+                class="force-center"
+                [class.fund-highlight]="fundoDestacado() === item.fundo.ticker"
+                [style.backgroundColor]="fundoDestacado() === item.fundo.ticker ? item.fundo.cor : null">
+                {{ item.fundo.ticker }} (R$/cota)
+              </th>
+              <th
+                class="force-center"
+                [class.fund-highlight]="fundoDestacado() === item.fundo.ticker"
+                [style.backgroundColor]="fundoDestacado() === item.fundo.ticker ? item.fundo.cor : null">
+                Recebido {{ item.fundo.ticker }}
+              </th>
+            }
+            <th class="force-center">Subtotal Mensal</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-r>
+          <tr>
+            <td>{{ r.competencia }}</td>
+            <td>{{ r.mesPagamento }}</td>
+            @for (item of carteira(); track item.fundo.id) {
+              <td
+                class="force-center"
+                [class.fund-highlight]="fundoDestacado() === item.fundo.ticker"
+                [style.backgroundColor]="fundoDestacado() === item.fundo.ticker ? item.fundo.cor : null">
+                {{ r.valoresPorTicker[item.fundo.ticker] ?? 0 | number:'1.2-2':'pt-BR' }}
+              </td>
+              <td
+                class="force-center"
+                [class.fund-highlight]="fundoDestacado() === item.fundo.ticker"
+                [style.backgroundColor]="fundoDestacado() === item.fundo.ticker ? item.fundo.cor : null">
+                {{ recebidoPorTicker(r, item) | number:'1.2-2':'pt-BR' }}
+              </td>
+            }
+            <td class="force-center"><b>{{ subtotalMensal(r) | number:'1.2-2':'pt-BR' }}</b></td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <!-- Tabela 3: Resultado final líquido -->
+    <div class="w-full my-6">
+      <h3 class="text-lg font-semibold mb-2">Resultado Final Líquido (13 meses)</h3>
+      <p-table [value]="carteira()">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Fundo</th>
+            <th class="force-center">Qtd. Cotas</th>
+            <th class="force-center">Capital Alocado</th>
+            <th class="force-center">Proventos (13m)</th>
+            <th class="force-center">Variação Unitária</th>
+            <th class="force-center">Valorização Total</th>
+            <th class="force-center">Ganho Líquido</th>
+            <th class="force-center">Retorno %</th>
+            <th>Composição</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr
+            [class.fund-highlight-row]="fundoDestacado() === item.fundo.ticker"
+            [style.backgroundColor]="fundoDestacado() === item.fundo.ticker ? item.fundo.cor : null">
+            <td><b>{{ item.fundo.ticker }}</b></td>
+            <td class="force-center">{{ qtdCotas(item) }}</td>
+            <td class="force-center">{{ valorEfetivo(item) | number:'1.2-2':'pt-BR' }}</td>
+            <td class="force-center">{{ proventosRecebidos(item) | number:'1.2-2':'pt-BR' }}</td>
+            <td class="force-center">{{ variacaoUnitaria(item) | number:'1.2-2':'pt-BR' }}</td>
+            <td class="force-center">{{ variacaoTotal(item) | number:'1.2-2':'pt-BR' }}</td>
+            <td class="force-center" [class.text-green-600]="ganhoLiquido(item) >= 0" [class.text-red-600]="ganhoLiquido(item) < 0">
+              <b>{{ ganhoLiquido(item) | number:'1.2-2':'pt-BR' }}</b>
+            </td>
+            <td class="force-center">{{ retornoPercent(item) | number:'1.2-2':'pt-BR' }}%</td>
+            <td class="text-sm">{{ composicao(item) }}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr>
+            <td><b>RESULTADO FINAL</b></td>
+            <td class="force-center"><b>{{ totalCotas() }}</b></td>
+            <td class="force-center"><b>{{ totalEfetivo() | number:'1.2-2':'pt-BR' }}</b></td>
+            <td class="force-center"><b>{{ totalProventos() | number:'1.2-2':'pt-BR' }}</b></td>
+            <td class="force-center">-</td>
+            <td class="force-center"><b>{{ totalVariacao() | number:'1.2-2':'pt-BR' }}</b></td>
+            <td class="force-center"><b>{{ totalGanho() | number:'1.2-2':'pt-BR' }}</b></td>
+            <td class="force-center"><b>{{ totalRetorno() | number:'1.2-2':'pt-BR' }}%</b></td>
+            <td class="text-sm">Ganho líquido real após descontar queda das cotas</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <p class="text-xs text-gray-500 mt-4">
+      Nota: o Ganho Líquido soma os proventos recebidos (13 meses) com a variação total das cotas
+      no período (10/2025 a 10/2026). Quantidade de cotas = piso(Valor a Investir / Cota Atual).
+    </p>
+  }
+</div>

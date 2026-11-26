@@ -47,6 +47,7 @@ import { BulkEditReceita } from './movimentacao/bulk-edit-receita/bulk-edit-rece
 import { AlertView } from './cadastros/alerta/alert-view/alert-view';
 import { AtivoView } from './cadastros/debitavel/ativo-view/ativo-view';
 import { AtivoEdit } from './cadastros/debitavel/ativo-edit/ativo-edit';
+import { Churros } from './churros/churros';
 
 export const routes: Routes = [
   { path: 'tipo-despesas', component: TipoDespesasView },
@@ -115,6 +116,7 @@ export const routes: Routes = [
   { path: 'graficotiporeceita', component: GraficoTipoReceita },
   { path: 'sumario', component: Sumario },
   { path: 'comparaOrcamentos', component: ComparacaoOrcamento },
+  { path: 'churros', component: Churros },
 
   //DASHBOARD
   { path: '', component: Dashboard },
